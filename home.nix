@@ -85,6 +85,26 @@ with import <home-manager/modules/lib/dag.nix> { inherit lib; };
     };
   };
 
+  programs.ssh = {
+    enable = true;
+    agent = {
+      enable = true;
+      enableGpgSupport = true;
+    };
+    extraConfig = ''
+    Host *
+      AddKeysToAgent yes
+      UseKeychain yes
+      IdentityFile ~/.ssh/id_ed25519
+
+    AllowAgentForwarding yes
+    AllowTcpForwarding yes
+    X11Forwarding yes
+    X11DisplayOffset 10
+    X11UseLocalhost no
+    '';
+  };
+
   programs.starship = {
     enable = true;
     settings.add_newline = false;
@@ -112,5 +132,5 @@ with import <home-manager/modules/lib/dag.nix> { inherit lib; };
       vim = "nvim";
     };
   };
-  
+
 }
