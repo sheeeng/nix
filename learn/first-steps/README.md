@@ -15,6 +15,10 @@ nix-shell --packages hello --run hello
 ```
 
 ```shell
+nix-shell -p nyancat --run "nyancat --help"
+```
+
+```shell
 nix-shell --packages git neovim nodejs
 ```
 
