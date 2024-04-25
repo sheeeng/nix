@@ -68,3 +68,6 @@ nix-command $(find /nix/store -maxdepth 1 -name '\*.drv' | head -n 1)
 - <https://nixos.wiki/wiki/Home_Manager>
 - <https://ianthehenry.com/posts/how-to-learn-nix/>
 - <https://nixos.org/guides/nix-pills/>
+- <https://nix.dev/>
+- <https://nix.dev/tutorials/first-steps/declarative-shell.html#a-basic-shell-nix-file>
+- <https://blog.wesleyac.com/posts/the-curse-of-nixos>
