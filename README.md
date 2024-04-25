@@ -1,5 +1,11 @@
 # nix
 
+## Getting Started
+
+```shell
+nix-shell --packages nix-info --run "nix-info --markdown --sandbox --host-os"
+```
+
 ## Installation
 
 ```shell
