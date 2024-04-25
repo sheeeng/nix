@@ -12,14 +12,59 @@ nix-env -f '<nixpkgs>' -iA home-manager
 
 ## Information
 
+- Get information about Nix.
+
 ```shell
-nix-shell --packages nix-info --run "nix-info --markdown --sandbox --host-os"
+nix-shell \
+--packages nix-info \
+--run "nix-info --markdown --sandbox --host-os"
 ```
 
-## Garbage Collection
+- Check which Nix version will be installed. For example, `nixpkgs-unstable` from the [release channels](http://channels.nixos.org/).
+
+```shell
+nix-shell \
+--packages nix \
+-I nixpkgs=channel:nixpkgs-unstable \
+--run "nix --version"
+```
+
+## [Garbage Collection](https://nixos.org/manual/nix/stable/package-management/garbage-collection)
 
 ```shell
 nix-env --delete-generations old \
 && nix-store --gc --print-dead \
 && nix-collect-garbage --delete-old
 ```
+
+## [Dummy Store](https://nixos.org/manual/nix/stable/store/types/dummy-store)
+
+```console
+$ nix eval --store dummy:// --expr '1 + 2'
+error: experimental Nix feature 'nix-command' is disabled; add '--extra-experimental-features nix-command' to enable it
+```
+
+```shell
+nix --extra-experimental-features \
+nix-command eval --store dummy:// --expr '1 + 2'
+```
+
+## Miscellenoues
+
+<https://nixos.org/guides/nix-pills/06-our-first-derivation.html#digression-about-drv-files>
+
+```shell
+nix show-derivation --extra-experimental-features \
+nix-command $(find /nix/store -maxdepth 1 -name '\*.drv' | head -n 1)
+```
+
+## References
+
+- <https://nixos.org/manual/nix/stable/introduction>
+- <https://nixos.org/manual/nix/unstable/introduction>
+- <https://nix-community.github.io/home-manager/>
+- <https://nix-community.github.io/home-manager/options.xhtml>
+- <https://nixos.wiki/wiki/Main_Page>
+- <https://nixos.wiki/wiki/Home_Manager>
+- <https://ianthehenry.com/posts/how-to-learn-nix/>
+- <https://nixos.org/guides/nix-pills/>
