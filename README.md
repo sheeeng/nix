@@ -58,6 +58,33 @@ nix show-derivation --extra-experimental-features \
 nix-command $(find /nix/store -maxdepth 1 -name '\*.drv' | head -n 1)
 ```
 
+```console
+$ time nix run nixpkgs#bash -- -c 'exit 0'
+error: experimental Nix feature 'nix-command' is disabled; add '--extra-experimental-features nix-command' to enable it
+nix run nixpkgs#bash -- -c 'exit 0'  0.03s user 0.02s system 23% cpu 0.225 total
+```
+
+```shell
+time nix run nixpkgs#bash -- -c 'exit 0'
+time nix run nixpkgs#fish -- -c 'exit 0'
+```
+
+- Enable `nix *` commands and flakes.
+
+```console
+$ bat /etc/nix/nix.conf | grep nix-command
+experimental-features = nix-command flakes
+```
+
+```console
+$ nix build nixpkgs#nixos-manual-epub
+error: experimental Nix feature 'nix-command' is disabled; add '--extra-experimental-features nix-command' to enable it
+$ nix \
+--extra-experimental-features flakes \
+--extra-experimental-features \
+nix-command build nixpkgs#nixos-manual-epub
+```
+
 ## References
 
 - <https://nixos.org/manual/nix/stable/introduction>
