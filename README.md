@@ -98,3 +98,6 @@ nix-command build nixpkgs#nixos-manual-epub
 - <https://nix.dev/>
 - <https://nix.dev/tutorials/first-steps/declarative-shell.html#a-basic-shell-nix-file>
 - <https://blog.wesleyac.com/posts/the-curse-of-nixos>
+- <https://nixos.wiki/wiki/Cheatsheet>
+- <https://nixos.wiki/wiki/Resources>
+- <https://nixos.org/learn/>
