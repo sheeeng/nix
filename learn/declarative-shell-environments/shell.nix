@@ -10,4 +10,8 @@ pkgs.mkShellNoCC {
   ];
 
   GREETING = "Hello, Nix!";
+
+  shellHook = ''
+    echo $GREETING | cowsay | lolcat
+  '';
 }
