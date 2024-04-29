@@ -81,8 +81,8 @@ $ nix build nixpkgs#nixos-manual-epub
 error: experimental Nix feature 'nix-command' is disabled; add '--extra-experimental-features nix-command' to enable it
 $ nix \
 --extra-experimental-features flakes \
---extra-experimental-features \
-nix-command build nixpkgs#nixos-manual-epub
+--extra-experimental-features nix-command \
+build nixpkgs#nixos-manual-epub
 ```
 
 ## References
