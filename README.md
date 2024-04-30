@@ -49,7 +49,7 @@ nix --extra-experimental-features \
 nix-command eval --store dummy:// --expr '1 + 2'
 ```
 
-## Miscellenoues
+## Miscellaneous
 
 <https://nixos.org/guides/nix-pills/06-our-first-derivation.html#digression-about-drv-files>
 
