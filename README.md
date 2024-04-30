@@ -1,6 +1,6 @@
 # nix
 
-## Installation
+## ~~Installation~~
 
 ```shell
 git submodule init
