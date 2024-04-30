@@ -1,0 +1,21 @@
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  show-nix-info:
+    name: show-nix-info
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: DeterminateSystems/nix-installer-action@main
+      - name: Enable KVM Group Permissions
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' \
+            | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+      - run: |
+          nix-build minimal-vm-test.nix
+        working-directory: learn/minimal-vm-test
