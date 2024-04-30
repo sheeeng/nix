@@ -4,8 +4,8 @@ on:
     branches: [main]
 
 jobs:
-  minimal-vm-test:
-    name: minimal-vm-test
+  virtual-machines-integration-tests:
+    name: virtual-machines-integration-tests
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -17,5 +17,8 @@ jobs:
           sudo udevadm control --reload-rules
           sudo udevadm trigger --name-match=kvm
       - run: |
-          nix-build minimal-vm-test.nix
-        working-directory: learn/minimal-vm-test
+          nix-build minimal-machine-test.nix
+        working-directory: learn/virtual-machines-integration-tests
+      - run: |
+          nix-build client-server-test.nix
+        working-directory: learn/virtual-machines-integration-tests
