@@ -13,6 +13,6 @@ jobs:
       - run: |
           echo "Version: \`$(nix --version)\`" | tee --append ${GITHUB_STEP_SUMMARY}
       - run: |
-          echo "\`$(nix-shell \
+          echo "$(nix-shell \
             --packages nix-info \
-            --run 'nix-info --markdown --sandbox --host-os')\`" | tee --append ${GITHUB_STEP_SUMMARY}
+            --run 'nix-info --markdown --sandbox --host-os')" | tee --append ${GITHUB_STEP_SUMMARY}
