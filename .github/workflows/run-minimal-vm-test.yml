@@ -4,8 +4,8 @@ on:
     branches: [main]
 
 jobs:
-  show-nix-info:
-    name: show-nix-info
+  minimal-vm-test:
+    name: minimal-vm-test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
