@@ -1,0 +1,17 @@
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  lints:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: DeterminateSystems/nix-installer-action@main
+      - run: |
+          nix --version
+          nix-shell \
+            --packages nix-info \
+            --run "nix-info --markdown --sandbox --host-os"
