@@ -30,7 +30,7 @@ nix run nix-darwin --experimental-features "nix-command flakes" -- switch --flak
 - Create a [home.nix](home.nix) file.
 
 ```shell
-nix run nix-darwin flakes -- switch --flake ~/.config/nix
+nix run nix-darwin -- switch --flake ~/.config/nix
 ```
 
 - Rebuild configuration.
