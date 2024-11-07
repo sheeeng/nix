@@ -1,9 +1,0 @@
-[submodule "home-manager"]
-	path = home-manager
-	url = https://github.com/nix-community/home-manager
-[submodule "nixpkgs-mozilla"]
-	path = nixpkgs-mozilla
-	url = https://github.com/mozilla/nixpkgs-mozilla
-[submodule "backgrounds"]
-	path = backgrounds
-	url = https://github.com/sheeeng/backgrounds
