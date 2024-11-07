@@ -30,7 +30,7 @@
     nil.enable = true;
     nixfmt-classic.enable = false;
     nixfmt-rfc-style.enable = true;
-    nixpkgs-fmt.enable = true;
+    nixpkgs-fmt.enable = false;
     statix.enable = true;
 
     # YAML
