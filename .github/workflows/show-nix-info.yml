@@ -1,8 +1,3 @@
-on:
-  pull_request:
-  push:
-    branches: [main]
-
 jobs:
   show-nix-info:
     name: show-nix-info
@@ -16,3 +11,7 @@ jobs:
           echo "$(nix-shell \
             --packages nix-info \
             --run 'nix-info --markdown --sandbox --host-os')" | tee --append ${GITHUB_STEP_SUMMARY}
+on:
+  pull_request:
+  push:
+    branches: [main]
