@@ -18,7 +18,7 @@ sed --in-place "s/x86_64-darwin/aarch64-darwin/" flake.nix
 ### Install `nix-darwin`
 
 ```shell
-nix run nix-darwin -- switch --flake ~/.config/nix
+nix run nix-darwin --experimental-features "nix-command flakes" -- switch --flake ~/.config/nix
 ```
 
 ### Using `nix-darwin`
@@ -29,11 +29,7 @@ nix run nix-darwin -- switch --flake ~/.config/nix
 
 - Create a [home.nix](home.nix) file.
 
-- Install[nix-darwin](https://github.com/lnl7/nix-darwin).
-
 ```shell
-nix run nix-darwin --experimental-feature "nix-command flakes" -- switch --flake ~/.config/nix
-
 nix run nix-darwin flakes -- switch --flake ~/.config/nix
 ```
 
