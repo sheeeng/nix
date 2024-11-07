@@ -2,8 +2,6 @@
 
 ## Getting started
 
-- Read [nix-macos-setup](https://davi.sh/til/nix/nix-macos-setup/).
-
 ### Create `flake.nix`
 
 - Initialize [nix-darwin](https://github.com/lnl7/nix-darwin?tab=readme-ov-file#flakes).
