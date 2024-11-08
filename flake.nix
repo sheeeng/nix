@@ -2,6 +2,7 @@
   description = "NixOS Configuration";
 
   inputs = {
+    # determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/0.1";
     nix-darwin = {
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:lnl7/nix-darwin";
@@ -12,6 +13,7 @@
   outputs =
     # inputs@{
     {
+      # determinate,
       self,
       nix-darwin,
       nixpkgs,
@@ -48,7 +50,12 @@
     {
       # Build darwin flake using:
       # $ darwin-rebuild build --flake .#TP95V9LWWL
-      darwinConfigurations."TP95V9LWWL" = nix-darwin.lib.darwinSystem { modules = [ configuration ]; };
+      darwinConfigurations."TP95V9LWWL" = nix-darwin.lib.darwinSystem {
+        modules = [
+          configuration
+          # determinate.darwinModules.default
+        ];
+      };
 
       # Expose the package set, including overlays, for convenience.
       darwinPackages = self.darwinConfigurations."TP95V9LWWL".pkgs;
