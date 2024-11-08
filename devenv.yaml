@@ -13,4 +13,4 @@
 
 inputs:
   nixpkgs:
-    url: github:cachix/devenv-nixpkgs/rolling
+    url: github:cachix/devenv-nixpkgs/rolling # cspell:disable-line
