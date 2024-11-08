@@ -48,6 +48,7 @@
         };
     in
     {
+      # spell-checker: disable
       # Build darwin flake using:
       # $ darwin-rebuild build --flake .#TP95V9LWWL
       darwinConfigurations."TP95V9LWWL" = nix-darwin.lib.darwinSystem {
@@ -59,5 +60,6 @@
 
       # Expose the package set, including overlays, for convenience.
       darwinPackages = self.darwinConfigurations."TP95V9LWWL".pkgs;
+      # spell-checker: enable
     };
 }
