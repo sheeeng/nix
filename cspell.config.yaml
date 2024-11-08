@@ -9,7 +9,7 @@ words:
 # cspell:disable
 # List of flag words to be always considered incorrect.
 # This is useful for offensive words and common spelling errors.
-# For example "hte" should be "the". # spell-checker: disable-line
+# For example "hte" should be "the".
 flagWords:
   - hte
 # cspell:enable
