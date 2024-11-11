@@ -1,25 +1,12 @@
 { pkgs, ... }:
 {
-  env.LANG = "en_US.UTF-8";
-
   devenv.debug = false; # https://devenv.sh/reference/options/#devenvdebug
   devenv.flakesIntegration = true; # https://devenv.sh/reference/options/#devenvflakesintegration
 
   languages.nix.enable = true; # https://devenv.sh/reference/options/#languagesnixenable
   languages.nix.lsp.package = pkgs.nil; # https://devenv.sh/reference/options/#languagesnixlsppackage
 
-  packages = with pkgs; [
-    # https://github.com/marcusramberg/blog/blob/6b7064fc84e091a46a5fd5584bf645760df017ec/devenv.nix#L7
-    hunspell # cspell:disable-line
-    hunspellDicts.en_US # cspell:disable-line
-    hunspellDicts.nb_NO # cspell:disable-line
-  ];
-
-  # https://devenv.sh/reference/options/#pre-commit
-  # https://devenv.sh/reference/options/#pre-commithooks
   pre-commit.hooks = {
-    # spell-checker: disable
-
     # Nix
     alejandra = {
       enable = false;
@@ -89,7 +76,7 @@
 
     # Shell
     bats.enable = true;
-    beautysh.enable = true;
+    beautysh.enable = false;
     shellcheck.enable = true;
     shfmt = {
       enable = true;
@@ -122,7 +109,7 @@
 
     # YAML
     check-yaml.enable = true;
-    sort-simple-yaml.enable = false;
+    sort-simple-yaml.enable = true;
     yamlfmt.enable = true;
     yamllint.enable = true;
 
@@ -135,12 +122,9 @@
     pretty-format-json.enable = true;
 
     # Spell
-    cspell.enable = true;
-    hunspell = {
-      enable = true;
-      entry = "${pkgs.hunspell}/bin/hunspell -d 'en_US,nb_NO' -p .spelling/dictionary -l";
-    };
-    typos.enable = false;
+    # cspell.enable = true;
+    # hunspell.enable = true;
+    # typos.enable = true;
 
     # https://github.com/tweag/plutus/blob/ae0138a2ff08648db92ee1cdecbd005f5f9f27a8/shell.nix#L47-L52
     # png-optimization = {
@@ -150,7 +134,5 @@
     #   entry = "${pkgs.optipng}/bin/optipng";
     #   files = "\\.png$";
     # };
-
-    # spell-checker: enable
   };
 }
