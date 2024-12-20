@@ -49,11 +49,13 @@
       Clicking = true;
     };
     dock = {
-      autohide = true;
+      autohide = false;
+      autohide-delay = 0.24;
+      autohide-time-modifier = 1.0;
       orientation = "bottom";
-      show-process-indicators = false;
-      show-recents = false;
-      static-only = true;
+      show-process-indicators = true;
+      show-recents = true;
+      static-only = false;
     };
     finder = {
       AppleShowAllExtensions = true;
