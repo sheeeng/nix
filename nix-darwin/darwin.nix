@@ -35,25 +35,26 @@
 
   # Auto upgrade nix package and the daemon service.
   services.nix-daemon.enable = true;
-  nix.package = pkgs.nix;
+  nix.package = pkgs.nix; # https://daiderd.com/nix-darwin/manual/index.html#opt-nix.package
 
   # Deduplicate files in the nix store.
-  nix.optimise.automatic = true;
+  nix.optimise.automatic = true; # https://daiderd.com/nix-darwin/manual/index.html#opt-nix.optimise.automatic
 
   # Enable sandboxing.
-  nix.settings.sandbox = false;
+  nix.settings.sandbox = false; # https://daiderd.com/nix-darwin/manual/index.html#opt-nix.settings.sandbox
 
   # Global shell aliases for all users.
   environment.shellAliases = {
     show-system = "nix derivation show /run/current-system";
     switch-system = "darwin-rebuild switch --flake .";
     list-generations = "nix-env --list-generations";
-  };
+  }; # https://daiderd.com/nix-darwin/manual/index.html#opt-environment.shellAliases
 
   # Configure macOS settings.
   system.defaults = {
     trackpad = {
-      Clicking = true;
+      ActuationStrength = 1; # https://daiderd.com/nix-darwin/manual/index.html#opt-system.defaults.trackpad.ActuationStrength
+      Clicking = true; # https://daiderd.com/nix-darwin/manual/index.html#opt-system.defaults.trackpad.Clicking
     };
     dock = {
       autohide = false;
