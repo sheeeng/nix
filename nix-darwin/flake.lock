@@ -394,7 +394,8 @@
         "home-manager": "home-manager_2",
         "nix-darwin": "nix-darwin",
         "nixpkgs": "nixpkgs",
-        "nixvim": "nixvim"
+        "nixvim": "nixvim",
+        "wcurl": "wcurl"
       }
     },
     "systems": {
@@ -445,6 +446,23 @@
       "original": {
         "owner": "numtide",
         "repo": "treefmt-nix",
+        "type": "github"
+      }
+    },
+    "wcurl": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1734649086,
+        "narHash": "sha256-qtGgq9lGbaDiFQ4wjFeqt4agS7fZoY0neiM64VGSQPs=",
+        "owner": "curl",
+        "repo": "wcurl",
+        "rev": "52958b6a4eec63ddd170ef88e29f9c51685d3fcb",
+        "type": "github"
+      },
+      "original": {
+        "owner": "curl",
+        "ref": "main",
+        "repo": "wcurl",
         "type": "github"
       }
     }
