@@ -2,8 +2,8 @@
 
 {
   config,
-  pkgs,
-  lib,
+  # pkgs,
+  # lib,
   ...
 }:
 let
@@ -15,7 +15,7 @@ in
     ./programs.nix
     ./scripts.nix
     # ./secrets/age/age.nix
-    # ./theme.nix
+    ./theme.nix
   ] ++ (folderFiles ./packages);
 
   fonts.fontconfig.enable = true;
