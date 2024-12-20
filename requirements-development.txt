@@ -1,6 +1,6 @@
 --requirement=requirements.txt
 codespell==2.3.0
-poetry==1.8.2
+poetry==1.8.5
 symspellpy==6.7.8
 toml-sort==0.24.2
 vale==3.9.0
