@@ -7,21 +7,24 @@
   description = "Nix?OS Configuration";
 
   inputs = {
-    # catppuccin-nix.url = "github:catppuccin/nix";
-    lnl7-nix-darwin.inputs.nixpkgs.follows = "nixpkgs-nixpkgs-2411-darwin";
-    lnl7-nix-darwin.url = "github:lnl7/nix-darwin";
-    nix-community-home-manager-release-2411.inputs.nixpkgs.follows = "nixpkgs-nixpkgs-2411-darwin";
-    nix-community-home-manager-release-2411.url = "github:nix-community/home-manager/release-24.11";
-    nix-community-nixvim-nixos-2411.inputs.nixpkgs.follows = "nixpkgs-nixpkgs-2411-darwin";
-    nix-community-nixvim-nixos-2411.url = "github:nix-community/nixvim/nixos-24.11";
-    nixpkgs-nixpkgs-2411-darwin.url = "github:nixos/nixpkgs/nixpkgs-24.11-darwin";
+    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-24.11-darwin";
+
+    catppuccin.url = "github:catppuccin/nix";
+    home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    home-manager.url = "github:nix-community/home-manager/release-24.11";
+    nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
+    nix-darwin.url = "github:lnl7/nix-darwin";
+    nixvim.inputs.nixpkgs.follows = "nixpkgs";
+    nixvim.url = "github:nix-community/nixvim/nixos-24.11";
   };
 
   outputs =
     inputs@{
-      lnl7-nix-darwin,
-      nix-community-home-manager-release-2411,
-      nix-community-nixvim-nixos-2411,
+      catppuccin,
+      home-manager,
+      nix-darwin,
+      nixpkgs,
+      nixvim,
       self,
     }:
     let
@@ -56,17 +59,20 @@
     {
       # Build darwin flake using:
       # $ darwin-rebuild build --flake .#TP95V9LWWL
-      darwinConfigurations."TP95V9LWWL" = lnl7-nix-darwin.lib.darwinSystem {
+      darwinConfigurations."TP95V9LWWL" = nix-darwin.lib.darwinSystem {
         modules = [
+          ./darwin.nix
           configuration
-          # nix-community-nixvim.nixDarwinModules.nixvim
-          nix-community-home-manager-release-2411.darwinModules.home-manager
+          # catppuccin.darwinModules.catppuccin # https://github.com/catppuccin/nix/issues/162
+          nixvim.nixDarwinModules.nixvim
+          home-manager.darwinModules.home-manager
           {
             home-manager = {
               users.leonardlee = {
                 imports = [
                   ../home-manager/home.nix
-                  nix-community-nixvim-nixos-2411.homeManagerModules.nixvim
+                  nixvim.homeManagerModules.nixvim
+                  catppuccin.homeManagerModules.catppuccin
                 ];
                 home.stateVersion = "24.11";
               };
