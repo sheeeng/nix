@@ -8,9 +8,22 @@
 #  - "openssl-1.1.1w"
 
 # If you have more than one devenv you can merge them
-#imports:
+# imports:
 # - ./backend
 
 inputs:
+  fenix:
+    url: github:nix-community/fenix
+    inputs:
+      nixpkgs:
+        follows: nixpkgs
   nixpkgs:
-    url: github:cachix/devenv-nixpkgs/rolling # cspell:disable-line
+    url: github:cachix/devenv-nixpkgs/rolling
+  nixpkgs-python:
+    url: github:cachix/nixpkgs-python
+    inputs:
+      nixpkgs:
+        follows: nixpkgs
+  errata-ai-microsoft:
+    flake: false
+    url: github:errata-ai/microsoft
