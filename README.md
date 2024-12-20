@@ -36,3 +36,12 @@ nix run nix-darwin -- switch --flake ~/github/sheeeng/nix/nix-darwin
 ```shell
 darwin-rebuild switch --flake ~/github/sheeeng/nix/nix-darwin
 ```
+
+### Commands
+
+| Command                 | Build? | Apply Changes?   | Check Config? | Description                                      |     |
+| ----------------------- | ------ | ---------------- | ------------- | ------------------------------------------------ | --- |
+| darwin-rebuild build    | ✅ Yes | ❌ No            | ❌ No         | Builds the configuration, but does not apply it. |     |
+| darwin-rebuild check    | ❌ No  | ❌ No            | ✅ Yes        | Checks for syntax errors in the configuration.   |     |
+| darwin-rebuild activate | ❌ No  | ✅ Yes (current) | ❌ No         | Applies the last built configuration.            |     |
+| darwin-rebuild switch   | ✅ Yes | ✅ Yes           | ❌ No         | Builds and applies the new configuration.        |     |
