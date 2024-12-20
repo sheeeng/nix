@@ -3,12 +3,15 @@
   # https://github.com/carlthome/dotfiles/blob/714c86da15ef00bbd0882c8ca1afcced2ebf70fa/modules/nix-darwin/configuration.nix
   # https://github.com/dmarcoux/dotfiles/blob/c66ad8c079b0b48227b17d6924212723657486a1/UPDATE.md
   # https://github.com/mhanberg/.dotfiles/blob/ce20d790b8f8b30a43b0bf62b051ffdd06e93169/nix/darwin.nix
+  # https://gist.github.com/jmatsushita/5c50ef14b4b96cb24ae5268dab613050
 
-  description = "Nix?OS Configuration";
+  description = "NixOS Configuration";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-24.11-darwin";
 
+    agenix.inputs.nixpkgs.follows = "nixpkgs";
+    agenix.url = "github:ryantm/agenix";
     catppuccin.url = "github:catppuccin/nix";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.url = "github:nix-community/home-manager/release-24.11";
@@ -20,6 +23,7 @@
 
   outputs =
     inputs@{
+      agenix,
       catppuccin,
       home-manager,
       nix-darwin,
@@ -28,6 +32,10 @@
       self,
     }:
     let
+      system = "aarch64-darwin";
+      # pkgs = import nixpkgs {
+      #   inherit system;
+      # };
       configuration =
         { pkgs, ... }:
         {
@@ -57,33 +65,64 @@
         };
     in
     {
-      # Build darwin flake using:
-      # $ darwin-rebuild build --flake .#TP95V9LWWL
-      darwinConfigurations."TP95V9LWWL" = nix-darwin.lib.darwinSystem {
-        modules = [
-          ./darwin.nix
-          configuration
-          # catppuccin.darwinModules.catppuccin # https://github.com/catppuccin/nix/issues/162
-          nixvim.nixDarwinModules.nixvim
-          home-manager.darwinModules.home-manager
-          {
-            home-manager = {
-              users.leonardlee = {
-                imports = [
-                  ../home-manager/home.nix
-                  nixvim.homeManagerModules.nixvim
-                  catppuccin.homeManagerModules.catppuccin
-                ];
-                home.stateVersion = "24.11";
-              };
-            };
-            users.users.leonardlee.home = "/Users/leonardlee";
-          }
-        ];
-        specialArgs = { inherit inputs; };
-      };
 
-      # Expose the package set, including overlays, for convenience.
-      darwinPackages = self.darwinConfigurations."TP95V9LWWL".pkgs;
+      darwinConfigurations = {
+        TP95V9LWWL = nix-darwin.lib.darwinSystem {
+          modules = [
+            ./darwin.nix
+            agenix.darwinModules.age
+            # catppuccin.darwinModules.catppuccin # https://github.com/catppuccin/nix/issues/162
+            configuration
+            home-manager.darwinModules.home-manager
+            nixvim.nixDarwinModules.nixvim
+            {
+              home-manager = {
+                users.leonardlee = {
+                  imports = [
+                    ../home-manager/home.nix
+                    agenix.homeManagerModules.age
+                    catppuccin.homeManagerModules.catppuccin
+                    nixvim.homeManagerModules.nixvim
+                  ];
+                  home.stateVersion = "24.11";
+                };
+              };
+              users.users.leonardlee.home = "/Users/leonardlee";
+            }
+          ];
+          specialArgs = { inherit inputs; };
+        };
+      };
     };
 }
+
+# # Build darwin flake using:
+# # $ darwin-rebuild build --flake .#TP95V9LWWL
+# darwinConfigurations."TP95V9LWWL" = nix-darwin.lib.darwinSystem {
+#   modules = [
+#     ./darwin.nix
+#     agenix.darwinModules.age
+#     # catppuccin.darwinModules.catppuccin # https://github.com/catppuccin/nix/issues/162
+#     configuration
+#     home-manager.darwinModules.home-manager
+#     nixvim.nixDarwinModules.nixvim
+#     {
+#       home-manager = {
+#         users.leonardlee = {
+#           imports = [
+#             ../home-manager/home.nix
+#             agenix.homeManagerModules.age
+#             catppuccin.homeManagerModules.catppuccin
+#             nixvim.homeManagerModules.nixvim
+#           ];
+#           home.stateVersion = "24.11";
+#         };
+#       };
+#       users.users.leonardlee.home = "/Users/leonardlee";
+#     }
+#   ];
+#   specialArgs = { inherit inputs; };
+# };
+
+# # Expose the package set, including overlays, for convenience.
+# darwinPackages = self.darwinConfigurations."TP95V9LWWL".pkgs;
