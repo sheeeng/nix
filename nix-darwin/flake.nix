@@ -12,8 +12,8 @@
     lnl7-nix-darwin.url = "github:lnl7/nix-darwin";
     nix-community-home-manager-release-2411.inputs.nixpkgs.follows = "nixpkgs-nixpkgs-2411-darwin";
     nix-community-home-manager-release-2411.url = "github:nix-community/home-manager/release-24.11";
-    nix-community-nixvim.inputs.nixpkgs.follows = "nixpkgs-nixpkgs-2411-darwin";
-    nix-community-nixvim.url = "github:nix-community/nixvim";
+    nix-community-nixvim-nixos-2411.inputs.nixpkgs.follows = "nixpkgs-nixpkgs-2411-darwin";
+    nix-community-nixvim-nixos-2411.url = "github:nix-community/nixvim/nixos-24.11";
     nixpkgs-nixpkgs-2411-darwin.url = "github:nixos/nixpkgs/nixpkgs-24.11-darwin";
   };
 
@@ -21,8 +21,7 @@
     inputs@{
       lnl7-nix-darwin,
       nix-community-home-manager-release-2411,
-      nixpkgs-nixpkgs-2411-darwin,
-      nix-community-nixvim,
+      nix-community-nixvim-nixos-2411,
       self,
     }:
     let
@@ -60,14 +59,14 @@
       darwinConfigurations."TP95V9LWWL" = lnl7-nix-darwin.lib.darwinSystem {
         modules = [
           configuration
-          nix-community-nixvim.nixDarwinModules.nixvim
+          # nix-community-nixvim.nixDarwinModules.nixvim
           nix-community-home-manager-release-2411.darwinModules.home-manager
           {
             home-manager = {
               users.leonardlee = {
                 imports = [
                   ../home-manager/home.nix
-                  nix-community-nixvim.homeManagerModules.nixvim
+                  nix-community-nixvim-nixos-2411.homeManagerModules.nixvim
                 ];
                 home.stateVersion = "24.11";
               };
