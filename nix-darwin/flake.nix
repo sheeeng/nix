@@ -4,7 +4,7 @@
   # https://github.com/dmarcoux/dotfiles/blob/c66ad8c079b0b48227b17d6924212723657486a1/UPDATE.md
   # https://github.com/mhanberg/.dotfiles/blob/ce20d790b8f8b30a43b0bf62b051ffdd06e93169/nix/darwin.nix
 
-  description = "NixOS Configuration";
+  description = "Nix?OS Configuration";
 
   inputs = {
     # catppuccin-nix.url = "github:catppuccin/nix";
