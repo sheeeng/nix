@@ -1,9 +1,11 @@
 # https://github.com/carlthome/dotfiles/blob/714c86da15ef00bbd0882c8ca1afcced2ebf70fa/modules/nix-darwin/configuration.nix
 { pkgs, ... }:
 {
-
-  # Install packages in system profile.
+  # The `home-manager` has issues adding applications to `~/Applications` directory.
+  # Issue: https://github.com/nix-community/home-manager/issues/1341
   environment.systemPackages = with pkgs; [
+    kitty
+    terminal-notifier
     clang
     coreutils
     findutils
@@ -25,6 +27,11 @@
   #   enableCompletion = true;
   #   enableSyntaxHighlighting = true;
   # };
+
+  fonts.packages = with pkgs; [
+    recursive
+    (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
+  ];
 
   # Auto upgrade nix package and the daemon service.
   services.nix-daemon.enable = true;

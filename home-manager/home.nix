@@ -14,7 +14,7 @@ in
     ./packages.nix
     ./programs.nix
     ./scripts.nix
-    # ./secrets/age/age.nix
+    ./secrets/age/age.nix
     ./theme.nix
   ] ++ (folderFiles ./packages);
 
