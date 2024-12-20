@@ -4,7 +4,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: DeterminateSystems/nix-installer-action@main
+      - uses: determinatesystems/nix-installer-action@main
       - run: |
           echo "Version: \`$(nix --version)\`" | tee --append ${GITHUB_STEP_SUMMARY}
       - run: |
