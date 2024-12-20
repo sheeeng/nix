@@ -5,6 +5,20 @@
   # https://github.com/mhanberg/.dotfiles/blob/ce20d790b8f8b30a43b0bf62b051ffdd06e93169/nix/darwin.nix
   # https://gist.github.com/jmatsushita/5c50ef14b4b96cb24ae5268dab613050
 
+  # The `specialArgs` is used when defining NixOS or system-level arguments for modules.
+  # The `extraSpecialArgs` is used when invoking Home Manager inside NixOS.
+  # The `specialArgs` are used by the nixOS system function, whereas `extraSpecialArgs` are used by the homeManagerConfiguration function from home-manager.
+  # +--------------------------------------+
+  # |           NixOS system               |
+  # |  specialArgs = { inputs = { ... }; } |
+  # |                                      |
+  # |  +--------------------------------+  |
+  # |  |      Home Manager (flake)      |  |
+  # |  |  extraSpecialArgs = { ... };   |  |
+  # |  +--------------------------------+  |
+  # |                                      |
+  # +--------------------------------------+
+
   description = "NixOS Configuration";
 
   inputs = {
@@ -19,6 +33,8 @@
     nix-darwin.url = "github:lnl7/nix-darwin";
     nixvim.inputs.nixpkgs.follows = "nixpkgs";
     nixvim.url = "github:nix-community/nixvim/nixos-24.11";
+    wcurl.flake = false;
+    wcurl.url = "github:curl/wcurl/main";
   };
 
   outputs =
@@ -30,6 +46,7 @@
       nixpkgs,
       nixvim,
       self,
+      wcurl,
     }:
     let
       system = "aarch64-darwin";
@@ -65,7 +82,6 @@
         };
     in
     {
-
       darwinConfigurations = {
         TP95V9LWWL = nix-darwin.lib.darwinSystem {
           modules = [
@@ -86,6 +102,7 @@
                   ];
                   home.stateVersion = "24.11";
                 };
+                extraSpecialArgs = { inherit inputs; };
               };
               users.users.leonardlee.home = "/Users/leonardlee";
             }
