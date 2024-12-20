@@ -38,6 +38,14 @@
     # mkdocs
     # ncdu # TODO: https://github.com/NixOS/nixpkgs/issues/290512
     # ncmpcpp
+    # https://nixos.wiki/wiki/fonts#Installing_only_specific_nerdfonts
+    (nerdfonts.override {
+      fonts = [
+        "FiraCode"
+        "FiraMono"
+        "DroidSansMono"
+      ];
+    })
     # # https://github.com/NixOS/nixpkgs/blob/9018c7b154ab3427970dbfe52d8a3150e0cecb7b/nixos/doc/manual/release-notes/rl-2505.section.md#L53-L57
     # # nerd-fonts.0xproto # TODO: Avoid nix-fmt formatting.
     # # nerd-fonts._3270
