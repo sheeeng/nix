@@ -4,6 +4,7 @@
   # https://github.com/dmarcoux/dotfiles/blob/c66ad8c079b0b48227b17d6924212723657486a1/UPDATE.md
   # https://github.com/mhanberg/.dotfiles/blob/ce20d790b8f8b30a43b0bf62b051ffdd06e93169/nix/darwin.nix
   # https://gist.github.com/jmatsushita/5c50ef14b4b96cb24ae5268dab613050
+  # https://librephoenix.com/2024-02-10-using-both-stable-and-unstable-packages-on-nixos-at-the-same-time
 
   # The `specialArgs` is used when defining NixOS or system-level arguments for modules.
   # The `extraSpecialArgs` is used when invoking Home Manager inside NixOS.
