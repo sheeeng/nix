@@ -41,9 +41,20 @@
     # https://nixos.wiki/wiki/fonts#Installing_only_specific_nerdfonts
     (nerdfonts.override {
       fonts = [
+        "DejaVuSansMono"
+        "DroidSansMono"
+        "FantasqueSansMono"
         "FiraCode"
         "FiraMono"
-        "DroidSansMono"
+        "Hack"
+        "Iosevka"
+        "IosevkaTerm"
+        "IosevkaTermSlab"
+        "NerdFontsSymbolsOnly"
+        "Ubuntu"
+        "UbuntuMono"
+        "UbuntuSans"
+        "VictorMono"
       ];
     })
     # # https://github.com/NixOS/nixpkgs/blob/9018c7b154ab3427970dbfe52d8a3150e0cecb7b/nixos/doc/manual/release-notes/rl-2505.section.md#L53-L57
