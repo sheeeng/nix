@@ -1,0 +1,42 @@
+policies:
+  - type: commit
+    spec:
+      header:
+        length: 89
+        imperative: true
+        case: lower
+        invalidLastCharacters: .
+      body:
+        required: false
+      dco: true
+      gpg:
+        required: true
+      spellcheck:
+        locale: US
+      maximumOfOneCommit: true
+      conventional:
+        types:
+          - chore
+          - docs
+          - perf
+          - refactor
+          - style
+          - test
+          - release
+        scopes:
+          - .*
+        descriptionLength: 72
+  - type: license
+    spec:
+      skipPaths:
+        - .git/
+        - .build*/
+      includeSuffixes:
+        - .ext
+      excludeSuffixes:
+        - .exclude-ext-prefix.ext
+      allowPrecedingComments: false
+      header: |
+        // Copyright (c) Leonard Sheng Sheng Lee. All rights reserved.
+        // This code is licensed under MIT license.
+        // See LICENSE file in the root directory of the project for details.
