@@ -7,7 +7,7 @@
 - Initialize [nix-darwin](https://github.com/lnl7/nix-darwin?tab=readme-ov-file#flakes).
 
 ```shell
-mkdir --parents ~/.config/nix && cd $_
+mkdir --parents ~/github/sheeeng/nix/nix-darwin && cd $_
 nix flake init --template nix-darwin
 sed --in-place "s/simple/$(scutil --get LocalHostName)/" flake.nix
 sed --in-place "s/x86_64-darwin/aarch64-darwin/" flake.nix
@@ -16,7 +16,7 @@ sed --in-place "s/x86_64-darwin/aarch64-darwin/" flake.nix
 ### Install `nix-darwin`
 
 ```shell
-nix run nix-darwin --experimental-features "nix-command flakes" -- switch --flake ~/.config/nix
+nix run nix-darwin --experimental-features "nix-command flakes" -- switch --flake ~/github/sheeeng/nix/nix-darwin
 ```
 
 ### Using `nix-darwin`
@@ -28,11 +28,11 @@ nix run nix-darwin --experimental-features "nix-command flakes" -- switch --flak
 - Create a [home.nix](home.nix) file.
 
 ```shell
-nix run nix-darwin -- switch --flake ~/.config/nix
+nix run nix-darwin -- switch --flake ~/github/sheeeng/nix/nix-darwin
 ```
 
 - Rebuild configuration.
 
 ```shell
-darwin-rebuild switch --flake ~/.config/nix
+darwin-rebuild switch --flake ~/github/sheeeng/nix/nix-darwin
 ```
