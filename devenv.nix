@@ -1,10 +1,75 @@
 { pkgs, ... }:
+let
+  readFileWithoutFirstLine =
+    file:
+    builtins.substring (builtins.stringLength (builtins.readFile file) - 1) 1 (builtins.readFile file); # https://github.com/cachix/devenv/issues/1619
+in
 {
   devenv.debug = false; # https://devenv.sh/reference/options/#devenvdebug
   devenv.flakesIntegration = true; # https://devenv.sh/reference/options/#devenvflakesintegration
 
-  languages.nix.enable = true; # https://devenv.sh/reference/options/#languagesnixenable
-  languages.nix.lsp.package = pkgs.nil; # https://devenv.sh/reference/options/#languagesnixlsppackage
+  packages = with pkgs; [
+    cargo-criterion
+    cargo-edit
+    cargo-expand
+    cargo-sort
+    cargo-udeps
+    cargo-wipe
+  ];
+
+  languages.nix = {
+    enable = true; # https://devenv.sh/reference/options/#languagesnixenable
+    lsp.package = pkgs.nil; # https://devenv.sh/reference/options/#languagesnixlsppackage
+  };
+
+  # https://github.com/cachix/devenv/blob/741e23a22f3dc9e53075be3eaa795ea9ed6f5129/examples/go/devenv.nix
+  languages.go = {
+    enable = true;
+  };
+
+  # https://github.com/cachix/devenv/blob/741e23a22f3dc9e53075be3eaa795ea9ed6f5129/examples/javascript/devenv.nix
+  languages.javascript = {
+    enable = true;
+    package = pkgs.nodejs-slim;
+    npm = {
+      enable = true;
+      install.enable = true;
+    };
+  };
+
+  # https://github.com/cachix/devenv/blob/741e23a22f3dc9e53075be3eaa795ea9ed6f5129/examples/python/devenv.nix
+  languages.python = {
+    enable = true;
+    venv.enable = true;
+    venv.requirements =
+      (builtins.readFile ./requirements.txt)
+      + "\n"
+      + (readFileWithoutFirstLine ./requirements-development.txt); # https://github.com/cachix/devenv/issues/1619
+  };
+
+  # https://github.com/cachix/devenv/blob/741e23a22f3dc9e53075be3eaa795ea9ed6f5129/examples/rust/devenv.nix
+  languages.rust = {
+    enable = true;
+    channel = "nightly"; # https://devenv.sh/reference/options/#languagesrustchannel
+    components = [
+      "rustc"
+      "cargo"
+      "clippy"
+      "rustfmt"
+      "rust-analyzer"
+    ];
+  };
+
+  enterShell = ''
+    echo "Activate https://devenv.sh/ developer environment."
+    echo "Nix '$(nix --version | awk '{print $2}')' located in '$(which nix)'."
+    echo "Cargo '$(cargo --version | awk '{print $2}')' located in '$(which cargo)'."
+    echo "Go '$(go version | { read _ _ v _; echo ''${v#go}; })' located in '$(which go)'."
+    echo "Node '$(node --version)' located in '$(which node)'."
+    echo "Npm '$(npm --version)' located in '$(which npm)'."
+    echo "Python '$(python --version | awk '{print $2}')' located in '$(which python)'."
+    echo ""
+  '';
 
   pre-commit.hooks = {
     # Nix
@@ -14,14 +79,14 @@
       excludes = [ "vendor/" ];
     };
     deadnix.enable = true;
-    flake-checker.enable = true;
-    my-nixfmt-rfc-style = {
-      enable = true;
-      name = "my-nixfmt-rfc-style";
-      description = "nixfmt-rfc-style";
-      files = "\.nix$";
-      entry = "${pkgs.nixfmt-rfc-style}/bin/nixfmt";
-    };
+    flake-checker.enable = false; # TODO: Error: Invalid("no nixpkgs dependency found for specified key: nixpkgs")
+    # my-nixfmt-rfc-style = {
+    #   enable = true;
+    #   name = "my-nixfmt-rfc-style";
+    #   description = "nixfmt-rfc-style";
+    #   files = "\.nix$";
+    #   entry = "${pkgs.nixfmt-rfc-style}/bin/nixfmt";
+    # };
     nil.enable = true;
     nixfmt-classic.enable = false;
     nixfmt-rfc-style.enable = true;
@@ -68,16 +133,22 @@
 
     # Go
     gofmt.enable = true;
-    golangci-lint.enable = true;
+    golangci-lint = {
+      enable = true;
+      pass_filenames = false;
+    };
     gotest.enable = true;
-    govet.enable = true;
+    govet = {
+      enable = true;
+      pass_filenames = false;
+    };
     revive.enable = true;
     staticcheck.enable = true;
 
     # Shell
     bats.enable = true;
     beautysh.enable = false;
-    shellcheck.enable = true;
+    shellcheck.enable = true; # shellcheck --format diff <files> && git apply # https://github.com/koalaman/shellcheck/issues/1220#issuecomment-594811243
     shfmt = {
       enable = true;
       entry = "${pkgs.shfmt}/bin/shfmt --indent 2 --space-redirects --diff --simplify --list";
@@ -109,7 +180,7 @@
 
     # YAML
     check-yaml.enable = true;
-    sort-simple-yaml.enable = true;
+    sort-simple-yaml.enable = false;
     yamlfmt.enable = true;
     yamllint.enable = true;
 
@@ -119,7 +190,12 @@
 
     # JSON
     check-json.enable = true;
-    pretty-format-json.enable = true;
+    pretty-format-json = {
+      enable = true;
+      args = [ "--autofix" ]; # https://devenv.sh/reference/options/#pre-commithooksnameargs
+    };
+
+    conform.enable = true;
 
     # Spell
     # cspell.enable = true;
@@ -134,5 +210,5 @@
     #   entry = "${pkgs.optipng}/bin/optipng";
     #   files = "\\.png$";
     # };
-  };
+  }; # https://devenv.sh/reference/options/#pre-commithooks
 }
