@@ -24,31 +24,49 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-24.11-darwin";
+    nixpkgs-nixos-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
     agenix.inputs.nixpkgs.follows = "nixpkgs";
     agenix.url = "github:ryantm/agenix";
     catppuccin.url = "github:catppuccin/nix";
+    errata-ai-alex.flake = false;
+    errata-ai-alex.url = "github:errata-ai/alex";
+    errata-ai-google.flake = false;
+    errata-ai-google.url = "github:errata-ai/google";
+    errata-ai-joblint.flake = false;
+    errata-ai-joblint.url = "github:errata-ai/joblint";
+    errata-ai-microsoft.flake = false;
+    errata-ai-microsoft.url = "github:errata-ai/microsoft";
+    errata-ai-proselint.flake = false;
+    errata-ai-proselint.url = "github:errata-ai/proselint";
+    errata-ai-readability.flake = false;
+    errata-ai-readability.url = "github:errata-ai/readability";
+    errata-ai-write-good.flake = false;
+    errata-ai-write-good.url = "github:errata-ai/write-good";
+    flake-utils.url = "github:numtide/flake-utils"; # https://github.com/edgelesssys/contrast/blob/7c5206269d2ce0440090f05db601506011e2cd5f/flake.nix#L13-L15
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.url = "github:nix-community/home-manager/release-24.11";
+    kitty-nightly.flake = false;
+    kitty-nightly.url = "github:kovidgoyal/kitty/nightly";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
     nix-darwin.url = "github:lnl7/nix-darwin";
+    nixos-hardware-master.url = "github:nixos/nixos-hardware/master";
     nixvim.inputs.nixpkgs.follows = "nixpkgs";
     nixvim.url = "github:nix-community/nixvim/nixos-24.11";
+    nur.inputs.nixpkgs.follows = "nixpkgs";
+    nur.url = "github:nix-community/nur";
+    ragenix.inputs.nixpkgs.follows = "nixpkgs";
+    ragenix.url = "github:yaxitech/ragenix";
+    sops-nix.inputs.nixpkgs.follows = "nixpkgs";
+    sops-nix.url = "github:mic92/sops-nix";
+    treefmt-nix.inputs.nixpkgs.follows = "nixpkgs"; # https://github.com/edgelesssys/contrast/blob/7c5206269d2ce0440090f05db601506011e2cd5f/flake.nix#L16-L19
+    treefmt-nix.url = "github:numtide/treefmt-nix";
     wcurl.flake = false;
     wcurl.url = "github:curl/wcurl/main";
   };
 
   outputs =
-    inputs@{
-      agenix,
-      catppuccin,
-      home-manager,
-      nix-darwin,
-      nixpkgs,
-      nixvim,
-      self,
-      wcurl,
-    }:
+    inputs@{ self, nixpkgs, ... }:
     let
       system = "aarch64-darwin";
       # pkgs = import nixpkgs {
@@ -84,22 +102,22 @@
     in
     {
       darwinConfigurations = {
-        TP95V9LWWL = nix-darwin.lib.darwinSystem {
+        TP95V9LWWL = inputs.nix-darwin.lib.darwinSystem {
           modules = [
             ./darwin.nix
-            agenix.darwinModules.age
+            inputs.agenix.darwinModules.age
             # catppuccin.darwinModules.catppuccin # https://github.com/catppuccin/nix/issues/162
             configuration
-            home-manager.darwinModules.home-manager
-            nixvim.nixDarwinModules.nixvim
+            inputs.home-manager.darwinModules.home-manager
+            inputs.nixvim.nixDarwinModules.nixvim
             {
               home-manager = {
                 users.leonardlee = {
                   imports = [
                     ../home-manager/home.nix
-                    agenix.homeManagerModules.age
-                    catppuccin.homeManagerModules.catppuccin
-                    nixvim.homeManagerModules.nixvim
+                    inputs.agenix.homeManagerModules.age
+                    inputs.catppuccin.homeManagerModules.catppuccin
+                    inputs.nixvim.homeManagerModules.nixvim
                   ];
                   home.stateVersion = "24.11";
                 };
