@@ -45,11 +45,11 @@ fi
 
 # https://github.com/zmrocze/dotfiles/blob/829310f0de69a652b57691482d25e26170fc9ce9/apply-home.sh
 
-pushd "${HOME}/github/sheeeng/nix/nix-darwin" || exit
+pushd "${HOME}/github/sheeeng/nix" || exit
 
 if command -v nix 1> /dev/null 2>&1; then
-  nix flake update
-  nix flake check
+  nix --experimental-features "nix-command flakes" flake update
+  nix --experimental-features "nix-command flakes" flake check
 else
   echo "Nix is not installed!"
   exit 42
@@ -58,18 +58,18 @@ fi
 if ! command -v darwin-rebuild 1> /dev/null 2>&1; then
   echo "darwin-rebuild is not installed."
   # nix run .#homeConfigurations."$(stat --format "%U" "$(tty)")@$(hostname)".activationPackage
-  nix run nix-darwin --experimental-features "nix-command flakes" -- switch --flake ~/github/sheeeng/nix/nix-darwin
+  nix run nix-darwin --experimental-features "nix-command flakes" -- switch --flake ~/github/sheeeng/nix
 fi
 
 # home-manager switch --flake .#"$(stat --format "%U" "$(tty)")@$(hostname)"
 
-# darwin-rebuild changelog --flake ~/github/sheeeng/nix/nix-darwin
+# darwin-rebuild changelog --flake ~/github/sheeeng/nix#"$(hostname)"
 
-darwin-rebuild check --flake ~/github/sheeeng/nix/nix-darwin
+darwin-rebuild check --flake ~/github/sheeeng/nix#"$(hostname)"
 
-darwin-rebuild build --print-build-logs --flake ~/github/sheeeng/nix/nix-darwin
-darwin-rebuild activate --flake ~/github/sheeeng/nix/nix-darwin
+darwin-rebuild build --print-build-logs --flake ~/github/sheeeng/nix#"$(hostname)"
+darwin-rebuild activate --flake ~/github/sheeeng/nix#"$(hostname)"
 
-# darwin-rebuild switch --print-build-logs --flake ~/github/sheeeng/nix/nix-darwin
+# darwin-rebuild switch --print-build-logs --flake ~/github/sheeeng/nix#"$(hostname)"
 
 popd || exit
