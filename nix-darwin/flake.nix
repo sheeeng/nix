@@ -73,39 +73,8 @@
       #   inherit system;
       # };
       configuration =
-        { lib, pkgs, ... }:
+        { ... }:
         {
-          nix.settings.substituters = [
-            "https://cache.nixos.org/"
-          ];
-          nix.settings.trusted-public-keys = [
-            "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-          ];
-          nix.extraOptions =
-            ''
-              extra-substituters = https://devenv.cachix.org
-              extra-trusted-public-keys = nixpkgs-python.cachix.org-1:hxjI7pFxTyuTHn2NkvWCrAUcNZLNS3ZAvfYNuYifcEU= devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw=
-              trusted-users = root leonardlee
-              auto-optimise-store = true
-              experimental-features = nix-command flakes
-            ''
-            + lib.optionalString (pkgs.system == "aarch64-darwin") ''
-              extra-platforms = x86_64-darwin aarch64-darwin
-            '';
-          nix.settings.trusted-users = [
-            "@admin"
-          ];
-          nix.configureBuildUsers = true;
-
-          # List packages installed in system profile. To search by name, run:
-          # $ nix-env -qaP | grep wget
-          environment.systemPackages = [
-            pkgs.git
-            pkgs.nix
-            pkgs.nixfmt-rfc-style
-            pkgs.vim
-          ];
-
           # Auto upgrade nix package and the daemon service.
           services.nix-daemon.enable = true;
           # nix.package = pkgs.nix;
