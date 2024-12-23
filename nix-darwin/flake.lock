@@ -534,11 +534,11 @@
     "kitty-nightly": {
       "flake": false,
       "locked": {
-        "lastModified": 1734708103,
-        "narHash": "sha256-kbG02GU58xLx2HZejvVUWS3keRWiuffXqRUS72dU1/M=",
+        "lastModified": 1734882607,
+        "narHash": "sha256-w4ny9vRyczBzLiMfq58xPzabv5xM6BfuOQ3FMzZJeuI=",
         "owner": "kovidgoyal",
         "repo": "kitty",
-        "rev": "3b89c686e6f36b495cdd923d37448a5f88b4fbc8",
+        "rev": "97f26a8a757d10f3bea5253b027f24e9bed55604",
         "type": "github"
       },
       "original": {
@@ -607,11 +607,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1734761983,
-        "narHash": "sha256-U1kYa/N53vruy1E/E/n7NxsJDbTkVQmC7TCdTeNieSE=",
+        "lastModified": 1734879663,
+        "narHash": "sha256-8KG0KdKLr0EaznLjjZ6iWINGpEuQ7w0fdn9Orn4yTdk=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "d38b1bc9ef4bf6ca6726e0681895e1c3e8215a49",
+        "rev": "b784f0f275ff982ac55d4d2cbd181b710c4fd0a5",
         "type": "github"
       },
       "original": {
@@ -675,11 +675,11 @@
         "treefmt-nix": "treefmt-nix_2"
       },
       "locked": {
-        "lastModified": 1734895664,
-        "narHash": "sha256-URmuo7mt6AtTGVfNFJkHUOn9PlxEfSblrWBcqbTKLp8=",
+        "lastModified": 1734943888,
+        "narHash": "sha256-VUT+Rxf+x5f4DS7enbi5S7g7HkusOPfa7F2mIXzknF8=",
         "owner": "nix-community",
         "repo": "nur",
-        "rev": "fec4a216aa4f86cc84148773f8687c9b138d5847",
+        "rev": "2026ad7b830b6b6ef6b1f7e4c8eab265c1a0671c",
         "type": "github"
       },
       "original": {
