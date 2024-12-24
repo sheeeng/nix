@@ -26,6 +26,10 @@ in
     hostPlatform = pkgs.stdenv.hostPlatform;
   };
 
+  # Neither nixpkgs.system nor any other option in nixpkgs.* is meant
+  # to be read by modules and configurations.
+  # Use pkgs.stdenv.hostPlatform instead.
+  #
   # The option nixpkgs.system is still fully supported for interoperability, but will be deprecated in the future, so we recommend to set nixpkgs.hostPlatform.
   nixpkgs.system = "x86_64-darwin";
 
@@ -38,7 +42,7 @@ in
     dns = [ "1.1.1.1" ];
   };
 
-  # programs.zsh.enable = true;
+  programs.zsh.enable = true;
 
   users.users.lssl = {
     name = "lssl";

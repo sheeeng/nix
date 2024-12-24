@@ -1,12 +1,14 @@
 {
   config,
   inputs,
+  pkgs,
   ...
 }:
 let
   pkgs-unstable = import inputs.nixpkgs-unstable {
     inherit (config.nixpkgs) system;
     config.allowUnfree = true;
+    hostPlatform = pkgs.stdenv.hostPlatform;
   };
 in
 {
@@ -19,13 +21,20 @@ in
     ../../modules/yabai
   ];
 
+  nixpkgs.config = {
+    allowUnfree = true;
+    hostPlatform = pkgs.stdenv.hostPlatform;
+  };
+
+  # Neither nixpkgs.system nor any other option in nixpkgs.* is meant
+  # to be read by modules and configurations.
+  # Use pkgs.stdenv.hostPlatform instead.
+  #
   # The option nixpkgs.system is still fully supported for interoperability, but will be deprecated in the future, so we recommend to set nixpkgs.hostPlatform.
-  # nixpkgs.hostPlatform = config.nixpkgs.system;
-  nixpkgs.hostPlatform = "aarch64-darwin";
+  nixpkgs.system = "aarch64-darwin";
 
   system.stateVersion = 5;
   nix.package = pkgs-unstable.nix;
-  nixpkgs.config.allowUnfree = true;
   services.nix-daemon.enable = true;
   nix.settings.experimental-features = "nix-command flakes";
 
