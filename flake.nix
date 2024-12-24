@@ -40,7 +40,7 @@
 
     nixvirt = {
       inputs.nixpkgs.follows = "nixpkgs-stable";
-      url = "https://flakehub.com/f/AshleyYakeley/NixVirt/*.tar.gz";
+      url = "https://flakehub.com/f/ashleyyakeley/nixvirt/*.tar.gz";
     };
 
     microvm = {
@@ -98,9 +98,8 @@
           specialArgs = { inherit inputs; };
         };
       darwinConfiguration =
-        hostname:
+        hostname: system:
         inputs.nix-darwin.lib.darwinSystem {
-          system = "aarch64-darwin";
           modules = [ ./hosts/${hostname} ];
           specialArgs = { inherit inputs; };
         };
@@ -112,7 +111,8 @@
         rpi = nixosConfiguration "rpi" "aarch64-linux";
       };
       darwinConfigurations = {
-        TP95V9LWWL = darwinConfiguration "TP95V9LWWL";
+        TP95V9LWWL = darwinConfiguration "TP95V9LWWL" "aarch64-darwin";
+        C02ZV797MD6R = darwinConfiguration "C02ZV797MD6R" "x86_64-darwin";
       };
     };
 

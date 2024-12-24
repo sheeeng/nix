@@ -19,6 +19,10 @@ in
     ../../modules/yabai
   ];
 
+  # The option nixpkgs.system is still fully supported for interoperability, but will be deprecated in the future, so we recommend to set nixpkgs.hostPlatform.
+  # nixpkgs.hostPlatform = config.nixpkgs.system;
+  nixpkgs.hostPlatform = "aarch64-darwin";
+
   system.stateVersion = 5;
   nix.package = pkgs-unstable.nix;
   nixpkgs.config.allowUnfree = true;
