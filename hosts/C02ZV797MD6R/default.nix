@@ -1,12 +1,14 @@
 {
   config,
   inputs,
+  pkgs,
   ...
 }:
 let
   pkgs-unstable = import inputs.nixpkgs-unstable {
     inherit (config.nixpkgs) system;
     config.allowUnfree = true;
+    hostPlatform = pkgs.stdenv.hostPlatform;
   };
 in
 {
@@ -19,13 +21,16 @@ in
     ../../modules/yabai
   ];
 
+  nixpkgs.config = {
+    allowUnfree = true;
+    hostPlatform = pkgs.stdenv.hostPlatform;
+  };
+
   # The option nixpkgs.system is still fully supported for interoperability, but will be deprecated in the future, so we recommend to set nixpkgs.hostPlatform.
-  # nixpkgs.hostPlatform = config.nixpkgs.system;
-  nixpkgs.hostPlatform = "aarch64-darwin";
+  nixpkgs.system = "x86_64-darwin";
 
   system.stateVersion = 5;
   nix.package = pkgs-unstable.nix;
-  nixpkgs.config.allowUnfree = true;
   services.nix-daemon.enable = true;
   nix.settings.experimental-features = "nix-command flakes";
 
@@ -33,11 +38,11 @@ in
     dns = [ "1.1.1.1" ];
   };
 
-  programs.zsh.enable = true;
+  # programs.zsh.enable = true;
 
-  users.users.leonardlee = {
-    name = "leonardlee";
-    home = "/Users/leonardlee";
+  users.users.lssl = {
+    name = "lssl";
+    home = "/Users/lssl";
   };
 
   home-manager.useGlobalPkgs = true;
@@ -46,7 +51,8 @@ in
     inherit inputs;
     inherit pkgs-unstable;
   };
-  home-manager.users.leonardlee = {
+
+  home-manager.users.lssl = {
     home.stateVersion = "24.11";
     imports = [
       ../../home-manager/home.nix

@@ -58,7 +58,7 @@ fi
 if ! command -v darwin-rebuild 1> /dev/null 2>&1; then
   echo "darwin-rebuild is not installed."
   # nix run .#homeConfigurations."$(stat --format "%U" "$(tty)")@$(hostname)".activationPackage
-  nix run nix-darwin --experimental-features "nix-command flakes" -- switch --flake ~/github/sheeeng/nix
+  nix run nix-darwin --experimental-features "nix-command flakes" -- switch --flake ~/github/sheeeng/nix#"$(hostname)"
 fi
 
 # home-manager switch --flake .#"$(stat --format "%U" "$(tty)")@$(hostname)"
