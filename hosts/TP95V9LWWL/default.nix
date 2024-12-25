@@ -37,6 +37,7 @@ in
   nix.package = pkgs-unstable.nix;
   services.nix-daemon.enable = true;
   nix.settings.experimental-features = "nix-command flakes";
+  security.pam.enableSudoTouchIdAuth = true;
 
   networking = {
     dns = [ "1.1.1.1" ];
