@@ -2,7 +2,13 @@
 
 ## Getting started
 
-### Create `flake.nix`
+### Install `lix`
+
+```shell
+curl --silent --show-error --fail --location https://install.lix.systems/lix | sh -s -- install
+```
+
+### Optional: Create `flake.nix`
 
 - Initialize [nix-darwin](https://github.com/lnl7/nix-darwin?tab=readme-ov-file#flakes).
 
