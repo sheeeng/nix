@@ -36,7 +36,10 @@ in
   system.stateVersion = 5;
   nix.package = pkgs-unstable.nix;
   services.nix-daemon.enable = true;
-  nix.settings.experimental-features = "nix-command flakes";
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
   security.pam.enableSudoTouchIdAuth = true;
 
   networking = {
