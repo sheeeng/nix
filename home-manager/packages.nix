@@ -13,7 +13,6 @@
     barcode
     bc
     binutils
-    btop
     cbonsai
     chafa
     cmatrix
