@@ -893,7 +893,7 @@
         "rev": "9f1cdca730d92461075709e867c1e9ad93d58a8d",
         "revCount": 284,
         "type": "tarball",
-        "url": "https://api.flakehub.com/f/pinned/ashleyyakeley/nixvirt/0.5.0/018eb55e-7beb-75c5-919f-5b5b26136e06/source.tar.gz?rev=9f1cdca730d92461075709e867c1e9ad93d58a8d&revCount=284"
+        "url": "https://api.flakehub.com/f/pinned/ashleyyakeley/nixvirt/0.5.0/018eb55e-7beb-75c5-919f-5b5b26136e06/source.tar.gz"
       },
       "original": {
         "type": "tarball",
