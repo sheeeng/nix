@@ -20,7 +20,7 @@ let
       # error: hash mismatch in fixed-output derivation '/nix/store/mh23jmfszqbfpywbsnjzmv0bk3ygp3g0-source.drv':
       #          specified: sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=
       #             got:    sha256-IxVyCsR9S/5wHSj5rnee2XEdT8BD/ANReO1pMeiiFRM=
-      hash = "sha256-IxVyCsR9S/5wHSj5rnee2XEdT8BD/ANReO1pMeiiFRM=";
+      hash = "sha256-0M4Bvhh3j9vPedE/d+8zaiZdET4mXcrSNUgLllhaPJw=";
     }; # https://github.com/NixOS/nixpkgs/blob/a3a67865fbbd5309e4f90d48b68a05da26434e18/pkgs/applications/terminal-emulators/kitty/default.nix#L41
 
     goModules =
