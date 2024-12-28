@@ -7,7 +7,7 @@ set -o nounset  # set -u # Treat unset variables and parameters other than the s
 # set -o xtrace  # set -x # Print a trace of simple commands, for commands, case commands, select commands, and arithmetic for commands and their arguments or associated word lists after they are expanded and before they are executed. The value of the PS4 variable is expanded and the resultant value is printed before the command and its expanded arguments.
 
 # https://www.gnu.org/software/bash/manual/html_node/The-Shopt-Builtin.html
-shopt -s inherit_errexit # If set, command substitution inherits the value of the errexit option, instead of unsetting it in the subshell environment. This option is enabled when POSIX mode is enabled.
+# shopt -s inherit_errexit # If set, command substitution inherits the value of the errexit option, instead of unsetting it in the subshell environment. This option is enabled when POSIX mode is enabled.
 
 if [ -d ".git" ] || git rev-parse --git-dir > /dev/null 2>&1; then
   GIT_ROOT_DIRECTORY=$(git rev-parse --show-toplevel)
@@ -35,10 +35,10 @@ trap cleanUp EXIT
 # ----------------------------------------------------------------------
 
 pushd "${SCRIPT_DIRECTORY}"
-date --universal +"%Y%m%dT%H%M%SZ"
+date -u +"%Y%m%dT%H%M%SZ"
 
 # Check if the script is running as root.
-if [ ${EUID:-0} -eq 0 ] || [ "$(id --user)" -eq 0 ]; then
+if [ ${EUID:-0} -eq 0 ] || [ "$(id -u)" -eq 0 ]; then
   echo "This script requires non-root access."
   exit 42
 fi
