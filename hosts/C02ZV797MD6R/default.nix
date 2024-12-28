@@ -43,8 +43,6 @@ in
     dns = [ "1.1.1.1" ];
   };
 
-  programs.zsh.enable = true;
-
   users.users.lssl = {
     name = "lssl";
     home = "/Users/lssl";
