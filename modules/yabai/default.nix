@@ -2,19 +2,26 @@
 
 {
   environment.systemPackages = with pkgs; [
+    sketchybar
     skhd
     yabai
   ];
 
+  services.sketchybar = {
+    enable = true;
+    package = pkgs.sketchybar;
+    config = builtins.readFile ./sketchybarrc;
+  };
+
   services.skhd = {
     enable = true;
-    # skhdConfig = builtins.readFile ./skhdrc;
+    package = pkgs.skhd;
+    skhdConfig = builtins.readFile ./skhdrc;
   };
 
   services.yabai = {
     enable = true;
-    # extraConfig = builtins.readFile ./yabairc;
+    package = pkgs.yabai;
+    extraConfig = builtins.readFile ./yabairc;
   };
-
-  # "${config.xdg.configHome}/yabai/yabairc".text = builtins.readFile ./yabairc;
 }
