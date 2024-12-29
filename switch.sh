@@ -72,6 +72,6 @@ darwin-rebuild check --flake ~/github/sheeeng/nix#"$(hostname)"
 darwin-rebuild build --print-build-logs --flake ~/github/sheeeng/nix#"$(hostname)"
 darwin-rebuild activate --flake ~/github/sheeeng/nix#"$(hostname)"
 
-# darwin-rebuild switch --print-build-logs --flake ~/github/sheeeng/nix#"$(hostname)"
+darwin-rebuild switch --print-build-logs --flake ~/github/sheeeng/nix#"$(hostname)"
 
 popd || exit
