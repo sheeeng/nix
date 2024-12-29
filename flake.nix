@@ -70,6 +70,8 @@
     kitty-nightly.flake = false;
     kitty-nightly.url = "github:kovidgoyal/kitty/nightly";
 
+    morlana.url = "github:ryanccn/morlana";
+
     nixvim.inputs.nixpkgs.follows = "nixpkgs-stable";
     nixvim.url = "github:nix-community/nixvim/nixos-24.11";
     nur.inputs.nixpkgs.follows = "nixpkgs-stable";
@@ -100,7 +102,15 @@
       darwinConfiguration =
         hostname: system:
         inputs.nix-darwin.lib.darwinSystem {
-          modules = [ ./hosts/${hostname} ];
+          modules = [
+            ./hosts/${hostname}
+            inputs.home-manager.darwinModules.home-manager
+            {
+              nixpkgs.overlays = [
+                inputs.morlana.overlays.default
+              ];
+            }
+          ];
           specialArgs = { inherit inputs; };
         };
     in

@@ -2,10 +2,12 @@
 
 # https://github.com/FelixKratz/dotfiles/blob/e27673f07ff41eb6a4816daabb79b0a5e837a105/.config/yabai/yabairc
 
-sudo yabai --load-sa
-yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
+sudo yabai --load-sa --verbose
+
+yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa --verbose"
 
 # yabai -m config external_bar all:40:0
+
 yabai -m config \
   mouse_follows_focus off \
   focus_follows_mouse off \
@@ -33,6 +35,8 @@ yabai -m config \
   right_padding 8 \
   window_gap 4
 
+yabai -m config debug_output on # https://github.com/koekeishiya/yabai/blob/f4ada8d557aeb9c8ba0d031ee6f645acffff50fd/doc/yabai.asciidoc#L137
+
 # Exclude problematic apps from being managed:
 yabai -m rule --add app="^(LuLu|Calculator|Software Update|Dictionary|VLC|System Preferences|System Settings|zoom.us|Photo Booth|Archive Utility|Python|LibreOffice|App Store|Steam|Alfred|Activity Monitor)$" manage=off
 yabai -m rule --add label="Finder" app="^Finder$" title="(Co(py|nnect)|Move|Info|Pref)" manage=off
@@ -45,4 +49,4 @@ borders active_color=0xffe1e3e4 inactive_color=0xff494d64 width=5.0 &
 
 yabai -m config layout bsp
 
-echo "yabai configuration loaded.."
+echo "yabai configuration loaded..."
