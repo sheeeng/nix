@@ -71,6 +71,7 @@
     kitty-nightly.url = "github:kovidgoyal/kitty/nightly";
 
     morlana.url = "github:ryanccn/morlana";
+    morlana.inputs.nixpkgs.follows = "nixpkgs-stable";
 
     nixvim.inputs.nixpkgs.follows = "nixpkgs-stable";
     nixvim.url = "github:nix-community/nixvim/nixos-24.11";
