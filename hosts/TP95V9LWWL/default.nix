@@ -18,7 +18,7 @@ in
     inputs.home-manager.darwinModules.default
     inputs.home-manager.darwinModules.home-manager
     inputs.nixvim.nixDarwinModules.nixvim
-    ../../modules/yabai
+    # ../../modules/yabai
   ];
 
   nixpkgs.config = {
