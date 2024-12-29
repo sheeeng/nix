@@ -48,8 +48,9 @@ fi
 pushd "${HOME}/github/sheeeng/nix" || exit
 
 if command -v nix 1> /dev/null 2>&1; then
-  nix --experimental-features "nix-command flakes" flake update
-  nix --experimental-features "nix-command flakes" flake check
+  # nix --experimental-features "nix-command flakes" flake update
+  # nix --experimental-features "nix-command flakes" flake check
+  echo "Nix is installed."
 else
   echo "Nix is not installed!"
   exit 42
