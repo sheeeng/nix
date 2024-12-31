@@ -48,16 +48,24 @@ fi
 pushd "${HOME}/github/sheeeng/nix" || exit
 
 if command -v nix 1> /dev/null 2>&1; then
-  # nix --experimental-features "nix-command flakes" flake update
-  # nix --experimental-features "nix-command flakes" flake check
-  echo "Nix is installed."
+  echo "# ----------------------------------------------------------------------"
+  echo "Nix is installed..."
+  echo "# ----------------------------------------------------------------------"
+  echo "nix flake update..."
+  nix --experimental-features "nix-command flakes" flake update
+  echo "# ----------------------------------------------------------------------"
+  echo "nix flake check..."
+  nix --experimental-features "nix-command flakes" flake check
+  echo "# ----------------------------------------------------------------------"
 else
+  echo "# ----------------------------------------------------------------------"
   echo "Nix is not installed!"
+  echo "# ----------------------------------------------------------------------"
   exit 42
 fi
 
 if ! command -v darwin-rebuild 1> /dev/null 2>&1; then
-  echo "darwin-rebuild is not installed."
+  echo "darwin-rebuild is not installed..."
   # nix run .#homeConfigurations."$(stat --format "%U" "$(tty)")@$(hostname)".activationPackage
   # nix run github:ryanccn/morlana -- switch --flake ~/github/sheeeng/nix#"$(hostname)"
   nix run nix-darwin --experimental-features "nix-command flakes" -- switch --flake ~/github/sheeeng/nix#"$(hostname)"
@@ -67,11 +75,17 @@ fi
 
 # darwin-rebuild changelog --flake ~/github/sheeeng/nix#"$(hostname)"
 
+echo "# ----------------------------------------------------------------------"
+echo "darwin-rebuild check..."
 darwin-rebuild check --flake ~/github/sheeeng/nix#"$(hostname)"
+echo "# ----------------------------------------------------------------------"
 
-darwin-rebuild build --print-build-logs --flake ~/github/sheeeng/nix#"$(hostname)"
-darwin-rebuild activate --flake ~/github/sheeeng/nix#"$(hostname)"
+# darwin-rebuild build --print-build-logs --flake ~/github/sheeeng/nix#"$(hostname)"
+# darwin-rebuild activate --flake ~/github/sheeeng/nix#"$(hostname)"
 
+echo "# ----------------------------------------------------------------------"
+echo "darwin-rebuild switch..."
 darwin-rebuild switch --print-build-logs --flake ~/github/sheeeng/nix#"$(hostname)"
+echo "# ----------------------------------------------------------------------"
 
 popd || exit
