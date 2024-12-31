@@ -16,7 +16,7 @@ in
   imports = [
     inputs.agenix.darwinModules.age
     # catppuccin.darwinModules.catppuccin # https://github.com/catppuccin/nix/issues/162
-    inputs.home-manager.darwinModules.default
+    # inputs.home-manager.darwinModules.defaults
     inputs.home-manager.darwinModules.home-manager
     inputs.nixvim.nixDarwinModules.nixvim
     # ../../modules/yabai
