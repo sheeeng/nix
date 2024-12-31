@@ -51,8 +51,13 @@ if command -v nix 1> /dev/null 2>&1; then
   echo "# ----------------------------------------------------------------------"
   echo "Nix is installed..."
   echo "# ----------------------------------------------------------------------"
-  echo "nix flake update..."
-  nix --experimental-features "nix-command flakes" flake update
+  for arg in "$@"; do
+    if [[ "$arg" == "--update" || "$arg" == "-u" ]]; then
+      echo "nix flake update..."
+      nix --experimental-features "nix-command flakes" flake update
+      break
+    fi
+  done
   echo "# ----------------------------------------------------------------------"
   echo "nix flake check..."
   nix --experimental-features "nix-command flakes" flake check
