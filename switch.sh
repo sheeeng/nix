@@ -52,7 +52,7 @@ if command -v nix 1> /dev/null 2>&1; then
   echo "Nix is installed..."
   echo "# ----------------------------------------------------------------------"
   for arg in "$@"; do
-    if [[ "$arg" == "--update" || "$arg" == "-u" ]]; then
+    if [[ $arg == "--update" || $arg == "-u" ]]; then
       echo "nix flake update..."
       nix --experimental-features "nix-command flakes" flake update
       break
@@ -88,9 +88,22 @@ echo "# ----------------------------------------------------------------------"
 # darwin-rebuild build --print-build-logs --flake ~/github/sheeeng/nix#"$(hostname)"
 # darwin-rebuild activate --flake ~/github/sheeeng/nix#"$(hostname)"
 
+for arg in "$@"; do
+  if [[ $arg == "--use-morlana" || $arg == "-um" ]]; then
+    echo "morlana switch..."
+    nix run github:ryanccn/morlana -- switch --flake ~/github/sheeeng/nix
+    exit 0
+  fi
+done
+
 echo "# ----------------------------------------------------------------------"
-echo "darwin-rebuild switch..."
-darwin-rebuild switch --print-build-logs --flake ~/github/sheeeng/nix#"$(hostname)"
+if ! command -v nh 1> /dev/null 2>&1; then
+  echo "nh os switch..."
+  nh os switch ~/github/sheeeng/nix#"$(hostname)"
+else
+  echo "darwin-rebuild switch..."
+  darwin-rebuild switch --print-build-logs --flake ~/github/sheeeng/nix#"$(hostname)"
+fi
 echo "# ----------------------------------------------------------------------"
 
 popd || exit
