@@ -12,13 +12,6 @@
   programs.bat = {
     enable = true;
     # package = pkgs.bat;
-    config = {
-      lessopen = false;
-      pager = "less --tabs=2 --RAW-CONTROL-CHARS --quit-if-one-screen --no-init";
-      style = "numbers,changes,header";
-      # theme = "OneHalfDark"; # Use `lib.mkForce value` or `lib.mkDefault value` to change the priority on any of these definitions.
-    };
-    # Remove once $LESSOPEN support is enabled by default.
     # TODO: https://github.com/Maka-77x/dotfiles/blob/b66cb03feb5433393197787e2792f870e1ab1e35/home-modules/bat.nix#L26C5-L42C8
     package = pkgs.bat.overrideAttrs (oldAttrs: rec {
       cargoBuildFeatures = (oldAttrs.cargoBuildFeatures or [ ]) ++ [ "lessopen" ];
@@ -37,6 +30,13 @@
         outputHash = "sha256-/evcZvtygeW8ta1zOr5DNPX3Ej3pYk2AgMRjik1ayLI=";
       });
     });
+    config = {
+      lessopen = false;
+      pager = "less --tabs=2 --RAW-CONTROL-CHARS --quit-if-one-screen --no-init";
+      style = "numbers,changes,header";
+      # theme = "OneHalfDark"; # Use `lib.mkForce value` or `lib.mkDefault value` to change the priority on any of these definitions.
+    };
+    # Remove once $LESSOPEN support is enabled by default.
     # TODO: https://github.com/Maka-77x/dotfiles/blob/b66cb03feb5433393197787e2792f870e1ab1e35/home-modules/bat.nix
     extraPackages = with pkgs; [
       bat-extras.batdiff
