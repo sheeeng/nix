@@ -11,6 +11,7 @@ let
 in
 {
   imports = [
+    ./fonts.nix
     ./packages.nix
     ./programs.nix
     ./scripts.nix
