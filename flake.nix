@@ -38,6 +38,11 @@
       url = "github:nix-community/home-manager/release-24.11";
     };
 
+    nh-plus = {
+      url = "github:toyvo/nh_plus";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
+    };
+
     nixvirt = {
       inputs.nixpkgs.follows = "nixpkgs-stable";
       url = "https://flakehub.com/f/ashleyyakeley/nixvirt/*.tar.gz";
@@ -108,7 +113,14 @@
             inputs.home-manager.darwinModules.home-manager
             {
               nixpkgs.overlays = [
+                (final: _prev: {
+                  unstable = import inputs.nixpkgs-unstable {
+                    system = final.system;
+                    config.allowUnfree = true;
+                  };
+                })
                 inputs.morlana.overlays.default
+                inputs.nh-plus.overlays.default
               ];
             }
           ];
