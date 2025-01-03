@@ -40,7 +40,7 @@ let
 
     initExtra = ''
       set -o vi  # enable vi-like control
-      export EDITOR=nvim
+      # export EDITOR=nvim # TODO: Conflicting error. Use `lib.mkForce value` or `lib.mkDefault value` to change the priority on any of these definitions.
 
       # Fix color codes in man pages. Why GNU hates sane defaults, we will never know
       export export GROFF_NO_SGR=1

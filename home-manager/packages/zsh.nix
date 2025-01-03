@@ -292,7 +292,7 @@ in
     '';
 
     localVariables = {
-      EDITOR = [ "${pkgs.neovim}/bin/nvim" ];
+      # EDITOR = [ "${pkgs.neovim}/bin/nvim" ]; # TODO: Conflicting error. Use `lib.mkForce value` or `lib.mkDefault value` to change the priority on any of these definitions.
       LANG = "en_US.UTF-8";
       MANPATH = "/usr/local/man:$MANPATH";
       MANPAGER = "sh -c 'col -bx | ${pkgs.bat}/bin/bat --language man --plain'";
@@ -503,7 +503,7 @@ in
       # mt = "cd $(mktemp --directory ${"TMPDIR:-/tmp"}/zombie.XXXXXXXXX)";
       tg = "${pkgs.terragrunt}/bin/terragrunt";
       tree = "${pkgs.eza}/bin/eza --tree";
-      vi = "${pkgs.helix}/bin/hx";
+      # vi = "${pkgs.helix}/bin/hx";
       wttr = "${pkgs.curl}/bin/curl 'wttr.in/Oslo?format=3'"; # TODO: https://www.reddit.com/r/macapps/comments/1gg4k6o/comment/lupspio/
       wttr-all = "${pkgs.curl}/bin/curl 'wttr.in/{Helsfyr,Kuching,Lørenskog,Oslo}?format=3'";
     }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.shellAliases
