@@ -21,7 +21,7 @@ in
 
   # https://github.com/uesyn/dotfiles/blob/a28964187ab74b880f2e8ae561359451e9a05e29/home-manager/git/default.nix#L19
   home.sessionVariables = {
-    GIT_EDITOR = "${pkgs.neovim}/bin/nvim";
+    # GIT_EDITOR = "${pkgs.neovim}/bin/nvim"; # TODO: Conflicting error. Use `lib.mkForce value` or `lib.mkDefault value` to change the priority on any of these definitions.
   };
 
   home.file."bitbucket/.gitconfig".source = ./gitconfig-two.ini;
@@ -88,7 +88,7 @@ in
         rv = "repo view";
         rvw = "repo view --web";
       }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.gh.settings.aliases
-      editor = "${pkgs.neovim}/bin/nvim"; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.gh.settings.editor
+      # editor = "${pkgs.neovim}/bin/nvim"; # TODO: Conflicting error. Use `lib.mkForce value` or `lib.mkDefault value` to change the priority on any of these definitions. # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.gh.settings.editor
       git_protocol = "ssh"; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.gh.settings.git_protocol
       prompt = "enabled";
     }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.gh.settings
@@ -212,7 +212,7 @@ in
       core = {
         autocrlf = "input"; # https://docs.github.com/en/get-started/getting-started-with-git/configuring-git-to-handle-line-endings#global-settings-for-line-endings
         safecrlf = false; # https://git-scm.com/docs/git-config#Documentation/git-config.txt-coresafecrlf
-        editor = "nvim";
+        # editor = "nvim"; # # TODO: Conflicting error. Use `lib.mkForce value` or `lib.mkDefault value` to change the priority on any of these definitions.
         excludesfile = "${config.home.homeDirectory}/.config/git/ignore"; # "${pkgs.git}/etc/gitignore"; # git config --get core.excludesfile
         pager = "${pkgs.delta}/bin/delta"; # TODO: consider bat? # https://github.com/lasseheia/nix/blob/2804cb5670f54c91da65067b204a71a5ff5695fc/modules/git/home-manager.nix#L25
         whitespace = "fix,-indent-with-non-tab,trailing-space,space-before-tab";
