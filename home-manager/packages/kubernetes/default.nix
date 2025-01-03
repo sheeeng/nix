@@ -28,7 +28,7 @@
   ];
 
   home.sessionVariables = {
-    KUBE_EDITOR = "nvim";
+    # KUBE_EDITOR = "nvim"; # # TODO: Conflicting error. Use `lib.mkForce value` or `lib.mkDefault value` to change the priority on any of these definitions.
   };
 
   home.sessionPath = [ "${config.home.homeDirectory}/.krew/bin" ];
