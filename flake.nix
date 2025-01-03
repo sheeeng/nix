@@ -134,6 +134,12 @@
   outputs =
     inputs:
     let
+      lib = inputs.snowfall-lib.mkLib {
+        # You must pass in both your flake's inputs and the root directory of
+        # your flake.
+        inherit inputs;
+        src = ./.;
+      }; # https://snowfall.org/reference/lib/#home-manager
       nixosConfiguration =
         hostname: system:
         inputs.nixpkgs-stable.lib.nixosSystem {
@@ -166,7 +172,10 @@
           specialArgs = { inherit inputs; };
         };
     in
-    {
+    # No additional configuration is required to use this feature, you only
+    # have to add home-manager to your flake inputs.
+    # https://snowfall.org/reference/lib/#home-manager
+    lib.mkFlake {
       nixosConfigurations = {
         desktop = nixosConfiguration "desktop" "x86_64-linux";
         laptop = nixosConfiguration "laptop" "x86_64-linux";
