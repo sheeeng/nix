@@ -79,8 +79,18 @@
     };
 
     snowfall-lib = {
-      inputs.nixpkgs.follows = "nixpkgs-stable";
       url = "github:snowfallorg/lib";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
+    };
+
+    snowfall-flake = {
+      url = "github:snowfallorg/flake";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
+    };
+
+    snowfall-frost = {
+      url = "github:snowfallorg/frost";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
     };
 
     agenix.inputs.nixpkgs.follows = "nixpkgs-stable";
