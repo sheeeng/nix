@@ -3,10 +3,10 @@
     "devenv": {
       "locked": {
         "dir": "src/modules",
-        "lastModified": 1735241861,
+        "lastModified": 1735883199,
         "owner": "cachix",
         "repo": "devenv",
-        "rev": "991abff153b995192bf36655394246fc97ba8627",
+        "rev": "d67d04ae2dd3bc3723e615003034ba752e8db8c3",
         "type": "github"
       },
       "original": {
@@ -39,10 +39,10 @@
         "rust-analyzer-src": "rust-analyzer-src"
       },
       "locked": {
-        "lastModified": 1735367591,
+        "lastModified": 1735886062,
         "owner": "nix-community",
         "repo": "fenix",
-        "rev": "3743208cafd7bc3c150f0c77c25ef7430e9c0de2",
+        "rev": "a65f3516dfcce5cf2157cc19d517b1bb87ed71b8",
         "type": "github"
       },
       "original": {
@@ -136,35 +136,19 @@
         "type": "github"
       }
     },
-    "nixpkgs-stable": {
-      "locked": {
-        "lastModified": 1735286948,
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "31ac92f9628682b294026f0860e14587a09ffb4b",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "ref": "nixos-24.05",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "pre-commit-hooks": {
       "inputs": {
         "flake-compat": "flake-compat_2",
         "gitignore": "gitignore",
         "nixpkgs": [
           "nixpkgs"
-        ],
-        "nixpkgs-stable": "nixpkgs-stable"
+        ]
       },
       "locked": {
-        "lastModified": 1734797603,
+        "lastModified": 1735882644,
         "owner": "cachix",
         "repo": "pre-commit-hooks.nix",
-        "rev": "f0f0dc4920a903c3e08f5bdb9246bb572fcae498",
+        "rev": "a5a961387e75ae44cc20f0a57ae463da5e959656",
         "type": "github"
       },
       "original": {
@@ -186,10 +170,10 @@
     "rust-analyzer-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1735338518,
+        "lastModified": 1735816508,
         "owner": "rust-lang",
         "repo": "rust-analyzer",
-        "rev": "d3bb15ecec7c1386767c45776fab497e8a22a30f",
+        "rev": "d3dd40f6360f970179ed671d042e8e0902c770ac",
         "type": "github"
       },
       "original": {
