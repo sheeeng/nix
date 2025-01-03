@@ -1,12 +1,13 @@
 # https://github.com/japiirainen/darwin/blob/ccda9d41071e28db0c70f3e66ac220892ecd180d/home/helix.nix
 
 {
-  lib,
+  inputs,
   pkgs,
   ...
 }:
 {
-  # imports = lib.snowfall.fs.get-non-default-nix-files ./.; # https://github.com/tommy-donavon/nixos-dots/blob/d824d5ec55109f65f0bc5e042198cafde0fbedc8/modules/home/programs/terminal/editors/helix/default.nix#L15
+  # imports = inputs.snowfall-lib.fs.get-non-default-nix-files ./.; # https://github.com/tommy-donavon/nixos-dots/blob/d824d5ec55109f65f0bc5e042198cafde0fbedc8/modules/home/programs/terminal/editors/helix/default.nix#L15
+  # how to get-non-default-nix-files?
 
   programs.helix = {
     enable = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.helix.enable
