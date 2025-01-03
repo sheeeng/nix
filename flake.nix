@@ -25,13 +25,38 @@
   inputs = {
     nixos-hardware.url = "github:nixos/nixos-hardware/master";
 
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11"; # Use nixos branches instead of nixpkgs, it runs more tests?
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    nixpkgs-helix.url = "github:nixos/nixpkgs/bc947f541ae55e999ffdb4013441347d83b00feb"; # Hack for Helix to be able to build tree-sitter. # https://github.com/llakala/nixos/blob/5dae1c83df4835fd23d433adc76f66bca44962ba/flake.nix#L104
 
     nix-darwin = {
       inputs.nixpkgs.follows = "nixpkgs-stable";
       url = "github:lnl7/nix-darwin";
     };
+
+    disko = {
+      inputs.nixpkgs.follows = "nixpkgs-stable";
+      url = "github:nix-community/disko";
+    };
+
+    firefox-addons = {
+      inputs.flake-utils.follows = "flake-utils";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
+      url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
+    };
+
+    flake-utils.url = "github:numtide/flake-utils"; # https://github.com/edgelesssys/contrast/blob/7c5206269d2ce0440090f05db601506011e2cd5f/flake.nix#L13-L15
+
+    firefox-gnome-theme = {
+      url = "github:rafaelmardojai/firefox-gnome-theme";
+      flake = false;
+    }; # https://github.com/llakala/nixos/tree/5dae1c83df4835fd23d433adc76f66bca44962ba/apps/programs/firefox
+
+    helix-unstable = {
+      inputs.flake-utils.follows = "flake-utils";
+      inputs.nixpkgs.follows = "nixpkgs-helix"; # So we don't have two instances of `nixpkgs` in flake.lock. We use the same rev from helix's flake.lock so we don't have to recompile
+      url = "github:helix-editor/helix"; # Compile Helix from source to support macro keybinds
+    }; # https://github.com/llakala/nixos/tree/5dae1c83df4835fd23d433adc76f66bca44962ba/apps/programs/firefox
 
     home-manager = {
       inputs.nixpkgs.follows = "nixpkgs-stable";
@@ -53,6 +78,11 @@
       url = "github:astro/microvm.nix";
     };
 
+    snowfall-lib = {
+      inputs.nixpkgs.follows = "nixpkgs-stable";
+      url = "github:snowfallorg/lib";
+    };
+
     agenix.inputs.nixpkgs.follows = "nixpkgs-stable";
     agenix.url = "github:ryantm/agenix";
     catppuccin.url = "github:catppuccin/nix";
@@ -70,7 +100,6 @@
     errata-ai-readability.url = "github:errata-ai/readability";
     errata-ai-write-good.flake = false;
     errata-ai-write-good.url = "github:errata-ai/write-good";
-    flake-utils.url = "github:numtide/flake-utils"; # https://github.com/edgelesssys/contrast/blob/7c5206269d2ce0440090f05db601506011e2cd5f/flake.nix#L13-L15
 
     kitty-nightly.flake = false;
     kitty-nightly.url = "github:kovidgoyal/kitty/nightly";
