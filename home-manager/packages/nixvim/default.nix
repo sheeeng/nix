@@ -3,6 +3,8 @@ let
   folderFiles = dir: (map (fname: dir + "/${fname}") (builtins.attrNames (builtins.readDir dir)));
 in
 {
+  # imports = lib.snowfall.fs.get-non-default-nix-files-recursive ./.; # https://github.com/calops/nix/blob/c47d842c1016a38c1ba2533c0ac282f086d29fec/modules/home/programs/default.nix
+
   imports = (folderFiles ./plugins) ++ [
     ./keymaps.nix
     ./options.nix
