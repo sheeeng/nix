@@ -9,19 +9,25 @@ jobs:
           echo "Version: \`$(nix --version)\`" \
           | tee --append ${GITHUB_STEP_SUMMARY}
       - run: |
-          echo "Nix-Info:"
-          echo "```text
-            $(nix-shell \
+          printf '\n<details><summary>Nix-Info</summary>\n<p>\n\n' | tee --append "${GITHUB_STEP_SUMMARY}"
+          printf '```\n' | tee --append "${GITHUB_STEP_SUMMARY}"
+          echo $(nix-shell \
             --packages nix-info \
             --run 'nix-info --markdown --sandbox --host-os') \
-            ```" \
             | tee --append ${GITHUB_STEP_SUMMARY}
+          printf '```\n' | tee --append "${GITHUB_STEP_SUMMARY}"
       - run: |
-          echo "Nix-Configuration: `$(sudo cat /etc/nix/nix.conf)\`" \
-          | tee --append ${GITHUB_STEP_SUMMARY}
+          printf '\n<details><summary>Nix-Configuration</summary>\n<p>\n\n' | tee --append "${GITHUB_STEP_SUMMARY}"
+          printf '```\n' | tee --append "${GITHUB_STEP_SUMMARY}"
+          echo $(sudo cat /etc/nix/nix.conf) \
+            | tee --append ${GITHUB_STEP_SUMMARY}
+          printf '```\n' | tee --append "${GITHUB_STEP_SUMMARY}"
       - run: |
-          echo "Nix-Instaler-Version: \`$(/nix/nix-installer --version)\`" \
-          | tee --append ${GITHUB_STEP_SUMMARY}
+          printf '\n<details><summary>Nix-Instaler-Version</summary>\n<p>\n\n' | tee --append "${GITHUB_STEP_SUMMARY}"
+          printf '```\n' | tee --append "${GITHUB_STEP_SUMMARY}"
+          echo $(/nix/nix-installer --version) \
+            | tee --append ${GITHUB_STEP_SUMMARY}
+          printf '```\n' | tee --append "${GITHUB_STEP_SUMMARY}"
 on:
   pull_request:
   push:
