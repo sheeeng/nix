@@ -9,9 +9,12 @@ jobs:
           echo "Version: \`$(nix --version)\`" \
           | tee --append ${GITHUB_STEP_SUMMARY}
       - run: |
-          echo "Nix-Info: \`$(nix-shell \
+          echo "Nix-Info:"
+          echo "```text
+            $(nix-shell \
             --packages nix-info \
-            --run 'nix-info --markdown --sandbox --host-os')\`" \
+            --run 'nix-info --markdown --sandbox --host-os') \
+            ```" \
             | tee --append ${GITHUB_STEP_SUMMARY}
       - run: |
           echo "Nix-Configuration: `$(sudo cat /etc/nix/nix.conf)\`" \
