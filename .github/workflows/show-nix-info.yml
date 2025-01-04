@@ -9,15 +9,15 @@ jobs:
           echo "Version: \`$(nix --version)\`" \
           | tee --append ${GITHUB_STEP_SUMMARY}
       - run: |
-          echo "$(nix-shell \
+          echo "Nix-Info: \`$(nix-shell \
             --packages nix-info \
-            --run 'nix-info --markdown --sandbox --host-os')" \
+            --run 'nix-info --markdown --sandbox --host-os')\`" \
             | tee --append ${GITHUB_STEP_SUMMARY}
       - run: |
-          echo "```$(sudo cat /etc/nix/nix.conf)```" \
+          echo "Nix-Configuration: `'$(sudo cat /etc/nix/nix.conf)\`" \
           | tee --append ${GITHUB_STEP_SUMMARY}
       - run: |
-          echo "```$(/nix/nix-installer --version)```" \
+          echo "Nix-Instaler-Version: \`$(/nix/nix-installer --version)\`" \
           | tee --append ${GITHUB_STEP_SUMMARY}
 on:
   pull_request:
