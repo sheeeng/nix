@@ -16,6 +16,9 @@ jobs:
       - run: |
           echo "```$(sudo cat /etc/nix/nix.conf)```" \
           | tee --append ${GITHUB_STEP_SUMMARY}
+      - run: |
+          echo "```$(/nix/nix-installer --version)```" \
+          | tee --append ${GITHUB_STEP_SUMMARY}
 on:
   pull_request:
   push:
