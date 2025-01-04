@@ -186,5 +186,4 @@
         C02ZV797MD6R = darwinConfiguration "C02ZV797MD6R" "x86_64-darwin";
       };
     };
-
 }
