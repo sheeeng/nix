@@ -14,19 +14,14 @@ jobs:
             --run 'nix-info --markdown --sandbox --host-os')" \
             | tee --append ${GITHUB_STEP_SUMMARY}
       - run: |
-          echo "$(nix flake check)" \
-          | tee --append ${GITHUB_STEP_SUMMARY}
-      - run: |
           echo "$(nix --experimental-features "nix-command flakes" flake check)" \
           | tee --append ${GITHUB_STEP_SUMMARY}
       - run: |
-          cat << EOF >> /etc/nix/nix.conf
-
-          # https://nixos.wiki/wiki/flakes
-          experimental-features = nix-command flakes
-          EOF
-          fi
-
+          echo "$(nix flake check)" \
+          | tee --append ${GITHUB_STEP_SUMMARY}
+      - run: |
+          echo "$(nix run github:ryanccn/morlana -- switch --flake .)" \
+          | tee --append ${GITHUB_STEP_SUMMARY}
 on:
   pull_request:
   push:
