@@ -13,6 +13,9 @@ jobs:
             --packages nix-info \
             --run 'nix-info --markdown --sandbox --host-os')" \
             | tee --append ${GITHUB_STEP_SUMMARY}
+      - run: |
+          echo "$(sudo cat /etc/nix/nix.conf)" \
+          | tee --append ${GITHUB_STEP_SUMMARY}
 on:
   pull_request:
   push:
