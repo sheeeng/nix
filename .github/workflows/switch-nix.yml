@@ -1,0 +1,33 @@
+jobs:
+  switch-nix:
+    name: switch-nix
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: determinatesystems/nix-installer-action@main
+      - run: |
+          echo "Version: \`$(nix --version)\`" \
+          | tee --append ${GITHUB_STEP_SUMMARY}
+      - run: |
+          echo "$(nix-shell \
+            --packages nix-info \
+            --run 'nix-info --markdown --sandbox --host-os')" \
+            | tee --append ${GITHUB_STEP_SUMMARY}
+      - run: |
+          echo "$(nix flake check)" \
+          | tee --append ${GITHUB_STEP_SUMMARY}
+      - run: |
+          echo "$(nix --experimental-features "nix-command flakes" flake check)" \
+          | tee --append ${GITHUB_STEP_SUMMARY}
+      - run: |
+          cat << EOF >> /etc/nix/nix.conf
+
+          # https://nixos.wiki/wiki/flakes
+          experimental-features = nix-command flakes
+          EOF
+          fi
+
+on:
+  pull_request:
+  push:
+    branches: [main]
