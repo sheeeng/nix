@@ -9,7 +9,7 @@ jobs:
           echo "Version: (\`nix --version\`): \`$(nix --version)\`" \
           | tee --append ${GITHUB_STEP_SUMMARY}
       - run: |
-          printf '\n<details open><summary>Nix-Info: (\'nix-shell --packages nix-info --run \'nix-info --markdown --sandbox --host-os\'\')</summary>\n<p>\n\n' | tee --append "${GITHUB_STEP_SUMMARY}"
+          printf '\n<details open><summary>Nix-Info: (\`nix-shell --packages nix-info --run 'nix-info --markdown --sandbox --host-os'\`)"</summary>\n<p>\n\n' | tee --append "${GITHUB_STEP_SUMMARY}"
           printf '```\n' | tee --append "${GITHUB_STEP_SUMMARY}"
           nix-shell --packages nix-info --run 'nix-info --markdown --sandbox --host-os' | tee --append "${GITHUB_STEP_SUMMARY}"
           printf '```\n' | tee --append "${GITHUB_STEP_SUMMARY}"
