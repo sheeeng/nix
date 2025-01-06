@@ -6,7 +6,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: determinatesystems/nix-installer-action@main
       - run: |
-          echo "Version: (`nix --version`): \`$(nix --version)\`" \
+          echo "Version: (\`nix --version\`): \`$(nix --version)\`" \
           | tee --append ${GITHUB_STEP_SUMMARY}
       - run: |
           printf '\n<details open><summary>Nix-Info</summary>\n<p>\n\n' | tee --append "${GITHUB_STEP_SUMMARY}"
