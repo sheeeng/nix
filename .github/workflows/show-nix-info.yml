@@ -21,7 +21,7 @@ jobs:
           printf '```\n' | tee --append "${GITHUB_STEP_SUMMARY}"
           printf '</p></details>\n' | tee --append "${GITHUB_STEP_SUMMARY}"
       - run: |
-          echo "Version: (\`/nix/nix-installer --version\`): \`$(/nix/nix-installer --version)\`" \
+          echo "Nix-Installer-Version: (\`/nix/nix-installer --version\`): \`$(/nix/nix-installer --version)\`" \
           | tee --append ${GITHUB_STEP_SUMMARY}
 on:
   pull_request:
