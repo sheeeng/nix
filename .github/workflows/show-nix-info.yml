@@ -21,11 +21,8 @@ jobs:
           printf '```\n' | tee --append "${GITHUB_STEP_SUMMARY}"
           printf '</p></details>\n' | tee --append "${GITHUB_STEP_SUMMARY}"
       - run: |
-          printf '\n<details open><summary>Nix-Installer-Version: (<code>/nix/nix-installer --version</code>)</summary>\n<p>\n\n' | tee --append "${GITHUB_STEP_SUMMARY}"
-          printf '```\n' | tee --append "${GITHUB_STEP_SUMMARY}"
-          /nix/nix-installer --version | tee --append "${GITHUB_STEP_SUMMARY}"
-          printf '```\n' | tee --append "${GITHUB_STEP_SUMMARY}"
-          printf '</p></details>\n' | tee --append "${GITHUB_STEP_SUMMARY}"
+          echo "Version: (\`/nix/nix-installer --version\`): \`$(/nix/nix-installer --version)\`" \
+          | tee --append ${GITHUB_STEP_SUMMARY}"
 on:
   pull_request:
   push:
