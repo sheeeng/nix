@@ -15,7 +15,7 @@ jobs:
           printf '```\n' | tee --append "${GITHUB_STEP_SUMMARY}"
           printf '</p></details>\n' | tee --append "${GITHUB_STEP_SUMMARY}"
       - run: |
-          printf '\n<details open><summary>Nix-Configuration</summary>\n<p>\n\n' | tee --append "${GITHUB_STEP_SUMMARY}"
+          printf "\n<details open><summary>Nix-Configuration</summary>\n<p>\n\n" | tee --append "${GITHUB_STEP_SUMMARY}"
           printf '```\n' | tee --append "${GITHUB_STEP_SUMMARY}"
           sudo cat /etc/nix/nix.conf | tee --append "${GITHUB_STEP_SUMMARY}"
           printf '```\n' | tee --append "${GITHUB_STEP_SUMMARY}"
