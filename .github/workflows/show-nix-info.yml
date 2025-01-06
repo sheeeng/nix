@@ -9,19 +9,19 @@ jobs:
           echo "Version: (\`nix --version\`): \`$(nix --version)\`" \
           | tee --append ${GITHUB_STEP_SUMMARY}
       - run: |
-          printf "\n<details open><summary>Nix-Info: (`nix-shell --packages nix-info --run 'nix-info --markdown --sandbox --host-os'`)</summary>\n<p>\n\n" | tee --append "${GITHUB_STEP_SUMMARY}"
+          printf "\n<details open><summary>Nix-Info: (\`nix-shell --packages nix-info --run 'nix-info --markdown --sandbox --host-os'\`)</summary>\n<p>\n\n" | tee --append "${GITHUB_STEP_SUMMARY}"
           printf '```\n' | tee --append "${GITHUB_STEP_SUMMARY}"
           nix-shell --packages nix-info --run 'nix-info --markdown --sandbox --host-os' | tee --append "${GITHUB_STEP_SUMMARY}"
           printf '```\n' | tee --append "${GITHUB_STEP_SUMMARY}"
           printf '</p></details>\n' | tee --append "${GITHUB_STEP_SUMMARY}"
       - run: |
-          printf "\n<details open><summary>Nix-Configuration</summary>\n<p>\n\n" | tee --append "${GITHUB_STEP_SUMMARY}"
+          printf "\n<details open><summary>Nix-Configuration: (\`sudo cat /etc/nix/nix.conf\`)</summary>\n<p>\n\n" | tee --append "${GITHUB_STEP_SUMMARY}"
           printf '```\n' | tee --append "${GITHUB_STEP_SUMMARY}"
           sudo cat /etc/nix/nix.conf | tee --append "${GITHUB_STEP_SUMMARY}"
           printf '```\n' | tee --append "${GITHUB_STEP_SUMMARY}"
           printf '</p></details>\n' | tee --append "${GITHUB_STEP_SUMMARY}"
       - run: |
-          printf '\n<details open><summary>Nix-Installer-Version</summary>\n<p>\n\n' | tee --append "${GITHUB_STEP_SUMMARY}"
+          printf '\n<details open><summary>Nix-Installer-Version: (\`/nix/nix-installer --version\`)</summary>\n<p>\n\n' | tee --append "${GITHUB_STEP_SUMMARY}"
           printf '```\n' | tee --append "${GITHUB_STEP_SUMMARY}"
           /nix/nix-installer --version | tee --append "${GITHUB_STEP_SUMMARY}"
           printf '```\n' | tee --append "${GITHUB_STEP_SUMMARY}"
