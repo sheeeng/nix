@@ -12,12 +12,16 @@
     ./bash.nix
     ./elixir.nix
     ./go.nix
+    ./gpt.nix
+    ./json.nix
     ./lua.nix
     ./markdown.nix
     ./nix.nix
     ./prettier.nix
+    ./python.nix
     ./rust.nix
     ./terraform.nix
+    ./toml.nix
     ./typescript.nix
     ./yaml.nix
   ];

@@ -3,7 +3,21 @@
 { lib, pkgs, ... }:
 {
   programs.helix.languages = {
-    language = [ ];
+    language = [
+      {
+        name = "markdown";
+        auto-format = true;
+        formatter = {
+          command = "${pkgs.deno}/bin/deno";
+          args = [
+            "fmt"
+            "-"
+            "--ext"
+            "md"
+          ];
+        };
+      }
+    ];
 
     language-server = {
       marksman = {
