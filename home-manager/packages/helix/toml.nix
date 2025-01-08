@@ -1,28 +1,27 @@
 # https://github.com/tommy-donavon/nixos-dots/blob/d824d5ec55109f65f0bc5e042198cafde0fbedc8/modules/home/programs/terminal/editors/helix/nix.nix
 
-{ lib, pkgs, ... }:
+{ ... }:
 {
   programs.helix.languages = {
-    language = [
+    languages = [
       {
-        name = "markdown";
-        auto-format = true;
+        name = "toml";
+        language-servers = [ "taplo" ];
         formatter = {
-          command = "${pkgs.deno}/bin/deno";
+          command = "taplo";
           args = [
             "fmt"
+            "-o"
+            "column_width=120"
             "-"
-            "--ext"
-            "md"
           ];
         };
+        auto-format = true;
       }
     ];
 
     language-server = {
-      marksman = {
-        command = lib.getExe pkgs.marksman;
-      };
+
     };
   };
 }
