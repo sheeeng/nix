@@ -3,7 +3,7 @@
 { pkgs, ... }:
 {
   home.packages = with pkgs; [
-    beam.packages.erlang.elixir-ls
+    beam.packages.erlang.elixir-ls # https://search.nixos.org/packages?channel=unstable&type=packages&show=elixir-ls
   ];
 
   programs.helix.languages = {
@@ -14,7 +14,6 @@
           tab-width = 2;
           unit = "\t";
         };
-
         auto-format = true;
         comment-token = "#";
         file-types = [
@@ -25,8 +24,10 @@
       }
     ];
 
-    language-server.elixir-ls = {
-      command = "${pkgs.elixir-ls}/bin/elixir-ls";
+    language-server = {
+      elixir-ls = {
+        command = "${pkgs.elixir-ls}/bin/elixir-ls";
+      };
     };
   };
 }
