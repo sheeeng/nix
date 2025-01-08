@@ -3,15 +3,16 @@
 { lib, pkgs, ... }:
 
 {
-  home.packages = with pkgs; [
-    go # https://search.nixos.org/packages?channel=unstable&type=packages&show=go
-  ];
-
   programs.helix.languages = {
     language = [
       {
         name = "go";
         auto-format = true;
+        language-servers = [
+          "gopls"
+          "golangci-lint-lsp"
+          "gpt"
+        ];
         formatter = {
           command = "${pkgs.gotools}/bin/goimports";
           args = [
