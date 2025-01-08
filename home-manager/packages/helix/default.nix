@@ -9,12 +9,17 @@
   # https://snowfall.org/reference/lib/#libsnowfallfsget-non-default-nix-files
   # imports = lib.snowfall.fs.get-non-default-nix-files ./.; # https://github.com/tommy-donavon/nixos-dots/blob/d824d5ec55109f65f0bc5e042198cafde0fbedc8/modules/home/programs/terminal/editors/helix/default.nix#L15
   imports = [
+    ./bash.nix
     ./elixir.nix
+    ./go.nix
     ./lua.nix
+    ./markdown.nix
     ./nix.nix
     ./prettier.nix
+    ./rust.nix
     ./terraform.nix
     ./typescript.nix
+    ./yaml.nix
   ];
 
   programs.helix = {
@@ -88,17 +93,21 @@
       # theme = "base16"; # TODO: Conflicting error. Use `lib.mkForce value` or `lib.mkDefault value` to change the priority on any of these definitions.
       editor = {
         auto-format = true;
-        bufferline = "never";
         color-modes = true;
         cursorline = true;
+        cursor-shape = {
+          insert = "bar";
+          normal = "block";
+          select = "underline";
+        };
         line-number = "absolute";
-        soft-wrap.enable = true;
         rulers = [
           72
           80
           100
           120
         ];
+        mouse = false;
 
         indent-guides = {
           render = true;
@@ -106,63 +115,83 @@
           skip-levels = 1;
         }; # https://github.com/m0ar/nix/blob/a46f9fba4f8ea3599adf2b7026970f769d0bd721/args/helix/default.nix#L53-L57
 
-        cursor-shape = {
-          insert = "bar";
-          normal = "block";
-          select = "underline";
+        file-picker = {
+          hidden = false;
+          git-ignore = false;
         };
 
-        # file-picker = {
-        #   hidden = false;
-        #   git-ignore = false;
-        # };
+        statusline = {
+          mode = {
+            normal = "";
+            insert = "";
+            select = "";
+          };
 
-        # statusline = {
-        #   mode = {
-        #     normal = "";
-        #     insert = "";
-        #     select = "";
-        #   };
+          left = [
+            "mode"
+            "spacer"
+            "spinner"
+            "file-name"
+          ];
+          right = [
+            "diagnostics"
+            "position"
+            "primary-selection-length"
+            "file-encoding"
+            "file-type"
+            "version-control"
+            "spacer"
+            "position-percentage"
+          ];
+        };
 
-        #   left = [
-        #     "mode"
-        #     "spacer"
-        #     "spinner"
-        #     "file-name"
-        #   ];
-        #   right = [
-        #     "diagnostics"
-        #     "position"
-        #     "primary-selection-length"
-        #     "file-encoding"
-        #     "file-type"
-        #     "version-control"
-        #     "spacer"
-        #     "position-percentage"
-        #   ];
-        # };
+        lsp = {
+          display-messages = true;
+          display-inlay-hints = true;
+        };
 
-        lsp.display-messages = true;
+        idle-timeout = 0;
+        bufferline = "always";
+        soft-wrap = {
+          enable = true;
+        };
+        inline-diagnostics = {
+          cursor-line = "hint";
+          other-lines = "warning";
+        };
+
       };
-      keys.normal = {
-        space.space = "file_picker";
-        space.w = ":w";
-        space.q = ":q";
-        esc = [
-          "collapse_selection"
-          "keep_primary_selection"
-        ];
+
+      keys = {
+        normal = {
+          "0" = "goto_line_start";
+          "$" = "goto_line_end";
+          "G" = "goto_last_line";
+          "C-h" = "jump_view_left";
+          "C-j" = "jump_view_down";
+          "C-k" = "jump_view_up";
+          "C-l" = "jump_view_right";
+          # "ö" = "goto_word";
+          space.space = "file_picker";
+          space.w = ":w";
+          space.q = ":q";
+          esc = [
+            "collapse_selection"
+            "keep_primary_selection"
+          ];
+        };
+        select = {
+          "0" = "goto_line_start";
+          "$" = "goto_line_end";
+          "G" = "goto_last_line";
+          "ö" = "extend_to_word";
+        };
+        insert = {
+          "C-space" = "completion";
+        }; # https://github.com/Defelo/nixos/blob/e0f26f24dce1a87bd9f4bfd04f23feb2f9c1ea33/home/helix/default.nix#L69-L71
       };
+
       # theme = "catppuccin_macchiato"; # Use `lib.mkForce value` or `lib.mkDefault value` to change the priority on any of these definitions.
-      # editor = {
-      #   line-number = "relative";
-      #   lsp.display-messages = true;
-      # };
-      # keys.insert = {
-      #   j = {
-      #     k = "normal_mode";
-      #   };
-      # };
     }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.helix.settings
 
     themes = {
