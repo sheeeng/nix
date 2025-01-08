@@ -1,7 +1,6 @@
 # https://github.com/tommy-donavon/nixos-dots/blob/d824d5ec55109f65f0bc5e042198cafde0fbedc8/modules/home/programs/terminal/editors/helix/elixir.nix
 
 { pkgs, lib, ... }:
-
 {
   home.packages = with pkgs; [
     stylua
@@ -41,8 +40,10 @@
       }
     ];
 
-    language-server.lua-language-server = {
-      command = "${pkgs.lua-language-server}/bin/lua-language-server";
+    language-server = {
+      lua-language-server = {
+        command = "${pkgs.lua-language-server}/bin/lua-language-server";
+      };
     };
   };
 }
