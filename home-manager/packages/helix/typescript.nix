@@ -1,5 +1,3 @@
-# https://github.com/tommy-donavon/nixos-dots/blob/d824d5ec55109f65f0bc5e042198cafde0fbedc8/modules/home/programs/terminal/editors/helix/typescript.nix
-
 { pkgs, ... }:
 
 let
@@ -32,72 +30,74 @@ in
     vscode-langservers-extracted
   ];
 
-  programs.helix.languages = {
-    language = [
-      (
-        cfg
-        // {
-          name = "html";
-          language-servers = [ "vscode-html-language-server" ];
-        }
-      )
-      (
-        cfg
-        // {
-          name = "css";
-          language-servers = [ "vscode-css-language-server" ];
-        }
-      )
-      (
-        cfg
-        // {
-          name = "scss";
-          language-servers = [ "vscode-css-language-server" ];
-        }
-      )
-      (
-        cfg
-        // {
-          name = "json";
-          language-servers = [ "vscode-json-language-server" ];
-        }
-      )
-      (cfg // { name = "tsx"; })
-      (cfg // { name = "typescript"; })
-      (cfg // { name = "jsx"; })
-      (cfg // { name = "javascript"; })
-    ];
+  programs.helix = {
+    languages = {
+      language = [
+        (
+          cfg
+          // {
+            name = "html";
+            language-servers = [ "vscode-html-language-server" ];
+          }
+        )
+        (
+          cfg
+          // {
+            name = "css";
+            language-servers = [ "vscode-css-language-server" ];
+          }
+        )
+        (
+          cfg
+          // {
+            name = "scss";
+            language-servers = [ "vscode-css-language-server" ];
+          }
+        )
+        (
+          cfg
+          // {
+            name = "json";
+            language-servers = [ "vscode-json-language-server" ];
+          }
+        )
+        (cfg // { name = "tsx"; })
+        (cfg // { name = "typescript"; })
+        (cfg // { name = "jsx"; })
+        (cfg // { name = "javascript"; })
+      ];
 
-    language-server = {
-      typescript-language-server.command = lspBinPath "typescript";
-      vscode-css-language-server.command = lspBinPath "css";
-      vscode-html-language-server.command = lspBinPath "html";
-      vscode-json-language-server.command = lspBinPath "json";
+      language-server = {
+        typescript-language-server.command = lspBinPath "typescript";
+        vscode-css-language-server.command = lspBinPath "css";
+        vscode-html-language-server.command = lspBinPath "html";
+        vscode-json-language-server.command = lspBinPath "json";
 
-      eslint = {
-        args = [ "--stdio" ];
-        command = lspBinPath "eslint";
-        config = {
-          format = true;
-          nodePath = "";
-          onIgnoredFiles = "off";
-          packageManager = "npm";
-          quiet = false;
-          rulesCustomizations = [ ];
-          run = "onType";
-          useESLintClass = false;
-          validate = "on";
-          codeAction = {
-            disableRuleComment = {
-              enable = true;
-              location = "separateLine";
+        eslint = {
+          args = [ "--stdio" ];
+          command = lspBinPath "eslint";
+          config = {
+            format = true;
+            nodePath = "";
+            onIgnoredFiles = "off";
+            packageManager = "npm";
+            quiet = false;
+            rulesCustomizations = [ ];
+            run = "onType";
+            useESLintClass = false;
+            validate = "on";
+            codeAction = {
+              disableRuleComment = {
+                enable = true;
+                location = "separateLine";
+              };
+              showDocumentation.enable = true;
             };
-            showDocumentation.enable = true;
+            codeActionOnSave.mode = "all";
+            experimental = { };
+            problems.shortenToSingleLine = false;
+            workingDirectory.mode = "auto";
           };
-          codeActionOnSave.mode = "all";
-          experimental = { };
-          problems.shortenToSingleLine = false;
-          workingDirectory.mode = "auto";
         };
       };
     };
