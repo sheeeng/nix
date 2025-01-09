@@ -23,8 +23,19 @@ in
   ];
 
   nixpkgs.config = {
+    allowBroken = false;
     allowUnfree = true;
-    hostPlatform = pkgs.stdenv.hostPlatform;
+    allowUnsupportedSystem = false;
+
+    packageOverrides = pkgs: {
+      electron_24 = pkgs.electron_26; # Electron v24 is end-of-life, forcing upgrade
+      electron_25 = pkgs.electron_26; # Electron v25 is end-of-life, forcing upgrade
+    };
+    permittedInsecurePackages = [
+      # "python3.12-youtube-dl-2021.12.17"
+      # "python3.11-youtube-dl-2021.12.17"
+      # "olm-3.2.16"
+    ];
   };
 
   # List packages installed in system profile. To search by name, run:

@@ -348,6 +348,27 @@
         "type": "github"
       }
     },
+    "fenix": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs-stable"
+        ],
+        "rust-analyzer-src": "rust-analyzer-src"
+      },
+      "locked": {
+        "lastModified": 1736318091,
+        "narHash": "sha256-RkRHXZaMgOMGgkW2YmEqxxDDYRiGFbfr1JuaI0VrCKo=",
+        "owner": "nix-community",
+        "repo": "fenix",
+        "rev": "9e13860d50cbfd42e79101a516e1939c7723f093",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "fenix",
+        "type": "github"
+      }
+    },
     "firefox-addons": {
       "inputs": {
         "flake-utils": [
@@ -1422,6 +1443,7 @@
         "errata-ai-proselint": "errata-ai-proselint",
         "errata-ai-readability": "errata-ai-readability",
         "errata-ai-write-good": "errata-ai-write-good",
+        "fenix": "fenix",
         "firefox-addons": "firefox-addons",
         "firefox-gnome-theme": "firefox-gnome-theme",
         "flake-utils": "flake-utils_2",
@@ -1446,6 +1468,23 @@
         "sops-nix": "sops-nix",
         "treefmt-nix": "treefmt-nix_3",
         "wcurl": "wcurl"
+      }
+    },
+    "rust-analyzer-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1736266405,
+        "narHash": "sha256-V2FDSb8YjuquZduBRNp5niWYlWurja2yGN6Xzh5GPYk=",
+        "owner": "rust-lang",
+        "repo": "rust-analyzer",
+        "rev": "91fc0a239af4e56b84b1d3974ac0f34dcc99b895",
+        "type": "github"
+      },
+      "original": {
+        "owner": "rust-lang",
+        "ref": "nightly",
+        "repo": "rust-analyzer",
+        "type": "github"
       }
     },
     "rust-overlay": {

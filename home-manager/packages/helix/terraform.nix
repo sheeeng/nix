@@ -1,19 +1,46 @@
-# https://github.com/tommy-donavon/nixos-dots/blob/d824d5ec55109f65f0bc5e042198cafde0fbedc8/modules/home/programs/terminal/editors/helix/nix.nix
-
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 {
   home.packages = with pkgs; [
-    terraform
-    terraform-ls
+    terraform # https://search.nixos.org/packages?channel=unstable&type=packages&show=terraform
+    terraform-ls # https://search.nixos.org/packages?channel=unstable&type=packages&show=terraform-ls
   ];
 
-  programs.helix.languages = {
-    language = [ ];
-
-    language-server = {
-      terraform-ls = {
-        args = [ "serve" ];
-        command = "${pkgs.terraform-ls}/bin/terraform-ls";
+  # https://github.com/helix-editor/helix/blob/master/languages.toml
+  programs.helix = {
+    languages = {
+      language = [
+        {
+          name = "hcl";
+          auto-format = true;
+          language-id = "terraform";
+          language-servers = [
+            "terraform-ls"
+            "buffer-language-server"
+          ];
+        }
+        {
+          name = "tfvars";
+          auto-format = true;
+          language-id = "terraform-vars";
+          language-servers = [
+            "terraform-ls"
+            "buffer-language-server"
+          ];
+        }
+      ];
+      language-server = {
+        # buffer-language-server = {
+        #   command = "buffer-language-server";
+        # };
+        terraform-ls = {
+          command = lib.getExe pkgs.terraform-ls; # "${pkgs.terraform-ls}/bin/terraform-ls";
+          args = [ "serve" ];
+          filetypes = [
+            "hcl"
+            "tf"
+            "tfvars"
+          ];
+        };
       };
     };
   };

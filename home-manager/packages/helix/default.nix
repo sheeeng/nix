@@ -10,6 +10,7 @@
   # imports = lib.snowfall.fs.get-non-default-nix-files ./.; # https://github.com/tommy-donavon/nixos-dots/blob/d824d5ec55109f65f0bc5e042198cafde0fbedc8/modules/home/programs/terminal/editors/helix/default.nix#L15
   imports = [
     ./bash.nix
+    ./docker.nix
     ./elixir.nix
     ./go.nix
     ./gpt.nix
@@ -17,12 +18,15 @@
     ./lua.nix
     ./markdown.nix
     ./nix.nix
+    ./nodejs.nix
     ./prettier.nix
     ./python.nix
     ./rust.nix
+    ./template.nix
     ./terraform.nix
     ./toml.nix
     ./typescript.nix
+    ./vim.nix
     ./yaml.nix
   ];
 
@@ -30,67 +34,15 @@
     enable = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.helix.enable
     package = pkgs.helix; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.helix.package
     defaultEditor = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.helix.defaultEditor
-    # extraPackages = [ pkgs.marksman ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.helix.extraPackages
+    extraPackages = [ ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.helix.extraPackages
     ignores = [
       "!.gitignore"
       ".build/"
       "node_modules"
     ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.helix.ignores
     languages = {
-      language-server = {
-        # rust-analyzer = {
-        #   # https://rust-analyzer.github.io/manual.html
-        #   config = {
-        #     check.command = "clippy";
-        #     cargo = {
-        #       features = "all";
-        #     };
-        #   };
-        # }; # https://github.com/Lehmanator/nix-configs/blob/0b9cf9562c765032cca49bc6575f4f8ea42de17b/hm/profiles/languages/rust.nix#L108-L116
-
-        # typescript-language-server.command = lib.getExe pkgs.nodePackages.typescript-language-server; # https://github.com/llakala/nixos/blob/5dae1c83df4835fd23d433adc76f66bca44962ba/apps/core/helix/language-servers.nix#L6
-
-        # taplo.command = lib.getExe pkgs.taplo; # taplo-lsp is just an alias for taplo
-
-        # marksman.command = lib.getExe pkgs.marksman;
-
-        # # TODO: FIXME
-        # # mdpls = {
-        # #   command = lib.getExe programs.mdpls;
-        # #   # lib.getExe self.packages.${pkgs.system}.mdpls; # https://github.com/llakala/nixos/blob/5dae1c83df4835fd23d433adc76f66bca44962ba/apps/core/helix/language-servers.nix#L14
-        # #   config.markdown.preview = # https://github.com/euclio/mdpls?tab=readme-ov-file#configuration
-        # #     {
-        # #       auto = true; # Automatically open preview in browser when opening file
-        # #       serveStatic = true; # Show images
-        # #     };
-        # # };
-
-        # vscode-json-language-server = {
-        #   command = lib.getExe pkgs.nodePackages.vscode-json-languageserver;
-        #   args = [ "--stdio" ];
-        #   config.provideFormatter = false;
-        # };
-
-        # vim-language-server = {
-        #   command = lib.getExe pkgs.vim-language-server;
-        #   args = lib.singleton "--stdio";
-        # };
-
-        # bash-language-server = {
-        #   command = lib.getExe pkgs.nodePackages.bash-language-server;
-        #   environment.SHELLCHECK_ARGUMENTS = "-e SC2164"; # Couldn't get `config` block to work, so this is the best way to disable certain shellchecks in linting
-        # };
-      };
-      language = [
-        # {
-        #   name = "rust";
-        #   auto-format = true;
-        #   formatter = {
-        #     command = "rustfmt";
-        #     # args = ["+nightly"];
-        #   };
-        # }
-      ]; # https://github.com/Lehmanator/nix-configs/blob/0b9cf9562c765032cca49bc6575f4f8ea42de17b/hm/profiles/languages/rust.nix#L117-L124
+      language-server = { };
+      language = [ ];
     }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.helix.languages
 
     settings = {
@@ -159,10 +111,10 @@
         soft-wrap = {
           enable = true;
         };
-        inline-diagnostics = {
-          cursor-line = "hint";
-          other-lines = "warning";
-        };
+        # inline-diagnostics = {
+        #   cursor-line = "hint";
+        #   other-lines = "warning";
+        # }; # https://github.com/helix-editor/helix/discussions/11230
 
       };
 
