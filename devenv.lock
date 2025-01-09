@@ -170,10 +170,10 @@
     "rust-analyzer-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1736319187,
+        "lastModified": 1736331291,
         "owner": "rust-lang",
         "repo": "rust-analyzer",
-        "rev": "238ccb628bd4a9833fc4645b000ac585bcccf582",
+        "rev": "32b86a837805a4162a01b2356c65ef9dd53dbae6",
         "type": "github"
       },
       "original": {
