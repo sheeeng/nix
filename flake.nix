@@ -111,6 +111,11 @@
     errata-ai-write-good.flake = false;
     errata-ai-write-good.url = "github:errata-ai/write-good";
 
+    fenix = {
+      inputs.nixpkgs.follows = "nixpkgs-stable";
+      url = "github:nix-community/fenix";
+    };
+
     kitty-nightly.flake = false;
     kitty-nightly.url = "github:kovidgoyal/kitty/nightly";
 
@@ -166,6 +171,7 @@
                 })
                 inputs.morlana.overlays.default
                 inputs.nh-plus.overlays.default
+                # inputs.fenix.overlays.default
               ];
             }
           ];
