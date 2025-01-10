@@ -11,6 +11,7 @@
 # imports:
 # - ./backend
 
+allowUnfree: true
 inputs:
   fenix:
     url: github:nix-community/fenix

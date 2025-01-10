@@ -24,13 +24,13 @@ in
 
   # https://github.com/cachix/devenv/blob/741e23a22f3dc9e53075be3eaa795ea9ed6f5129/examples/go/devenv.nix
   languages.go = {
-    enable = true;
+    enable = true; # https://devenv.sh/reference/options/#languagesgoenable
   };
 
   # https://github.com/cachix/devenv/blob/741e23a22f3dc9e53075be3eaa795ea9ed6f5129/examples/javascript/devenv.nix
   languages.javascript = {
-    enable = true;
-    package = pkgs.nodejs-slim;
+    enable = true; # https://devenv.sh/reference/options/#languagesjavascriptenable
+    package = pkgs.nodejs-slim; # https://devenv.sh/reference/options/#languagesjavascriptpackage
     npm = {
       enable = true;
       install.enable = true;
@@ -60,6 +60,11 @@ in
     ];
   };
 
+  languages.terraform = {
+    enable = true; # https://devenv.sh/reference/options/#languagesterraformenable
+    package = pkgs.terraform; # https://devenv.sh/reference/options/#languagesterraformpackage
+  };
+
   enterShell = ''
     echo "Activate https://devenv.sh/ developer environment."
     echo "Nix '$(nix --version | awk '{print $2}')' located in '$(which nix)'."
@@ -68,10 +73,13 @@ in
     echo "Node '$(node --version)' located in '$(which node)'."
     echo "Npm '$(npm --version)' located in '$(which npm)'."
     echo "Python '$(python --version | awk '{print $2}')' located in '$(which python)'."
+    echo "Terraform '$(terraform --version | head --lines 1 | grep --only-matching --perl-regexp '\K[0-9]+\.[0-9]+\.[0-9]+')' located in '$(which terraform)'."
     echo ""
-  '';
+  ''; # https://devenv.sh/reference/options/#entershell
 
-  pre-commit.hooks = {
+  git-hooks.hooks = {
+    actionlint.enable = true;
+
     # Nix
     alejandra = {
       enable = false;
@@ -174,8 +182,8 @@ in
     mdsh.enable = true;
 
     # Terraform
-    terraform-format.enable = true;
-    terraform-validate.enable = true;
+    terraform-format.enable = true; # Note: Using OpenTofu's `fmt`. # https://github.com/cachix/git-hooks.nix/blob/a5a961387e75ae44cc20f0a57ae463da5e959656/README.md?plain=1#L306
+    terraform-validate.enable = true; # Note: Using OpenTofu's `validate`. # https://github.com/cachix/git-hooks.nix/blob/a5a961387e75ae44cc20f0a57ae463da5e959656/README.md?plain=1#L307
     tflint.enable = true;
 
     # YAML
@@ -192,7 +200,7 @@ in
     check-json.enable = true;
     pretty-format-json = {
       enable = true;
-      args = [ "--autofix" ]; # https://devenv.sh/reference/options/#pre-commithooksnameargs
+      args = [ "--autofix" ];
     };
 
     conform.enable = true;
@@ -210,5 +218,5 @@ in
     #   entry = "${pkgs.optipng}/bin/optipng";
     #   files = "\\.png$";
     # };
-  }; # https://devenv.sh/reference/options/#pre-commithooks
+  }; # # https://devenv.sh/reference/options/#git-hooks
 }
