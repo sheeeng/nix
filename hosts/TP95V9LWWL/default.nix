@@ -162,6 +162,15 @@ in
     # };
   };
 
+  # https://chattingdarkly.org/@lhf@fosstodon.org/110661879831891580
+  system.activationScripts.diff = {
+    supportsDryActivation = true;
+    text = ''
+      ${pkgs.nvd}/bin/nvd --nix-bin-dir=${pkgs.nix}/bin diff \
+        /run/current-system "$systemConfig"
+    '';
+  };
+
   # https://medium.com/@zmre/nix-darwin-quick-tip-activate-your-preferences-f69942a93236
   system.activationScripts.postUserActivation.text = ''
     /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
