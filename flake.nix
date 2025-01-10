@@ -122,6 +122,9 @@
     morlana.url = "github:ryanccn/morlana";
     morlana.inputs.nixpkgs.follows = "nixpkgs-stable";
 
+    nix-index-database.url = "github:nix-community/nix-index-database";
+    nix-index-database.inputs.nixpkgs.follows = "nixpkgs-stable";
+
     nixvim.inputs.nixpkgs.follows = "nixpkgs-stable";
     nixvim.url = "github:nix-community/nixvim/nixos-24.11";
     nur.inputs.nixpkgs.follows = "nixpkgs-stable";
@@ -150,6 +153,7 @@
         inputs.nixpkgs-stable.lib.nixosSystem {
           system = system;
           modules = [
+            inputs.nix-index-database.nixosModules.nix-index
             { networking.hostName = "${hostname}"; }
             ./hosts/${hostname}
           ];
@@ -159,6 +163,7 @@
         hostname: system:
         inputs.nix-darwin.lib.darwinSystem {
           modules = [
+            inputs.nix-index-database.darwinModules.nix-index
             ./hosts/${hostname}
             inputs.home-manager.darwinModules.home-manager
             {
