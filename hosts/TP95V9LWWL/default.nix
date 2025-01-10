@@ -107,6 +107,16 @@ in
     "nix-command"
     "flakes"
   ];
+  nix.gc = {
+    automatic = true;
+    # dates = "Mon..Fri *-*-* 07:00:00"; # https://nixos.wiki/wiki/storage_optimization#automation
+    interval = {
+      Hour = 12;
+      Minute = 15;
+      Day = 1;
+    }; # https://nixos.wiki/wiki/storage_optimization#automation
+    options = "--delete-older-than 7d";
+  };
 
   security.pam.enableSudoTouchIdAuth = true;
 
@@ -131,6 +141,7 @@ in
       ../../home-manager/home.nix
       inputs.agenix.homeManagerModules.age
       inputs.catppuccin.homeManagerModules.catppuccin
+      inputs.nix-index-database.hmModules.nix-index
       inputs.nixvim.homeManagerModules.nixvim
     ];
   };
