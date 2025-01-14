@@ -23,8 +23,19 @@ in
   ];
 
   nixpkgs.config = {
+    allowBroken = false;
     allowUnfree = true;
-    hostPlatform = pkgs.stdenv.hostPlatform;
+    allowUnsupportedSystem = false;
+
+    packageOverrides = pkgs: {
+      electron_24 = pkgs.electron_26; # Electron v24 is end-of-life, forcing upgrade
+      electron_25 = pkgs.electron_26; # Electron v25 is end-of-life, forcing upgrade
+    };
+    permittedInsecurePackages = [
+      # "python3.12-youtube-dl-2021.12.17"
+      # "python3.11-youtube-dl-2021.12.17"
+      # "olm-3.2.16"
+    ];
   };
 
   # List packages installed in system profile. To search by name, run:
@@ -96,6 +107,16 @@ in
     "nix-command"
     "flakes"
   ];
+  nix.gc = {
+    automatic = true;
+    # dates = "Mon..Fri *-*-* 07:00:00"; # https://nixos.wiki/wiki/storage_optimization#automation
+    interval = {
+      Hour = 12;
+      Minute = 15;
+      Day = 1;
+    }; # https://nixos.wiki/wiki/storage_optimization#automation
+    options = "--delete-older-than 7d";
+  };
 
   security.pam.enableSudoTouchIdAuth = true;
 
@@ -120,6 +141,7 @@ in
       ../../home-manager/home.nix
       inputs.agenix.homeManagerModules.age
       inputs.catppuccin.homeManagerModules.catppuccin
+      inputs.nix-index-database.hmModules.nix-index
       inputs.nixvim.homeManagerModules.nixvim
     ];
   };
@@ -149,6 +171,15 @@ in
     #   AppleKeyboardUIMode = 3;
     #   "com.apple.keyboard.fnState" = true;
     # };
+  };
+
+  # https://chattingdarkly.org/@lhf@fosstodon.org/110661879831891580
+  system.activationScripts.diff = {
+    supportsDryActivation = true;
+    text = ''
+      ${pkgs.nvd}/bin/nvd --nix-bin-dir=${pkgs.nix}/bin diff \
+        /run/current-system "$systemConfig"
+    '';
   };
 
   # https://medium.com/@zmre/nix-darwin-quick-tip-activate-your-preferences-f69942a93236
