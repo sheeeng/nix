@@ -29,10 +29,18 @@
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     nixpkgs-helix.url = "github:nixos/nixpkgs/bc947f541ae55e999ffdb4013441347d83b00feb"; # Hack for Helix to be able to build tree-sitter. # https://github.com/llakala/nixos/blob/5dae1c83df4835fd23d433adc76f66bca44962ba/flake.nix#L104
 
-    nix-darwin = {
-      inputs.nixpkgs.follows = "nixpkgs-stable";
-      url = "github:lnl7/nix-darwin";
-    };
+    # Use `github:NixOS/nixpkgs/nixpkgs-24.11-darwin` to use Nixpkgs 24.11.
+    # nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    nixpkgs-stable-darwin.url = "github:nixos/nixpkgs/nixpkgs-24.11-darwin";
+    # Use `github:LnL7/nix-darwin/nix-darwin-24.11` to use Nixpkgs 24.11.
+    # nix-darwin.url = "github:LnL7/nix-darwin/master";
+    nix-darwin.url = "github:LnL7/nix-darwin/nix-darwin-24.11";
+    nix-darwin.inputs.nixpkgs.follows = "nixpkgs-stable-darwin";
+
+    # nix-darwin = {
+    #   inputs.nixpkgs.follows = "nixpkgs-stable";
+    #   url = "github:lnl7/nix-darwin/nix-darwin-24.11";
+    # };
 
     disko = {
       inputs.nixpkgs.follows = "nixpkgs-stable";
