@@ -267,12 +267,9 @@ in
       };
       pretty = {
         # https://github.com/timokau/dotfiles/blob/c2c55834a3b479132ca07794f75a1d887fa29df6/git/.gitconfig
-        "lg" =
-          "%C(red)%h%C(reset) %C(green)%ci%C(reset) %s %C(bold blue)-- %an%C(reset)%C(yellow)%d%C(reset)";
-        "lge" =
-          "%C(red)%h%C(reset) %C(green)%ci%C(reset) %s %C(bold blue)-- %an <%ae>%C(reset)%C(yellow)%d%C(reset)";
-        "reflg" =
-          "%C(red)%h%C(reset) %C(green)%ci%C(reset) %s %C(bold blue)-- %an%C(reset) %C(yellow)(%gd)%C(reset)";
+        "lg" = "%C(red)%h%C(reset) %C(green)%ci%C(reset) %s %C(bold blue)-- %an%C(reset)%C(yellow)%d%C(reset)";
+        "lge" = "%C(red)%h%C(reset) %C(green)%ci%C(reset) %s %C(bold blue)-- %an <%ae>%C(reset)%C(yellow)%d%C(reset)";
+        "reflg" = "%C(red)%h%C(reset) %C(green)%ci%C(reset) %s %C(bold blue)-- %an%C(reset) %C(yellow)(%gd)%C(reset)";
       };
       pull = {
         rebase = true;

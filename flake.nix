@@ -150,12 +150,7 @@
   };
 
   outputs =
-    {
-      devenv,
-      nixpkgs,
-      self,
-      ...
-    }@inputs:
+    inputs:
     let
       nixosConfiguration =
         hostname: system:
