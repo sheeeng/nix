@@ -1,8 +1,0 @@
-devenv
-direnv
-github
-nix
-nixos
-nixpkgs
-pkgs
-sheng
