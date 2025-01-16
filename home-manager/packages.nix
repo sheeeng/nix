@@ -28,6 +28,7 @@
     aerc # https://search.nixos.org/packages?channel=unstable&type=packages&show=aerc
     age # https://search.nixos.org/packages?channel=unstable&type=packages&show=age
     age-plugin-yubikey # https://search.nixos.org/packages?channel=unstable&type=packages&show=age-plugin-yubikey
+    alejandra # https://search.nixos.org/packages?channel=unstable&type=packages&show=alejandra
     asdf-vm # https://search.nixos.org/packages?channel=unstable&type=packages&show=asdf-vm
     autoconf # https://search.nixos.org/packages?channel=unstable&type=packages&show=autoconf
     azure-cli # https://search.nixos.org/packages?channel=unstable&type=packages&show=azure-cli
@@ -71,6 +72,7 @@
     lego # https://search.nixos.org/packages?channel=unstable&type=packages&show=lego
     lolcat # https://search.nixos.org/packages?channel=unstable&type=packages&show=lolcat
     mc # https://search.nixos.org/packages?channel=unstable&type=packages&show=mc
+    mdformat # https://search.nixos.org/packages?channel=unstable&type=packages&show=mdformat
     minify # https://search.nixos.org/packages?channel=unstable&type=packages&show=minify
     mkdocs # https://search.nixos.org/packages?channel=unstable&type=packages&show=mkdocs
     moreutils # https://search.nixos.org/packages?channel=unstable&type=packages&show=moreutils
@@ -81,7 +83,6 @@
     nix-output-monitor # https://search.nixos.org/packages?channel=unstable&type=packages&show=nix-output-monitor
     nixd # https://search.nixos.org/packages?channel=unstable&type=packages&show=nixd
     nixfmt-rfc-style # https://search.nixos.org/packages?channel=unstable&type=packages&show=nixfmt-rfc-style
-    nixpkgs-fmt # https://search.nixos.org/packages?channel=unstable&type=packages&show=nixpkgs-fmt
     nnn # https://search.nixos.org/packages?channel=unstable&type=packages&show=nnn
     obsidian # https://search.nixos.org/packages?channel=unstable&type=packages&show=obsidian
     ollama # TODO: Marked as insecure. # https://search.nixos.org/packages?channel=unstable&type=packages&show=ollama
