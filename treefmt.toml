@@ -1,0 +1,24 @@
+[formatter.alejandra]
+command = "alejandra"
+includes = ["*.nix"]
+
+[formatter.nixfmt-rfc-style]
+command = "nixfmt"
+includes = ["*.nix"]
+
+[formatter.markdown]
+command = "mdformat"
+includes = ["*.md"]
+
+[formatter.shell]
+command = "shfmt"
+options = [
+  "--binary-next-line",
+  "--case-indent",
+  "--indent 2",
+  "--simplify",
+  "--space-redirects",
+  "--spaces",
+  "--write",
+]
+includes = ["*.sh"]
