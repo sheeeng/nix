@@ -104,6 +104,7 @@
     agenix.inputs.nixpkgs.follows = "nixpkgs-stable";
     agenix.url = "github:ryantm/agenix";
     catppuccin.url = "github:catppuccin/nix";
+    devenv.url = "github:cachix/devenv";
     errata-ai-alex.flake = false;
     errata-ai-alex.url = "github:errata-ai/alex";
     errata-ai-google.flake = false;
@@ -137,6 +138,7 @@
     nixvim.url = "github:nix-community/nixvim/nixos-24.11";
     nur.inputs.nixpkgs.follows = "nixpkgs-stable";
     nur.url = "github:nix-community/nur";
+    pre-commit-hooks.url = "github:cachix/git-hooks.nix";
     ragenix.inputs.nixpkgs.follows = "nixpkgs-stable";
     ragenix.url = "github:yaxitech/ragenix";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs-stable";
@@ -148,14 +150,18 @@
   };
 
   outputs =
-    inputs:
+    {
+      devenv,
+      flake-utils,
+      nixpkgs,
+      self,
+      ...
+    }@inputs:
+    # flake-utils.lib.eachDefaultSystem (
+    #   system:
     let
-      lib = inputs.snowfall-lib.mkLib {
-        # You must pass in both your flake's inputs and the root directory of
-        # your flake.
-        inherit inputs;
-        src = ./.;
-      }; # https://snowfall.org/reference/lib/#home-manager
+      # pkgs = import nixpkgs { inherit system; };
+
       nixosConfiguration =
         hostname: system:
         inputs.nixpkgs-stable.lib.nixosSystem {
@@ -167,6 +173,7 @@
           ];
           specialArgs = { inherit inputs; };
         };
+
       darwinConfiguration =
         hostname: system:
         inputs.nix-darwin.lib.darwinSystem {
@@ -191,18 +198,102 @@
           specialArgs = { inherit inputs; };
         };
     in
-    # No additional configuration is required to use this feature, you only
-    # have to add home-manager to your flake inputs.
-    # https://snowfall.org/reference/lib/#home-manager
-    lib.mkFlake {
+    {
+      # formatter = nixpkgs.legacyPackages.${system}.nixpkgs-fmt;
+
+      # devShells.default = nixpkgs.legacyPackages.${system}.mkShell {
+      #   packages = [
+      #     pkgs.atuin # https://search.nixos.org/packages?channel=unstable&type=packages&show=atuin
+      #     pkgs.bashInteractive # https://search.nixos.org/packages?channel=unstable&type=packages&show=bashInteractive
+      #     pkgs.devenv # https://search.nixos.org/packages?channel=unstable&type=packages&show=devenv
+      #     pkgs.direnv # https://search.nixos.org/packages?channel=unstable&type=packages&show=direnv
+      #     pkgs.gnumake # https://search.nixos.org/packages?channel=unstable&type=packages&show=gnumake
+      #     pkgs.pre-commit # https://search.nixos.org/packages?channel=unstable&type=packages&show=pre-commit
+      #     (pkgs.bats.withLibraries (p: [
+      #       p.bats-support
+      #       p.bats-assert
+      #       p.bats-file
+      #       p.bats-detik
+      #     ]))
+      #   ];
+      #   shellHook = ''
+      #     echo "Activate default developer environment."
+      #     echo "Nix '$(nix --version | awk '{print $3}')' located in '$(which nix)'."
+      #     echo "Atuin '$(atuin --version | awk '{print $2}')' located in '$(which atuin)'."
+      #     echo "Cargo '$(cargo --version | awk '{print $2}')' located in '$(which cargo)'."
+      #     echo "Devenv '$(devenv version | awk '{print $2}')' located in '$(which devenv)'."
+      #     echo "Direnv '$(direnv --version)' located in '$(which direnv)'."
+      #     echo "Go '$(go version | { read _ _ v _; echo ''${v#go}; })' located in '$(which go)'."
+      #     echo "Node '$(node --version)' located in '$(which node)'."
+      #     echo "Npm '$(npm --version)' located in '$(which npm)'."
+      #     echo "Python '$(python --version | awk '{print $2}')' located in '$(which python)'."
+      #     echo ""
+      #   '';
+      # };
+
+      # packages.${system} = {
+      #   projectTerraform-devenv-up = self.devShells.${system}.projectTerraform.config.procfileScript;
+      #   projectTerraform-devenv-test = self.devShells.${system}.projectTerraform.config.test;
+
+      #   projectNix-devenv-up = self.devShells.${system}.projectNix.config.procfileScript;
+      #   projectNix-devenv-test = self.devShells.${system}.projectNix.config.test;
+      # };
+
+      # devShells.${system} = {
+      #   projectTerraform = devenv.lib.mkShell {
+      #     inherit inputs pkgs;
+      #     modules = [
+      #       (
+      #         { pkgs, config, ... }:
+      #         {
+      #           packages = with pkgs; [
+      #             terraform # https://search.nixos.org/packages?channel=unstable&type=packages&show=terraform
+      #             terragrunt # https://search.nixos.org/packages?channel=unstable&type=packages&show=terragrunt
+      #           ];
+      #           enterShell = ''
+      #             echo "Activate Terraform development shell."
+      #             echo "Nix '$(nix --version | awk '{print $3}')' located in '$(which nix)'."
+      #             echo "Terraform '$(terraform --version | head --lines 1 | grep --only-matching --perl-regexp '\K[0-9]+\.[0-9]+\.[0-9]+')' located in '$(which terraform)'."
+      #           '';
+      #         }
+      #       )
+      #     ];
+      #   };
+
+      #   projectNix = devenv.lib.mkShell {
+      #     inherit inputs pkgs;
+      #     modules = [
+      #       (
+      #         { pkgs, config, ... }:
+      #         {
+      #           packages = with pkgs; [
+      #             nh # https://search.nixos.org/packages?channel=unstable&type=packages&show=nh
+      #             nil # https://search.nixos.org/packages?channel=unstable&type=packages&show=nil
+      #             nix # https://search.nixos.org/packages?channel=unstable&type=packages&show=nix
+      #             nix-output-monitor # https://search.nixos.org/packages?channel=unstable&type=packages&show=nix-output-monitor
+      #             nixd # https://search.nixos.org/packages?channel=unstable&type=packages&show=nixd
+      #             nixfmt-rfc-style # https://search.nixos.org/packages?channel=unstable&type=packages&show=nixfmt-rfc-style
+      #           ];
+      #           enterShell = ''
+      #             echo "Activate Nix development shell."
+      #             echo "Nix '$(nix --version | awk '{print $3}')' located in '$(which nix)'."
+      #           '';
+      #         }
+      #       )
+      #     ];
+      #   };
+      # };
+
       nixosConfigurations = {
         desktop = nixosConfiguration "desktop" "x86_64-linux";
         laptop = nixosConfiguration "laptop" "x86_64-linux";
         rpi = nixosConfiguration "rpi" "aarch64-linux";
       };
+
       darwinConfigurations = {
         TP95V9LWWL = darwinConfiguration "TP95V9LWWL" "aarch64-darwin";
         C02ZV797MD6R = darwinConfiguration "C02ZV797MD6R" "x86_64-darwin";
       };
     };
+  # );
 }
