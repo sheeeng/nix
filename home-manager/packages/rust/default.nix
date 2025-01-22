@@ -9,6 +9,7 @@
     cargo-sort
     cargo-udeps
     cargo-wipe
+    gimoji
     rustup
     taplo
   ];
