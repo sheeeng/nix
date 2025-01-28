@@ -128,7 +128,7 @@ in
       Clicking = true; # https://daiderd.com/nix-darwin/manual/index.html#opt-system.defaults.trackpad.Clicking
     };
     dock = {
-      autohide = false;
+      autohide = true;
       autohide-delay = 0.24;
       autohide-time-modifier = 1.0;
       orientation = "bottom";
