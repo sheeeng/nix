@@ -78,7 +78,7 @@ in
   system.stateVersion = 5;
   nix.package = pkgs-unstable.nix; # https://daiderd.com/nix-darwin/manual/index.html#opt-nix.package
   nix.optimise.automatic = true; # https://daiderd.com/nix-darwin/manual/index.html#opt-nix.optimise.automatic # https://github.com/NixOS/nix/issues/7273#issuecomment-2295429401
-  nix.settings.auto-optimise-store = false; # https://github.com/NixOS/nix/issues/7273#issuecomment-1310213986
+  nix.settings.auto-optimise-store = false; # https://daiderd.com/nix-darwin/manual/index.html#opt-nix.settings.auto-optimise-store # https://github.com/NixOS/nix/issues/7273#issuecomment-1310213986
   nix.settings.sandbox = false; # https://daiderd.com/nix-darwin/manual/index.html#opt-nix.settings.sandbox
 
   services.nix-daemon.enable = true;
@@ -152,7 +152,7 @@ in
       Clicking = true; # https://daiderd.com/nix-darwin/manual/index.html#opt-system.defaults.trackpad.Clicking
     };
     dock = {
-      autohide = false;
+      autohide = true;
       autohide-delay = 0.24;
       autohide-time-modifier = 1.0;
       orientation = "bottom";
