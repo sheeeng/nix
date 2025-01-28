@@ -66,7 +66,8 @@ in
 
   system.stateVersion = 5;
   nix.package = pkgs-unstable.nix; # https://daiderd.com/nix-darwin/manual/index.html#opt-nix.package
-  nix.optimise.automatic = true; # https://daiderd.com/nix-darwin/manual/index.html#opt-nix.optimise.automatic
+  nix.optimise.automatic = true; # https://daiderd.com/nix-darwin/manual/index.html#opt-nix.optimise.automatic # https://github.com/NixOS/nix/issues/7273#issuecomment-2295429401
+  nix.settings.auto-optimise-store = false; # https://github.com/NixOS/nix/issues/7273#issuecomment-1310213986
   nix.settings.sandbox = false; # https://daiderd.com/nix-darwin/manual/index.html#opt-nix.settings.sandbox
 
   services.nix-daemon.enable = true;
@@ -82,7 +83,6 @@ in
       extra-substituters = https://devenv.cachix.org
       extra-trusted-public-keys = nixpkgs-python.cachix.org-1:hxjI7pFxTyuTHn2NkvWCrAUcNZLNS3ZAvfYNuYifcEU= devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw=
       trusted-users = root lssl
-      auto-optimise-store = true
       experimental-features = nix-command flakes
     ''
     + lib.optionalString (pkgs.system == "aarch64-darwin") ''
