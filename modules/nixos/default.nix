@@ -61,8 +61,8 @@ in
     "flakes"
   ];
 
-  nix.optimise.automatic = true;
-  nix.settings.auto-optimise-store = true;
+  nix.optimise.automatic = true; # https://daiderd.com/nix-darwin/manual/index.html#opt-nix.optimise.automatic # https://github.com/NixOS/nix/issues/7273#issuecomment-2295429401
+  nix.settings.auto-optimise-store = true; # https://github.com/NixOS/nix/issues/7273#issuecomment-1310213986
 
   services.lvm.enable = true;
 
