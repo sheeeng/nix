@@ -4,7 +4,6 @@
 
   programs.helix = {
     languages = {
-      language = [ ];
       vim = {
         scope = "source.vim";
         language-server = {
