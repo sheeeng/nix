@@ -10,4 +10,4 @@ mkdocs-redirects==1.2.2
 # mkdocs-spellcheck[all]==1.1.0 # TODO: Migrate to this plugin when it is better than CSpell and CodeSpell.
 mkdocs-timetoread-plugin==0.0.4
 pygments==2.18.0
-pymdown-extensions==10.12
+pymdown-extensions==10.14.2
