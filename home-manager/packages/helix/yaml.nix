@@ -9,7 +9,6 @@
     #   pkgs.yaml-language-server
     # ]; # FIXME: error: collision between `/nix/store/jbympkpfxd2j2qnncsk5rfrkwr9xqpdx-helix-wrapped-24.07/bin/hx' and `/nix/store/k7qpx67xhgmkvvgb2fpwdy611cw98nx4-helix-24.07/bin/hx'
     languages = {
-      language = [ ];
       language-server = {
         yaml-language-server = {
           config.yaml = {
