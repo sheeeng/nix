@@ -1,4 +1,6 @@
 { ... }:
 {
-  programs.nixvim.plugins = { };
+  programs.nixvim.plugins = {
+    commentary.enable = true;
+  };
 }
