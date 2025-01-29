@@ -33,17 +33,16 @@
   programs.helix = {
     enable = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.helix.enable
     package = pkgs.helix; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.helix.package
-    defaultEditor = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.helix.defaultEditor
+    # defaultEditor = true; # TODO: Conflicting error. Use `lib.mkForce value` or `lib.mkDefault value` to change the priority on any of these definitions. # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.helix.defaultEditor
     extraPackages = [ ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.helix.extraPackages
     ignores = [
       "!.gitignore"
       ".build/"
       "node_modules"
     ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.helix.ignores
-    languages = {
-      language-server = { };
-      language = [ ];
-    }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.helix.languages
+    # languages = {
+    #   language-server = { };
+    # }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.helix.languages
 
     settings = {
       # theme = "base16"; # TODO: Conflicting error. Use `lib.mkForce value` or `lib.mkDefault value` to change the priority on any of these definitions.

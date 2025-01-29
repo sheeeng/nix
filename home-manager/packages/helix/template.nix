@@ -4,7 +4,6 @@
 
   programs.helix = {
     languages = {
-      language = [ ];
       language-server = { };
     }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.helix.languages
   };
