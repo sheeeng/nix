@@ -60,7 +60,6 @@
     gotop # https://search.nixos.org/packages?channel=unstable&type=packages&show=gotop
     graphviz # https://search.nixos.org/packages?channel=unstable&type=packages&show=graphviz
     gzip # https://search.nixos.org/packages?channel=unstable&type=packages&show=gzip
-    # helix # https://search.nixos.org/packages?channel=unstable&type=packages&show=helix
     hexedit # https://search.nixos.org/packages?channel=unstable&type=packages&show=hexedit
     htop # https://search.nixos.org/packages?channel=unstable&type=packages&show=htop
     imagemagick # https://search.nixos.org/packages?channel=unstable&type=packages&show=imagemagick
@@ -103,6 +102,7 @@
     shfmt # https://search.nixos.org/packages?channel=unstable&type=packages&show=shfmt
     sipcalc # https://search.nixos.org/packages?channel=unstable&type=packages&show=sipcalc
     smartcat # https://search.nixos.org/packages?channel=unstable&type=packages&show=smartcat
+    tomlq # https://search.nixos.org/packages?channel=unstable&type=packages&show=tomlq
     sops # https://search.nixos.org/packages?channel=unstable&type=packages&show=sops
     spruce # https://search.nixos.org/packages?channel=unstable&type=packages&show=spruce
     sqlite # https://search.nixos.org/packages?channel=unstable&type=packages&show=sqlite
