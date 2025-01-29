@@ -60,7 +60,7 @@
     gotop # https://search.nixos.org/packages?channel=unstable&type=packages&show=gotop
     graphviz # https://search.nixos.org/packages?channel=unstable&type=packages&show=graphviz
     gzip # https://search.nixos.org/packages?channel=unstable&type=packages&show=gzip
-    helix # https://search.nixos.org/packages?channel=unstable&type=packages&show=helix
+    # helix # https://search.nixos.org/packages?channel=unstable&type=packages&show=helix
     hexedit # https://search.nixos.org/packages?channel=unstable&type=packages&show=hexedit
     htop # https://search.nixos.org/packages?channel=unstable&type=packages&show=htop
     imagemagick # https://search.nixos.org/packages?channel=unstable&type=packages&show=imagemagick
