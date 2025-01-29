@@ -12,6 +12,7 @@
     ./bash.nix
     ./docker.nix
     ./elixir.nix
+    ./fallback.nix
     ./go.nix
     ./gpt.nix
     ./json.nix
@@ -40,6 +41,7 @@
       ".build/"
       "node_modules"
     ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.helix.ignores
+
     # languages = {
     #   language-server = { };
     # }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.helix.languages
