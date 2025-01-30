@@ -70,6 +70,10 @@
     lazysql # https://search.nixos.org/packages?channel=unstable&type=packages&show=lazysql
     lego # https://search.nixos.org/packages?channel=unstable&type=packages&show=lego
     lolcat # https://search.nixos.org/packages?channel=unstable&type=packages&show=lolcat
+    # ltex-ls-plus # https://search.nixos.org/packages?channel=unstable&type=packages&show=ltex-ls-plus
+    ltex-ls # https://search.nixos.org/packages?channel=unstable&type=packages&show=ltex-ls
+    markdown-oxide # https://search.nixos.org/packages?channel=unstable&type=packages&show=markdown-oxide
+    marksman # https://search.nixos.org/packages?channel=unstable&type=packages&show=marksman
     mc # https://search.nixos.org/packages?channel=unstable&type=packages&show=mc
     mdformat # https://search.nixos.org/packages?channel=unstable&type=packages&show=mdformat
     minify # https://search.nixos.org/packages?channel=unstable&type=packages&show=minify
@@ -85,6 +89,7 @@
     nnn # https://search.nixos.org/packages?channel=unstable&type=packages&show=nnn
     obsidian # https://search.nixos.org/packages?channel=unstable&type=packages&show=obsidian
     ollama # TODO: Marked as insecure. # https://search.nixos.org/packages?channel=unstable&type=packages&show=ollama
+    pandoc # https://search.nixos.org/packages?channel=unstable&type=packages&show=pandoc
     pass # https://search.nixos.org/packages?channel=unstable&type=packages&show=pass
     pass-git-helper # https://search.nixos.org/packages?channel=unstable&type=packages&show=pass-git-helper
     passage # https://search.nixos.org/packages?channel=unstable&type=packages&show=passage
@@ -94,6 +99,7 @@
     podman # https://search.nixos.org/packages?channel=unstable&type=packages&show=podman
     podman-compose # https://search.nixos.org/packages?channel=unstable&type=packages&show=podman-compose
     progress # https://search.nixos.org/packages?channel=unstable&type=packages&show=progress
+    pympress # https://search.nixos.org/packages?channel=unstable&type=packages&show=pympress
     qrencode # https://search.nixos.org/packages?channel=unstable&type=packages&show=qrencode
     ranger # https://search.nixos.org/packages?channel=unstable&type=packages&show=ranger
     rclone # TODO: See `nixpkgs.overlays` in other file. # https://search.nixos.org/packages?channel=unstable&type=packages&show=rclone
@@ -102,7 +108,6 @@
     shfmt # https://search.nixos.org/packages?channel=unstable&type=packages&show=shfmt
     sipcalc # https://search.nixos.org/packages?channel=unstable&type=packages&show=sipcalc
     smartcat # https://search.nixos.org/packages?channel=unstable&type=packages&show=smartcat
-    tomlq # https://search.nixos.org/packages?channel=unstable&type=packages&show=tomlq
     sops # https://search.nixos.org/packages?channel=unstable&type=packages&show=sops
     spruce # https://search.nixos.org/packages?channel=unstable&type=packages&show=spruce
     sqlite # https://search.nixos.org/packages?channel=unstable&type=packages&show=sqlite
@@ -113,9 +118,11 @@
     television # https://search.nixos.org/packages?channel=unstable&type=packages&show=television
     tenki # https://search.nixos.org/packages?channel=unstable&type=packages&show=tenki
     terraform # https://search.nixos.org/packages?channel=unstable&type=packages&show=terraform
+    texlab # https://search.nixos.org/packages?channel=unstable&type=packages&show=texlab
     tig # https://search.nixos.org/packages?channel=unstable&type=packages&show=tig
     tldr # https://search.nixos.org/packages?channel=unstable&type=packages&show=tldr
     tmux # https://search.nixos.org/packages?channel=unstable&type=packages&show=tmux
+    tomlq # https://search.nixos.org/packages?channel=unstable&type=packages&show=tomlq
     tree # https://search.nixos.org/packages?channel=unstable&type=packages&show=tree
     treefmt # https://search.nixos.org/packages?channel=unstable&type=packages&show=treefmt
     unzip # https://search.nixos.org/packages?channel=unstable&type=packages&show=unzip
