@@ -348,6 +348,7 @@ in
       ".#*"
       ".direnv"
       ".DS_Store"
+      ".env"
       ".envrc"
       ".Spotlight-V100"
       ".Trashes"
