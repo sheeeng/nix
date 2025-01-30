@@ -38,9 +38,31 @@
               "md"
             ];
           };
+          # formatter = {
+          #   command = lib.getExe pkgs.gnused; # https://search.nixos.org/packages?channel=unstable&type=packages&show=gnused
+          #   args = [ "s/[[:space:]]*$//" ];
+          # }; # Remove trailing whitespaces. https://www.reddit.com/r/HelixEditor/comments/1c9lg73/highlight_trailing_whitespace_only/
+          language-servers = [
+            "ltex-ls"
+            "markdown-oxide"
+            "marksman"
+          ];
         }
       ];
       language-server = {
+        ltex-ls = {
+          command = lib.getExe pkgs.ltex-ls; # https://search.nixos.org/packages?channel=unstable&type=packages&show=ltex-ls
+          config = {
+            ltex.disabledRules = {
+              en-US = [ "PROFANITY" ];
+              en-GB = [ "PROFANITY" ];
+            };
+            ltex.dictionary = {
+              en-US = [ "builtin" ];
+              en-GB = [ "builtin" ];
+            };
+          };
+        };
         markdown-oxide = {
           command = lib.getExe pkgs.markdown-oxide; # https://search.nixos.org/packages?channel=unstable&type=packages&show=markdown-oxide
         };
