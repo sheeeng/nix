@@ -30,6 +30,7 @@
     age-plugin-yubikey # https://search.nixos.org/packages?channel=unstable&type=packages&show=age-plugin-yubikey
     alejandra # https://search.nixos.org/packages?channel=unstable&type=packages&show=alejandra
     asdf-vm # https://search.nixos.org/packages?channel=unstable&type=packages&show=asdf-vm
+    atuin # https://search.nixos.org/packages?channel=unstable&type=packages&show=atuin
     autoconf # https://search.nixos.org/packages?channel=unstable&type=packages&show=autoconf
     azure-cli # https://search.nixos.org/packages?channel=unstable&type=packages&show=azure-cli
     barcode # https://search.nixos.org/packages?channel=unstable&type=packages&show=barcode
