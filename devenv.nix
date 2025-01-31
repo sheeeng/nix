@@ -5,6 +5,8 @@
   devenv.debug = false; # https://devenv.sh/reference/options/#devenvdebug
   devenv.flakesIntegration = true; # https://devenv.sh/reference/options/#devenvflakesintegration
 
+  dotenv.enable = true;
+
   languages.nix = {
     enable = true; # https://devenv.sh/reference/options/#languagesnixenable
     lsp.package = pkgs.nil; # https://devenv.sh/reference/options/#languagesnixlsppackage
