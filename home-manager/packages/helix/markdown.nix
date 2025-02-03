@@ -51,7 +51,8 @@
       ];
       language-server = {
         ltex-ls = {
-          command = lib.getExe pkgs.ltex-ls; # https://search.nixos.org/packages?channel=unstable&type=packages&show=ltex-ls
+          # command = lib.getExe pkgs.ltex-ls; # warning: getExe: Package "ltex-ls-16.0.0" does not have the meta.mainProgram attribute. # https://search.nixos.org/packages?channel=unstable&type=packages&show=ltex-ls
+          command = "${pkgs.ltex-ls}/bin/ltex-ls"; # https://search.nixos.org/packages?channel=unstable&type=packages&show=ltex-ls
           config = {
             ltex.disabledRules = {
               en-US = [ "PROFANITY" ];
