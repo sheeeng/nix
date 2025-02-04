@@ -31,7 +31,7 @@
   languages.python = {
     enable = true;
     venv.enable = true;
-    venv.requirements = ./requirements-development.txt;
+    venv.requirements = (builtins.readFile ./requirements-development.txt); # ERROR: Could not open requirements file: [Errno 2] No such file or directory: '/nix/store/requirements.txt'
   };
 
   # https://github.com/cachix/devenv/blob/741e23a22f3dc9e53075be3eaa795ea9ed6f5129/examples/rust/devenv.nix
