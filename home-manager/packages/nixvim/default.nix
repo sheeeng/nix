@@ -1,17 +1,19 @@
 { pkgs, ... }:
 let
-  folderFiles = dir: (map (fname: dir + "/${fname}") (builtins.attrNames (builtins.readDir dir)));
 in
+# folderFiles = dir: (map (fname: dir + "/${fname}") (builtins.attrNames (builtins.readDir dir)));
 {
   # imports = lib.snowfall.fs.get-non-default-nix-files-recursive ./.; # https://github.com/calops/nix/blob/c47d842c1016a38c1ba2533c0ac282f086d29fec/modules/home/programs/default.nix
 
-  imports = (folderFiles ./plugins) ++ [
+  # imports = (folderFiles ./plugins) ++ [
+  imports = [
     ./keymaps.nix
     ./options.nix
+    ./plugins.nix
   ];
 
   programs.nixvim = {
-    enable = true; # https://nix-community.github.io/nixvim/platforms/hm.html#enable
+    enable = false; # https://nix-community.github.io/nixvim/platforms/hm.html#enable
     # defaultEditor = true; # TODO: Conflicting error. Use `lib.mkForce value` or `lib.mkDefault value` to change the priority on any of these definitions. # https://nix-community.github.io/nixvim/platforms/hm.html#defaulteditor
     vimdiffAlias = false; # https://nix-community.github.io/nixvim/platforms/hm.html#vimdiffalias
 
