@@ -1,0 +1,5 @@
+" colorscheme slate
+highlight LineNr ctermfg=White
+highlight Normal ctermbg=none
+highlight NonText ctermbg=none
+filetype on
