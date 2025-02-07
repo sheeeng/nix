@@ -35,7 +35,7 @@ in
     clang
     coreutils
     findutils
-    gcc-unwrapped
+    gcc-unwrapped # ERROR: collision between `/nix/store/5h4hlzrbr28l208jjj505lkvfpxy57qb-binutils-wrapper-2.43.1/bin/strings' and `/nix/store/71l8fmranva05h25868slk2jci5ib3aw-gcc-wrapper-13.3.0/bin/strings'
     git
     gnumake
     kitty
@@ -96,9 +96,9 @@ in
 
   security.pam.enableSudoTouchIdAuth = true;
 
-  networking = {
-    dns = [ "1.1.1.1" ];
-  };
+  # networking = {
+  #   dns = [ "1.1.1.1" ];
+  # }; # TODO:  warning: networking.knownNetworkServices is empty, dns servers will not be configured.
 
   users.users.lssl = {
     name = "lssl";
