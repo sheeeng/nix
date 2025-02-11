@@ -25,31 +25,33 @@
   inputs = {
     nixos-hardware.url = "github:nixos/nixos-hardware/master";
 
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11"; # Use nixos branches instead of nixpkgs, it runs more tests?
+    # nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11"; # Use nixos branches instead of nixpkgs, it runs more tests?
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     nixpkgs-helix.url = "github:nixos/nixpkgs/bc947f541ae55e999ffdb4013441347d83b00feb"; # Hack for Helix to be able to build tree-sitter. # https://github.com/llakala/nixos/blob/5dae1c83df4835fd23d433adc76f66bca44962ba/flake.nix#L104
 
     # Use `github:NixOS/nixpkgs/nixpkgs-24.11-darwin` to use Nixpkgs 24.11.
-    # nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    nixpkgs-stable-darwin.url = "github:nixos/nixpkgs/nixpkgs-24.11-darwin";
-    # Use `github:LnL7/nix-darwin/nix-darwin-24.11` to use Nixpkgs 24.11.
-    # nix-darwin.url = "github:LnL7/nix-darwin/master";
-    nix-darwin.url = "github:LnL7/nix-darwin/nix-darwin-24.11";
-    nix-darwin.inputs.nixpkgs.follows = "nixpkgs-stable-darwin";
+    nixpkgs-unstable-darwin.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    # nixpkgs-stable-darwin.url = "github:nixos/nixpkgs/nixpkgs-24.11-darwin";
+
+    nix-darwin.inputs.nixpkgs.follows = "nixpkgs-unstable-darwin";
+
+    # Use `github:lnl7/nix-darwin/nix-darwin-24.11` to use Nixpkgs 24.11.
+    nix-darwin.url = "github:lnl7/nix-darwin/master";
+    # nix-darwin.url = "github:lnl7/nix-darwin/nix-darwin-24.11";
 
     # nix-darwin = {
-    #   inputs.nixpkgs.follows = "nixpkgs-stable";
+    #   inputs.nixpkgs.follows = "nixpkgs-unstable";
     #   url = "github:lnl7/nix-darwin/nix-darwin-24.11";
     # };
 
     disko = {
-      inputs.nixpkgs.follows = "nixpkgs-stable";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
       url = "github:nix-community/disko";
     };
 
     firefox-addons = {
       inputs.flake-utils.follows = "flake-utils";
-      inputs.nixpkgs.follows = "nixpkgs-stable";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
     };
 
@@ -67,41 +69,42 @@
     }; # https://github.com/llakala/nixos/tree/5dae1c83df4835fd23d433adc76f66bca44962ba/apps/programs/firefox
 
     home-manager = {
-      inputs.nixpkgs.follows = "nixpkgs-stable";
-      url = "github:nix-community/home-manager/release-24.11";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      url = "github:nix-community/home-manager/master";
+      # url = "github:nix-community/home-manager/release-24.11";
     };
 
     nh-plus = {
       url = "github:toyvo/nh_plus";
-      inputs.nixpkgs.follows = "nixpkgs-stable";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
     nixvirt = {
-      inputs.nixpkgs.follows = "nixpkgs-stable";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
       url = "https://flakehub.com/f/ashleyyakeley/nixvirt/*.tar.gz";
     };
 
     microvm = {
-      inputs.nixpkgs.follows = "nixpkgs-stable";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
       url = "github:astro/microvm.nix";
     };
 
     snowfall-lib = {
       url = "github:snowfallorg/lib";
-      inputs.nixpkgs.follows = "nixpkgs-stable";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
     snowfall-flake = {
       url = "github:snowfallorg/flake";
-      inputs.nixpkgs.follows = "nixpkgs-stable";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
     snowfall-frost = {
       url = "github:snowfallorg/frost";
-      inputs.nixpkgs.follows = "nixpkgs-stable";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
-    agenix.inputs.nixpkgs.follows = "nixpkgs-stable";
+    agenix.inputs.nixpkgs.follows = "nixpkgs-unstable";
     agenix.url = "github:ryantm/agenix";
     catppuccin.url = "github:catppuccin/nix";
     devenv.url = "github:cachix/devenv";
@@ -121,7 +124,7 @@
     errata-ai-write-good.url = "github:errata-ai/write-good";
 
     fenix = {
-      inputs.nixpkgs.follows = "nixpkgs-stable";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
       url = "github:nix-community/fenix";
     };
 
@@ -129,21 +132,21 @@
     kitty-nightly.url = "github:kovidgoyal/kitty/nightly";
 
     morlana.url = "github:ryanccn/morlana";
-    morlana.inputs.nixpkgs.follows = "nixpkgs-stable";
+    morlana.inputs.nixpkgs.follows = "nixpkgs-unstable";
 
     nix-index-database.url = "github:nix-community/nix-index-database";
-    nix-index-database.inputs.nixpkgs.follows = "nixpkgs-stable";
+    nix-index-database.inputs.nixpkgs.follows = "nixpkgs-unstable";
 
-    nixvim.inputs.nixpkgs.follows = "nixpkgs-stable";
+    nixvim.inputs.nixpkgs.follows = "nixpkgs-unstable";
     nixvim.url = "github:nix-community/nixvim/nixos-24.11";
-    nur.inputs.nixpkgs.follows = "nixpkgs-stable";
+    nur.inputs.nixpkgs.follows = "nixpkgs-unstable";
     nur.url = "github:nix-community/nur";
     pre-commit-hooks.url = "github:cachix/git-hooks.nix";
-    ragenix.inputs.nixpkgs.follows = "nixpkgs-stable";
+    ragenix.inputs.nixpkgs.follows = "nixpkgs-unstable";
     ragenix.url = "github:yaxitech/ragenix";
-    sops-nix.inputs.nixpkgs.follows = "nixpkgs-stable";
+    sops-nix.inputs.nixpkgs.follows = "nixpkgs-unstable";
     sops-nix.url = "github:mic92/sops-nix";
-    treefmt-nix.inputs.nixpkgs.follows = "nixpkgs-stable"; # https://github.com/edgelesssys/contrast/blob/7c5206269d2ce0440090f05db601506011e2cd5f/flake.nix#L16-L19
+    treefmt-nix.inputs.nixpkgs.follows = "nixpkgs-unstable"; # https://github.com/edgelesssys/contrast/blob/7c5206269d2ce0440090f05db601506011e2cd5f/flake.nix#L16-L19
     treefmt-nix.url = "github:numtide/treefmt-nix";
     wcurl.flake = false;
     wcurl.url = "github:curl/wcurl/main";
@@ -154,7 +157,7 @@
     let
       nixosConfiguration =
         hostname: system:
-        inputs.nixpkgs-stable.lib.nixosSystem {
+        inputs.nixpkgs-unstable.lib.nixosSystem {
           system = system;
           modules = [
             inputs.nix-index-database.nixosModules.nix-index
