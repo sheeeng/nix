@@ -52,7 +52,7 @@
     exiftool # https://search.nixos.org/packages?channel=unstable&type=packages&show=exiftool
     eza # https://search.nixos.org/packages?channel=unstable&type=packages&show=eza
     fd # https://search.nixos.org/packages?channel=unstable&type=packages&show=fd
-    ffmpeg # https://search.nixos.org/packages?channel=unstable&type=packages&show=ffmpeg
+    ffmpeg-full # https://search.nixos.org/packages?channel=unstable&type=packages&show=ffmpeg-full
     findutils # https://search.nixos.org/packages?channel=unstable&type=packages&show=findutils
     fq # https://search.nixos.org/packages?channel=unstable&type=packages&show=fq
     gh # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh
@@ -115,7 +115,7 @@
     ssss # https://search.nixos.org/packages?channel=unstable&type=packages&show=ssss
     stow # https://search.nixos.org/packages?channel=unstable&type=packages&show=stow
     superfile # https://search.nixos.org/packages?channel=unstable&type=packages&show=superfile
-    taskwarrior3 # https://search.nixos.org/packages?channel=unstable&type=packages&show=taskwarrior3
+    # taskwarrior3 # https://search.nixos.org/packages?channel=unstable&type=packages&show=taskwarrior3
     television # https://search.nixos.org/packages?channel=unstable&type=packages&show=television
     tenki # https://search.nixos.org/packages?channel=unstable&type=packages&show=tenki
     terraform # https://search.nixos.org/packages?channel=unstable&type=packages&show=terraform
