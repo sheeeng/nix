@@ -15,7 +15,7 @@
             completion = true;
             validation = true;
             hover = true;
-            # schemaStore.enable = true;
+            schemaStore.enable = true;
           };
           config.yaml.schemas = {
             # ansible tasks
