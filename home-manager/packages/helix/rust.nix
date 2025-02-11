@@ -52,7 +52,7 @@
     pkgs.cargo-all-features # A Cargo subcommand to build and test all feature flag combinations
     pkgs.cargo-binutils # Cargo subcommands to invoke the LLVM tools shipped with the Rust toolchain
     pkgs.cargo-c # A cargo subcommand to build and install C-ABI compatible dynamic and static libraries
-    pkgs.cargo-clone # Cargo subcommand to fetch source code of a Rust crate
+    # pkgs.cargo-clone # FIXME: fatal error: 'zlib.h' file not found. # Cargo subcommand to fetch source code of a Rust crate
     pkgs.cargo-deadlinks # Cargo subcommand to check rust documentation for broken links
     pkgs.cargo-deb # A cargo subcommand that generates Debian packages from information in Cargo.toml
     pkgs.cargo-docset # Cargo subcommand to generate a Dash/Zeal docset for your Rust packages
