@@ -108,5 +108,8 @@
     viAlias = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.neovim.viAlias
     vimAlias = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.neovim.vimAlias
     vimdiffAlias = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.neovim.vimdiffAlias
+    # withNodeJS = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.neovim.withNodeJs
+    # withPython3 = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.neovim.withPython3
+    # withRuby = false; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.neovim.withRuby
   };
 }
