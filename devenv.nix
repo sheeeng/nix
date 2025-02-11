@@ -4,8 +4,7 @@
 {
   devenv.debug = false; # https://devenv.sh/reference/options/#devenvdebug
   devenv.flakesIntegration = true; # https://devenv.sh/reference/options/#devenvflakesintegration
-
-  dotenv.enable = true;
+  dotenv.enable = true; # https://devenv.sh/reference/options/#dotenvenable
 
   languages.nix = {
     enable = true; # https://devenv.sh/reference/options/#languagesnixenable
