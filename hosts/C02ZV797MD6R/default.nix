@@ -46,10 +46,10 @@ in
     vim
   ];
 
-  fonts.packages = with pkgs; [
-    recursive
-    (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
-  ];
+  # fonts.packages = with pkgs; [
+  #   recursive
+  #   # (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
+  # ];
 
   environment.shellAliases = {
     show-system = "nix derivation show /run/current-system";
@@ -113,7 +113,7 @@ in
   };
 
   home-manager.users.lssl = {
-    home.stateVersion = "24.11";
+    home.stateVersion = "25.05";
     imports = [
       ../../home-manager/home.nix
       inputs.agenix.homeManagerModules.age

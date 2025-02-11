@@ -8,6 +8,7 @@ let
   buffer-language-server = pkgs.rustPlatform.buildRustPackage rec {
     pname = "buffer-language-server";
     version = "main";
+    useFetchCargoVendor = true;
 
     src = pkgs.fetchFromGitHub {
       owner = "metafates";
@@ -16,7 +17,7 @@ let
       sha256 = "sha256-5q1dEkKRi8SYTvNyEND0S23xPeqV8b5C2Mm+0jLWIpA=";
     };
 
-    cargoHash = "sha256-dOJef0yKgzgbt80Ckl/AC/nkT97sBhv/VMxXArftj+k=";
+    cargoHash = "sha256-CERip5AzZvbF8BkEVq27nJraW0fnF3EgA39ot4RV2pA=";
   };
 in
 {

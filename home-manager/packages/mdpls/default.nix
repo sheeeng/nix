@@ -15,6 +15,7 @@ _: { }
 #   mdpls = pkgs.rustPlatform.buildRustPackage rec {
 #     pname = "mdpls";
 #     version = "0-unstable";
+#     useFetchCargoVendor = true;
 
 #     src = pkgs.fetchFromGitHub {
 #       owner = "euclio";

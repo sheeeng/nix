@@ -6,7 +6,7 @@
     mandown # Markdown to groff (manpage) converter
     marked-man # Markdown to roff
     md-tui # Markdown TUI renderer
-    md2pdf # Markdown to PDF conversion tool
+    # md2pdf # Markdown to PDF conversion tool
     mdbook # Create books from Markdown.
     mdcat # cat for Markdown
     mdctags # Markdown file tags

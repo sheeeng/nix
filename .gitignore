@@ -10,3 +10,6 @@ devenv.local.nix
 
 # nix
 result
+
+# env
+.env

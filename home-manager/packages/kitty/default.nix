@@ -79,23 +79,23 @@ in
 
     extraConfig = ""; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.kitty.extraConfig
 
-    font = {
-      # package = (
-      #   # error: nerdfonts has been separated into individual font packages under the namespace nerd-fonts. To list all fonts use `builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts)`.
-      #   pkgs.nerdfonts.override {
-      #     fonts = [
-      #       "FiraCode"
-      #       "JetBrainsMono"
-      #       "VictorMono"
-      #     ];
-      #   }
-      # );
-      # https://github.com/NixOS/nixpkgs/blob/9018c7b154ab3427970dbfe52d8a3150e0cecb7b/nixos/doc/manual/release-notes/rl-2505.section.md#L53-L57
-      # package = pkgs.nerd-fonts.fira-code; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.kitty.font.package
-      package = (pkgs.nerdfonts.override { fonts = [ "FiraCode" ]; }); # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.kitty.font.package
-      name = "FiraCode Nerd Font Mono"; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.kitty.font.name
-      size = 16; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.kitty.font.size
-    }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.kitty.font
+    # font = {
+    #   # package = (
+    #   #   # error: nerdfonts has been separated into individual font packages under the namespace nerd-fonts. To list all fonts use `builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts)`.
+    #   #   pkgs.nerdfonts.override {
+    #   #     fonts = [
+    #   #       "FiraCode"
+    #   #       "JetBrainsMono"
+    #   #       "VictorMono"
+    #   #     ];
+    #   #   }
+    #   # );
+    #   # https://github.com/NixOS/nixpkgs/blob/9018c7b154ab3427970dbfe52d8a3150e0cecb7b/nixos/doc/manual/release-notes/rl-2505.section.md#L53-L57
+    #   # package = pkgs.nerd-fonts.fira-code; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.kitty.font.package
+    #   # package = (pkgs.nerdfonts.override { fonts = [ "FiraCode" ]; }); # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.kitty.font.package
+    #   name = "FiraCode Nerd Font Mono"; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.kitty.font.name
+    #   size = 16; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.kitty.font.size
+    # }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.kitty.font
 
     keybindings = {
       "ctrl+c" = "copy_or_interrupt";
