@@ -2,7 +2,7 @@
 
 # https://github.com/jonringOer/nixpkgs-config/blob/399724e3c8b1756f636f8d485eed25d03f64aa76/bash.nix
 
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 
 let
   bashConfiguration = {
@@ -98,12 +98,12 @@ let
       cd() { builtin cd "$@" && ls . ; }
       # Change dir with Fuzzy finding
       cf() {
-        dir=$(fd . ''${1:-/home/jon/} --type d 2>/dev/null | fzf)
+        dir=$(${lib.getExe pkgs.fd} . ''${1:-/home/jon/} --type d 2>/dev/null | fzf)
         cd "$dir"
       }
       # Change dir in Nix store
       cn() {
-        dir=$(fd . '/nix/store/' --maxdepth 1 --type d 2>/dev/null | fzf)
+        dir=$(${lib.getExe pkgs.fd} . '/nix/store/' --maxdepth 1 --type d 2>/dev/null | fzf)
         cd "$dir"
       }
       # search Files and Edit
