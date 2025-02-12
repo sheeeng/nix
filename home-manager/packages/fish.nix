@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 let
 in
 {
@@ -20,7 +20,7 @@ in
         dk = "docker";
         k = "kubectl";
         dc = "docker-compose";
-        find = "fd";
+        find = lib.getExe pkgs.fd;
         # du = "ncdu --color dark -rr -x"; # TODO: https://github.com/NixOS/nixpkgs/issues/290512
 
         v = "lvim";
