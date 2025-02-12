@@ -11,25 +11,46 @@
       audacity # https://search.nixos.org/packages?channel=unstable&type=packages&show=audacity
       ffmpeg-full # https://search.nixos.org/packages?channel=unstable&type=packages&show=ffmpeg-full
       musescore # https://search.nixos.org/packages?channel=unstable&type=packages&show=musescore
-      # sonic-pi # TODO: Missing aarch64-apple-darwin. # https://search.nixos.org/packages?channel=unstable&type=packages&show=sonic-pi
-      # supercollider-with-plugins # TODO: Missing aarch64-apple-darwin. # https://search.nixos.org/packages?channel=unstable&type=packages&show=supercollider-with-plugins
+      # sonic-pi # TODO: Missing "aarch64-apple-darwin" platform. # https://search.nixos.org/packages?channel=unstable&type=packages&show=sonic-pi
+      # supercollider-with-plugins # TODO: Missing "aarch64-apple-darwin" platform. # https://search.nixos.org/packages?channel=unstable&type=packages&show=supercollider-with-plugins
       # zrythm # TODO: Marked as broken. # https://search.nixos.org/packages?channel=unstable&type=packages&show=zrythm
 
       # Fonts
       google-fonts # https://search.nixos.org/packages?channel=unstable&type=packages&show=google-fonts
+      noto-fonts # https://search.nixos.org/packages?channel=unstable&type=packages&show=noto-fonts
+      noto-fonts-cjk-sans # https://search.nixos.org/packages?channel=unstable&type=packages&show=noto-fonts-cjk-sans
+      noto-fonts-cjk-serif # https://search.nixos.org/packages?channel=unstable&type=packages&show=noto-fonts-cjk-serif
+      noto-fonts-color-emoji # https://search.nixos.org/packages?channel=unstable&type=packages&show=noto-fonts-color-emoji
+      noto-fonts-lgc-plus # https://search.nixos.org/packages?channel=unstable&type=packages&show=noto-fonts-lgc-plus
+      noto-fonts-monochrome-emoji # https://search.nixos.org/packages?channel=unstable&type=packages&show=noto-fonts-monochrome-emoji
 
       # Graphics
-      # aseprite # TODO: Missing aarch64-apple-darwin. # https://search.nixos.org/packages?channel=unstable&type=packages&show=aseprite
+      # aseprite # TODO: Missing "aarch64-apple-darwin" platform. # https://search.nixos.org/packages?channel=unstable&type=packages&show=aseprite
       # blender # TODO: Marked as broken. # https://search.nixos.org/packages?channel=unstable&type=packages&show=blender
-      # emulsion-palette # TODO: Missing aarch64-apple-darwin. # https://search.nixos.org/packages?channel=unstable&type=packages&show=emulsion-palette
-      # eyedropper # TODO: Missing aarch64-apple-darwin. # https://search.nixos.org/packages?channel=unstable&type=packages&show=eyedropper
+      # emulsion-palette # TODO: Missing "aarch64-apple-darwin" platform. # https://search.nixos.org/packages?channel=unstable&type=packages&show=emulsion-palette
+      # eyedropper # TODO: Missing "aarch64-apple-darwin" platform. # https://search.nixos.org/packages?channel=unstable&type=packages&show=eyedropper
       ffmpeg-full # https://search.nixos.org/packages?channel=unstable&type=packages&show=ffmpeg-full
       gimp-with-plugins # https://search.nixos.org/packages?channel=unstable&type=packages&show=gimp-with-plugins
       gmic # https://search.nixos.org/packages?channel=unstable&type=packages&show=gmic
       imagemagick # https://search.nixos.org/packages?channel=unstable&type=packages&show=imagemagick
       inkscape-with-extensions # https://search.nixos.org/packages?channel=unstable&type=packages&show=inkscape-with-extensions
-      # krita # TODO: Missing aarch64-apple-darwin. # https://search.nixos.org/packages?channel=unstable&type=packages&show=krita
-      # pureref # TODO: Missing aarch64-apple-darwin. # https://search.nixos.org/packages?channel=unstable&type=packages&show=pureref
+      # krita # TODO: Missing "aarch64-apple-darwin" platform. # https://search.nixos.org/packages?channel=unstable&type=packages&show=krita
+      # pureref # TODO: Missing "aarch64-apple-darwin" platform. # https://search.nixos.org/packages?channel=unstable&type=packages&show=pureref
+
+      # Network
+      bind.dnsutils # https://search.nixos.org/packages?channel=unstable&type=packages&show=dnsutils
+      # kanidm # FIXME: Missing "aarch64-apple-darwin" platform. # https://search.nixos.org/packages?channel=unstable&type=packages&show=kanidm
+      ipcalc # https://search.nixos.org/packages?channel=unstable&type=packages&show=ipcalc
+      geoip # https://search.nixos.org/packages?channel=unstable&type=packages&show=geoip
+      sshfs # https://search.nixos.org/packages?channel=unstable&type=packages&show=sshfs
+      whois # https://search.nixos.org/packages?channel=unstable&type=packages&show=whois
+
+      # Funsies
+      fastfetch # https://search.nixos.org/packages?channel=unstable&type=packages&show=fastfetch
+      asciiquarium-transparent # https://search.nixos.org/packages?channel=unstable&type=packages&show=asciiquarium-transparent
+      cowsay # https://search.nixos.org/packages?channel=unstable&type=packages&show=cowsay
+      krabby # https://search.nixos.org/packages?channel=unstable&type=packages&show=krabby
+      lavat # https://search.nixos.org/packages?channel=unstable&type=packages&show=lavat
 
       # (lib.hiPrio bat) # TODO: Collision error with `bat-unstable` override package. # https://search.nixos.org/packages?channel=unstable&type=packages&show=bat
       # (lib.hiPrio go-task) # TODO: Collision error with `taskwarrior-3` package. # https://search.nixos.org/packages?channel=unstable&type=packages&show=go-task
@@ -168,14 +189,16 @@
     ]
     ++ (pkgs.lib.optionals pkgs.stdenv.isLinux [
       # Audio
-      sonic-pi # TODO: Missing aarch64-apple-darwin. # https://search.nixos.org/packages?channel=unstable&type=packages&show=sonic-pi
-      supercollider-with-plugins # TODO: Missing aarch64-apple-darwin. # https://search.nixos.org/packages?channel=unstable&type=packages&show=supercollider-with-plugins
+      sonic-pi # TODO: Missing "aarch64-apple-darwin" platform. # https://search.nixos.org/packages?channel=unstable&type=packages&show=sonic-pi
+      supercollider-with-plugins # TODO: Missing "aarch64-apple-darwin" platform. # https://search.nixos.org/packages?channel=unstable&type=packages&show=supercollider-with-plugins
       # Graphics
-      aseprite # TODO: Missing aarch64-apple-darwin. # https://search.nixos.org/packages?channel=unstable&type=packages&show=aseprite
-      emulsion-palette # TODO: Missing aarch64-apple-darwin. # https://search.nixos.org/packages?channel=unstable&type=packages&show=emulsion-palette
-      eyedropper # TODO: Missing aarch64-apple-darwin. # https://search.nixos.org/packages?channel=unstable&type=packages&show=eyedropper
-      krita # TODO: Missing aarch64-apple-darwin. # https://search.nixos.org/packages?channel=unstable&type=packages&show=krita
-      pureref # TODO: Missing aarch64-apple-darwin. # https://search.nixos.org/packages?channel=unstable&type=packages&show=pureref
+      aseprite # TODO: Missing "aarch64-apple-darwin" platform. # https://search.nixos.org/packages?channel=unstable&type=packages&show=aseprite
+      emulsion-palette # TODO: Missing "aarch64-apple-darwin" platform. # https://search.nixos.org/packages?channel=unstable&type=packages&show=emulsion-palette
+      eyedropper # TODO: Missing "aarch64-apple-darwin" platform. # https://search.nixos.org/packages?channel=unstable&type=packages&show=eyedropper
+      krita # TODO: Missing "aarch64-apple-darwin" platform. # https://search.nixos.org/packages?channel=unstable&type=packages&show=krita
+      pureref # TODO: Missing "aarch64-apple-darwin" platform. # https://search.nixos.org/packages?channel=unstable&type=packages&show=pureref
+      # Network
+      kanidm # TODO: Missing "aarch64-apple-darwin" platform. # https://search.nixos.org/packages?channel=unstable&type=packages&show=kanidm
     ])
     ++ (pkgs.lib.optionals pkgs.stdenv.isDarwin
       [
