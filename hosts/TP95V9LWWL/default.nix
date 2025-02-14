@@ -75,13 +75,29 @@ in
   # The option nixpkgs.system is still fully supported for interoperability, but will be deprecated in the future, so we recommend to set nixpkgs.hostPlatform.
   nixpkgs.system = "aarch64-darwin";
 
+  # error: Determinate detected, aborting activation
+  # Determinate uses its own daemon to manage the Nix installation that
+  # conflicts with nix-darwin’s native Nix management.
+  #
+  # To turn off nix-darwin’s management of the Nix installation, set:
+  #
+  #     nix.enable = false;
+  #
+  # This will allow you to use nix-darwin with Determinate. Some nix-darwin
+  # functionality that relies on managing the Nix installation, like the
+  # `nix.*` options to adjust Nix settings or configure a Linux builder,
+  # will be unavailable.
+  nix.enable = false;
+
   system.stateVersion = 5;
   nix.package = pkgs-unstable.nix; # https://daiderd.com/nix-darwin/manual/index.html#opt-nix.package
   nix.optimise.automatic = true; # https://daiderd.com/nix-darwin/manual/index.html#opt-nix.optimise.automatic # https://github.com/NixOS/nix/issues/7273#issuecomment-2295429401
   nix.settings.auto-optimise-store = false; # https://daiderd.com/nix-darwin/manual/index.html#opt-nix.settings.auto-optimise-store # https://github.com/NixOS/nix/issues/7273#issuecomment-1310213986
   nix.settings.sandbox = false; # https://daiderd.com/nix-darwin/manual/index.html#opt-nix.settings.sandbox
 
-  services.nix-daemon.enable = true;
+  # The option definition `services.nix-daemon.enable' no longer has any effect; please remove it.
+  # nix-darwin now manages nix-daemon unconditionally when `nix.enable` is on.
+  # services.nix-daemon.enable = true;
 
   nix.settings.substituters = [
     "https://cache.nixos.org/"
@@ -102,7 +118,11 @@ in
   nix.settings.trusted-users = [
     "@admin"
   ];
-  nix.configureBuildUsers = true;
+
+  # The option definition `nix.configureBuildUsers' no longer has any effect; please remove it.
+  # nix-darwin now manages build users unconditionally when `nix.enable` is on.
+  # nix.configureBuildUsers = true;
+
   nix.settings.experimental-features = [
     "nix-command"
     "flakes"
