@@ -256,7 +256,14 @@ in
         && export PATH="''${NIXPROFILE_BIN}:''${PATH}" \
         && echo 'Added ''${NIXPROFILE_BIN} to ''${PATH}.'
 
+      # https://stackoverflow.com/questions/444951/zsh-stop-backward-kill-word-on-directory-delimiter/1438523#1438523
+      # https://stackoverflow.com/a/1438523
+      # http://zsh.sourceforge.net/Doc/Release/User-Contributions.html#Widgets
+      autoload -U select-word-style
+      select-word-style bash
+
       # TODO: https://www.dotruby.com/articles/profiling-zsh-setup-with-zprof
+      # https://github.com/nix-community/home-manager/pull/6141
       # time ZSH_DEBUGRC=1 zsh -i -c exit
       if [[ -n ''${ZSH_DEBUGRC} ]]; then
         zprof
