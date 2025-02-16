@@ -362,8 +362,9 @@ in
     ];
     signing = {
       signByDefault = true;
-      gpgPath = "${pkgs.gnupg}/bin/gpg2";
+      signer = "${pkgs.gnupg}/bin/gpg2";
       key = "0xB8BFC0DD57F42E03!";
+      format = "openpgp";
     };
     userName = "Leonard Sheng Sheng Lee";
     userEmail = "leonard.sheng.sheng.lee@gmail.com";
