@@ -149,12 +149,13 @@ in
     home = "/Users/leonardlee";
   };
 
-  home-manager.useGlobalPkgs = true;
-  home-manager.useUserPackages = true;
+  #  `nixpkgs` options are disabled when `home-manager.useGlobalPkgs` is enabled.
+  home-manager.useGlobalPkgs = false; # https://nix-community.github.io/home-manager/nixos-options.xhtml#nixos-opt-home-manager.useGlobalPkgs
+  home-manager.useUserPackages = true; # https://nix-community.github.io/home-manager/nixos-options.xhtml#nixos-opt-home-manager.useUserPackages
   home-manager.extraSpecialArgs = {
     inherit inputs;
     inherit pkgs-unstable;
-  };
+  }; # https://nix-community.github.io/home-manager/nixos-options.xhtml#nixos-opt-home-manager.extraSpecialArgs
   home-manager.users.leonardlee = {
     home.stateVersion = "25.05";
     imports = [
@@ -164,7 +165,8 @@ in
       inputs.nix-index-database.hmModules.nix-index
       inputs.nixvim.homeManagerModules.nixvim
     ];
-  };
+  }; # https://nix-community.github.io/home-manager/nixos-options.xhtml#nixos-opt-home-manager.users
+  home-manager.verbose = true; # https://nix-community.github.io/home-manager/nixos-options.xhtml#nixos-opt-home-manager.verbose
 
   system.defaults = {
     trackpad = {
