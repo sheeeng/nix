@@ -80,7 +80,7 @@ in
 
   system.stateVersion = 5;
   nix.package = pkgs-unstable.nix; # https://daiderd.com/nix-darwin/manual/index.html#opt-nix.package
-  nix.optimise.automatic = true; # https://daiderd.com/nix-darwin/manual/index.html#opt-nix.optimise.automatic # https://github.com/NixOS/nix/issues/7273#issuecomment-2295429401
+  nix.optimise.automatic = false; # TODO: nix.optimise.automatic requires nix.enable. # https://daiderd.com/nix-darwin/manual/index.html#opt-nix.optimise.automatic # https://github.com/NixOS/nix/issues/7273#issuecomment-2295429401
   nix.settings.auto-optimise-store = false; # https://github.com/NixOS/nix/issues/7273#issuecomment-1310213986
   nix.settings.sandbox = false; # https://daiderd.com/nix-darwin/manual/index.html#opt-nix.settings.sandbox
 
