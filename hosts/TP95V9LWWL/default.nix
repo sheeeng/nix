@@ -87,7 +87,7 @@ in
   # functionality that relies on managing the Nix installation, like the
   # `nix.*` options to adjust Nix settings or configure a Linux builder,
   # will be unavailable.
-  nix.enable = false;
+  nix.enable = true;
 
   system.stateVersion = 5;
   nix.package = pkgs-unstable.nix; # https://daiderd.com/nix-darwin/manual/index.html#opt-nix.package
