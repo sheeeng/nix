@@ -87,6 +87,9 @@
       url = "https://flakehub.com/f/ashleyyakeley/nixvirt/*.tar.gz";
     };
 
+    mac-app-util.url = "github:hraban/mac-app-util";
+    mac-app-util.inputs.nixpkgs.follows = "nixpkgs-unstable";
+
     microvm = {
       inputs.nixpkgs.follows = "nixpkgs-unstable";
       url = "github:astro/microvm.nix";
@@ -176,6 +179,7 @@
           modules = [
             ./hosts/${hostname}
             inputs.home-manager.darwinModules.home-manager
+            inputs.mac-app-util.darwinModules.default
             inputs.nix-index-database.darwinModules.nix-index
             {
               nixpkgs.overlays = [
