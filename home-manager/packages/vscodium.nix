@@ -19,6 +19,8 @@
       bierner.markdown-mermaid
       bierner.markdown-preview-github-styles
       brettm12345.nixfmt-vscode
+      catppuccin.catppuccin-vsc # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.catppuccin.catppuccin-vsc
+      catppuccin.catppuccin-vsc-icons # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.catppuccin.catppuccin-vsc-icons
       christian-kohler.path-intellisense
       dart-code.dart-code
       davidanson.vscode-markdownlint
@@ -108,16 +110,43 @@
 
     mutableExtensionsDir = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.vscode.mutableExtensionsDir
     userSettings = {
+      # https://code.visualstudio.com/docs/getstarted/settings#_settings-json-file
+
       # Editor configurations.
       "[nix]"."editor.tabSize" = 2;
       "accessibility.dimUnfocused.enable" = true;
       "accessibility.dimUnfocused.opacity" = 0.35;
+      "editor.accessibilitySupport" = "off";
+      "editor.bracketPairColorization.enabled" = true;
+      "editor.codeActionsOnSave.source.fixAll.eslint" = "never";
+      "editor.cursorBlinking" = "smooth";
+      "editor.cursorSmoothCaretAnimation" = "on";
       "editor.cursorStyle" = "block";
-      "editor.fontFamily" = "monospace";
+      "editor.detectIndentation" = true;
+      "editor.fontFamily" = "FiraCode Nerd Font Mono";
+      "editor.fontLigatures" = true;
       "editor.fontSize" = 16;
+      "editor.formatOnSave" = true;
+      "editor.guides.bracketPairs" = true;
+      "editor.guides.bracketPairsHorizontal" = true;
+      "editor.guides.highlightActiveBracketPair" = true;
+      "editor.insertSpaces" = true;
+      "editor.minimap.enabled" = false;
       "editor.minimap.renderCharacters" = false;
+      "editor.renderWhitespace" = "all";
+      "editor.rulers" = [
+        72
+        80
+        120
+      ];
+      "editor.semanticHighlighting.enabled" = true;
+      "editor.smoothScrolling" = true;
+      "editor.suggestSelection" = "first";
+      "terminal.integrated.cursorBlinking" = true;
+      "terminal.integrated.smoothScrolling" = true;
       "window.autoDetectColorScheme" = true;
       "workbench.iconTheme" = "vscode-icons";
+      "workbench.list.smoothScrolling" = true;
 
       # Putting some conveniences.
       "extensions.autoUpdate" = "onlyEnabledExtensions";
