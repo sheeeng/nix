@@ -79,9 +79,6 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
-    nix-vscode-extensions.inputs.nixpkgs.follows = "nixpkgs-unstable";
-    nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
-
     nixvirt = {
       inputs.nixpkgs.follows = "nixpkgs-unstable";
       url = "https://flakehub.com/f/ashleyyakeley/nixvirt/*.tar.gz";
