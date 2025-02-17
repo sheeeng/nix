@@ -108,7 +108,32 @@
       };
     }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.vscode.globalSnippets
 
+    keybindings = [
+      # https://code.visualstudio.com/docs/getstarted/keybindings#_advanced-customization
+
+      {
+        key = "ctrl+c";
+        command = "editor.action.clipboardCopyAction";
+        when = "textInputFocus";
+      }
+    ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.vscode.keybindings
+
+    languageSnippets = {
+      haskell = {
+        fixme = {
+          body = [
+            "$LINE_COMMENT FIXME: $0"
+          ];
+          description = "Insert a FIXME remark";
+          prefix = [
+            "fixme"
+          ];
+        };
+      };
+    }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.vscode.languageSnippets
+
     mutableExtensionsDir = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.vscode.mutableExtensionsDir
+
     userSettings = {
       # https://code.visualstudio.com/docs/getstarted/settings#_settings-json-file
 
@@ -160,6 +185,17 @@
       "gitlens.showWelcomeOnInstall" = false;
       "gitlens.showWhatsNewAfterUpgrade" = false;
     }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.vscode.userSettings
+
+    userTasks = {
+      version = "2.0.0";
+      tasks = [
+        {
+          type = "shell";
+          label = "Hello task";
+          command = "hello";
+        }
+      ];
+    }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.vscode.userTasks
 
     # xdg.mimeApps.defaultApplications = {
     #   "application/json" = [ "code.desktop" ];
