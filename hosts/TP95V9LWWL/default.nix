@@ -156,6 +156,11 @@ in
     inherit inputs;
     inherit pkgs-unstable;
   }; # https://nix-community.github.io/home-manager/nixos-options.xhtml#nixos-opt-home-manager.extraSpecialArgs
+
+  home-manager.sharedModules = [
+    inputs.mac-app-util.homeManagerModules.default
+  ]; # https://nix-community.github.io/home-manager/nixos-options.xhtml#nixos-opt-home-manager.sharedModules
+
   home-manager.users.leonardlee = {
     home.stateVersion = "25.05";
     imports = [
