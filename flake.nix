@@ -79,6 +79,9 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
+    nix-vscode-extensions.inputs.nixpkgs.follows = "nixpkgs-unstable";
+    nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
+
     nixvirt = {
       inputs.nixpkgs.follows = "nixpkgs-unstable";
       url = "https://flakehub.com/f/ashleyyakeley/nixvirt/*.tar.gz";
@@ -160,9 +163,9 @@
         inputs.nixpkgs-unstable.lib.nixosSystem {
           system = system;
           modules = [
-            inputs.nix-index-database.nixosModules.nix-index
-            { networking.hostName = "${hostname}"; }
             ./hosts/${hostname}
+            { networking.hostName = "${hostname}"; }
+            inputs.nix-index-database.nixosModules.nix-index
           ];
           specialArgs = { inherit inputs; };
         };
@@ -171,9 +174,9 @@
         hostname: system:
         inputs.nix-darwin.lib.darwinSystem {
           modules = [
-            inputs.nix-index-database.darwinModules.nix-index
             ./hosts/${hostname}
             inputs.home-manager.darwinModules.home-manager
+            inputs.nix-index-database.darwinModules.nix-index
             {
               nixpkgs.overlays = [
                 (final: _prev: {
