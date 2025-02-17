@@ -46,7 +46,7 @@
       hediet.vscode-drawio
       james-yu.latex-workshop
       jebbs.plantuml
-      jnoortheen.nix-ide
+      jnoortheen.nix-ide # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.jnoortheen.nix-ide
       kamikillerto.vscode-colorize
       marp-team.marp-vscode
       mechatroner.rainbow-csv
@@ -96,6 +96,14 @@
       # yzane.markdown-pdf # FIXME: Package ‘ungoogled-chromium-133.0.6943.53’ not available on "aarch64-apple-darwin" platform. # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.yzane.markdown-pdf
       yzhang.markdown-all-in-one
     ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.vscode.extensions
+    # ++ (with pkgs.vscode-marketplace; [
+    #   mechatroner.rainbow-csv
+    #   ms-ceintl.vscode-language-pack-ja
+    #   pkief.material-icon-theme
+    #   rowewilsonfrederiskholme.wikitext
+    #   zhuangtongfa.material-theme
+    # ]); # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.vscode.extensions
+
     globalSnippets = {
       fixme = {
         body = [
@@ -201,5 +209,11 @@
     #   "application/json" = [ "code.desktop" ];
     #   "text/plain" = [ "code.desktop" ];
     # }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.vscode.xdg.mimeApps.defaultApplications
+  };
+
+  home.file.".vscode/argv.json".text = builtins.toJSON {
+    disable-hardware-acceleration = true;
+    enable-crash-reporter = false;
+    locale = "ja";
   };
 }
