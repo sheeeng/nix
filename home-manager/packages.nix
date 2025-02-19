@@ -98,6 +98,7 @@
       dos2unix # https://search.nixos.org/packages?channel=unstable&type=packages&show=dos2unix
       exiftool # https://search.nixos.org/packages?channel=unstable&type=packages&show=exiftool
       eza # https://search.nixos.org/packages?channel=unstable&type=packages&show=eza
+      f3 # https://search.nixos.org/packages?channel=unstable&type=packages&show=f3
       fd # https://search.nixos.org/packages?channel=unstable&type=packages&show=fd
       ffmpeg-full # https://search.nixos.org/packages?channel=unstable&type=packages&show=ffmpeg-full
       findutils # https://search.nixos.org/packages?channel=unstable&type=packages&show=findutils
