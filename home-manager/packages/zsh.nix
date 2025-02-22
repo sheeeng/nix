@@ -262,6 +262,8 @@ in
       autoload -U select-word-style
       select-word-style bash
 
+      eval "$(starship init zsh)"
+
       # TODO: https://www.dotruby.com/articles/profiling-zsh-setup-with-zprof
       # https://github.com/nix-community/home-manager/pull/6141
       # time ZSH_DEBUGRC=1 zsh -i -c exit
