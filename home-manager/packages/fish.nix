@@ -453,6 +453,10 @@ in
       shellInitLast = ''
         starship init fish | source
         set -U fish_greeting
+
+        if status is-interactive
+            ${lib.getExe pkgs.fastfetch}
+        end
       ''; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.fish.shellInitLast
     };
   };
