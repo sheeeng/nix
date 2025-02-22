@@ -434,7 +434,9 @@ in
         date
 
       ''; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.fish.shellInit
-      shellInitLast = ""; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.fish.shellInitLast
+      shellInitLast = ''
+        starship init fish | source
+      ''; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.fish.shellInitLast
     };
   };
 
