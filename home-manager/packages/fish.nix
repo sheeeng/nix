@@ -2,6 +2,10 @@
 let
 in
 {
+  home.packages = with pkgs; [
+    oh-my-fish # https://search.nixos.org/packages?channel=unstable&type=packages&show=oh-my-fish
+  ];
+
   programs = {
     fish = {
       enable = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.fish.enable
@@ -151,6 +155,7 @@ in
         ns = "nix search";
         garbage = "nix-collect-garbage --delete-old";
         installed = "nix-env --query --installed";
+        eza = "eza --long --all --icons --time-style long-iso";
 
         nano = "micro";
         m = "sudo micro";
