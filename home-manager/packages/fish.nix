@@ -128,15 +128,16 @@ in
 
         # oh-my-fish plugins are stored in their own repositories, which
         # makes them simple to import into home-manager.
-        {
-          name = "fasd";
-          src = pkgs.fetchFromGitHub {
-            owner = "oh-my-fish";
-            repo = "plugin-fasd";
-            rev = "98c4c729780d8bd0a86031db7d51a97d55025cf5";
-            sha256 = "sha256-8JASaNylXAGnWd2IV88juk73b8eJJlVrpyiRZUwHGFQ=";
-          };
-        }
+        # TODO: FIXME: 🍒  Please install 'fasd' first!
+        # {
+        #   name = "fasd";
+        #   src = pkgs.fetchFromGitHub {
+        #     owner = "oh-my-fish";
+        #     repo = "plugin-fasd";
+        #     rev = "98c4c729780d8bd0a86031db7d51a97d55025cf5";
+        #     sha256 = "sha256-8JASaNylXAGnWd2IV88juk73b8eJJlVrpyiRZUwHGFQ=";
+        #   };
+        # }
       ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.fish.plugins
       preferAbbrs = false; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.fish.preferAbbrs
       shellAbbrs = {
