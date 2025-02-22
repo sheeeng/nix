@@ -152,6 +152,17 @@ in
         garbage = "nix-collect-garbage --delete-old";
         installed = "nix-env --query --installed";
 
+        nano = "micro";
+        m = "sudo micro";
+        reboot = "sudo reboot";
+        x = "chmod a+x";
+        #ls = "exa -l --icons";
+        matrix = "cmatrix -abfs";
+        nixswitch = "sudo nixos-rebuild switch";
+        nixboot = "sudo nixos-rebuild boot";
+        nixclean = "sudo nix-collect-garbage --delete-older-than 1d";
+        nixflakeup = "sudo nix flake update";
+
         grep = "grep --color=auto";
         cloc = "tokei";
         dk = "docker";
@@ -436,6 +447,7 @@ in
       ''; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.fish.shellInit
       shellInitLast = ''
         starship init fish | source
+        set -U fish_greeting
       ''; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.fish.shellInitLast
     };
   };
