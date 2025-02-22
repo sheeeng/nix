@@ -214,7 +214,7 @@ in
 
         # loads secrets at runtime
         # can this path not be hardcoded?
-        posix-source /run/agenix/variables
+        # posix-source /run/agenix/variables
 
         set -g __fish_git_prompt_show_informative_status 1
         set -g __fish_git_prompt_hide_untrackedfiles 1
