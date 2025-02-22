@@ -214,6 +214,8 @@ let
       unh() {
         update_nixpkgs_homepage $@
       }
+
+      eval "$(starship init bash)"
     '';
   };
 in
