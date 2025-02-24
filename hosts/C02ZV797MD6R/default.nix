@@ -116,7 +116,7 @@ in
     name = "lssl";
     home = "/Users/lssl";
     shell = pkgs.fish;
-  };
+  }; # https://daiderd.com/nix-darwin/manual/index.html#opt-users.users
 
   home-manager.useGlobalPkgs = true;
   home-manager.useUserPackages = true;
