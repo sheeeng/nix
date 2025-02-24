@@ -144,9 +144,11 @@ in
   #   dns = [ "1.1.1.1" ];
   # }; # TODO:  warning: networking.knownNetworkServices is empty, dns servers will not be configured.
 
+  programs.fish.enable = true;
   users.users.leonardlee = {
     name = "leonardlee";
     home = "/Users/leonardlee";
+    shell = pkgs.fish;
   };
 
   #  `nixpkgs` options are disabled when `home-manager.useGlobalPkgs` is enabled.
