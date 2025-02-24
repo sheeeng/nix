@@ -111,9 +111,11 @@ in
   #   dns = [ "1.1.1.1" ];
   # }; # TODO:  warning: networking.knownNetworkServices is empty, dns servers will not be configured.
 
+  programs.fish.enable = true;
   users.users.lssl = {
     name = "lssl";
     home = "/Users/lssl";
+    shell = pkgs.fish;
   };
 
   home-manager.useGlobalPkgs = true;
