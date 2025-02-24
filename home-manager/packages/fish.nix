@@ -2,9 +2,52 @@
 let
 in
 {
-  home.packages = with pkgs; [
-    oh-my-fish # https://search.nixos.org/packages?channel=unstable&type=packages&show=oh-my-fish
-  ];
+  home.packages =
+    with pkgs;
+    [
+      fzf # https://search.nixos.org/packages?channel=unstable&type=packages&show=fzf
+      grc # https://search.nixos.org/packages?channel=unstable&type=packages&show=grc
+      oh-my-fish # https://search.nixos.org/packages?channel=unstable&type=packages&show=oh-my-fish
+    ]
+    ++ (with pkgs.fishPlugins; [
+      async-prompt # https://search.nixos.org/packages?channel=unstable&type=packages&show=fishPlugins.async-prompt
+      autopair # https://search.nixos.org/packages?channel=unstable&type=packages&show=fishPlugins.autopair
+      # bang-bang # https://search.nixos.org/packages?channel=unstable&type=packages&show=fishPlugins.bang-bang
+      # bass # https://search.nixos.org/packages?channel=unstable&type=packages&show=fishPlugins.bass
+      # bobthefish # https://search.nixos.org/packages?channel=unstable&type=packages&show=fishPlugins.bobthefish
+      # bobthefisher # https://search.nixos.org/packages?channel=unstable&type=packages&show=fishPlugins.bobthefisher
+      # clownfish # https://search.nixos.org/packages?channel=unstable&type=packages&show=fishPlugins.clownfish
+      colored-man-pages # https://search.nixos.org/packages?channel=unstable&type=packages&show=fishPlugins
+      done # https://search.nixos.org/packages?channel=unstable&type=packages&show=fishPlugins.done
+      # exercism-cli-fish-wrapper # https://search.nixos.org/packages?channel=unstable&type=packages&show=fishPlugins.exercism-cli-fish-wrapper
+      # fifc # https://search.nixos.org/packages?channel=unstable&type=packages&show=fishPlugins.fifc
+      # fish-bd # https://search.nixos.org/packages?channel=unstable&type=packages&show=fishPlugins.fish-bd
+      # fish-you-should-use # https://search.nixos.org/packages?channel=unstable&type=packages&show=fishPlugins.fish-you-should-use
+      # fishtape # https://search.nixos.org/packages?channel=unstable&type=packages&show=fishPlugins.fishtape
+      # fishtape_3 # https://search.nixos.org/packages?channel=unstable&type=packages&show=fishPlugins.fishtape_3
+      # foreign-env # https://search.nixos.org/packages?channel=unstable&type=packages&show=fishPlugins.foreign-env
+      # forgit # https://search.nixos.org/packages?channel=unstable&type=packages&show=fishPlugins.forgit
+      fzf # https://search.nixos.org/packages?channel=unstable&type=packages&show=fishPlugins.fzf
+      # fzf-fish # https://search.nixos.org/packages?channel=unstable&type=packages&show=fishPlugins.fzf-fish
+      git-abbr # https://search.nixos.org/packages?channel=unstable&type=packages&show=fishPlugins.git-abbr
+      # grc # https://search.nixos.org/packages?channel=unstable&type=packages&show=fishPlugins.grc
+      # gruvbox # https://search.nixos.org/packages?channel=unstable&type=packages&show=fishPlugins.gruvbox
+      # humantime-fish # https://search.nixos.org/packages?channel=unstable&type=packages&show=fishPlugins.humantime-fish
+      # hydro # https://search.nixos.org/packages?channel=unstable&type=packages&show=fishPlugins.hydro
+      # nvm # https://search.nixos.org/packages?channel=unstable&type=packages&show=fishPlugins.nvm
+      # pisces # https://search.nixos.org/packages?channel=unstable&type=packages&show=fishPlugins.pisces
+      # plugin-git # https://search.nixos.org/packages?channel=unstable&type=packages&show=fishPlugins.plugin-git
+      # plugin-sudope # https://search.nixos.org/packages?channel=unstable&type=packages&show=fishPlugins.plugin-sudope
+      # puffer # https://search.nixos.org/packages?channel=unstable&type=packages&show=fishPlugins.puffer
+      pure # https://search.nixos.org/packages?channel=unstable&type=packages&show=fishPlugins.pure
+      # sdkman-for-fish # https://search.nixos.org/packages?channel=unstable&type=packages&show=fishPlugins.sdkman-for-fish
+      # spark # https://search.nixos.org/packages?channel=unstable&type=packages&show=fishPlugins.spark
+      # sponge # https://search.nixos.org/packages?channel=unstable&type=packages&show=fishPlugins.sponge
+      # tide # https://search.nixos.org/packages?channel=unstable&type=packages&show=fishPlugins.tide
+      # transient-fish # https://search.nixos.org/packages?channel=unstable&type=packages&show=fishPlugins.transient-fish
+      # wakatime-fish # https://search.nixos.org/packages?channel=unstable&type=packages&show=fishPlugins.wakatime-fish
+      z # https://search.nixos.org/packages?channel=unstable&type=packages&show=fishPlugins.z
+    ]);
 
   programs = {
     fish = {
@@ -44,39 +87,39 @@ in
           NIXPKGS_ALLOW_INSECURE=1 nix-shell -p googleearth-pro --run googleearth-pro
         '';
         fish_prompt = ''
-            set -l last_pipestatus $pipestatus
-            set -lx __fish_last_status $status # Export for __fish_print_pipestatus.
-            set -l normal (set_color normal)
+          set -l last_pipestatus $pipestatus
+          set -lx __fish_last_status $status # Export for __fish_print_pipestatus.
+          set -l normal (set_color normal)
 
-            # Color the prompt differently when we're root
-            set -l color_cwd $fish_color_cwd
-            set -l suffix '>'
-            if functions -q fish_is_root_user; and fish_is_root_user
-                if set -q fish_color_cwd_root
-                    set color_cwd $fish_color_cwd_root
-                end
-                set suffix '#'
+          # Color the prompt differently when we're root
+          set -l color_cwd $fish_color_cwd
+          set -l suffix '>'
+          if functions -q fish_is_root_user; and fish_is_root_user
+            if set -q fish_color_cwd_root
+                set color_cwd $fish_color_cwd_root
             end
+            set suffix '#'
+          end
 
-            export MANPAGER="/bin/sh -c \"col -b | vim -c 'set ft=man ts=8 nomod nolist nonu noma' -\""
+          export MANPAGER="/bin/sh -c \"col -b | vim -c 'set ft=man ts=8 nomod nolist nonu noma' -\""
 
-            # If we're running via SSH, change the host color.
-            set -l color_host $fish_color_host
-            if set -q SSH_TTY
-                set color_host $fish_color_host_remote
-            end
+          # If we're running via SSH, change the host color.
+          set -l color_host $fish_color_host
+          if set -q SSH_TTY
+            set color_host $fish_color_host_remote
+          end
 
-            # Write pipestatus
-            # If the status was carried over (e.g. after `set`), don't bold it.
-            set -l bold_flag --bold
-            set -q __fish_prompt_status_generation; or set -g __fish_prompt_status_generation $status_generation
-            if test $__fish_prompt_status_generation = $status_generation
-                set bold_flag
-            end
-            set __fish_prompt_status_generation $status_generation
-            set -l prompt_status (__fish_print_pipestatus "[" "]" "|" (set_color $fish_color_status) (set_color $bold_flag $fish_color_status) $last_pipestatus)
+          # Write pipestatus
+          # If the status was carried over (e.g. after `set`), don't bold it.
+          set -l bold_flag --bold
+          set -q __fish_prompt_status_generation; or set -g __fish_prompt_status_generation $status_generation
+          if test $__fish_prompt_status_generation = $status_generation
+            set bold_flag
+          end
+          set __fish_prompt_status_generation $status_generation
+          set -l prompt_status (__fish_print_pipestatus "[" "]" "|" (set_color $fish_color_status) (set_color $bold_flag $fish_color_status) $last_pipestatus)
 
-            # echo -n -s (set_color $fish_color_user) "$USER" $normal @ (set_color $color_host) (prompt_hostname) $normal ' ' (set_color $color_cwd) (prompt_pwd) $normal (fish_vcs_prompt) $normal " "$prompt_status $suffix " "
+          # echo -n -s (set_color $fish_color_user) "$USER" $normal @ (set_color $color_host) (prompt_hostname) $normal ' ' (set_color $color_cwd) (prompt_pwd) $normal (fish_vcs_prompt) $normal " "$prompt_status $suffix " "
           set -l nix_shell_info (
             if test -n "$IN_NIX_SHELL"
               echo -n "<nix-shell> "
@@ -117,14 +160,18 @@ in
       loginShellInit = ""; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.fish.loginShellInit
       plugins = [
         {
-          name = "z";
-          src = pkgs.fetchFromGitHub {
-            owner = "jethrokuan";
-            repo = "z";
-            rev = "85f863f20f24faf675827fb00f3a4e15c7838d76";
-            sha256 = "sha256-+FUBM7CodtZrYKqU542fQD+ZDGrd2438trKM0tIESs0=";
-          };
+          name = "grc";
+          src = pkgs.fishPlugins.grc.src; # https://search.nixos.org/packages?channel=unstable&type=packages&show=fishPlugins.grc
         }
+        # {
+        #   name = "z";
+        #   src = pkgs.fetchFromGitHub {
+        #     owner = "jethrokuan";
+        #     repo = "z";
+        #     rev = "85f863f20f24faf675827fb00f3a4e15c7838d76";
+        #     sha256 = "sha256-+FUBM7CodtZrYKqU542fQD+ZDGrd2438trKM0tIESs0=";
+        #   };
+        # }
 
         # oh-my-fish plugins are stored in their own repositories, which
         # makes them simple to import into home-manager.
