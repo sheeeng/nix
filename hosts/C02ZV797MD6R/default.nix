@@ -138,7 +138,8 @@ in
       inputs.nix-index-database.hmModules.nix-index
       inputs.nixvim.homeManagerModules.nixvim
     ];
-  };
+  }; # https://nix-community.github.io/home-manager/nixos-options.xhtml#nixos-opt-home-manager.users
+  home-manager.verbose = false; # https://nix-community.github.io/home-manager/nixos-options.xhtml#nixos-opt-home-manager.verbose
 
   system.defaults = {
     trackpad = {

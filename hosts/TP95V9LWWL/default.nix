@@ -173,7 +173,7 @@ in
       inputs.nixvim.homeManagerModules.nixvim
     ];
   }; # https://nix-community.github.io/home-manager/nixos-options.xhtml#nixos-opt-home-manager.users
-  home-manager.verbose = true; # https://nix-community.github.io/home-manager/nixos-options.xhtml#nixos-opt-home-manager.verbose
+  home-manager.verbose = false; # https://nix-community.github.io/home-manager/nixos-options.xhtml#nixos-opt-home-manager.verbose
 
   system.defaults = {
     trackpad = {
