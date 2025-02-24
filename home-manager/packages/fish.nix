@@ -159,10 +159,11 @@ in
       ''; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.fish.interactiveShellInit
       loginShellInit = ""; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.fish.loginShellInit
       plugins = [
-        {
-          name = "grc";
-          src = pkgs.fishPlugins.grc.src; # https://search.nixos.org/packages?channel=unstable&type=packages&show=fishPlugins.grc
-        }
+        # {
+        #   name = "grc";
+        #   src = pkgs.fishPlugins.grc.src; # https://search.nixos.org/packages?channel=unstable&type=packages&show=fishPlugins.grc
+        # }
+
         # {
         #   name = "z";
         #   src = pkgs.fetchFromGitHub {
