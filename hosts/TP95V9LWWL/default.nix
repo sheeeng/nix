@@ -149,7 +149,7 @@ in
     name = "leonardlee";
     home = "/Users/leonardlee";
     shell = pkgs.fish;
-  };
+  }; # https://daiderd.com/nix-darwin/manual/index.html#opt-users.users
 
   #  `nixpkgs` options are disabled when `home-manager.useGlobalPkgs` is enabled.
   home-manager.useGlobalPkgs = false; # https://nix-community.github.io/home-manager/nixos-options.xhtml#nixos-opt-home-manager.useGlobalPkgs
