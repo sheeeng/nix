@@ -16,6 +16,7 @@
       # zrythm # TODO: Marked as broken. # https://search.nixos.org/packages?channel=unstable&type=packages&show=zrythm
 
       # Fonts
+      fontconfig # https://search.nixos.org/packages?channel=unstable&type=packages&show=fontconfig
       google-fonts # https://search.nixos.org/packages?channel=unstable&type=packages&show=google-fonts
       noto-fonts # https://search.nixos.org/packages?channel=unstable&type=packages&show=noto-fonts
       noto-fonts-cjk-sans # https://search.nixos.org/packages?channel=unstable&type=packages&show=noto-fonts-cjk-sans
