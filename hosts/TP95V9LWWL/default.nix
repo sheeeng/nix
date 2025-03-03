@@ -46,7 +46,7 @@ in
     clang
     coreutils
     findutils
-    fish
+    # fish
     gcc-unwrapped # ERROR: collision between `/nix/store/5h4hlzrbr28l208jjj505lkvfpxy57qb-binutils-wrapper-2.43.1/bin/strings' and `/nix/store/71l8fmranva05h25868slk2jci5ib3aw-gcc-wrapper-13.3.0/bin/strings'
     git
     gnumake
@@ -140,17 +140,15 @@ in
     options = "--delete-older-than 7d";
   };
 
-  security.pam.enableSudoTouchIdAuth = true;
+  security.pam.services.sudo_local.touchIdAuth = true;
 
   # networking = {
   #   dns = [ "1.1.1.1" ];
   # }; # TODO:  warning: networking.knownNetworkServices is empty, dns servers will not be configured.
 
-  programs.fish.enable = true;
   users.users.leonardlee = {
     name = "leonardlee";
     home = "/Users/leonardlee";
-    shell = pkgs.fish;
   }; # https://daiderd.com/nix-darwin/manual/index.html#opt-users.users
 
   #  `nixpkgs` options are disabled when `home-manager.useGlobalPkgs` is enabled.
