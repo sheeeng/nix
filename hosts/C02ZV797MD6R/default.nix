@@ -105,7 +105,7 @@ in
   ];
   nix.settings.experimental-features = "nix-command flakes";
 
-  security.pam.enableSudoTouchIdAuth = true;
+  security.pam.services.sudo_local.touchIdAuth = true;
 
   # networking = {
   #   dns = [ "1.1.1.1" ];
@@ -116,7 +116,9 @@ in
     home = "/Users/lssl";
   }; # https://daiderd.com/nix-darwin/manual/index.html#opt-users.users
 
-  home-manager.useGlobalPkgs = true;
+  # You have set either `nixpkgs.config` or `nixpkgs.overlays` while using `home-manager.useGlobalPkgs`.
+  # This will soon not be possible. Please remove all `nixpkgs` options when using `home-manager.useGlobalPkgs`.
+  home-manager.useGlobalPkgs = false;
   home-manager.useUserPackages = true;
   home-manager.extraSpecialArgs = {
     inherit inputs;
