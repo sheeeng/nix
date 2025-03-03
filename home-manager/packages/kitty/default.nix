@@ -64,7 +64,7 @@ let
 in
 {
   programs.kitty = {
-    enable = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.kitty.enable
+    enable = false; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.kitty.enable
     package = kitty-nightly; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.kitty.package
 
     darwinLaunchOptions = [
@@ -126,9 +126,9 @@ in
     }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.kitty.keybindings
 
     shellIntegration = {
-      enableBashIntegration = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.kitty.shellIntegration.enableBashIntegration
-      enableFishIntegration = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.kitty.shellIntegration.enableFishIntegration
-      enableZshIntegration = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.kitty.shellIntegration.enableZshIntegration
+      enableBashIntegration = false; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.kitty.shellIntegration.enableBashIntegration
+      enableFishIntegration = false; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.kitty.shellIntegration.enableFishIntegration
+      enableZshIntegration = false; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.kitty.shellIntegration.enableZshIntegration
     };
 
     # programs.kitty = {
