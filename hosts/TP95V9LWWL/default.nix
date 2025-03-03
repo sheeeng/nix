@@ -151,8 +151,10 @@ in
     home = "/Users/leonardlee";
   }; # https://daiderd.com/nix-darwin/manual/index.html#opt-users.users
 
-  #  `nixpkgs` options are disabled when `home-manager.useGlobalPkgs` is enabled.
-  home-manager.useGlobalPkgs = false; # https://nix-community.github.io/home-manager/nixos-options.xhtml#nixos-opt-home-manager.useGlobalPkgs
+  # You have set either `nixpkgs.config` or `nixpkgs.overlays` while using `home-manager.useGlobalPkgs`.
+  # This will soon not be possible. Please remove all `nixpkgs` options when using `home-manager.useGlobalPkgs`.
+  home-manager.useGlobalPkgs = false;
+
   home-manager.useUserPackages = true; # https://nix-community.github.io/home-manager/nixos-options.xhtml#nixos-opt-home-manager.useUserPackages
   home-manager.extraSpecialArgs = {
     inherit inputs;
