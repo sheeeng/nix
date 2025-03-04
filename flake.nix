@@ -62,6 +62,10 @@
       flake = false;
     }; # https://github.com/llakala/nixos/tree/5dae1c83df4835fd23d433adc76f66bca44962ba/apps/programs/firefox
 
+    flox = {
+      url = "github:flox/flox/v1.3.15";
+    };
+
     helix-unstable = {
       inputs.flake-utils.follows = "flake-utils";
       inputs.nixpkgs.follows = "nixpkgs-helix"; # So we don't have two instances of `nixpkgs` in flake.lock. We use the same rev from helix's flake.lock so we don't have to recompile
