@@ -50,6 +50,7 @@ in
     gcc-unwrapped # ERROR: collision between `/nix/store/5h4hlzrbr28l208jjj505lkvfpxy57qb-binutils-wrapper-2.43.1/bin/strings' and `/nix/store/71l8fmranva05h25868slk2jci5ib3aw-gcc-wrapper-13.3.0/bin/strings'
     git
     gnumake
+    inputs.flox.packages.${pkgs.system}.default
     kitty
     nix
     nixfmt-rfc-style
