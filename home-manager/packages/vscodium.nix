@@ -60,7 +60,7 @@
           ms-python.debugpy
           ms-python.flake8
           ms-python.isort
-          ms-python.python
+          # ms-python.python # TODO: https://github.com/NixOS/nixpkgs/issues/387828
           ms-python.vscode-pylance
           ms-vscode-remote.remote-containers
           ms-vscode-remote.remote-ssh
