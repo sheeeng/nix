@@ -1,0 +1,100 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      # keep-sorted start
+      - id: check-added-large-files
+        args: ["--maxkb=10240"]
+      - id: check-case-conflict
+      - id: check-executables-have-shebangs
+      - id: check-json
+      - id: check-merge-conflict
+        args: ["--assume-in-merge"]
+      - id: check-toml
+      - id: check-vcs-permalinks
+      - id: check-yaml
+      - id: debug-statements
+      - id: detect-private-key
+      - id: end-of-file-fixer
+        exclude: |
+          (?x)^(
+              .*\.lock$|
+              .flox/env.json
+          )$
+      - id: forbid-new-submodules
+      - id: mixed-line-ending
+        name: mixed-line-ending (crlf for powershell)
+        args: [--fix=crlf]
+        files: \.(ps1|psm1|psd1|pwsh)$
+      - id: mixed-line-ending
+        name: mixed-line-ending (lf for others)
+        args: [--fix=lf]
+        exclude: \.(ps1|psm1|psd1|pwsh)$
+      - id: no-commit-to-branch
+      - id: pretty-format-json
+        args: ["--autofix"]
+        exclude: |
+          (?x)^(
+              .*\.lock$|
+              .flox/env.json
+          )$
+      - id: trailing-whitespace
+        args: [--markdown-linebreak-ext=md]
+        exclude: \.md$
+      # keep-sorted end
+
+  # keep-sorted start
+  - repo: https://github.com/antonbabenko/pre-commit-terraform
+    rev: v1.97.4
+    hooks:
+      - id: terraform_fmt
+        name: terraform format
+  - repo: https://github.com/charliermarsh/ruff-pre-commit
+    rev: v0.9.9
+    hooks:
+      - id: ruff
+        name: ruff
+        types_or: [python, pyi]
+        args: [--fix]
+      - id: ruff-format
+        name: ruff format
+        types_or: [python, pyi]
+  - repo: https://github.com/compilerla/conventional-pre-commit
+    rev: v4.0.0
+    hooks:
+      - id: conventional-pre-commit
+        name: conventional pre-commit
+        stages: [commit-msg]
+        args: [--strict]
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.24.0
+    hooks:
+      - id: gitleaks
+        name: detect hardcoded secrets
+  - repo: https://github.com/google/keep-sorted
+    rev: v0.6.0
+    hooks:
+      - id: keep-sorted
+        name: keep sorted
+        exclude: |
+          (?x)^(
+              .*\.lock$|
+              .envrc
+          )$
+  - repo: https://github.com/psf/black
+    rev: 25.1.0
+    hooks:
+      - id: black
+  - repo: https://github.com/rhysd/actionlint
+    rev: v1.7.7
+    hooks:
+      - id: actionlint
+        name: actionlint
+  - repo: https://github.com/shellcheck-py/shellcheck-py
+    # Workaround official https://github.com/koalaman/shellcheck-precommit hooks that requires container runtime.
+    rev: v0.10.0.1
+    hooks:
+      - id: shellcheck
+        name: shellcheck
+        args: []
+  # keep-sorted end
