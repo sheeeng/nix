@@ -137,7 +137,7 @@
       nixd # https://search.nixos.org/packages?channel=unstable&type=packages&show=nixd
       nixfmt-rfc-style # https://search.nixos.org/packages?channel=unstable&type=packages&show=nixfmt-rfc-style
       nnn # https://search.nixos.org/packages?channel=unstable&type=packages&show=nnn
-      obsidian # https://search.nixos.org/packages?channel=unstable&type=packages&show=obsidian
+      # obsidian # https://search.nixos.org/packages?channel=unstable&type=packages&show=obsidian
       ollama # TODO: Marked as insecure. # https://search.nixos.org/packages?channel=unstable&type=packages&show=ollama
       pandoc # https://search.nixos.org/packages?channel=unstable&type=packages&show=pandoc
       pass # https://search.nixos.org/packages?channel=unstable&type=packages&show=pass
@@ -202,8 +202,6 @@
       # Network
       kanidm # TODO: Missing "aarch64-apple-darwin" platform. # https://search.nixos.org/packages?channel=unstable&type=packages&show=kanidm
     ])
-    ++ (pkgs.lib.optionals pkgs.stdenv.isDarwin
-      [
-      ]
-    );
+    ++ (pkgs.lib.optionals pkgs.stdenv.isDarwin [
+    ]);
 }
