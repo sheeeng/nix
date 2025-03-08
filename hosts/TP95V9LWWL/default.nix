@@ -51,7 +51,7 @@ in
     git
     gnumake
     inputs.flox.packages.${pkgs.system}.default
-    kitty
+    # kitty
     nix
     nixfmt-rfc-style
     shfmt
