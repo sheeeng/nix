@@ -146,8 +146,6 @@
       passphrase2pgp # https://search.nixos.org/packages?channel=unstable&type=packages&show=passphrase2pgp
       pipes # https://search.nixos.org/packages?channel=unstable&type=packages&show=pipes
       pipes-rs # https://search.nixos.org/packages?channel=unstable&type=packages&show=pipes-rs
-      podman # https://search.nixos.org/packages?channel=unstable&type=packages&show=podman
-      podman-compose # https://search.nixos.org/packages?channel=unstable&type=packages&show=podman-compose
       progress # https://search.nixos.org/packages?channel=unstable&type=packages&show=progress
       pympress # https://search.nixos.org/packages?channel=unstable&type=packages&show=pympress
       qrencode # https://search.nixos.org/packages?channel=unstable&type=packages&show=qrencode
@@ -203,5 +201,9 @@
       kanidm # TODO: Missing "aarch64-apple-darwin" platform. # https://search.nixos.org/packages?channel=unstable&type=packages&show=kanidm
     ])
     ++ (pkgs.lib.optionals pkgs.stdenv.isDarwin [
+    ])
+    ++ (pkgs.lib.optionals (pkgs.stdenv.isDarwin && pkgs.stdenv.hostPlatform.isAarch64) [
+      podman # https://search.nixos.org/packages?channel=unstable&type=packages&show=podman
+      podman-compose # https://search.nixos.org/packages?channel=unstable&type=packages&show=podman-compose
     ]);
 }
