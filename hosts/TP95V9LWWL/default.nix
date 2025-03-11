@@ -46,14 +46,15 @@ in
     clang
     coreutils
     findutils
-    # fish
     gcc-unwrapped # ERROR: collision between `/nix/store/5h4hlzrbr28l208jjj505lkvfpxy57qb-binutils-wrapper-2.43.1/bin/strings' and `/nix/store/71l8fmranva05h25868slk2jci5ib3aw-gcc-wrapper-13.3.0/bin/strings'
     git
     gnumake
     inputs.flox.packages.${pkgs.system}.default
-    # kitty
-    nix
-    nixfmt-rfc-style
+    nil # https://search.nixos.org/packages?channel=unstable&type=packages&show=nil
+    nix # https://search.nixos.org/packages?channel=unstable&type=packages&show=nix
+    nix-output-monitor # https://search.nixos.org/packages?channel=unstable&type=packages&show=nix-output-monitor
+    nixd # https://search.nixos.org/packages?channel=unstable&type=packages&show=nixd
+    nixfmt-rfc-style # https://search.nixos.org/packages?channel=unstable&type=packages&show=nixfmt-rfc-style
     shfmt
     terminal-notifier
     unixtools.watch
