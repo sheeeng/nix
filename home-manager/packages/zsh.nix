@@ -1,6 +1,11 @@
 # https://github.com/ymatsiuk/nixos-config/blob/d581daf95fcc13f6fc9a3492b409606efa6500eb/zsh.nix
 
-{ config, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 # TODO: https://github.com/infinidim-enterprises/hive/blob/e77738405772188b90efb2f28a849078583f581a/cells/home/homeProfiles/shell/zsh.nix#L10C33-L10C65
 # TODO: https://github.com/alisonjenkins/nix-config/blob/36c0d523e271faa68cd59ef278ad2f18500b3ae9/home/programs/zsh/default.nix
@@ -134,171 +139,173 @@ in
       searchUpKey = [ "^[[A" ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.historySubstringSearch.searchUpKey
     }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.historySubstringSearch
 
-    initExtra = ''
-      echo "# ----------------------------------------------------------------------"
-      echo "# Init Extra...."
+    initContent = lib.mkMerge [
+      (lib.mkOrder 1000 ''
+        echo "# ----------------------------------------------------------------------"
+        echo "# Init Extra...."
 
-      # https://github.com/malev/dotfiles/blob/fbaa079eaaad4b5bf304c133fd05929f90c412d4/config/zsh.nix#L15-L16
-      # bindkey '^p' history-search-backward
-      # bindkey '^n' history-search-forward
+        # https://github.com/malev/dotfiles/blob/fbaa079eaaad4b5bf304c133fd05929f90c412d4/config/zsh.nix#L15-L16
+        # bindkey '^p' history-search-backward
+        # bindkey '^n' history-search-forward
 
-      # https://stackoverflow.com/questions/12382499/looking-for-altleftarrowkey-solution-in-zsh/70596338#70596338
-      # https://stackoverflow.com/a/70596338
-      # bindkey "^[[5~" beginning-of-buffer-or-history  # ⇞ Key Page Up
-      # bindkey "^[[6~" end-of-buffer-or-history # ⇟ Key Page Down
+        # https://stackoverflow.com/questions/12382499/looking-for-altleftarrowkey-solution-in-zsh/70596338#70596338
+        # https://stackoverflow.com/a/70596338
+        # bindkey "^[[5~" beginning-of-buffer-or-history  # ⇞ Key Page Up
+        # bindkey "^[[6~" end-of-buffer-or-history # ⇟ Key Page Down
 
-      # https://github.com/lovesegfault/nix-config/blob/838045d938c6ecfd90df27430337e3870c36727a/users/bemeurer/core/zsh.nix#L36-L39
-      bindkey "''${terminfo[kcuu1]}" history-substring-search-up # ↑
-      bindkey '^[[A' history-substring-search-up # ↑
-      bindkey "''${terminfo[kcud1]}" history-substring-search-down # ↓
-      bindkey '^[[B' history-substring-search-down # ↓
+        # https://github.com/lovesegfault/nix-config/blob/838045d938c6ecfd90df27430337e3870c36727a/users/bemeurer/core/zsh.nix#L36-L39
+        bindkey "''${terminfo[kcuu1]}" history-substring-search-up # ↑
+        bindkey '^[[A' history-substring-search-up # ↑
+        bindkey "''${terminfo[kcud1]}" history-substring-search-down # ↓
+        bindkey '^[[B' history-substring-search-down # ↓
 
-      # https://github.com/lovesegfault/nix-config/blob/838045d938c6ecfd90df27430337e3870c36727a/users/bemeurer/core/zsh.nix#L43
-      bindkey "''${terminfo[khome]}" beginning-of-line
-      bindkey "^A" beginning-of-line # ⌘ + ←
+        # https://github.com/lovesegfault/nix-config/blob/838045d938c6ecfd90df27430337e3870c36727a/users/bemeurer/core/zsh.nix#L43
+        bindkey "''${terminfo[khome]}" beginning-of-line
+        bindkey "^A" beginning-of-line # ⌘ + ←
 
-      # https://github.com/lovesegfault/nix-config/blob/838045d938c6ecfd90df27430337e3870c36727a/users/bemeurer/core/zsh.nix#L44
-      bindkey "''${terminfo[kend]}" end-of-line
-      bindkey "^E" end-of-line # ⌘ + →
+        # https://github.com/lovesegfault/nix-config/blob/838045d938c6ecfd90df27430337e3870c36727a/users/bemeurer/core/zsh.nix#L44
+        bindkey "''${terminfo[kend]}" end-of-line
+        bindkey "^E" end-of-line # ⌘ + →
 
-      # # https://github.com/lovesegfault/nix-config/blob/838045d938c6ecfd90df27430337e3870c36727a/users/bemeurer/core/zsh.nix#L45
-      bindkey "''${terminfo[kdch1]}" delete-char
-      bindkey "^[[3~" delete-char # 🌐 + ⌫
+        # # https://github.com/lovesegfault/nix-config/blob/838045d938c6ecfd90df27430337e3870c36727a/users/bemeurer/core/zsh.nix#L45
+        bindkey "''${terminfo[kdch1]}" delete-char
+        bindkey "^[[3~" delete-char # 🌐 + ⌫
 
-      bindkey "^[b" backward-word # ⌥ + ←
-      bindkey "^[f" forward-word # ⌥ + →
+        bindkey "^[b" backward-word # ⌥ + ←
+        bindkey "^[f" forward-word # ⌥ + →
 
-      bindkey "^[[3;5~" kill-word # ^ + 🌐 + ⌫
-      bindkey "^H" backward-kill-word # ⌃ + ⌫
+        bindkey "^[[3;5~" kill-word # ^ + 🌐 + ⌫
+        bindkey "^H" backward-kill-word # ⌃ + ⌫
 
-      # https://github.com/NovaViper/NixConfig/blob/ecd84d3d2de589edd6c3ee7f702a806401741611/modules/system/shell/zsh.nix#L63
-      AUTO_NOTIFY_IGNORE+=("atuin" "yadm" "emacs" "nix-shell" "nix")
+        # https://github.com/NovaViper/NixConfig/blob/ecd84d3d2de589edd6c3ee7f702a806401741611/modules/system/shell/zsh.nix#L63
+        AUTO_NOTIFY_IGNORE+=("atuin" "yadm" "emacs" "nix-shell" "nix")
 
-      # https://github.com/NovaViper/NixConfig/blob/ecd84d3d2de589edd6c3ee7f702a806401741611/modules/system/shell/zsh.nix#L65-L66
-      setopt beep CORRECT # Enable terminal bell and autocorrect
-      autoload -U colors && colors # Enable colors
+        # https://github.com/NovaViper/NixConfig/blob/ecd84d3d2de589edd6c3ee7f702a806401741611/modules/system/shell/zsh.nix#L65-L66
+        setopt beep CORRECT # Enable terminal bell and autocorrect
+        autoload -U colors && colors # Enable colors
 
-      # https://github.com/lovesegfault/nix-config/blob/838045d938c6ecfd90df27430337e3870c36727a/users/bemeurer/core/zsh.nix#L41
-      # ${pkgs.nix-your-shell}/bin/nix-your-shell --nom zsh | source /dev/stdin
+        # https://github.com/lovesegfault/nix-config/blob/838045d938c6ecfd90df27430337e3870c36727a/users/bemeurer/core/zsh.nix#L41
+        # ${pkgs.nix-your-shell}/bin/nix-your-shell --nom zsh | source /dev/stdin
 
-      if command -v git > /dev/null && git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
-        alias gtl="cd ''$(git rev-parse --show-toplevel)"
-      fi
+        if command -v git > /dev/null && git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
+          alias gtl="cd ''$(git rev-parse --show-toplevel)"
+        fi
 
-      if command -v kubectl > /dev/null; then
-        alias k="kubectl"
-        # https://stackoverflow.com/questions/56909180/decoding-kubernetes-secret/58117444#58117444
-        # https://stackoverflow.com/a/58117444
-        # https://github.com/ymatsiuk/nixos-config/blob/d581daf95fcc13f6fc9a3492b409606efa6500eb/zsh.nix#L59
-        alias kds='kubectl get secret --output go-template="{{range \$k,\$v := .data}}{{printf \"%s: \" \$k}}{{if not \$v}}{{\$v}}{{else}}{{\$v | base64decode}}{{end}}{{\"\n\"}}{{end}}"'
-        # https://github.com/ymatsiuk/nixos-config/blob/d581daf95fcc13f6fc9a3492b409606efa6500eb/zsh.nix#L61
-        alias kgpi="kubectl get pods --all-namespaces --output jsonpath=\"{.items[*].spec.containers[*].image}\" | tr --squeeze-repeats '[[:space:]]' '\n' | sort | uniq --count"
-        alias knks="kubectl --namespace kube-system"
-      fi
+        if command -v kubectl > /dev/null; then
+          alias k="kubectl"
+          # https://stackoverflow.com/questions/56909180/decoding-kubernetes-secret/58117444#58117444
+          # https://stackoverflow.com/a/58117444
+          # https://github.com/ymatsiuk/nixos-config/blob/d581daf95fcc13f6fc9a3492b409606efa6500eb/zsh.nix#L59
+          alias kds='kubectl get secret --output go-template="{{range \$k,\$v := .data}}{{printf \"%s: \" \$k}}{{if not \$v}}{{\$v}}{{else}}{{\$v | base64decode}}{{end}}{{\"\n\"}}{{end}}"'
+          # https://github.com/ymatsiuk/nixos-config/blob/d581daf95fcc13f6fc9a3492b409606efa6500eb/zsh.nix#L61
+          alias kgpi="kubectl get pods --all-namespaces --output jsonpath=\"{.items[*].spec.containers[*].image}\" | tr --squeeze-repeats '[[:space:]]' '\n' | sort | uniq --count"
+          alias knks="kubectl --namespace kube-system"
+        fi
 
-      # if command -v eza > /dev/null; then
-      #   alias ls="eza --group-directories-first"
-      #   alias tree="eza --tree"
-      # fi
+        # if command -v eza > /dev/null; then
+        #   alias ls="eza --group-directories-first"
+        #   alias tree="eza --tree"
+        # fi
 
-      # if command -v ssh > /dev/null; then
-      #   alias ssh-data-dome="ssh -X -i ~/.ssh/id_ed25519 ubuntu@129.159.255.15"
-      #   alias ssh-tailscale-exit="ssh -X -i ~/Downloads/oracle-cloud-tailscale-exit/ssh-key-2022-03-28.key ubuntu@141.147.50.182"
-      #   alias ssh-tor-bridge="ssh -X -i ~/Downloads/oracle-cloud-tor-bridge/ssh-key-2022-03-28.key ubuntu@144.24.178.125"
-      # fi
+        # if command -v ssh > /dev/null; then
+        #   alias ssh-data-dome="ssh -X -i ~/.ssh/id_ed25519 ubuntu@129.159.255.15"
+        #   alias ssh-tailscale-exit="ssh -X -i ~/Downloads/oracle-cloud-tailscale-exit/ssh-key-2022-03-28.key ubuntu@141.147.50.182"
+        #   alias ssh-tor-bridge="ssh -X -i ~/Downloads/oracle-cloud-tor-bridge/ssh-key-2022-03-28.key ubuntu@144.24.178.125"
+        # fi
 
-      # command -v terraform > /dev/null && alias tf="terraform"
-      # command -v terragrunt > /dev/null && alias tg="terragrunt"
-      command -v nvim > /dev/null && alias vim="nvim"
+        # command -v terraform > /dev/null && alias tf="terraform"
+        # command -v terragrunt > /dev/null && alias tg="terragrunt"
+        command -v nvim > /dev/null && alias vim="nvim"
 
-      command -v atuin > /dev/null && eval "''$(atuin init zsh)"
-      command -v direnv > /dev/null && eval "''$(direnv hook zsh)"
-      command -v thefuck > /dev/null && eval "''$(thefuck --alias)"
-      command -v zoxide > /dev/null && eval "''$(zoxide init --cmd cd zsh)"
+        command -v atuin > /dev/null && eval "''$(atuin init zsh)"
+        command -v direnv > /dev/null && eval "''$(direnv hook zsh)"
+        command -v thefuck > /dev/null && eval "''$(thefuck --alias)"
+        command -v zoxide > /dev/null && eval "''$(zoxide init --cmd cd zsh)"
 
-      # https://github.com/NovaViper/NixConfig/blob/ecd84d3d2de589edd6c3ee7f702a806401741611/modules/system/shell/zsh.nix#L69-L71
-      # https://stackoverflow.com/questions/58679742/set-default-python-with-pyenv/69378384#69378384
-      if command -v pyenv 1> /dev/null 2>&1; then
-        eval "''$(pyenv init -)"
+        # https://github.com/NovaViper/NixConfig/blob/ecd84d3d2de589edd6c3ee7f702a806401741611/modules/system/shell/zsh.nix#L69-L71
+        # https://stackoverflow.com/questions/58679742/set-default-python-with-pyenv/69378384#69378384
+        if command -v pyenv 1> /dev/null 2>&1; then
+          eval "''$(pyenv init -)"
 
-        # https://stackoverflow.com/questions/70116470/how-to-make-pip-command-use-pyenv-pip-rather-than-default-system-pip/71559920#71559920
-        export PYENV_BIN="''${HOME}/.pyenv/bin"
+          # https://stackoverflow.com/questions/70116470/how-to-make-pip-command-use-pyenv-pip-rather-than-default-system-pip/71559920#71559920
+          export PYENV_BIN="''${HOME}/.pyenv/bin"
 
-        export PATH="''${PYENV_BIN}:''${PATH}" \
-          && echo 'Added ''${PYENV_BIN} to ''${PATH}.'
-      fi
-      if which pyenv-virtualenv-init > /dev/null; then
-        eval "''$(pyenv virtualenv-init -)"
-      fi
+          export PATH="''${PYENV_BIN}:''${PATH}" \
+            && echo 'Added ''${PYENV_BIN} to ''${PATH}.'
+        fi
+        if which pyenv-virtualenv-init > /dev/null; then
+          eval "''$(pyenv virtualenv-init -)"
+        fi
 
-      if command -v cargo 1> /dev/null 2>&1; then
-        . "''${HOME}/.cargo/env"
-      fi
+        if command -v cargo 1> /dev/null 2>&1; then
+          . "''${HOME}/.cargo/env"
+        fi
 
-      # # https://helm.sh/docs/helm/helm_completion_zsh/
-      # command -v helm > /dev/null && source <(helm completion zsh)
+        # # https://helm.sh/docs/helm/helm_completion_zsh/
+        # command -v helm > /dev/null && source <(helm completion zsh)
 
-      # # https://fluxcd.io/flux/cmd/flux_completion_zsh/
-      # command -v flux > /dev/null && . <(flux completion zsh)
+        # # https://fluxcd.io/flux/cmd/flux_completion_zsh/
+        # command -v flux > /dev/null && . <(flux completion zsh)
 
-      GOPATH_BIN="''${HOME}/go/bin"
-      [ -d "''${GOPATH_BIN}" ] \
-        && export PATH="''${GOPATH_BIN}:''${PATH}" \
-        && echo 'Added ''${GOPATH_BIN} to ''${PATH}.'
+        GOPATH_BIN="''${HOME}/go/bin"
+        [ -d "''${GOPATH_BIN}" ] \
+          && export PATH="''${GOPATH_BIN}:''${PATH}" \
+          && echo 'Added ''${GOPATH_BIN} to ''${PATH}.'
 
-      LOCAL_BIN="''${HOME}/.local/bin"
-      [ -d "''${LOCAL_BIN}" ] \
-        && export PATH="''${LOCAL_BIN}:''${PATH}" \
-        && echo 'Added ''${LOCAL_BIN} to ''${PATH}.'
+        LOCAL_BIN="''${HOME}/.local/bin"
+        [ -d "''${LOCAL_BIN}" ] \
+          && export PATH="''${LOCAL_BIN}:''${PATH}" \
+          && echo 'Added ''${LOCAL_BIN} to ''${PATH}.'
 
-      NIXPROFILE_BIN="''${HOME}/.nix-profile/bin"
-      [ -d "''${NIXPROFILE_BIN}" ] \
-        && export PATH="''${NIXPROFILE_BIN}:''${PATH}" \
-        && echo 'Added ''${NIXPROFILE_BIN} to ''${PATH}.'
+        NIXPROFILE_BIN="''${HOME}/.nix-profile/bin"
+        [ -d "''${NIXPROFILE_BIN}" ] \
+          && export PATH="''${NIXPROFILE_BIN}:''${PATH}" \
+          && echo 'Added ''${NIXPROFILE_BIN} to ''${PATH}.'
 
-      # https://stackoverflow.com/questions/444951/zsh-stop-backward-kill-word-on-directory-delimiter/1438523#1438523
-      # https://stackoverflow.com/a/1438523
-      # http://zsh.sourceforge.net/Doc/Release/User-Contributions.html#Widgets
-      autoload -U select-word-style
-      select-word-style bash
+        # https://stackoverflow.com/questions/444951/zsh-stop-backward-kill-word-on-directory-delimiter/1438523#1438523
+        # https://stackoverflow.com/a/1438523
+        # http://zsh.sourceforge.net/Doc/Release/User-Contributions.html#Widgets
+        autoload -U select-word-style
+        select-word-style bash
 
-      eval "$(starship init zsh)"
+        eval "$(starship init zsh)"
 
-      # TODO: https://www.dotruby.com/articles/profiling-zsh-setup-with-zprof
-      # https://github.com/nix-community/home-manager/pull/6141
-      # time ZSH_DEBUGRC=1 zsh -i -c exit
-      if [[ -n ''${ZSH_DEBUGRC} ]]; then
-        zprof
-      fi
-      echo "# End of Init Extra...."
-      echo "# ----------------------------------------------------------------------"
-    '';
+        # TODO: https://www.dotruby.com/articles/profiling-zsh-setup-with-zprof
+        # https://github.com/nix-community/home-manager/pull/6141
+        # time ZSH_DEBUGRC=1 zsh -i -c exit
+        if [[ -n ''${ZSH_DEBUGRC} ]]; then
+          zprof
+        fi
+        echo "# End of Init Extra...."
+        echo "# ----------------------------------------------------------------------"
+      '')
 
-    initExtraBeforeCompInit = ''
-      echo "# ----------------------------------------------------------------------"
-      echo "# Init Extra Before Comp Init...."
+      (lib.mkOrder 550 ''
+        echo "# ----------------------------------------------------------------------"
+        echo "# Init Extra Before Comp Init...."
 
-      echo "# End of Init Extra Before Comp Init...."
-      echo "# ----------------------------------------------------------------------"
-    ''; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.initExtraBeforeCompInit
+        echo "# End of Init Extra Before Comp Init...."
+        echo "# ----------------------------------------------------------------------"
+      '')
 
-    initExtraFirst = ''
-      echo "# ----------------------------------------------------------------------"
-      echo "# Init Extra First...."
+      (lib.mkOrder 500 ''
+        echo "# ----------------------------------------------------------------------"
+        echo "# Init Extra First...."
 
-      # https://www.dotruby.com/articles/profiling-zsh-setup-with-zprof
-      # time ZSH_DEBUGRC=1 zsh -i -c exit
-      if [[ -n ''${ZSH_DEBUGRC} ]]; then
-        zmodload zsh/zprof
-      fi
+        # https://www.dotruby.com/articles/profiling-zsh-setup-with-zprof
+        # time ZSH_DEBUGRC=1 zsh -i -c exit
+        if [[ -n ''${ZSH_DEBUGRC} ]]; then
+          zmodload zsh/zprof
+        fi
 
-      # https://github.com/NovaViper/NixConfig/blob/ecd84d3d2de589edd6c3ee7f702a806401741611/modules/system/shell/zsh.nix#L56-L59
-      # If not running interactively, don't do anything
-      [[ $- != *i* ]] && return
+        # https://github.com/NovaViper/NixConfig/blob/ecd84d3d2de589edd6c3ee7f702a806401741611/modules/system/shell/zsh.nix#L56-L59
+        # If not running interactively, don't do anything
+        [[ $- != *i* ]] && return
 
-      echo "# End of Init Extra First...."
-      echo "# ----------------------------------------------------------------------"
-    '';
+        echo "# End of Init Extra First...."
+        echo "# ----------------------------------------------------------------------"
+      '')
+    ];
 
     localVariables = {
       # EDITOR = [ "${pkgs.neovim}/bin/nvim" ]; # TODO: Conflicting error. Use `lib.mkForce value` or `lib.mkDefault value` to change the priority on any of these definitions.

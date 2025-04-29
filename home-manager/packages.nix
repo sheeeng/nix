@@ -143,7 +143,7 @@
       pipes # https://search.nixos.org/packages?channel=unstable&type=packages&show=pipes
       pipes-rs # https://search.nixos.org/packages?channel=unstable&type=packages&show=pipes-rs
       progress # https://search.nixos.org/packages?channel=unstable&type=packages&show=progress
-      pympress # https://search.nixos.org/packages?channel=unstable&type=packages&show=pympress
+      # pympress # https://search.nixos.org/packages?channel=unstable&type=packages&show=pympress
       qrencode # https://search.nixos.org/packages?channel=unstable&type=packages&show=qrencode
       ranger # https://search.nixos.org/packages?channel=unstable&type=packages&show=ranger
       rclone # TODO: See `nixpkgs.overlays` in other file. # https://search.nixos.org/packages?channel=unstable&type=packages&show=rclone
