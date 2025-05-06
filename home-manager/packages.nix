@@ -160,6 +160,7 @@
       stow # https://search.nixos.org/packages?channel=unstable&type=packages&show=stow
       superfile # https://search.nixos.org/packages?channel=unstable&type=packages&show=superfile
       # taskwarrior3 # https://search.nixos.org/packages?channel=unstable&type=packages&show=taskwarrior3
+      nixfmt-tree # https://search.nixos.org/packages?channel=unstable&type=packages&show=nixfmt-tree
       television # https://search.nixos.org/packages?channel=unstable&type=packages&show=television
       tenki # https://search.nixos.org/packages?channel=unstable&type=packages&show=tenki
       terraform # https://search.nixos.org/packages?channel=unstable&type=packages&show=terraform
