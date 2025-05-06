@@ -132,6 +132,7 @@
       moreutils # https://search.nixos.org/packages?channel=unstable&type=packages&show=moreutils
       newsboat # https://search.nixos.org/packages?channel=unstable&type=packages&show=newsboat
       nh # https://search.nixos.org/packages?channel=unstable&type=packages&show=nh
+      nixos-option # https://search.nixos.org/packages?channel=unstable&type=packages&show=nixos-option
       nnn # https://search.nixos.org/packages?channel=unstable&type=packages&show=nnn
       # obsidian # https://search.nixos.org/packages?channel=unstable&type=packages&show=obsidian
       ollama # TODO: Marked as insecure. # https://search.nixos.org/packages?channel=unstable&type=packages&show=ollama
