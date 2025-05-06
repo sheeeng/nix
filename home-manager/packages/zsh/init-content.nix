@@ -69,6 +69,12 @@
 
       bindkey "^[[3;5~" kill-word # ^ + 🌐 + ⌫
       bindkey "^H" backward-kill-word # ⌃ + ⌫
+
+      # https://stackoverflow.com/questions/444951/zsh-stop-backward-kill-word-on-directory-delimiter/1438523#1438523
+      # https://stackoverflow.com/a/1438523
+      # http://zsh.sourceforge.net/Doc/Release/User-Contributions.html#Widgets
+      autoload -U select-word-style
+      select-word-style bash
     ''))
 
     # Z Style Customizations

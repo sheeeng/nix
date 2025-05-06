@@ -8,6 +8,13 @@
   ...
 }:
 {
+  imports = [
+    ./auto-notify-ignore.nix
+    ./init-content.nix
+    ./plugins.nix
+    ./zsh-abbr.nix
+  ];
+
   programs.zsh = {
     enable = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.enable
     enableCompletion = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.enableCompletion
