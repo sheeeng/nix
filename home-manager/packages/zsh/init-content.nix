@@ -36,6 +36,41 @@
       '')
     ))
 
+    (lib.mkOrder 1000 (''
+      # https://github.com/malev/dotfiles/blob/fbaa079eaaad4b5bf304c133fd05929f90c412d4/config/zsh.nix#L15-L16
+      # bindkey '^p' history-search-backward
+      # bindkey '^n' history-search-forward
+
+      # https://stackoverflow.com/questions/12382499/looking-for-altleftarrowkey-solution-in-zsh/70596338#70596338
+      # https://stackoverflow.com/a/70596338
+      # bindkey "^[[5~" beginning-of-buffer-or-history  # ⇞ Key Page Up
+      # bindkey "^[[6~" end-of-buffer-or-history # ⇟ Key Page Down
+
+      # https://github.com/lovesegfault/nix-config/blob/838045d938c6ecfd90df27430337e3870c36727a/users/bemeurer/core/zsh.nix#L36-L39
+      bindkey "''${terminfo[kcuu1]}" history-substring-search-up # ↑
+      bindkey '^[[A' history-substring-search-up # ↑
+      bindkey "''${terminfo[kcud1]}" history-substring-search-down # ↓
+      bindkey '^[[B' history-substring-search-down # ↓
+
+      # https://github.com/lovesegfault/nix-config/blob/838045d938c6ecfd90df27430337e3870c36727a/users/bemeurer/core/zsh.nix#L43
+      bindkey "''${terminfo[khome]}" beginning-of-line
+      bindkey "^A" beginning-of-line # ⌘ + ←
+
+      # https://github.com/lovesegfault/nix-config/blob/838045d938c6ecfd90df27430337e3870c36727a/users/bemeurer/core/zsh.nix#L44
+      bindkey "''${terminfo[kend]}" end-of-line
+      bindkey "^E" end-of-line # ⌘ + →
+
+      # # https://github.com/lovesegfault/nix-config/blob/838045d938c6ecfd90df27430337e3870c36727a/users/bemeurer/core/zsh.nix#L45
+      bindkey "''${terminfo[kdch1]}" delete-char
+      bindkey "^[[3~" delete-char # 🌐 + ⌫
+
+      bindkey "^[b" backward-word # ⌥ + ←
+      bindkey "^[f" forward-word # ⌥ + →
+
+      bindkey "^[[3;5~" kill-word # ^ + 🌐 + ⌫
+      bindkey "^H" backward-kill-word # ⌃ + ⌫
+    ''))
+
     # Z Style Customizations
     (lib.mkOrder 2000 (
       ''
