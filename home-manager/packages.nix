@@ -117,6 +117,7 @@
       ipcalc # https://search.nixos.org/packages?channel=unstable&type=packages&show=ipcalc
       jq # https://search.nixos.org/packages?channel=unstable&type=packages&show=jq
       just # https://search.nixos.org/packages?channel=unstable&type=packages&show=just
+      just-lsp # https://search.nixos.org/packages?channel=unstable&type=packages&show=just-lsp
       krabby # https://search.nixos.org/packages?channel=unstable&type=packages&show=krabby
       lazygit # https://search.nixos.org/packages?channel=unstable&type=packages&show=lazygit
       lazysql # https://search.nixos.org/packages?channel=unstable&type=packages&show=lazysql
