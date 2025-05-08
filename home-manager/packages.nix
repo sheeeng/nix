@@ -173,6 +173,9 @@
       tomlq # https://search.nixos.org/packages?channel=unstable&type=packages&show=tomlq
       tree # https://search.nixos.org/packages?channel=unstable&type=packages&show=tree
       treefmt # https://search.nixos.org/packages?channel=unstable&type=packages&show=treefmt
+      (lib.hiPrio uutils-coreutils-noprefix) # https://search.nixos.org/packages?channel=unstable&type=packages&show=uutils-coreutils-noprefix
+      (lib.hiPrio uutils-findutils) # https://search.nixos.org/packages?channel=unstable&type=packages&show=uutils-findutils
+      (lib.hiPrio uutils-diffutils) # https://search.nixos.org/packages?channel=unstable&type=packages&show=uutils-diffutils
       unzip # https://search.nixos.org/packages?channel=unstable&type=packages&show=unzip
       vhs # https://search.nixos.org/packages?channel=unstable&type=packages&show=vhs
       vifm # https://search.nixos.org/packages?channel=unstable&type=packages&show=vifm
