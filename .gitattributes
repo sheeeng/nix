@@ -1,0 +1,4 @@
+flake.lock -diff
+
+*.age -text -diff
+
