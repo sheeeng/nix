@@ -15,11 +15,13 @@ version = 1
 ##  $ flox show gum     <- show all versions of a package
 ## -------------------------------------------------------------------
 [install]
-terraform.pkg-path = "terraform"
-pre-commit.pkg-path = "pre-commit"
-azure-cli.pkg-path = "azure-cli"
+age.pkg-path = "age"
 gnugrep.pkg-path = "gnugrep"
-pyenv.pkg-path = "pyenv"
+gnused.pkg-path = "gnused"
+pre-commit.pkg-path = "pre-commit"
+uutils-coreutils-noprefix.pkg-path = "uutils-coreutils-noprefix"
+uutils-findutils.pkg-path = "uutils-findutils"
+uutils-diffutils.pkg-path = "uutils-diffutils"
 # gum.pkg-path = "gum"
 # gum.version = "^0.14.5"
 
@@ -42,11 +44,13 @@ on-activate = """
   echo "Flox '$(flox --version)' located in '$(which flox)'."
   echo "Nix '$(nix --version | awk '{print $3}')' located in '$(which nix)'."
   # keep-sorted start
-  echo "Az '$(az --version 2>/dev/null | head --lines 1 | awk '{print $2}')' located in '$(which az)'."
+  echo "Age '$(age --version)' located in '$(which age)'."
+  echo "Cp '$(cp --version | awk '{print $2}')' located in '$(which cp)'."
+  echo "Diff '$(diff --version | head --lines 1 | awk '{print $4}')' located in '$(which diff)'."
+  echo "Find '$(find --version | awk '{print $3}')' located in '$(which find)'."
   echo "GnuGrep '$(grep --version | head --lines 1 | awk '{print $4}')' located in '$(which grep)'."
+  echo "GnuSed '$(sed --version | head --lines 1 | awk '{print $4}')' located in '$(which sed)'."
   echo "Pre-commit '$(pre-commit --version | awk '{print $2}' )' located in '$(which pre-commit)'."
-  echo "Pyenv '$(pyenv --version | awk '{print $2}')' located in '$(which pyenv)'."
-  echo "Terraform '$(terraform --version | head --lines 1 | grep --only-matching --perl-regexp '\\K[0-9]+\\.[0-9]+\\.[0-9]+')' located in '$(which terraform)'."
   # keep-sorted end
   echo ""
 """
@@ -58,6 +62,7 @@ on-activate = """
 #   #      - FLOX_ENV=/home/user/example/.flox/run
 #   #      - FLOX_ENV_CACHE=/home/user/example/.flox/cache
 # '''
+
 
 ## Profile script ----------------------------------------------------
 ## ... sourced by _your shell_ when you run 'flox activate'.
