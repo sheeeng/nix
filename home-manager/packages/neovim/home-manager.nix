@@ -1,6 +1,7 @@
-{ pkgs
-, pkgs-unstable
-, ...
+{
+  pkgs,
+  pkgs-unstable,
+  ...
 }:
 
 {
@@ -9,7 +10,7 @@
     pkgs.ripgrep # For nvim-telescope and nvim-spectre
     pkgs.fd # For nvim-telescope
     pkgs.tree-sitter # For nvim-treesitter
-    pkgs.gcc # For nvim-lspconfig
+    # pkgs.gcc # For nvim-lspconfig
     pkgs.typescript # For nvim-lspconfig
     pkgs.nixd # For nvim-lspconfig
     pkgs.nodePackages.typescript-language-server # For nvim-lspconfig
