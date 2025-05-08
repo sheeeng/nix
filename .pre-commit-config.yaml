@@ -45,12 +45,12 @@ repos:
 
   # keep-sorted start
   - repo: https://github.com/antonbabenko/pre-commit-terraform
-    rev: v1.97.4
+    rev: v1.98.1
     hooks:
       - id: terraform_fmt
         name: terraform format
   - repo: https://github.com/charliermarsh/ruff-pre-commit
-    rev: v0.9.9
+    rev: v0.11.4
     hooks:
       - id: ruff
         name: ruff
@@ -67,12 +67,12 @@ repos:
         stages: [commit-msg]
         args: [--strict]
   - repo: https://github.com/gitleaks/gitleaks
-    rev: v8.24.0
+    rev: v8.24.2
     hooks:
       - id: gitleaks
         name: detect hardcoded secrets
   - repo: https://github.com/google/keep-sorted
-    rev: v0.6.0
+    rev: v0.6.1
     hooks:
       - id: keep-sorted
         name: keep sorted
