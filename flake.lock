@@ -366,11 +366,11 @@
         "rust-analyzer-src": "rust-analyzer-src"
       },
       "locked": {
-        "lastModified": 1746772806,
-        "narHash": "sha256-5/Nq62wjkZrOhUULTFjgi4Dsc7T8kIluUPkoLsyAeUA=",
+        "lastModified": 1746858783,
+        "narHash": "sha256-oLrH70QIWB/KpaI+nztyP1hG4zAEEpMiNk6sA8QLQ/8=",
         "owner": "nix-community",
         "repo": "fenix",
-        "rev": "505bf684711e964c8f84d4c804e38f62b24accec",
+        "rev": "4e3cd098060cca21f2a213ce8c086948df946940",
         "type": "github"
       },
       "original": {
@@ -409,11 +409,11 @@
       },
       "locked": {
         "dir": "pkgs/firefox-addons",
-        "lastModified": 1746763406,
-        "narHash": "sha256-H46UZd2cAn5ltH0S5xqbLZloABFbUQFbE2r+AqS9A6c=",
+        "lastModified": 1746849806,
+        "narHash": "sha256-6vJX4DnhDlWNtOOh3v08YqPgjJblfgHnV9562nPHNEo=",
         "owner": "rycee",
         "repo": "nur-expressions",
-        "rev": "4f972935f830e5fc4ac4574c197c70c40cfa49bc",
+        "rev": "e2408d3f94a6b658e12f135501aa7fd38efabc72",
         "type": "gitlab"
       },
       "original": {
@@ -1006,20 +1006,17 @@
     },
     "helix-unstable": {
       "inputs": {
-        "flake-utils": [
-          "flake-utils"
-        ],
         "nixpkgs": [
           "nixpkgs-helix"
         ],
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1746710534,
-        "narHash": "sha256-OkPewzZXoV3CI7nHln2/Y5hPKVe0NuwNzFQnOveOsv4=",
+        "lastModified": 1746806268,
+        "narHash": "sha256-iHRodgX7419Gc79SBhyF800PwQrXzGFROxKMOBbC0eY=",
         "owner": "helix-editor",
         "repo": "helix",
-        "rev": "e4ef096945638850ad1b383c49cd197e1458c614",
+        "rev": "cb1ecc9128a696584fb236d42c6c765731b9ede7",
         "type": "github"
       },
       "original": {
@@ -1056,11 +1053,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1746727295,
-        "narHash": "sha256-0364XVBdfEA8rWfqEPvsgBqGFfq5r9LAo9CS9tvT7tg=",
+        "lastModified": 1746798521,
+        "narHash": "sha256-axfz/jBEH9XHpS7YSumstV7b2PrPf7L8bhWUtLBv3nA=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "a51598236f23c89e59ee77eb8e0614358b0e896c",
+        "rev": "e95a7c5b6fa93304cd2fd78cf676c4f6d23c422c",
         "type": "github"
       },
       "original": {
@@ -1139,23 +1136,6 @@
         "owner": "NuschtOS",
         "ref": "v0.0.7",
         "repo": "ixx",
-        "type": "github"
-      }
-    },
-    "kitty-nightly": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1746712359,
-        "narHash": "sha256-lpYX40IMcdogzR5xEQWc4rawBO3gHMHStz7JdHCKsIc=",
-        "owner": "kovidgoyal",
-        "repo": "kitty",
-        "rev": "e0e4e53e3bc8851bcbe800c01d3eaa3578384d53",
-        "type": "github"
-      },
-      "original": {
-        "owner": "kovidgoyal",
-        "ref": "nightly",
-        "repo": "kitty",
         "type": "github"
       }
     },
@@ -1359,11 +1339,11 @@
     },
     "nixos-hardware": {
       "locked": {
-        "lastModified": 1746621361,
-        "narHash": "sha256-T9vOxEqI1j1RYugV0b9dgy0AreiZ9yBDKZJYyclF0og=",
+        "lastModified": 1746814339,
+        "narHash": "sha256-hf2lICJzwACWuzHCmZn5NI6LUAOgGdR1yh8ip+duyhk=",
         "owner": "nixos",
         "repo": "nixos-hardware",
-        "rev": "2ea3ad8a1f26a76f8a8e23fc4f7757c46ef30ee5",
+        "rev": "3c5e12673265dfb0de3d9121420c0c2153bf21e0",
         "type": "github"
       },
       "original": {
@@ -1627,11 +1607,11 @@
         "treefmt-nix": "treefmt-nix_2"
       },
       "locked": {
-        "lastModified": 1746786415,
-        "narHash": "sha256-5WzUuzA1ZUexFfj8eJdz85xD03q6IRSn1+PaFwT7/KA=",
+        "lastModified": 1746872816,
+        "narHash": "sha256-K5riDkMU6mTszrcWVaJ4DOHV1lNY4vutOTtGLTrMuRY=",
         "owner": "nix-community",
         "repo": "nur",
-        "rev": "3543448d231603931560d7f04914fcef44827a27",
+        "rev": "b1eefd25e38c5dd865d0794dc59718f90222768e",
         "type": "github"
       },
       "original": {
@@ -1750,7 +1730,6 @@
         "flox": "flox",
         "helix-unstable": "helix-unstable",
         "home-manager": "home-manager_2",
-        "kitty-nightly": "kitty-nightly",
         "mac-app-util": "mac-app-util",
         "microvm": "microvm",
         "morlana": "morlana",
