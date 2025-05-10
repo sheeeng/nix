@@ -66,7 +66,6 @@
     };
 
     helix-unstable = {
-      inputs.flake-utils.follows = "flake-utils";
       inputs.nixpkgs.follows = "nixpkgs-helix"; # So we don't have two instances of `nixpkgs` in flake.lock. We use the same rev from helix's flake.lock so we don't have to recompile
       url = "github:helix-editor/helix"; # Compile Helix from source to support macro keybinds
     }; # https://github.com/llakala/nixos/tree/5dae1c83df4835fd23d433adc76f66bca44962ba/apps/programs/firefox
@@ -134,8 +133,8 @@
       url = "github:nix-community/fenix";
     };
 
-    kitty-nightly.flake = false;
-    kitty-nightly.url = "github:kovidgoyal/kitty/nightly";
+    # kitty-nightly.flake = false;
+    # kitty-nightly.url = "github:kovidgoyal/kitty/nightly";
 
     morlana.url = "github:ryanccn/morlana";
     morlana.inputs.nixpkgs.follows = "nixpkgs-unstable";
