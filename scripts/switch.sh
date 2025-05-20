@@ -73,7 +73,9 @@ if ! command -v darwin-rebuild 1> /dev/null 2>&1; then
   echo "darwin-rebuild is not installed..."
   # nix run .#homeConfigurations."$(stat --format "%U" "$(tty)")@$(hostname)".activationPackage
   # nix run github:ryanccn/morlana -- switch --flake ~/github/sheeeng/nix#"$(hostname)"
-  nix run nix-darwin --experimental-features "nix-command flakes" -- switch --flake ~/github/sheeeng/nix#"$(hostname)"
+
+  # /nix/store/l8xwvdfhy3dkhk1viziiyaqchpimfhaz-darwin-rebuild/bin/darwin-rebuild: system activation must now be run as root
+  sudo nix run nix-darwin --experimental-features "nix-command flakes" -- switch --flake ~/github/sheeeng/nix#"$(hostname)"
 fi
 
 # home-manager switch --flake .#"$(stat --format "%U" "$(tty)")@$(hostname)"

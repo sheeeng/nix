@@ -206,6 +206,7 @@
 
       darwinConfigurations = {
         TP95V9LWWL = darwinConfiguration "TP95V9LWWL" "aarch64-darwin";
+        NHNWCQ17DF = darwinConfiguration "NHNWCQ17DF" "aarch64-darwin";
         C02ZV797MD6R = darwinConfiguration "C02ZV797MD6R" "x86_64-darwin";
       };
     };
