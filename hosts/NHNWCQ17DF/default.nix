@@ -95,6 +95,8 @@ in
   nix.enable = true;
 
   system.stateVersion = 5;
+  system.primaryUser = "llee"; # Added to specify the primary user for system.defaults
+
   nix.package = pkgs-unstable.nix; # https://daiderd.com/nix-darwin/manual/index.html#opt-nix.package
   nix.optimise.automatic = true; # https://daiderd.com/nix-darwin/manual/index.html#opt-nix.optimise.automatic # https://github.com/NixOS/nix/issues/7273#issuecomment-2295429401
   nix.settings.auto-optimise-store = false; # https://daiderd.com/nix-darwin/manual/index.html#opt-nix.settings.auto-optimise-store # https://github.com/NixOS/nix/issues/7273#issuecomment-1310213986
@@ -211,13 +213,28 @@ in
   system.activationScripts.diff = {
     supportsDryActivation = true;
     text = ''
-      ${pkgs.nvd}/bin/nvd --nix-bin-dir=${pkgs.nix}/bin diff \
-        /run/current-system "$systemConfig"
+      '';
+    # text = ''
+    #   ${pkgs.nvd}/bin/nvd --nix-bin-dir=${pkgs.nix}/bin diff \
+    #     /run/current-system "$systemConfig"
+    # '';
+  };
+
+  # This script runs after nix-darwin applies system-wide configurations.
+  # It ensures that macOS user-specific preferences (like dock, finder settings)
+  # are activated for the primary user.
+  # Since activation scripts run as root, 'sudo -u llee' is used.
+  system.activationScripts.applyUserDefaults = {
+    supportsDryActivation = true;
+    text = ''
+      echo "Applying macOS user defaults for user llee..."
+      sudo -u llee /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
     '';
   };
 
+  # The following block should be removed as system.activationScripts.postUserActivation is obsolete
   # https://medium.com/@zmre/nix-darwin-quick-tip-activate-your-preferences-f69942a93236
-  system.activationScripts.postUserActivation.text = ''
-    /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
-  '';
+  # system.activationScripts.postUserActivation.text = ''
+  #   /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
+  # '';
 }
