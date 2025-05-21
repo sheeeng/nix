@@ -84,7 +84,7 @@ fi
 
 echo "# ----------------------------------------------------------------------"
 echo "darwin-rebuild check..."
-darwin-rebuild check --flake ~/github/sheeeng/nix#"$(hostname)" # --fallback # --show-trace
+sudo darwin-rebuild check --flake ~/github/sheeeng/nix#"$(hostname)" # --fallback # --show-trace
 echo "# ----------------------------------------------------------------------"
 
 # darwin-rebuild build --print-build-logs --flake ~/github/sheeeng/nix#"$(hostname)"
@@ -93,7 +93,7 @@ echo "# ----------------------------------------------------------------------"
 for arg in "$@"; do
   if [[ $arg == "--use-morlana" || $arg == "-um" ]]; then
     echo "morlana switch..."
-    nix run github:ryanccn/morlana -- switch --flake ~/github/sheeeng/nix
+    sudo nix run github:ryanccn/morlana -- switch --flake ~/github/sheeeng/nix
     exit 0
   fi
 done
@@ -104,7 +104,7 @@ if ! command -v nh 1> /dev/null 2>&1; then
   nh os switch ~/github/sheeeng/nix#"$(hostname)"
 else
   echo "darwin-rebuild switch..."
-  darwin-rebuild switch --print-build-logs --flake ~/github/sheeeng/nix#"$(hostname)"
+  sudo darwin-rebuild switch --print-build-logs --flake ~/github/sheeeng/nix#"$(hostname)"
 fi
 echo "# ----------------------------------------------------------------------"
 
