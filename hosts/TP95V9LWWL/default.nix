@@ -180,6 +180,45 @@ in
   }; # https://nix-community.github.io/home-manager/nixos-options.xhtml#nixos-opt-home-manager.users
   home-manager.verbose = false; # https://nix-community.github.io/home-manager/nixos-options.xhtml#nixos-opt-home-manager.verbose
 
+  system.primaryUser = "leonardlee"; # https://daiderd.com/nix-darwin/manual/index.html#opt-system.primaryUser
+  # Failed assertions:
+  # - The `system.activationScripts.postUserActivation` option has
+  # been removed, as all activation now takes place as `root`. Please
+  # restructure your custom activation scripts appropriately,
+  # potentially using `sudo` if you need to run commands as a user.
+  #
+  # - Previously, some nix-darwin options applied to the user running
+  # `darwin-rebuild`. As part of a long‐term migration to make
+  # nix-darwin focus on system‐wide activation and support first‐class
+  # multi‐user setups, all system activation now runs as `root`, and
+  # these options instead apply to the `system.primaryUser` user.
+  #
+  # You currently have the following primary‐user‐requiring options set:
+  #
+  # * `system.defaults.dock.autohide`
+  # * `system.defaults.dock.autohide-delay`
+  # * `system.defaults.dock.autohide-time-modifier`
+  # * `system.defaults.dock.orientation`
+  # * `system.defaults.dock.show-process-indicators`
+  # * `system.defaults.dock.show-recents`
+  # * `system.defaults.dock.static-only`
+  # * `system.defaults.finder.AppleShowAllExtensions`
+  # * `system.defaults.finder.FXEnableExtensionChangeWarning`
+  # * `system.defaults.finder.ShowPathbar`
+  # * `system.defaults.trackpad.ActuationStrength`
+  # * `system.defaults.trackpad.Clicking`
+  #
+  # To continue using these options, set `system.primaryUser` to the name
+  # of the user you have been using to run `darwin-rebuild`. In the long
+  # run, this setting will be deprecated and removed after all the
+  # functionality it is relevant for has been adjusted to allow
+  # specifying the relevant user separately, moved under the
+  # `users.users.*` namespace, or migrated to Home Manager.
+  #
+  # If you run into any unexpected issues with the migration, please
+  # open an issue at <https://github.com/nix-darwin/nix-darwin/issues/new>
+  # and include as much information as possible.
+
   system.defaults = {
     trackpad = {
       ActuationStrength = 1; # https://daiderd.com/nix-darwin/manual/index.html#opt-system.defaults.trackpad.ActuationStrength
@@ -217,7 +256,19 @@ in
   };
 
   # https://medium.com/@zmre/nix-darwin-quick-tip-activate-your-preferences-f69942a93236
-  system.activationScripts.postUserActivation.text = ''
-    /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
-  '';
+  # Failed assertions:
+  # - The `system.activationScripts.postUserActivation` option has
+  # been removed, as all activation now takes place as `root`. Please
+  # restructure your custom activation scripts appropriately,
+  # potentially using `sudo` if you need to run commands as a user.
+  # system.activationScripts.postUserActivation.text = ''
+  #   /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
+  # '';
+  system.activationScripts.activateUserSettings = {
+    supportsDryActivation = true; # Set to false if this command shouldn't run in dry activations
+    text = ''
+      echo "Activating user settings for ${config.system.primaryUser}..."
+      sudo -u ${config.system.primaryUser} /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
+    '';
+  };
 }

@@ -62,7 +62,7 @@
     }; # https://github.com/llakala/nixos/tree/5dae1c83df4835fd23d433adc76f66bca44962ba/apps/programs/firefox
 
     flox = {
-      url = "github:flox/flox/v1.3.15";
+      url = "github:flox/flox/v1.4.2";
     };
 
     helix-unstable = {
