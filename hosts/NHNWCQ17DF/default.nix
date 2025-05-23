@@ -43,23 +43,31 @@ in
   # The `home-manager` has issues adding applications to `~/Applications` directory.
   # Issue: https://github.com/nix-community/home-manager/issues/1341
   environment.systemPackages = with pkgs; [
-    clang
-    coreutils
-    findutils
+    clang # https://search.nixos.org/packages?channel=unstable&type=packages&show=clang
+    coreutils # https://search.nixos.org/packages?channel=unstable&type=packages&show=coreutils
+    findutils # https://search.nixos.org/packages?channel=unstable&type=packages&show=findutils
     # gcc-unwrapped # ERROR: collision between `/nix/store/5h4hlzrbr28l208jjj505lkvfpxy57qb-binutils-wrapper-2.43.1/bin/strings' and `/nix/store/71l8fmranva05h25868slk2jci5ib3aw-gcc-wrapper-13.3.0/bin/strings'
     # gcc-unwrapped # ERROR: collision between `/nix/store/6rhh54a3df1mzw3pqv6mx9vcvrmwvja7-binutils-wrapper-2.44/bin/strings' and `/nix/store/d49w1nr8r3v0pm07hylwgybwqikiwd2y-gcc-wrapper-14.2.1.20250322/bin/strings'
-    git
-    gnumake
+    git # https://search.nixos.org/packages?channel=unstable&type=packages&show=git
+    gnumake # https://search.nixos.org/packages?channel=unstable&type=packages&show=gnumake
     inputs.flox.packages.${pkgs.system}.default
     nil # https://search.nixos.org/packages?channel=unstable&type=packages&show=nil
     nix # https://search.nixos.org/packages?channel=unstable&type=packages&show=nix
     nix-output-monitor # https://search.nixos.org/packages?channel=unstable&type=packages&show=nix-output-monitor
     nixd # https://search.nixos.org/packages?channel=unstable&type=packages&show=nixd
     nixfmt-rfc-style # https://search.nixos.org/packages?channel=unstable&type=packages&show=nixfmt-rfc-style
-    shfmt
-    terminal-notifier
-    unixtools.watch
-    vim
+    shfmt # https://search.nixos.org/packages?channel=unstable&type=packages&show=shfmt
+    terminal-notifier # https://search.nixos.org/packages?channel=unstable&type=packages&show=terminal-notifier
+    unixtools.watch # https://search.nixos.org/packages?channel=unstable&type=packages&show=unixtools.watch
+    vim # https://search.nixos.org/packages?channel=unstable&type=packages&show=vim
+    # libreoffice-qt # https://search.nixos.org/packages?channel=unstable&type=packages&show=libreoffice-qt
+    hunspell # https://search.nixos.org/packages?channel=unstable&type=packages&show=hunspell
+    hunspellDicts.nb-no # https://search.nixos.org/packages?channel=unstable&type=packages&show=hunspellDicts.nb-no
+    hunspellDicts.nn-no # https://search.nixos.org/packages?channel=unstable&type=packages&show=hunspellDicts.nn-no
+    hunspellDicts.en-gb-large # https://search.nixos.org/packages?channel=unstable&type=packages&show=hunspellDicts.en-gb-large
+    hunspellDicts.en-gb-ize # https://search.nixos.org/packages?channel=unstable&type=packages&show=hunspellDicts.en-gb-ize
+    hunspellDicts.en-us-large # https://search.nixos.org/packages?channel=unstable&type=packages&show=hunspellDicts.en-us-large
+    hunspellDicts.en-us # https://search.nixos.org/packages?channel=unstable&type=packages&show=hunspellDicts.en-us
   ];
 
   # fonts.packages = with pkgs; [
@@ -212,8 +220,7 @@ in
   # https://chattingdarkly.org/@lhf@fosstodon.org/110661879831891580
   system.activationScripts.diff = {
     supportsDryActivation = true;
-    text = ''
-      '';
+    text = '''';
     # text = ''
     #   ${pkgs.nvd}/bin/nvd --nix-bin-dir=${pkgs.nix}/bin diff \
     #     /run/current-system "$systemConfig"
