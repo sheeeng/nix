@@ -20,7 +20,7 @@ in
   ] ++ (folderFiles ./packages);
 
   fonts.fontconfig.enable = true;
-  # home.stateVersion = "25.05"; # Please read the comment before changing.
+  # home.stateVersion = "25.11"; # Please read the comment before changing.
 
   # You have set either `nixpkgs.config` or `nixpkgs.overlays` while using `home-manager.useGlobalPkgs`.
   # This will soon not be possible. Please remove all `nixpkgs` options when using `home-manager.useGlobalPkgs`.
