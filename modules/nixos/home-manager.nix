@@ -1,7 +1,7 @@
 {
   programs.home-manager.enable = true;
 
-  home.stateVersion = "25.05";
+  home.stateVersion = "25.11";
   home.username = "leonard";
 
   # error: The option `home-manager.users.leonard.home.homeDirectory' has conflicting definition values:
