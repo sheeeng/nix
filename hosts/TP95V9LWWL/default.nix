@@ -169,7 +169,7 @@ in
   ]; # https://nix-community.github.io/home-manager/nixos-options.xhtml#nixos-opt-home-manager.sharedModules
 
   home-manager.users.leonardlee = {
-    home.stateVersion = "25.05";
+    home.stateVersion = "25.11";
     imports = [
       ../../home-manager/home.nix
       inputs.agenix.homeManagerModules.age
