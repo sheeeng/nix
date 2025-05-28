@@ -25,7 +25,7 @@
   inputs = {
     nixos-hardware.url = "github:nixos/nixos-hardware/master";
 
-    # nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11"; # Use nixos branches instead of nixpkgs, it runs more tests?
+    # nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05"; # Use nixos branches instead of nixpkgs, it runs more tests?
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     nixpkgs-helix.url = "github:nixos/nixpkgs/bc947f541ae55e999ffdb4013441347d83b00feb"; # Hack for Helix to be able to build tree-sitter. # https://github.com/llakala/nixos/blob/5dae1c83df4835fd23d433adc76f66bca44962ba/flake.nix#L104
 
