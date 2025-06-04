@@ -13,10 +13,11 @@ let
 in
 {
   # https://github.com/uesyn/dotfiles/blob/a28964187ab74b880f2e8ae561359451e9a05e29/home-manager/git/default.nix#L14
-  home.packages = [
-    git-credential-oauth-wrapper
-    pkgs.ghq
-    pkgs.pre-commit
+  home.packages = with pkgs; [
+    ghq # https://search.nixos.org/packages?channel=unstable&type=packages&show=ghq
+    git-credential-oauth-wrapper # https://search.nixos.org/packages?channel=unstable&type=packages&show=git-credential-oauth
+    git-lfs # https://search.nixos.org/packages?channel=unstable&type=packages&show=git-lfs
+    pre-commit # https://search.nixos.org/packages?channel=unstable&type=packages&show=pre-commit
   ];
 
   # https://github.com/uesyn/dotfiles/blob/a28964187ab74b880f2e8ae561359451e9a05e29/home-manager/git/default.nix#L19
