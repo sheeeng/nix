@@ -167,6 +167,8 @@
       tenki # https://search.nixos.org/packages?channel=unstable&type=packages&show=tenki
       terraform # https://search.nixos.org/packages?channel=unstable&type=packages&show=terraform
       texlab # https://search.nixos.org/packages?channel=unstable&type=packages&show=texlab
+      tflint # https://search.nixos.org/packages?channel=unstable&type=packages&show=tflint
+      tfsort # https://search.nixos.org/packages?channel=unstable&type=packages&show=tfsort
       tig # https://search.nixos.org/packages?channel=unstable&type=packages&show=tig
       tldr # https://search.nixos.org/packages?channel=unstable&type=packages&show=tldr
       tmux # https://search.nixos.org/packages?channel=unstable&type=packages&show=tmux
