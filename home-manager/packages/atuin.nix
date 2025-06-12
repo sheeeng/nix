@@ -21,7 +21,7 @@
       filter_mode_shell_up_key_binding = "global"; # https://docs.atuin.sh/configuration/config/#filter_mode_shell_up_key_binding
       history_filter = [ ]; # https://docs.atuin.sh/configuration/config/#history_filter
       history_format = "history list"; # https://docs.atuin.sh/configuration/config/#history_format
-      inline_height = 0; # https://docs.atuin.sh/configuration/config/#inline_height
+      inline_height = 24; # https://docs.atuin.sh/configuration/config/#inline_height
       invert = false; # https://docs.atuin.sh/configuration/config/#invert
       key_path = "${config.home.homeDirectory}/.local/share/atuin/key"; # https://docs.atuin.sh/configuration/config/#key_path
       keymap_cursor = { }; # https://docs.atuin.sh/configuration/config/#keymap_cursor
