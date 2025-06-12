@@ -30,66 +30,67 @@
     withRuby = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.neovim.withRuby
     plugins =
       let
-        cmp = [
+        cmp = with pkgs; [
           {
-            plugin = pkgs.vimPlugins.nvim-cmp;
+            plugin = vimPlugins.nvim-cmp;
             type = "lua";
             config = builtins.readFile ./plugins/nvim-cmp.lua;
           }
-          pkgs.vimPlugins.cmp-buffer
-          pkgs.vimPlugins.cmp-cmdline
-          pkgs.vimPlugins.cmp-nvim-lsp
-          pkgs.vimPlugins.cmp-path
-          pkgs.vimPlugins.cmp-vsnip
-          pkgs.vimPlugins.nvim-cmp
-          pkgs.vimPlugins.vim-vsnip
+          vimPlugins.cmp-buffer
+          vimPlugins.cmp-cmdline
+          vimPlugins.cmp-nvim-lsp
+          vimPlugins.cmp-path
+          vimPlugins.cmp-vsnip
+          vimPlugins.nvim-cmp
+          vimPlugins.vim-vsnip
         ];
-        telescope = [
+        telescope = with pkgs; [
           {
-            plugin = pkgs.vimPlugins.telescope-nvim;
+            plugin = vimPlugins.telescope-nvim;
             type = "lua";
             config = builtins.readFile ./plugins/telescope-nvim.lua;
           }
-          pkgs.vimPlugins.nvim-treesitter
+          vimPlugins.nvim-treesitter
         ];
-        searchbox = [
+        searchbox = with pkgs; [
           {
-            plugin = pkgs.vimPlugins.searchbox-nvim;
+            plugin = vimPlugins.searchbox-nvim;
             type = "lua";
             config = builtins.readFile ./plugins/searchbox-nvim.lua;
           }
-          pkgs.vimPlugins.nui-nvim
+          vimPlugins.nui-nvim
         ];
       in
+      with pkgs;
       [
         {
-          plugin = pkgs.vimPlugins.diffview-nvim;
+          plugin = vimPlugins.diffview-nvim;
         }
         {
-          plugin = pkgs.vimPlugins.copilot-vim;
+          plugin = vimPlugins.copilot-vim;
           type = "lua";
           config = builtins.readFile ./plugins/copilot-vim.lua;
         }
         {
-          plugin = pkgs.vimPlugins.nvim-tree-lua;
+          plugin = vimPlugins.nvim-tree-lua;
           type = "lua";
           config = builtins.readFile ./plugins/nvim-tree-lua.lua;
         }
         {
-          plugin = pkgs.vimPlugins.nvim-lspconfig;
+          plugin = vimPlugins.nvim-lspconfig;
           type = "lua";
           config = builtins.readFile ./plugins/nvim-lspconfig.lua;
         }
         {
-          plugin = pkgs.vimPlugins.nvim-spectre;
+          plugin = vimPlugins.nvim-spectre;
           type = "lua";
           config = builtins.readFile ./plugins/nvim-spectre.lua;
         }
         {
-          plugin = pkgs.vimPlugins.vim-visual-multi;
+          plugin = vimPlugins.vim-visual-multi;
         }
         {
-          plugin = pkgs.vimPlugins.gitsigns-nvim;
+          plugin = vimPlugins.gitsigns-nvim;
           type = "lua";
           config = builtins.readFile ./plugins/gitsigns-nvim.lua;
         }
