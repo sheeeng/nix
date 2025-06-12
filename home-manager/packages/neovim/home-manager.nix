@@ -1,31 +1,33 @@
 {
   pkgs,
-  pkgs-unstable,
   ...
 }:
 
 {
-  home.packages = [
-    pkgs.nodejs # Required for nvim-copilot
-    pkgs.ripgrep # For nvim-telescope and nvim-spectre
-    pkgs.fd # For nvim-telescope
-    pkgs.tree-sitter # For nvim-treesitter
-    # pkgs.gcc # For nvim-lspconfig
-    pkgs.typescript # For nvim-lspconfig
-    pkgs.nixd # For nvim-lspconfig
-    pkgs.nodePackages.typescript-language-server # For nvim-lspconfig
-    pkgs.yaml-language-server # For nvim-lspconfig
-    pkgs-unstable.terraform-ls # For nvim-lspconfig
+  home.packages = with pkgs; [
+    fd # For nvim-telescope
+    nixd # For nvim-lspconfig
+    nodejs # Required for nvim-copilot
+    nodePackages.typescript-language-server # For nvim-lspconfig
+    ripgrep # For nvim-telescope and nvim-spectre
+    terraform-ls # For nvim-lspconfig
+    tree-sitter # For nvim-treesitter
+    typescript # For nvim-lspconfig
+    yaml-language-server # For nvim-lspconfig
   ];
 
   programs.neovim = {
-    enable = true;
-    defaultEditor = true;
-    viAlias = true;
-    vimAlias = true;
-    vimdiffAlias = true;
-    extraConfig = builtins.readFile ./vimrc;
-    extraLuaConfig = builtins.readFile ./init.lua;
+    enable = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.neovim.enable
+    package = pkgs.neovim-unwrapped; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.neovim.package
+    defaultEditor = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.neovim.defaultEditor
+    viAlias = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.neovim.viAlias
+    vimAlias = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.neovim.vimAlias
+    vimdiffAlias = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.neovim.vimdiffAlias
+    extraConfig = builtins.readFile ./vimrc; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.neovim.extraConfig
+    extraLuaConfig = builtins.readFile ./init.lua; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.neovim.extraLuaConfig
+    withNodeJs = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.neovim.withNodeJs
+    withPython3 = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.neovim.withPython3
+    withRuby = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.neovim.withRuby
     plugins =
       let
         cmp = [
@@ -34,12 +36,12 @@
             type = "lua";
             config = builtins.readFile ./plugins/nvim-cmp.lua;
           }
-          pkgs.vimPlugins.cmp-nvim-lsp
           pkgs.vimPlugins.cmp-buffer
-          pkgs.vimPlugins.cmp-path
           pkgs.vimPlugins.cmp-cmdline
-          pkgs.vimPlugins.nvim-cmp
+          pkgs.vimPlugins.cmp-nvim-lsp
+          pkgs.vimPlugins.cmp-path
           pkgs.vimPlugins.cmp-vsnip
+          pkgs.vimPlugins.nvim-cmp
           pkgs.vimPlugins.vim-vsnip
         ];
         telescope = [
@@ -94,6 +96,6 @@
       ]
       ++ telescope
       ++ cmp
-      ++ searchbox;
+      ++ searchbox; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.neovim.plugins
   };
 }
