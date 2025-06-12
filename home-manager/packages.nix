@@ -86,6 +86,7 @@
       binutils # https://search.nixos.org/packages?channel=unstable&type=packages&show=binutils
       bitwise # https://search.nixos.org/packages?channel=unstable&type=packages&show=bitwise
       btop # https://search.nixos.org/packages?channel=unstable&type=packages&show=btop
+      byobu # https://search.nixos.org/packages?channel=unstable&type=packages&show=byobu
       calcurse # https://search.nixos.org/packages?channel=unstable&type=packages&show=calcurse
       cbonsai # https://search.nixos.org/packages?channel=unstable&type=packages&show=cbonsai
       chafa # https://search.nixos.org/packages?channel=unstable&type=packages&show=chafa
