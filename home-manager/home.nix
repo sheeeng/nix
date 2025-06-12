@@ -18,6 +18,7 @@ in
     ./secrets/age/age.nix
     ./theme.nix
   ] ++ (folderFiles ./packages);
+  # https://github.com/alexnabokikh/nix-config/blob/bddec40e097d4227cd95badfc02164aa006a8a4c/modules/home-manager/common/default.nix
 
   fonts.fontconfig.enable = true;
   # home.stateVersion = "25.11"; # Please read the comment before changing.
