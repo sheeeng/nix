@@ -116,6 +116,7 @@
       htop # https://search.nixos.org/packages?channel=unstable&type=packages&show=htop
       imagemagick # https://search.nixos.org/packages?channel=unstable&type=packages&show=imagemagick
       ipcalc # https://search.nixos.org/packages?channel=unstable&type=packages&show=ipcalc
+      jankyborders # https://search.nixos.org/packages?channel=unstable&type=packages&show=jankyborders
       jq # https://search.nixos.org/packages?channel=unstable&type=packages&show=jq
       just # https://search.nixos.org/packages?channel=unstable&type=packages&show=just
       just-lsp # https://search.nixos.org/packages?channel=unstable&type=packages&show=just-lsp
@@ -150,6 +151,7 @@
       # pympress # https://search.nixos.org/packages?channel=unstable&type=packages&show=pympress
       qrencode # https://search.nixos.org/packages?channel=unstable&type=packages&show=qrencode
       ranger # https://search.nixos.org/packages?channel=unstable&type=packages&show=ranger
+      raycast # https://search.nixos.org/packages?channel=unstable&type=packages&show=raycast
       rclone # TODO: See `nixpkgs.overlays` in other file. # https://search.nixos.org/packages?channel=unstable&type=packages&show=rclone
       ripgrep # https://search.nixos.org/packages?channel=unstable&type=packages&show=ripgrep
       sc-im # https://search.nixos.org/packages?channel=unstable&type=packages&show=sc-im
