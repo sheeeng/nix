@@ -133,18 +133,29 @@
       [[on-window-detected]]
       if.app-id = 'org.alacritty'
       run = 'move-node-to-workspace 2'
+      [[on-window-detected]]
+      if.app-id = 'com.microsoft.VSCode'
+      run = ["move-node-to-workspace 2"]
 
       [[on-window-detected]]
-      if.app-id = 'com.tdesktop.Telegram'
-      run = 'move-node-to-workspace 3'
+      if.app-id = 'com.raycast.macos'
+      if.window-title-regex-substring = 'AI Chat'
+      run = ["layout floating"]
 
       [[on-window-detected]]
-      if.app-id = 'com.obsproject.obs-studio'
-      run = 'move-node-to-workspace 4'
+      if.app-id = 'com.microsoft.Outlook'
+      run = ["move-node-to-workspace 4"]
 
+      # Make side by side apps open in workspace 9 for Whatsapp and Telegram with AeroSpace
       [[on-window-detected]]
-      if.app-id = 'us.zoom.xos'
-      run = 'move-node-to-workspace 5'
+      if.app-id = 'com.whatsapp.WhatsApp'
+      run = 'move-node-to-workspace 9'
+      [[on-window-detected]]
+      if.app-id = 'org.telegram.desktop'
+      run = 'move-node-to-workspace 9'
+      [[on-window-detected]]
+      if.app-id = 'com.apple.MobileSMS'
+      run = ["move-node-to-workspace 9"]
     '';
   };
 }
