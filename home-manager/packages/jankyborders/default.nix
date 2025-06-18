@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 {
   config = lib.mkIf (pkgs.stdenv.isDarwin) {
     home.packages = with pkgs; [
@@ -19,6 +19,6 @@
 
       # The double single quotes before dollar curly brace escapes the dollar sign in Nix.
       borders "''${options[@]}" || exit 1
-  '';
-  ];
+    '';
+  };
 }
