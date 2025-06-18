@@ -116,7 +116,6 @@
       htop # https://search.nixos.org/packages?channel=unstable&type=packages&show=htop
       imagemagick # https://search.nixos.org/packages?channel=unstable&type=packages&show=imagemagick
       ipcalc # https://search.nixos.org/packages?channel=unstable&type=packages&show=ipcalc
-      jankyborders # https://search.nixos.org/packages?channel=unstable&type=packages&show=jankyborders
       jq # https://search.nixos.org/packages?channel=unstable&type=packages&show=jq
       just # https://search.nixos.org/packages?channel=unstable&type=packages&show=just
       just-lsp # https://search.nixos.org/packages?channel=unstable&type=packages&show=just-lsp
@@ -168,10 +167,10 @@
       # nixfmt-tree # https://search.nixos.org/packages?channel=unstable&type=packages&show=nixfmt-tree
       television # https://search.nixos.org/packages?channel=unstable&type=packages&show=television
       tenki # https://search.nixos.org/packages?channel=unstable&type=packages&show=tenki
-      terraform # https://search.nixos.org/packages?channel=unstable&type=packages&show=terraform
+      # terraform # https://search.nixos.org/packages?channel=unstable&type=packages&show=terraform
       texlab # https://search.nixos.org/packages?channel=unstable&type=packages&show=texlab
-      tflint # https://search.nixos.org/packages?channel=unstable&type=packages&show=tflint
-      tfsort # https://search.nixos.org/packages?channel=unstable&type=packages&show=tfsort
+      # tflint # https://search.nixos.org/packages?channel=unstable&type=packages&show=tflint
+      # tfsort # https://search.nixos.org/packages?channel=unstable&type=packages&show=tfsort
       tig # https://search.nixos.org/packages?channel=unstable&type=packages&show=tig
       tldr # https://search.nixos.org/packages?channel=unstable&type=packages&show=tldr
       tmux # https://search.nixos.org/packages?channel=unstable&type=packages&show=tmux
