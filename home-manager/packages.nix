@@ -7,6 +7,8 @@
   home.packages =
     with pkgs;
     [
+      _1password-cli # https://search.nixos.org/packages?channel=unstable&type=packages&show=1password-cli
+
       # Audio
       audacity # https://search.nixos.org/packages?channel=unstable&type=packages&show=audacity
       ffmpeg-full # https://search.nixos.org/packages?channel=unstable&type=packages&show=ffmpeg-full
