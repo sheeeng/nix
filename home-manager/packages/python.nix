@@ -7,14 +7,16 @@
   home.packages = with pkgs; [
     (python3.withPackages (
       pkgs: with pkgs; [
-        black # python formatting
-        flake8 # python linting
+        black # https://search.nixos.org/packages?channel=unstable&type=packages&show=black
+        flake8 # https://search.nixos.org/packages?channel=unstable&type=packages&show=flake8
+        pip # https://search.nixos.org/packages?channel=unstable&type=packages&show=pip
       ]
     )) # https://github.com/timokau/dotfiles/blob/c2c55834a3b479132ca07794f75a1d887fa29df6/home/configuration.nix#L94-L105
 
     (python3.withPackages (pythonPackages: [
-      pythonPackages.black
-      pythonPackages.flake8
+      pythonPackages.black # https://search.nixos.org/packages?channel=unstable&type=packages&show=black
+      pythonPackages.flake8 # https://search.nixos.org/packages?channel=unstable&type=packages&show=flake8
+      pythonPackages.pip # https://search.nixos.org/packages?channel=unstable&type=packages&show=pip
     ])) # https://discourse.nixos.org/t/how-install-python-packages-globally-with-home-manager/37025/2
   ];
 }
