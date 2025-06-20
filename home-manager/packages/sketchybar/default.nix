@@ -1,6 +1,11 @@
 # https://github.com/calebstewart/nix/blob/c3426f84a62de61153827f438989b5fa408c375a/modules/sketchybar/default.nix
 
-{lib, config, pkgs, ...}:
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
 let
   cfg = config.modules.sketchybar;
 
@@ -33,7 +38,11 @@ let
   # Script called to get the current battery percentage/icon
   battery = pkgs.writeShellApplication {
     name = "battery";
-    runtimeInputs = with pkgs; [ sketchybar gnugrep coreutils ];
+    runtimeInputs = with pkgs; [
+      sketchybar
+      gnugrep
+      coreutils
+    ];
 
     text = ''
       #!/bin/sh
@@ -99,9 +108,15 @@ let
   # Wrap above plugins in a single plugin tree
   plugins = pkgs.symlinkJoin {
     name = "sketchybar-plugins";
-    paths = [clock active_title battery volume];
+    paths = [
+      clock
+      active_title
+      battery
+      volume
+    ];
   };
-in {
+in
+{
   options.modules.sketchybar = {
     enable = lib.mkEnableOption "sketchybar";
   };
@@ -182,8 +197,6 @@ in {
     };
   };
 }
-
-
 
 # # https://github.com/heywoodlh/nixos-configs/blob/cbbc6d4f51c3ea2a06bfa24dc0b0fea8376b46e1/darwin/modules/sketchybar.nix
 
@@ -527,7 +540,6 @@ in {
 
 #         ###################### CENTER ITEMS ###################
 
-
 #         ############## FINALIZING THE SETUP ##############
 #         sketchybar -m --update
 
@@ -536,8 +548,6 @@ in {
 #     };
 #   };
 # }
-
-
 
 # { lib, pkgs, ... }:
 # {
