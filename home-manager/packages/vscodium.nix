@@ -175,8 +175,10 @@
           "terminal.integrated.cursorBlinking" = true;
           "terminal.integrated.smoothScrolling" = true;
           "window.autoDetectColorScheme" = true;
+          "workbench.colorTheme" = "Catppuccin Mocha";
           "workbench.iconTheme" = "vscode-icons";
           "workbench.list.smoothScrolling" = true;
+          "workbench.preferredLightColorTheme" = "Catppuccin Mocha";
 
           # Putting some conveniences.
           "extensions.autoUpdate" = "onlyEnabledExtensions";
