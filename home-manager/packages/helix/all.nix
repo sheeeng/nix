@@ -37,14 +37,16 @@
         nil = {
           command = lib.getExe pkgs.nil; # https://search.nixos.org/packages?channel=unstable&type=packages&show=nil
           config = {
-            format.trimTrailingWhitespace = true;
+            format = {
+              trimTrailingWhitespace = true;
+            };
           };
         };
         nixd = {
           command = lib.getExe pkgs.nixd; # https://search.nixos.org/packages?channel=unstable&type=packages&show=nixd
           config = {
             format = {
-              format.trimTrailingWhitespace = true;
+              trimTrailingWhitespace = true;
             };
           };
         };
