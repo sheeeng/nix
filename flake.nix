@@ -168,6 +168,7 @@
             ./hosts/${hostname}
             { networking.hostName = "${hostname}"; }
             inputs.nix-index-database.nixosModules.nix-index
+            inputs.sops-nix.nixosModules.sops
           ];
           specialArgs = { inherit inputs; };
         };
@@ -180,6 +181,7 @@
             inputs.home-manager.darwinModules.home-manager
             inputs.mac-app-util.darwinModules.default
             inputs.nix-index-database.darwinModules.nix-index
+            inputs.sops-nix.darwinModules.sops
             {
               nixpkgs.overlays = [
                 (final: _prev: {
