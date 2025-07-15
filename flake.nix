@@ -113,20 +113,21 @@
     agenix.url = "github:ryantm/agenix";
     catppuccin.url = "github:catppuccin/nix";
     devenv.url = "github:cachix/devenv";
-    errata-ai-alex.flake = false;
-    errata-ai-alex.url = "github:errata-ai/alex";
-    errata-ai-google.flake = false;
-    errata-ai-google.url = "github:errata-ai/google";
-    errata-ai-joblint.flake = false;
-    errata-ai-joblint.url = "github:errata-ai/joblint";
-    errata-ai-microsoft.flake = false;
-    errata-ai-microsoft.url = "github:errata-ai/microsoft";
-    errata-ai-proselint.flake = false;
-    errata-ai-proselint.url = "github:errata-ai/proselint";
-    errata-ai-readability.flake = false;
-    errata-ai-readability.url = "github:errata-ai/readability";
-    errata-ai-write-good.flake = false;
-    errata-ai-write-good.url = "github:errata-ai/write-good";
+
+    # errata-ai-alex.flake = false;
+    # errata-ai-alex.url = "github:errata-ai/alex";
+    # errata-ai-google.flake = false;
+    # errata-ai-google.url = "github:errata-ai/google";
+    # errata-ai-joblint.flake = false;
+    # errata-ai-joblint.url = "github:errata-ai/joblint";
+    # errata-ai-microsoft.flake = false;
+    # errata-ai-microsoft.url = "github:errata-ai/microsoft";
+    # errata-ai-proselint.flake = false;
+    # errata-ai-proselint.url = "github:errata-ai/proselint";
+    # errata-ai-readability.flake = false;
+    # errata-ai-readability.url = "github:errata-ai/readability";
+    # errata-ai-write-good.flake = false;
+    # errata-ai-write-good.url = "github:errata-ai/write-good";
 
     fenix = {
       inputs.nixpkgs.follows = "nixpkgs-unstable";
