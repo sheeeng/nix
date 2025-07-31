@@ -68,7 +68,7 @@
     completionInit = "autoload -U compinit && compinit -i"; # https://discourse.nixos.org/t/zsh-compinit-warning-on-every-shell-session/22735/6 # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.completionInit
     defaultKeymap = "viins"; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.defaultKeymap
     dirHashes = { }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.dirHashes
-    dotDir = ".config/zsh"; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.dotDir
+    dotDir = "${config.xdg.configHome}/zsh"; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.dotDir
     envExtra = ''
       export LESSHISTFILE="${config.xdg.dataHome}/.lesshst";
       export CARGO_HOME="${config.xdg.cacheHome}/.cargo"

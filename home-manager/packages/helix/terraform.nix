@@ -8,7 +8,6 @@ let
   buffer-language-server = pkgs.rustPlatform.buildRustPackage rec {
     pname = "buffer-language-server";
     version = "main";
-    useFetchCargoVendor = true;
 
     src = pkgs.fetchFromGitHub {
       owner = "metafates";
