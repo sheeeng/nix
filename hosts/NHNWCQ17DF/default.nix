@@ -184,7 +184,7 @@ in
       ../../home-manager/home.nix
       inputs.agenix.homeManagerModules.age
       inputs.catppuccin.homeModules.catppuccin
-      inputs.nix-index-database.hmModules.nix-index
+      inputs.nix-index-database.homeModules.nix-index
       inputs.nixvim.homeManagerModules.nixvim
     ];
   }; # https://nix-community.github.io/home-manager/nixos-options.xhtml#nixos-opt-home-manager.users
