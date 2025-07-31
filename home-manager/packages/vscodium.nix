@@ -27,8 +27,8 @@
           # - In `/nix/store/38rarqrxl7yzjdy9xfz862wsywjhy2zv-source/modules/programs/vscode.nix': "/nix/store/11dhknilapbda5kvg36xi9vqjlqsd50d-vscode-extension-catppuccin-catppuccin-vsc-3.16.1/share/vscode/extensions/catppuccin.catppuccin-vsc"
           # - In `/nix/store/38rarqrxl7yzjdy9xfz862wsywjhy2zv-source/modules/programs/vscode.nix': "/nix/store/31ahmpal1lbf0rj4dc1g2c030b0b35m1-vscode-extension-catppuccin-catppuccin-vsc-3.16.1/share/vscode/extensions/catppuccin.catppuccin-vsc"
           # Use `lib.mkForce value` or `lib.mkDefault value` to change the priority on any of these definitions.
-          (lib.mkForce catppuccin.catppuccin-vsc) # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.catppuccin.catppuccin-vsc
-          (lib.mkForce catppuccin.catppuccin-vsc-icons) # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.catppuccin.catppuccin-vsc-icons
+          # (lib.mkForce catppuccin.catppuccin-vsc) # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.catppuccin.catppuccin-vsc
+          # (lib.mkForce catppuccin.catppuccin-vsc-icons) # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.catppuccin.catppuccin-vsc-icons
           christian-kohler.path-intellisense
           dart-code.dart-code
           davidanson.vscode-markdownlint
@@ -175,8 +175,15 @@
           "terminal.integrated.cursorBlinking" = true;
           "terminal.integrated.smoothScrolling" = true;
           "window.autoDetectColorScheme" = true;
-          "workbench.colorTheme" = "Catppuccin Mocha";
-          "workbench.iconTheme" = "vscode-icons";
+          # error: hash mismatch in fixed-output derivation '/nix/store/k11s2vdibpp3xj2dhrbfl3c1lw0nq6gx-vscode-extension-catppuccin-vscode-pnpm-deps.drv':
+          #   specified: sha256-ksxzTirYEzgaQOJ+43K6SUAD/UA1b3Mtyc3HDGtMXeM=
+          #   got:    sha256-Do6MtqcmqxJNFEX1ECJ9Xa1M2Uhza/BIkJjBlWoZow8=
+          # "workbench.colorTheme" = "Catppuccin Mocha";
+          # error: The option `home-manager.users.leonardlee.programs.vscode.profiles.default.userSettings."workbench.iconTheme"' has conflicting definition values:
+          # - In `/nix/store/kvcll90kcmx02xhjzw8l65gf197wz6y8-source/home-manager/packages/vscodium.nix': "vscode-icons"
+          # - In `/nix/store/yasgkycrfdmc9y38qksp357vdvkbnhz0-source/modules/home-manager/vscode.nix': "catppuccin-mocha"
+          # Use `lib.mkForce value` or `lib.mkDefault value` to change the priority on any of these definitions.
+          # "workbench.iconTheme" = "vscode-icons";
           "workbench.list.smoothScrolling" = true;
           "workbench.preferredLightColorTheme" = "Catppuccin Mocha";
 
