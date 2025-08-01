@@ -44,7 +44,8 @@ in
     # TODO: https://github.com/hardselius/dotfiles/blob/b801fd8aba017a588ce56430d8345449ec396c96/home/gpg.nix#L57-L59
     scdaemonSettings = {
       disable-ccid = true;
-    } // lib.optionalAttrs pkgs.stdenv.isDarwin { reader-port = ''"Yubico YubiKey OTP+FIDO+CCID"''; }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.gpg.scdaemonSettings
+    }
+    // lib.optionalAttrs pkgs.stdenv.isDarwin { reader-port = ''"Yubico YubiKey OTP+FIDO+CCID"''; }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.gpg.scdaemonSettings
 
     # TODO: https://github.com/hardselius/dotfiles/blob/b801fd8aba017a588ce56430d8345449ec396c96/home/gpg.nix
     #   programs.gpg.settings = {
