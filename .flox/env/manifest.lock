@@ -42,17 +42,17 @@
     {
       "attr_path": "age",
       "broken": false,
-      "derivation": "/nix/store/zqjs7z3py48pm8lg6lnvgws4b2sc630g-age-1.2.1.drv",
+      "derivation": "/nix/store/wgvq56px27imdydiimkf6vpy6nf5r791-age-1.2.1.drv",
       "description": "Modern encryption tool with small explicit keys",
       "install_id": "age",
       "license": "BSD-3-Clause",
-      "locked_url": "https://github.com/flox/nixpkgs?rev=910796cabe436259a29a72e8d3f5e180fc6dfacc",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=94def634a20494ee057c76998843c015909d6311",
       "name": "age-1.2.1",
       "pname": "age",
-      "rev": "910796cabe436259a29a72e8d3f5e180fc6dfacc",
-      "rev_count": 808478,
-      "rev_date": "2025-05-31T12:05:15Z",
-      "scrape_date": "2025-06-02T04:25:05.797492Z",
+      "rev": "94def634a20494ee057c76998843c015909d6311",
+      "rev_count": 837094,
+      "rev_date": "2025-07-31T05:30:45Z",
+      "scrape_date": "2025-08-02T00:29:07.608253Z",
       "stabilities": [
         "unstable"
       ],
@@ -62,7 +62,7 @@
         "out"
       ],
       "outputs": {
-        "out": "/nix/store/qlhwy976ydhksypl9q3v66sxa3bzy6by-age-1.2.1"
+        "out": "/nix/store/jqwrv77x8mz79i7bw09vsy6iwx07ihma-age-1.2.1"
       },
       "system": "aarch64-darwin",
       "group": "toplevel",
@@ -71,17 +71,17 @@
     {
       "attr_path": "age",
       "broken": false,
-      "derivation": "/nix/store/376554hmqx98v9jhbr2pl1ssjljrqqqb-age-1.2.1.drv",
+      "derivation": "/nix/store/l7qlk22ia0ydjbm6628pvv57mcw04qb3-age-1.2.1.drv",
       "description": "Modern encryption tool with small explicit keys",
       "install_id": "age",
       "license": "BSD-3-Clause",
-      "locked_url": "https://github.com/flox/nixpkgs?rev=910796cabe436259a29a72e8d3f5e180fc6dfacc",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=94def634a20494ee057c76998843c015909d6311",
       "name": "age-1.2.1",
       "pname": "age",
-      "rev": "910796cabe436259a29a72e8d3f5e180fc6dfacc",
-      "rev_count": 808478,
-      "rev_date": "2025-05-31T12:05:15Z",
-      "scrape_date": "2025-06-02T04:45:28.174745Z",
+      "rev": "94def634a20494ee057c76998843c015909d6311",
+      "rev_count": 837094,
+      "rev_date": "2025-07-31T05:30:45Z",
+      "scrape_date": "2025-08-02T00:49:18.234764Z",
       "stabilities": [
         "unstable"
       ],
@@ -91,7 +91,7 @@
         "out"
       ],
       "outputs": {
-        "out": "/nix/store/sddfkxn6b0kij6l4cwmsxf06wvpj0i4c-age-1.2.1"
+        "out": "/nix/store/kcl5nz5yisy6d2nijc4k4sbkbb6wgq2y-age-1.2.1"
       },
       "system": "aarch64-linux",
       "group": "toplevel",
@@ -100,17 +100,17 @@
     {
       "attr_path": "age",
       "broken": false,
-      "derivation": "/nix/store/31c1f6mcfvqbdkfmvrwi0rivfj48mgqd-age-1.2.1.drv",
+      "derivation": "/nix/store/ysdzxidq1s6ah2nr0gsjiszcv2spmyi1-age-1.2.1.drv",
       "description": "Modern encryption tool with small explicit keys",
       "install_id": "age",
       "license": "BSD-3-Clause",
-      "locked_url": "https://github.com/flox/nixpkgs?rev=910796cabe436259a29a72e8d3f5e180fc6dfacc",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=94def634a20494ee057c76998843c015909d6311",
       "name": "age-1.2.1",
       "pname": "age",
-      "rev": "910796cabe436259a29a72e8d3f5e180fc6dfacc",
-      "rev_count": 808478,
-      "rev_date": "2025-05-31T12:05:15Z",
-      "scrape_date": "2025-06-02T05:04:01.581946Z",
+      "rev": "94def634a20494ee057c76998843c015909d6311",
+      "rev_count": 837094,
+      "rev_date": "2025-07-31T05:30:45Z",
+      "scrape_date": "2025-08-02T01:09:23.855054Z",
       "stabilities": [
         "unstable"
       ],
@@ -120,7 +120,7 @@
         "out"
       ],
       "outputs": {
-        "out": "/nix/store/idigfw0lc18m0gb77dzx9zvp9z7nji8c-age-1.2.1"
+        "out": "/nix/store/h4qkn2fmr77bwxdz620yjzhy6q9bqfwk-age-1.2.1"
       },
       "system": "x86_64-darwin",
       "group": "toplevel",
@@ -129,17 +129,17 @@
     {
       "attr_path": "age",
       "broken": false,
-      "derivation": "/nix/store/5zi7v6snkgkvmxhcws9764xhgz7jlva2-age-1.2.1.drv",
+      "derivation": "/nix/store/9306bgdsrvgf7n846qj0g7ixzvkf15g0-age-1.2.1.drv",
       "description": "Modern encryption tool with small explicit keys",
       "install_id": "age",
       "license": "BSD-3-Clause",
-      "locked_url": "https://github.com/flox/nixpkgs?rev=910796cabe436259a29a72e8d3f5e180fc6dfacc",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=94def634a20494ee057c76998843c015909d6311",
       "name": "age-1.2.1",
       "pname": "age",
-      "rev": "910796cabe436259a29a72e8d3f5e180fc6dfacc",
-      "rev_count": 808478,
-      "rev_date": "2025-05-31T12:05:15Z",
-      "scrape_date": "2025-06-02T05:26:10.541924Z",
+      "rev": "94def634a20494ee057c76998843c015909d6311",
+      "rev_count": 837094,
+      "rev_date": "2025-07-31T05:30:45Z",
+      "scrape_date": "2025-08-02T01:33:44.070498Z",
       "stabilities": [
         "unstable"
       ],
@@ -149,7 +149,7 @@
         "out"
       ],
       "outputs": {
-        "out": "/nix/store/z305n5km4fkdij9z0w87mvv9rpsfsnmm-age-1.2.1"
+        "out": "/nix/store/kz11gvc49kmd1wgf0w3mnx0cwgpfgv6w-age-1.2.1"
       },
       "system": "x86_64-linux",
       "group": "toplevel",
@@ -158,28 +158,28 @@
     {
       "attr_path": "gnugrep",
       "broken": false,
-      "derivation": "/nix/store/1cb279q6fbv22bdz6qxcvczs9c8iaivd-gnugrep-3.11.drv",
+      "derivation": "/nix/store/wcr9whj7q1h2cnfgjr4iccflc3kiyn5c-gnugrep-3.12.drv",
       "description": "GNU implementation of the Unix grep command",
       "install_id": "gnugrep",
       "license": "GPL-3.0-or-later",
-      "locked_url": "https://github.com/flox/nixpkgs?rev=910796cabe436259a29a72e8d3f5e180fc6dfacc",
-      "name": "gnugrep-3.11",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=94def634a20494ee057c76998843c015909d6311",
+      "name": "gnugrep-3.12",
       "pname": "gnugrep",
-      "rev": "910796cabe436259a29a72e8d3f5e180fc6dfacc",
-      "rev_count": 808478,
-      "rev_date": "2025-05-31T12:05:15Z",
-      "scrape_date": "2025-06-02T04:25:06.826571Z",
+      "rev": "94def634a20494ee057c76998843c015909d6311",
+      "rev_count": 837094,
+      "rev_date": "2025-07-31T05:30:45Z",
+      "scrape_date": "2025-08-02T00:29:09.033646Z",
       "stabilities": [
         "unstable"
       ],
       "unfree": false,
-      "version": "3.11",
+      "version": "3.12",
       "outputs_to_install": [
         "out"
       ],
       "outputs": {
-        "info": "/nix/store/5aq64a9951nhk7s005rvswmsgpdwc528-gnugrep-3.11-info",
-        "out": "/nix/store/6rdq4hg48bmqy7d8da38niai5ngg1x1s-gnugrep-3.11"
+        "info": "/nix/store/v2ykyf0v2pwn2r1sr6z3k145b4vrdwiz-gnugrep-3.12-info",
+        "out": "/nix/store/f9mkdp2bnnbwshk9vjr4jj34md6911bp-gnugrep-3.12"
       },
       "system": "aarch64-darwin",
       "group": "toplevel",
@@ -188,28 +188,28 @@
     {
       "attr_path": "gnugrep",
       "broken": false,
-      "derivation": "/nix/store/xlx281cariqlrxzcldxb7mhsf9m2vkv8-gnugrep-3.11.drv",
+      "derivation": "/nix/store/jpx15njhaf5vvwl8kmdc3gx8fpin0nxh-gnugrep-3.12.drv",
       "description": "GNU implementation of the Unix grep command",
       "install_id": "gnugrep",
       "license": "GPL-3.0-or-later",
-      "locked_url": "https://github.com/flox/nixpkgs?rev=910796cabe436259a29a72e8d3f5e180fc6dfacc",
-      "name": "gnugrep-3.11",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=94def634a20494ee057c76998843c015909d6311",
+      "name": "gnugrep-3.12",
       "pname": "gnugrep",
-      "rev": "910796cabe436259a29a72e8d3f5e180fc6dfacc",
-      "rev_count": 808478,
-      "rev_date": "2025-05-31T12:05:15Z",
-      "scrape_date": "2025-06-02T04:45:29.909733Z",
+      "rev": "94def634a20494ee057c76998843c015909d6311",
+      "rev_count": 837094,
+      "rev_date": "2025-07-31T05:30:45Z",
+      "scrape_date": "2025-08-02T00:49:20.013475Z",
       "stabilities": [
         "unstable"
       ],
       "unfree": false,
-      "version": "3.11",
+      "version": "3.12",
       "outputs_to_install": [
         "out"
       ],
       "outputs": {
-        "info": "/nix/store/mhlv3zz5vag1w0b8wv1z1m1ms43k52h5-gnugrep-3.11-info",
-        "out": "/nix/store/f5qzw97sf24p9nr550sr7gipnpkaw82a-gnugrep-3.11"
+        "info": "/nix/store/0kh29ykqwpsv91q5p1kp7q3q3qn3ihxl-gnugrep-3.12-info",
+        "out": "/nix/store/c719rihk36bxwgbr8anyhn22h0x7ylp4-gnugrep-3.12"
       },
       "system": "aarch64-linux",
       "group": "toplevel",
@@ -218,28 +218,28 @@
     {
       "attr_path": "gnugrep",
       "broken": false,
-      "derivation": "/nix/store/4h8n6idcd6p0yg7rsda8nj33xmximxps-gnugrep-3.11.drv",
+      "derivation": "/nix/store/jr97h9y26vqi1nxzy6rsps5hj5n2c8hq-gnugrep-3.12.drv",
       "description": "GNU implementation of the Unix grep command",
       "install_id": "gnugrep",
       "license": "GPL-3.0-or-later",
-      "locked_url": "https://github.com/flox/nixpkgs?rev=910796cabe436259a29a72e8d3f5e180fc6dfacc",
-      "name": "gnugrep-3.11",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=94def634a20494ee057c76998843c015909d6311",
+      "name": "gnugrep-3.12",
       "pname": "gnugrep",
-      "rev": "910796cabe436259a29a72e8d3f5e180fc6dfacc",
-      "rev_count": 808478,
-      "rev_date": "2025-05-31T12:05:15Z",
-      "scrape_date": "2025-06-02T05:04:02.588296Z",
+      "rev": "94def634a20494ee057c76998843c015909d6311",
+      "rev_count": 837094,
+      "rev_date": "2025-07-31T05:30:45Z",
+      "scrape_date": "2025-08-02T01:09:24.890685Z",
       "stabilities": [
         "unstable"
       ],
       "unfree": false,
-      "version": "3.11",
+      "version": "3.12",
       "outputs_to_install": [
         "out"
       ],
       "outputs": {
-        "info": "/nix/store/1gwcxf8z8xkz5q54wnkm8msxi1vh0wdg-gnugrep-3.11-info",
-        "out": "/nix/store/xagpmxlwfr18i8c7wlpcm4rw6658833c-gnugrep-3.11"
+        "info": "/nix/store/9hn95kd8d71nbjhrnkwmiffmzy7kgvbk-gnugrep-3.12-info",
+        "out": "/nix/store/zfhxb1786sivl2psmqqji41y8r6avvwv-gnugrep-3.12"
       },
       "system": "x86_64-darwin",
       "group": "toplevel",
@@ -248,28 +248,28 @@
     {
       "attr_path": "gnugrep",
       "broken": false,
-      "derivation": "/nix/store/k3v3crqfmwdqi1hj5cb99q74qk6548r4-gnugrep-3.11.drv",
+      "derivation": "/nix/store/nf3myayksk60sz7f251gc543knz4ay8l-gnugrep-3.12.drv",
       "description": "GNU implementation of the Unix grep command",
       "install_id": "gnugrep",
       "license": "GPL-3.0-or-later",
-      "locked_url": "https://github.com/flox/nixpkgs?rev=910796cabe436259a29a72e8d3f5e180fc6dfacc",
-      "name": "gnugrep-3.11",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=94def634a20494ee057c76998843c015909d6311",
+      "name": "gnugrep-3.12",
       "pname": "gnugrep",
-      "rev": "910796cabe436259a29a72e8d3f5e180fc6dfacc",
-      "rev_count": 808478,
-      "rev_date": "2025-05-31T12:05:15Z",
-      "scrape_date": "2025-06-02T05:26:12.519374Z",
+      "rev": "94def634a20494ee057c76998843c015909d6311",
+      "rev_count": 837094,
+      "rev_date": "2025-07-31T05:30:45Z",
+      "scrape_date": "2025-08-02T01:33:46.144580Z",
       "stabilities": [
         "unstable"
       ],
       "unfree": false,
-      "version": "3.11",
+      "version": "3.12",
       "outputs_to_install": [
         "out"
       ],
       "outputs": {
-        "info": "/nix/store/ikhb97s6a22dn21lhxlzhambsmisrvff-gnugrep-3.11-info",
-        "out": "/nix/store/gqmr3gixlddz3667ba1iyqck3c0dkpvd-gnugrep-3.11"
+        "info": "/nix/store/f0jpsd2ssrvixjprdrfvs1x47r16fdwn-gnugrep-3.12-info",
+        "out": "/nix/store/k7gv42hpqwh6ghiyl4ava9p5r249x6vn-gnugrep-3.12"
       },
       "system": "x86_64-linux",
       "group": "toplevel",
@@ -278,17 +278,17 @@
     {
       "attr_path": "gnused",
       "broken": false,
-      "derivation": "/nix/store/mzm98am1pfdbvi5r11n8xc6w7wqvyvd6-gnused-4.9.drv",
+      "derivation": "/nix/store/dp3ks0336r1r7f7414fz8siqm5bch790-gnused-4.9.drv",
       "description": "GNU sed, a batch stream editor",
       "install_id": "gnused",
       "license": "GPL-3.0-or-later",
-      "locked_url": "https://github.com/flox/nixpkgs?rev=910796cabe436259a29a72e8d3f5e180fc6dfacc",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=94def634a20494ee057c76998843c015909d6311",
       "name": "gnused-4.9",
       "pname": "gnused",
-      "rev": "910796cabe436259a29a72e8d3f5e180fc6dfacc",
-      "rev_count": 808478,
-      "rev_date": "2025-05-31T12:05:15Z",
-      "scrape_date": "2025-06-02T04:25:06.831761Z",
+      "rev": "94def634a20494ee057c76998843c015909d6311",
+      "rev_count": 837094,
+      "rev_date": "2025-07-31T05:30:45Z",
+      "scrape_date": "2025-08-02T00:29:09.038890Z",
       "stabilities": [
         "unstable"
       ],
@@ -298,8 +298,8 @@
         "out"
       ],
       "outputs": {
-        "info": "/nix/store/pbkxwn9a1nkz5ym428fkwgkdsk05y5is-gnused-4.9-info",
-        "out": "/nix/store/3p81h24g11jfcdd7ifql71lr5mjag102-gnused-4.9"
+        "info": "/nix/store/3iq8pi0lkz0mhpmcwqbsq9qk0bfim6p0-gnused-4.9-info",
+        "out": "/nix/store/1299nwb4c57z3hamkfa33r1hf1cm73li-gnused-4.9"
       },
       "system": "aarch64-darwin",
       "group": "toplevel",
@@ -308,17 +308,17 @@
     {
       "attr_path": "gnused",
       "broken": false,
-      "derivation": "/nix/store/lgk6l6bqmrf380fvd0p5bcp78668adnq-gnused-4.9.drv",
+      "derivation": "/nix/store/v2hagnkhibc0d95rsvmp1yb644xqgq3b-gnused-4.9.drv",
       "description": "GNU sed, a batch stream editor",
       "install_id": "gnused",
       "license": "GPL-3.0-or-later",
-      "locked_url": "https://github.com/flox/nixpkgs?rev=910796cabe436259a29a72e8d3f5e180fc6dfacc",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=94def634a20494ee057c76998843c015909d6311",
       "name": "gnused-4.9",
       "pname": "gnused",
-      "rev": "910796cabe436259a29a72e8d3f5e180fc6dfacc",
-      "rev_count": 808478,
-      "rev_date": "2025-05-31T12:05:15Z",
-      "scrape_date": "2025-06-02T04:45:29.918203Z",
+      "rev": "94def634a20494ee057c76998843c015909d6311",
+      "rev_count": 837094,
+      "rev_date": "2025-07-31T05:30:45Z",
+      "scrape_date": "2025-08-02T00:49:20.021980Z",
       "stabilities": [
         "unstable"
       ],
@@ -328,8 +328,8 @@
         "out"
       ],
       "outputs": {
-        "info": "/nix/store/cyy5a0r1blpnkmsj8kvy18ria1ss1c6h-gnused-4.9-info",
-        "out": "/nix/store/qarfi1yp1r71kqwbxipncgnsj5qsnm69-gnused-4.9"
+        "info": "/nix/store/klf1jsapqylamznp4ajf3d7y8lm1a1by-gnused-4.9-info",
+        "out": "/nix/store/b6xhk3vpaa7xh4if3a5agm26b0xd29lk-gnused-4.9"
       },
       "system": "aarch64-linux",
       "group": "toplevel",
@@ -338,17 +338,17 @@
     {
       "attr_path": "gnused",
       "broken": false,
-      "derivation": "/nix/store/3859rjk5ris7w2yhmpm4pnszbn08lmph-gnused-4.9.drv",
+      "derivation": "/nix/store/gjpyljf5fsvhkha17ya3k3k4hcn3435l-gnused-4.9.drv",
       "description": "GNU sed, a batch stream editor",
       "install_id": "gnused",
       "license": "GPL-3.0-or-later",
-      "locked_url": "https://github.com/flox/nixpkgs?rev=910796cabe436259a29a72e8d3f5e180fc6dfacc",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=94def634a20494ee057c76998843c015909d6311",
       "name": "gnused-4.9",
       "pname": "gnused",
-      "rev": "910796cabe436259a29a72e8d3f5e180fc6dfacc",
-      "rev_count": 808478,
-      "rev_date": "2025-05-31T12:05:15Z",
-      "scrape_date": "2025-06-02T05:04:02.593814Z",
+      "rev": "94def634a20494ee057c76998843c015909d6311",
+      "rev_count": 837094,
+      "rev_date": "2025-07-31T05:30:45Z",
+      "scrape_date": "2025-08-02T01:09:24.896273Z",
       "stabilities": [
         "unstable"
       ],
@@ -358,8 +358,8 @@
         "out"
       ],
       "outputs": {
-        "info": "/nix/store/zagjaa6iilp4bnip2ra45qbylgfws7qm-gnused-4.9-info",
-        "out": "/nix/store/3fqggn1iq66h3yk73h455yyjc2q7895p-gnused-4.9"
+        "info": "/nix/store/ggy2kqzdiynzpkimb4sv3r17k5kqzcv7-gnused-4.9-info",
+        "out": "/nix/store/ayvlyyh845f11a8y0j3h01gcz0f4xwr5-gnused-4.9"
       },
       "system": "x86_64-darwin",
       "group": "toplevel",
@@ -368,17 +368,17 @@
     {
       "attr_path": "gnused",
       "broken": false,
-      "derivation": "/nix/store/x0cw2kvqs4m62dymbbhm51p66v0k1s93-gnused-4.9.drv",
+      "derivation": "/nix/store/kjraz0h56k41265kgazngg8277ridigw-gnused-4.9.drv",
       "description": "GNU sed, a batch stream editor",
       "install_id": "gnused",
       "license": "GPL-3.0-or-later",
-      "locked_url": "https://github.com/flox/nixpkgs?rev=910796cabe436259a29a72e8d3f5e180fc6dfacc",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=94def634a20494ee057c76998843c015909d6311",
       "name": "gnused-4.9",
       "pname": "gnused",
-      "rev": "910796cabe436259a29a72e8d3f5e180fc6dfacc",
-      "rev_count": 808478,
-      "rev_date": "2025-05-31T12:05:15Z",
-      "scrape_date": "2025-06-02T05:26:12.528326Z",
+      "rev": "94def634a20494ee057c76998843c015909d6311",
+      "rev_count": 837094,
+      "rev_date": "2025-07-31T05:30:45Z",
+      "scrape_date": "2025-08-02T01:33:46.153931Z",
       "stabilities": [
         "unstable"
       ],
@@ -388,8 +388,8 @@
         "out"
       ],
       "outputs": {
-        "info": "/nix/store/i65zra2i21y5khnsnvl0pvd5rkvw5qhl-gnused-4.9-info",
-        "out": "/nix/store/clbb2cvigynr235ab5zgi18dyavznlk2-gnused-4.9"
+        "info": "/nix/store/pg0x36jmj9b3kbfhasgx7gr6p0k24jhi-gnused-4.9-info",
+        "out": "/nix/store/ql68miwsgz9094bi3qa7nk17bfwf6h6a-gnused-4.9"
       },
       "system": "x86_64-linux",
       "group": "toplevel",
@@ -398,28 +398,28 @@
     {
       "attr_path": "pre-commit",
       "broken": false,
-      "derivation": "/nix/store/q91zxnykw6ypydqgbww4ypp4g24hpn8x-pre-commit-4.0.1.drv",
+      "derivation": "/nix/store/64j15a1mn20ps2qbqabg63nrj6ycsi0n-pre-commit-4.2.0.drv",
       "description": "Framework for managing and maintaining multi-language pre-commit hooks",
       "install_id": "pre-commit",
       "license": "MIT",
-      "locked_url": "https://github.com/flox/nixpkgs?rev=910796cabe436259a29a72e8d3f5e180fc6dfacc",
-      "name": "pre-commit-4.0.1",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=94def634a20494ee057c76998843c015909d6311",
+      "name": "pre-commit-4.2.0",
       "pname": "pre-commit",
-      "rev": "910796cabe436259a29a72e8d3f5e180fc6dfacc",
-      "rev_count": 808478,
-      "rev_date": "2025-05-31T12:05:15Z",
-      "scrape_date": "2025-06-02T04:25:14.992251Z",
+      "rev": "94def634a20494ee057c76998843c015909d6311",
+      "rev_count": 837094,
+      "rev_date": "2025-07-31T05:30:45Z",
+      "scrape_date": "2025-08-02T00:29:17.462582Z",
       "stabilities": [
         "unstable"
       ],
       "unfree": false,
-      "version": "4.0.1",
+      "version": "4.2.0",
       "outputs_to_install": [
         "out"
       ],
       "outputs": {
-        "dist": "/nix/store/vzndqfsv7n7hk8mqg4izha0v6ibpbj36-pre-commit-4.0.1-dist",
-        "out": "/nix/store/drkixdcr3rfizf0addf1wqk8ibdlfpcv-pre-commit-4.0.1"
+        "dist": "/nix/store/kbqa2nga20lgjwsgzknym6h36n9877nv-pre-commit-4.2.0-dist",
+        "out": "/nix/store/h4pqsrh6hqjzpqnd16g4wr2js81ckx7b-pre-commit-4.2.0"
       },
       "system": "aarch64-darwin",
       "group": "toplevel",
@@ -428,28 +428,28 @@
     {
       "attr_path": "pre-commit",
       "broken": false,
-      "derivation": "/nix/store/xkz2jr4s7rzd4mj3khb7y4j0ldcg8sc5-pre-commit-4.0.1.drv",
+      "derivation": "/nix/store/9n9h49zx12g21qk0bapydxc4laj2fvqw-pre-commit-4.2.0.drv",
       "description": "Framework for managing and maintaining multi-language pre-commit hooks",
       "install_id": "pre-commit",
       "license": "MIT",
-      "locked_url": "https://github.com/flox/nixpkgs?rev=910796cabe436259a29a72e8d3f5e180fc6dfacc",
-      "name": "pre-commit-4.0.1",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=94def634a20494ee057c76998843c015909d6311",
+      "name": "pre-commit-4.2.0",
       "pname": "pre-commit",
-      "rev": "910796cabe436259a29a72e8d3f5e180fc6dfacc",
-      "rev_count": 808478,
-      "rev_date": "2025-05-31T12:05:15Z",
-      "scrape_date": "2025-06-02T04:45:50.140149Z",
+      "rev": "94def634a20494ee057c76998843c015909d6311",
+      "rev_count": 837094,
+      "rev_date": "2025-07-31T05:30:45Z",
+      "scrape_date": "2025-08-02T00:49:40.108814Z",
       "stabilities": [
         "unstable"
       ],
       "unfree": false,
-      "version": "4.0.1",
+      "version": "4.2.0",
       "outputs_to_install": [
         "out"
       ],
       "outputs": {
-        "dist": "/nix/store/bm8mbzrv1xgmfkn0zvz2gpd3xmnwy0q1-pre-commit-4.0.1-dist",
-        "out": "/nix/store/g4c3ikai8nf8y5lad76h8rrfh8pb7swh-pre-commit-4.0.1"
+        "dist": "/nix/store/l7x6ib29sphr8y7q72yww4bvvh9lwgmd-pre-commit-4.2.0-dist",
+        "out": "/nix/store/08kjjkd9dg9dslklljhwkhzc47ncyzfc-pre-commit-4.2.0"
       },
       "system": "aarch64-linux",
       "group": "toplevel",
@@ -458,28 +458,28 @@
     {
       "attr_path": "pre-commit",
       "broken": false,
-      "derivation": "/nix/store/9dy8pvamlllk2j3gzhfb307xxbk0j68b-pre-commit-4.0.1.drv",
+      "derivation": "/nix/store/0g8kf4dpa6j6bgm6n6k1k99hdc8vj75g-pre-commit-4.2.0.drv",
       "description": "Framework for managing and maintaining multi-language pre-commit hooks",
       "install_id": "pre-commit",
       "license": "MIT",
-      "locked_url": "https://github.com/flox/nixpkgs?rev=910796cabe436259a29a72e8d3f5e180fc6dfacc",
-      "name": "pre-commit-4.0.1",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=94def634a20494ee057c76998843c015909d6311",
+      "name": "pre-commit-4.2.0",
       "pname": "pre-commit",
-      "rev": "910796cabe436259a29a72e8d3f5e180fc6dfacc",
-      "rev_count": 808478,
-      "rev_date": "2025-05-31T12:05:15Z",
-      "scrape_date": "2025-06-02T05:04:11.107962Z",
+      "rev": "94def634a20494ee057c76998843c015909d6311",
+      "rev_count": 837094,
+      "rev_date": "2025-07-31T05:30:45Z",
+      "scrape_date": "2025-08-02T01:09:33.682999Z",
       "stabilities": [
         "unstable"
       ],
       "unfree": false,
-      "version": "4.0.1",
+      "version": "4.2.0",
       "outputs_to_install": [
         "out"
       ],
       "outputs": {
-        "dist": "/nix/store/1f8a71sf8v7bvx7igcfjxcp1x3b1q4qq-pre-commit-4.0.1-dist",
-        "out": "/nix/store/dr3ilsics80kklfpnag4f1bqp8gk25gr-pre-commit-4.0.1"
+        "dist": "/nix/store/2mqqdfv7q0i05b44w0dpia4q47w2cmhz-pre-commit-4.2.0-dist",
+        "out": "/nix/store/dm4vs2vvdqw34ihdja6jn5j5h6kbc0lg-pre-commit-4.2.0"
       },
       "system": "x86_64-darwin",
       "group": "toplevel",
@@ -488,28 +488,28 @@
     {
       "attr_path": "pre-commit",
       "broken": false,
-      "derivation": "/nix/store/6fprbs5xbq3dmaq4a7nqbhz0vxcl36ci-pre-commit-4.0.1.drv",
+      "derivation": "/nix/store/948w8bw7xwzm4f72425mr5aaq9ingkq0-pre-commit-4.2.0.drv",
       "description": "Framework for managing and maintaining multi-language pre-commit hooks",
       "install_id": "pre-commit",
       "license": "MIT",
-      "locked_url": "https://github.com/flox/nixpkgs?rev=910796cabe436259a29a72e8d3f5e180fc6dfacc",
-      "name": "pre-commit-4.0.1",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=94def634a20494ee057c76998843c015909d6311",
+      "name": "pre-commit-4.2.0",
       "pname": "pre-commit",
-      "rev": "910796cabe436259a29a72e8d3f5e180fc6dfacc",
-      "rev_count": 808478,
-      "rev_date": "2025-05-31T12:05:15Z",
-      "scrape_date": "2025-06-02T05:26:35.566883Z",
+      "rev": "94def634a20494ee057c76998843c015909d6311",
+      "rev_count": 837094,
+      "rev_date": "2025-07-31T05:30:45Z",
+      "scrape_date": "2025-08-02T01:34:09.334551Z",
       "stabilities": [
         "unstable"
       ],
       "unfree": false,
-      "version": "4.0.1",
+      "version": "4.2.0",
       "outputs_to_install": [
         "out"
       ],
       "outputs": {
-        "dist": "/nix/store/r3sk0c7i1z1mpjlh02mnx36k42nsb4rc-pre-commit-4.0.1-dist",
-        "out": "/nix/store/1grwmkj3qf897wgxycyymip87i9cvk29-pre-commit-4.0.1"
+        "dist": "/nix/store/hwa3dzmgnp5f9m74ic1y5aylah8gz0z7-pre-commit-4.2.0-dist",
+        "out": "/nix/store/v0sf67x7sw6pg277amhgf3j84m60wrqn-pre-commit-4.2.0"
       },
       "system": "x86_64-linux",
       "group": "toplevel",
@@ -518,17 +518,17 @@
     {
       "attr_path": "uutils-coreutils-noprefix",
       "broken": false,
-      "derivation": "/nix/store/nywqljvk2lf4rwjrzh0bx3h04l9fb91c-uutils-coreutils-0.1.0.drv",
+      "derivation": "/nix/store/0ywg1sr3k2pzdyjc82aw44qq8aqpqjv9-uutils-coreutils-0.1.0.drv",
       "description": "Cross-platform Rust rewrite of the GNU coreutils",
       "install_id": "uutils-coreutils-noprefix",
       "license": "MIT",
-      "locked_url": "https://github.com/flox/nixpkgs?rev=910796cabe436259a29a72e8d3f5e180fc6dfacc",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=94def634a20494ee057c76998843c015909d6311",
       "name": "uutils-coreutils-0.1.0",
       "pname": "uutils-coreutils-noprefix",
-      "rev": "910796cabe436259a29a72e8d3f5e180fc6dfacc",
-      "rev_count": 808478,
-      "rev_date": "2025-05-31T12:05:15Z",
-      "scrape_date": "2025-06-02T04:26:03.222385Z",
+      "rev": "94def634a20494ee057c76998843c015909d6311",
+      "rev_count": 837094,
+      "rev_date": "2025-07-31T05:30:45Z",
+      "scrape_date": "2025-08-02T00:30:08.122192Z",
       "stabilities": [
         "unstable"
       ],
@@ -538,7 +538,7 @@
         "out"
       ],
       "outputs": {
-        "out": "/nix/store/nfcr1iix157ymsmfy9sz8gjyb396gxab-uutils-coreutils-0.1.0"
+        "out": "/nix/store/ms9czzbhw2myyqd6d6m21zgp5q4myvcg-uutils-coreutils-0.1.0"
       },
       "system": "aarch64-darwin",
       "group": "toplevel",
@@ -547,17 +547,17 @@
     {
       "attr_path": "uutils-coreutils-noprefix",
       "broken": false,
-      "derivation": "/nix/store/ihq06sc4jkfydsv1pz9w182d4p86cj92-uutils-coreutils-0.1.0.drv",
+      "derivation": "/nix/store/1l02ysa9vl4lh26bk5dw3ih1z4bs6dxl-uutils-coreutils-0.1.0.drv",
       "description": "Cross-platform Rust rewrite of the GNU coreutils",
       "install_id": "uutils-coreutils-noprefix",
       "license": "MIT",
-      "locked_url": "https://github.com/flox/nixpkgs?rev=910796cabe436259a29a72e8d3f5e180fc6dfacc",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=94def634a20494ee057c76998843c015909d6311",
       "name": "uutils-coreutils-0.1.0",
       "pname": "uutils-coreutils-noprefix",
-      "rev": "910796cabe436259a29a72e8d3f5e180fc6dfacc",
-      "rev_count": 808478,
-      "rev_date": "2025-05-31T12:05:15Z",
-      "scrape_date": "2025-06-02T04:46:58.342197Z",
+      "rev": "94def634a20494ee057c76998843c015909d6311",
+      "rev_count": 837094,
+      "rev_date": "2025-07-31T05:30:45Z",
+      "scrape_date": "2025-08-02T00:50:51.310934Z",
       "stabilities": [
         "unstable"
       ],
@@ -567,7 +567,7 @@
         "out"
       ],
       "outputs": {
-        "out": "/nix/store/6qlhj72xkf0lgp8ih81jnbhkkx0y2jxn-uutils-coreutils-0.1.0"
+        "out": "/nix/store/grb2pqsfqvq2bn44i9vm06jhwf97d7kl-uutils-coreutils-0.1.0"
       },
       "system": "aarch64-linux",
       "group": "toplevel",
@@ -576,17 +576,17 @@
     {
       "attr_path": "uutils-coreutils-noprefix",
       "broken": false,
-      "derivation": "/nix/store/27vcnmg2bvvrfbvl9zbshz2xa24bndnk-uutils-coreutils-0.1.0.drv",
+      "derivation": "/nix/store/h0pmb3b7c4k4kx3njilar1v8l83lzcz4-uutils-coreutils-0.1.0.drv",
       "description": "Cross-platform Rust rewrite of the GNU coreutils",
       "install_id": "uutils-coreutils-noprefix",
       "license": "MIT",
-      "locked_url": "https://github.com/flox/nixpkgs?rev=910796cabe436259a29a72e8d3f5e180fc6dfacc",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=94def634a20494ee057c76998843c015909d6311",
       "name": "uutils-coreutils-0.1.0",
       "pname": "uutils-coreutils-noprefix",
-      "rev": "910796cabe436259a29a72e8d3f5e180fc6dfacc",
-      "rev_count": 808478,
-      "rev_date": "2025-05-31T12:05:15Z",
-      "scrape_date": "2025-06-02T05:05:00.754630Z",
+      "rev": "94def634a20494ee057c76998843c015909d6311",
+      "rev_count": 837094,
+      "rev_date": "2025-07-31T05:30:45Z",
+      "scrape_date": "2025-08-02T01:10:25.868358Z",
       "stabilities": [
         "unstable"
       ],
@@ -596,7 +596,7 @@
         "out"
       ],
       "outputs": {
-        "out": "/nix/store/8p8qwk8x6j0xz0x97kgsa5m9wd5696b3-uutils-coreutils-0.1.0"
+        "out": "/nix/store/qv43ghv47w309lkw4a7higpp1h0hh4hf-uutils-coreutils-0.1.0"
       },
       "system": "x86_64-darwin",
       "group": "toplevel",
@@ -605,17 +605,17 @@
     {
       "attr_path": "uutils-coreutils-noprefix",
       "broken": false,
-      "derivation": "/nix/store/kv9fw8vjs0apywy92qvid1mn03if2x9h-uutils-coreutils-0.1.0.drv",
+      "derivation": "/nix/store/kyvvqa7bf465bdgi3zv51caawaj31gwg-uutils-coreutils-0.1.0.drv",
       "description": "Cross-platform Rust rewrite of the GNU coreutils",
       "install_id": "uutils-coreutils-noprefix",
       "license": "MIT",
-      "locked_url": "https://github.com/flox/nixpkgs?rev=910796cabe436259a29a72e8d3f5e180fc6dfacc",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=94def634a20494ee057c76998843c015909d6311",
       "name": "uutils-coreutils-0.1.0",
       "pname": "uutils-coreutils-noprefix",
-      "rev": "910796cabe436259a29a72e8d3f5e180fc6dfacc",
-      "rev_count": 808478,
-      "rev_date": "2025-05-31T12:05:15Z",
-      "scrape_date": "2025-06-02T05:27:48.119461Z",
+      "rev": "94def634a20494ee057c76998843c015909d6311",
+      "rev_count": 837094,
+      "rev_date": "2025-07-31T05:30:45Z",
+      "scrape_date": "2025-08-02T01:35:27.605459Z",
       "stabilities": [
         "unstable"
       ],
@@ -625,7 +625,7 @@
         "out"
       ],
       "outputs": {
-        "out": "/nix/store/zksxp3ir4sab4c26dq6m4dk361pmg4zp-uutils-coreutils-0.1.0"
+        "out": "/nix/store/96nvq459rrlxfxjjhqwc0ri8y3wxf1ma-uutils-coreutils-0.1.0"
       },
       "system": "x86_64-linux",
       "group": "toplevel",
@@ -634,17 +634,17 @@
     {
       "attr_path": "uutils-diffutils",
       "broken": false,
-      "derivation": "/nix/store/29s4q5412qlqjk5r921pkra6mi6s1pbv-uutils-diffutils-0.4.2.drv",
+      "derivation": "/nix/store/9f8qc7wzchgwrjr2qik8dvpdz6c19nsw-uutils-diffutils-0.4.2.drv",
       "description": "Drop-in replacement of diffutils in Rust",
       "install_id": "uutils-diffutils",
       "license": "MIT",
-      "locked_url": "https://github.com/flox/nixpkgs?rev=910796cabe436259a29a72e8d3f5e180fc6dfacc",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=94def634a20494ee057c76998843c015909d6311",
       "name": "uutils-diffutils-0.4.2",
       "pname": "uutils-diffutils",
-      "rev": "910796cabe436259a29a72e8d3f5e180fc6dfacc",
-      "rev_count": 808478,
-      "rev_date": "2025-05-31T12:05:15Z",
-      "scrape_date": "2025-06-02T04:26:03.224270Z",
+      "rev": "94def634a20494ee057c76998843c015909d6311",
+      "rev_count": 837094,
+      "rev_date": "2025-07-31T05:30:45Z",
+      "scrape_date": "2025-08-02T00:30:08.124104Z",
       "stabilities": [
         "unstable"
       ],
@@ -654,7 +654,7 @@
         "out"
       ],
       "outputs": {
-        "out": "/nix/store/pzklxnw7x2b3q6rlaf4ns5lxlhjdp74r-uutils-diffutils-0.4.2"
+        "out": "/nix/store/r64rhflqxhm5pfrf0qcd0zdxp0kllygm-uutils-diffutils-0.4.2"
       },
       "system": "aarch64-darwin",
       "group": "toplevel",
@@ -663,17 +663,17 @@
     {
       "attr_path": "uutils-diffutils",
       "broken": false,
-      "derivation": "/nix/store/3cs59q73dajv7z8bv6a2ysj0ccggw4i7-uutils-diffutils-0.4.2.drv",
+      "derivation": "/nix/store/57xiavr2dblibjcsah6whhwhaw54jsl1-uutils-diffutils-0.4.2.drv",
       "description": "Drop-in replacement of diffutils in Rust",
       "install_id": "uutils-diffutils",
       "license": "MIT",
-      "locked_url": "https://github.com/flox/nixpkgs?rev=910796cabe436259a29a72e8d3f5e180fc6dfacc",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=94def634a20494ee057c76998843c015909d6311",
       "name": "uutils-diffutils-0.4.2",
       "pname": "uutils-diffutils",
-      "rev": "910796cabe436259a29a72e8d3f5e180fc6dfacc",
-      "rev_count": 808478,
-      "rev_date": "2025-05-31T12:05:15Z",
-      "scrape_date": "2025-06-02T04:46:58.344544Z",
+      "rev": "94def634a20494ee057c76998843c015909d6311",
+      "rev_count": 837094,
+      "rev_date": "2025-07-31T05:30:45Z",
+      "scrape_date": "2025-08-02T00:50:51.313380Z",
       "stabilities": [
         "unstable"
       ],
@@ -683,7 +683,7 @@
         "out"
       ],
       "outputs": {
-        "out": "/nix/store/ngb7l3p8pnmkki890cji3kbls509drcy-uutils-diffutils-0.4.2"
+        "out": "/nix/store/pj2sps2yvf43l7nr77v1ynvxsbv85kh5-uutils-diffutils-0.4.2"
       },
       "system": "aarch64-linux",
       "group": "toplevel",
@@ -692,17 +692,17 @@
     {
       "attr_path": "uutils-diffutils",
       "broken": false,
-      "derivation": "/nix/store/1zd934llxrv4v7sx31ajrha9yhqmfiv0-uutils-diffutils-0.4.2.drv",
+      "derivation": "/nix/store/3370z2pn25nci1s0j2ds57pzmrsj6n7l-uutils-diffutils-0.4.2.drv",
       "description": "Drop-in replacement of diffutils in Rust",
       "install_id": "uutils-diffutils",
       "license": "MIT",
-      "locked_url": "https://github.com/flox/nixpkgs?rev=910796cabe436259a29a72e8d3f5e180fc6dfacc",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=94def634a20494ee057c76998843c015909d6311",
       "name": "uutils-diffutils-0.4.2",
       "pname": "uutils-diffutils",
-      "rev": "910796cabe436259a29a72e8d3f5e180fc6dfacc",
-      "rev_count": 808478,
-      "rev_date": "2025-05-31T12:05:15Z",
-      "scrape_date": "2025-06-02T05:05:00.756562Z",
+      "rev": "94def634a20494ee057c76998843c015909d6311",
+      "rev_count": 837094,
+      "rev_date": "2025-07-31T05:30:45Z",
+      "scrape_date": "2025-08-02T01:10:25.870352Z",
       "stabilities": [
         "unstable"
       ],
@@ -712,7 +712,7 @@
         "out"
       ],
       "outputs": {
-        "out": "/nix/store/1blsyr09hd65rfrf5mc6z8kd0jna2f0k-uutils-diffutils-0.4.2"
+        "out": "/nix/store/4g9ki1q56grw23n49c23ii481sh07acp-uutils-diffutils-0.4.2"
       },
       "system": "x86_64-darwin",
       "group": "toplevel",
@@ -721,17 +721,17 @@
     {
       "attr_path": "uutils-diffutils",
       "broken": false,
-      "derivation": "/nix/store/3ynriq7js1dranfrgxhvxcnsvb4w3fas-uutils-diffutils-0.4.2.drv",
+      "derivation": "/nix/store/56bfz3rrm7k20r63yij6nsaknmnxc60j-uutils-diffutils-0.4.2.drv",
       "description": "Drop-in replacement of diffutils in Rust",
       "install_id": "uutils-diffutils",
       "license": "MIT",
-      "locked_url": "https://github.com/flox/nixpkgs?rev=910796cabe436259a29a72e8d3f5e180fc6dfacc",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=94def634a20494ee057c76998843c015909d6311",
       "name": "uutils-diffutils-0.4.2",
       "pname": "uutils-diffutils",
-      "rev": "910796cabe436259a29a72e8d3f5e180fc6dfacc",
-      "rev_count": 808478,
-      "rev_date": "2025-05-31T12:05:15Z",
-      "scrape_date": "2025-06-02T05:27:48.121923Z",
+      "rev": "94def634a20494ee057c76998843c015909d6311",
+      "rev_count": 837094,
+      "rev_date": "2025-07-31T05:30:45Z",
+      "scrape_date": "2025-08-02T01:35:27.608088Z",
       "stabilities": [
         "unstable"
       ],
@@ -741,7 +741,7 @@
         "out"
       ],
       "outputs": {
-        "out": "/nix/store/mb6igl323wn8kh606x785q344qf59l5y-uutils-diffutils-0.4.2"
+        "out": "/nix/store/pkp2brr1mvvk6w1ysv5b3fcgjaqd2dxy-uutils-diffutils-0.4.2"
       },
       "system": "x86_64-linux",
       "group": "toplevel",
@@ -750,17 +750,17 @@
     {
       "attr_path": "uutils-findutils",
       "broken": false,
-      "derivation": "/nix/store/h5pfmvg13g8rpyqykxk9kqqfz9nfzagx-uutils-findutils-0.8.0.drv",
+      "derivation": "/nix/store/qbqq3z0d3fkaacvy5h3gvcv4fv40vbld-uutils-findutils-0.8.0.drv",
       "description": "Rust implementation of findutils",
       "install_id": "uutils-findutils",
       "license": "MIT",
-      "locked_url": "https://github.com/flox/nixpkgs?rev=910796cabe436259a29a72e8d3f5e180fc6dfacc",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=94def634a20494ee057c76998843c015909d6311",
       "name": "uutils-findutils-0.8.0",
       "pname": "uutils-findutils",
-      "rev": "910796cabe436259a29a72e8d3f5e180fc6dfacc",
-      "rev_count": 808478,
-      "rev_date": "2025-05-31T12:05:15Z",
-      "scrape_date": "2025-06-02T04:26:03.226174Z",
+      "rev": "94def634a20494ee057c76998843c015909d6311",
+      "rev_count": 837094,
+      "rev_date": "2025-07-31T05:30:45Z",
+      "scrape_date": "2025-08-02T00:30:08.126011Z",
       "stabilities": [
         "unstable"
       ],
@@ -770,7 +770,7 @@
         "out"
       ],
       "outputs": {
-        "out": "/nix/store/6ryv5rnr1fpsh87phs6vbqq4pycsny70-uutils-findutils-0.8.0"
+        "out": "/nix/store/j5xqca17qp9b65bbandhm415w9pp17xs-uutils-findutils-0.8.0"
       },
       "system": "aarch64-darwin",
       "group": "toplevel",
@@ -779,17 +779,17 @@
     {
       "attr_path": "uutils-findutils",
       "broken": false,
-      "derivation": "/nix/store/cr7r8v7l1xgqzi1mls1i0rbrn323dys1-uutils-findutils-0.8.0.drv",
+      "derivation": "/nix/store/jsjrxj16zzj3l1j7z2z2frkhqnnlsr3z-uutils-findutils-0.8.0.drv",
       "description": "Rust implementation of findutils",
       "install_id": "uutils-findutils",
       "license": "MIT",
-      "locked_url": "https://github.com/flox/nixpkgs?rev=910796cabe436259a29a72e8d3f5e180fc6dfacc",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=94def634a20494ee057c76998843c015909d6311",
       "name": "uutils-findutils-0.8.0",
       "pname": "uutils-findutils",
-      "rev": "910796cabe436259a29a72e8d3f5e180fc6dfacc",
-      "rev_count": 808478,
-      "rev_date": "2025-05-31T12:05:15Z",
-      "scrape_date": "2025-06-02T04:46:58.346909Z",
+      "rev": "94def634a20494ee057c76998843c015909d6311",
+      "rev_count": 837094,
+      "rev_date": "2025-07-31T05:30:45Z",
+      "scrape_date": "2025-08-02T00:50:51.315819Z",
       "stabilities": [
         "unstable"
       ],
@@ -799,7 +799,7 @@
         "out"
       ],
       "outputs": {
-        "out": "/nix/store/slm9yglp6f669sr1c7f09j8vrkhikj9n-uutils-findutils-0.8.0"
+        "out": "/nix/store/lvb5n92m91m583hd6n8hlqpzv061s159-uutils-findutils-0.8.0"
       },
       "system": "aarch64-linux",
       "group": "toplevel",
@@ -808,17 +808,17 @@
     {
       "attr_path": "uutils-findutils",
       "broken": false,
-      "derivation": "/nix/store/ai45fn3kpd9g6r570x9jddqbj5594qbx-uutils-findutils-0.8.0.drv",
+      "derivation": "/nix/store/qzzq3y62b67188f23yc62h3hwd0cijs8-uutils-findutils-0.8.0.drv",
       "description": "Rust implementation of findutils",
       "install_id": "uutils-findutils",
       "license": "MIT",
-      "locked_url": "https://github.com/flox/nixpkgs?rev=910796cabe436259a29a72e8d3f5e180fc6dfacc",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=94def634a20494ee057c76998843c015909d6311",
       "name": "uutils-findutils-0.8.0",
       "pname": "uutils-findutils",
-      "rev": "910796cabe436259a29a72e8d3f5e180fc6dfacc",
-      "rev_count": 808478,
-      "rev_date": "2025-05-31T12:05:15Z",
-      "scrape_date": "2025-06-02T05:05:00.758513Z",
+      "rev": "94def634a20494ee057c76998843c015909d6311",
+      "rev_count": 837094,
+      "rev_date": "2025-07-31T05:30:45Z",
+      "scrape_date": "2025-08-02T01:10:25.872371Z",
       "stabilities": [
         "unstable"
       ],
@@ -828,7 +828,7 @@
         "out"
       ],
       "outputs": {
-        "out": "/nix/store/7v99p912la81wv6rnwjy8rq9gy1cpkkh-uutils-findutils-0.8.0"
+        "out": "/nix/store/655la7dnw1zpxzzfi9z20lrgnnxpp7z3-uutils-findutils-0.8.0"
       },
       "system": "x86_64-darwin",
       "group": "toplevel",
@@ -837,17 +837,17 @@
     {
       "attr_path": "uutils-findutils",
       "broken": false,
-      "derivation": "/nix/store/8jk17g45yz10ylb3m7akp0wx82q94624-uutils-findutils-0.8.0.drv",
+      "derivation": "/nix/store/z9dqihxlvh51k6qsscf87hd7s5g3dnv5-uutils-findutils-0.8.0.drv",
       "description": "Rust implementation of findutils",
       "install_id": "uutils-findutils",
       "license": "MIT",
-      "locked_url": "https://github.com/flox/nixpkgs?rev=910796cabe436259a29a72e8d3f5e180fc6dfacc",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=94def634a20494ee057c76998843c015909d6311",
       "name": "uutils-findutils-0.8.0",
       "pname": "uutils-findutils",
-      "rev": "910796cabe436259a29a72e8d3f5e180fc6dfacc",
-      "rev_count": 808478,
-      "rev_date": "2025-05-31T12:05:15Z",
-      "scrape_date": "2025-06-02T05:27:48.124379Z",
+      "rev": "94def634a20494ee057c76998843c015909d6311",
+      "rev_count": 837094,
+      "rev_date": "2025-07-31T05:30:45Z",
+      "scrape_date": "2025-08-02T01:35:27.610690Z",
       "stabilities": [
         "unstable"
       ],
@@ -857,7 +857,7 @@
         "out"
       ],
       "outputs": {
-        "out": "/nix/store/sfh0965s68a6wvqz3sg68n2b11q47lm5-uutils-findutils-0.8.0"
+        "out": "/nix/store/0x5pvgj0xj5b8fsanlflg0lzhjabfk0z-uutils-findutils-0.8.0"
       },
       "system": "x86_64-linux",
       "group": "toplevel",
