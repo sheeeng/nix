@@ -180,6 +180,7 @@
             inputs.home-manager.darwinModules.home-manager
             inputs.mac-app-util.darwinModules.default
             inputs.nix-index-database.darwinModules.nix-index
+            inputs.agenix.darwinModules.default
             {
               nixpkgs.overlays = [
                 (final: _prev: {
