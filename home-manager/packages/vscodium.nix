@@ -185,7 +185,7 @@
           # Use `lib.mkForce value` or `lib.mkDefault value` to change the priority on any of these definitions.
           # "workbench.iconTheme" = "vscode-icons";
           "workbench.list.smoothScrolling" = true;
-          "workbench.preferredLightColorTheme" = "Catppuccin Mocha";
+          # "workbench.preferredLightColorTheme" = "Catppuccin Mocha";
 
           # Putting some conveniences.
           "extensions.autoUpdate" = "onlyEnabledExtensions";
