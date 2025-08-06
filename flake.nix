@@ -181,6 +181,7 @@
             inputs.mac-app-util.darwinModules.default
             inputs.nix-index-database.darwinModules.nix-index
             inputs.agenix.darwinModules.default
+            inputs.sops-nix.darwinModules.sops
             {
               nixpkgs.overlays = [
                 (final: _prev: {
