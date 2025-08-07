@@ -161,7 +161,7 @@
     nix-secrets = {
       url = "git+ssh://git@github.com/sheeeng/nix-secrets.git?ref=main&shallow=1";
       # url = "git+file:///home/llee/nix-secrets?ref=main&shallow=1";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      # inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
   };
 
