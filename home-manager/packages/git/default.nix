@@ -25,16 +25,16 @@ in
     # GIT_EDITOR = "${pkgs.neovim}/bin/nvim"; # TODO: Conflicting error. Use `lib.mkForce value` or `lib.mkDefault value` to change the priority on any of these definitions.
   };
 
-  home.file."bitbucket/.gitconfig".source = ./gitconfig-two.ini;
-  home.file."bitbucket/sheeeng/.gitconfig".source = ./gitconfig-two.ini;
-  home.file."codeberg/.gitconfig".source = ./gitconfig-two.ini;
-  home.file."dottir/.gitconfig".source = ./gitconfig-two.ini;
-  home.file."github/.gitconfig".source = ./gitconfig-one.ini;
-  home.file."github/sheeeng/.gitconfig".source = ./gitconfig-one.ini;
-  home.file."github/techcloud0-actions/.gitconfig".source = ./gitconfig-three.ini;
-  home.file."github/techcloud0/.gitconfig".source = ./gitconfig-three.ini;
-  home.file."gitlab/.gitconfig".source = ./gitconfig-two.ini;
-  home.file."srht/.gitconfig".source = ./gitconfig-two.ini;
+  home.file."bitbucket/.gitconfig".source = ./gitconfig-private.ini;
+  home.file."bitbucket/sheeeng/.gitconfig".source = ./gitconfig-private.ini;
+  home.file."codeberg/.gitconfig".source = ./gitconfig-private.ini;
+  home.file."dottir/.gitconfig".source = ./gitconfig-private.ini;
+  home.file."github/.gitconfig".source = ./gitconfig-github.ini;
+  home.file."github/sheeeng/.gitconfig".source = ./gitconfig-github.ini;
+  home.file."github/techcloud0-actions/.gitconfig".source = ./gitconfig-github.ini;
+  home.file."github/techcloud0/.gitconfig".source = ./gitconfig-github.ini;
+  home.file."gitlab/.gitconfig".source = ./gitconfig-gitlab.ini;
+  home.file."srht/.gitconfig".source = ./gitconfig-private.ini;
 
   # https://github.com/lasseheia/nix/blob/2804cb5670f54c91da65067b204a71a5ff5695fc/modules/git/home-manager.nix#L7
   services.ssh-agent.enable = if pkgs.stdenv.isDarwin then false else true;
