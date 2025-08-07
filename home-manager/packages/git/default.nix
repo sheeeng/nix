@@ -1,6 +1,11 @@
 # TODO: https://github.com/kpritam/nixpkgs/blob/dbc2a1538b2c6dfd1d11fb97c08203643c723ff0/home/git.nix
 
-{ config, pkgs, ... }:
+{
+  config,
+  inputs,
+  pkgs,
+  ...
+}:
 let
   # https://github.com/uesyn/dotfiles/blob/a28964187ab74b880f2e8ae561359451e9a05e29/home-manager/git/default.nix#L6-L12
   git-credential-oauth-wrapper = pkgs.writeShellScriptBin "git-credential-oauth-wrapper" ''
@@ -10,6 +15,8 @@ let
       exec ${pkgs.git-credential-oauth}/bin/git-credential-oauth "$@"
     fi
   '';
+
+  # secrets = inputs.nix-secrets.${myselfName}.email;
 in
 {
   # https://github.com/uesyn/dotfiles/blob/a28964187ab74b880f2e8ae561359451e9a05e29/home-manager/git/default.nix#L14
