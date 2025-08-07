@@ -84,6 +84,8 @@ in
   nix.enable = false;
 
   system.stateVersion = 5;
+  system.primaryUser = "llee"; # Added to specify the primary user for system.defaults
+
   nix.package = pkgs-unstable.nix; # https://daiderd.com/nix-darwin/manual/index.html#opt-nix.package
   nix.optimise.automatic = false; # TODO: nix.optimise.automatic requires nix.enable. # https://daiderd.com/nix-darwin/manual/index.html#opt-nix.optimise.automatic # https://github.com/NixOS/nix/issues/7273#issuecomment-2295429401
   nix.settings.auto-optimise-store = false; # https://github.com/NixOS/nix/issues/7273#issuecomment-1310213986
@@ -95,15 +97,16 @@ in
   nix.settings.trusted-public-keys = [
     "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
   ];
-  nix.extraOptions = ''
-    extra-substituters = https://devenv.cachix.org
-    extra-trusted-public-keys = nixpkgs-python.cachix.org-1:hxjI7pFxTyuTHn2NkvWCrAUcNZLNS3ZAvfYNuYifcEU= devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw=
-    trusted-users = root lssl
-    experimental-features = nix-command flakes
-  ''
-  + lib.optionalString (pkgs.system == "aarch64-darwin") ''
-    extra-platforms = x86_64-darwin aarch64-darwin
-  '';
+  nix.extraOptions =
+    ''
+      extra-substituters = https://devenv.cachix.org
+      extra-trusted-public-keys = nixpkgs-python.cachix.org-1:hxjI7pFxTyuTHn2NkvWCrAUcNZLNS3ZAvfYNuYifcEU= devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw=
+      trusted-users = root lssl
+      experimental-features = nix-command flakes
+    ''
+    + lib.optionalString (pkgs.system == "aarch64-darwin") ''
+      extra-platforms = x86_64-darwin aarch64-darwin
+    '';
   nix.settings.trusted-users = [
     "@admin"
   ];
@@ -173,7 +176,19 @@ in
   };
 
   # https://medium.com/@zmre/nix-darwin-quick-tip-activate-your-preferences-f69942a93236
-  system.activationScripts.postUserActivation.text = ''
-    /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
-  '';
+  # Failed assertions:
+  # - The `system.activationScripts.postUserActivation` option has
+  # been removed, as all activation now takes place as `root`. Please
+  # restructure your custom activation scripts appropriately,
+  # potentially using `sudo` if you need to run commands as a user.
+  # system.activationScripts.postUserActivation.text = ''
+  #   /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
+  # '';
+  system.activationScripts.activateUserSettings = {
+    supportsDryActivation = true; # Set to false if this command shouldn't run in dry activations
+    text = ''
+      echo "Activating user settings for ${config.system.primaryUser}..."
+      sudo -u ${config.system.primaryUser} /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
+    '';
+  };
 }
