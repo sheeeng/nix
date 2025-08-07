@@ -7,6 +7,7 @@
   ...
 }:
 let
+
   # https://github.com/uesyn/dotfiles/blob/a28964187ab74b880f2e8ae561359451e9a05e29/home-manager/git/default.nix#L6-L12
   git-credential-oauth-wrapper = pkgs.writeShellScriptBin "git-credential-oauth-wrapper" ''
     if [ -n "$REMOTE" ] || [ -n "$SSH_CLIENT" ]; then
@@ -16,7 +17,8 @@ let
     fi
   '';
 
-  # secrets = inputs.nix-secrets.${myselfName}.email;
+  myselfName = "sheeeng";
+  secrets = inputs.nix-secrets.${myselfName};
 in
 {
   # https://github.com/uesyn/dotfiles/blob/a28964187ab74b880f2e8ae561359451e9a05e29/home-manager/git/default.nix#L14
@@ -32,7 +34,22 @@ in
     # GIT_EDITOR = "${pkgs.neovim}/bin/nvim"; # TODO: Conflicting error. Use `lib.mkForce value` or `lib.mkDefault value` to change the priority on any of these definitions.
   };
 
-  home.file."bitbucket/.gitconfig".source = ./gitconfig-private.ini;
+  # home.file."bitbucket/.gitconfig".source = ./gitconfig-private.ini;
+  home.file."bitbucket/.gitconfig" = {
+    text = ''
+      [user]
+        email = ${secrets.email.private or "unknown.user@undefined.domain"}
+        gitHub = ${secrets.email.gitHub or "unknown.user@undefined.domain"}
+        gitLab = ${secrets.email.gitLab or "unknown.user@undefined.domain"}
+        name = ${secrets.userPreferredName or "Unknown User"}
+        personal = ${secrets.email.personal or "unknown.user@undefined.domain"}
+        private = ${secrets.email.private or "unknown.user@undefined.domain"}
+      [credential]
+        helper = oauth
+      [init]
+        defaultBranch = main
+    '';
+  };
   home.file."bitbucket/sheeeng/.gitconfig".source = ./gitconfig-private.ini;
   home.file."codeberg/.gitconfig".source = ./gitconfig-private.ini;
   home.file."dottir/.gitconfig".source = ./gitconfig-private.ini;
