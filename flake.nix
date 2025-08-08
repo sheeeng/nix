@@ -23,35 +23,35 @@
   description = "NixOS Configuration";
 
   inputs = {
+    # nixpkgs.url = "github:nixos/nixpkgs/nixos";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    # The next two are for pinning to stable vs unstable regardless of what the above is set to
+    # This is particularly useful when an upcoming stable release is in beta because you can effectively
+    # keep 'nixpkgs-stable' set to stable for critical packages while setting 'nixpkgs' to the beta branch to
+    # get a jump start on deprecation changes.
+    # See also 'stable-packages' and 'unstable-packages' overlays at 'overlays/default.nix"
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+
     nixos-hardware.url = "github:nixos/nixos-hardware/master";
 
-    # nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11"; # Use nixos branches instead of nixpkgs, it runs more tests?
-    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
-    nixpkgs-helix.url = "github:nixos/nixpkgs/bc947f541ae55e999ffdb4013441347d83b00feb"; # Hack for Helix to be able to build tree-sitter. # https://github.com/llakala/nixos/blob/5dae1c83df4835fd23d433adc76f66bca44962ba/flake.nix#L104
+    # nixpkgs-helix.url = "github:nixos/nixpkgs/bc947f541ae55e999ffdb4013441347d83b00feb"; # Hack for Helix to be able to build tree-sitter. # https://github.com/llakala/nixos/blob/5dae1c83df4835fd23d433adc76f66bca44962ba/flake.nix#L104
 
-    # Use `github:NixOS/nixpkgs/nixpkgs-24.11-darwin` to use Nixpkgs 24.11.
-    nixpkgs-unstable-darwin.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    # nixpkgs-stable-darwin.url = "github:nixos/nixpkgs/nixpkgs-24.11-darwin";
-
-    nix-darwin.inputs.nixpkgs.follows = "nixpkgs-unstable-darwin";
-
-    # Use `github:lnl7/nix-darwin/nix-darwin-24.11` to use Nixpkgs 24.11.
-    nix-darwin.url = "github:lnl7/nix-darwin/master";
-    # nix-darwin.url = "github:lnl7/nix-darwin/nix-darwin-24.11";
-
-    # nix-darwin = {
-    #   inputs.nixpkgs.follows = "nixpkgs-unstable";
-    #   url = "github:lnl7/nix-darwin/nix-darwin-24.11";
-    # };
+    # nixpkgs-darwin.url = "github:nixos/nixpkgs/nixpkgs-25.05-darwin";
+    nixpkgs-darwin.url = "github:nixos/nixpkgs/master";
+    nix-darwin = {
+      url = "github:lnl7/nix-darwin/master";
+      inputs.nixpkgs.follows = "nixpkgs-darwin";
+    };
 
     disko = {
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
       url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     firefox-addons = {
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     flake-utils.url = "github:numtide/flake-utils"; # https://github.com/edgelesssys/contrast/blob/7c5206269d2ce0440090f05db601506011e2cd5f/flake.nix#L13-L15
@@ -62,122 +62,158 @@
     }; # https://github.com/llakala/nixos/tree/5dae1c83df4835fd23d433adc76f66bca44962ba/apps/programs/firefox
 
     flox = {
-      url = "github:flox/flox/v1.4.2";
+      url = "github:flox/flox/v1.6.1";
     };
 
-    helix-unstable = {
-      inputs.nixpkgs.follows = "nixpkgs-helix"; # So we don't have two instances of `nixpkgs` in flake.lock. We use the same rev from helix's flake.lock so we don't have to recompile
-      url = "github:helix-editor/helix"; # Compile Helix from source to support macro keybinds
-    }; # https://github.com/llakala/nixos/tree/5dae1c83df4835fd23d433adc76f66bca44962ba/apps/programs/firefox
+    # helix-unstable = {
+    #   url = "github:helix-editor/helix"; # Compile Helix from source to support macro keybinds
+    #   inputs.nixpkgs.follows = "nixpkgs-helix"; # So we don't have two instances of `nixpkgs` in flake.lock. We use the same rev from helix's flake.lock so we don't have to recompile
+    # }; # https://github.com/llakala/nixos/tree/5dae1c83df4835fd23d433adc76f66bca44962ba/apps/programs/firefox
 
     home-manager = {
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
       url = "github:nix-community/home-manager/master";
+      inputs.nixpkgs.follows = "nixpkgs";
       # url = "github:nix-community/home-manager/release-24.11";
     };
 
     nh-plus = {
       url = "github:toyvo/nh_plus";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     nixvirt = {
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
       url = "https://flakehub.com/f/ashleyyakeley/nixvirt/*.tar.gz";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    mac-app-util.url = "github:hraban/mac-app-util";
-    mac-app-util.inputs.nixpkgs.follows = "nixpkgs-unstable";
+    mac-app-util = {
+      url = "github:hraban/mac-app-util";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     microvm = {
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
       url = "github:astro/microvm.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    snowfall-lib = {
-      url = "github:snowfallorg/lib";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    agenix = {
+      url = "github:ryantm/agenix";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    snowfall-flake = {
-      url = "github:snowfallorg/flake";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    catppuccin = {
+      url = "github:catppuccin/nix";
     };
 
-    snowfall-frost = {
-      url = "github:snowfallorg/frost";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    devenv = {
+      url = "github:cachix/devenv";
     };
 
-    agenix.inputs.nixpkgs.follows = "nixpkgs-unstable";
-    agenix.url = "github:ryantm/agenix";
-    catppuccin.url = "github:catppuccin/nix";
-    devenv.url = "github:cachix/devenv";
-    errata-ai-alex.flake = false;
-    errata-ai-alex.url = "github:errata-ai/alex";
-    errata-ai-google.flake = false;
-    errata-ai-google.url = "github:errata-ai/google";
-    errata-ai-joblint.flake = false;
-    errata-ai-joblint.url = "github:errata-ai/joblint";
-    errata-ai-microsoft.flake = false;
-    errata-ai-microsoft.url = "github:errata-ai/microsoft";
-    errata-ai-proselint.flake = false;
-    errata-ai-proselint.url = "github:errata-ai/proselint";
-    errata-ai-readability.flake = false;
-    errata-ai-readability.url = "github:errata-ai/readability";
-    errata-ai-write-good.flake = false;
-    errata-ai-write-good.url = "github:errata-ai/write-good";
+    # errata-ai-alex.flake = false;
+    # errata-ai-alex.url = "github:errata-ai/alex";
+    # errata-ai-google.flake = false;
+    # errata-ai-google.url = "github:errata-ai/google";
+    # errata-ai-joblint.flake = false;
+    # errata-ai-joblint.url = "github:errata-ai/joblint";
+    # errata-ai-microsoft.flake = false;
+    # errata-ai-microsoft.url = "github:errata-ai/microsoft";
+    # errata-ai-proselint.flake = false;
+    # errata-ai-proselint.url = "github:errata-ai/proselint";
+    # errata-ai-readability.flake = false;
+    # errata-ai-readability.url = "github:errata-ai/readability";
+    # errata-ai-write-good.flake = false;
+    # errata-ai-write-good.url = "github:errata-ai/write-good";
 
-    fenix = {
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-      url = "github:nix-community/fenix";
-    };
+    # fenix = {
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    #   url = "github:nix-community/fenix";
+    # };
 
     # kitty-nightly.flake = false;
     # kitty-nightly.url = "github:kovidgoyal/kitty/nightly";
 
-    morlana.url = "github:ryanccn/morlana";
-    morlana.inputs.nixpkgs.follows = "nixpkgs-unstable";
+    morlana = {
+      url = "github:ryanccn/morlana";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
-    nix-index-database.url = "github:nix-community/nix-index-database";
-    nix-index-database.inputs.nixpkgs.follows = "nixpkgs-unstable";
+    nix-index-database = {
+      url = "github:nix-community/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
-    nixvim.inputs.nixpkgs.follows = "nixpkgs-unstable";
-    nixvim.url = "github:nix-community/nixvim/nixos-24.11";
-    nur.inputs.nixpkgs.follows = "nixpkgs-unstable";
-    nur.url = "github:nix-community/nur";
-    pre-commit-hooks.url = "github:cachix/git-hooks.nix";
-    ragenix.inputs.nixpkgs.follows = "nixpkgs-unstable";
-    ragenix.url = "github:yaxitech/ragenix";
-    sops-nix.inputs.nixpkgs.follows = "nixpkgs-unstable";
-    sops-nix.url = "github:mic92/sops-nix";
-    treefmt-nix.inputs.nixpkgs.follows = "nixpkgs-unstable"; # https://github.com/edgelesssys/contrast/blob/7c5206269d2ce0440090f05db601506011e2cd5f/flake.nix#L16-L19
-    treefmt-nix.url = "github:numtide/treefmt-nix";
-    wcurl.flake = false;
-    wcurl.url = "github:curl/wcurl/main";
+    nixvim = {
+      url = "github:nix-community/nixvim/nixos-25.05";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
-    systems.url = "github:nix-systems/default"; # https://github.com/nix-systems/nix-systems
+    nur = {
+      url = "github:nix-community/nur";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    pre-commit-hooks = {
+      url = "github:cachix/git-hooks.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    ragenix = {
+      url = "github:yaxitech/ragenix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    sops-nix = {
+      url = "github:mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    treefmt-nix = {
+      url = "github:numtide/treefmt-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    wcurl = {
+      url = "github:curl/wcurl/main";
+      flake = false;
+    };
+
+    nix-systems = {
+      url = "github:nix-systems/default"; # https://github.com/nix-systems/nix-systems
+    };
 
     nix-secrets = {
       url = "git+ssh://git@github.com/sheeeng/nix-secrets.git?ref=main&shallow=1";
-      # url = "git+file:///home/llee/nix-secrets?ref=main&shallow=1";
-      # inputs.nixpkgs.follows = "nixpkgs-unstable";
+      # url = "git+file:///home/.../nix-secrets?ref=main&shallow=1";
     };
   };
 
   outputs =
-    inputs:
+    {
+      self,
+      nixpkgs,
+      ...
+    }@inputs:
     let
+      inherit (self) outputs;
+
+      platform = if lib.hasSuffix "-darwin" builtins.currentSystem then "darwin" else "nixos";
+      platformModules = "${platform}Modules";
+
+      # ========== Extend lib with lib.custom ==========
+      # NOTE: This approach allows lib.custom to propagate into hm
+      # see: https://github.com/nix-community/home-manager/pull/3454
+      lib = nixpkgs.lib.extend (self: super: { custom = import ./lib { inherit (nixpkgs) lib; }; }); # https://github.com/EmergentMind/nix-config/blob/f9168993316e8ff99381ff5dd3c7398273439618/flake.nix#L24
+
       nixosConfiguration =
         hostname: system:
-        inputs.nixpkgs-unstable.lib.nixosSystem {
+        inputs.nixpkgs.lib.nixosSystem {
           system = system;
           modules = [
             ./hosts/${hostname}
             { networking.hostName = "${hostname}"; }
             inputs.nix-index-database.nixosModules.nix-index
           ];
-          specialArgs = { inherit inputs; };
+          specialArgs = { inherit inputs outputs lib; };
         };
 
       darwinConfiguration =
@@ -193,7 +229,7 @@
             {
               nixpkgs.overlays = [
                 (final: _prev: {
-                  unstable = import inputs.nixpkgs-unstable {
+                  unstable = import inputs.nixpkgs {
                     system = final.system;
                     config.allowUnfree = true;
                   };
