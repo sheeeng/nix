@@ -84,7 +84,7 @@ in
   nix.enable = false;
 
   system.stateVersion = 5;
-  system.primaryUser = "llee"; # Added to specify the primary user for system.defaults
+  system.primaryUser = "lssl"; # Added to specify the primary user for system.defaults
 
   nix.package = pkgs-unstable.nix; # https://daiderd.com/nix-darwin/manual/index.html#opt-nix.package
   nix.optimise.automatic = false; # TODO: nix.optimise.automatic requires nix.enable. # https://daiderd.com/nix-darwin/manual/index.html#opt-nix.optimise.automatic # https://github.com/NixOS/nix/issues/7273#issuecomment-2295429401
