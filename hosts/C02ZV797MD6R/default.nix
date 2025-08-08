@@ -6,7 +6,7 @@
   ...
 }:
 let
-  pkgs-unstable = import inputs.nixpkgs-unstable {
+  pkgs-unstable = import inputs.nixpkgs {
     inherit (config.nixpkgs) system;
     config.allowUnfree = true;
     hostPlatform = pkgs.stdenv.hostPlatform;
@@ -97,16 +97,15 @@ in
   nix.settings.trusted-public-keys = [
     "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
   ];
-  nix.extraOptions =
-    ''
-      extra-substituters = https://devenv.cachix.org
-      extra-trusted-public-keys = nixpkgs-python.cachix.org-1:hxjI7pFxTyuTHn2NkvWCrAUcNZLNS3ZAvfYNuYifcEU= devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw=
-      trusted-users = root lssl
-      experimental-features = nix-command flakes
-    ''
-    + lib.optionalString (pkgs.system == "aarch64-darwin") ''
-      extra-platforms = x86_64-darwin aarch64-darwin
-    '';
+  nix.extraOptions = ''
+    extra-substituters = https://devenv.cachix.org
+    extra-trusted-public-keys = nixpkgs-python.cachix.org-1:hxjI7pFxTyuTHn2NkvWCrAUcNZLNS3ZAvfYNuYifcEU= devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw=
+    trusted-users = root lssl
+    experimental-features = nix-command flakes
+  ''
+  + lib.optionalString (pkgs.system == "aarch64-darwin") ''
+    extra-platforms = x86_64-darwin aarch64-darwin
+  '';
   nix.settings.trusted-users = [
     "@admin"
   ];
@@ -143,7 +142,7 @@ in
       inputs.agenix.homeManagerModules.age
       inputs.catppuccin.homeModules.catppuccin
       inputs.nix-index-database.homeModules.nix-index
-      inputs.nixvim.homeManagerModules.nixvim
+      inputs.nixvim.homeModules.nixvim
     ];
   }; # https://nix-community.github.io/home-manager/nixos-options.xhtml#nixos-opt-home-manager.users
   home-manager.verbose = false; # https://nix-community.github.io/home-manager/nixos-options.xhtml#nixos-opt-home-manager.verbose
