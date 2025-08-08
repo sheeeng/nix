@@ -1,5 +1,17 @@
+SOPS_FILE := "../nix-secrets/.sops.yaml"
+
 default:
     @just --list
+
+[doc('Check if sops-nix activated successfully.')]
+check-sops:
+  scripts/check-sops.sh
+
+
+[doc('Update nix-secrets.')]
+update-nix-secrets:
+  @(cd ../nix-secrets && git fetch && git rebase > /dev/null) || true
+  nix flake update nix-secrets --timeout 5
 
 [doc('Update all `flake.lock` file.')]
 update:
