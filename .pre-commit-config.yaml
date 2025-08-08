@@ -45,12 +45,12 @@ repos:
 
   # keep-sorted start
   - repo: https://github.com/antonbabenko/pre-commit-terraform
-    rev: v1.98.1
+    rev: v1.99.5
     hooks:
       - id: terraform_fmt
         name: terraform format
   - repo: https://github.com/charliermarsh/ruff-pre-commit
-    rev: v0.11.4
+    rev: v0.12.8
     hooks:
       - id: ruff
         name: ruff
@@ -60,14 +60,14 @@ repos:
         name: ruff format
         types_or: [python, pyi]
   - repo: https://github.com/compilerla/conventional-pre-commit
-    rev: v4.0.0
+    rev: v4.2.0
     hooks:
       - id: conventional-pre-commit
         name: conventional pre-commit
         stages: [commit-msg]
         args: [--strict]
   - repo: https://github.com/gitleaks/gitleaks
-    rev: v8.24.2
+    rev: v8.28.0
     hooks:
       - id: gitleaks
         name: detect hardcoded secrets

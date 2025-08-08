@@ -6,7 +6,7 @@
   ...
 }:
 let
-  pkgs-unstable = import inputs.nixpkgs-unstable {
+  pkgs-unstable = import inputs.nixpkgs {
     inherit (config.nixpkgs) system;
     config.allowUnfree = true;
     hostPlatform = pkgs.stdenv.hostPlatform;
@@ -184,7 +184,7 @@ in
       inputs.agenix.homeManagerModules.age
       inputs.catppuccin.homeModules.catppuccin
       inputs.nix-index-database.homeModules.nix-index
-      inputs.nixvim.homeManagerModules.nixvim
+      inputs.nixvim.homeModules.nixvim
     ];
   }; # https://nix-community.github.io/home-manager/nixos-options.xhtml#nixos-opt-home-manager.users
   home-manager.verbose = false; # https://nix-community.github.io/home-manager/nixos-options.xhtml#nixos-opt-home-manager.verbose

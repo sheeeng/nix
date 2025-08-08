@@ -140,7 +140,7 @@
       nixos-option # https://search.nixos.org/packages?channel=unstable&type=packages&show=nixos-option
       nnn # https://search.nixos.org/packages?channel=unstable&type=packages&show=nnn
       # obsidian # https://search.nixos.org/packages?channel=unstable&type=packages&show=obsidian
-      ollama # TODO: Marked as insecure. # https://search.nixos.org/packages?channel=unstable&type=packages&show=ollama
+      # ollama # TODO: Marked as insecure. # https://search.nixos.org/packages?channel=unstable&type=packages&show=ollama
       pandoc # https://search.nixos.org/packages?channel=unstable&type=packages&show=pandoc
       pass # https://search.nixos.org/packages?channel=unstable&type=packages&show=pass
       pass-git-helper # https://search.nixos.org/packages?channel=unstable&type=packages&show=pass-git-helper

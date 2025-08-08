@@ -6,7 +6,7 @@
 }:
 
 let
-  pkgs-unstable = import inputs.nixpkgs-unstable {
+  pkgs-unstable = import inputs.nixpkgs {
     inherit (config.nixpkgs) system;
     config.allowUnfree = true;
   };
