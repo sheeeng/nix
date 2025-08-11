@@ -14,12 +14,13 @@ let
 in
 {
   imports = [
-    inputs.agenix.darwinModules.age
+    # ../../modules/yabai
     # catppuccin.darwinModules.catppuccin # https://github.com/catppuccin/nix/issues/162
     # inputs.home-manager.darwinModules.defaults
+    ../core/sops.nix
+    inputs.agenix.darwinModules.age
     inputs.home-manager.darwinModules.home-manager
     inputs.nixvim.nixDarwinModules.nixvim
-    # ../../modules/yabai
   ];
 
   nixpkgs.config = {
