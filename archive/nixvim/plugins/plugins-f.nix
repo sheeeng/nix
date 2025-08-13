@@ -54,9 +54,9 @@
             function (group) return tostring (group) end
           ''; # How to format a progress notification group's name
           overrides = {
-            rust_analyzer = {
-              name = "rust-analyzer";
-            };
+            # rust_analyzer = {
+            #   name = "rust-analyzer";
+            # };
           }; # Override options from the default notification config
         };
       };
