@@ -33,7 +33,7 @@
           dart-code.dart-code
           davidanson.vscode-markdownlint
           dbaeumer.vscode-eslint
-          dracula-theme.theme-dracula
+          dracula-theme.theme-dracula # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.dracula-theme.theme-dracula
           eamodio.gitlens
           ecmel.vscode-html-css
           editorconfig.editorconfig
@@ -43,10 +43,10 @@
           github.codespaces # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.github.codespaces
           github.copilot # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.github.copilot
           github.copilot-chat # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.github.copilot-chat
-          github.github-vscode-theme
-          github.vscode-github-actions
-          github.vscode-pull-request-github
-          golang.go
+          github.github-vscode-theme # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.github.github-vscode-theme
+          github.vscode-github-actions # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.github.vscode-github-actions
+          github.vscode-pull-request-github # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.github.vscode-pull-request-github
+          golang.go # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.golang.go
           grapecity.gc-excelviewer # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.grapecity.gc-excelviewer
           hashicorp.terraform
           hediet.vscode-drawio
@@ -184,11 +184,14 @@
           # - In `/nix/store/yasgkycrfdmc9y38qksp357vdvkbnhz0-source/modules/home-manager/vscode.nix': "catppuccin-mocha"
           # Use `lib.mkForce value` or `lib.mkDefault value` to change the priority on any of these definitions.
           # "workbench.iconTheme" = "vscode-icons";
-          "workbench.list.smoothScrolling" = true;
           # "workbench.preferredLightColorTheme" = "Catppuccin Mocha";
+          "workbench.colorTheme" = "Dracula Theme";
+          "workbench.iconTheme" = "material-icon-theme";
+          "workbench.list.smoothScrolling" = true;
+          "workbench.preferredLightColorTheme" = "Dracula Theme";
 
-          # Putting some conveniences.
           "extensions.autoUpdate" = "onlyEnabledExtensions";
+          # Putting some conveniences.
           "files.autoSave" = "on";
           "github.copilot.enable"."*" = false;
           "update.showReleaseNotes" = false;
