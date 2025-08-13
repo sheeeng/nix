@@ -93,34 +93,34 @@
           };
         }
       ];
-      language-server = {
-        rust-analyzer = {
-          command = lib.getExe pkgs.rust-analyzer; # "${pkgs.rust-analyzer}/bin/rust-analyzer";
-          timeout = 120;
-          config = {
-            files = {
-              excludeDirs = [ ".direnv" ];
-              watcherExclude = [ ".direnv" ];
-            };
-            inlayHints = {
-              bindingModeHints.enable = false;
-              closingBraceHints.minLines = 10;
-              closureReturnTypeHints.enable = "with_block";
-              discriminantHints.enable = "fieldless";
-              lifetimeElisionHints.enable = "skip_trivial";
-              typeHints.hideClosureInitialization = false;
-            };
-            procMacro.enable = true;
-            check = {
-              allTargets = true;
-              command = "clippy";
-            };
-            cargo = {
-              features = "all";
-            };
-          };
-        }; # https://github.com/helix-editor/helix/wiki/language-server-configurations#rust
-      };
+      # language-server = {
+      #   rust-analyzer = {
+      #     command = lib.getExe pkgs.rust-analyzer; # "${pkgs.rust-analyzer}/bin/rust-analyzer";
+      #     timeout = 120;
+      #     config = {
+      #       files = {
+      #         excludeDirs = [ ".direnv" ];
+      #         watcherExclude = [ ".direnv" ];
+      #       };
+      #       inlayHints = {
+      #         bindingModeHints.enable = false;
+      #         closingBraceHints.minLines = 10;
+      #         closureReturnTypeHints.enable = "with_block";
+      #         discriminantHints.enable = "fieldless";
+      #         lifetimeElisionHints.enable = "skip_trivial";
+      #         typeHints.hideClosureInitialization = false;
+      #       };
+      #       procMacro.enable = true;
+      #       check = {
+      #         allTargets = true;
+      #         command = "clippy";
+      #       };
+      #       cargo = {
+      #         features = "all";
+      #       };
+      #     };
+      #   }; # https://github.com/helix-editor/helix/wiki/language-server-configurations#rust
+      # };
     };
   };
 }

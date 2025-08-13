@@ -80,7 +80,7 @@
           redhat.java
           redhat.vscode-xml
           redhat.vscode-yaml
-          rust-lang.rust-analyzer
+          # rust-lang.rust-analyzer
           sdras.night-owl
           shardulm94.trailing-spaces
           shopify.ruby-lsp
