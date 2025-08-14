@@ -41,7 +41,7 @@ repos:
       - id: trailing-whitespace
         args: [--markdown-linebreak-ext=md]
         exclude: \.md$
-      # keep-sorted end
+        # keep-sorted end
 
   # keep-sorted start
   - repo: https://github.com/antonbabenko/pre-commit-terraform
@@ -97,4 +97,4 @@ repos:
       - id: shellcheck
         name: shellcheck
         args: []
-  # keep-sorted end
+# keep-sorted end

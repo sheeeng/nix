@@ -9,12 +9,12 @@ set -o nounset  # set -u # Treat unset variables and parameters other than the s
 # https://www.gnu.org/software/bash/manual/html_node/The-Shopt-Builtin.html
 # shopt -s inherit_errexit # If set, command substitution inherits the value of the errexit option, instead of unsetting it in the subshell environment. This option is enabled when POSIX mode is enabled.
 
-if [ -d ".git" ] || git rev-parse --git-dir > /dev/null 2>&1; then
+if [ -d ".git" ] || git rev-parse --git-dir >/dev/null 2>&1; then
   GIT_ROOT_DIRECTORY=$(git rev-parse --show-toplevel)
   echo "\${GIT_ROOT_DIRECTORY}: ${GIT_ROOT_DIRECTORY}"
 fi
 
-SCRIPT_DIRECTORY="$(cd "$(dirname "${BASH_SOURCE[0]}")" > /dev/null 2>&1 && pwd)"
+SCRIPT_DIRECTORY="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
 echo "\${SCRIPT_DIRECTORY}: ${SCRIPT_DIRECTORY}"
 
 # ----------------------------------------------------------------------
@@ -47,7 +47,7 @@ fi
 
 pushd "${HOME}/github/sheeeng/nix" || exit
 
-if command -v nix 1> /dev/null 2>&1; then
+if command -v nix 1>/dev/null 2>&1; then
   echo "# ----------------------------------------------------------------------"
   echo "Nix is installed..."
   echo "# ----------------------------------------------------------------------"
@@ -69,7 +69,7 @@ else
   exit 42
 fi
 
-if ! command -v darwin-rebuild 1> /dev/null 2>&1; then
+if ! command -v darwin-rebuild 1>/dev/null 2>&1; then
   echo "darwin-rebuild is not installed..."
   # nix run .#homeConfigurations."$(stat --format "%U" "$(tty)")@$(hostname)".activationPackage
   # nix run github:ryanccn/morlana -- switch --flake ~/github/sheeeng/nix#"$(hostname)"
@@ -99,7 +99,7 @@ for arg in "$@"; do
 done
 
 echo "# ----------------------------------------------------------------------"
-if ! command -v nh 1> /dev/null 2>&1; then
+if ! command -v nh 1>/dev/null 2>&1; then
   echo "nh os switch..."
   nh os switch ~/github/sheeeng/nix#"$(hostname)"
 else

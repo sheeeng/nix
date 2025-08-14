@@ -191,23 +191,34 @@
     {
       self,
       nixpkgs,
+      treefmt-nix,
       ...
     }@inputs:
     let
       inherit (self) outputs;
 
-      platform = if lib.hasSuffix "-darwin" builtins.currentSystem then "darwin" else "nixos";
-      platformModules = "${platform}Modules";
+      # Add this for treefmt-nix
+      eachSystem = nixpkgs.lib.genAttrs [
+        "aarch64-linux"
+        "i686-linux"
+        "x86_64-linux"
+        "aarch64-darwin"
+        "x86_64-darwin"
+      ];
+
+      treefmtEval = eachSystem (
+        system: treefmt-nix.lib.evalModule nixpkgs.legacyPackages.${system} ./treefmt.nix
+      );
 
       # ========== Extend lib with lib.custom ==========
       # NOTE: This approach allows lib.custom to propagate into hm
       # see: https://github.com/nix-community/home-manager/pull/3454
-      lib = nixpkgs.lib.extend (self: super: { custom = import ./lib { inherit (nixpkgs) lib; }; }); # https://github.com/EmergentMind/nix-config/blob/f9168993316e8ff99381ff5dd3c7398273439618/flake.nix#L24
+      lib = nixpkgs.lib.extend (_self: _super: { custom = import ./lib { inherit (nixpkgs) lib; }; }); # https://github.com/EmergentMind/nix-config/blob/f9168993316e8ff99381ff5dd3c7398273439618/flake.nix#L24
 
       nixosConfiguration =
         hostname: system:
         inputs.nixpkgs.lib.nixosSystem {
-          system = system;
+          inherit system;
           modules = [
             ./hosts/${hostname}
             { networking.hostName = "${hostname}"; }
@@ -230,7 +241,7 @@
               nixpkgs.overlays = [
                 (final: _prev: {
                   unstable = import inputs.nixpkgs {
-                    system = final.system;
+                    inherit (final) system;
                     config.allowUnfree = true;
                   };
                 })
@@ -244,6 +255,12 @@
         };
     in
     {
+      # Add treefmt outputs
+      formatter = eachSystem (system: treefmtEval.${system}.config.build.wrapper);
+      checks = eachSystem (system: {
+        formatting = treefmtEval.${system}.config.build.check self;
+      });
+
       nixosConfigurations = {
         desktop = nixosConfiguration "desktop" "x86_64-linux";
         laptop = nixosConfiguration "laptop" "x86_64-linux";
