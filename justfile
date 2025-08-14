@@ -5,13 +5,12 @@ default:
 
 [doc('Check if sops-nix activated successfully.')]
 check-sops:
-  scripts/check-sops.sh
-
+    scripts/check-sops.sh
 
 [doc('Update nix-secrets.')]
 update-nix-secrets:
-  @(cd ../nix-secrets && git fetch && git rebase > /dev/null) || true
-  nix flake update nix-secrets --timeout 5
+    @(cd ../nix-secrets && git fetch && git rebase > /dev/null) || true
+    nix flake update nix-secrets --timeout 5
 
 [doc('Update all `flake.lock` file.')]
 update:
@@ -49,7 +48,6 @@ set-experimental-features:
     fi
 
     popd
-
 
 [doc('Set GitHub token to get a higher rate limit.')]
 set-github-token:

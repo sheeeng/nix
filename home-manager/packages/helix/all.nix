@@ -1,10 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
-{
+_: {
   home.packages = [ ];
 
   # programs.helix = lib.mkIf config.programs.helix.enable {

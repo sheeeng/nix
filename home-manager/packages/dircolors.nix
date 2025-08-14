@@ -1,5 +1,4 @@
-{ ... }:
-{
+_: {
   programs.dircolors = {
     enable = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.dircolors.enable
     enableBashIntegration = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.dircolors.enableBashIntegration

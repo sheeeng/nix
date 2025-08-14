@@ -15,7 +15,7 @@
 #   };
 # }
 
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 {
   programs.aerospace = {
     enable = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.aerospace.enable

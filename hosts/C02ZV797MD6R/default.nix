@@ -9,7 +9,7 @@ let
   pkgs-unstable = import inputs.nixpkgs {
     inherit (config.nixpkgs) system;
     config.allowUnfree = true;
-    hostPlatform = pkgs.stdenv.hostPlatform;
+    inherit (pkgs.stdenv) hostPlatform;
   };
 in
 {
@@ -24,7 +24,7 @@ in
 
   nixpkgs.config = {
     allowUnfree = true;
-    hostPlatform = pkgs.stdenv.hostPlatform;
+    inherit (pkgs.stdenv) hostPlatform;
   };
 
   # List packages installed in system profile. To search by name, run:

@@ -1,6 +1,4 @@
 { pkgs, ... }:
-let
-in
 {
   programs = {
     zoxide = {

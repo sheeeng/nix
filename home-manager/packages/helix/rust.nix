@@ -1,5 +1,4 @@
-{ lib, pkgs, ... }:
-{
+_: {
   home.packages = [
     # pkgs.fenix.complete.toolchain
     # pkgs.fenix.latest.toolchain

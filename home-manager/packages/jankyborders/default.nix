@@ -1,6 +1,6 @@
 { lib, pkgs, ... }:
 {
-  config = lib.mkIf (pkgs.stdenv.isDarwin) {
+  config = lib.mkIf pkgs.stdenv.isDarwin {
     home.packages = with pkgs; [
       jankyborders # https://search.nixos.org/packages?channel=unstable&type=packages&show=jankyborders
     ];
