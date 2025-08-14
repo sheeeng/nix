@@ -1,5 +1,4 @@
-{ lib, pkgs, ... }:
-{
+_: {
   # error: builder for '/nix/store/38fj8wxnxkhc2wx1cv2xpvqmj4bhypkf-home-manager-path.drv' failed with exit code 25;
   #   last 5 log lines:
   #   > pkgs.buildEnv error: two given paths contain a conflicting subpath:
