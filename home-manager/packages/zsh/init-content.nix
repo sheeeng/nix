@@ -3,7 +3,6 @@
 {
   config,
   lib,
-  pkgs,
   ...
 }:
 {
@@ -13,6 +12,14 @@
       # If not running interactively, don't do anything
       [[ $- != *i* ]] && return
     '')
+
+    # 500 (mkBefore): Early initialization (replaces initExtraFirst)
+    # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.initContent
+    (lib.mkOrder 500 '''')
+
+    # 550: Before completion initialization (replaces initExtraBeforeCompInit)
+    # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.initContent
+    (lib.mkOrder 550 '''')
 
     # Place where other setopts are declared in home-manager
     (lib.mkOrder 900 (
@@ -36,7 +43,12 @@
       '')
     ))
 
-    (lib.mkOrder 1000 (''
+    # 1000 (default): General configuration (replaces initExtra)
+    # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.initContent
+    (lib.mkOrder 1000 ''
+      # https://superuser.com/questions/232457/zsh-output-whole-history/1061539#1061539
+      histsearch() { fc -lim "*$@*" 1 } # https://superuser.com/a/1061539
+
       # https://github.com/malev/dotfiles/blob/fbaa079eaaad4b5bf304c133fd05929f90c412d4/config/zsh.nix#L15-L16
       # bindkey '^p' history-search-backward
       # bindkey '^n' history-search-forward
@@ -75,7 +87,11 @@
       # http://zsh.sourceforge.net/Doc/Release/User-Contributions.html#Widgets
       autoload -U select-word-style
       select-word-style bash
-    ''))
+    '')
+
+    # 1500 (mkAfter): Last to run configuration
+    # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.initContent
+    (lib.mkOrder 1500 '''')
 
     # Z Style Customizations
     (lib.mkOrder 2000 (
@@ -168,5 +184,5 @@
         zstyle ':fzf-tab:*' popup-min-size 100 20
       '')
     ))
-  ];
+  ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.initContent
 }
