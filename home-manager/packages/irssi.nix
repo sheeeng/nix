@@ -1,5 +1,4 @@
-{ ... }:
-{
+_: {
   programs.irssi = {
     enable = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.irssi.enable
     aliases = {
