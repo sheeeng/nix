@@ -1,9 +1,27 @@
 # https://github.com/rosenpass/rosenpass/blob/cdf6e8369f329b9c535c113d5e146dc3d2b1f320/treefmt.nix
 
-{ lib, pkgs, ... }:
+{ pkgs, ... }:
 {
   projectRootFile = "flake.nix";
   programs = {
+    # Nix formatting
+    nixfmt = {
+      enable = true;
+      package = pkgs.nixfmt-rfc-style;
+    };
+
+    # Shell formatting
+    shfmt = {
+      enable = true;
+      indent_size = 2;
+    };
+    shellcheck.enable = true;
+
+    # Nix linting
+    deadnix.enable = true;
+    statix.enable = true;
+
+    # General formatting
     prettier = {
       enable = true;
       includes = [
@@ -14,35 +32,47 @@
         "*.json5"
         "*.md"
         "*.mdx"
-        "*.toml"
         "*.yaml"
         "*.yml"
       ];
       excludes = [
         "*.lock"
+        "flake.lock"
       ];
+    };
+
+    # YAML formatting
+    yamlfmt = {
+      enable = true;
       settings = {
-        plugins = [
-          "${pkgs.nodePackages.prettier-plugin-toml}/lib/node_modules/prettier-plugin-toml/lib/index.js"
-        ];
+        formatter = {
+          retain_line_breaks_single = true;
+        };
       };
     };
 
-    yamlfmt = {
-      command = "${lib.getExe pkgs.yamlfmt}";
-      options = [ "-formatter=retain_line_breaks_single=true" ];
-      includes = [
-        "*.yaml"
-        "*.yml"
-      ];
+    # TOML formatting (alternative to prettier-plugin-toml)
+    taplo = {
+      enable = true;
+      settings = {
+        include = [ "*.toml" ];
+      };
     };
 
-    deadnix.enable = true;
+    # Justfile formatting
     just.enable = true;
-    nixfmt.enable = true;
+
+    # Rust formatting (if you have Rust code)
     rustfmt.enable = true;
-    shellcheck.enable = true;
-    shfmt.enable = true;
-    statix.enable = true;
+  };
+
+  settings = {
+    global.excludes = [
+      "*.lock"
+      "*.patch"
+      "LICENSE*"
+      "archive/**"
+      ".github/**/*.md"
+    ];
   };
 }
