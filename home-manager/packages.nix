@@ -82,7 +82,6 @@
       asdf-vm # https://search.nixos.org/packages?channel=unstable&type=packages&show=asdf-vm
       atuin # https://search.nixos.org/packages?channel=unstable&type=packages&show=atuin
       autoconf # https://search.nixos.org/packages?channel=unstable&type=packages&show=autoconf
-      azure-cli # https://search.nixos.org/packages?channel=unstable&type=packages&show=azure-cli
       barcode # https://search.nixos.org/packages?channel=unstable&type=packages&show=barcode
       bc # https://search.nixos.org/packages?channel=unstable&type=packages&show=bc
       binutils # https://search.nixos.org/packages?channel=unstable&type=packages&show=binutils
