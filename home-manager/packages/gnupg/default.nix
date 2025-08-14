@@ -6,8 +6,6 @@
   pkgs,
   ...
 }:
-let
-in
 {
   programs.gpg = {
     enable = lib.mkDefault true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.gpg.enable

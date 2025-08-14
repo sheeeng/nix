@@ -9,12 +9,12 @@ set -u          # set -o nounset # set -u # Treat unset variables and parameters
 # https://www.gnu.org/software/bash/manual/html_node/The-Shopt-Builtin.html
 # shopt -s inherit_errexit # If set, command substitution inherits the value of the errexit option, instead of unsetting it in the subshell environment. This option is enabled when POSIX mode is enabled.
 
-if [ -d ".git" ] || git rev-parse --git-dir > /dev/null 2>&1; then
+if [ -d ".git" ] || git rev-parse --git-dir >/dev/null 2>&1; then
   GIT_ROOT_DIRECTORY=$(git rev-parse --show-toplevel)
   echo "\${GIT_ROOT_DIRECTORY}: ${GIT_ROOT_DIRECTORY}"
 fi
 
-SCRIPT_DIRECTORY="$(cd "$(dirname "${BASH_SOURCE[0]}")" > /dev/null 2>&1 && pwd)"
+SCRIPT_DIRECTORY="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
 echo "\${SCRIPT_DIRECTORY}: ${SCRIPT_DIRECTORY}"
 
 # ----------------------------------------------------------------------
@@ -45,7 +45,7 @@ combined_extensions=$(echo -e "$insiders_extensions\n$stable_extensions" | sort 
 available_extensions=()
 
 for package in $combined_extensions; do
-  if nix search nixpkgs "$package" > /dev/null 2>&1; then
+  if nix search nixpkgs "$package" >/dev/null 2>&1; then
     available_extensions+=("$package")
     echo "✔ Found \`$package\` VSCode extension in Nix packages."
   else
