@@ -33,7 +33,6 @@ uutils-diffutils.pkg-path = "uutils-diffutils"
 [vars]
 # INTRO_MESSAGE = "It's gettin' Flox in here"
 
-
 ## Activation Hook ---------------------------------------------------
 ##  ... run by _bash_ shell when you run 'flox activate'.
 ## -------------------------------------------------------------------
