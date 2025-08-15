@@ -6,7 +6,7 @@
 }:
 {
   home.packages = with pkgs; [
-    azure-cli
+    # azure-cli
     # (azure-cli.override {
     #   withExtensions = with azure-cli-extensions; [
     #     account
