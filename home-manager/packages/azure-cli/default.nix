@@ -6,7 +6,6 @@
 }:
 {
   home.packages = with pkgs; [
-    azure-cli
     (azure-cli.override {
       withImmutableConfig = false; # https://github.com/NixOS/nixpkgs/blob/17e6dae5f8e3753d4e4c6f489145f2a343f7ac72/pkgs/by-name/az/azure-cli/package.nix#L471-L473
       withExtensions = with azure-cli-extensions; [
