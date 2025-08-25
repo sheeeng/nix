@@ -12,8 +12,20 @@
       "gnused": {
         "pkg-path": "gnused"
       },
+      "nixd": {
+        "pkg-path": "nixd"
+      },
+      "nixfmt-rfc-style": {
+        "pkg-path": "nixfmt-rfc-style"
+      },
+      "nixfmt-tree": {
+        "pkg-path": "nixfmt-tree"
+      },
       "pre-commit": {
         "pkg-path": "pre-commit"
+      },
+      "update-nix-fetchgit": {
+        "pkg-path": "update-nix-fetchgit"
       },
       "uutils-coreutils-noprefix": {
         "pkg-path": "uutils-coreutils-noprefix"
@@ -46,13 +58,13 @@
       "description": "Modern encryption tool with small explicit keys",
       "install_id": "age",
       "license": "BSD-3-Clause",
-      "locked_url": "https://github.com/flox/nixpkgs?rev=fbcf476f790d8a217c3eab4e12033dc4a0f6d23c",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=20075955deac2583bb12f07151c2df830ef346b4",
       "name": "age-1.2.1",
       "pname": "age",
-      "rev": "fbcf476f790d8a217c3eab4e12033dc4a0f6d23c",
-      "rev_count": 844474,
-      "rev_date": "2025-08-14T15:51:38Z",
-      "scrape_date": "2025-08-16T01:27:08.039275Z",
+      "rev": "20075955deac2583bb12f07151c2df830ef346b4",
+      "rev_count": 846535,
+      "rev_date": "2025-08-19T15:00:17Z",
+      "scrape_date": "2025-08-24T15:38:51.880619Z",
       "stabilities": [
         "unstable"
       ],
@@ -75,13 +87,13 @@
       "description": "Modern encryption tool with small explicit keys",
       "install_id": "age",
       "license": "BSD-3-Clause",
-      "locked_url": "https://github.com/flox/nixpkgs?rev=fbcf476f790d8a217c3eab4e12033dc4a0f6d23c",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=20075955deac2583bb12f07151c2df830ef346b4",
       "name": "age-1.2.1",
       "pname": "age",
-      "rev": "fbcf476f790d8a217c3eab4e12033dc4a0f6d23c",
-      "rev_count": 844474,
-      "rev_date": "2025-08-14T15:51:38Z",
-      "scrape_date": "2025-08-16T01:35:10.084841Z",
+      "rev": "20075955deac2583bb12f07151c2df830ef346b4",
+      "rev_count": 846535,
+      "rev_date": "2025-08-19T15:00:17Z",
+      "scrape_date": "2025-08-24T16:05:24.392800Z",
       "stabilities": [
         "unstable"
       ],
@@ -104,13 +116,13 @@
       "description": "Modern encryption tool with small explicit keys",
       "install_id": "age",
       "license": "BSD-3-Clause",
-      "locked_url": "https://github.com/flox/nixpkgs?rev=fbcf476f790d8a217c3eab4e12033dc4a0f6d23c",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=20075955deac2583bb12f07151c2df830ef346b4",
       "name": "age-1.2.1",
       "pname": "age",
-      "rev": "fbcf476f790d8a217c3eab4e12033dc4a0f6d23c",
-      "rev_count": 844474,
-      "rev_date": "2025-08-14T15:51:38Z",
-      "scrape_date": "2025-08-16T01:43:49.136300Z",
+      "rev": "20075955deac2583bb12f07151c2df830ef346b4",
+      "rev_count": 846535,
+      "rev_date": "2025-08-19T15:00:17Z",
+      "scrape_date": "2025-08-24T16:29:24.727456Z",
       "stabilities": [
         "unstable"
       ],
@@ -133,13 +145,13 @@
       "description": "Modern encryption tool with small explicit keys",
       "install_id": "age",
       "license": "BSD-3-Clause",
-      "locked_url": "https://github.com/flox/nixpkgs?rev=fbcf476f790d8a217c3eab4e12033dc4a0f6d23c",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=20075955deac2583bb12f07151c2df830ef346b4",
       "name": "age-1.2.1",
       "pname": "age",
-      "rev": "fbcf476f790d8a217c3eab4e12033dc4a0f6d23c",
-      "rev_count": 844474,
-      "rev_date": "2025-08-14T15:51:38Z",
-      "scrape_date": "2025-08-16T02:12:00.090912Z",
+      "rev": "20075955deac2583bb12f07151c2df830ef346b4",
+      "rev_count": 846535,
+      "rev_date": "2025-08-19T15:00:17Z",
+      "scrape_date": "2025-08-24T16:57:25.342373Z",
       "stabilities": [
         "unstable"
       ],
@@ -162,13 +174,13 @@
       "description": "GNU implementation of the Unix grep command",
       "install_id": "gnugrep",
       "license": "GPL-3.0-or-later",
-      "locked_url": "https://github.com/flox/nixpkgs?rev=fbcf476f790d8a217c3eab4e12033dc4a0f6d23c",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=20075955deac2583bb12f07151c2df830ef346b4",
       "name": "gnugrep-3.12",
       "pname": "gnugrep",
-      "rev": "fbcf476f790d8a217c3eab4e12033dc4a0f6d23c",
-      "rev_count": 844474,
-      "rev_date": "2025-08-14T15:51:38Z",
-      "scrape_date": "2025-08-16T01:27:10.503670Z",
+      "rev": "20075955deac2583bb12f07151c2df830ef346b4",
+      "rev_count": 846535,
+      "rev_date": "2025-08-19T15:00:17Z",
+      "scrape_date": "2025-08-24T15:38:53.843480Z",
       "stabilities": [
         "unstable"
       ],
@@ -192,13 +204,13 @@
       "description": "GNU implementation of the Unix grep command",
       "install_id": "gnugrep",
       "license": "GPL-3.0-or-later",
-      "locked_url": "https://github.com/flox/nixpkgs?rev=fbcf476f790d8a217c3eab4e12033dc4a0f6d23c",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=20075955deac2583bb12f07151c2df830ef346b4",
       "name": "gnugrep-3.12",
       "pname": "gnugrep",
-      "rev": "fbcf476f790d8a217c3eab4e12033dc4a0f6d23c",
-      "rev_count": 844474,
-      "rev_date": "2025-08-14T15:51:38Z",
-      "scrape_date": "2025-08-16T01:35:12.303758Z",
+      "rev": "20075955deac2583bb12f07151c2df830ef346b4",
+      "rev_count": 846535,
+      "rev_date": "2025-08-19T15:00:17Z",
+      "scrape_date": "2025-08-24T16:05:26.635654Z",
       "stabilities": [
         "unstable"
       ],
@@ -222,13 +234,13 @@
       "description": "GNU implementation of the Unix grep command",
       "install_id": "gnugrep",
       "license": "GPL-3.0-or-later",
-      "locked_url": "https://github.com/flox/nixpkgs?rev=fbcf476f790d8a217c3eab4e12033dc4a0f6d23c",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=20075955deac2583bb12f07151c2df830ef346b4",
       "name": "gnugrep-3.12",
       "pname": "gnugrep",
-      "rev": "fbcf476f790d8a217c3eab4e12033dc4a0f6d23c",
-      "rev_count": 844474,
-      "rev_date": "2025-08-14T15:51:38Z",
-      "scrape_date": "2025-08-16T01:43:50.420044Z",
+      "rev": "20075955deac2583bb12f07151c2df830ef346b4",
+      "rev_count": 846535,
+      "rev_date": "2025-08-19T15:00:17Z",
+      "scrape_date": "2025-08-24T16:29:26.057199Z",
       "stabilities": [
         "unstable"
       ],
@@ -252,13 +264,13 @@
       "description": "GNU implementation of the Unix grep command",
       "install_id": "gnugrep",
       "license": "GPL-3.0-or-later",
-      "locked_url": "https://github.com/flox/nixpkgs?rev=fbcf476f790d8a217c3eab4e12033dc4a0f6d23c",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=20075955deac2583bb12f07151c2df830ef346b4",
       "name": "gnugrep-3.12",
       "pname": "gnugrep",
-      "rev": "fbcf476f790d8a217c3eab4e12033dc4a0f6d23c",
-      "rev_count": 844474,
-      "rev_date": "2025-08-14T15:51:38Z",
-      "scrape_date": "2025-08-16T02:12:02.578458Z",
+      "rev": "20075955deac2583bb12f07151c2df830ef346b4",
+      "rev_count": 846535,
+      "rev_date": "2025-08-19T15:00:17Z",
+      "scrape_date": "2025-08-24T16:57:27.939375Z",
       "stabilities": [
         "unstable"
       ],
@@ -282,13 +294,13 @@
       "description": "GNU sed, a batch stream editor",
       "install_id": "gnused",
       "license": "GPL-3.0-or-later",
-      "locked_url": "https://github.com/flox/nixpkgs?rev=fbcf476f790d8a217c3eab4e12033dc4a0f6d23c",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=20075955deac2583bb12f07151c2df830ef346b4",
       "name": "gnused-4.9",
       "pname": "gnused",
-      "rev": "fbcf476f790d8a217c3eab4e12033dc4a0f6d23c",
-      "rev_count": 844474,
-      "rev_date": "2025-08-14T15:51:38Z",
-      "scrape_date": "2025-08-16T01:27:10.510439Z",
+      "rev": "20075955deac2583bb12f07151c2df830ef346b4",
+      "rev_count": 846535,
+      "rev_date": "2025-08-19T15:00:17Z",
+      "scrape_date": "2025-08-24T15:38:53.850475Z",
       "stabilities": [
         "unstable"
       ],
@@ -312,13 +324,13 @@
       "description": "GNU sed, a batch stream editor",
       "install_id": "gnused",
       "license": "GPL-3.0-or-later",
-      "locked_url": "https://github.com/flox/nixpkgs?rev=fbcf476f790d8a217c3eab4e12033dc4a0f6d23c",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=20075955deac2583bb12f07151c2df830ef346b4",
       "name": "gnused-4.9",
       "pname": "gnused",
-      "rev": "fbcf476f790d8a217c3eab4e12033dc4a0f6d23c",
-      "rev_count": 844474,
-      "rev_date": "2025-08-14T15:51:38Z",
-      "scrape_date": "2025-08-16T01:35:12.314817Z",
+      "rev": "20075955deac2583bb12f07151c2df830ef346b4",
+      "rev_count": 846535,
+      "rev_date": "2025-08-19T15:00:17Z",
+      "scrape_date": "2025-08-24T16:05:26.646412Z",
       "stabilities": [
         "unstable"
       ],
@@ -342,13 +354,13 @@
       "description": "GNU sed, a batch stream editor",
       "install_id": "gnused",
       "license": "GPL-3.0-or-later",
-      "locked_url": "https://github.com/flox/nixpkgs?rev=fbcf476f790d8a217c3eab4e12033dc4a0f6d23c",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=20075955deac2583bb12f07151c2df830ef346b4",
       "name": "gnused-4.9",
       "pname": "gnused",
-      "rev": "fbcf476f790d8a217c3eab4e12033dc4a0f6d23c",
-      "rev_count": 844474,
-      "rev_date": "2025-08-14T15:51:38Z",
-      "scrape_date": "2025-08-16T01:43:50.428185Z",
+      "rev": "20075955deac2583bb12f07151c2df830ef346b4",
+      "rev_count": 846535,
+      "rev_date": "2025-08-19T15:00:17Z",
+      "scrape_date": "2025-08-24T16:29:26.064209Z",
       "stabilities": [
         "unstable"
       ],
@@ -372,13 +384,13 @@
       "description": "GNU sed, a batch stream editor",
       "install_id": "gnused",
       "license": "GPL-3.0-or-later",
-      "locked_url": "https://github.com/flox/nixpkgs?rev=fbcf476f790d8a217c3eab4e12033dc4a0f6d23c",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=20075955deac2583bb12f07151c2df830ef346b4",
       "name": "gnused-4.9",
       "pname": "gnused",
-      "rev": "fbcf476f790d8a217c3eab4e12033dc4a0f6d23c",
-      "rev_count": 844474,
-      "rev_date": "2025-08-14T15:51:38Z",
-      "scrape_date": "2025-08-16T02:12:02.590059Z",
+      "rev": "20075955deac2583bb12f07151c2df830ef346b4",
+      "rev_count": 846535,
+      "rev_date": "2025-08-19T15:00:17Z",
+      "scrape_date": "2025-08-24T16:57:27.955176Z",
       "stabilities": [
         "unstable"
       ],
@@ -396,19 +408,367 @@
       "priority": 5
     },
     {
+      "attr_path": "nixd",
+      "broken": false,
+      "derivation": "/nix/store/7x66wdsg6x14i26az8nlf6xgj1nz9is2-nixd-2.6.4.drv",
+      "description": "Feature-rich Nix language server interoperating with C++ nix",
+      "install_id": "nixd",
+      "license": "LGPL-3.0-or-later",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=20075955deac2583bb12f07151c2df830ef346b4",
+      "name": "nixd-2.6.4",
+      "pname": "nixd",
+      "rev": "20075955deac2583bb12f07151c2df830ef346b4",
+      "rev_count": 846535,
+      "rev_date": "2025-08-19T15:00:17Z",
+      "scrape_date": "2025-08-24T15:38:57.112381Z",
+      "stabilities": [
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "2.6.4",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "out": "/nix/store/j0llqgg463by3xs5y8f33agnaiwrnlcd-nixd-2.6.4"
+      },
+      "system": "aarch64-darwin",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "nixd",
+      "broken": false,
+      "derivation": "/nix/store/xirx5j8kydhdyhyi9h8wdjglji06nrw8-nixd-2.6.4.drv",
+      "description": "Feature-rich Nix language server interoperating with C++ nix",
+      "install_id": "nixd",
+      "license": "LGPL-3.0-or-later",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=20075955deac2583bb12f07151c2df830ef346b4",
+      "name": "nixd-2.6.4",
+      "pname": "nixd",
+      "rev": "20075955deac2583bb12f07151c2df830ef346b4",
+      "rev_count": 846535,
+      "rev_date": "2025-08-19T15:00:17Z",
+      "scrape_date": "2025-08-24T16:05:38.342900Z",
+      "stabilities": [
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "2.6.4",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "out": "/nix/store/1bvqw5pc2pr21p28xgph7fi4x22vajcn-nixd-2.6.4"
+      },
+      "system": "aarch64-linux",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "nixd",
+      "broken": false,
+      "derivation": "/nix/store/d3irr64crwakhh7rvlzprf15m1hbfki8-nixd-2.6.4.drv",
+      "description": "Feature-rich Nix language server interoperating with C++ nix",
+      "install_id": "nixd",
+      "license": "LGPL-3.0-or-later",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=20075955deac2583bb12f07151c2df830ef346b4",
+      "name": "nixd-2.6.4",
+      "pname": "nixd",
+      "rev": "20075955deac2583bb12f07151c2df830ef346b4",
+      "rev_count": 846535,
+      "rev_date": "2025-08-19T15:00:17Z",
+      "scrape_date": "2025-08-24T16:29:29.346673Z",
+      "stabilities": [
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "2.6.4",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "out": "/nix/store/8m72inc0ryv6xz2k246rawj161lj31i6-nixd-2.6.4"
+      },
+      "system": "x86_64-darwin",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "nixd",
+      "broken": false,
+      "derivation": "/nix/store/4bj71jdshl2b7mdfz715x6ay7gyq1bb1-nixd-2.6.4.drv",
+      "description": "Feature-rich Nix language server interoperating with C++ nix",
+      "install_id": "nixd",
+      "license": "LGPL-3.0-or-later",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=20075955deac2583bb12f07151c2df830ef346b4",
+      "name": "nixd-2.6.4",
+      "pname": "nixd",
+      "rev": "20075955deac2583bb12f07151c2df830ef346b4",
+      "rev_count": 846535,
+      "rev_date": "2025-08-19T15:00:17Z",
+      "scrape_date": "2025-08-24T16:57:42.001416Z",
+      "stabilities": [
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "2.6.4",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "out": "/nix/store/sjirzw9qgrml3v657ls918yzf6jmdq8f-nixd-2.6.4"
+      },
+      "system": "x86_64-linux",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "nixfmt-rfc-style",
+      "broken": false,
+      "derivation": "/nix/store/n4pcaizmgs517pmkyn9d2wrndmrhfpdi-nixfmt-1.0.0.drv",
+      "description": "Official formatter for Nix code",
+      "install_id": "nixfmt-rfc-style",
+      "license": "MPL-2.0",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=20075955deac2583bb12f07151c2df830ef346b4",
+      "name": "nixfmt-1.0.0",
+      "pname": "nixfmt-rfc-style",
+      "rev": "20075955deac2583bb12f07151c2df830ef346b4",
+      "rev_count": 846535,
+      "rev_date": "2025-08-19T15:00:17Z",
+      "scrape_date": "2025-08-24T15:38:57.116329Z",
+      "stabilities": [
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "1.0.0",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "out": "/nix/store/259h47ik5j1j9qfsxc2lybj7il3yafda-nixfmt-1.0.0"
+      },
+      "system": "aarch64-darwin",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "nixfmt-rfc-style",
+      "broken": false,
+      "derivation": "/nix/store/jvds3r5v5n244zcbfq6k4k4981r7dlnn-nixfmt-1.0.0.drv",
+      "description": "Official formatter for Nix code",
+      "install_id": "nixfmt-rfc-style",
+      "license": "MPL-2.0",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=20075955deac2583bb12f07151c2df830ef346b4",
+      "name": "nixfmt-1.0.0",
+      "pname": "nixfmt-rfc-style",
+      "rev": "20075955deac2583bb12f07151c2df830ef346b4",
+      "rev_count": 846535,
+      "rev_date": "2025-08-19T15:00:17Z",
+      "scrape_date": "2025-08-24T16:05:38.350294Z",
+      "stabilities": [
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "1.0.0",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "out": "/nix/store/04mmv1jkkp91z2z2p7ri0jry1ijk4k3a-nixfmt-1.0.0"
+      },
+      "system": "aarch64-linux",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "nixfmt-rfc-style",
+      "broken": false,
+      "derivation": "/nix/store/m9dcq0sk1x6mrrnmnsmlzz4m45vp750s-nixfmt-1.0.0.drv",
+      "description": "Official formatter for Nix code",
+      "install_id": "nixfmt-rfc-style",
+      "license": "MPL-2.0",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=20075955deac2583bb12f07151c2df830ef346b4",
+      "name": "nixfmt-1.0.0",
+      "pname": "nixfmt-rfc-style",
+      "rev": "20075955deac2583bb12f07151c2df830ef346b4",
+      "rev_count": 846535,
+      "rev_date": "2025-08-19T15:00:17Z",
+      "scrape_date": "2025-08-24T16:29:29.350687Z",
+      "stabilities": [
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "1.0.0",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "out": "/nix/store/lj281h0f7s1an5ikbn8fvcmms9pdvkxl-nixfmt-1.0.0"
+      },
+      "system": "x86_64-darwin",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "nixfmt-rfc-style",
+      "broken": false,
+      "derivation": "/nix/store/8cpmlhbcjp8hw1w4sr6672gy9v7hk8vd-nixfmt-1.0.0.drv",
+      "description": "Official formatter for Nix code",
+      "install_id": "nixfmt-rfc-style",
+      "license": "MPL-2.0",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=20075955deac2583bb12f07151c2df830ef346b4",
+      "name": "nixfmt-1.0.0",
+      "pname": "nixfmt-rfc-style",
+      "rev": "20075955deac2583bb12f07151c2df830ef346b4",
+      "rev_count": 846535,
+      "rev_date": "2025-08-19T15:00:17Z",
+      "scrape_date": "2025-08-24T16:57:42.009519Z",
+      "stabilities": [
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "1.0.0",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "out": "/nix/store/d1wxvx12w6nsnabanj2p68q12ghd1srj-nixfmt-1.0.0"
+      },
+      "system": "x86_64-linux",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "nixfmt-tree",
+      "broken": false,
+      "derivation": "/nix/store/ibvabl3bz0n0qijzsaqhfvzr2q8rpp0c-nixfmt-tree.drv",
+      "description": "Official Nix formatter zero-setup starter using treefmt",
+      "install_id": "nixfmt-tree",
+      "license": "MIT",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=20075955deac2583bb12f07151c2df830ef346b4",
+      "name": "nixfmt-tree",
+      "pname": "nixfmt-tree",
+      "rev": "20075955deac2583bb12f07151c2df830ef346b4",
+      "rev_count": 846535,
+      "rev_date": "2025-08-19T15:00:17Z",
+      "scrape_date": "2025-08-24T15:38:57.116929Z",
+      "stabilities": [
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "nixfmt-tree",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "out": "/nix/store/aizfs9wa1646fimmzjha2l61h2w0hdxs-nixfmt-tree"
+      },
+      "system": "aarch64-darwin",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "nixfmt-tree",
+      "broken": false,
+      "derivation": "/nix/store/1l5ymy7jvxygwl0f4b4akpsh1wjxwlzn-nixfmt-tree.drv",
+      "description": "Official Nix formatter zero-setup starter using treefmt",
+      "install_id": "nixfmt-tree",
+      "license": "MIT",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=20075955deac2583bb12f07151c2df830ef346b4",
+      "name": "nixfmt-tree",
+      "pname": "nixfmt-tree",
+      "rev": "20075955deac2583bb12f07151c2df830ef346b4",
+      "rev_count": 846535,
+      "rev_date": "2025-08-19T15:00:17Z",
+      "scrape_date": "2025-08-24T16:05:38.351374Z",
+      "stabilities": [
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "nixfmt-tree",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "out": "/nix/store/4gj7ibvll7wkrgkm7gvmw3i2qq7lakd3-nixfmt-tree"
+      },
+      "system": "aarch64-linux",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "nixfmt-tree",
+      "broken": false,
+      "derivation": "/nix/store/syfbl9mhz8n6f05dr0lrid7r2y3agnz0-nixfmt-tree.drv",
+      "description": "Official Nix formatter zero-setup starter using treefmt",
+      "install_id": "nixfmt-tree",
+      "license": "MIT",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=20075955deac2583bb12f07151c2df830ef346b4",
+      "name": "nixfmt-tree",
+      "pname": "nixfmt-tree",
+      "rev": "20075955deac2583bb12f07151c2df830ef346b4",
+      "rev_count": 846535,
+      "rev_date": "2025-08-19T15:00:17Z",
+      "scrape_date": "2025-08-24T16:29:29.351248Z",
+      "stabilities": [
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "nixfmt-tree",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "out": "/nix/store/qyfxgc5g7d7rinwxncmd483sxa8fmraf-nixfmt-tree"
+      },
+      "system": "x86_64-darwin",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "nixfmt-tree",
+      "broken": false,
+      "derivation": "/nix/store/blf1kdp52avpz3agyc1sybsn0n90f11m-nixfmt-tree.drv",
+      "description": "Official Nix formatter zero-setup starter using treefmt",
+      "install_id": "nixfmt-tree",
+      "license": "MIT",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=20075955deac2583bb12f07151c2df830ef346b4",
+      "name": "nixfmt-tree",
+      "pname": "nixfmt-tree",
+      "rev": "20075955deac2583bb12f07151c2df830ef346b4",
+      "rev_count": 846535,
+      "rev_date": "2025-08-19T15:00:17Z",
+      "scrape_date": "2025-08-24T16:57:42.010784Z",
+      "stabilities": [
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "nixfmt-tree",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "out": "/nix/store/hkirk0x1nh88pgn7k13vgc6p77smw7kd-nixfmt-tree"
+      },
+      "system": "x86_64-linux",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
       "attr_path": "pre-commit",
       "broken": false,
       "derivation": "/nix/store/mj7wy2ynqv7c1qhk2h9vx02plpm9wcss-pre-commit-4.3.0.drv",
       "description": "Framework for managing and maintaining multi-language pre-commit hooks",
       "install_id": "pre-commit",
       "license": "MIT",
-      "locked_url": "https://github.com/flox/nixpkgs?rev=fbcf476f790d8a217c3eab4e12033dc4a0f6d23c",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=20075955deac2583bb12f07151c2df830ef346b4",
       "name": "pre-commit-4.3.0",
       "pname": "pre-commit",
-      "rev": "fbcf476f790d8a217c3eab4e12033dc4a0f6d23c",
-      "rev_count": 844474,
-      "rev_date": "2025-08-14T15:51:38Z",
-      "scrape_date": "2025-08-16T01:27:21.255053Z",
+      "rev": "20075955deac2583bb12f07151c2df830ef346b4",
+      "rev_count": 846535,
+      "rev_date": "2025-08-19T15:00:17Z",
+      "scrape_date": "2025-08-24T15:39:05.000872Z",
       "stabilities": [
         "unstable"
       ],
@@ -432,13 +792,13 @@
       "description": "Framework for managing and maintaining multi-language pre-commit hooks",
       "install_id": "pre-commit",
       "license": "MIT",
-      "locked_url": "https://github.com/flox/nixpkgs?rev=fbcf476f790d8a217c3eab4e12033dc4a0f6d23c",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=20075955deac2583bb12f07151c2df830ef346b4",
       "name": "pre-commit-4.3.0",
       "pname": "pre-commit",
-      "rev": "fbcf476f790d8a217c3eab4e12033dc4a0f6d23c",
-      "rev_count": 844474,
-      "rev_date": "2025-08-14T15:51:38Z",
-      "scrape_date": "2025-08-16T01:35:37.988197Z",
+      "rev": "20075955deac2583bb12f07151c2df830ef346b4",
+      "rev_count": 846535,
+      "rev_date": "2025-08-19T15:00:17Z",
+      "scrape_date": "2025-08-24T16:05:53.270437Z",
       "stabilities": [
         "unstable"
       ],
@@ -462,13 +822,13 @@
       "description": "Framework for managing and maintaining multi-language pre-commit hooks",
       "install_id": "pre-commit",
       "license": "MIT",
-      "locked_url": "https://github.com/flox/nixpkgs?rev=fbcf476f790d8a217c3eab4e12033dc4a0f6d23c",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=20075955deac2583bb12f07151c2df830ef346b4",
       "name": "pre-commit-4.3.0",
       "pname": "pre-commit",
-      "rev": "fbcf476f790d8a217c3eab4e12033dc4a0f6d23c",
-      "rev_count": 844474,
-      "rev_date": "2025-08-14T15:51:38Z",
-      "scrape_date": "2025-08-16T01:44:01.177155Z",
+      "rev": "20075955deac2583bb12f07151c2df830ef346b4",
+      "rev_count": 846535,
+      "rev_date": "2025-08-19T15:00:17Z",
+      "scrape_date": "2025-08-24T16:29:37.061664Z",
       "stabilities": [
         "unstable"
       ],
@@ -492,13 +852,13 @@
       "description": "Framework for managing and maintaining multi-language pre-commit hooks",
       "install_id": "pre-commit",
       "license": "MIT",
-      "locked_url": "https://github.com/flox/nixpkgs?rev=fbcf476f790d8a217c3eab4e12033dc4a0f6d23c",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=20075955deac2583bb12f07151c2df830ef346b4",
       "name": "pre-commit-4.3.0",
       "pname": "pre-commit",
-      "rev": "fbcf476f790d8a217c3eab4e12033dc4a0f6d23c",
-      "rev_count": 844474,
-      "rev_date": "2025-08-14T15:51:38Z",
-      "scrape_date": "2025-08-16T02:12:31.851419Z",
+      "rev": "20075955deac2583bb12f07151c2df830ef346b4",
+      "rev_count": 846535,
+      "rev_date": "2025-08-19T15:00:17Z",
+      "scrape_date": "2025-08-24T16:57:57.906537Z",
       "stabilities": [
         "unstable"
       ],
@@ -516,19 +876,135 @@
       "priority": 5
     },
     {
+      "attr_path": "update-nix-fetchgit",
+      "broken": false,
+      "derivation": "/nix/store/ffnnagzapvbxlpw6xdisxfnn0y4k2faz-update-nix-fetchgit-0.2.11.drv",
+      "description": "A program to update fetchgit values in Nix expressions",
+      "install_id": "update-nix-fetchgit",
+      "license": "BSD-3-Clause",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=20075955deac2583bb12f07151c2df830ef346b4",
+      "name": "update-nix-fetchgit-0.2.11",
+      "pname": "update-nix-fetchgit",
+      "rev": "20075955deac2583bb12f07151c2df830ef346b4",
+      "rev_count": 846535,
+      "rev_date": "2025-08-19T15:00:17Z",
+      "scrape_date": "2025-08-24T15:40:23.536937Z",
+      "stabilities": [
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "0.2.11",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "out": "/nix/store/qw05lxid76mrvm770jsl9xjd5j8igfxm-update-nix-fetchgit-0.2.11"
+      },
+      "system": "aarch64-darwin",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "update-nix-fetchgit",
+      "broken": false,
+      "derivation": "/nix/store/f7n50982dsli56qsfcgvxjdpx35kmcjh-update-nix-fetchgit-0.2.11.drv",
+      "description": "A program to update fetchgit values in Nix expressions",
+      "install_id": "update-nix-fetchgit",
+      "license": "BSD-3-Clause",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=20075955deac2583bb12f07151c2df830ef346b4",
+      "name": "update-nix-fetchgit-0.2.11",
+      "pname": "update-nix-fetchgit",
+      "rev": "20075955deac2583bb12f07151c2df830ef346b4",
+      "rev_count": 846535,
+      "rev_date": "2025-08-19T15:00:17Z",
+      "scrape_date": "2025-08-24T16:07:42.126849Z",
+      "stabilities": [
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "0.2.11",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "out": "/nix/store/0rdkv2jsl4di4izsmnylm10w3ah3hldq-update-nix-fetchgit-0.2.11"
+      },
+      "system": "aarch64-linux",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "update-nix-fetchgit",
+      "broken": false,
+      "derivation": "/nix/store/1qq8cwn0il8s7pr5s9vibwccd4lx06b7-update-nix-fetchgit-0.2.11.drv",
+      "description": "A program to update fetchgit values in Nix expressions",
+      "install_id": "update-nix-fetchgit",
+      "license": "BSD-3-Clause",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=20075955deac2583bb12f07151c2df830ef346b4",
+      "name": "update-nix-fetchgit-0.2.11",
+      "pname": "update-nix-fetchgit",
+      "rev": "20075955deac2583bb12f07151c2df830ef346b4",
+      "rev_count": 846535,
+      "rev_date": "2025-08-19T15:00:17Z",
+      "scrape_date": "2025-08-24T16:30:48.731178Z",
+      "stabilities": [
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "0.2.11",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "out": "/nix/store/8pmq3yw6ngd7p2cbx8aha5vbzlsgv1lb-update-nix-fetchgit-0.2.11"
+      },
+      "system": "x86_64-darwin",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "update-nix-fetchgit",
+      "broken": false,
+      "derivation": "/nix/store/0aqkyc16q5mracb1nqj3sy9wwx9axihv-update-nix-fetchgit-0.2.11.drv",
+      "description": "A program to update fetchgit values in Nix expressions",
+      "install_id": "update-nix-fetchgit",
+      "license": "BSD-3-Clause",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=20075955deac2583bb12f07151c2df830ef346b4",
+      "name": "update-nix-fetchgit-0.2.11",
+      "pname": "update-nix-fetchgit",
+      "rev": "20075955deac2583bb12f07151c2df830ef346b4",
+      "rev_count": 846535,
+      "rev_date": "2025-08-19T15:00:17Z",
+      "scrape_date": "2025-08-24T16:59:43.109294Z",
+      "stabilities": [
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "0.2.11",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "out": "/nix/store/1fsw6r64ya414pdnmnnxdd8zbvfs9112-update-nix-fetchgit-0.2.11"
+      },
+      "system": "x86_64-linux",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
       "attr_path": "uutils-coreutils-noprefix",
       "broken": false,
       "derivation": "/nix/store/d4v49crh9l31lahjr11p279s384hrbpp-uutils-coreutils-0.1.0.drv",
       "description": "Cross-platform Rust rewrite of the GNU coreutils",
       "install_id": "uutils-coreutils-noprefix",
       "license": "MIT",
-      "locked_url": "https://github.com/flox/nixpkgs?rev=fbcf476f790d8a217c3eab4e12033dc4a0f6d23c",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=20075955deac2583bb12f07151c2df830ef346b4",
       "name": "uutils-coreutils-0.1.0",
       "pname": "uutils-coreutils-noprefix",
-      "rev": "fbcf476f790d8a217c3eab4e12033dc4a0f6d23c",
-      "rev_count": 844474,
-      "rev_date": "2025-08-14T15:51:38Z",
-      "scrape_date": "2025-08-16T01:28:31.158042Z",
+      "rev": "20075955deac2583bb12f07151c2df830ef346b4",
+      "rev_count": 846535,
+      "rev_date": "2025-08-19T15:00:17Z",
+      "scrape_date": "2025-08-24T15:40:23.769786Z",
       "stabilities": [
         "unstable"
       ],
@@ -551,13 +1027,13 @@
       "description": "Cross-platform Rust rewrite of the GNU coreutils",
       "install_id": "uutils-coreutils-noprefix",
       "license": "MIT",
-      "locked_url": "https://github.com/flox/nixpkgs?rev=fbcf476f790d8a217c3eab4e12033dc4a0f6d23c",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=20075955deac2583bb12f07151c2df830ef346b4",
       "name": "uutils-coreutils-0.1.0",
       "pname": "uutils-coreutils-noprefix",
-      "rev": "fbcf476f790d8a217c3eab4e12033dc4a0f6d23c",
-      "rev_count": 844474,
-      "rev_date": "2025-08-14T15:51:38Z",
-      "scrape_date": "2025-08-16T01:37:16.091830Z",
+      "rev": "20075955deac2583bb12f07151c2df830ef346b4",
+      "rev_count": 846535,
+      "rev_date": "2025-08-19T15:00:17Z",
+      "scrape_date": "2025-08-24T16:07:42.499932Z",
       "stabilities": [
         "unstable"
       ],
@@ -580,13 +1056,13 @@
       "description": "Cross-platform Rust rewrite of the GNU coreutils",
       "install_id": "uutils-coreutils-noprefix",
       "license": "MIT",
-      "locked_url": "https://github.com/flox/nixpkgs?rev=fbcf476f790d8a217c3eab4e12033dc4a0f6d23c",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=20075955deac2583bb12f07151c2df830ef346b4",
       "name": "uutils-coreutils-0.1.0",
       "pname": "uutils-coreutils-noprefix",
-      "rev": "fbcf476f790d8a217c3eab4e12033dc4a0f6d23c",
-      "rev_count": 844474,
-      "rev_date": "2025-08-14T15:51:38Z",
-      "scrape_date": "2025-08-16T01:45:10.772474Z",
+      "rev": "20075955deac2583bb12f07151c2df830ef346b4",
+      "rev_count": 846535,
+      "rev_date": "2025-08-19T15:00:17Z",
+      "scrape_date": "2025-08-24T16:30:48.933147Z",
       "stabilities": [
         "unstable"
       ],
@@ -609,13 +1085,13 @@
       "description": "Cross-platform Rust rewrite of the GNU coreutils",
       "install_id": "uutils-coreutils-noprefix",
       "license": "MIT",
-      "locked_url": "https://github.com/flox/nixpkgs?rev=fbcf476f790d8a217c3eab4e12033dc4a0f6d23c",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=20075955deac2583bb12f07151c2df830ef346b4",
       "name": "uutils-coreutils-0.1.0",
       "pname": "uutils-coreutils-noprefix",
-      "rev": "fbcf476f790d8a217c3eab4e12033dc4a0f6d23c",
-      "rev_count": 844474,
-      "rev_date": "2025-08-14T15:51:38Z",
-      "scrape_date": "2025-08-16T02:14:15.925887Z",
+      "rev": "20075955deac2583bb12f07151c2df830ef346b4",
+      "rev_count": 846535,
+      "rev_date": "2025-08-19T15:00:17Z",
+      "scrape_date": "2025-08-24T16:59:43.491728Z",
       "stabilities": [
         "unstable"
       ],
@@ -638,13 +1114,13 @@
       "description": "Drop-in replacement of diffutils in Rust",
       "install_id": "uutils-diffutils",
       "license": "MIT",
-      "locked_url": "https://github.com/flox/nixpkgs?rev=fbcf476f790d8a217c3eab4e12033dc4a0f6d23c",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=20075955deac2583bb12f07151c2df830ef346b4",
       "name": "uutils-diffutils-0.4.2",
       "pname": "uutils-diffutils",
-      "rev": "fbcf476f790d8a217c3eab4e12033dc4a0f6d23c",
-      "rev_count": 844474,
-      "rev_date": "2025-08-14T15:51:38Z",
-      "scrape_date": "2025-08-16T01:28:31.160570Z",
+      "rev": "20075955deac2583bb12f07151c2df830ef346b4",
+      "rev_count": 846535,
+      "rev_date": "2025-08-19T15:00:17Z",
+      "scrape_date": "2025-08-24T15:40:23.772819Z",
       "stabilities": [
         "unstable"
       ],
@@ -667,13 +1143,13 @@
       "description": "Drop-in replacement of diffutils in Rust",
       "install_id": "uutils-diffutils",
       "license": "MIT",
-      "locked_url": "https://github.com/flox/nixpkgs?rev=fbcf476f790d8a217c3eab4e12033dc4a0f6d23c",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=20075955deac2583bb12f07151c2df830ef346b4",
       "name": "uutils-diffutils-0.4.2",
       "pname": "uutils-diffutils",
-      "rev": "fbcf476f790d8a217c3eab4e12033dc4a0f6d23c",
-      "rev_count": 844474,
-      "rev_date": "2025-08-14T15:51:38Z",
-      "scrape_date": "2025-08-16T01:37:16.095017Z",
+      "rev": "20075955deac2583bb12f07151c2df830ef346b4",
+      "rev_count": 846535,
+      "rev_date": "2025-08-19T15:00:17Z",
+      "scrape_date": "2025-08-24T16:07:42.503419Z",
       "stabilities": [
         "unstable"
       ],
@@ -696,13 +1172,13 @@
       "description": "Drop-in replacement of diffutils in Rust",
       "install_id": "uutils-diffutils",
       "license": "MIT",
-      "locked_url": "https://github.com/flox/nixpkgs?rev=fbcf476f790d8a217c3eab4e12033dc4a0f6d23c",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=20075955deac2583bb12f07151c2df830ef346b4",
       "name": "uutils-diffutils-0.4.2",
       "pname": "uutils-diffutils",
-      "rev": "fbcf476f790d8a217c3eab4e12033dc4a0f6d23c",
-      "rev_count": 844474,
-      "rev_date": "2025-08-14T15:51:38Z",
-      "scrape_date": "2025-08-16T01:45:10.774996Z",
+      "rev": "20075955deac2583bb12f07151c2df830ef346b4",
+      "rev_count": 846535,
+      "rev_date": "2025-08-19T15:00:17Z",
+      "scrape_date": "2025-08-24T16:30:48.935729Z",
       "stabilities": [
         "unstable"
       ],
@@ -725,13 +1201,13 @@
       "description": "Drop-in replacement of diffutils in Rust",
       "install_id": "uutils-diffutils",
       "license": "MIT",
-      "locked_url": "https://github.com/flox/nixpkgs?rev=fbcf476f790d8a217c3eab4e12033dc4a0f6d23c",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=20075955deac2583bb12f07151c2df830ef346b4",
       "name": "uutils-diffutils-0.4.2",
       "pname": "uutils-diffutils",
-      "rev": "fbcf476f790d8a217c3eab4e12033dc4a0f6d23c",
-      "rev_count": 844474,
-      "rev_date": "2025-08-14T15:51:38Z",
-      "scrape_date": "2025-08-16T02:14:15.929279Z",
+      "rev": "20075955deac2583bb12f07151c2df830ef346b4",
+      "rev_count": 846535,
+      "rev_date": "2025-08-19T15:00:17Z",
+      "scrape_date": "2025-08-24T16:59:43.495063Z",
       "stabilities": [
         "unstable"
       ],
@@ -754,13 +1230,13 @@
       "description": "Rust implementation of findutils",
       "install_id": "uutils-findutils",
       "license": "MIT",
-      "locked_url": "https://github.com/flox/nixpkgs?rev=fbcf476f790d8a217c3eab4e12033dc4a0f6d23c",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=20075955deac2583bb12f07151c2df830ef346b4",
       "name": "uutils-findutils-0.8.0",
       "pname": "uutils-findutils",
-      "rev": "fbcf476f790d8a217c3eab4e12033dc4a0f6d23c",
-      "rev_count": 844474,
-      "rev_date": "2025-08-14T15:51:38Z",
-      "scrape_date": "2025-08-16T01:28:31.163150Z",
+      "rev": "20075955deac2583bb12f07151c2df830ef346b4",
+      "rev_count": 846535,
+      "rev_date": "2025-08-19T15:00:17Z",
+      "scrape_date": "2025-08-24T15:40:23.775865Z",
       "stabilities": [
         "unstable"
       ],
@@ -783,13 +1259,13 @@
       "description": "Rust implementation of findutils",
       "install_id": "uutils-findutils",
       "license": "MIT",
-      "locked_url": "https://github.com/flox/nixpkgs?rev=fbcf476f790d8a217c3eab4e12033dc4a0f6d23c",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=20075955deac2583bb12f07151c2df830ef346b4",
       "name": "uutils-findutils-0.8.0",
       "pname": "uutils-findutils",
-      "rev": "fbcf476f790d8a217c3eab4e12033dc4a0f6d23c",
-      "rev_count": 844474,
-      "rev_date": "2025-08-14T15:51:38Z",
-      "scrape_date": "2025-08-16T01:37:16.098194Z",
+      "rev": "20075955deac2583bb12f07151c2df830ef346b4",
+      "rev_count": 846535,
+      "rev_date": "2025-08-19T15:00:17Z",
+      "scrape_date": "2025-08-24T16:07:42.506969Z",
       "stabilities": [
         "unstable"
       ],
@@ -812,13 +1288,13 @@
       "description": "Rust implementation of findutils",
       "install_id": "uutils-findutils",
       "license": "MIT",
-      "locked_url": "https://github.com/flox/nixpkgs?rev=fbcf476f790d8a217c3eab4e12033dc4a0f6d23c",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=20075955deac2583bb12f07151c2df830ef346b4",
       "name": "uutils-findutils-0.8.0",
       "pname": "uutils-findutils",
-      "rev": "fbcf476f790d8a217c3eab4e12033dc4a0f6d23c",
-      "rev_count": 844474,
-      "rev_date": "2025-08-14T15:51:38Z",
-      "scrape_date": "2025-08-16T01:45:10.777490Z",
+      "rev": "20075955deac2583bb12f07151c2df830ef346b4",
+      "rev_count": 846535,
+      "rev_date": "2025-08-19T15:00:17Z",
+      "scrape_date": "2025-08-24T16:30:48.938337Z",
       "stabilities": [
         "unstable"
       ],
@@ -841,13 +1317,13 @@
       "description": "Rust implementation of findutils",
       "install_id": "uutils-findutils",
       "license": "MIT",
-      "locked_url": "https://github.com/flox/nixpkgs?rev=fbcf476f790d8a217c3eab4e12033dc4a0f6d23c",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=20075955deac2583bb12f07151c2df830ef346b4",
       "name": "uutils-findutils-0.8.0",
       "pname": "uutils-findutils",
-      "rev": "fbcf476f790d8a217c3eab4e12033dc4a0f6d23c",
-      "rev_count": 844474,
-      "rev_date": "2025-08-14T15:51:38Z",
-      "scrape_date": "2025-08-16T02:14:15.932803Z",
+      "rev": "20075955deac2583bb12f07151c2df830ef346b4",
+      "rev_count": 846535,
+      "rev_date": "2025-08-19T15:00:17Z",
+      "scrape_date": "2025-08-24T16:59:43.498398Z",
       "stabilities": [
         "unstable"
       ],
