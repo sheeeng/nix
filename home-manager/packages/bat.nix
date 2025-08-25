@@ -75,5 +75,15 @@
         file = "Dracula.tmTheme";
       };
     }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.bat.themes
+    # https://github.com/the-nix-way/nome/blob/b7d5b6441f82b069141c22bb9cbbc9ec41b05cbd/home-manager/programs.nix#L5-L24
+    # themes.${pkgs.themes.bat} = {
+    #   src = pkgs.fetchFromGitHub {
+    #     owner = "catppuccin";
+    #     repo = "bat";
+    #     rev = "6810349b28055dce54076712fc05fc68da4b8ec0";
+    #     sha256 = "sha256-6fWoCH90IGumAMc4buLRWL0N61op+AuMNN9CAR9/OdI=";
+    #   };
+    #   file = "themes/${pkgs.themes.bat}.tmTheme";
+    # }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.bat.themes
   };
 }
