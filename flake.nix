@@ -61,9 +61,9 @@
       flake = false;
     }; # https://github.com/llakala/nixos/tree/5dae1c83df4835fd23d433adc76f66bca44962ba/apps/programs/firefox
 
-    flox = {
-      url = "github:flox/flox/v1.6.1";
-    };
+    catppuccin.url = "github:catppuccin/nix";
+    devenv.url = "github:cachix/devenv";
+    flox.url = "github:flox/flox";
 
     # helix-unstable = {
     #   url = "github:helix-editor/helix"; # Compile Helix from source to support macro keybinds
@@ -81,11 +81,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nixvirt = {
-      url = "https://flakehub.com/f/ashleyyakeley/nixvirt/*.tar.gz";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     mac-app-util = {
       url = "github:hraban/mac-app-util";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -99,14 +94,6 @@
     agenix = {
       url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    catppuccin = {
-      url = "github:catppuccin/nix";
-    };
-
-    devenv = {
-      url = "github:cachix/devenv";
     };
 
     # errata-ai-alex.flake = false;
@@ -177,9 +164,7 @@
       flake = false;
     };
 
-    nix-systems = {
-      url = "github:nix-systems/default"; # https://github.com/nix-systems/nix-systems
-    };
+    nix-systems.url = "github:nix-systems/default"; # https://github.com/nix-systems/nix-systems
 
     nix-secrets = {
       url = "git+ssh://git@github.com/sheeeng/nix-secrets.git?ref=main&shallow=1";
