@@ -97,4 +97,8 @@ repos:
       - id: shellcheck
         name: shellcheck
         args: []
+  # - repo: https://github.com/nixos/nixfmt
+  #   rev: v1.0.0
+  #   hooks:
+  #     - id: nixfmt
 # keep-sorted end
