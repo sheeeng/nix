@@ -1,1 +1,14 @@
-_: { }
+# _: { }
+
+{
+  config,
+  pkgs,
+  ...
+}:
+{
+  home.packages = with pkgs; [
+    rustup
+  ];
+
+  home.sessionVariables.RUSTUP_HOME = "${config.xdg.dataHome}/.rustup"; # https://rust-lang.github.io/rustup/configuration.html
+}
