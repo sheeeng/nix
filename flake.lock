@@ -541,16 +541,15 @@
         "pre-commit-hooks": "pre-commit-hooks"
       },
       "locked": {
-        "lastModified": 1754313695,
-        "narHash": "sha256-YmoYIgF1P3hVpRoFLAwmRs2MJqSA16HPRoGXVPGAXL4=",
+        "lastModified": 1756126840,
+        "narHash": "sha256-6NOz/8cuQwEfD8wbzRPd6TwDGviOU1Hu6XlUYCObn58=",
         "owner": "flox",
         "repo": "flox",
-        "rev": "86f198e6ffb6cfdc47fa7c561d65eb2708fd69e6",
+        "rev": "58e071c1396e8abcd024c5aed3d05530e4b9baf7",
         "type": "github"
       },
       "original": {
         "owner": "flox",
-        "ref": "v1.6.1",
         "repo": "flox",
         "type": "github"
       }
@@ -1015,11 +1014,11 @@
     },
     "nixpkgs-darwin": {
       "locked": {
-        "lastModified": 1756116431,
-        "narHash": "sha256-bExRyIrbRbOdRySnx5eBeZI431X3FVv2GlzSkUeUtqs=",
+        "lastModified": 1756142139,
+        "narHash": "sha256-CZPknGYgOuMZs6TEjaem1WNkjuSG18xYo5+smqolChc=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "d5ce15b159c7a9ad6d85bf457bd4ed6f641a990f",
+        "rev": "520a6994d2960d012dd82a934ce8e6a56eef4855",
         "type": "github"
       },
       "original": {
@@ -1047,11 +1046,11 @@
     },
     "nixpkgs-unstable": {
       "locked": {
-        "lastModified": 1756035328,
-        "narHash": "sha256-vC7SslUBCtdT3T37ZH3PLIWYmTkSeppL5BJJByUjYCM=",
+        "lastModified": 1756094901,
+        "narHash": "sha256-yKhWbYOhuWC0TuIwqSFjKRlMR1Kub2lKAgJiTqiVIFc=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "6b0b1559e918d4f7d1df398ee1d33aeac586d4d6",
+        "rev": "c10013702f1e18305d4d53154cb3fab3b5742c43",
         "type": "github"
       },
       "original": {
@@ -1149,25 +1148,6 @@
         "type": "github"
       }
     },
-    "nixvirt": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1748140003,
-        "narHash": "sha256-DNBZmuk1YRM2PmwbHzVdXumRjCUzQkMarg4iI/37rOQ=",
-        "rev": "5dfe108fd859b122f9a96981cb6bc12297653d6c",
-        "revCount": 407,
-        "type": "tarball",
-        "url": "https://api.flakehub.com/f/pinned/ashleyyakeley/nixvirt/0.6.0/0197059a-e45f-7446-86b5-411ccc894ab0/source.tar.gz"
-      },
-      "original": {
-        "type": "tarball",
-        "url": "https://flakehub.com/f/ashleyyakeley/nixvirt/%2A.tar.gz"
-      }
-    },
     "nur": {
       "inputs": {
         "flake-parts": "flake-parts_4",
@@ -1176,11 +1156,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1756112112,
-        "narHash": "sha256-sZNmd0w8aH3/DCBDq8xbmHVDp90KhLCSf6bGFiMWfC4=",
+        "lastModified": 1756140697,
+        "narHash": "sha256-oLJa1bXiBg64x9G0lz1eGC5Aw3FXGtZAfTwfCtTTYWA=",
         "owner": "nix-community",
         "repo": "nur",
-        "rev": "dd2d02cb1c8f6f14d83d223963bb7c51b8ccf865",
+        "rev": "d17df02acd4ed103147d6393a8162604065ab82b",
         "type": "github"
       },
       "original": {
@@ -1306,7 +1286,6 @@
         "nixpkgs-stable": "nixpkgs-stable",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "nixvim": "nixvim",
-        "nixvirt": "nixvirt",
         "nur": "nur",
         "pre-commit-hooks": "pre-commit-hooks_2",
         "ragenix": "ragenix",
