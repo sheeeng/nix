@@ -24,7 +24,7 @@
         symbol = "🌱 ";
       };
       git_commit = {
-        commit_hash_length = 4;
+        commit_hash_length = 7;
         tag_symbol = "🔖 ";
       };
       git_state = {
@@ -57,7 +57,6 @@
         "$git_status"
         "$git_state"
         "$cmd_duration"
-        "$line_break"
         "$character"
       ];
       # format = lib.concatStrings [

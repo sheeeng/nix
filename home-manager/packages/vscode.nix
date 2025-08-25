@@ -3,7 +3,7 @@
 {
   programs.vscode = {
     enable = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.vscode.enable
-    package = pkgs.vscodium; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.vscode.package
+    package = pkgs.vscode; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.vscode.package
 
     mutableExtensionsDir = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.vscode.mutableExtensionsDir
 
