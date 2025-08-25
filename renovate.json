@@ -1,19 +1,22 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:recommended"],
+  "extends": [
+    "config:recommended"
+  ],
   "lockFileMaintenance": {
     "enabled": true
   },
   "nix": {
     "enabled": true
   },
-  "regexManagers": [
+  "customManagers": [
     {
-      "fileMatch": [
-        "\\.nix$",
-        "flake\\.nix$",
-        "default\\.nix$",
-        "shell\\.nix$"
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/\\.nix$/",
+        "/flake\\.nix$/",
+        "/default\\.nix$/",
+        "/shell\\.nix$/"
       ],
       "matchStrings": [
         "fetchFromGitHub\\s*\\{[^}]*owner\\s*=\\s*\"(?<depName>[^\"]+)\"[^}]*repo\\s*=\\s*\"(?<packageName>[^\"]+)\"[^}]*rev\\s*=\\s*\"(?<currentValue>[^\"]+)\"",
@@ -24,11 +27,12 @@
       "extractVersionTemplate": "^(?<version>.*)$"
     },
     {
-      "fileMatch": [
-        "\\.nix$",
-        "flake\\.nix$",
-        "default\\.nix$",
-        "shell\\.nix$"
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/\\.nix$/",
+        "/flake\\.nix$/",
+        "/default\\.nix$/",
+        "/shell\\.nix$/"
       ],
       "matchStrings": [
         "fetchFromGitHub\\s*\\{[^}]*owner\\s*=\\s*\"(?<depName>[^\"]+)\"[^}]*repo\\s*=\\s*\"(?<packageName>[^\"]+)\"[^}]*rev\\s*=\\s*\"(?<currentValue>[a-f0-9]{40})\"",
@@ -42,8 +46,12 @@
   ],
   "packageRules": [
     {
-      "matchFileNames": ["**/*.nix"],
-      "matchManagers": ["regex"],
+      "matchFileNames": [
+        "**/*.nix"
+      ],
+      "matchManagers": [
+        "custom.regex"
+      ],
       "description": "Update Nix fetchFromGitHub revisions",
       "enabled": true
     }
