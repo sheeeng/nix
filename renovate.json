@@ -1,8 +1,6 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "config:recommended"
-  ],
+  "extends": ["config:recommended"],
   "lockFileMaintenance": {
     "enabled": true
   },
@@ -44,12 +42,8 @@
   ],
   "packageRules": [
     {
-      "matchFileNames": [
-        "**/*.nix"
-      ],
-      "matchManagers": [
-        "regex"
-      ],
+      "matchFileNames": ["**/*.nix"],
+      "matchManagers": ["regex"],
       "description": "Update Nix fetchFromGitHub revisions",
       "enabled": true
     }
