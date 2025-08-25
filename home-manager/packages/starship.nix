@@ -49,11 +49,23 @@
         disabled = false;
       };
       format = lib.concatStrings [
-        "$line_break"
-        "$package"
+        "$battery"
+        "$username"
+        "$hostname"
+        "$directory"
+        "$git_branch"
+        "$git_status"
+        "$git_state"
+        "$cmd_duration"
         "$line_break"
         "$character"
       ];
+      # format = lib.concatStrings [
+      #   "$line_break"
+      #   "$package"
+      #   "$line_break"
+      #   "$character"
+      # ];
       nix_shell = {
         disabled = false;
         impure_msg = "[impure shell](bold red)";

@@ -38,7 +38,6 @@
         "olets/zsh-abbr"
         "olivierverdier/zsh-git-prompt"
         "popstas/zsh-command-time"
-        "sindresorhus/pure"
         "zdharma-continuum/history-search-multi-word"
         "zpm-zsh/clipboard"
         "zsh-users/zsh-autosuggestions"
@@ -46,8 +45,9 @@
         "zsh-users/zsh-history-substring-search"
         "zsh-users/zsh-syntax-highlighting"
         # "marlonrichert/zsh-autocomplete" # FIXME: https://github.com/zsh-users/zsh-syntax-highlighting/issues/951#issuecomment-2089829937
-        # "tarrasch/zsh-bd" # FIXME: Library/Caches/antidote/https-COLON--SLASH--SLASH-github.com-SLASH-tarrasch-SLASH-zsh-bd/bd.plugin.zsh:88: command not found: compdef
         # "marlonrichert/zsh-edit" # FIXME: https://github.com/marlonrichert/zsh-edit/issues/24
+        # "sindresorhus/pure"
+        # "tarrasch/zsh-bd" # FIXME: Library/Caches/antidote/https-COLON--SLASH--SLASH-github.com-SLASH-tarrasch-SLASH-zsh-bd/bd.plugin.zsh:88: command not found: compdef
         # "z-shell/f-sy-h" # FIXME: azhw:zle-line-finish:2: maximum nested function level reached; increase FUNCNEST?
         # "zdharma-continuum/fast-syntax-highlighting" # FIXME: azhw:zle-line-finish:2: maximum nested function level reached; increase FUNCNEST?
       ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.antidote.plugins
