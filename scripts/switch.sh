@@ -84,7 +84,7 @@ fi
 
 echo "# ----------------------------------------------------------------------"
 echo "darwin-rebuild check..."
-sudo darwin-rebuild check --flake ~/github/sheeeng/nix#"$(hostname)" # --fallback # --show-trace
+sudo darwin-rebuild check --flake ~/github/sheeeng/nix#"$(hostname)" --show-trace
 echo "# ----------------------------------------------------------------------"
 
 # darwin-rebuild build --print-build-logs --flake ~/github/sheeeng/nix#"$(hostname)"
