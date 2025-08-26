@@ -112,7 +112,7 @@
     # errata-ai-write-good.url = "github:errata-ai/write-good";
 
     fenix = {
-      url = "github:nix-community/fenix";
+      url = "github:nix-community/fenix/monthly";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -174,6 +174,7 @@
 
   outputs =
     {
+      fenix,
       self,
       nixpkgs,
       nix-systems,
