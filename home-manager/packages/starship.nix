@@ -19,7 +19,7 @@
           owner = "catppuccin"; # owner
           repo = "starship"; # repo
           rev = "5906cc369dd8207e063c0e6e2d27bd0c0b567cb8";
-          sha256 = "sha256-FLHjbClpTqaK4n2qmepCPkb8rocaAo3qeV4Zp1hia0g=";
+          sha256 = "0j3bc9caf6ayg7m8s0hshypgqiiy8bm9kakxwa5ackk955nf7c8l";
         };
       in
       builtins.fromTOML (builtins.readFile (catppuccinTheme + "/themes/mocha.toml"))
