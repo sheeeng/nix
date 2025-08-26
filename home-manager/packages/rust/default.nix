@@ -7,20 +7,23 @@
 }:
 {
   home.packages = [
+    # Use individual components instead of the full toolchain to avoid conflicts
     inputs.fenix.packages.${pkgs.system}.latest.cargo
     inputs.fenix.packages.${pkgs.system}.latest.clippy
     inputs.fenix.packages.${pkgs.system}.latest.llvm-tools
     inputs.fenix.packages.${pkgs.system}.latest.miri
     inputs.fenix.packages.${pkgs.system}.latest.rust-analysis
-    # inputs.fenix.packages.${pkgs.system}.latest.rust-analyzer # Temporarily disabled due to apple_sdk_11_0 issue
-    pkgs.rust-analyzer # Use nixpkgs version instead
     inputs.fenix.packages.${pkgs.system}.latest.rust-docs
     inputs.fenix.packages.${pkgs.system}.latest.rust-src
     inputs.fenix.packages.${pkgs.system}.latest.rustc
     inputs.fenix.packages.${pkgs.system}.latest.rustc-codegen-cranelift
     inputs.fenix.packages.${pkgs.system}.latest.rustc-dev
     inputs.fenix.packages.${pkgs.system}.latest.rustfmt
-    inputs.fenix.packages.${pkgs.system}.latest.toolchain
+    # inputs.fenix.packages.${pkgs.system}.latest.toolchain # Disabled to avoid rust-analyzer conflicts
+
+    # Use nixpkgs rust-analyzer to avoid apple_sdk_11_0 issue
+    pkgs.rust-analyzer
+    # inputs.fenix.packages.${pkgs.system}.latest.rust-analyzer # Temporarily disabled due to apple_sdk_11_0 issue
     # inputs.fenix.packages.${pkgs.system}.rust-analyzer-vscode-extension # Temporarily disabled due to apple_sdk_11_0 issue
   ];
 
