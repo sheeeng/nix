@@ -176,24 +176,26 @@
     {
       self,
       nixpkgs,
+      nix-systems,
       treefmt-nix,
       ...
     }@inputs:
     let
       inherit (self) outputs;
 
-      # Add this for treefmt-nix
-      eachSystem = nixpkgs.lib.genAttrs [
-        "aarch64-linux"
-        "i686-linux"
-        "x86_64-linux"
-        "aarch64-darwin"
-        "x86_64-darwin"
-      ];
+      # Small tool to iterate over each systems
+      eachSystem =
+        f: nixpkgs.lib.genAttrs (import nix-systems) (system: f nixpkgs.legacyPackages.${system});
+      # eachSystem = nixpkgs.lib.genAttrs [
+      #   "aarch64-linux"
+      #   "i686-linux"
+      #   "x86_64-linux"
+      #   "aarch64-darwin"
+      #   "x86_64-darwin"
+      # ];
 
-      treefmtEval = eachSystem (
-        system: treefmt-nix.lib.evalModule nixpkgs.legacyPackages.${system} ./treefmt.nix
-      );
+      # Eval the treefmt modules from ./treefmt.nix
+      treefmtEval = eachSystem (pkgs: treefmt-nix.lib.evalModule pkgs ./treefmt.nix);
 
       # ========== Extend lib with lib.custom ==========
       # NOTE: This approach allows lib.custom to propagate into hm
@@ -240,10 +242,11 @@
         };
     in
     {
-      # Add treefmt outputs
-      formatter = eachSystem (system: treefmtEval.${system}.config.build.wrapper);
-      checks = eachSystem (system: {
-        formatting = treefmtEval.${system}.config.build.check self;
+      # for `nix fmt`
+      formatter = eachSystem (pkgs: treefmtEval.${pkgs.system}.config.build.wrapper);
+      # for `nix flake check`
+      checks = eachSystem (pkgs: {
+        formatting = treefmtEval.${pkgs.system}.config.build.check self;
       });
 
       nixosConfigurations = {

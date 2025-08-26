@@ -3,6 +3,18 @@
 { pkgs, ... }:
 {
   projectRootFile = "flake.nix";
+
+  # programs.deadnix.enable = true;
+  programs.deno.enable = pkgs.hostPlatform.system != "riscv64-linux";
+  programs.mdsh.enable = true;
+  # programs.nixfmt.enable = true;
+  # programs.shellcheck.enable = pkgs.hostPlatform.system != "riscv64-linux";
+  # programs.shfmt.enable = pkgs.hostPlatform.system != "riscv64-linux";
+  # programs.yamlfmt.enable = true;
+
+  programs.jsonfmt.enable = true;
+  programs.jsonfmt.package = pkgs.jsonfmt;
+
   programs = {
     # Nix formatting
     nixfmt = {

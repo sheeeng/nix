@@ -12,6 +12,16 @@
         enableExtensionUpdateCheck = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.vscode.profiles._name_.enableExtensionUpdateCheck
         enableUpdateCheck = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.vscode.profiles._name_.enableUpdateCheck
         extensions = with pkgs.vscode-extensions; [
+          # error: The option `home-manager.users.leonardlee.home.file.".vscode-oss/extensions/catppuccin.catppuccin-vsc".source' has conflicting definition values:
+          # - In `/nix/store/38rarqrxl7yzjdy9xfz862wsywjhy2zv-source/modules/programs/vscode.nix': "/nix/store/11dhknilapbda5kvg36xi9vqjlqsd50d-vscode-extension-catppuccin-catppuccin-vsc-3.16.1/share/vscode/extensions/catppuccin.catppuccin-vsc"
+          # - In `/nix/store/38rarqrxl7yzjdy9xfz862wsywjhy2zv-source/modules/programs/vscode.nix': "/nix/store/31ahmpal1lbf0rj4dc1g2c030b0b35m1-vscode-extension-catppuccin-catppuccin-vsc-3.16.1/share/vscode/extensions/catppuccin.catppuccin-vsc"
+          # Use `lib.mkForce value` or `lib.mkDefault value` to change the priority on any of these definitions.
+          # (lib.mkForce catppuccin.catppuccin-vsc) # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.catppuccin.catppuccin-vsc
+          # (lib.mkForce catppuccin.catppuccin-vsc-icons) # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.catppuccin.catppuccin-vsc-icons
+          # ms-python.python # TODO: https://github.com/NixOS/nixpkgs/issues/387828
+          # rust-lang.rust-analyzer
+          # vscodevim.vim # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.vscodevim.vim
+          # yzane.markdown-pdf # FIXME: Package ‘ungoogled-chromium-133.0.6943.53’ not available on "aarch64-apple-darwin" platform. # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.yzane.markdown-pdf
           aaron-bond.better-comments # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.aaron-bond.better-comments
           adpyke.codesnap # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.adpyke.codesnap
           arrterian.nix-env-selector # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.arrterian.nix-env-selector
@@ -23,12 +33,6 @@
           bierner.markdown-mermaid
           bierner.markdown-preview-github-styles
           brettm12345.nixfmt-vscode
-          # error: The option `home-manager.users.leonardlee.home.file.".vscode-oss/extensions/catppuccin.catppuccin-vsc".source' has conflicting definition values:
-          # - In `/nix/store/38rarqrxl7yzjdy9xfz862wsywjhy2zv-source/modules/programs/vscode.nix': "/nix/store/11dhknilapbda5kvg36xi9vqjlqsd50d-vscode-extension-catppuccin-catppuccin-vsc-3.16.1/share/vscode/extensions/catppuccin.catppuccin-vsc"
-          # - In `/nix/store/38rarqrxl7yzjdy9xfz862wsywjhy2zv-source/modules/programs/vscode.nix': "/nix/store/31ahmpal1lbf0rj4dc1g2c030b0b35m1-vscode-extension-catppuccin-catppuccin-vsc-3.16.1/share/vscode/extensions/catppuccin.catppuccin-vsc"
-          # Use `lib.mkForce value` or `lib.mkDefault value` to change the priority on any of these definitions.
-          # (lib.mkForce catppuccin.catppuccin-vsc) # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.catppuccin.catppuccin-vsc
-          # (lib.mkForce catppuccin.catppuccin-vsc-icons) # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.catppuccin.catppuccin-vsc-icons
           christian-kohler.path-intellisense
           dart-code.dart-code
           davidanson.vscode-markdownlint
@@ -48,11 +52,13 @@
           github.vscode-pull-request-github # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.github.vscode-pull-request-github
           golang.go # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.golang.go
           grapecity.gc-excelviewer # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.grapecity.gc-excelviewer
-          hashicorp.terraform
-          hediet.vscode-drawio
-          james-yu.latex-workshop
-          jebbs.plantuml
+          hashicorp.terraform # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.hashicorp.terraform
+          haskell.haskell # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.haskell.haskell
+          hediet.vscode-drawio # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.hediet.vscode-drawio
+          james-yu.latex-workshop # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.james-yu.latex-workshop
+          jebbs.plantuml # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.jebbs.plantuml
           jnoortheen.nix-ide # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.jnoortheen.nix-ide
+          justusadam.language-haskell # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.justusadam.language-haskell
           kamikillerto.vscode-colorize
           marp-team.marp-vscode
           mechatroner.rainbow-csv
@@ -63,8 +69,7 @@
           ms-kubernetes-tools.vscode-kubernetes-tools
           ms-python.debugpy
           ms-python.flake8
-          ms-python.isort
-          # ms-python.python # TODO: https://github.com/NixOS/nixpkgs/issues/387828
+          ms-python.isort # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.ms-python.isort
           ms-python.vscode-pylance
           ms-vscode-remote.remote-containers
           ms-vscode-remote.remote-ssh
@@ -72,7 +77,7 @@
           ms-vscode-remote.vscode-remote-extensionpack
           ms-vscode.live-server
           ms-vscode.makefile-tools
-          ms-vscode.powershell
+          ms-vscode.powershell # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.ms-vscode.powershell
           ms-vscode.theme-tomorrowkit
           ms-vsliveshare.vsliveshare
           oderwat.indent-rainbow
@@ -80,7 +85,6 @@
           redhat.java
           redhat.vscode-xml
           redhat.vscode-yaml
-          # rust-lang.rust-analyzer
           sdras.night-owl
           shardulm94.trailing-spaces
           shopify.ruby-lsp
@@ -96,11 +100,9 @@
           vscjava.vscode-java-dependency
           vscjava.vscode-java-pack
           vscjava.vscode-java-test
-          vscjava.vscode-maven
-          # vscodevim.vim # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.vscodevim.vim
+          vscjava.vscode-maven # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.vscjava.vscode-maven
           xadillax.viml # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.xadillax.viml
-          # yzane.markdown-pdf # FIXME: Package ‘ungoogled-chromium-133.0.6943.53’ not available on "aarch64-apple-darwin" platform. # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.yzane.markdown-pdf
-          yzhang.markdown-all-in-one
+          yzhang.markdown-all-in-one # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.yzhang.markdown-all-in-one
         ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.vscode.profiles._name_.extensions
         globalSnippets = {
           fixme = {

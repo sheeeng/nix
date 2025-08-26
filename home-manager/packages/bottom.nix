@@ -10,7 +10,7 @@
             owner = "catppuccin";
             repo = "bottom";
             rev = "eadd75acd0ecad4a58ade9a1d6daa3b97ccec07c";
-            sha256 = "sha256-dfukdk70ug1lRGADKBnvMhkl+3tsY7F+UAwTS2Qyapk=";
+            sha256 = "16ba69j4n4qca1zb2qvcggxja69jxwcjh0v08ijhvfpl9rva9yvm";
           };
         in
         builtins.path { path = "${src}/themes/mocha.toml"; };
