@@ -16,9 +16,9 @@
     settings =
       let
         catppuccinTheme = pkgs.fetchFromGitHub {
-          owner = "catppuccin";
-          repo = "starship";
-          rev = "5906cc369dd8207e063c0e6e2d27bd0c0b567cb8"; # https://github.com/catppuccin/starship/commits
+          owner = "catppuccin"; # owner
+          repo = "starship"; # repo
+          rev = "5906cc369dd8207e063c0e6e2d27bd0c0b567cb8";
           sha256 = "sha256-FLHjbClpTqaK4n2qmepCPkb8rocaAo3qeV4Zp1hia0g=";
         };
       in

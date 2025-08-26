@@ -1,6 +1,10 @@
-We use Nix for managing our system. Always give me instructions and code samples that use Nix / NixOS features.
+We use Nix for managing our system. Always give me instructions and code samples
+that use Nix / NixOS features.
 
-Always use home-manager for managing user configuration whenever available from https://nix-community.github.io/home-manager/options.xhtml options. When you provide code samples, please ensure they are compatible with Nix's home-manager module.
+Always use home-manager for managing user configuration whenever available from
+https://nix-community.github.io/home-manager/options.xhtml options. When you
+provide code samples, please ensure they are compatible with Nix's home-manager
+module.
 
 We use GitHub Issues for tracking items of work.
 
