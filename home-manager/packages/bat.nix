@@ -64,26 +64,33 @@
         file = "syntax/gleam.sublime-syntax";
       };
     }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.bat.syntaxes
-    themes = {
-      dracula = {
-        src = pkgs.fetchFromGitHub {
-          owner = "dracula";
-          repo = "sublime"; # Bat uses sublime syntax for its themes
-          rev = "d490b57c08f3d110ff61a07ec6edcc1ed9e24a63";
-          sha256 = "0n9g4cc5q0mc9257dnpmwskn8vixl0wr87j95bxp8nygn9b9bxzf";
+    themes =
+      let
+        catppuccinSrc = pkgs.fetchFromGitHub {
+          owner = "catppuccin";
+          repo = "bat";
+          rev = "6810349b28055dce54076712fc05fc68da4b8ec0";
+          sha256 = "sha256-lJapSgRVENTrbmpVyn+UQabC9fpV1G1e+CdlJ090uvg=";
         };
-        file = "Dracula.tmTheme";
-      };
-    }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.bat.themes
-    # https://github.com/the-nix-way/nome/blob/b7d5b6441f82b069141c22bb9cbbc9ec41b05cbd/home-manager/programs.nix#L5-L24
-    # themes.${pkgs.themes.bat} = {
-    #   src = pkgs.fetchFromGitHub {
-    #     owner = "catppuccin";
-    #     repo = "bat";
-    #     rev = "6810349b28055dce54076712fc05fc68da4b8ec0";
-    #     sha256 = "sha256-6fWoCH90IGumAMc4buLRWL0N61op+AuMNN9CAR9/OdI=";
-    #   };
-    #   file = "themes/${pkgs.themes.bat}.tmTheme";
-    # }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.bat.themes
+        mkCatppuccinTheme = variant: {
+          src = catppuccinSrc;
+          file = "themes/Catppuccin ${variant}.tmTheme";
+        };
+      in
+      {
+        catppuccin-latte = mkCatppuccinTheme "Latte";
+        catppuccin-frappe = mkCatppuccinTheme "Frappe";
+        catppuccin-macchiato = mkCatppuccinTheme "Macchiato";
+        catppuccin-mocha = mkCatppuccinTheme "Mocha";
+        dracula = {
+          src = pkgs.fetchFromGitHub {
+            owner = "dracula";
+            repo = "sublime"; # Bat uses sublime syntax for its themes
+            rev = "d490b57c08f3d110ff61a07ec6edcc1ed9e24a63";
+            sha256 = "0n9g4cc5q0mc9257dnpmwskn8vixl0wr87j95bxp8nygn9b9bxzf";
+          };
+          file = "Dracula.tmTheme";
+        };
+      }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.bat.themes
   };
 }
