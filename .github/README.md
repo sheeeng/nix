@@ -10,7 +10,8 @@ curl --silent --show-error --fail --location https://install.lix.systems/lix | s
 
 ### Optional: Create `flake.nix`
 
-- Initialize [nix-darwin](https://github.com/lnl7/nix-darwin?tab=readme-ov-file#flakes).
+- Initialize
+  [nix-darwin](https://github.com/lnl7/nix-darwin?tab=readme-ov-file#flakes).
 
 ```shell
 mkdir --parents ~/github/sheeeng/nix/nix-darwin && cd $_
@@ -27,9 +28,11 @@ nix run nix-darwin --experimental-features "nix-command flakes" -- switch --flak
 
 ### Using `nix-darwin`
 
-- Extract the inlined configuration from [flake.nix](flake.nix) into a separate file named [darwin.nix](darwin.nix).
+- Extract the inlined configuration from [flake.nix](flake.nix) into a separate
+  file named [darwin.nix](darwin.nix).
 
-- [Setup](https://nix-community.github.io/home-manager/index.xhtml#sec-flakes-nix-darwin-module) flake-based Home Manager nix-darwin in [flake.nix](flake.nix).
+- [Setup](https://nix-community.github.io/home-manager/index.xhtml#sec-flakes-nix-darwin-module)
+  flake-based Home Manager nix-darwin in [flake.nix](flake.nix).
 
 - Create a [home.nix](home.nix) file.
 
@@ -49,4 +52,12 @@ darwin-rebuild switch --flake ~/github/sheeeng/nix/nix-darwin
 fd .nix --exclude flake.nix --exec update-nix-fetchgit
 
 fd .nix --exclude flake.nix --exec sh -c 'echo {}; update-nix-fetchgit {}'
+```
+
+- Format files.
+
+```shell
+nix fmt
+
+nix-shell --packages nixfmt-tree --run "treefmt ."
 ```
