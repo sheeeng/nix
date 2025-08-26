@@ -69,8 +69,8 @@
         src = pkgs.fetchFromGitHub {
           owner = "dracula";
           repo = "sublime"; # Bat uses sublime syntax for its themes
-          rev = "26c57ec282abcaa76e57e055f38432bd827ac34e";
-          sha256 = "019hfl4zbn4vm4154hh3bwk6hm7bdxbr1hdww83nabxwjn99ndhv";
+          rev = "d490b57c08f3d110ff61a07ec6edcc1ed9e24a63";
+          sha256 = "0n9g4cc5q0mc9257dnpmwskn8vixl0wr87j95bxp8nygn9b9bxzf";
         };
         file = "Dracula.tmTheme";
       };
