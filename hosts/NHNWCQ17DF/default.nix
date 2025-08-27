@@ -145,9 +145,9 @@ in
     automatic = true;
     # dates = "Mon..Fri *-*-* 07:00:00"; # https://nixos.wiki/wiki/storage_optimization#automation
     interval = {
+      Day = 1;
       Hour = 12;
       Minute = 15;
-      Day = 1;
     }; # https://nixos.wiki/wiki/storage_optimization#automation
     options = "--delete-older-than 7d";
   };
@@ -205,8 +205,8 @@ in
     };
     finder = {
       AppleShowAllExtensions = true;
-      ShowPathbar = true;
       FXEnableExtensionChangeWarning = false;
+      ShowPathbar = true;
     };
     # Tab between form controls and F-row that behaves as F1-F12.
     # https://evantravers.com/articles/2024/02/06/switching-to-nix-darwin-and-flakes/

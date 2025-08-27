@@ -163,8 +163,8 @@ in
     };
     finder = {
       AppleShowAllExtensions = true;
-      ShowPathbar = true;
       FXEnableExtensionChangeWarning = false;
+      ShowPathbar = true;
     };
     # Tab between form controls and F-row that behaves as F1-F12.
     # https://evantravers.com/articles/2024/02/06/switching-to-nix-darwin-and-flakes/
