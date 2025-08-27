@@ -24,7 +24,7 @@ commit:
 diff:
     git diff ':!flake.lock'
 
-[doc('Set experiental features for Nix.')]
+[doc('Set experimental features for Nix.')]
 set-experimental-features:
     #!/usr/bin/env bash
     # Use a shebang to run all commands in a single shell.
