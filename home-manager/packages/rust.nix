@@ -21,6 +21,8 @@
     inputs.fenix.packages.${pkgs.system}.latest.rustfmt
     # inputs.fenix.packages.${pkgs.system}.latest.toolchain # Disabled to avoid rust-analyzer conflicts
 
+    pkgs.libiconv # # https://search.nixos.org/packages?channel=unstable&type=packages&show=libiconv
+
     # Use nixpkgs rust-analyzer to avoid apple_sdk_11_0 issue
     pkgs.rust-analyzer
     # inputs.fenix.packages.${pkgs.system}.latest.rust-analyzer # Temporarily disabled due to apple_sdk_11_0 issue
