@@ -6,9 +6,11 @@ instead of Nix's packages. Example: Use <https://nix-community.github.io/home-ma
 
 For Nix function explanations and documentation, refer <https://nix.dev/manual/nix/latest> and <https://noogle.dev/> which provides searchable documentation for Nix built-in functions and nixpkgs library functions.
 
-Suggest short, consise, maintainable solutions, instead of smart solution. Avoid unnecessary explanations.
-
 Add development information and instructions to this file accordingly.
+
+Avoid unnecessary comments whenever possible.
+
+Suggest consise, "Don't Repeat Yourself" (DRY), short, maintainable solutions, instead of trying to look smart solution.
 
 Do not automatically run commands in the terminal without explicit approval.
 Do not automatically commit changes to files without explicit approval.
