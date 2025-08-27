@@ -1,12 +1,12 @@
 We use Nix for managing our system. Always give me instructions and code samples
 that use Nix / NixOS features.
 
-Always use home-manager for managing user configuration whenever available from
-https://nix-community.github.io/home-manager/options.xhtml options. When you
-provide code samples, please ensure they are compatible with Nix's home-manager
-module.
+Use home-manager for managing user configuration whenever available from
+instead of Nix's packages. Example: Use <https://nix-community.github.io/home-manager/options.xhtml#opt-programs.claude-code.enable> options instead of installing it # <https://search.nixos.org/packages?channel=unstable&type=packages&show=claude-code> directly.
 
-We use GitHub Issues for tracking items of work.
+Suggest short, consise, maintainable solutions, instead of smart solution. Avoid unnecessary explanations.
+
+Add development information and instructions to this file accordingly.
 
 Please follow these guidelines when contributing:
 
@@ -14,8 +14,7 @@ Please follow these guidelines when contributing:
 
 ### Required Before Each Commit
 
-- Run `nixfmt` before committing any changes to ensure proper code formatting.
-- This will run `nixfmt` on all Nix files to maintain consistent style.
+- Run `nix fmt` before committing any changes to ensure proper code formatting.
 
 <!--
 ### Development Flow
