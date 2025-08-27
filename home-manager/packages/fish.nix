@@ -147,7 +147,7 @@ _: { }
 #         set -g fish_greeting ""
 #         ${pkgs.thefuck}/bin/thefuck --alias | source
 
-#         # Set Fish colors that aren't dependant the `$term_background`.
+#         # Set Fish colors that aren't dependent on the `$term_background`.
 #         set -g fish_color_quote        cyan      # color of commands
 #         set -g fish_color_redirection  brmagenta # color of IO redirections
 #         set -g fish_color_end          blue      # color of process separators like ';' and '&'
