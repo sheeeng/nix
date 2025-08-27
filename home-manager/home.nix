@@ -4,6 +4,7 @@ let
 in
 {
   imports = [
+    ./development.nix
     ./fonts.nix
     ./packages.nix
     ./programs.nix
