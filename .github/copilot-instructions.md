@@ -4,9 +4,15 @@ that use Nix / NixOS features.
 Use home-manager for managing user configuration whenever available from
 instead of Nix's packages. Example: Use <https://nix-community.github.io/home-manager/options.xhtml#opt-programs.claude-code.enable> options instead of installing it # <https://search.nixos.org/packages?channel=unstable&type=packages&show=claude-code> directly.
 
+For Nix function explanations and documentation, refer <https://nix.dev/manual/nix/latest> and <https://noogle.dev/> which provides searchable documentation for Nix built-in functions and nixpkgs library functions.
+
 Suggest short, consise, maintainable solutions, instead of smart solution. Avoid unnecessary explanations.
 
 Add development information and instructions to this file accordingly.
+
+Do not automatically run commands in the terminal without explicit approval.
+Do not automatically commit changes to files without explicit approval.
+Do not automatically push changes to remote repositories without explicit approval.
 
 Please follow these guidelines when contributing:
 
