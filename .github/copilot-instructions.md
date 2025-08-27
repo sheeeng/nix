@@ -28,6 +28,8 @@ explicit approval. Do not automatically push changes to remote repositories
 without explicit approval. Do not automatically create pull requests to remote
 repositories without explicit approval.
 
+Keep comments if links are provided.
+
 Please follow these guidelines when contributing:
 
 ## Code Standards
