@@ -3,10 +3,13 @@
 We use Nix for managing our system. Always give me instructions and code samples
 that use Nix / NixOS features.
 
-Use home-manager for managing user configuration whenever available
-instead of Nix's packages. Example: Use <https://nix-community.github.io/home-manager/options.xhtml#opt-programs.claude-code.enable> options instead of installing it # <https://search.nixos.org/packages?channel=unstable&type=packages&show=claude-code> directly.
+Use home-manager for managing user configuration whenever available instead of
+Nix's packages. Example: Use [home-manager options][home-manager-options]
+instead of installing it from [nixpkgs packages][nixpkgs-packages] directly.
 
-For Nix function explanations and documentation, refer <https://nix.dev/manual/nix/latest> and <https://noogle.dev/> which provides searchable documentation for Nix built-in functions and nixpkgs library functions.
+For Nix function explanations and documentation, refer [Nix manual][nix-manual]
+and [Noogle][noogle] which provides searchable documentation for Nix built-in
+functions and nixpkgs library functions.
 
 ## Instructions
 
@@ -15,12 +18,15 @@ Add development information and instructions to this file accordingly.
 Avoid unnecessary comments whenever possible.
 
 Suggest concise, "Don't Repeat Yourself" (DRY), short, maintainable solutions.
-Suggest modifications to lists that are alphanumerically sorted in ascending order.
+Suggest modifications to lists that are alphanumerically sorted in ascending
+order.
 
-Do not automatically run commands in the terminal without explicit approval, except for read-only commands like `nix eval`, `nix search`, `nix flake show`, `git status`, `ls`, etc.
-Do not automatically commit changes to files without explicit approval.
-Do not automatically push changes to remote repositories without explicit approval.
-Do not automatically create pull requests to remote repositories without explicit approval.
+Do not automatically run commands in the terminal without explicit approval,
+except for read-only commands like `nix eval`, `nix search`, `nix flake show`,
+`git status`, `ls`, etc. Do not automatically commit changes to files without
+explicit approval. Do not automatically push changes to remote repositories
+without explicit approval. Do not automatically create pull requests to remote
+repositories without explicit approval.
 
 Please follow these guidelines when contributing:
 
@@ -57,3 +63,8 @@ Please follow these guidelines when contributing:
 4. Write unit tests for new functionality. Use table-driven unit tests when possible.
 5. Document public APIs and complex logic. Suggest changes to the `docs/` folder when appropriate
 -->
+
+[home-manager-options]: https://nix-community.github.io/home-manager/options.xhtml#opt-programs.claude-code.enable
+[nix-manual]: https://nix.dev/manual/nix/latest
+[nixpkgs-packages]: https://search.nixos.org/packages?channel=unstable&type=packages&show=claude-code
+[noogle]: https://noogle.dev/
