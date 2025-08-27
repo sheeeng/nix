@@ -46,7 +46,7 @@ nix run nix-darwin -- switch --flake ~/github/sheeeng/nix/nix-darwin
 darwin-rebuild switch --flake ~/github/sheeeng/nix/nix-darwin
 ```
 
-- Update Fetch dependencies.
+- Update and fetch dependencies.
 
 ```shell
 fd .nix --exclude flake.nix --exec update-nix-fetchgit
