@@ -5,6 +5,9 @@
   inputs,
   ...
 }:
+let
+  cargoHome = "${config.xdg.dataHome}/.cargo";
+in
 {
   home.packages = [
     # Use individual components instead of the full toolchain to avoid conflicts
@@ -31,13 +34,21 @@
 
   home.sessionVariables = {
     RUSTUP_HOME = "${config.xdg.dataHome}/.rustup"; # https://rust-lang.github.io/rustup/configuration.html
-    CARGO_HOME = "${config.xdg.dataHome}/.cargo";
+    CARGO_HOME = cargoHome;
     RUST_SRC_PATH = "${
       inputs.fenix.packages.${pkgs.system}.latest.rust-src
     }/lib/rustlib/src/rust/library";
   };
 
   home.sessionPath = [
-    "${config.xdg.dataHome}/.cargo/bin"
+    "${cargoHome}/bin"
   ];
+
+  home.file."${cargoHome}/config.toml".text = ''
+    [target.aarch64-apple-darwin]
+    rustflags = ["--library-path", "native=${pkgs.libiconv}/lib"]
+
+    [target.x86_64-apple-darwin]
+    rustflags = ["--library-path", "native=${pkgs.libiconv}/lib"]
+  '';
 }
