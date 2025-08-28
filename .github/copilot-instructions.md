@@ -2,10 +2,10 @@
 
 ## Journals
 
+Use proper grammar and punctuations in the journals.
+Use ISO8601 universal timestamp taken from terminal for the journals.
 Read [copilot-journals.md](./copilot-journals.md) to understand history.
 Save every summary in [copilot-journals.md](./copilot-journals.md).
-Use ISO8601 universal timestamp taken from terminal for the journals.
-Use proper grammar and punctuations in the journals.
 
 ## Commands
 
@@ -13,11 +13,11 @@ Use explicit arguments/options over abbreviated arguments/options. Example: `dat
 
 ## Nix
 
-Do not use Homebrew packages.
+Do not use Homebrew packages on macOS system.
 Search Nix store paths for dependencies.
 Setup identical shell from `nix develop` (via `flake.nix`) and nix-shell (via `shell.nix`) development environment.
 Use [Nix manual][nix-manual] and [Noogle][noogle] that provides searchable documentation for explaining Nix built-in functions and `nixpkgs` library functions.
-Use `lib.fakeSha256` as placeholder value for `sha256` for `fetchFromGitHub` or related functions.
+Use `nix-prefetch-git` command to get `sha256` value in `fetchFromGitHub` or related functions. Otherwise, use `lib.fakeSha256` as placeholder.
 Use `nixos-unstable` branch.
 Use Nix to install dependencies and packages.
 
