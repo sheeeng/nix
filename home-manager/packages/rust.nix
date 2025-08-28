@@ -46,9 +46,9 @@ in
 
   home.file."${cargoHome}/config.toml".text = ''
     [target.aarch64-apple-darwin]
-    rustflags = ["--library-path", "native=${pkgs.libiconv}/lib"]
+    rustflags = "-L${pkgs.libiconv}/lib";
 
     [target.x86_64-apple-darwin]
-    rustflags = ["--library-path", "native=${pkgs.libiconv}/lib"]
+    rustflags = "-L${pkgs.libiconv}/lib";
   '';
 }
