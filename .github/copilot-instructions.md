@@ -1,5 +1,16 @@
 # GitHub Copilot Instructions
 
+Read [copilot-journals.md](./copilot-journals.md) and git commits to understand
+the history of this project.
+
+Save every summary in [copilot-journals.md](./copilot-journals.md) for future
+references using ISO8601 universal timestamp taken from terminal.
+
+Do not use Homebrew packages.
+
+Search Nix store paths for dependencies. Use Nix to install dependencies and
+packages. Use `nixos-unstable` branch.
+
 We use Nix for managing our system. Always give me instructions and code samples
 that use Nix / NixOS features.
 
