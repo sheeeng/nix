@@ -1,31 +1,29 @@
-# GitHub Copilot Instructions
+# Copilot Instructions
 
-Read [copilot-journals.md](./copilot-journals.md) and git commits to understand
-the history of this project.
+## Journals
 
-Save every summary in [copilot-journals.md](./copilot-journals.md) for future
-references using ISO8601 universal timestamp taken from terminal.
+Read [copilot-journals.md](./copilot-journals.md) to understand history.
+Save every summary in [copilot-journals.md](./copilot-journals.md).
+Use ISO8601 universal timestamp taken from terminal for the journals.
+Use proper grammar and punctuations in the journals.
+
+## Commands
+
+Use explicit arguments/options over abbreviated arguments/options. Example: `date --universal +"%Y-%m-%dT%H:%M:%SZ"` or `date --utc +"%Y-%m-%dT%H:%M:%SZ"` over `date -u +"%Y-%m-%dT%H:%M:%SZ"`.
+
+## Nix
 
 Do not use Homebrew packages.
-
-Search Nix store paths for dependencies. Use Nix to install dependencies and
-packages. Use `nixos-unstable` branch.
-
-We use Nix for managing our system. Always give me instructions and code samples
-that use Nix / NixOS features.
-
-Use home-manager for managing user configuration whenever available instead of
-Nix's packages. Example: Use [home-manager options][home-manager-options]
-instead of installing it from [nixpkgs packages][nixpkgs-packages] directly.
-
-For Nix function explanations and documentation, refer [Nix manual][nix-manual]
-and [Noogle][noogle] which provides searchable documentation for Nix built-in
-functions and nixpkgs library functions.
-
-Use `fakeSha256` as placeholder value for `sha256` for `fetchFromGitHub` or
-related functions.
+Search Nix store paths for dependencies.
+Setup identical shell from `nix develop` (via `flake.nix`) and nix-shell (via `shell.nix`) development environment.
+Use [Nix manual][nix-manual] and [Noogle][noogle] that provides searchable documentation for explaining Nix built-in functions and `nixpkgs` library functions.
+Use `lib.fakeSha256` as placeholder value for `sha256` for `fetchFromGitHub` or related functions.
+Use `nixos-unstable` branch.
+Use Nix to install dependencies and packages.
 
 ## Instructions
+
+Use home-manager for managing user configuration whenever available instead of Nix's packages. Example: Use [home-manager options][home-manager-options] instead of installing it from [nixpkgs packages][nixpkgs-packages] directly.
 
 Add development information and instructions to this file accordingly.
 
