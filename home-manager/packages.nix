@@ -209,6 +209,13 @@
       kanidm # TODO: Missing "aarch64-apple-darwin" platform. # https://search.nixos.org/packages?channel=unstable&type=packages&show=kanidm
     ])
     ++ (pkgs.lib.optionals pkgs.stdenv.isDarwin [
+      # Cross-platform Rust Environment
+      # https://github.com/rivet-gg/rivet/blob/f879623b871e4acafaffd31817b9386fb84ddce1/shell.nix
+      # libiconv # See https://stackoverflow.com/a/69732679
+      # darwin.apple_sdk.frameworks.Security
+      # darwin.apple_sdk.frameworks.CoreServices
+      # darwin.apple_sdk.frameworks.CoreFoundation
+      # darwin.apple_sdk.frameworks.Foundation
     ])
     ++ (pkgs.lib.optionals (pkgs.stdenv.isDarwin && pkgs.stdenv.hostPlatform.isAarch64) [
       podman # https://search.nixos.org/packages?channel=unstable&type=packages&show=podman
