@@ -4,4 +4,4 @@
 
 ### Initialize Journal
 
-Initialized the projcet.
+Initialized the project.
