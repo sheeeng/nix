@@ -11,99 +11,122 @@
       default = {
         enableExtensionUpdateCheck = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.vscode.profiles._name_.enableExtensionUpdateCheck
         enableUpdateCheck = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.vscode.profiles._name_.enableUpdateCheck
-        extensions = with pkgs.vscode-extensions; [
-          # error: The option `home-manager.users.leonardlee.home.file.".vscode-oss/extensions/catppuccin.catppuccin-vsc".source' has conflicting definition values:
-          # - In `/nix/store/38rarqrxl7yzjdy9xfz862wsywjhy2zv-source/modules/programs/vscode.nix': "/nix/store/11dhknilapbda5kvg36xi9vqjlqsd50d-vscode-extension-catppuccin-catppuccin-vsc-3.16.1/share/vscode/extensions/catppuccin.catppuccin-vsc"
-          # - In `/nix/store/38rarqrxl7yzjdy9xfz862wsywjhy2zv-source/modules/programs/vscode.nix': "/nix/store/31ahmpal1lbf0rj4dc1g2c030b0b35m1-vscode-extension-catppuccin-catppuccin-vsc-3.16.1/share/vscode/extensions/catppuccin.catppuccin-vsc"
-          # Use `lib.mkForce value` or `lib.mkDefault value` to change the priority on any of these definitions.
-          # (lib.mkForce catppuccin.catppuccin-vsc) # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.catppuccin.catppuccin-vsc
-          # (lib.mkForce catppuccin.catppuccin-vsc-icons) # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.catppuccin.catppuccin-vsc-icons
-          # ms-python.python # TODO: https://github.com/NixOS/nixpkgs/issues/387828
-          # rust-lang.rust-analyzer
-          # vscodevim.vim # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.vscodevim.vim
-          # yzane.markdown-pdf # FIXME: Package ‘ungoogled-chromium-133.0.6943.53’ not available on "aarch64-apple-darwin" platform. # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.yzane.markdown-pdf
-          aaron-bond.better-comments # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.aaron-bond.better-comments
-          adpyke.codesnap # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.adpyke.codesnap
-          arrterian.nix-env-selector # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.arrterian.nix-env-selector
-          bbenoist.nix
-          bierner.github-markdown-preview
-          bierner.markdown-checkbox
-          bierner.markdown-emoji
-          bierner.markdown-footnotes
-          bierner.markdown-mermaid
-          bierner.markdown-preview-github-styles
-          brettm12345.nixfmt-vscode
-          christian-kohler.path-intellisense
-          dart-code.dart-code
-          davidanson.vscode-markdownlint
-          dbaeumer.vscode-eslint
-          dracula-theme.theme-dracula # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.dracula-theme.theme-dracula
-          eamodio.gitlens
-          ecmel.vscode-html-css
-          editorconfig.editorconfig
-          esbenp.prettier-vscode
-          formulahendry.auto-close-tag
-          foxundermoon.shell-format
-          github.codespaces # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.github.codespaces
-          github.copilot # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.github.copilot
-          github.copilot-chat # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.github.copilot-chat
-          github.github-vscode-theme # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.github.github-vscode-theme
-          github.vscode-github-actions # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.github.vscode-github-actions
-          github.vscode-pull-request-github # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.github.vscode-pull-request-github
-          golang.go # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.golang.go
-          grapecity.gc-excelviewer # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.grapecity.gc-excelviewer
-          hashicorp.terraform # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.hashicorp.terraform
-          haskell.haskell # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.haskell.haskell
-          hediet.vscode-drawio # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.hediet.vscode-drawio
-          james-yu.latex-workshop # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.james-yu.latex-workshop
-          jebbs.plantuml # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.jebbs.plantuml
-          jnoortheen.nix-ide # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.jnoortheen.nix-ide
-          justusadam.language-haskell # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.justusadam.language-haskell
-          kamikillerto.vscode-colorize
-          marp-team.marp-vscode
-          mechatroner.rainbow-csv
-          mikestead.dotenv
-          mkhl.direnv
-          ms-azuretools.vscode-docker
-          ms-dotnettools.vscode-dotnet-runtime
-          ms-kubernetes-tools.vscode-kubernetes-tools
-          ms-python.debugpy
-          ms-python.flake8
-          ms-python.isort # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.ms-python.isort
-          ms-python.vscode-pylance
-          ms-vscode-remote.remote-containers
-          ms-vscode-remote.remote-ssh
-          ms-vscode-remote.remote-ssh-edit
-          ms-vscode-remote.vscode-remote-extensionpack
-          ms-vscode.live-server
-          ms-vscode.makefile-tools
-          ms-vscode.powershell # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.ms-vscode.powershell
-          ms-vscode.theme-tomorrowkit
-          ms-vsliveshare.vsliveshare
-          oderwat.indent-rainbow
-          pkief.material-icon-theme
-          redhat.java
-          redhat.vscode-xml
-          redhat.vscode-yaml
-          sdras.night-owl
-          shardulm94.trailing-spaces
-          shopify.ruby-lsp
-          streetsidesoftware.code-spell-checker
-          sumneko.lua
-          tamasfe.even-better-toml
-          timonwong.shellcheck
-          tomoki1207.pdf
-          visualstudioexptteam.intellicode-api-usage-examples
-          visualstudioexptteam.vscodeintellicode
-          vscjava.vscode-gradle
-          vscjava.vscode-java-debug
-          vscjava.vscode-java-dependency
-          vscjava.vscode-java-pack
-          vscjava.vscode-java-test
-          vscjava.vscode-maven # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.vscjava.vscode-maven
-          xadillax.viml # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.xadillax.viml
-          yzhang.markdown-all-in-one # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.yzhang.markdown-all-in-one
-        ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.vscode.profiles._name_.extensions
+        extensions =
+          with pkgs.vscode-extensions;
+          [
+            # error: The option `home-manager.users.leonardlee.home.file.".vscode-oss/extensions/catppuccin.catppuccin-vsc".source' has conflicting definition values:
+            # - In `/nix/store/38rarqrxl7yzjdy9xfz862wsywjhy2zv-source/modules/programs/vscode.nix': "/nix/store/11dhknilapbda5kvg36xi9vqjlqsd50d-vscode-extension-catppuccin-catppuccin-vsc-3.16.1/share/vscode/extensions/catppuccin.catppuccin-vsc"
+            # - In `/nix/store/38rarqrxl7yzjdy9xfz862wsywjhy2zv-source/modules/programs/vscode.nix': "/nix/store/31ahmpal1lbf0rj4dc1g2c030b0b35m1-vscode-extension-catppuccin-catppuccin-vsc-3.16.1/share/vscode/extensions/catppuccin.catppuccin-vsc"
+            # Use `lib.mkForce value` or `lib.mkDefault value` to change the priority on any of these definitions.
+            # (lib.mkForce catppuccin.catppuccin-vsc) # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.catppuccin.catppuccin-vsc
+            # (lib.mkForce catppuccin.catppuccin-vsc-icons) # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.catppuccin.catppuccin-vsc-icons
+            # ms-python.python # TODO: https://github.com/NixOS/nixpkgs/issues/387828
+            # rust-lang.rust-analyzer
+            # vscodevim.vim # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.vscodevim.vim
+            # yzane.markdown-pdf # FIXME: Package ‘ungoogled-chromium-133.0.6943.53’ not available on "aarch64-apple-darwin" platform. # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.yzane.markdown-pdf
+            aaron-bond.better-comments # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.aaron-bond.better-comments
+            adpyke.codesnap # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.adpyke.codesnap
+            arrterian.nix-env-selector # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.arrterian.nix-env-selector
+            bbenoist.nix
+            bierner.github-markdown-preview
+            bierner.markdown-checkbox
+            bierner.markdown-emoji
+            bierner.markdown-footnotes
+            bierner.markdown-mermaid
+            bierner.markdown-preview-github-styles
+            brettm12345.nixfmt-vscode
+            christian-kohler.path-intellisense
+            dart-code.dart-code
+            davidanson.vscode-markdownlint
+            dbaeumer.vscode-eslint
+            dracula-theme.theme-dracula # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.dracula-theme.theme-dracula
+            eamodio.gitlens
+            ecmel.vscode-html-css
+            editorconfig.editorconfig
+            esbenp.prettier-vscode
+            formulahendry.auto-close-tag
+            foxundermoon.shell-format
+            github.codespaces # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.github.codespaces
+            github.copilot # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.github.copilot
+            github.copilot-chat # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.github.copilot-chat
+            github.github-vscode-theme # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.github.github-vscode-theme
+            github.vscode-github-actions # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.github.vscode-github-actions
+            github.vscode-pull-request-github # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.github.vscode-pull-request-github
+            golang.go # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.golang.go
+            grapecity.gc-excelviewer # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.grapecity.gc-excelviewer
+            hashicorp.terraform # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.hashicorp.terraform
+            haskell.haskell # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.haskell.haskell
+            hediet.vscode-drawio # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.hediet.vscode-drawio
+            james-yu.latex-workshop # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.james-yu.latex-workshop
+            jebbs.plantuml # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.jebbs.plantuml
+            jnoortheen.nix-ide # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.jnoortheen.nix-ide
+            justusadam.language-haskell # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.justusadam.language-haskell
+            kamikillerto.vscode-colorize
+            marp-team.marp-vscode
+            mechatroner.rainbow-csv
+            mikestead.dotenv
+            mkhl.direnv
+            ms-azuretools.vscode-docker
+            ms-dotnettools.vscode-dotnet-runtime
+            ms-kubernetes-tools.vscode-kubernetes-tools
+            ms-python.debugpy
+            ms-python.flake8
+            ms-python.isort # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.ms-python.isort
+            ms-python.vscode-pylance
+            ms-vscode-remote.remote-containers
+            ms-vscode-remote.remote-ssh
+            ms-vscode-remote.remote-ssh-edit
+            ms-vscode-remote.vscode-remote-extensionpack
+            ms-vscode.live-server
+            ms-vscode.makefile-tools
+            ms-vscode.powershell # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.ms-vscode.powershell
+            ms-vscode.theme-tomorrowkit
+            ms-vsliveshare.vsliveshare
+            oderwat.indent-rainbow
+            pkief.material-icon-theme
+            redhat.java
+            redhat.vscode-xml
+            redhat.vscode-yaml
+            sdras.night-owl
+            shardulm94.trailing-spaces
+            shopify.ruby-lsp
+            streetsidesoftware.code-spell-checker
+            sumneko.lua
+            tamasfe.even-better-toml
+            timonwong.shellcheck
+            tomoki1207.pdf
+            visualstudioexptteam.intellicode-api-usage-examples
+            visualstudioexptteam.vscodeintellicode
+            vscjava.vscode-gradle
+            vscjava.vscode-java-debug
+            vscjava.vscode-java-dependency
+            vscjava.vscode-java-pack
+            vscjava.vscode-java-test
+            vscjava.vscode-maven # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.vscjava.vscode-maven
+            xadillax.viml # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.xadillax.viml
+            yzhang.markdown-all-in-one # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.yzhang.markdown-all-in-one
+          ]
+          ++ [
+            (
+              (pkgs.vscode-utils.buildVscodeExtension {
+                name = "treefmt-vscode-2.2.1";
+                pname = "treefmt-vscode";
+                src = pkgs.fetchFromGitHub {
+                  owner = "isbecker";
+                  repo = "treefmt-vscode";
+                  rev = "e91d2246e1a1a684ac2065f329ed09fd6cc9dd08";
+                  sha256 = "sha256-8NTkPbTfAJkKqhG25vE5WlAFuJ+kldXLQDeEFdQYP5M=";
+                };
+                version = "2.2.1";
+                vscodeExtName = "treefmt-vscode";
+                vscodeExtPublisher = "isbecker";
+                vscodeExtUniqueId = "isbecker.treefmt-vscode";
+              }).overrideAttrs
+              (_: {
+                sourceRoot = null;
+              })
+            )
+          ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.vscode.profiles._name_.extensions
         globalSnippets = {
           fixme = {
             body = [
