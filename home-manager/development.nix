@@ -8,6 +8,7 @@
     with pkgs;
     [
       code-cursor # https://search.nixos.org/packages?channel=unstable&type=packages&show=code-cursor
+      vscodium # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.claude-code.enable # https://search.nixos.org/packages?channel=unstable&type=packages&show=vscodium
       # claude-code # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.claude-code.enable # https://search.nixos.org/packages?channel=unstable&type=packages&show=claude-code
     ]
     ++ (pkgs.lib.optionals pkgs.stdenv.isLinux [
