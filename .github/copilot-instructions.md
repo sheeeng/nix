@@ -41,6 +41,10 @@ repositories without explicit approval.
 
 Keep comments if links are provided.
 
+Use explicit arguments/options over abbreviated arguments/options. Example: `date --universal +"%Y-%m-%dT%H:%M:%SZ"` or `date --utc +"%Y-%m-%dT%H:%M:%SZ"` over `date -u +"%Y-%m-%dT%H:%M:%SZ"`.
+
+<!-- Both nix develop (flakes) or nix-shell (traditional) should have consistent and identical development environment. -->
+
 Please follow these guidelines when contributing:
 
 ## Code Standards
