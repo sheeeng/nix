@@ -5,7 +5,7 @@
   projectRootFile = "flake.nix";
 
   # programs.deadnix.enable = true;
-  programs.deno.enable = pkgs.hostPlatform.system != "riscv64-linux";
+  # programs.deno.enable = pkgs.hostPlatform.system != "riscv64-linux";
   programs.mdsh.enable = true;
   # programs.nixfmt.enable = true;
   # programs.shellcheck.enable = pkgs.hostPlatform.system != "riscv64-linux";
