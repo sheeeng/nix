@@ -22,6 +22,9 @@ For Nix function explanations and documentation, refer [Nix manual][nix-manual]
 and [Noogle][noogle] which provides searchable documentation for Nix built-in
 functions and nixpkgs library functions.
 
+Use `fakeSha256` as placeholder value for `sha256` for `fetchFromGitHub` or
+related functions.
+
 ## Instructions
 
 Add development information and instructions to this file accordingly.
@@ -41,7 +44,9 @@ repositories without explicit approval.
 
 Keep comments if links are provided.
 
-Use explicit arguments/options over abbreviated arguments/options. Example: `date --universal +"%Y-%m-%dT%H:%M:%SZ"` or `date --utc +"%Y-%m-%dT%H:%M:%SZ"` over `date -u +"%Y-%m-%dT%H:%M:%SZ"`.
+Use explicit arguments/options over abbreviated arguments/options. Example:
+`date --universal +"%Y-%m-%dT%H:%M:%SZ"` or `date --utc +"%Y-%m-%dT%H:%M:%SZ"`
+over `date -u +"%Y-%m-%dT%H:%M:%SZ"`.
 
 Discard all empty trailing whitespace from every file.
 
