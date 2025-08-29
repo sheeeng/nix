@@ -179,7 +179,7 @@
           "editor.cursorSmoothCaretAnimation" = "on";
           "editor.cursorStyle" = "block";
           "editor.detectIndentation" = true;
-          "editor.fontFamily" = "Noto Nerd Font Mono";
+          "editor.fontFamily" = "Roboto Nerd Font Mono";
           "editor.fontLigatures" = true;
           "editor.fontSize" = 16;
           "editor.formatOnSave" = true;
@@ -200,7 +200,7 @@
           "editor.suggestSelection" = "first";
           "terminal.integrated.cursorBlinking" = true;
           "terminal.integrated.enableVisualBell" = true;
-          "terminal.integrated.fontFamily" = "Jetbrains Nerd Font Mono";
+          "terminal.integrated.fontFamily" = "Monaspace Nerd Font Mono";
           "terminal.integrated.fontSize" = 16;
           "terminal.integrated.profiles.linux" = {
             "zsh" = {
