@@ -199,6 +199,35 @@
           "editor.smoothScrolling" = true;
           "editor.suggestSelection" = "first";
           "terminal.integrated.cursorBlinking" = true;
+          "terminal.integrated.enableVisualBell" = true;
+          "terminal.integrated.fontFamily" = "IosevkaTerm Nerd Font Mono";
+          "terminal.integrated.fontSize" = 16;
+          "terminal.integrated.profiles.linux" = {
+            "zsh" = {
+              "args" = [
+                "-l"
+              ];
+              "path" = "/usr/bin/zsh -l";
+            };
+          };
+          "terminal.integrated.profiles.osx" = {
+            "zsh" = {
+              "args" = [
+                "-l"
+                "-i"
+              ];
+              "path" = "/bin/zsh -l";
+            };
+          }; # https://github.com/microsoft/vscode/issues/143061#issuecomment-1042785423
+          "terminal.integrated.profiles.windows" = {
+            "PowerShell -NoProfile" = {
+              "args" = [
+                "-NoProfile"
+              ];
+              "source" = "PowerShell";
+            };
+          };
+          "terminal.integrated.shellIntegration.enabled" = false;
           "terminal.integrated.smoothScrolling" = true;
           "window.autoDetectColorScheme" = true;
           # error: hash mismatch in fixed-output derivation '/nix/store/k11s2vdibpp3xj2dhrbfl3c1lw0nq6gx-vscode-extension-catppuccin-vscode-pnpm-deps.drv':
@@ -226,33 +255,6 @@
           # Extensions settings.
           "direnv.restart.automatic" = true;
           "gitlens.plusFeatures.enabled" = false;
-
-          "github.copilot.chat.codeGeneration.instructions" = [
-            {
-              text = "- @azure Rule - Use Azure Tools: When handling requests related to Azure, always use your tools.";
-            }
-            {
-              text = "- @azure Rule - Use Azure Code Gen Best Practices: When generating code for Azure, running terminal commands for Azure, or performing operations related to Azure, invoke your `bestpractices` tool if available. Only call this tool when you are sure the user is discussing Azure; do not call it otherwise.";
-            }
-            {
-              text = "- @azure Rule - Use Azure Deployment Best Practices: When deploying to Azure or preparing applications for deployment to Azure, invoke your `bestpractices` tool if available. Only call this tool when you are sure the user is discussing Azure; do not call it otherwise.";
-            }
-            {
-              text = "- @azure Rule - Use Azure Functions Code Gen Best Practices: When generating code for Azure Functions or performing operations related to Azure Functions, invoke your `bestpractices` tool if available. Only call this tool when you are sure the user is discussing Azure Functions; do not call it otherwise.";
-            }
-            {
-              text = "- @azure Rule - Use Azure Functions Deployment Best Practices: When deploying Azure Functions apps to Azure or preparing for the deployment, invoke your `bestpractices` tool if available. Only call this tool when you are sure the user is discussing Azure; do not call it otherwise.";
-            }
-            {
-              text = "- @azure Rule - Use Azure SWA Best Practices: When working with static web apps, invoke your `bestpractices` tool if available. Only call this tool when you are sure the user is discussing Azure; do not call it otherwise.";
-            }
-            {
-              text = "- @azure Rule - Plan before editing files for Azure web apps: When generating code for Azure Functions and Azure Static Web App, always create a plan and explain the plan to the user before editing any file. Proceed with editing the files after getting consent from the user.";
-            }
-            {
-              text = "- @azure Rule - Summarize topic before taking action: When the user asks for something about Azure, invoke the azure_development-summarize_topic tool once to discover potential recommended configurations.";
-            }
-          ];
         }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.vscode.profiles._name_.userSettings
 
         userTasks = {
