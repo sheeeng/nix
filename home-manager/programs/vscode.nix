@@ -69,11 +69,12 @@
             mechatroner.rainbow-csv
             mikestead.dotenv
             mkhl.direnv
+            ms-azuretools.vscode-bicep # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.ms-azuretools.vscode-bicep
             ms-azuretools.vscode-docker
             ms-dotnettools.vscode-dotnet-runtime
             ms-kubernetes-tools.vscode-kubernetes-tools
             ms-python.debugpy
-            ms-python.flake8
+            ms-python.flake8 # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.ms-python.flake8
             ms-python.isort # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.ms-python.isort
             ms-python.vscode-pylance
             ms-vscode-remote.remote-containers
@@ -90,6 +91,7 @@
             redhat.java
             redhat.vscode-xml
             redhat.vscode-yaml
+            rust-lang.rust-analyzer # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.rust-lang.rust-analyzer
             sdras.night-owl
             shardulm94.trailing-spaces
             shopify.ruby-lsp
