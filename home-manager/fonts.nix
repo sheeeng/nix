@@ -92,7 +92,8 @@
     nerd-fonts.ubuntu
     nerd-fonts.ubuntu-mono
     nerd-fonts.ubuntu-sans
-    nerd-fonts.victor-mono
+    nerd-fonts.victor-mono # # https://search.nixos.org/packages?channel=unstable&type=packages&show=nerd-fonts.victor-mono
     # nerd-fonts.zed-mono
+    vt323 # https://search.nixos.org/packages?channel=unstable&type=packages&show=vt323
   ];
 }

@@ -179,7 +179,7 @@
           "editor.cursorSmoothCaretAnimation" = "on";
           "editor.cursorStyle" = "block";
           "editor.detectIndentation" = true;
-          "editor.fontFamily" = "FiraCode Nerd Font Mono";
+          "editor.fontFamily" = "Noto Nerd Font Mono";
           "editor.fontLigatures" = true;
           "editor.fontSize" = 16;
           "editor.formatOnSave" = true;
@@ -200,7 +200,7 @@
           "editor.suggestSelection" = "first";
           "terminal.integrated.cursorBlinking" = true;
           "terminal.integrated.enableVisualBell" = true;
-          "terminal.integrated.fontFamily" = "IosevkaTerm Nerd Font Mono";
+          "terminal.integrated.fontFamily" = "Jetbrains Nerd Font Mono";
           "terminal.integrated.fontSize" = 16;
           "terminal.integrated.profiles.linux" = {
             "zsh" = {
@@ -249,7 +249,11 @@
           # Putting some conveniences.
           "files.autoSave" = "afterDelay";
           "files.autoSaveDelay" = 2000;
-          "github.copilot.enable"."*" = false;
+          "github.copilot.chat.codeGeneration.instructions" = [ ];
+          "github.copilot.chat.codeGeneration.useInstructionFiles" = true;
+          "github.copilot.enable" = {
+            "enabled" = true;
+          };
           "update.showReleaseNotes" = false;
 
           # Extensions settings.
