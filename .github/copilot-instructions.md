@@ -11,6 +11,18 @@ Save every summary in [copilot-journals.md](./copilot-journals.md).
 
 Use explicit arguments/options over abbreviated arguments/options. Example: `date --universal +"%Y-%m-%dT%H:%M:%SZ"` or `date --utc +"%Y-%m-%dT%H:%M:%SZ"` over `date -u +"%Y-%m-%dT%H:%M:%SZ"`.
 
+## Markdown
+
+Use [reference-style links](https://www.markdownguide.org/basic-syntax/#reference-style-links). Example:
+
+```text
+See [hobbit hole][hobbit-hole].
+
+## References
+
+[hobbit-hole]: https://hobbit.hole
+```
+
 ## Nix
 
 Do not use Homebrew packages on macOS system.
