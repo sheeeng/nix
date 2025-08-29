@@ -27,6 +27,7 @@
             # rust-lang.rust-analyzer
             # vscodevim.vim # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.vscodevim.vim
             # yzane.markdown-pdf # FIXME: Package ‘ungoogled-chromium-133.0.6943.53’ not available on "aarch64-apple-darwin" platform. # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.yzane.markdown-pdf
+            # ms-azuretools.vscode-bicep # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.ms-azuretools.vscode-bicep # FIXME: Temporarily disabled due to Azure CLI Python 3.13 compatibility issue.  the VS Code Bicep extension (ms-azuretools.vscode-bicep) is still enabled, which depends on the Azure CLI. The error is occurring because there's a compatibility issue with Python 3.13 and Azure CLI 2.75.0.
             aaron-bond.better-comments # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.aaron-bond.better-comments
             adpyke.codesnap # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.adpyke.codesnap
             arrterian.nix-env-selector # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.arrterian.nix-env-selector
@@ -69,10 +70,9 @@
             mechatroner.rainbow-csv
             mikestead.dotenv
             mkhl.direnv
-            ms-azuretools.vscode-bicep # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.ms-azuretools.vscode-bicep
             ms-azuretools.vscode-docker
             ms-dotnettools.vscode-dotnet-runtime
-            ms-kubernetes-tools.vscode-kubernetes-tools
+            ms-kubernetes-tools.vscode-kubernetes-tools # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.ms-kubernetes-tools.vscode-kubernetes-tools
             ms-python.debugpy
             ms-python.flake8 # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.ms-python.flake8
             ms-python.isort # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.ms-python.isort
@@ -95,6 +95,7 @@
             sdras.night-owl
             shardulm94.trailing-spaces
             shopify.ruby-lsp
+            skellock.just # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.skellock.just
             streetsidesoftware.code-spell-checker
             sumneko.lua
             tamasfe.even-better-toml
