@@ -172,11 +172,9 @@
 
           # Editor configurations.
           "[nix]"."editor.tabSize" = 2;
-          "accessibility.dimUnfocused.enable" = true;
           "accessibility.dimUnfocused.opacity" = 0.35;
           "editor.accessibilitySupport" = "off";
           "editor.bracketPairColorization.enabled" = true;
-          "editor.codeActionsOnSave.source.fixAll.eslint" = "never";
           "editor.cursorBlinking" = "smooth";
           "editor.cursorSmoothCaretAnimation" = "on";
           "editor.cursorStyle" = "block";
@@ -220,15 +218,41 @@
 
           "extensions.autoUpdate" = "onlyEnabledExtensions";
           # Putting some conveniences.
-          "files.autoSave" = "on";
+          "files.autoSave" = "afterDelay";
+          "files.autoSaveDelay" = 2000;
           "github.copilot.enable"."*" = false;
           "update.showReleaseNotes" = false;
 
           # Extensions settings.
           "direnv.restart.automatic" = true;
           "gitlens.plusFeatures.enabled" = false;
-          "gitlens.showWelcomeOnInstall" = false;
-          "gitlens.showWhatsNewAfterUpgrade" = false;
+
+          "github.copilot.chat.codeGeneration.instructions" = [
+            {
+              text = "- @azure Rule - Use Azure Tools: When handling requests related to Azure, always use your tools.";
+            }
+            {
+              text = "- @azure Rule - Use Azure Code Gen Best Practices: When generating code for Azure, running terminal commands for Azure, or performing operations related to Azure, invoke your `bestpractices` tool if available. Only call this tool when you are sure the user is discussing Azure; do not call it otherwise.";
+            }
+            {
+              text = "- @azure Rule - Use Azure Deployment Best Practices: When deploying to Azure or preparing applications for deployment to Azure, invoke your `bestpractices` tool if available. Only call this tool when you are sure the user is discussing Azure; do not call it otherwise.";
+            }
+            {
+              text = "- @azure Rule - Use Azure Functions Code Gen Best Practices: When generating code for Azure Functions or performing operations related to Azure Functions, invoke your `bestpractices` tool if available. Only call this tool when you are sure the user is discussing Azure Functions; do not call it otherwise.";
+            }
+            {
+              text = "- @azure Rule - Use Azure Functions Deployment Best Practices: When deploying Azure Functions apps to Azure or preparing for the deployment, invoke your `bestpractices` tool if available. Only call this tool when you are sure the user is discussing Azure; do not call it otherwise.";
+            }
+            {
+              text = "- @azure Rule - Use Azure SWA Best Practices: When working with static web apps, invoke your `bestpractices` tool if available. Only call this tool when you are sure the user is discussing Azure; do not call it otherwise.";
+            }
+            {
+              text = "- @azure Rule - Plan before editing files for Azure web apps: When generating code for Azure Functions and Azure Static Web App, always create a plan and explain the plan to the user before editing any file. Proceed with editing the files after getting consent from the user.";
+            }
+            {
+              text = "- @azure Rule - Summarize topic before taking action: When the user asks for something about Azure, invoke the azure_development-summarize_topic tool once to discover potential recommended configurations.";
+            }
+          ];
         }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.vscode.profiles._name_.userSettings
 
         userTasks = {
