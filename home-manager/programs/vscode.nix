@@ -113,6 +113,7 @@
             yzhang.markdown-all-in-one # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.yzhang.markdown-all-in-one
           ]
           ++ [
+            # isbecker.treefmt-vscode
             (
               (pkgs.vscode-utils.buildVscodeExtension {
                 name = "treefmt-vscode-2.2.1";
@@ -132,6 +133,87 @@
                 sourceRoot = null;
               })
             )
+
+            # ms-kubernetes-tools.vscode-aks-tools
+            (pkgs.vscode-utils.buildVscodeExtension {
+              name = "vscode-aks-tools";
+              pname = "vscode-aks-tools";
+              src = pkgs.fetchFromGitHub {
+                owner = "Azure";
+                repo = "vscode-aks-tools";
+                rev = "1.6.13";
+                sha256 = "sha256-PfqZpZfV0deOvAlQuBl+3HC9+zlWvY7UHs/KsVHidZE=";
+              };
+              version = "1.6.13";
+              vscodeExtName = "vscode-aks-tools";
+              vscodeExtPublisher = "ms-kubernetes-tools";
+              vscodeExtUniqueId = "ms-kubernetes-tools.vscode-aks-tools";
+              sourceRoot = ".";
+            })
+
+            # # ms-vscode.remote-server
+            # (pkgs.vscode-utils.buildVscodeExtension {
+            #   name = "remote-server";
+            #   pname = "remote-server";
+            #   src = pkgs.fetchFromGitHub {
+            #     owner = "microsoft";
+            #     repo = "vscode-remote-release";
+            #     rev = "main";
+            #     sha256 = "sha256-asyWrxqU10TZSBGdWV86GUUU+rkI4IWuKpvLoWIcH02=";
+            #   };
+            #   version = "1.5.1";
+            #   vscodeExtName = "remote-server";
+            #   vscodeExtPublisher = "ms-vscode";
+            #   vscodeExtUniqueId = "ms-vscode.remote-server";
+            # })
+
+            # # redhat.fabric8-analytics
+            # (pkgs.vscode-utils.buildVscodeExtension {
+            #   name = "fabric8-analytics";
+            #   pname = "fabric8-analytics";
+            #   src = pkgs.fetchFromGitHub {
+            #     owner = "fabric8-analytics";
+            #     repo = "fabric8-analytics-vscode-extension";
+            #     rev = "v0.3.23";
+            #     sha256 = "sha256-asyWrxqU10TZSBGdWV86GUUU+rkI4IWuKpvLoWIcH03=";
+            #   };
+            #   version = "0.3.23";
+            #   vscodeExtName = "fabric8-analytics";
+            #   vscodeExtPublisher = "redhat";
+            #   vscodeExtUniqueId = "redhat.fabric8-analytics";
+            # })
+
+            # # tintinweb.graphviz-interactive-preview
+            # (pkgs.vscode-utils.buildVscodeExtension {
+            #   name = "graphviz-interactive-preview";
+            #   pname = "graphviz-interactive-preview";
+            #   src = pkgs.fetchFromGitHub {
+            #     owner = "tintinweb";
+            #     repo = "vscode-graphviz-interactive-preview";
+            #     rev = "v0.3.5";
+            #     sha256 = "sha256-asyWrxqU10TZSBGdWV86GUUU+rkI4IWuKpvLoWIcH04=";
+            #   };
+            #   version = "0.3.5";
+            #   vscodeExtName = "graphviz-interactive-preview";
+            #   vscodeExtPublisher = "tintinweb";
+            #   vscodeExtUniqueId = "tintinweb.graphviz-interactive-preview";
+            # })
+
+            # # usernamehw.remove-empty-lines
+            # (pkgs.vscode-utils.buildVscodeExtension {
+            #   name = "remove-empty-lines";
+            #   pname = "remove-empty-lines";
+            #   src = pkgs.fetchFromGitHub {
+            #     owner = "usernamehw";
+            #     repo = "vscode-remove-empty-lines";
+            #     rev = "v0.5.0";
+            #     sha256 = "sha256-asyWrxqU10TZSBGdWV86GUUU+rkI4IWuKpvLoWIcH05=";
+            #   };
+            #   version = "0.5.0";
+            #   vscodeExtName = "remove-empty-lines";
+            #   vscodeExtPublisher = "usernamehw";
+            #   vscodeExtUniqueId = "usernamehw.remove-empty-lines";
+            # })
           ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.vscode.profiles._name_.extensions
         globalSnippets = {
           fixme = {
