@@ -14,6 +14,9 @@
         extensions =
           with pkgs.vscode-extensions;
           [
+            # 4ops.terraform
+            # ahmadawais.shades-of-purple
+
             # error: The option `home-manager.users.leonardlee.home.file.".vscode-oss/extensions/catppuccin.catppuccin-vsc".source' has conflicting definition values:
             # - In `/nix/store/38rarqrxl7yzjdy9xfz862wsywjhy2zv-source/modules/programs/vscode.nix': "/nix/store/11dhknilapbda5kvg36xi9vqjlqsd50d-vscode-extension-catppuccin-catppuccin-vsc-3.16.1/share/vscode/extensions/catppuccin.catppuccin-vsc"
             # - In `/nix/store/38rarqrxl7yzjdy9xfz862wsywjhy2zv-source/modules/programs/vscode.nix': "/nix/store/31ahmpal1lbf0rj4dc1g2c030b0b35m1-vscode-extension-catppuccin-catppuccin-vsc-3.16.1/share/vscode/extensions/catppuccin.catppuccin-vsc"
