@@ -130,7 +130,7 @@
                 vscodeExtUniqueId = "isbecker.treefmt-vscode";
               }).overrideAttrs
               (_: {
-                sourceRoot = null;
+                sourceRoot = null; # Workaround chmod: cannot access 'extension': No such file or directory
               })
             )
 
@@ -152,20 +152,25 @@
             })
 
             # ms-vscode.remote-server
-            # (pkgs.vscode-utils.buildVscodeExtension {
-            #   name = "remote-server";
-            #   pname = "remote-server";
-            #   src = pkgs.fetchFromGitHub {
-            #     owner = "microsoft";
-            #     repo = "vscode-remote-release";
-            #     rev = "1803940623da0ba648084b5ba0b1265b2b854ae4"; # main
-            #     sha256 = "sha256-asyWrxqU10TZSBGdWV86GUUU+rkI4IWuKpvLoWIcH0w=";
-            #   };
-            #   version = "1.5.1";
-            #   vscodeExtName = "remote-server";
-            #   vscodeExtPublisher = "ms-vscode";
-            #   vscodeExtUniqueId = "ms-vscode.remote-server";
-            # })
+            (
+              (pkgs.vscode-utils.buildVscodeExtension {
+                name = "remote-server";
+                pname = "remote-server";
+                src = pkgs.fetchFromGitHub {
+                  owner = "microsoft";
+                  repo = "vscode-remote-release";
+                  rev = "1803940623da0ba648084b5ba0b1265b2b854ae4"; # main
+                  sha256 = "sha256-asyWrxqU10TZSBGdWV86GUUU+rkI4IWuKpvLoWIcH0w=";
+                };
+                version = "1.5.1";
+                vscodeExtName = "remote-server";
+                vscodeExtPublisher = "ms-vscode";
+                vscodeExtUniqueId = "ms-vscode.remote-server";
+              }).overrideAttrs
+              (_: {
+                sourceRoot = null; # Workaround chmod: cannot access 'extension': No such file or directory
+              })
+            )
 
             # redhat.fabric8-analytics
             (
