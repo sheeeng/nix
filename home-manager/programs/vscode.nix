@@ -151,15 +151,15 @@
               sourceRoot = ".";
             })
 
-            # # ms-vscode.remote-server
+            # ms-vscode.remote-server
             # (pkgs.vscode-utils.buildVscodeExtension {
             #   name = "remote-server";
             #   pname = "remote-server";
             #   src = pkgs.fetchFromGitHub {
             #     owner = "microsoft";
             #     repo = "vscode-remote-release";
-            #     rev = "main";
-            #     sha256 = "sha256-asyWrxqU10TZSBGdWV86GUUU+rkI4IWuKpvLoWIcH02=";
+            #     rev = "1803940623da0ba648084b5ba0b1265b2b854ae4"; # main
+            #     sha256 = "sha256-asyWrxqU10TZSBGdWV86GUUU+rkI4IWuKpvLoWIcH0w=";
             #   };
             #   version = "1.5.1";
             #   vscodeExtName = "remote-server";
@@ -188,20 +188,21 @@
               })
             )
 
-            # # tintinweb.graphviz-interactive-preview
+            # tintinweb.graphviz-interactive-preview
             # (pkgs.vscode-utils.buildVscodeExtension {
             #   name = "graphviz-interactive-preview";
             #   pname = "graphviz-interactive-preview";
             #   src = pkgs.fetchFromGitHub {
             #     owner = "tintinweb";
             #     repo = "vscode-graphviz-interactive-preview";
-            #     rev = "v0.3.5";
+            #     rev = "1074d8c264b05c9460aeacf1027fc5c61e43ac29"; # v0.3.5
             #     sha256 = "sha256-asyWrxqU10TZSBGdWV86GUUU+rkI4IWuKpvLoWIcH04=";
             #   };
             #   version = "0.3.5";
             #   vscodeExtName = "graphviz-interactive-preview";
             #   vscodeExtPublisher = "tintinweb";
             #   vscodeExtUniqueId = "tintinweb.graphviz-interactive-preview";
+            #   sourceRoot = ".";
             # })
 
             # # usernamehw.remove-empty-lines
