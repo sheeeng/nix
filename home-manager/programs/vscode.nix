@@ -194,37 +194,46 @@
             )
 
             # tintinweb.graphviz-interactive-preview
-            # (pkgs.vscode-utils.buildVscodeExtension {
-            #   name = "graphviz-interactive-preview";
-            #   pname = "graphviz-interactive-preview";
-            #   src = pkgs.fetchFromGitHub {
-            #     owner = "tintinweb";
-            #     repo = "vscode-graphviz-interactive-preview";
-            #     rev = "1074d8c264b05c9460aeacf1027fc5c61e43ac29"; # v0.3.5
-            #     sha256 = "sha256-asyWrxqU10TZSBGdWV86GUUU+rkI4IWuKpvLoWIcH04=";
-            #   };
-            #   version = "0.3.5";
-            #   vscodeExtName = "graphviz-interactive-preview";
-            #   vscodeExtPublisher = "tintinweb";
-            #   vscodeExtUniqueId = "tintinweb.graphviz-interactive-preview";
-            #   sourceRoot = ".";
-            # })
+            (
+              (pkgs.vscode-utils.buildVscodeExtension {
+                name = "graphviz-interactive-preview";
+                pname = "graphviz-interactive-preview";
+                src = pkgs.fetchFromGitHub {
+                  owner = "tintinweb";
+                  repo = "vscode-interactive-graphviz";
+                  rev = "1074d8c264b05c9460aeacf1027fc5c61e43ac29"; # v0.3.5
+                  sha256 = "sha256-+nJPyG9myabawhIVrcU+ZrvZ/6RxiyknYHgv+zr8010=";
+                };
+                version = "0.3.5";
+                vscodeExtName = "graphviz-interactive-preview";
+                vscodeExtPublisher = "tintinweb";
+                vscodeExtUniqueId = "tintinweb.graphviz-interactive-preview";
+              }).overrideAttrs
+              (_: {
+                sourceRoot = null; # Workaround chmod: cannot access 'extension': No such file or directory
+              })
+            )
 
-            # # usernamehw.remove-empty-lines
-            # (pkgs.vscode-utils.buildVscodeExtension {
-            #   name = "remove-empty-lines";
-            #   pname = "remove-empty-lines";
-            #   src = pkgs.fetchFromGitHub {
-            #     owner = "usernamehw";
-            #     repo = "vscode-remove-empty-lines";
-            #     rev = "v0.5.0";
-            #     sha256 = "sha256-asyWrxqU10TZSBGdWV86GUUU+rkI4IWuKpvLoWIcH05=";
-            #   };
-            #   version = "0.5.0";
-            #   vscodeExtName = "remove-empty-lines";
-            #   vscodeExtPublisher = "usernamehw";
-            #   vscodeExtUniqueId = "usernamehw.remove-empty-lines";
-            # })
+            # usernamehw.remove-empty-lines
+            (
+              (pkgs.vscode-utils.buildVscodeExtension {
+                name = "remove-empty-lines";
+                pname = "remove-empty-lines";
+                src = pkgs.fetchFromGitHub {
+                  owner = "usernamehw";
+                  repo = "vscode-remove-empty-lines";
+                  rev = "f7e38a316fbd5a317de7b58dbf8fbb81b4a66044"; # v1.0.1
+                  sha256 = "sha256-rKQL77WAwBIwoGlem7b6OZktRrzXj3s7jbscVjS4ArI=";
+                };
+                version = "1.0.1";
+                vscodeExtName = "remove-empty-lines";
+                vscodeExtPublisher = "usernamehw";
+                vscodeExtUniqueId = "usernamehw.remove-empty-lines";
+              }).overrideAttrs
+              (_: {
+                sourceRoot = null; # Workaround chmod: cannot access 'extension': No such file or directory
+              })
+            )
           ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.vscode.profiles._name_.extensions
         globalSnippets = {
           fixme = {
