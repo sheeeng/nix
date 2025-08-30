@@ -9,7 +9,10 @@ Save every summary in [copilot-journals.md](./copilot-journals.md).
 
 ## Commands
 
-Use explicit arguments/options over abbreviated arguments/options. Example: `date --universal +"%Y-%m-%dT%H:%M:%SZ"` or `date --utc +"%Y-%m-%dT%H:%M:%SZ"` over `date -u +"%Y-%m-%dT%H:%M:%SZ"`.
+Use explicit arguments/options over abbreviated arguments/options. Example:
+
+Use `date --universal +"%Y-%m-%dT%H:%M:%SZ"` over `date -u +"%Y-%m-%dT%H:%M:%SZ"` in terminal commands.
+Use `set -o errexit` over `set -e` in shell scripts.
 
 ## Markdown
 
