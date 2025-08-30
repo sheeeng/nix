@@ -141,7 +141,7 @@
               src = pkgs.fetchFromGitHub {
                 owner = "Azure";
                 repo = "vscode-aks-tools";
-                rev = "1.6.13";
+                rev = "4de0348be590ab1bdbe88641208fd3a7ea4b3b38"; # 1.6.13
                 sha256 = "sha256-PfqZpZfV0deOvAlQuBl+3HC9+zlWvY7UHs/KsVHidZE=";
               };
               version = "1.6.13";
@@ -167,21 +167,26 @@
             #   vscodeExtUniqueId = "ms-vscode.remote-server";
             # })
 
-            # # redhat.fabric8-analytics
-            # (pkgs.vscode-utils.buildVscodeExtension {
-            #   name = "fabric8-analytics";
-            #   pname = "fabric8-analytics";
-            #   src = pkgs.fetchFromGitHub {
-            #     owner = "fabric8-analytics";
-            #     repo = "fabric8-analytics-vscode-extension";
-            #     rev = "v0.3.23";
-            #     sha256 = "sha256-asyWrxqU10TZSBGdWV86GUUU+rkI4IWuKpvLoWIcH03=";
-            #   };
-            #   version = "0.3.23";
-            #   vscodeExtName = "fabric8-analytics";
-            #   vscodeExtPublisher = "redhat";
-            #   vscodeExtUniqueId = "redhat.fabric8-analytics";
-            # })
+            # redhat.fabric8-analytics
+            (
+              (pkgs.vscode-utils.buildVscodeExtension {
+                name = "fabric8-analytics";
+                pname = "fabric8-analytics";
+                src = pkgs.fetchFromGitHub {
+                  owner = "fabric8-analytics";
+                  repo = "fabric8-analytics-vscode-extension";
+                  rev = "78853637aae6aa978dbaf19e920a7edede913eb3"; # v0.9.6
+                  sha256 = "sha256-NhLT4RUotsSn20MYmBiGIGkZIy5tJYas4+6oAVQAoZ4=";
+                };
+                version = "0.9.6";
+                vscodeExtName = "fabric8-analytics";
+                vscodeExtPublisher = "redhat";
+                vscodeExtUniqueId = "redhat.fabric8-analytics";
+              }).overrideAttrs
+              (_: {
+                sourceRoot = null;
+              })
+            )
 
             # # tintinweb.graphviz-interactive-preview
             # (pkgs.vscode-utils.buildVscodeExtension {
