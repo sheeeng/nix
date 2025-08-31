@@ -56,13 +56,31 @@ in
   nixpkgs.config.allowUnfree = true;
 
   system.stateVersion = "24.11";
-  nix.settings.experimental-features = [
-    "nix-command"
-    "flakes"
-  ];
-
-  nix.optimise.automatic = true; # https://daiderd.com/nix-darwin/manual/index.html#opt-nix.optimise.automatic # https://github.com/NixOS/nix/issues/7273#issuecomment-2295429401
-  nix.settings.auto-optimise-store = true; # https://github.com/NixOS/nix/issues/7273#issuecomment-1310213986
+  nix = {
+    optimise.automatic = true; # https://daiderd.com/nix-darwin/manual/index.html#opt-nix.optimise.automatic # https://github.com/NixOS/nix/issues/7273#issuecomment-2295429401
+    settings = {
+      auto-optimise-store = true; # https://github.com/NixOS/nix/issues/7273#issuecomment-1310213986
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
+      substituters = [
+        "https://cache.nixos.org"
+      ];
+      trusted-public-keys = [
+        "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+      ];
+      extra-substituters = [
+        "https://devenv.cachix.org"
+        "https://ryanccn.cachix.org"
+      ];
+      extra-trusted-public-keys = [
+        "nixpkgs-python.cachix.org-1:hxjI7pFxTyuTHn2NkvWCrAUcNZLNS3ZAvfYNuYifcEU="
+        "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw="
+        "ryanccn.cachix.org-1:Or82F8DeVLJgjSKCaZmBzbSOhnHj82Of0bGeRniUgLQ="
+      ];
+    };
+  };
 
   services.lvm.enable = true;
 
