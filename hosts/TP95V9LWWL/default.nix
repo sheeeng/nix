@@ -93,55 +93,67 @@ in
   # functionality that relies on managing the Nix installation, like the
   # `nix.*` options to adjust Nix settings or configure a Linux builder,
   # will be unavailable.
-  nix.enable = true;
+  nix = {
+    enable = true;
+    package = pkgs-unstable.nix; # https://daiderd.com/nix-darwin/manual/index.html#opt-nix.package
+    optimise.automatic = false; # https://daiderd.com/nix-darwin/manual/index.html#opt-nix.optimise.automatic # https://github.com/NixOS/nix/issues/7273#issuecomment-2295429401
+    settings = {
+      auto-optimise-store = false; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-nix.settings.auto-optimise-store # https://github.com/NixOS/nix/issues/7273#issuecomment-1310213986
+      sandbox = false; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-nix.settings.sandbox
+      substituters = [
+        "https://cache.nixos.org"
+      ];
+      trusted-public-keys = [
+        "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+      ];
+      extra-substituters = [
+        "https://devenv.cachix.org"
+        "https://ryanccn.cachix.org"
+      ];
+      extra-trusted-public-keys = [
+        "nixpkgs-python.cachix.org-1:hxjI7pFxTyuTHn2NkvWCrAUcNZLNS3ZAvfYNuYifcEU="
+        "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw="
+        "ryanccn.cachix.org-1:Or82F8DeVLJgjSKCaZmBzbSOhnHj82Of0bGeRniUgLQ="
+      ];
+      trusted-users = [
+        "root"
+        "leonardlee"
+        "@admin"
+      ];
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
+      extra-platforms = lib.optionals (pkgs.system == "aarch64-darwin") [
+        "x86_64-darwin"
+        "aarch64-darwin"
+      ];
+    }; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-nix.settings
+    gc = {
+      automatic = true; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-nix.gc.automatic
+      interval = {
+        Day = 1;
+        Hour = 12;
+        Minute = 15;
+      }; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-nix.gc.interval
+      options = "--delete-older-than 7d"; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-nix.gc.options
+    };
+    extraOptions = ''
+      experimental-features = nix-command flakes
+      keep-derivations = true
+      keep-outputs = true
+    ''; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-nix.extraOptions
+  };
 
   system.stateVersion = 5;
-  nix.package = pkgs-unstable.nix; # https://daiderd.com/nix-darwin/manual/index.html#opt-nix.package
-  nix.optimise.automatic = true; # https://daiderd.com/nix-darwin/manual/index.html#opt-nix.optimise.automatic # https://github.com/NixOS/nix/issues/7273#issuecomment-2295429401
-  nix.settings.auto-optimise-store = false; # https://daiderd.com/nix-darwin/manual/index.html#opt-nix.settings.auto-optimise-store # https://github.com/NixOS/nix/issues/7273#issuecomment-1310213986
-  nix.settings.sandbox = false; # https://daiderd.com/nix-darwin/manual/index.html#opt-nix.settings.sandbox
 
   # The option definition `services.nix-daemon.enable' no longer has any effect; please remove it.
   # nix-darwin now manages nix-daemon unconditionally when `nix.enable` is on.
   # services.nix-daemon.enable = true;
 
-  nix.settings.substituters = [
-    "https://cache.nixos.org/"
-  ];
-  nix.settings.trusted-public-keys = [
-    "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-  ];
-  nix.extraOptions = ''
-    extra-substituters = https://devenv.cachix.org
-    extra-trusted-public-keys = nixpkgs-python.cachix.org-1:hxjI7pFxTyuTHn2NkvWCrAUcNZLNS3ZAvfYNuYifcEU= devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw=
-    trusted-users = root leonardlee
-    experimental-features = nix-command flakes
-  ''
-  + lib.optionalString (pkgs.system == "aarch64-darwin") ''
-    extra-platforms = x86_64-darwin aarch64-darwin
-  '';
-  nix.settings.trusted-users = [
-    "@admin"
-  ];
-
   # The option definition `nix.configureBuildUsers' no longer has any effect; please remove it.
   # nix-darwin now manages build users unconditionally when `nix.enable` is on.
   # nix.configureBuildUsers = true;
-
-  nix.settings.experimental-features = [
-    "nix-command"
-    "flakes"
-  ];
-  nix.gc = {
-    automatic = true;
-    # dates = "Mon..Fri *-*-* 07:00:00"; # https://nixos.wiki/wiki/storage_optimization#automation
-    interval = {
-      Day = 1;
-      Hour = 12;
-      Minute = 15;
-    }; # https://nixos.wiki/wiki/storage_optimization#automation
-    options = "--delete-older-than 7d";
-  };
 
   security.pam.services.sudo_local.touchIdAuth = true;
 
