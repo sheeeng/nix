@@ -44,6 +44,7 @@
     # nerd-fonts.d2coding
     # nerd-fonts.daddy-time-mono
     # nerd-fonts.departure-mono
+
     nerd-fonts.dejavu-sans-mono # https://search.nixos.org/packages?channel=unstable&type=packages&show=nerd-fonts.dejavu-sans-mono
     nerd-fonts.droid-sans-mono # https://search.nixos.org/packages?channel=unstable&type=packages&show=nerd-fonts.droid-sans-mono
     # nerd-fonts.envy-code-r
