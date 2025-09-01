@@ -69,6 +69,9 @@ in
   # The option nixpkgs.system is still fully supported for interoperability, but will be deprecated in the future, so we recommend to set nixpkgs.hostPlatform.
   nixpkgs.system = "x86_64-darwin";
 
+  # Set the hostname for this machine
+  networking.hostName = "C02ZV797MD6R";
+
   # error: Determinate detected, aborting activation
   # Determinate uses its own daemon to manage the Nix installation that
   # conflicts with nix-darwin’s native Nix management.
