@@ -29,7 +29,7 @@ print_status "INFO" "Testing secrets for host: $(hostname)"
 test_secret() {
   local secret_name=$1
   local secret_path=$2
-  local level=$3  # "host" or "home"
+  local level=$3 # "host" or "home"
 
   if [ -f "$secret_path" ]; then
     if [ -r "$secret_path" ]; then
