@@ -27,7 +27,9 @@
       enable = true;
       indent_size = 2;
     };
-    shellcheck.enable = true;
+    shellcheck = {
+      enable = true;
+    };
 
     # Nix linting
     deadnix.enable = true;

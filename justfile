@@ -180,6 +180,7 @@ update-nom:
 
 [doc('Commit updated flake.lock file')]
 commit:
+    # Equivalent to: nix --experimental-features 'nix-command flakes' flake update --commit-lock-file |& nom
     just _nix-flake "update --commit-lock-file" "nom"
 
 [doc('Check flake for errors')]
