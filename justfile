@@ -44,7 +44,8 @@ _ensure-darwin-rebuild:
 _nom CMD:
     #!/usr/bin/env bash
     if command -v nom 1>/dev/null 2>&1; then
-      {{ CMD }} |& nom
+      set -o pipefail
+      {{ CMD }} 2>&1 | nom || {{ CMD }}
     else
       {{ CMD }}
     fi
