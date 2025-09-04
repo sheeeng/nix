@@ -95,5 +95,9 @@
     nerd-fonts.victor-mono # https://search.nixos.org/packages?channel=unstable&type=packages&show=nerd-fonts.victor-mono
     nerd-fonts.zed-mono # https://search.nixos.org/packages?channel=unstable&type=packages&show=nerd-fonts.zed-mono
     vt323 # https://search.nixos.org/packages?channel=unstable&type=packages&show=vt323
+
+    # SFMono Nerd Font Ligaturized
+    # https://github.com/shaunsingh/SFMono-Nerd-Font-Ligaturized
+    sf-mono-liga-bin
   ];
 }

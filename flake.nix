@@ -29,7 +29,7 @@
     # This is particularly useful when an upcoming stable release is in beta because you can effectively
     # keep 'nixpkgs-stable' set to stable for critical packages while setting 'nixpkgs' to the beta branch to
     # get a jump start on deprecation changes.
-    # See also 'stable-packages' and 'unstable-packages' overlays at 'overlays/default.nix"
+    # See also 'stable-packages' and 'unstable-packages' overlays at 'overlays/default.nix'
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 
@@ -170,6 +170,11 @@
       url = "git+ssh://git@github.com/sheeeng/nix-secrets.git?ref=main&shallow=1";
       # url = "git+file:///home/.../nix-secrets?ref=main&shallow=1";
     };
+
+    sf-mono-liga-src = {
+      url = "github:shaunsingh/SFMono-Nerd-Font-Ligaturized";
+      flake = false;
+    };
   };
 
   outputs =
@@ -227,12 +232,8 @@
             inputs.sops-nix.darwinModules.sops
             {
               nixpkgs.overlays = [
-                (final: _prev: {
-                  unstable = import inputs.nixpkgs {
-                    inherit (final) system;
-                    config.allowUnfree = true;
-                  };
-                })
+                (import ./overlays inputs).unstable-packages
+                (import ./overlays inputs).sf-mono-liga
                 inputs.morlana.overlays.default
                 inputs.nh-plus.overlays.default
                 inputs.fenix.overlays.default
