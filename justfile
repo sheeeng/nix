@@ -50,23 +50,48 @@ _nom CMD:
       {{ CMD }}
     fi
 
+# Execute command with optional file logging
+_nom-with-log CMD LOGFILE="":
+    #!/usr/bin/env bash
+    if [ -n "{{ LOGFILE }}" ]; then
+      echo "📝 Saving logs to: {{ LOGFILE }}"
+      if command -v nom 1>/dev/null 2>&1; then
+        set -o pipefail
+        # Use process substitution to save raw output to file while showing nom output
+        {{ CMD }} 2>&1 | tee "{{ LOGFILE }}" | nom --json
+      else
+        {{ CMD }} 2>&1 | tee "{{ LOGFILE }}"
+      fi
+    else
+      just _nom "{{ CMD }}"
+    fi
+
 # Print a section separator
 _separator:
     @echo "# ======================================================================="
 
-# Execute nix flake commands with optional nom support
-_nix-flake SUBCOMMAND USE_NOM="":
+# Execute nix flake commands with optional nom support and logging
+_nix-flake SUBCOMMAND USE_NOM="" LOGFILE="":
     #!/usr/bin/env bash
     if [ "{{ USE_NOM }}" = "nom" ]; then
-      CMD="nix {{ NIX_FLAGS }} flake {{ SUBCOMMAND }} --log-format internal-json --verbose"
-      just _nom "$CMD"
+      CMD="nix {{ NIX_FLAGS }} flake {{ SUBCOMMAND }} --log-format internal-json --verbose --print-build-logs"
+      if [ -n "{{ LOGFILE }}" ]; then
+        just _nom-with-log "$CMD" "{{ LOGFILE }}"
+      else
+        just _nom "$CMD"
+      fi
     else
-      CMD="nix {{ NIX_FLAGS }} flake {{ SUBCOMMAND }}"
-      eval "$CMD"
+      CMD="nix {{ NIX_FLAGS }} flake {{ SUBCOMMAND }} --print-build-logs"
+      if [ -n "{{ LOGFILE }}" ]; then
+        echo "📝 Saving logs to: {{ LOGFILE }}"
+        eval "$CMD" 2>&1 | tee "{{ LOGFILE }}"
+      else
+        eval "$CMD"
+      fi
     fi
 
-# Execute darwin-rebuild commands
-_darwin-rebuild SUBCOMMAND USE_NOM="":
+# Execute darwin-rebuild commands with optional logging
+_darwin-rebuild SUBCOMMAND USE_NOM="" LOGFILE="":
     #!/usr/bin/env bash
     if command -v nh 1>/dev/null 2>&1; then
       echo "🔨 Using nh for darwin {{ SUBCOMMAND }}..."
@@ -92,31 +117,44 @@ _darwin-rebuild SUBCOMMAND USE_NOM="":
       fi
     fi
 
-    if [ "{{ USE_NOM }}" = "nom" ]; then
-      just _nom "$CMD"
+    if [ -n "{{ LOGFILE }}" ]; then
+      if [ "{{ USE_NOM }}" = "nom" ]; then
+        just _nom-with-log "$CMD" "{{ LOGFILE }}"
+      else
+        echo "📝 Saving logs to: {{ LOGFILE }}"
+        eval "$CMD" 2>&1 | tee "{{ LOGFILE }}"
+      fi
     else
-      eval "$CMD"
+      if [ "{{ USE_NOM }}" = "nom" ]; then
+        just _nom "$CMD"
+      else
+        eval "$CMD"
+      fi
     fi
 
-# Perform full system switch workflow
-_switch-workflow USE_NOM="":
+# Perform full system switch workflow with optional logging
+_switch-workflow USE_NOM="" LOGFILE="":
     #!/usr/bin/env bash
     set -o errexit -o nounset -o pipefail
 
     just _separator
     echo "🔍 Checking flake..."
-    just _nix-flake "check" "{{ USE_NOM }}"
+    just _nix-flake "check" "{{ USE_NOM }}" "{{ LOGFILE }}"
 
     just _separator
     just _ensure-darwin-rebuild
 
     just _separator
     echo "✅ Checking darwin configuration..."
-    sudo darwin-rebuild check --flake ".#{{ HOSTNAME }}" --show-trace
+    if [ -n "{{ LOGFILE }}" ]; then
+      sudo darwin-rebuild check --flake ".#{{ HOSTNAME }}" --show-trace 2>&1 | tee -a "{{ LOGFILE }}"
+    else
+      sudo darwin-rebuild check --flake ".#{{ HOSTNAME }}" --show-trace
+    fi
 
     just _separator
     echo "🚀 Switching system configuration..."
-    just _darwin-rebuild "switch" "{{ USE_NOM }}"
+    just _darwin-rebuild "switch" "{{ USE_NOM }}" "{{ LOGFILE }}"
 
     just _separator
     echo "✅ System switch completed!"
@@ -186,16 +224,31 @@ update-nix-secrets:
 
 [doc('Update flake.lock file')]
 update:
-    just _nix-flake "update --refresh" "nom"
+    just _nix-flake "update --refresh" ""
 
 [doc('Update flake.lock file with nom output')]
 update-nom:
     just _nix-flake "update --refresh" "nom"
 
+[doc('Update flake.lock file and save logs to specified file')]
+update-to-file LOGFILE:
+    #!/usr/bin/env bash
+    echo "📝 Saving update logs to: {{ LOGFILE }}"
+    just _nix-flake "update --refresh" "" 2>&1 | tee "{{ LOGFILE }}"
+    echo "✅ Update completed. Logs saved to: {{ LOGFILE }}"
+
+[doc('Update flake.lock file and save logs with timestamp')]
+update-log:
+    #!/usr/bin/env bash
+    LOGFILE="update-$(date +%Y%m%d-%H%M%S).log"
+    echo "📝 Saving update logs to: $LOGFILE"
+    just _nix-flake "update --refresh" "" 2>&1 | tee "$LOGFILE"
+    echo "✅ Update completed. Logs saved to: $LOGFILE"
+
 [doc('Commit updated flake.lock file')]
 commit:
     # Equivalent to: nix --experimental-features 'nix-command flakes' flake update --commit-lock-file |& nom
-    just _nix-flake "update --commit-lock-file" "nom"
+    just _nix-flake "update --commit-lock-file" ""
 
 [doc('Check flake for errors')]
 check:
@@ -205,6 +258,22 @@ check:
 check-nom:
     just _nix-flake "check" "nom"
 
+[doc('Check flake for errors and save logs to specified file')]
+check-to-file LOGFILE:
+    #!/usr/bin/env bash
+    echo "📝 Saving check logs to: {{ LOGFILE }}"
+    just _nix-flake "check" "" 2>&1 | tee "{{ LOGFILE }}"
+    echo "✅ Check completed. Logs saved to: {{ LOGFILE }}"
+
+[doc('Check flake for errors and save logs with timestamp')]
+check-log:
+    #!/usr/bin/env bash
+    LOGFILE="check-$(date +%Y%m%d-%H%M%S).log"
+    echo "📝 Saving check logs to: $LOGFILE"
+    just _nix-flake "check" "" 2>&1 | tee "$LOGFILE"
+    echo "✅ Check completed. Logs saved to: $LOGFILE"
+
+[doc('Build darwin configuration without switching')]
 [doc('Build darwin configuration without switching')]
 build: _check-non-root _check-nix
     just _darwin-rebuild "build"
@@ -212,6 +281,21 @@ build: _check-non-root _check-nix
 [doc('Build darwin configuration with nom output')]
 build-nom: _check-non-root _check-nix
     just _darwin-rebuild "build" "nom"
+
+[doc('Build darwin configuration and save logs to specified file')]
+build-to-file LOGFILE: _check-non-root _check-nix
+    #!/usr/bin/env bash
+    echo "📝 Saving build logs to: {{ LOGFILE }}"
+    just _darwin-rebuild "build" "" 2>&1 | tee "{{ LOGFILE }}"
+    echo "✅ Build completed. Logs saved to: {{ LOGFILE }}"
+
+[doc('Build darwin configuration and save logs with timestamp')]
+build-log: _check-non-root _check-nix
+    #!/usr/bin/env bash
+    LOGFILE="build-$(date +%Y%m%d-%H%M%S).log"
+    echo "📝 Saving build logs to: $LOGFILE"
+    just _darwin-rebuild "build" "" 2>&1 | tee "$LOGFILE"
+    echo "✅ Build completed. Logs saved to: $LOGFILE"
 
 [doc('Check darwin-rebuild configuration')]
 check-darwin: _check-non-root
@@ -226,6 +310,21 @@ switch: _check-non-root _check-nix
 [doc('Switch system configuration with nom output')]
 switch-nom: _check-non-root _check-nix
     just _switch-workflow "nom"
+
+[doc('Switch system configuration and save logs to specified file')]
+switch-to-file LOGFILE: _check-non-root _check-nix
+    #!/usr/bin/env bash
+    echo "📝 Saving switch logs to: {{ LOGFILE }}"
+    just _switch-workflow "" 2>&1 | tee "{{ LOGFILE }}"
+    echo "✅ Switch completed. Logs saved to: {{ LOGFILE }}"
+
+[doc('Switch system configuration and save logs with timestamp')]
+switch-log: _check-non-root _check-nix
+    #!/usr/bin/env bash
+    LOGFILE="switch-$(date +%Y%m%d-%H%M%S).log"
+    echo "📝 Saving switch logs to: $LOGFILE"
+    just _switch-workflow "" 2>&1 | tee "$LOGFILE"
+    echo "✅ Switch completed. Logs saved to: $LOGFILE"
 
 [doc('Update flake and switch system configuration')]
 update-switch: _check-non-root _check-nix
@@ -270,6 +369,40 @@ switch-morlana: _check-non-root _check-nix
 changelog:
     #!/usr/bin/env bash
     darwin-rebuild changelog --flake ".#{{ HOSTNAME }}"
+
+[doc('Build with logs saved to file')]
+build-with-logs: _check-non-root _check-nix
+    #!/usr/bin/env bash
+    LOGFILE="build-$(date +%Y%m%d-%H%M%S).log"
+    echo "📝 Saving build logs to: $LOGFILE"
+    just _darwin-rebuild "build" "nom" 2>&1 | tee "$LOGFILE"
+    echo "✅ Build completed. Logs saved to: $LOGFILE"
+
+[doc('Switch with logs saved to file')]
+switch-with-logs: _check-non-root _check-nix
+    #!/usr/bin/env bash
+    LOGFILE="switch-$(date +%Y%m%d-%H%M%S).log"
+    echo "📝 Saving switch logs to: $LOGFILE"
+    just _switch-workflow "nom" 2>&1 | tee "$LOGFILE"
+    echo "✅ Switch completed. Logs saved to: $LOGFILE"
+
+[doc('Build with verbose debugging and logs')]
+build-debug: _check-non-root _check-nix
+    #!/usr/bin/env bash
+    LOGFILE="build-debug-$(date +%Y%m%d-%H%M%S).log"
+    echo "🐛 Building with debug info. Logs saved to: $LOGFILE"
+    CMD="darwin-rebuild build --print-build-logs --show-trace --keep-failed --flake '.#{{ HOSTNAME }}'"
+    eval "$CMD" 2>&1 | tee "$LOGFILE"
+
+[doc('Show recent build failures and their logs')]
+show-failed-builds:
+    #!/usr/bin/env bash
+    echo "🔍 Looking for failed builds in /tmp..."
+    find /tmp -name "nix-build-*" -type d 2>/dev/null | head -10
+    echo ""
+    echo "💡 To examine a failed build:"
+    echo "   cd /tmp/nix-build-<hash>"
+    echo "   ls -la"
 
 [doc('Set experimental features for Nix')]
 set-experimental-features: _check-must-be-root
