@@ -45,7 +45,7 @@ _nom CMD:
     #!/usr/bin/env bash
     if command -v nom 1>/dev/null 2>&1; then
       set -o pipefail
-      {{ CMD }} 2>&1 | nom || {{ CMD }}
+      {{ CMD }} |& nom --json
     else
       {{ CMD }}
     fi
@@ -57,10 +57,11 @@ _separator:
 # Execute nix flake commands with optional nom support
 _nix-flake SUBCOMMAND USE_NOM="":
     #!/usr/bin/env bash
-    CMD="nix {{ NIX_FLAGS }} flake {{ SUBCOMMAND }}"
     if [ "{{ USE_NOM }}" = "nom" ]; then
+      CMD="nix {{ NIX_FLAGS }} flake {{ SUBCOMMAND }} --log-format internal-json --verbose"
       just _nom "$CMD"
     else
+      CMD="nix {{ NIX_FLAGS }} flake {{ SUBCOMMAND }}"
       eval "$CMD"
     fi
 
@@ -69,13 +70,25 @@ _darwin-rebuild SUBCOMMAND USE_NOM="":
     #!/usr/bin/env bash
     if command -v nh 1>/dev/null 2>&1; then
       echo "🔨 Using nh for darwin {{ SUBCOMMAND }}..."
-      CMD="nh darwin {{ SUBCOMMAND }} --hostname '{{ HOSTNAME }}' ."
+      if [ "{{ USE_NOM }}" = "nom" ]; then
+        CMD="nh darwin {{ SUBCOMMAND }} --hostname '{{ HOSTNAME }}' . --log-format internal-json --verbose"
+      else
+        CMD="nh darwin {{ SUBCOMMAND }} --hostname '{{ HOSTNAME }}' ."
+      fi
     else
       echo "🔨 Using darwin-rebuild for {{ SUBCOMMAND }}..."
       if [ "{{ SUBCOMMAND }}" = "switch" ]; then
-        CMD="sudo darwin-rebuild {{ SUBCOMMAND }} --print-build-logs --flake '.#{{ HOSTNAME }}'"
+        if [ "{{ USE_NOM }}" = "nom" ]; then
+          CMD="sudo darwin-rebuild {{ SUBCOMMAND }} --print-build-logs --flake '.#{{ HOSTNAME }}' --log-format internal-json --verbose"
+        else
+          CMD="sudo darwin-rebuild {{ SUBCOMMAND }} --print-build-logs --flake '.#{{ HOSTNAME }}'"
+        fi
       else
-        CMD="darwin-rebuild {{ SUBCOMMAND }} --print-build-logs --flake '.#{{ HOSTNAME }}'"
+        if [ "{{ USE_NOM }}" = "nom" ]; then
+          CMD="darwin-rebuild {{ SUBCOMMAND }} --print-build-logs --flake '.#{{ HOSTNAME }}' --log-format internal-json --verbose"
+        else
+          CMD="darwin-rebuild {{ SUBCOMMAND }} --print-build-logs --flake '.#{{ HOSTNAME }}'"
+        fi
       fi
     fi
 
