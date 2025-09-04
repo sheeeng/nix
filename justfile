@@ -236,6 +236,10 @@ update-switch-nom: _check-non-root _check-nix
 
     just _switch-workflow "nom"
 
+[doc('Update flake and switch system configuration with nom output (alias)')]
+switch-update-nom: _check-non-root _check-nix
+    just update-switch-nom
+
 [doc('Switch system configuration using morlana')]
 switch-morlana: _check-non-root _check-nix
     #!/usr/bin/env bash
