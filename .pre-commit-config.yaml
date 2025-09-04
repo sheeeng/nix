@@ -1,6 +1,6 @@
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v5.0.0
+    rev: v6.0.0
     hooks:
       # keep-sorted start
       - id: check-added-large-files
@@ -45,12 +45,12 @@ repos:
 
   # keep-sorted start
   - repo: https://github.com/antonbabenko/pre-commit-terraform
-    rev: v1.99.5
+    rev: v1.100.0
     hooks:
       - id: terraform_fmt
         name: terraform format
   - repo: https://github.com/charliermarsh/ruff-pre-commit
-    rev: v0.12.8
+    rev: v0.12.11
     hooks:
       - id: ruff
         name: ruff
@@ -72,7 +72,7 @@ repos:
       - id: gitleaks
         name: detect hardcoded secrets
   - repo: https://github.com/google/keep-sorted
-    rev: v0.6.1
+    rev: v0.7.1
     hooks:
       - id: keep-sorted
         name: keep sorted
@@ -92,7 +92,7 @@ repos:
         name: actionlint
   - repo: https://github.com/shellcheck-py/shellcheck-py
     # Workaround official https://github.com/koalaman/shellcheck-precommit hooks that requires container runtime.
-    rev: v0.10.0.1
+    rev: v0.11.0.1
     hooks:
       - id: shellcheck
         name: shellcheck
