@@ -90,31 +90,14 @@ _nix-flake SUBCOMMAND USE_NOM="" LOGFILE="":
       fi
     fi
 
-# Execute darwin-rebuild commands with optional logging
-_darwin-rebuild SUBCOMMAND USE_NOM="" LOGFILE="":
+# Execute nh darwin commands with optional logging
+_nh-darwin SUBCOMMAND USE_NOM="" LOGFILE="":
     #!/usr/bin/env bash
-    if command -v nh 1>/dev/null 2>&1; then
-      echo "🔨 Using nh for darwin {{ SUBCOMMAND }}..."
-      if [ "{{ USE_NOM }}" = "nom" ]; then
-        CMD="nh darwin {{ SUBCOMMAND }} --hostname '{{ HOSTNAME }}' . --log-format internal-json --verbose"
-      else
-        CMD="nh darwin {{ SUBCOMMAND }} --hostname '{{ HOSTNAME }}' ."
-      fi
+    echo "🔨 Using nh for darwin {{ SUBCOMMAND }}..."
+    if [ "{{ USE_NOM }}" = "nom" ]; then
+      CMD="nh darwin {{ SUBCOMMAND }} --hostname '{{ HOSTNAME }}' . --log-format internal-json --verbose"
     else
-      echo "🔨 Using darwin-rebuild for {{ SUBCOMMAND }}..."
-      if [ "{{ SUBCOMMAND }}" = "switch" ]; then
-        if [ "{{ USE_NOM }}" = "nom" ]; then
-          CMD="sudo darwin-rebuild {{ SUBCOMMAND }} --print-build-logs --flake '.#{{ HOSTNAME }}' --log-format internal-json --verbose"
-        else
-          CMD="sudo darwin-rebuild {{ SUBCOMMAND }} --print-build-logs --flake '.#{{ HOSTNAME }}'"
-        fi
-      else
-        if [ "{{ USE_NOM }}" = "nom" ]; then
-          CMD="darwin-rebuild {{ SUBCOMMAND }} --print-build-logs --flake '.#{{ HOSTNAME }}' --log-format internal-json --verbose"
-        else
-          CMD="darwin-rebuild {{ SUBCOMMAND }} --print-build-logs --flake '.#{{ HOSTNAME }}'"
-        fi
-      fi
+      CMD="nh darwin {{ SUBCOMMAND }} --hostname '{{ HOSTNAME }}' ."
     fi
 
     if [ -n "{{ LOGFILE }}" ]; then
@@ -132,7 +115,32 @@ _darwin-rebuild SUBCOMMAND USE_NOM="" LOGFILE="":
       fi
     fi
 
-# Perform full system switch workflow with optional logging
+# Execute darwin-rebuild commands with optional logging
+_darwin-rebuild SUBCOMMAND USE_NOM="" LOGFILE="":
+    #!/usr/bin/env bash
+    echo "🔨 Using darwin-rebuild for {{ SUBCOMMAND }}..."
+    if [ "{{ SUBCOMMAND }}" = "switch" ]; then
+      CMD="sudo darwin-rebuild {{ SUBCOMMAND }} --print-build-logs --flake '.#{{ HOSTNAME }}'"
+    else
+      CMD="darwin-rebuild {{ SUBCOMMAND }} --print-build-logs --flake '.#{{ HOSTNAME }}'"
+    fi
+
+    if [ -n "{{ LOGFILE }}" ]; then
+      if [ "{{ USE_NOM }}" = "nom" ]; then
+        just _nom-with-log "$CMD" "{{ LOGFILE }}"
+      else
+        echo "📝 Saving logs to: {{ LOGFILE }}"
+        eval "$CMD" 2>&1 | tee "{{ LOGFILE }}"
+      fi
+    else
+      if [ "{{ USE_NOM }}" = "nom" ]; then
+        just _nom "$CMD"
+      else
+        eval "$CMD"
+      fi
+    fi
+
+# Perform full system switch workflow with optional logging (uses darwin-rebuild)
 _switch-workflow USE_NOM="" LOGFILE="":
     #!/usr/bin/env bash
     set -o errexit -o nounset -o pipefail
@@ -144,13 +152,13 @@ _switch-workflow USE_NOM="" LOGFILE="":
     just _separator
     just _ensure-darwin-rebuild
 
-    just _separator
-    echo "✅ Checking darwin configuration..."
-    if [ -n "{{ LOGFILE }}" ]; then
-      sudo darwin-rebuild check --flake ".#{{ HOSTNAME }}" --show-trace 2>&1 | tee -a "{{ LOGFILE }}"
-    else
-      sudo darwin-rebuild check --flake ".#{{ HOSTNAME }}" --show-trace
-    fi
+    # just _separator
+    # echo "✅ Checking darwin configuration..."
+    # if [ -n "{{ LOGFILE }}" ]; then
+    #   sudo darwin-rebuild check --flake ".#{{ HOSTNAME }}" --show-trace 2>&1 | tee -a "{{ LOGFILE }}"
+    # else
+    #   sudo darwin-rebuild check --flake ".#{{ HOSTNAME }}" --show-trace
+    # fi
 
     just _separator
     echo "🚀 Switching system configuration..."
@@ -158,6 +166,22 @@ _switch-workflow USE_NOM="" LOGFILE="":
 
     just _separator
     echo "✅ System switch completed!"
+
+# Perform full system switch workflow using nh with optional logging
+_switch-nh-workflow USE_NOM="" LOGFILE="":
+    #!/usr/bin/env bash
+    set -o errexit -o nounset -o pipefail
+
+    just _separator
+    echo "🔍 Checking flake..."
+    just _nix-flake "check" "{{ USE_NOM }}" "{{ LOGFILE }}"
+
+    just _separator
+    echo "🚀 Switching system configuration with nh..."
+    just _nh-darwin "switch" "{{ USE_NOM }}" "{{ LOGFILE }}"
+
+    just _separator
+    echo "✅ NH switch completed!"
 
 # =============================================================================
 # Main Commands
@@ -274,7 +298,6 @@ check-log:
     echo "✅ Check completed. Logs saved to: $LOGFILE"
 
 [doc('Build darwin configuration without switching')]
-[doc('Build darwin configuration without switching')]
 build: _check-non-root _check-nix
     just _darwin-rebuild "build"
 
@@ -326,6 +349,100 @@ switch-log: _check-non-root _check-nix
     just _switch-workflow "" 2>&1 | tee "$LOGFILE"
     echo "✅ Switch completed. Logs saved to: $LOGFILE"
 
+# =============================================================================
+# NH-specific Commands
+# =============================================================================
+
+[doc('Build darwin configuration using nh')]
+build-nh: _check-non-root _check-nix
+    just _nh-darwin "build"
+
+[doc('Build darwin configuration using nh with nom output')]
+build-nh-nom: _check-non-root _check-nix
+    just _nh-darwin "build" "nom"
+
+[doc('Build darwin configuration using nh and save logs to specified file')]
+build-nh-to-file LOGFILE: _check-non-root _check-nix
+    #!/usr/bin/env bash
+    echo "📝 Saving nh build logs to: {{ LOGFILE }}"
+    just _nh-darwin "build" "" "{{ LOGFILE }}"
+    echo "✅ NH build completed. Logs saved to: {{ LOGFILE }}"
+
+[doc('Build darwin configuration using nh and save logs with timestamp')]
+build-nh-log: _check-non-root _check-nix
+    #!/usr/bin/env bash
+    LOGFILE="build-nh-$(date +%Y%m%d-%H%M%S).log"
+    echo "📝 Saving nh build logs to: $LOGFILE"
+    just _nh-darwin "build" "" "$LOGFILE"
+    echo "✅ NH build completed. Logs saved to: $LOGFILE"
+
+[doc('Switch system configuration using nh')]
+switch-nh: _check-non-root _check-nix
+    just _switch-nh-workflow
+
+[doc('Switch system configuration using nh with nom output')]
+switch-nh-nom: _check-non-root _check-nix
+    just _switch-nh-workflow "nom"
+
+[doc('Switch system configuration using nh and save logs to specified file')]
+switch-nh-to-file LOGFILE: _check-non-root _check-nix
+    #!/usr/bin/env bash
+    echo "📝 Saving nh switch logs to: {{ LOGFILE }}"
+    just _switch-nh-workflow "" "{{ LOGFILE }}"
+    echo "✅ NH switch completed! Logs saved to: {{ LOGFILE }}"
+
+[doc('Switch system configuration using nh and save logs with timestamp')]
+switch-nh-log: _check-non-root _check-nix
+    #!/usr/bin/env bash
+    LOGFILE="switch-nh-$(date +%Y%m%d-%H%M%S).log"
+    echo "📝 Saving nh switch logs to: $LOGFILE"
+    just _switch-nh-workflow "" "$LOGFILE"
+    echo "✅ NH switch completed! Logs saved to: $LOGFILE"
+
+[doc('Update flake and switch system configuration using nh')]
+update-switch-nh: _check-non-root _check-nix
+    #!/usr/bin/env bash
+    set -o errexit -o nounset -o pipefail
+
+    just _separator
+    echo "📦 Updating flake..."
+    just _nix-flake "update"
+
+    just _switch-nh-workflow
+
+[doc('Update flake and switch system configuration using nh with nom output')]
+update-switch-nh-nom: _check-non-root _check-nix
+    #!/usr/bin/env bash
+    set -o errexit -o nounset -o pipefail
+
+    just _separator
+    echo "📦 Updating flake..."
+    just _nix-flake "update" "nom"
+
+    just _switch-nh-workflow "nom"
+
+[doc('Update flake.lock file using nh')]
+update-nh:
+    #!/usr/bin/env bash
+    if command -v nh 1>/dev/null 2>&1; then
+      echo "🔨 Using nh for update..."
+      nh home switch --update .
+    else
+      echo "❌ nh is not available, falling back to regular update"
+      just update
+    fi
+
+[doc('Update flake.lock file using nh with nom output')]
+update-nh-nom:
+    #!/usr/bin/env bash
+    if command -v nh 1>/dev/null 2>&1; then
+      echo "🔨 Using nh for update with nom..."
+      just _nom "nh home switch --update ."
+    else
+      echo "❌ nh is not available, falling back to regular update with nom"
+      just update-nom
+    fi
+
 [doc('Update flake and switch system configuration')]
 update-switch: _check-non-root _check-nix
     #!/usr/bin/env bash
@@ -375,7 +492,7 @@ build-with-logs: _check-non-root _check-nix
     #!/usr/bin/env bash
     LOGFILE="build-$(date +%Y%m%d-%H%M%S).log"
     echo "📝 Saving build logs to: $LOGFILE"
-    just _darwin-rebuild "build" "nom" 2>&1 | tee "$LOGFILE"
+    just _darwin-rebuild "build" "nom" "$LOGFILE"
     echo "✅ Build completed. Logs saved to: $LOGFILE"
 
 [doc('Switch with logs saved to file')]
@@ -383,7 +500,7 @@ switch-with-logs: _check-non-root _check-nix
     #!/usr/bin/env bash
     LOGFILE="switch-$(date +%Y%m%d-%H%M%S).log"
     echo "📝 Saving switch logs to: $LOGFILE"
-    just _switch-workflow "nom" 2>&1 | tee "$LOGFILE"
+    just _switch-workflow "nom" "$LOGFILE"
     echo "✅ Switch completed. Logs saved to: $LOGFILE"
 
 [doc('Build with verbose debugging and logs')]
