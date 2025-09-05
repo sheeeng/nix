@@ -24,14 +24,14 @@
 
   inputs = {
     # nixpkgs.url = "github:nixos/nixpkgs/nixos";
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     # The next two are for pinning to stable vs unstable regardless of what the above is set to
     # This is particularly useful when an upcoming stable release is in beta because you can effectively
     # keep 'nixpkgs-stable' set to stable for critical packages while setting 'nixpkgs' to the beta branch to
     # get a jump start on deprecation changes.
     # See also 'stable-packages' and 'unstable-packages' overlays at 'overlays/default.nix'
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
-    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    # nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
+    # nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 
     nixos-hardware.url = "github:nixos/nixos-hardware/master";
 
@@ -171,10 +171,6 @@
       # url = "git+file:///home/.../nix-secrets?ref=main&shallow=1";
     };
 
-    sf-mono-liga-src = {
-      url = "github:shaunsingh/SFMono-Nerd-Font-Ligaturized";
-      flake = false;
-    };
   };
 
   outputs =
@@ -221,7 +217,7 @@
         };
 
       darwinConfiguration =
-        hostname: system:
+        hostname: _system:
         inputs.nix-darwin.lib.darwinSystem {
           modules = [
             ./hosts/${hostname}
@@ -233,7 +229,6 @@
             {
               nixpkgs.overlays = [
                 (import ./overlays inputs).unstable-packages
-                (import ./overlays inputs).sf-mono-liga
                 inputs.morlana.overlays.default
                 inputs.nh-plus.overlays.default
                 inputs.fenix.overlays.default
