@@ -84,7 +84,6 @@
             ms-vscode.live-server
             ms-vscode.makefile-tools
             ms-vscode.powershell # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.ms-vscode.powershell
-            ms-vscode.theme-tomorrowkit
             ms-vsliveshare.vsliveshare
             oderwat.indent-rainbow
             pkief.material-icon-theme
