@@ -170,14 +170,6 @@
       url = "git+ssh://git@github.com/sheeeng/nix-secrets.git?ref=main&shallow=1";
       # url = "git+file:///home/.../nix-secrets?ref=main&shallow=1";
     };
-
-    # SFMono Nerd Font Ligaturized
-    # https://github.com/shaunsingh/SFMono-Nerd-Font-Ligaturized
-    sf-mono-liga-src = {
-      url = "github:shaunsingh/SFMono-Nerd-Font-Ligaturized";
-      flake = false;
-    };
-
   };
 
   outputs =
@@ -236,7 +228,6 @@
             {
               nixpkgs.overlays = [
                 (import ./overlays inputs).unstable-packages
-                (import ./overlays inputs).sf-mono-liga
                 inputs.morlana.overlays.default
                 inputs.nh-plus.overlays.default
                 inputs.fenix.overlays.default
