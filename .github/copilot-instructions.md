@@ -2,10 +2,10 @@
 
 ## Journals
 
-Use proper grammar and punctuations in the journals.
-Use ISO8601 universal timestamp taken from terminal for the journals.
-Read [copilot-journals.md](./copilot-journals.md) to understand history.
-Save every summary in [copilot-journals.md](./copilot-journals.md).
+- Use proper grammar and punctuations in the journals.
+- Use ISO8601 universal timestamp taken from terminal for the journals.
+- Read [copilot-journals.md](./copilot-journals.md) to understand history.
+- Save every summary in [copilot-journals.md](./copilot-journals.md).
 
 ## Commands
 
@@ -13,6 +13,8 @@ Use explicit arguments/options over abbreviated arguments/options. Example:
 
 Use `date --universal +"%Y-%m-%dT%H:%M:%SZ"` over `date -u +"%Y-%m-%dT%H:%M:%SZ"` in terminal commands.
 Use `set -o errexit` over `set -e` in shell scripts.
+
+Save suggested nix commands in [copilot-commands.md](./copilot-commands.md) for future reference.
 
 ## Markdown
 
