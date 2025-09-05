@@ -1,6 +1,6 @@
 # SFMono Nerd Font Ligaturized overlay
 # https://github.com/shaunsingh/SFMono-Nerd-Font-Ligaturized
-inputs: final: prev: {
+inputs: _final: prev: {
   sf-mono-liga-bin = prev.stdenvNoCC.mkDerivation {
     pname = "sf-mono-liga-bin";
     version = "dev";
