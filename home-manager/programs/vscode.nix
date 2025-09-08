@@ -275,7 +275,13 @@
           # https://code.visualstudio.com/docs/getstarted/settings#_settings-json-file
 
           # Editor configurations.
+          "[dockerfile]"."editor.defaultFormatter" = "ms-azuretools.vscode-containers";
+          "[dockerfile]"."editor.tabSize" = 4;
+          "[markdown]"."editor.trimAutoWhitespace" = false;
           "[nix]"."editor.tabSize" = 2;
+          "files.insertFinalNewline" = true;
+          "files.trimFinalNewlines" = true;
+          "files.trimTrailingWhitespace" = true;
           "accessibility.dimUnfocused.opacity" = 0.35;
           "editor.accessibilitySupport" = "off";
           "editor.bracketPairColorization.enabled" = true;
@@ -299,6 +305,8 @@
             80
             120
           ];
+          "editor.trimAutoWhitespace" = true;
+          "editor.wordWrap" = "off";
           "editor.semanticHighlighting.enabled" = true;
           "editor.smoothScrolling" = true;
           "editor.suggestSelection" = "first";
