@@ -174,7 +174,6 @@
 
   outputs =
     {
-      fenix,
       self,
       nixpkgs,
       nix-systems,
