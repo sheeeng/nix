@@ -15,20 +15,21 @@ version = 1
 ##  $ flox show gum     <- show all versions of a package
 ## -------------------------------------------------------------------
 [install]
+# keep-sorted start
 age.pkg-path = "age"
 gnugrep.pkg-path = "gnugrep"
 gnused.pkg-path = "gnused"
-pre-commit.pkg-path = "pre-commit"
-uutils-coreutils-noprefix.pkg-path = "uutils-coreutils-noprefix"
-uutils-findutils.pkg-path = "uutils-findutils"
-uutils-diffutils.pkg-path = "uutils-diffutils"
-update-nix-fetchgit.pkg-path = "update-nix-fetchgit"
 nixd.pkg-path = "nixd"
 nixfmt-rfc-style.pkg-path = "nixfmt-rfc-style"
 nixfmt-tree.pkg-path = "nixfmt-tree"
+pre-commit.pkg-path = "pre-commit"
+update-nix-fetchgit.pkg-path = "update-nix-fetchgit"
+uutils-coreutils-noprefix.pkg-path = "uutils-coreutils-noprefix"
+uutils-diffutils.pkg-path = "uutils-diffutils"
+uutils-findutils.pkg-path = "uutils-findutils"
 # gum.pkg-path = "gum"
 # gum.version = "^0.14.5"
-
+# keep-sorted end
 
 ## Environment Variables ---------------------------------------------
 ##  ... available for use in the activated environment
