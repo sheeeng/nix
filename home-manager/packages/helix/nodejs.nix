@@ -4,15 +4,15 @@
 }:
 {
   home.packages = with pkgs; [
-    nodejs # temporarily disabled to skip Node.js tests
-    # node2nix # temporarily disabled to skip Node.js tests
-    # nodePackages_latest.npm-check-updates # temporarily disabled to skip Node.js tests
-    # prefetch-npm-deps # temporarily disabled to skip Node.js tests
-    # prefetch-yarn-deps # temporarily disabled to skip Node.js tests
-    # yarn # temporarily disabled to skip Node.js tests
-    # yarn2nix # temporarily disabled to skip Node.js tests
-    # yarn-bash-completion # temporarily disabled to skip Node.js tests
-    # zsh-better-npm-completion # temporarily disabled to skip Node.js tests
+    node2nix
+    nodejs
+    nodePackages_latest.npm-check-updates
+    prefetch-npm-deps
+    prefetch-yarn-deps
+    yarn
+    yarn-bash-completion
+    yarn2nix
+    zsh-better-npm-completion
   ];
 
   programs.helix = {
