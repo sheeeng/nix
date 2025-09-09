@@ -21,7 +21,7 @@
     ./lua.nix
     ./markdown.nix
     ./nix.nix
-    ./nodejs.nix
+    # ./nodejs.nix # temporarily disabled to skip Node.js tests
     ./prettier.nix
     ./python.nix
     ./rust.nix

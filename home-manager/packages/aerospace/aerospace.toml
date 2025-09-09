@@ -214,9 +214,7 @@ down = 'volume down'
 up = 'volume up'
 shift-down = ['volume set 0', 'mode main']
 
-# ----------------------------------------------------------------------
 
-[mode.main.binding]
 alt-q = "close"
 alt-slash = 'layout tiles horizontal vertical'
 alt-comma = 'layout accordion horizontal vertical'
