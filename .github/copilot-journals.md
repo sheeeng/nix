@@ -1,44 +1,5 @@
 # Copilot Journals
 
-## 2025-09-09T07:36:03Z
-
-### Fixed Node.js Tests Running During nix-darwin Switch
-
-**Problem**: Node.js tests were running during `nix-darwin switch` operations, causing slow builds and failures. Despite multiple attempts with overlays, global nixpkgs configuration, and environment variables, Node.js tests continued to execute.
-
-**Root Cause**: The Node.js dependencies in neovim and helix configurations were triggering Node.js builds with tests enabled:
-
-- `home-manager/packages/neovim/home-manager.nix`: Had `withNodeJs = true` and direct `nodejs` package dependency for copilot support
-- `home-manager/packages/helix/nodejs.nix`: Contained extensive Node.js package dependencies including nodejs, npm tools, and language servers
-
-**Solution**: Temporarily disabled Node.js dependencies in both editors to eliminate Node.js builds:
-
-1. **Neovim changes** (`home-manager/packages/neovim/home-manager.nix`):
-   - Set `withNodeJs = false` (was `true`)
-   - Commented out `nodejs` package dependency
-   - Commented out `nodePackages.typescript-language-server`
-   - Commented out `typescript` package
-
-2. **Helix changes** (`home-manager/packages/helix/default.nix`):
-   - Commented out import of `./nodejs.nix`
-
-3. **Enhanced Node.js overlay** (`overlays/nodejs.nix`):
-   - Created stubbed nodejs package using `runCommand` to prevent test execution
-   - Added aggressive overrides for all Node.js versions (18, 20, 22)
-   - Replaced test-related make targets in build phases
-   - Added comprehensive environment variables to disable tests
-
-**Verification**: Running `just switch-fast-nom` now completes without Node.js test execution, significantly improving build performance.
-
-**Future Work**: May need to create a test-free Node.js package or find alternative ways to provide Node.js functionality without triggering test builds.
-
-**Files Modified**:
-
-- `overlays/nodejs.nix`: Enhanced with stubbed nodejs and aggressive test disabling
-- `home-manager/packages/neovim/home-manager.nix`: Disabled Node.js support temporarily
-- `home-manager/packages/helix/default.nix`: Disabled nodejs.nix import
-- `home-manager/packages/helix/nodejs.nix`: Commented out all Node.js packages (not used due to import disable)
-
 ## 2025-08-28T00:00:00Z
 
 ### Added VS Code Extension
