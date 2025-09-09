@@ -2,6 +2,7 @@
 
 SOPS_FILE := "../nix-secrets/.sops.yaml"
 NIX_FLAGS := "--experimental-features 'nix-command flakes'"
+NIX_FLAGS_NO_TESTS := "--experimental-features 'nix-command flakes' --option check false --option pure-eval false"
 HOSTNAME := `hostname`
 
 # =============================================================================
@@ -329,6 +330,44 @@ check-darwin: _check-non-root
 [doc('Switch system configuration (recommended)')]
 switch: _check-non-root _check-nix
     just _switch-workflow
+
+[doc('Switch system configuration without running tests (faster)')]
+switch-fast: _check-non-root _check-nix
+    #!/usr/bin/env bash
+    set -o errexit -o nounset -o pipefail
+
+    just _separator
+    echo "🔍 Checking flake (without tests)..."
+    nix {{ NIX_FLAGS_NO_TESTS }} flake check --print-build-logs
+
+    just _separator
+    just _ensure-darwin-rebuild
+
+    just _separator
+    echo "🚀 Switching system configuration (skipping tests)..."
+    sudo darwin-rebuild switch --print-build-logs --flake '.#{{ HOSTNAME }}' --option check false
+
+    just _separator
+    echo "✅ Fast system switch completed!"
+
+[doc('Switch system configuration without running tests with nom output (faster)')]
+switch-fast-nom: _check-non-root _check-nix
+    #!/usr/bin/env bash
+    set -o errexit -o nounset -o pipefail
+
+    just _separator
+    echo "🔍 Checking flake (without tests)..."
+    nix {{ NIX_FLAGS_NO_TESTS }} flake check --log-format internal-json --verbose --print-build-logs | nom --json
+
+    just _separator
+    just _ensure-darwin-rebuild
+
+    just _separator
+    echo "🚀 Switching system configuration (skipping tests)..."
+    sudo darwin-rebuild switch --print-build-logs --flake '.#{{ HOSTNAME }}' --option check false | nom
+
+    just _separator
+    echo "✅ Fast system switch with nom completed!"
 
 [doc('Switch system configuration with nom output')]
 switch-nom: _check-non-root _check-nix
