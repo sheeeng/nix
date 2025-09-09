@@ -14,7 +14,7 @@ _: { }
 # # TODO: https://github.com/sukhmancs/nixos-configs/blob/6bb668901f9e24987d762365bf1c1211ae89aef2/homes/shared/shell/zsh/plugins.nix#L6
 # # TODO: https://github.com/njkli/hive/blob/ccebe1f759ee06bd18316119f29d3579e9505928/nix/vod/homeProfiles/shell/zsh.nix#L107
 # # TODO: https://github.com/ymatsiuk/nixos-config/blob/49898996aa210d2358935c83ea9b19576d1ba158/zsh.nix#L9
-# # TODO: https://github.com/danielphan2003/flk/blob/main/cells/nixos/nixosProfiles/programs/shells/zsh/shell-init.nix#L26
+# # TODO: https://github.com/danielphan2003/flk/blob/198bf56b8dde0c075f89f58952bedfa85e0b3cf7/cells/nixos/nixosProfiles/programs/shells/zsh/shell-init.nix#L26
 
 # # FIXME: _zsh_highlight_widget_orig-s000-r552-orig-s000-r456-zle-line-finish:2: maximum nested function level reached; increase FUNCNEST?
 
@@ -340,7 +340,7 @@ _: { }
 #     # TODO: https://github.com/sukhmancs/nixos-configs/blob/6bb668901f9e24987d762365bf1c1211ae89aef2/homes/shared/shell/zsh/plugins.nix#L6
 #     # TODO: https://github.com/njkli/hive/blob/ccebe1f759ee06bd18316119f29d3579e9505928/nix/vod/homeProfiles/shell/zsh.nix#L107
 #     # TODO: https://github.com/ymatsiuk/nixos-config/blob/49898996aa210d2358935c83ea9b19576d1ba158/zsh.nix#L9
-#     # TODO: https://github.com/danielphan2003/flk/blob/main/cells/nixos/nixosProfiles/programs/shells/zsh/shell-init.nix#L26
+#     # TODO: https://github.com/danielphan2003/flk/blob/198bf56b8dde0c075f89f58952bedfa85e0b3cf7/cells/nixos/nixosProfiles/programs/shells/zsh/shell-init.nix#L26
 #     # plugins = [
 #     #   {
 #     #     # https://github.com/sukhmancs/nixos-configs/blob/6bb668901f9e24987d762365bf1c1211ae89aef2/homes/shared/shell/zsh/plugins.nix#L6

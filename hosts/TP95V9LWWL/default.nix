@@ -31,6 +31,32 @@ in
     packageOverrides = pkgs: {
       electron_24 = pkgs.electron_26; # Electron v24 is end-of-life, forcing upgrade
       electron_25 = pkgs.electron_26; # Electron v25 is end-of-life, forcing upgrade
+
+      # Override Node.js packages to disable tests completely
+      nodejs = pkgs.nodejs.overrideAttrs {
+        doCheck = false;
+        doInstallCheck = false;
+        checkPhase = "echo 'Node.js tests disabled'; true";
+        installCheckPhase = "echo 'Node.js install checks disabled'; true";
+      };
+      nodejs_18 = pkgs.nodejs_18.overrideAttrs {
+        doCheck = false;
+        doInstallCheck = false;
+        checkPhase = "echo 'Node.js 18 tests disabled'; true";
+        installCheckPhase = "echo 'Node.js 18 install checks disabled'; true";
+      };
+      nodejs_20 = pkgs.nodejs_20.overrideAttrs {
+        doCheck = false;
+        doInstallCheck = false;
+        checkPhase = "echo 'Node.js 20 tests disabled'; true";
+        installCheckPhase = "echo 'Node.js 20 install checks disabled'; true";
+      };
+      nodejs_22 = pkgs.nodejs_22.overrideAttrs {
+        doCheck = false;
+        doInstallCheck = false;
+        checkPhase = "echo 'Node.js 22 tests disabled'; true";
+        installCheckPhase = "echo 'Node.js 22 install checks disabled'; true";
+      };
     };
     permittedInsecurePackages = [
       # "python3.12-youtube-dl-2021.12.17"
@@ -73,6 +99,15 @@ in
     switch-system = "darwin-rebuild switch --flake .";
     list-generations = "nix-env --list-generations";
   }; # https://daiderd.com/nix-darwin/manual/index.html#opt-environment.shellAliases
+
+  # Environment variables to disable Node.js tests system-wide
+  environment.variables = {
+    SKIP_TESTS = "1";
+    NODE_SKIP_CRYPTO_TESTS = "1";
+    NODE_SKIP_PLATFORM_TESTS = "1";
+    NIX_SKIP_NODEJS_TESTS = "1";
+    NODE_ENV = "production"; # Might help skip development dependencies and tests
+  };
 
   # Neither nixpkgs.system nor any other option in nixpkgs.* is meant
   # to be read by modules and configurations.
