@@ -32,4 +32,6 @@ nix why-depends /run/current-system nodejs 2>/dev/null | head -20
 nix eval --json '.#darwinConfigurations.TP95V9LWWL.config.nixpkgs.overlays' | jq length
 
 nix search nixpkgs hadolint --json | jq '.[].pname' 2>/dev/null || echo "Failed to search hadolint"
+
+nix run nixpkgs#prettier -- --write renovate.json --no-config
 ```

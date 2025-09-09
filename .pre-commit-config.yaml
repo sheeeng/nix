@@ -31,13 +31,6 @@ repos:
         args: [--fix=lf]
         exclude: \.(ps1|psm1|psd1|pwsh)$
       - id: no-commit-to-branch
-      - id: pretty-format-json
-        args: ["--autofix"]
-        exclude: |
-          (?x)^(
-              .*\.lock$|
-              .flox/env.json
-          )$
       - id: trailing-whitespace
         args: [--markdown-linebreak-ext=md]
         exclude: \.md$
