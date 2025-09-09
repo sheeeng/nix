@@ -4,21 +4,12 @@
 {
   projectRootFile = "flake.nix";
 
-  # programs.deadnix.enable = true;
-  # programs.deno.enable = pkgs.hostPlatform.system != "riscv64-linux";
   programs.mdsh.enable = true;
-  # programs.nixfmt.enable = true;
-  # programs.shellcheck.enable = pkgs.hostPlatform.system != "riscv64-linux";
-  # programs.shfmt.enable = pkgs.hostPlatform.system != "riscv64-linux";
-  # programs.yamlfmt.enable = true;
-
-  programs.jsonfmt.enable = true;
-  programs.jsonfmt.package = pkgs.jsonfmt;
 
   programs = {
     # Nix formatting
     nixfmt = {
-      enable = true;
+      enable = pkgs.hostPlatform.system != "riscv64-linux";
       package = pkgs.nixfmt-rfc-style;
     };
 
@@ -28,7 +19,7 @@
       indent_size = 2;
     };
     shellcheck = {
-      enable = true;
+      enable = pkgs.hostPlatform.system != "riscv64-linux";
     };
 
     # Nix linting
