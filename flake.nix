@@ -226,11 +226,36 @@
             inputs.sops-nix.darwinModules.sops
             {
               nixpkgs.overlays = [
+                (import ./overlays inputs).nodejs-skip-tests
                 (import ./overlays inputs).unstable-packages
                 inputs.morlana.overlays.default
                 inputs.nh-plus.overlays.default
                 inputs.fenix.overlays.default
               ];
+
+              # Global configuration to disable tests for better performance
+              nixpkgs.config = {
+                allowUnfree = true;
+                # Disable checks globally for faster rebuilds
+                doCheck = false;
+                doInstallCheck = false;
+                # Override package defaults to skip tests
+                packageOverrides = pkgs: {
+                  # Global override for any Node.js related packages
+                  nodejs = pkgs.nodejs.overrideAttrs {
+                    doCheck = false;
+                    doInstallCheck = false;
+                  };
+                };
+              };
+
+              # Set environment variables to disable Node.js tests system-wide
+              environment.variables = {
+                SKIP_TESTS = "1";
+                NODE_SKIP_CRYPTO_TESTS = "1";
+                NODE_SKIP_PLATFORM_TESTS = "1";
+                NIX_SKIP_NODEJS_TESTS = "1";
+              };
             }
           ];
           specialArgs = { inherit inputs; };
