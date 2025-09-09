@@ -279,6 +279,11 @@
           "[dockerfile]"."editor.tabSize" = 4;
           "[markdown]"."editor.trimAutoWhitespace" = false;
           "[nix]"."editor.tabSize" = 2;
+          "files.exclude" = {
+            "**/.flox" = true;
+            "**/.terraform" = true;
+            "**/.vscode" = true;
+          };
           "files.insertFinalNewline" = true;
           "files.trimFinalNewlines" = true;
           "files.trimTrailingWhitespace" = true;
