@@ -6,6 +6,12 @@
       "age": {
         "pkg-path": "age"
       },
+      "cabal-install": {
+        "pkg-path": "cabal-install"
+      },
+      "ghc": {
+        "pkg-path": "ghc"
+      },
       "gnugrep": {
         "pkg-path": "gnugrep"
       },
@@ -38,7 +44,7 @@
       }
     },
     "hook": {
-      "on-activate": "  echo \"\"\n  echo \"🚀 Activating Flox environment....\"\n  echo \"Flox '$(flox --version)' located in '$(which flox)'.\"\n  echo \"Nix '$(nix --version | awk '{print $3}')' located in '$(which nix)'.\"\n  # keep-sorted start\n  echo \"Age '$(age --version)' located in '$(which age)'.\"\n  echo \"Cp '$(cp --version | awk '{print $2}')' located in '$(which cp)'.\"\n  echo \"Diff '$(diff --version | head --lines 1 | awk '{print $4}')' located in '$(which diff)'.\"\n  echo \"Find '$(find --version | awk '{print $3}')' located in '$(which find)'.\"\n  echo \"GnuGrep '$(grep --version | head --lines 1 | awk '{print $4}')' located in '$(which grep)'.\"\n  echo \"GnuSed '$(sed --version | head --lines 1 | awk '{print $4}')' located in '$(which sed)'.\"\n  echo \"Pre-commit '$(pre-commit --version | awk '{print $2}' )' located in '$(which pre-commit)'.\"\n  # keep-sorted end\n  echo \"\"\n"
+      "on-activate": "  echo \"\"\n  echo \"🚀 Activating Flox environment....\"\n  echo \"Flox '$(flox --version)' located in '$(which flox)'.\"\n  echo \"Nix '$(nix --version | awk '{print $3}')' located in '$(which nix)'.\"\n  # keep-sorted start\n  echo \"Age '$(age --version)' located in '$(which age)'.\"\n  echo \"Cabal '$(cabal --version | head --lines 1 | awk '{print $3}')' located in '$(which cabal)'.\"\n  echo \"Cp '$(cp --version | awk '{print $2}')' located in '$(which cp)'.\"\n  echo \"Diff '$(diff --version | head --lines 1 | awk '{print $4}')' located in '$(which diff)'.\"\n  echo \"Find '$(find --version | awk '{print $3}')' located in '$(which find)'.\"\n  echo \"GHC '$(ghc --version | awk '{print $8}')' located in '$(which ghc)'.\"\n  echo \"GnuGrep '$(grep --version | head --lines 1 | awk '{print $4}')' located in '$(which grep)'.\"\n  echo \"GnuSed '$(sed --version | head --lines 1 | awk '{print $4}')' located in '$(which sed)'.\"\n  echo \"Pre-commit '$(pre-commit --version | awk '{print $2}' )' located in '$(which pre-commit)'.\"\n  # keep-sorted end\n  echo \"\"\n"
     },
     "profile": {},
     "options": {
@@ -162,6 +168,242 @@
       ],
       "outputs": {
         "out": "/nix/store/gjywnb0r2dcri6xl9s4hx6vrn82dyvm7-age-1.2.1"
+      },
+      "system": "x86_64-linux",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "cabal-install",
+      "broken": false,
+      "derivation": "/nix/store/4bvhrscm6irwhi5xy4j6ws20sk6wjmng-cabal-install-3.14.2.0.drv",
+      "description": "The command-line interface for Cabal and Hackage",
+      "install_id": "cabal-install",
+      "license": "BSD-3-Clause",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=8eb28adfa3dc4de28e792e3bf49fcf9007ca8ac9",
+      "name": "cabal-install-3.14.2.0",
+      "pname": "cabal-install",
+      "rev": "8eb28adfa3dc4de28e792e3bf49fcf9007ca8ac9",
+      "rev_count": 856926,
+      "rev_date": "2025-09-05T10:37:24Z",
+      "scrape_date": "2025-09-08T03:40:11.625589Z",
+      "stabilities": [
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "3.14.2.0",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "out": "/nix/store/yk4fnjx727l008dpgdhffk7fr0rxhm4p-cabal-install-3.14.2.0"
+      },
+      "system": "aarch64-darwin",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "cabal-install",
+      "broken": false,
+      "derivation": "/nix/store/n0nqw1nllw9p7jgzkib1qiq0qm9hycf3-cabal-install-3.14.2.0.drv",
+      "description": "The command-line interface for Cabal and Hackage",
+      "install_id": "cabal-install",
+      "license": "BSD-3-Clause",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=8eb28adfa3dc4de28e792e3bf49fcf9007ca8ac9",
+      "name": "cabal-install-3.14.2.0",
+      "pname": "cabal-install",
+      "rev": "8eb28adfa3dc4de28e792e3bf49fcf9007ca8ac9",
+      "rev_count": 856926,
+      "rev_date": "2025-09-05T10:37:24Z",
+      "scrape_date": "2025-09-08T03:52:21.046806Z",
+      "stabilities": [
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "3.14.2.0",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "out": "/nix/store/jxkpv60i0h423m7qwlyb20dq0j1hscvj-cabal-install-3.14.2.0"
+      },
+      "system": "aarch64-linux",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "cabal-install",
+      "broken": false,
+      "derivation": "/nix/store/sjpn1d6bv0vjdk4rmgww1sbv4v85rkmz-cabal-install-3.14.2.0.drv",
+      "description": "The command-line interface for Cabal and Hackage",
+      "install_id": "cabal-install",
+      "license": "BSD-3-Clause",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=8eb28adfa3dc4de28e792e3bf49fcf9007ca8ac9",
+      "name": "cabal-install-3.14.2.0",
+      "pname": "cabal-install",
+      "rev": "8eb28adfa3dc4de28e792e3bf49fcf9007ca8ac9",
+      "rev_count": 856926,
+      "rev_date": "2025-09-05T10:37:24Z",
+      "scrape_date": "2025-09-08T04:22:01.506218Z",
+      "stabilities": [
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "3.14.2.0",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "out": "/nix/store/yz4lyj5b90i72pl64mj456zsxd63zyq6-cabal-install-3.14.2.0"
+      },
+      "system": "x86_64-darwin",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "cabal-install",
+      "broken": false,
+      "derivation": "/nix/store/62a8f0kf1yj6v6zrl5c73gs3a6dypl3m-cabal-install-3.14.2.0.drv",
+      "description": "The command-line interface for Cabal and Hackage",
+      "install_id": "cabal-install",
+      "license": "BSD-3-Clause",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=8eb28adfa3dc4de28e792e3bf49fcf9007ca8ac9",
+      "name": "cabal-install-3.14.2.0",
+      "pname": "cabal-install",
+      "rev": "8eb28adfa3dc4de28e792e3bf49fcf9007ca8ac9",
+      "rev_count": 856926,
+      "rev_date": "2025-09-05T10:37:24Z",
+      "scrape_date": "2025-09-08T04:54:29.563127Z",
+      "stabilities": [
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "3.14.2.0",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "out": "/nix/store/bw7v9sf4hvyf65fkf6lmhb7yrxw2zyif-cabal-install-3.14.2.0"
+      },
+      "system": "x86_64-linux",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "ghc",
+      "broken": false,
+      "derivation": "/nix/store/y2p5sg0w88j3n2azz407mn2aqp5dbvkh-ghc-9.8.4.drv",
+      "description": "Glasgow Haskell Compiler",
+      "install_id": "ghc",
+      "license": "BSD-3-Clause",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=8eb28adfa3dc4de28e792e3bf49fcf9007ca8ac9",
+      "name": "ghc-9.8.4",
+      "pname": "ghc",
+      "rev": "8eb28adfa3dc4de28e792e3bf49fcf9007ca8ac9",
+      "rev_count": 856926,
+      "rev_date": "2025-09-05T10:37:24Z",
+      "scrape_date": "2025-09-08T03:40:12.553590Z",
+      "stabilities": [
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "9.8.4",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "doc": "/nix/store/phh7wfnxc6ybl9slc6j6kw8y8bixixm9-ghc-9.8.4-doc",
+        "out": "/nix/store/mv04730222h0l6x9lwjmz29ai3j9lmc8-ghc-9.8.4"
+      },
+      "system": "aarch64-darwin",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "ghc",
+      "broken": false,
+      "derivation": "/nix/store/avxpydsns5hn682p6qjgjfnbcdiyx781-ghc-9.8.4.drv",
+      "description": "Glasgow Haskell Compiler",
+      "install_id": "ghc",
+      "license": "BSD-3-Clause",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=8eb28adfa3dc4de28e792e3bf49fcf9007ca8ac9",
+      "name": "ghc-9.8.4",
+      "pname": "ghc",
+      "rev": "8eb28adfa3dc4de28e792e3bf49fcf9007ca8ac9",
+      "rev_count": 856926,
+      "rev_date": "2025-09-05T10:37:24Z",
+      "scrape_date": "2025-09-08T03:52:22.433693Z",
+      "stabilities": [
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "9.8.4",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "doc": "/nix/store/xwnsp3x7qz8sfy4d8lgr2r8shvq8xllj-ghc-9.8.4-doc",
+        "out": "/nix/store/8j9ywlccihlhv2zsj2xk87c77wn5hjnz-ghc-9.8.4"
+      },
+      "system": "aarch64-linux",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "ghc",
+      "broken": false,
+      "derivation": "/nix/store/ssr7s990vdasq81g6hs6zxi1ldj4i65w-ghc-9.8.4.drv",
+      "description": "Glasgow Haskell Compiler",
+      "install_id": "ghc",
+      "license": "BSD-3-Clause",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=8eb28adfa3dc4de28e792e3bf49fcf9007ca8ac9",
+      "name": "ghc-9.8.4",
+      "pname": "ghc",
+      "rev": "8eb28adfa3dc4de28e792e3bf49fcf9007ca8ac9",
+      "rev_count": 856926,
+      "rev_date": "2025-09-05T10:37:24Z",
+      "scrape_date": "2025-09-08T04:22:02.441617Z",
+      "stabilities": [
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "9.8.4",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "doc": "/nix/store/bcfwcr86wnpb4jziwr36sl1hgfxngk1m-ghc-9.8.4-doc",
+        "out": "/nix/store/gvcfnxlwz98myjdb26n7dhrk0306x6l8-ghc-9.8.4"
+      },
+      "system": "x86_64-darwin",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "ghc",
+      "broken": false,
+      "derivation": "/nix/store/nh11imkyv0n79pvdcgw4926vymp9495f-ghc-9.8.4.drv",
+      "description": "Glasgow Haskell Compiler",
+      "install_id": "ghc",
+      "license": "BSD-3-Clause",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=8eb28adfa3dc4de28e792e3bf49fcf9007ca8ac9",
+      "name": "ghc-9.8.4",
+      "pname": "ghc",
+      "rev": "8eb28adfa3dc4de28e792e3bf49fcf9007ca8ac9",
+      "rev_count": 856926,
+      "rev_date": "2025-09-05T10:37:24Z",
+      "scrape_date": "2025-09-08T04:54:31.041518Z",
+      "stabilities": [
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "9.8.4",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "doc": "/nix/store/q1spzb1xxda9sipdy72z8ras3lvpiv1g-ghc-9.8.4-doc",
+        "out": "/nix/store/6maw0xlwyfbs9znpkijy2gm1ih4sff02-ghc-9.8.4"
       },
       "system": "x86_64-linux",
       "group": "toplevel",
