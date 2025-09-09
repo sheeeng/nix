@@ -50,7 +50,7 @@ repos:
       - id: terraform_fmt
         name: terraform format
   - repo: https://github.com/charliermarsh/ruff-pre-commit
-    rev: v0.12.11
+    rev: v0.12.12
     hooks:
       - id: ruff
         name: ruff
@@ -81,6 +81,10 @@ repos:
               .*\.lock$|
               .envrc
           )$
+  - repo: https://github.com/nixos/nixfmt
+    rev: v1.0.0
+    hooks:
+      - id: nixfmt
   - repo: https://github.com/psf/black
     rev: 25.1.0
     hooks:
@@ -97,8 +101,4 @@ repos:
       - id: shellcheck
         name: shellcheck
         args: []
-        # - repo: https://github.com/nixos/nixfmt
-        #   rev: v1.0.0
-        #   hooks:
-        #     - id: nixfmt
 # keep-sorted end
