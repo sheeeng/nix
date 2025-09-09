@@ -6,7 +6,7 @@
 - Use ISO8601 universal timestamp taken from terminal for the journals.
 - Read [copilot-journals.md](./copilot-journals.md) to understand history.
 - Save every summary in [copilot-journals.md](./copilot-journals.md).
-- Organized the journal entries are chronologically, including `1970-01-01T01:00:00Z`.
+- Organize the journal entries are chronologically, including `1970-01-01T01:00:00Z`.
 
 ## Commands
 
