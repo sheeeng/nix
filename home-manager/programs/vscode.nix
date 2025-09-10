@@ -280,9 +280,9 @@
           "[markdown]"."editor.trimAutoWhitespace" = false;
           "[nix]"."editor.tabSize" = 2;
           "files.exclude" = {
-            "**/.flox" = true;
-            "**/.terraform" = true;
-            "**/.vscode" = true;
+            "**/dot-flox" = true;
+            "**/dot-terraform" = true;
+            "**/dot-vscode" = true;
           };
           "files.insertFinalNewline" = true;
           "files.trimFinalNewlines" = true;

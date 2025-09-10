@@ -23,10 +23,13 @@ in
 {
   # https://github.com/uesyn/dotfiles/blob/a28964187ab74b880f2e8ae561359451e9a05e29/home-manager/git/default.nix#L14
   home.packages = with pkgs; [
+    # keep-sorted start
     ghq # https://search.nixos.org/packages?channel=unstable&type=packages&show=ghq
     git-credential-oauth-wrapper # https://search.nixos.org/packages?channel=unstable&type=packages&show=git-credential-oauth
     git-lfs # https://search.nixos.org/packages?channel=unstable&type=packages&show=git-lfs
+    gitleaks # https://search.nixos.org/packages?channel=unstable&type=packages&show=gitleaks
     pre-commit # https://search.nixos.org/packages?channel=unstable&type=packages&show=pre-commit
+    # keep-sorted end
   ];
 
   # https://github.com/uesyn/dotfiles/blob/a28964187ab74b880f2e8ae561359451e9a05e29/home-manager/git/default.nix#L19

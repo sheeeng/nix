@@ -224,8 +224,10 @@ in
 
   home = {
     packages = with pkgs; [
-      dateutils
+      # keep-sorted start
       coreutils-full
+      dateutils
+      diffutils
       gnugrep
       gnumake
       gnupg
@@ -233,7 +235,7 @@ in
       gnutar
       shellcheck
       shfmt
-      diffutils
+      # keep-sorted end
     ];
   };
 }
