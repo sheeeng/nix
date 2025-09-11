@@ -2,7 +2,7 @@
 let
   hclgrep =
     with pkgs;
-    buildGoModule rec {
+    buildGoModule {
       pname = "hclgrep";
       version = "00059cbc78022cab225e172cc695c5edf1e4b8ef";
 
@@ -17,7 +17,7 @@ let
     };
 in
 {
-  home.packages = with pkgs; [
+  home.packages = [
     hclgrep
   ];
 }
