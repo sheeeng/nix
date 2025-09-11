@@ -6,7 +6,7 @@
 - Use ISO8601 universal timestamp taken from terminal for the journals.
 - Read [copilot-journals.md](./copilot-journals.md) to understand history.
 - Save every summary in [copilot-journals.md](./copilot-journals.md).
-- Organize the journal entries chronologically, including `1970-01-01T01:00:00Z` entry.
+- Organize the journal entries chronologically in reverse order (newest first), including `1970-01-01T01:00:00Z` entry.
 
 ## Commands
 
@@ -60,9 +60,7 @@ repositories without explicit approval.
 
 Keep comments if links are provided.
 
-Use explicit arguments/options over abbreviated arguments/options. Example:
-`date --universal +"%Y-%m-%dT%H:%M:%SZ"` or `date --utc +"%Y-%m-%dT%H:%M:%SZ"`
-over `date -u +"%Y-%m-%dT%H:%M:%SZ"`.
+Use GNU-style explicit arguments/options when available over abbreviated arguments/options. Example: `date --universal +"%Y-%m-%dT%H:%M:%SZ"` or `date --utc +"%Y-%m-%dT%H:%M:%SZ"` over `date -u +"%Y-%m-%dT%H:%M:%SZ"`.
 
 Discard all empty trailing whitespace from every file.
 
