@@ -279,6 +279,10 @@
           "[dockerfile]"."editor.tabSize" = 4;
           "[markdown]"."editor.trimAutoWhitespace" = false;
           "[nix]"."editor.tabSize" = 2;
+          "[terraform]"."editor.codeActionsOnSave"."source.formatAll.terraform" = "explicit";
+          "[terraform]"."editor.defaultFormatter" = "hashicorp.terraform";
+          "[terraform]"."editor.formatOnSave" = false;
+          "[terraform]"."editor.tabSize" = 2;
           "files.exclude" = {
             "**/dot-flox" = true;
             "**/dot-terraform" = true;
