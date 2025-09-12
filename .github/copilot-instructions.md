@@ -7,6 +7,8 @@
 - Read [copilot-journals.md](./copilot-journals.md) for history.
 - Save summaries in [copilot-journals.md](./copilot-journals.md).
 - Organize entries chronologically, newest first.
+- Do not use fully qualified paths in journals. Example: Use `~` or `${HOME}` instead of `/home/username`.
+- Do not include any PII or sensitive information in journals. Example: Do not include usernames, email addresses, IP addresses, or any other information that could be used to identify an individual.
 
 ## Commands
 
