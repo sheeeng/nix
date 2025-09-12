@@ -2,42 +2,31 @@
 
 ## Journals
 
-- Use proper grammar and punctuations in the journals.
-- Use ISO8601 universal timestamp taken from terminal for the journals.
-- Read [copilot-journals.md](./copilot-journals.md) to understand history.
-- Save every summary in [copilot-journals.md](./copilot-journals.md).
-- Organize the journal entries chronologically in reverse order (newest first), including `1970-01-01T01:00:00Z` entry.
+- Use proper grammar and punctuation in journals.
+- Use ISO8601 timestamps from terminal.
+- Read [copilot-journals.md](./copilot-journals.md) for history.
+- Save summaries in [copilot-journals.md](./copilot-journals.md).
+- Organize entries chronologically, newest first.
 
 ## Commands
 
-Use explicit arguments/options over abbreviated arguments/options. Example:
+Use GNU-style explicit arguments over abbreviated ones. Example: Use `date --universal +"%Y-%m-%dT%H:%M:%SZ"` over `date -u +"%Y-%m-%dT%H:%M:%SZ"`. Use `set -o errexit` over `set -e` in shell scripts.
 
-Use `date --universal +"%Y-%m-%dT%H:%M:%SZ"` over `date -u +"%Y-%m-%dT%H:%M:%SZ"` in terminal commands.
-Use `set -o errexit` over `set -e` in shell scripts.
-
-Save suggested nix commands in [copilot-commands.md](./copilot-commands.md) for future reference.
+Save suggested nix commands in [copilot-commands.md](./copilot-commands.md).
 
 ## Markdown
 
-Use [reference-style links](https://www.markdownguide.org/basic-syntax/#reference-style-links). Example:
-
-```text
-See [hobbit hole][hobbit-hole].
-
-## References
-
-[hobbit-hole]: https://hobbit.hole
-```
+Use [reference-style links][reference-style-links].
 
 ## Nix
 
-Do not use Homebrew packages on macOS system.
-Search Nix store paths for dependencies.
-Setup identical shell from `nix develop` (via `flake.nix`) and nix-shell (via `shell.nix`) development environment.
-Use [Nix manual][nix-manual] and [Noogle][noogle] that provides searchable documentation for explaining Nix built-in functions and `nixpkgs` library functions.
-Use `nix-prefetch-git` command to get `sha256` value in `fetchFromGitHub` or related functions. Otherwise, use `lib.fakeSha256` as placeholder.
-Use `nixos-unstable` branch.
-Use Nix to install dependencies and packages.
+- Use Nix packages, not Homebrew on macOS.
+- Install GNU tools when available.
+- Search Nix store paths for dependencies.
+- Use identical shells from `nix develop` and `nix-shell`.
+- Reference [Nix manual][nix-manual] and [Noogle][noogle].
+- Use `nix-prefetch-git` for `sha256` or `lib.fakeSha256` placeholder.
+- Install from `nixpkgs-unstable`.
 
 ## Instructions
 
@@ -60,11 +49,9 @@ repositories without explicit approval.
 
 Keep comments if links are provided.
 
-Use GNU-style explicit arguments/options when available over abbreviated arguments/options. Example: `date --universal +"%Y-%m-%dT%H:%M:%SZ"` or `date --utc +"%Y-%m-%dT%H:%M:%SZ"` over `date -u +"%Y-%m-%dT%H:%M:%SZ"`.
+Use GNU-style explicit arguments over abbreviated ones. Example: Use `date --universal +"%Y-%m-%dT%H:%M:%SZ"` over `date -u +"%Y-%m-%dT%H:%M:%SZ"`. Use `set -o errexit` over `set -e` in shell scripts.
 
-Discard all empty trailing whitespace from every file.
-
-<!-- Both nix develop (flakes) or nix-shell (traditional) should have consistent and identical development environment. -->
+Discard all empty trailing whitespace from every file, except Markdown files.
 
 Please follow these guidelines when contributing:
 
@@ -103,6 +90,7 @@ Please follow these guidelines when contributing:
 -->
 
 [home-manager-options]: https://nix-community.github.io/home-manager/options.xhtml#opt-programs.claude-code.enable
+[reference-style-links]: https://www.markdownguide.org/basic-syntax/#reference-style-links
 [nix-manual]: https://nix.dev/manual/nix/latest
 [nixpkgs-packages]: https://search.nixos.org/packages?channel=unstable&type=packages&show=claude-code
 [noogle]: https://noogle.dev/
