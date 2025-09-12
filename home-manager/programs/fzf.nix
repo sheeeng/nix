@@ -1,9 +1,23 @@
 { pkgs, ... }:
 {
   programs.fzf = {
-    enable = true;
-    enableBashIntegration = true;
-    enableZshIntegration = true;
+    enable = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.fzf.enable
+    enableBashIntegration = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.fzf.enableBashIntegration
+    enableFishIntegration = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.fzf.enableFishIntegration
+    enableZshIntegration = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.fzf.enableZshIntegration
+    package = pkgs.fzf; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.fzf.package
+    changeDirWidgetCommand = null; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.fzf.changeDirWidgetCommand
+    changeDirWidgetOptions = [ ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.fzf.changeDirWidgetOptions
+    colors = { }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.fzf.colors
+    defaultCommand = null; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.fzf.defaultCommand
+    defaultOptions = [ ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.fzf.defaultOptions
+    fileWidgetCommand = null; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.fzf.fileWidgetCommand
+    fileWidgetOptions = [ ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.fzf.fileWidgetOptions
+    historyWidgetOptions = [ ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.fzf.historyWidgetOptions
+    tmux = {
+      enableShellIntegration = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.fzf.tmux.enableShellIntegration
+      shellIntegrationOptions = [ ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.fzf.tmux.shellIntegrationOptions
+    };
   };
 
   home.sessionVariables = {
