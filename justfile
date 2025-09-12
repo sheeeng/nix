@@ -224,7 +224,7 @@ format FORMATTER="auto":
         nix-shell --packages nixfmt --run 'find . -name "*.nix" -not -path "./result*" -exec nixfmt {} +'
         ;;
       *)
-        echo "❌ Unknown formatter: {{ FORMATTER }}"
+        echo "❌ Unknown formatter: {{ FORMATTER }}."
         echo "Available formatters:"
         echo "   auto (default)   - Use nix fmt"
         echo "   nix              - Use nix fmt explicitly"
@@ -467,7 +467,7 @@ update-nh:
       echo "🔨 Using nh for update..."
       nh home switch --update .
     else
-      echo "❌ nh is not available, falling back to regular update"
+      echo "❌ nh is not available, falling back to regular update."
       just update
     fi
 
@@ -478,7 +478,7 @@ update-nh-nom:
       echo "🔨 Using nh for update with nom..."
       just _nom "nh home switch --update ."
     else
-      echo "❌ nh is not available, falling back to regular update with nom"
+      echo "❌ nh is not available, falling back to regular update with nom."
       just update-nom
     fi
 
@@ -564,20 +564,30 @@ show-failed-builds:
 set-experimental-features: _check-must-be-root
     #!/usr/bin/env bash
     if grep --quiet "experimental-features =" /etc/nix/nix.conf; then
-      echo "✅ Experimental features already configured"
+      echo "✅ Experimental features already configured."
     else
       echo "⚙️  Setting experimental features..."
       echo "experimental-features = nix-command flakes" | sudo tee --append /etc/nix/nix.conf >/dev/null
-      echo "✅ Experimental features configured"
+      echo "✅ Experimental features configured."
     fi
 
 [doc('Set GitHub token for higher rate limit')]
 set-github-token: _check-must-be-root
     #!/usr/bin/env bash
-    if grep --quiet "access-tokens = github.com=" /etc/nix/nix.conf; then
-      echo "✅ GitHub token already configured"
+    if [ -z "${GITHUB_TOKEN_NIX:-}" ]; then
+      echo "❌ GITHUB_TOKEN_NIX is not set or empty."
+      echo "💡 Please set the GITHUB_TOKEN_NIX environment variable."
+      exit 1
+    fi
+
+    echo "✅ Token is set and its length is ${#GITHUB_TOKEN_NIX}."
+
+    if grep --quiet "^access-tokens = github.com=" /etc/nix/nix.conf; then
+      echo "⚙️  Replacing existing GitHub token configuration..."
+      nix-shell --packages gnused --run "sudo sed --in-place 's|^access-tokens = github.com=.*|access-tokens = github.com=${GITHUB_TOKEN_NIX}|' /etc/nix/nix.conf"
+      echo "✅ GitHub token configured."
     else
-      echo "⚙️  Setting GitHub token..."
+      echo "⚙️  Adding GitHub token configuration..."
       echo "access-tokens = github.com=${GITHUB_TOKEN_NIX}" | sudo tee --append /etc/nix/nix.conf >/dev/null
-      echo "✅ GitHub token configured"
+      echo "✅ GitHub token configured."
     fi
