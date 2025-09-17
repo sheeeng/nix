@@ -26,7 +26,7 @@ Use [reference-style links][reference-style-links].
 - Install GNU tools when available.
 - Search Nix store paths for dependencies.
 - Use identical shells from `nix develop` and `nix-shell`.
-- Reference [Nix manual][nix-manual] and [Noogle][noogle].
+- Reference [Nix manual][nix-manual] and [Noogle].
 - Use `nix-prefetch-git` for `sha256` or `lib.fakeSha256` placeholder.
 - Install from `nixpkgs-unstable`.
 
@@ -92,7 +92,7 @@ Please follow these guidelines when contributing:
 -->
 
 [home-manager-options]: https://nix-community.github.io/home-manager/options.xhtml#opt-programs.claude-code.enable
-[reference-style-links]: https://www.markdownguide.org/basic-syntax/#reference-style-links
 [nix-manual]: https://nix.dev/manual/nix/latest
 [nixpkgs-packages]: https://search.nixos.org/packages?channel=unstable&type=packages&show=claude-code
 [noogle]: https://noogle.dev/
+[reference-style-links]: https://www.markdownguide.org/basic-syntax/#reference-style-links
