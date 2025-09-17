@@ -11,6 +11,7 @@ in
 {
   home.packages = [
     # Use individual components instead of the full toolchain to avoid conflicts
+    inputs.fenix.packages.${pkgs.system}.latest.cabal-install
     inputs.fenix.packages.${pkgs.system}.latest.cargo
     inputs.fenix.packages.${pkgs.system}.latest.clippy
     inputs.fenix.packages.${pkgs.system}.latest.llvm-tools
