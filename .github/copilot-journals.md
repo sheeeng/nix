@@ -7,19 +7,21 @@
 Added `treefmt-vscode` extension from GitHub repository [https://github.com/isbecker/treefmt-vscode](https://github.com/isbecker/treefmt-vscode) by adding the following to the VS Code configuration:
 
 1. Added `vscodeExtPublisher` and `vscodeExtName` parameters to the `buildVscodeExtension` function.
-2. Fixed the extension declaration to properly use `lib.fakeSha256`.
-3. Used the actual hash `sha256-8NTkPbTfAJkKqhG25vE5WlAFuJ+kldXLQDeEFdQYP5M=` for the extension after fetching it from the GitHub repository.
-4. The hash was obtained using `nix-prefetch-git` command with the repository URL and commit revision.
-5. The extension is configured to use the specific commit `e91d2246e1a1a684ac2065f329ed09fd6cc9dd08` from April 26, 2025.
+1. Fixed the extension declaration to properly use `lib.fakeSha256`.
+1. Used the actual hash `sha256-8NTkPbTfAJkKqhG25vE5WlAFuJ+kldXLQDeEFdQYP5M=` for the extension after fetching it from the GitHub repository.
+1. The hash was obtained using `nix-prefetch-git` command with the repository URL and commit revision.
+1. The extension is configured to use the specific commit `e91d2246e1a1a684ac2065f329ed09fd6cc9dd08` from April 26, 2025.
 
 ### SHA256 Value Explanation
 
 In the output from `nix-prefetch-git`, there are two hash values provided:
 
 1. `sha256`: `14rz33a1b11p835xb5d4kyw0al2s77qyddhim859j06znhyy9m7h`
+
    - This is a Nix-specific base-32 encoded hash format
 
-2. `hash`: `sha256-8NTkPbTfAJkKqhG25vE5WlAFuJ+kldXLQDeEFdQYP5M=`
+1. `hash`: `sha256-8NTkPbTfAJkKqhG25vE5WlAFuJ+kldXLQDeEFdQYP5M=`
+
    - This is a base-64 encoded hash with the prefix `sha256-`
 
 For modern Nix usage (especially with flakes), you should use the `hash` field with the `sha256-` prefix intact. This format is called a "SRI hash" (Subresource Integrity hash) and is the preferred format in newer Nix code.
@@ -51,12 +53,12 @@ nix-shell --packages nix-prefetch-git --run 'nix-prefetch-git --url https://gith
 This command:
 
 1. Starts a temporary `nix-shell` with the `nix-prefetch-git` tool installed
-2. Uses `--run` to execute a command within that shell
-3. Runs `nix-prefetch-git` with:
+1. Uses `--run` to execute a command within that shell
+1. Runs `nix-prefetch-git` with:
    - `--url` pointing to the GitHub repository
    - `--rev` specifying the exact commit hash to fetch
-4. The command fetches the repository, calculates the hash, and outputs both the base-32 (`sha256`) and SRI format (`hash`) values
-5. It also provides additional metadata like the commit date and path to the cached source
+1. The command fetches the repository, calculates the hash, and outputs both the base-32 (`sha256`) and SRI format (`hash`) values
+1. It also provides additional metadata like the commit date and path to the cached source
 
 ## 1970-01-01T01:00:00Z
 
