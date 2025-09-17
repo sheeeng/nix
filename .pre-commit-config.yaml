@@ -43,7 +43,7 @@ repos:
       - id: terraform_fmt
         name: terraform format
   - repo: https://github.com/charliermarsh/ruff-pre-commit
-    rev: v0.12.12
+    rev: v0.13.0
     hooks:
       - id: ruff
         name: ruff
@@ -59,6 +59,11 @@ repos:
         name: conventional pre-commit
         stages: [commit-msg]
         args: [--strict]
+  - repo: https://github.com/executablebooks/mdformat
+    rev: 0.7.22
+    hooks:
+      - id: mdformat
+        additional_dependencies: [mdformat-gfm] # GitHub-flavored Markdown
   - repo: https://github.com/gitleaks/gitleaks
     rev: v8.28.0
     hooks:
@@ -74,8 +79,13 @@ repos:
               .*\.lock$|
               .envrc
           )$
+  - repo: https://github.com/igorshubovych/markdownlint-cli
+    rev: v0.45.0
+    hooks:
+      - id: markdownlint
+        files: \.md$
   - repo: https://github.com/nixos/nixfmt
-    rev: v1.0.0
+    rev: v1.0.1
     hooks:
       - id: nixfmt
   - repo: https://github.com/psf/black
@@ -94,4 +104,12 @@ repos:
       - id: shellcheck
         name: shellcheck
         args: []
+  - repo: https://github.com/tcort/markdown-link-check
+    rev: v3.13.7
+    hooks:
+      - id: markdown-link-check
+        entry: markdown-link-check
+        language: node
+        types: [file]
+        files: \.md$
 # keep-sorted end
