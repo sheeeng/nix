@@ -4,44 +4,89 @@ repos:
     hooks:
       # keep-sorted start
       - id: check-added-large-files
+        name: check-for-added-large-files
         args: ["--maxkb=10240"]
+      - id: check-ast
+        name: check-python-ast
+      - id: check-builtin-literals
+        name: check-builtin-type-constructor-use
       - id: check-case-conflict
+        name: check-for-case-conflicts
+      - id: check-docstring-first
+        name: check-docstring-is-first
       - id: check-executables-have-shebangs
+        name: check-that-executables-have-shebangs
+      - id: check-illegal-windows-names
+        name: check-illegal-windows-names
       - id: check-json
+        name: check-json
       - id: check-merge-conflict
+        name: check-for-merge-conflicts
         args: ["--assume-in-merge"]
+      - id: check-shebang-scripts-are-executable
+        name: check-that-scripts-with-shebangs-are-executable
+      - id: check-symlinks
+        name: check-for-broken-symlinks
       - id: check-toml
+        name: check-toml
       - id: check-vcs-permalinks
+        name: check-vcs-permalinks
+      - id: check-xml
+        name: check-xml
       - id: check-yaml
+        name: check-yaml
       - id: debug-statements
+        name: debug-statements-python
+      - id: destroyed-symlinks
+        name: detect-destroyed-symlinks
+      - id: detect-aws-credentials
+        name: detect-aws-credentials
+        args: [--allow-missing-credentials]
       - id: detect-private-key
+        name: detect-private-key
+      - id: double-quote-string-fixer
+        name: fix-double-quoted-strings
       - id: end-of-file-fixer
+        name: fix-end-of-files
         exclude: |
           (?x)^(
               .*\.lock$|
               .flox/env.json
           )$
+      - id: file-contents-sorter
+        name: file-contents-sorter
+      - id: fix-byte-order-marker
+        name: fix-utf-8-byte-order-marker
       - id: forbid-new-submodules
+        name: forbid-new-submodules
+      - id: forbid-submodules
+        name: forbid-submodules
       - id: mixed-line-ending
-        name: mixed-line-ending (crlf for powershell)
+        name: mixed-line-ending-crlf-for-powershell-files
         args: [--fix=crlf]
         files: \.(ps1|psm1|psd1|pwsh)$
       - id: mixed-line-ending
-        name: mixed-line-ending (lf for others)
+        name: mixed-line-ending-lf-for-other-files
         args: [--fix=lf]
         exclude: \.(ps1|psm1|psd1|pwsh)$
+      - id: name-tests-test
+        name: python-tests-naming
       - id: no-commit-to-branch
+        name: dont-commit-to-branch
+      - id: pretty-format-json
+        name: pretty-format-json
+        args: [--autofix, --no-ensure-ascii, --no-sort-keys, --indent=2]
+      - id: requirements-txt-fixer
+        name: fix-requirements-txt
+      - id: sort-simple-yaml
+        name: sort-simple-yaml-files
       - id: trailing-whitespace
+        name: trim-trailing-whitespace
         args: [--markdown-linebreak-ext=md]
         exclude: \.md$
         # keep-sorted end
 
   # keep-sorted start
-  - repo: https://github.com/antonbabenko/pre-commit-terraform
-    rev: v1.100.0
-    hooks:
-      - id: terraform_fmt
-        name: terraform format
   - repo: https://github.com/charliermarsh/ruff-pre-commit
     rev: v0.13.0
     hooks:
@@ -50,30 +95,31 @@ repos:
         types_or: [python, pyi]
         args: [--fix]
       - id: ruff-format
-        name: ruff format
+        name: ruff-format
         types_or: [python, pyi]
   - repo: https://github.com/compilerla/conventional-pre-commit
     rev: v4.2.0
     hooks:
       - id: conventional-pre-commit
-        name: conventional pre-commit
+        name: conventional-pre-commit
         stages: [commit-msg]
         args: [--strict]
   - repo: https://github.com/executablebooks/mdformat
     rev: 0.7.22
     hooks:
       - id: mdformat
+        name: mdformat
         additional_dependencies: [mdformat-gfm] # GitHub-flavored Markdown
   - repo: https://github.com/gitleaks/gitleaks
     rev: v8.28.0
     hooks:
       - id: gitleaks
-        name: detect hardcoded secrets
+        name: gitleaks
   - repo: https://github.com/google/keep-sorted
     rev: v0.7.1
     hooks:
       - id: keep-sorted
-        name: keep sorted
+        name: keep-sorted
         exclude: |
           (?x)^(
               .*\.lock$|
@@ -83,15 +129,19 @@ repos:
     rev: v0.45.0
     hooks:
       - id: markdownlint
+        name: markdownlint
         files: \.md$
   - repo: https://github.com/nixos/nixfmt
     rev: v1.0.1
     hooks:
       - id: nixfmt
+        name: nixfmt
+        files: \.nix$
   - repo: https://github.com/psf/black
     rev: 25.1.0
     hooks:
       - id: black
+        name: black
   - repo: https://github.com/rhysd/actionlint
     rev: v1.7.7
     hooks:
@@ -108,6 +158,7 @@ repos:
     rev: v3.13.7
     hooks:
       - id: markdown-link-check
+        name: markdown-link-check
         entry: markdown-link-check
         language: node
         types: [file]
