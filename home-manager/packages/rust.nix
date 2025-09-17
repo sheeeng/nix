@@ -11,7 +11,6 @@ in
 {
   home.packages = [
     # Use individual components instead of the full toolchain to avoid conflicts
-    inputs.fenix.packages.${pkgs.system}.latest.cabal-install
     inputs.fenix.packages.${pkgs.system}.latest.cargo
     inputs.fenix.packages.${pkgs.system}.latest.clippy
     inputs.fenix.packages.${pkgs.system}.latest.llvm-tools
@@ -25,10 +24,9 @@ in
     inputs.fenix.packages.${pkgs.system}.latest.rustfmt
     # inputs.fenix.packages.${pkgs.system}.latest.toolchain # Disabled to avoid rust-analyzer conflicts
 
-    pkgs.libiconv # # https://search.nixos.org/packages?channel=unstable&type=packages&show=libiconv
-
-    # Use nixpkgs rust-analyzer to avoid apple_sdk_11_0 issue
-    pkgs.rust-analyzer
+    pkgs.cabal-install # https://search.nixos.org/packages?channel=unstable&type=packages&show=cabal-install
+    pkgs.libiconv # https://search.nixos.org/packages?channel=unstable&type=packages&show=libiconv
+    pkgs.rust-analyzer # TODO: # Use nixpkgs rust-analyzer to avoid apple_sdk_11_0 issue. # https://search.nixos.org/packages?channel=unstable&type=packages&show=rust-analyzer
     # inputs.fenix.packages.${pkgs.system}.latest.rust-analyzer # Temporarily disabled due to apple_sdk_11_0 issue
     # inputs.fenix.packages.${pkgs.system}.rust-analyzer-vscode-extension # Temporarily disabled due to apple_sdk_11_0 issue
   ];
