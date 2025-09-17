@@ -18,53 +18,53 @@ This document lists all the configured keyboard shortcuts in your Nix-managed Ne
 
 ### NvimTree (File Explorer)
 
-| Shortcut | Action | Description |
-|----------|--------|-------------|
-| `⌃S` | Toggle NvimTree | Open/close the file tree explorer |
+| Shortcut | Action          | Description                       |
+| -------- | --------------- | --------------------------------- |
+| `⌃S`     | Toggle NvimTree | Open/close the file tree explorer |
 
 ## Search and Navigation
 
 ### Telescope (Fuzzy Finder)
 
-| Shortcut | Action | Description |
-|----------|--------|-------------|
-| `Space SH` | Search Help | Search through help documentation |
-| `Space SK` | Search Keymaps | Search through configured keymaps |
-| `Space SF` | Search Files | Find files in the project |
-| `Space SS` | Search Select | Select Telescope builtin commands |
-| `Space SW` | Search Word | Search for the current word under cursor |
-| `Space SG` | Search Grep | Live grep search |
-| `Space SD` | Search Diagnostics | Search through LSP diagnostics |
-| `Space SR` | Search Resume | Resume last search |
-| `Space S.` | Search Recent | Search recently opened files |
-| `Space Space` | Find Buffers | Find existing open buffers |
+| Shortcut      | Action             | Description                              |
+| ------------- | ------------------ | ---------------------------------------- |
+| `Space SH`    | Search Help        | Search through help documentation        |
+| `Space SK`    | Search Keymaps     | Search through configured keymaps        |
+| `Space SF`    | Search Files       | Find files in the project                |
+| `Space SS`    | Search Select      | Select Telescope builtin commands        |
+| `Space SW`    | Search Word        | Search for the current word under cursor |
+| `Space SG`    | Search Grep        | Live grep search                         |
+| `Space SD`    | Search Diagnostics | Search through LSP diagnostics           |
+| `Space SR`    | Search Resume      | Resume last search                       |
+| `Space S.`    | Search Recent      | Search recently opened files             |
+| `Space Space` | Find Buffers       | Find existing open buffers               |
 
 ### Searchbox (Incremental Search)
 
-| Shortcut | Action | Description |
-|----------|--------|-------------|
+| Shortcut  | Action             | Description              |
+| --------- | ------------------ | ------------------------ |
 | `Space S` | Incremental Search | Start incremental search |
 
 ### Spectre (Search and Replace)
 
-| Shortcut | Action | Mode | Description |
-|----------|--------|------|-------------|
-| `Space ⇧S` | Toggle Spectre | Normal | Open/close Spectre search and replace |
-| `Space SW` | Search Word | Normal | Search current word under cursor |
-| `Space SW` | Search Selection | Visual | Search currently selected text |
-| `Space SP` | Search in File | Normal | Search within current file only |
+| Shortcut   | Action           | Mode   | Description                           |
+| ---------- | ---------------- | ------ | ------------------------------------- |
+| `Space ⇧S` | Toggle Spectre   | Normal | Open/close Spectre search and replace |
+| `Space SW` | Search Word      | Normal | Search current word under cursor      |
+| `Space SW` | Search Selection | Visual | Search currently selected text        |
+| `Space SP` | Search in File   | Normal | Search within current file only       |
 
 ## Code Completion (nvim-cmp)
 
 ### Insert Mode Mappings
 
-| Shortcut | Action | Description |
-|----------|--------|-------------|
-| `⌃B` | Scroll Up | Scroll documentation up 4 lines |
-| `⌃F` | Scroll Down | Scroll documentation down 4 lines |
-| `⌃Space` | Complete | Trigger completion manually |
-| `⌃E` | Abort | Close completion menu |
-| `Enter` | Confirm | Accept selected completion item |
+| Shortcut | Action      | Description                       |
+| -------- | ----------- | --------------------------------- |
+| `⌃B`     | Scroll Up   | Scroll documentation up 4 lines   |
+| `⌃F`     | Scroll Down | Scroll documentation down 4 lines |
+| `⌃Space` | Complete    | Trigger completion manually       |
+| `⌃E`     | Abort       | Close completion menu             |
+| `Enter`  | Confirm     | Accept selected completion item   |
 
 ### Command Line Mappings
 
