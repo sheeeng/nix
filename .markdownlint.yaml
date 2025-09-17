@@ -1,0 +1,4 @@
+# https://github.com/DavidAnson/markdownlint/blob/main/schema/.markdownlint.yaml
+
+# Disable line length rule.
+MD013: false # line-length
