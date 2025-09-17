@@ -25,6 +25,7 @@ in
     # inputs.fenix.packages.${pkgs.system}.latest.toolchain # Disabled to avoid rust-analyzer conflicts
 
     pkgs.cabal-install # https://search.nixos.org/packages?channel=unstable&type=packages&show=cabal-install
+    pkgs.ghc # https://search.nixos.org/packages?channel=unstable&type=packages&show=ghc
     pkgs.libiconv # https://search.nixos.org/packages?channel=unstable&type=packages&show=libiconv
     pkgs.rust-analyzer # TODO: # Use nixpkgs rust-analyzer to avoid apple_sdk_11_0 issue. # https://search.nixos.org/packages?channel=unstable&type=packages&show=rust-analyzer
     # inputs.fenix.packages.${pkgs.system}.latest.rust-analyzer # Temporarily disabled due to apple_sdk_11_0 issue
