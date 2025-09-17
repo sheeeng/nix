@@ -17,7 +17,7 @@
 
   programs.helix = {
     # extraPackages = with pkgs; [
-    #   dockerfile-language-server-nodejs
+    #   dockerfile-language-server
     #   svelte-language-server
     #   tailwindcss-language-server
     #   vue-language-server
