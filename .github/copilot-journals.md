@@ -17,11 +17,9 @@ Added `treefmt-vscode` extension from GitHub repository [https://github.com/isbe
 In the output from `nix-prefetch-git`, there are two hash values provided:
 
 1. `sha256`: `14rz33a1b11p835xb5d4kyw0al2s77qyddhim859j06znhyy9m7h`
-
    - This is a Nix-specific base-32 encoded hash format
 
 1. `hash`: `sha256-8NTkPbTfAJkKqhG25vE5WlAFuJ+kldXLQDeEFdQYP5M=`
-
    - This is a base-64 encoded hash with the prefix `sha256-`
 
 For modern Nix usage (especially with flakes), you should use the `hash` field with the `sha256-` prefix intact. This format is called a "SRI hash" (Subresource Integrity hash) and is the preferred format in newer Nix code.
