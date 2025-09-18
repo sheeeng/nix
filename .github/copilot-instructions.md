@@ -30,6 +30,12 @@ Use [reference-style links][reference-style-links].
 - Use `nix-prefetch-git` for `sha256` or `lib.fakeSha256` placeholder.
 - Install from `nixpkgs-unstable`.
 
+## Secure Development
+
+- Use official documentation for security best practices. For example, refer to the [OWASP Cheat Sheet Series](https://cheatsheetseries.owasp.org/), the [CIS Benchmarks](https://www.cisecurity.org/cis-benchmarks/) for secure coding guidelines or [GitHub Actions Secure Use Reference](https://docs.github.com/en/actions/reference/security/secure-use).
+- Avoid hardcoding sensitive information like API keys, passwords, or secrets in the codebase. Use environment variables or secure vaults instead.
+- Regularly update dependencies to patch known vulnerabilities. Use tools like Dependabot or Renovate to automate this process.
+
 ## Instructions
 
 Use home-manager for managing user configuration whenever available instead of Nix's packages. Example: Use [home-manager options][home-manager-options] instead of installing it from [nixpkgs packages][nixpkgs-packages] directly.
