@@ -1,7 +1,8 @@
 # https://github.com/maxhbr/myconfig/blob/f8ec80ed9eeb74b9931816f9188c9bd998b3d82f/hosts/host.f13/role.work/azure-cli.nix
 
-_: { }
+# _: { }
 
+# See https://github.com/sheeeng/azure-cli-with-extensions project.
 # {
 #   pkgs,
 #   ...
@@ -19,21 +20,25 @@ _: { }
 #     })
 #   ];
 
-# _: {
-#   home.file = {
-#     ".azure/config" = {
-#       text = ''
-#         [core]
-#         collect_telemetry = false
-#         only_show_errors = false
+_: {
+  home.file = {
+    ".azure/config" = {
+      text = ''
+        [core]
+        collect_telemetry = false
+        only_show_errors = false
+        no_color = true
 
-#         [cloud]
-#         name = AzureCloud
+        [cloud]
+        name = AzureCloud
 
-#         [extension]
-#         use_dynamic_install = false
-#         run_after_dynamic_install = false
-#       '';
-#     };
-#   };
-# }
+        [extension]
+        use_dynamic_install = false
+        run_after_dynamic_install = false
+
+        [logging]
+        enable_log_file=no
+      '';
+    };
+  };
+}
