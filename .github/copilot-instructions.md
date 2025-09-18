@@ -32,7 +32,13 @@ Use [reference-style links][reference-style-links].
 
 ## Secure Development
 
-- Use official documentation for security best practices. For example, refer to the [OWASP Cheat Sheet Series](https://cheatsheetseries.owasp.org/), the [CIS Benchmarks](https://www.cisecurity.org/cis-benchmarks/) for secure coding guidelines or [GitHub Actions Secure Use Reference](https://docs.github.com/en/actions/reference/security/secure-use).
+- Use official documentation for security best practices.
+  - [Azure Security Best Practices And Patterns](https://learn.microsoft.com/en-us/azure/security/fundamentals/best-practices-and-patterns)
+  - [CIS Benchmarks](https://www.cisecurity.org/cis-benchmarks/)
+  - [GitHub Actions Secure Use Reference](https://docs.github.com/en/actions/reference/security/secure-use)
+  - [OWASP Cheat Sheet Series](https://cheatsheetseries.owasp.org/)
+  - [OWASP Top Ten](https://owasp.org/www-project-top-ten/)
+
 - Avoid hardcoding sensitive information like API keys, passwords, or secrets in the codebase. Use environment variables or secure vaults instead.
 - Regularly update dependencies to patch known vulnerabilities. Use tools like Dependabot or Renovate to automate this process.
 
@@ -102,3 +108,14 @@ Please follow these guidelines when contributing:
 [nixpkgs-packages]: https://search.nixos.org/packages?channel=unstable&type=packages&show=claude-code
 [noogle]: https://noogle.dev/
 [reference-style-links]: https://www.markdownguide.org/basic-syntax/#reference-style-links
+
+-patterns
+[cis-benchmarks]: https://www.cisecurity.org/cis-benchmarks/
+[github-actions-secure-use]: https://docs.github.com/en/actions/reference/security/secure-use
+[home-manager-options]: https://nix-community.github.io/home-manager/options.xhtml#opt-programs.claude-code.enable
+[nix-manual]: https://nix.dev/manual/nix/latest
+[nixpkgs-packages]: https://search.nixos.org/packages?channel=unstable&type=packages&show=claude-code
+[noogle]: https://noogle.dev/
+[owasp-cheat-sheet]: https://cheatsheetseries.owasp.org/
+[owasp-top-ten]: https://owasp.org/www-project-top-ten/
+[reference-style
