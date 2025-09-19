@@ -136,23 +136,23 @@
       # Append HISTFILE before running autin import to make it work properly
       atuin-import = lib.mkIf config.programs.atuin.enable "export HISTFILE && atuin import auto && unset HISTFILE";
 
-      gtl = "cd $(${pkgs.kubectl}/bin/git rev-parse --show-toplevel)";
-      k = "${pkgs.kubectl}/bin/kubectl";
-      kds = ''${pkgs.kubectl}/bin/kubectl get secrets -o go-template='{{range $k,$v := .data}}{{$k}}="{{($v | base64decode)}}"{{"\n"}}{{end}}' ''; # kube decode secrets (mind the space in the end to separate ' from '' :facepalm.nix:)
-      kgpi = ''${pkgs.kubectl}/bin/kubectl get pods --all-namespaces -o jsonpath="{.items[*].spec.containers[*].image}" | tr -s '[[:space:]]' '\n' | sort | uniq -c''; # kube get pods' images
-      ks = "${pkgs.kubectl}/bin/kubectl -n kube-system";
-      l = "${pkgs.eza}/bin/eza --long --all --header --classify=always --group-directories-first --time-style=long-iso --git";
-      ls = "${pkgs.eza}/bin/eza --group-directories-first --time-style=long-iso --git";
-      lsd = "${pkgs.eza}/bin/eza --long --header --git --only-dirs";
-      lse = "${pkgs.eza}/bin/eza --long --header --git --sort ext";
-      lsm = "${pkgs.eza}/bin/eza --long --header --git --sort mod";
-      lsn = "${pkgs.eza}/bin/eza --long --header --git --sort name";
-      lss = "${pkgs.eza}/bin/eza --long --header --git --sort size";
+      # gtl = "cd $(${pkgs.git}/bin/git rev-parse --show-toplevel)";
+      # k = "${pkgs.kubectl}/bin/kubectl";
+      # kds = ''${pkgs.kubectl}/bin/kubectl get secrets -o go-template='{{range $k,$v := .data}}{{$k}}="{{($v | base64decode)}}"{{"\n"}}{{end}}' ''; # kube decode secrets (mind the space in the end to separate ' from '' :facepalm.nix:)
+      # kgpi = ''${pkgs.kubectl}/bin/kubectl get pods --all-namespaces -o jsonpath="{.items[*].spec.containers[*].image}" | tr -s '[[:space:]]' '\n' | sort | uniq -c''; # kube get pods' images
+      # ks = "${pkgs.kubectl}/bin/kubectl -n kube-system";
+      # l = "${pkgs.eza}/bin/eza --long --all --header --classify=always --group-directories-first --time-style=long-iso --git";
+      # ls = "${pkgs.eza}/bin/eza --group-directories-first --time-style=long-iso --git";
+      # lsd = "${pkgs.eza}/bin/eza --long --header --git --only-dirs";
+      # lse = "${pkgs.eza}/bin/eza --long --header --git --sort ext";
+      # lsm = "${pkgs.eza}/bin/eza --long --header --git --sort mod";
+      # lsn = "${pkgs.eza}/bin/eza --long --header --git --sort name";
+      # lss = "${pkgs.eza}/bin/eza --long --header --git --sort size";
       reset-dock = "defaults delete com.apple.dock; killall Dock";
-      tf = "${pkgs.terraform}/bin/terraform";
+      # tf = "${pkgs.terraform}/bin/terraform";
       # mt = "cd $(mktemp --directory ${"TMPDIR:-/tmp"}/zombie.XXXXXXXXX)";
-      tg = "${pkgs.terragrunt}/bin/terragrunt";
-      tree = "${pkgs.eza}/bin/eza --tree";
+      # tg = "${pkgs.terragrunt}/bin/terragrunt";
+      # tree = "${pkgs.eza}/bin/eza --tree";
       # vi = "${pkgs.helix}/bin/hx";
       wttr = "${pkgs.curl}/bin/curl 'wttr.in/Oslo?format=3'"; # TODO: https://www.reddit.com/r/macapps/comments/1gg4k6o/comment/lupspio/
       wttr-all = "${pkgs.curl}/bin/curl 'wttr.in/{Helsfyr,Kuching,Kamakura,Lørenskog,Oslo,Tokyo}?format=3'";
@@ -177,6 +177,9 @@
         "line"
       ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.syntaxHighlighting.highlighters
       patterns = {
+        "rm --force --recursive *" = "fg=white,bold,bg=red";
+        "rm --recursive --force *" = "fg=white,bold,bg=red";
+        "rm -fr *" = "fg=white,bold,bg=red";
         "rm -rf *" = "fg=white,bold,bg=red";
       }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.syntaxHighlighting.patterns
       styles = {
