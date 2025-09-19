@@ -27,7 +27,7 @@
       plugins = [
         "agkozak/zsh-z"
         "aloxaf/fzf-tab"
-        "fdellwing/zsh-bat"
+        # "fdellwing/zsh-bat"
         "hlissner/zsh-autopair"
         "joshskidmore/zsh-fzf-history-search"
         "mafredri/zsh-async"
@@ -159,8 +159,8 @@
     }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.shellAliases
 
     shellGlobalAliases = {
-      UUID = "$(uuidgen | tr -d \\n)";
-      G = "| grep";
+      generate-uuid = "$(uuidgen | tr -d \\n)";
+      # G = "| grep";
     }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.shellGlobalAliases
 
     syntaxHighlighting = {
