@@ -33,6 +33,7 @@ Use [reference-style links][reference-style-links].
 ## Secure Development
 
 - Use official documentation for security best practices.
+
   - [Azure Security Best Practices And Patterns](https://learn.microsoft.com/en-us/azure/security/fundamentals/best-practices-and-patterns)
   - [CIS Benchmarks](https://www.cisecurity.org/cis-benchmarks/)
   - [GitHub Actions Secure Use Reference](https://docs.github.com/en/actions/reference/security/secure-use)
@@ -48,7 +49,9 @@ Use home-manager for managing user configuration whenever available instead of N
 
 Add development information and instructions to this file accordingly.
 
-Avoid unnecessary comments whenever possible.
+Avoid unnecessary comments whenever possible. Use correct punctuations for comments.
+
+Do not use slang shorthand words like "config", "util", "func", etc.
 
 Suggest concise, "Don't Repeat Yourself" (DRY), short, maintainable solutions.
 Suggest modifications to lists that are alphanumerically sorted in ascending
