@@ -53,15 +53,15 @@ in
         buffer-language-server = {
           command = "${buffer-language-server}/bin/buffer-language-server";
         };
-        terraform-ls = {
-          command = lib.getExe pkgs-unstable.terraform-ls; # "${pkgs.terraform-ls}/bin/terraform-ls";
-          args = [ "serve" ];
-          filetypes = [
-            "hcl"
-            "tf"
-            "tfvars"
-          ];
-        };
+        # terraform-ls = {
+        #   command = lib.getExe pkgs-unstable.terraform-ls; # "${pkgs.terraform-ls}/bin/terraform-ls";
+        #   args = [ "serve" ];
+        #   filetypes = [
+        #     "hcl"
+        #     "tf"
+        #     "tfvars"
+        #   ];
+        # };
       };
     };
   };
