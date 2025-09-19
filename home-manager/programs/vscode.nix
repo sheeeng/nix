@@ -121,9 +121,9 @@
                   owner = "isbecker";
                   repo = "treefmt-vscode";
                   rev = "e91d2246e1a1a684ac2065f329ed09fd6cc9dd08";
-                  sha256 = "sha256-8NTkPbTfAJkKqhG25vE5WlAFuJ+kldXLQDeEFdQYP5M=";
+                  sha256 = "14rz33a1b11p835xb5d4kyw0al2s77qyddhim859j06znhyy9m7h";
                 };
-                version = "2.2.1";
+                version = "unstable-2025-04-26";
                 vscodeExtName = "treefmt-vscode";
                 vscodeExtPublisher = "isbecker";
                 vscodeExtUniqueId = "isbecker.treefmt-vscode";
@@ -141,9 +141,9 @@
                 owner = "Azure";
                 repo = "vscode-aks-tools";
                 rev = "4de0348be590ab1bdbe88641208fd3a7ea4b3b38"; # 1.6.13
-                sha256 = "sha256-PfqZpZfV0deOvAlQuBl+3HC9+zlWvY7UHs/KsVHidZE=";
+                sha256 = "14bmw98v3jng3va8xgan77xvsw6wgqcvhl09pj7dglfmjyjrkyix";
               };
-              version = "1.6.13";
+              version = "unstable-2025-08-26";
               vscodeExtName = "vscode-aks-tools";
               vscodeExtPublisher = "ms-kubernetes-tools";
               vscodeExtUniqueId = "ms-kubernetes-tools.vscode-aks-tools";
@@ -159,9 +159,9 @@
                   owner = "microsoft";
                   repo = "vscode-remote-release";
                   rev = "1803940623da0ba648084b5ba0b1265b2b854ae4"; # main
-                  sha256 = "sha256-asyWrxqU10TZSBGdWV86GUUU+rkI4IWuKpvLoWIcH0w=";
+                  sha256 = "0k0z3iia3jwv5ap8bq08p7x18i8r79gmk78i93cl9mwl3aprdk3a";
                 };
-                version = "1.5.1";
+                version = "unstable-2024-12-18";
                 vscodeExtName = "remote-server";
                 vscodeExtPublisher = "ms-vscode";
                 vscodeExtUniqueId = "ms-vscode.remote-server";
@@ -180,9 +180,9 @@
                   owner = "fabric8-analytics";
                   repo = "fabric8-analytics-vscode-extension";
                   rev = "78853637aae6aa978dbaf19e920a7edede913eb3"; # v0.9.6
-                  sha256 = "sha256-NhLT4RUotsSn20MYmBiGIGkZIy5tJYas4+6oAVQAoZ4=";
+                  sha256 = "17m101a03a7fwfn8c9bd5qiijs90hqc9h623vfkw9di82phx64in";
                 };
-                version = "0.9.6";
+                version = "unstable-2025-06-05";
                 vscodeExtName = "fabric8-analytics";
                 vscodeExtPublisher = "redhat";
                 vscodeExtUniqueId = "redhat.fabric8-analytics";
@@ -201,9 +201,9 @@
                   owner = "tintinweb";
                   repo = "vscode-interactive-graphviz";
                   rev = "1074d8c264b05c9460aeacf1027fc5c61e43ac29"; # v0.3.5
-                  sha256 = "sha256-+nJPyG9myabawhIVrcU+ZrvZ/6RxiyknYHgv+zr8010=";
+                  sha256 = "0pfkzhxgnbvqc0kjk2vilkzxkfv67v2ss58jqbdadjb6dz44ywps";
                 };
-                version = "0.3.5";
+                version = "unstable-2022-10-28";
                 vscodeExtName = "graphviz-interactive-preview";
                 vscodeExtPublisher = "tintinweb";
                 vscodeExtUniqueId = "tintinweb.graphviz-interactive-preview";
@@ -222,9 +222,9 @@
                   owner = "usernamehw";
                   repo = "vscode-remove-empty-lines";
                   rev = "f7e38a316fbd5a317de7b58dbf8fbb81b4a66044"; # v1.0.1
-                  sha256 = "sha256-rKQL77WAwBIwoGlem7b6OZktRrzXj3s7jbscVjS4ArI=";
+                  sha256 = "1ch2p0s5c75vilxpp3yppi32v69rzav9npk9l0q15h40npphp95c";
                 };
-                version = "1.0.1";
+                version = "unstable-2023-02-28";
                 vscodeExtName = "remove-empty-lines";
                 vscodeExtPublisher = "usernamehw";
                 vscodeExtUniqueId = "usernamehw.remove-empty-lines";
