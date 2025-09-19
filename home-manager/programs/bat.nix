@@ -33,7 +33,7 @@
     config = {
       lessopen = false;
       # pager = "less --tabs=2 --RAW-CONTROL-CHARS --quit-if-one-screen --no-init";
-      pager = "${lib.getBin pkgs.moar}/bin/moar";
+      # pager = "${lib.getBin pkgs.moar}/bin/moar";
       style = "plain,numbers,changes,header";
       # theme = "OneHalfDark"; # Use `lib.mkForce value` or `lib.mkDefault value` to change the priority on any of these definitions.
     }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.bat.config
