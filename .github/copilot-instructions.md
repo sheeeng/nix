@@ -33,7 +33,6 @@ Use [reference-style links][reference-style-links].
 ## Secure Development
 
 - Use official documentation for security best practices.
-
   - [Azure Security Best Practices And Patterns](https://learn.microsoft.com/en-us/azure/security/fundamentals/best-practices-and-patterns)
   - [CIS Benchmarks](https://www.cisecurity.org/cis-benchmarks/)
   - [GitHub Actions Secure Use Reference](https://docs.github.com/en/actions/reference/security/secure-use)
