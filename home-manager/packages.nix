@@ -182,6 +182,7 @@
       (lib.hiPrio uutils-findutils) # https://search.nixos.org/packages?channel=unstable&type=packages&show=uutils-findutils
       (lib.hiPrio uutils-diffutils) # https://search.nixos.org/packages?channel=unstable&type=packages&show=uutils-diffutils
       unzip # https://search.nixos.org/packages?channel=unstable&type=packages&show=unzip
+      update-nix-fetchgit # https://search.nixos.org/packages?channel=unstable&type=packages&show=update-nix-fetchgit
       vhs # https://search.nixos.org/packages?channel=unstable&type=packages&show=vhs
       vifm # https://search.nixos.org/packages?channel=unstable&type=packages&show=vifm
       watch # https://search.nixos.org/packages?channel=unstable&type=packages&show=watch
