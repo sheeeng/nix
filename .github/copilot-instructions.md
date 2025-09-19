@@ -51,7 +51,10 @@ Add development information and instructions to this file accordingly.
 
 Avoid unnecessary comments whenever possible. Use correct punctuations for comments.
 
-Do not use slang shorthand words like "config", "util", "func", etc.
+Do not use slang shorthand words like "config", "util", "func", etc. Example:
+
+- Avoid `CONFIG_DIR`, use `CONFIGURATION_DIRECTORY`
+- Avoid `customConfigContent`, use `customConfigurationContent`.
 
 Suggest concise, "Don't Repeat Yourself" (DRY), short, maintainable solutions.
 Suggest modifications to lists that are alphanumerically sorted in ascending
