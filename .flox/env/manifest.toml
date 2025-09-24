@@ -39,12 +39,19 @@ uutils-findutils.pkg-path = "uutils-findutils"
 ## -------------------------------------------------------------------
 [vars]
 # INTRO_MESSAGE = "It's gettin' Flox in here"
+# FutureWarning: https://github.com/azure/azure-cli/pull/31821#issuecomment-3187572025
+# UserWarning: https://github.com/azure/azure-cli/issues/31591#issuecomment-3298542271
+PYTHONWARNINGS = "ignore::FutureWarning,ignore::UserWarning"
+FLOX_DISABLE_METRICS = "true"
 
 ## Activation Hook ---------------------------------------------------
 ##  ... run by _bash_ shell when you run 'flox activate'.
 ## -------------------------------------------------------------------
 [hook]
-on-activate = """
+on-activate = '''
+  export FLOX_DISABLE_METRICS="true"
+  flox config --set disable_metrics true
+
   echo ""
   echo "🚀 Activating Flox environment...."
   echo "Flox '$(flox --version)' located in '$(which flox)'."
