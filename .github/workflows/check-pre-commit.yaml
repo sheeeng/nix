@@ -39,6 +39,4 @@ jobs:
       - name: Activate Flox Environment
         uses: flox/activate-action@d08556cc1491f3608f5338faf35cfa152dba3d5c # v1.0.0
         with:
-          command: |
-            flox config --set disable_metrics true
-            pre-commit run --all-files
+          command: flox config --set disable_metrics true && pre-commit run --all-files
