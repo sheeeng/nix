@@ -49,7 +49,7 @@ FLOX_DISABLE_METRICS = "true"
 ## -------------------------------------------------------------------
 [hook]
 on-activate = '''
-  export FLOX_DISABLE_METRICS=1
+  export FLOX_DISABLE_METRICS=true
   flox config --set disable_metrics true
 
   echo ""
