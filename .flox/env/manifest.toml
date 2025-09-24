@@ -68,7 +68,7 @@ on-activate = '''
   echo "Pre-commit '$(pre-commit --version | awk '{print $2}' )' located in '$(which pre-commit)'."
   # keep-sorted end
   echo ""
-"""
+'''
 # on-activate = '''
 #   # -> Set variables, create files and directories
 #   # -> Perform initialization steps, e.g. create a python venv
