@@ -34,9 +34,13 @@ jobs:
 
       - name: Show Pre-Commit Version
         run: |
+          command -v flox >/dev/null && eval "$(flox activate)"
           flox activate -- pre-commit --version
 
       - name: Activate Flox Environment
         uses: flox/activate-action@d08556cc1491f3608f5338faf35cfa152dba3d5c # v1.0.0
         with:
-          command: flox config --set disable_metrics true && pre-commit run --all-files
+          command: |
+            command -v flox >/dev/null && eval "$(flox activate)"
+            flox config --set disable_metrics true
+            pre-commit run --all-files
