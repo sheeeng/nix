@@ -20,7 +20,7 @@ env:
 jobs:
   check-pre-commit:
     name: Check Pre-Commit
-    timeout-minutes: 5
+    timeout-minutes: 10
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
