@@ -27,7 +27,7 @@ jobs:
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
 
       - name: Install Flox
-        uses: flox/install-flox-action@ebc6882567b984bffb468828696e1ad22bbabc2d # v2.0.0
+        uses: flox/install-flox-action@a25f820b52f45ac0955289ccbb1184267b5abbe3 # v2.0.0
         with:
           channel: stable
           disable-metrics: true
