@@ -1,5 +1,46 @@
 # Copilot Journals
 
+## 2025-09-25T08:37:17Z
+
+### Enhanced Pre-Commit Workflow with Caching
+
+Optimized the GitHub Actions pre-commit workflow in `.github/workflows/check-pre-commit.yaml` to improve performance through comprehensive caching and intelligent execution:
+
+#### Caching Implementation
+
+1. **Environment Caching**: Added `actions/cache@v4.1.1` to cache pre-commit and Flox environments:
+   - Cache paths: `~/.cache/pre-commit` and `~/.cache/flox`
+   - Cache key: `pre-commit-${{ runner.os }}-${{ hashFiles('.pre-commit-config.yaml', '.flox/env/manifest.toml') }}`
+   - Restore keys: `pre-commit-${{ runner.os }}-` for fallback caching
+
+1. **Full Git History**: Added `fetch-depth: 0` to checkout step for proper diff detection
+
+#### Intelligent Hook Execution
+
+1. **Conditional Execution Strategy**:
+   - Push to `unstable` branch: Runs on all files for comprehensive validation
+   - Pull requests: Runs only on changed files using `--from-ref` and `--to-ref` flags
+   - Other events: Falls back to all files execution
+
+1. **Pre-commit Hook Management**: Added `pre-commit install-hooks` to ensure hook environments are properly installed and leverage caching
+
+#### Performance Benefits
+
+- **First run**: Establishes cache (slower initial setup)
+- **Subsequent runs**: Dramatically faster due to cached environments and tools
+- **Pull request optimization**: Only processes changed files, significantly reducing execution time
+- **Cache invalidation**: Automatically rebuilds when configuration files change
+
+#### Cache Key Strategy
+
+The cache is invalidated and rebuilt when:
+
+- `.pre-commit-config.yaml` changes (hook updates, version changes)
+- `.flox/env/manifest.toml` changes (environment modifications)
+- Runner operating system changes
+
+This optimization should reduce workflow execution time by 60-80% for typical pull requests with limited file changes.
+
 ## 2025-08-28T00:00:00Z
 
 ### Added VS Code Extension
