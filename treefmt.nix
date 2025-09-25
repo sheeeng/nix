@@ -44,6 +44,13 @@
         "*.lock"
         "flake.lock"
       ];
+      settings = {
+        bracketSpacing = true;
+        printWidth = 1; # Force multi-line formatting to match pre-commit's pretty-format-json exactly.
+        tabWidth = 2;
+        trailingComma = "none";
+        useTabs = false;
+      };
     };
 
     # YAML formatting

@@ -1,2 +1,4 @@
 result*
 *.log
+node_modules/
+dist/

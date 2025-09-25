@@ -76,6 +76,12 @@ repos:
       - id: pretty-format-json
         name: pretty-format-json
         args: [--autofix, --no-ensure-ascii, --no-sort-keys, --indent=2]
+        files: \.json$
+        exclude: |
+          (?x)^(
+              .*\.lock$|
+              flake\.lock
+          )$
       - id: requirements-txt-fixer
         name: fix-requirements-txt
       - id: sort-simple-yaml
@@ -104,12 +110,6 @@ repos:
         name: conventional-pre-commit
         stages: [commit-msg]
         args: [--strict]
-  - repo: https://github.com/executablebooks/mdformat
-    rev: 0.7.22
-    hooks:
-      - id: mdformat
-        name: mdformat
-        additional_dependencies: [mdformat-gfm] # GitHub-flavored Markdown
   - repo: https://github.com/gitleaks/gitleaks
     rev: v8.28.0
     hooks:
@@ -125,6 +125,12 @@ repos:
               .*\.lock$|
               .envrc
           )$
+  - repo: https://github.com/google/yamlfmt
+    rev: v0.17.2
+    hooks:
+      - id: yamlfmt
+        name: yamlfmt
+        args: [--formatter, retain_line_breaks_single=true]
   - repo: https://github.com/igorshubovych/markdownlint-cli
     rev: v0.45.0
     hooks:
