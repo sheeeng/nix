@@ -8,10 +8,12 @@ Optimized the GitHub Actions pre-commit workflow in `.github/workflows/check-pre
 
 #### Caching Implementation
 
-1. **Environment Caching**: Added `actions/cache@v4.1.1` to cache pre-commit and Flox environments:
+1. **Environment Caching**: Added `actions/cache@v4.3.0` to cache pre-commit and Flox environments:
    - Cache paths: `~/.cache/pre-commit` and `~/.cache/flox`
    - Cache key: `pre-commit-${{ runner.os }}-${{ hashFiles('.pre-commit-config.yaml', '.flox/env/manifest.toml') }}`
-   - Restore keys: `pre-commit-${{ runner.os }}-` for fallback caching
+   - Restore keys: Tiered fallback strategy for better cache hits:
+     - `pre-commit-${{ runner.os }}-${{ hashFiles('.pre-commit-config.yaml') }}` (pre-commit unchanged)
+     - `pre-commit-${{ runner.os }}-` (any previous cache for same OS)
 
 1. **Full Git History**: Added `fetch-depth: 0` to checkout step for proper diff detection
 
