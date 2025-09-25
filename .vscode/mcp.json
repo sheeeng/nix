@@ -1,7 +1,10 @@
 {
   "servers": {
     "everything": {
-      "args": ["-y", "@modelcontextprotocol/server-everything"],
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-everything"
+      ],
       "command": "npx"
     },
     "git": {
@@ -20,15 +23,28 @@
       "url": "https://api.githubcopilot.com/mcp/"
     },
     "memory": {
-      "args": ["-y", "@modelcontextprotocol/server-memory"],
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-memory"
+      ],
       "command": "npx"
     },
     "terraform": {
-      "args": ["run", "-i", "--rm", "hashicorp/terraform-mcp-server"],
+      "args": [
+        "run",
+        "-i",
+        "--rm",
+        "hashicorp/terraform-mcp-server"
+      ],
       "command": "docker"
     },
     "time": {
-      "args": ["run", "-i", "--rm", "mcp/time"],
+      "args": [
+        "run",
+        "-i",
+        "--rm",
+        "mcp/time"
+      ],
       "command": "docker"
     }
   }

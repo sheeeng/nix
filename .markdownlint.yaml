@@ -1,4 +1,7 @@
 # https://github.com/DavidAnson/markdownlint/blob/main/schema/.markdownlint.yaml
 
-# Disable line length rule.
+# Disable line-length rule.
 MD013: false # line-length
+
+# Disable no-bare-urls rule.
+MD034: false # no-bare-urls
