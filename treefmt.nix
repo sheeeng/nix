@@ -7,13 +7,11 @@
   programs.mdsh.enable = true;
 
   programs = {
-    # Nix formatting
     nixfmt = {
       enable = pkgs.hostPlatform.system != "riscv64-linux";
       package = pkgs.nixfmt-rfc-style;
     };
 
-    # Shell formatting
     shfmt = {
       enable = true;
       indent_size = 2;
@@ -22,11 +20,9 @@
       enable = pkgs.hostPlatform.system != "riscv64-linux";
     };
 
-    # Nix linting
     deadnix.enable = true;
     statix.enable = true;
 
-    # General formatting
     prettier = {
       enable = true;
       includes = [
@@ -53,7 +49,6 @@
       };
     };
 
-    # YAML formatting
     yamlfmt = {
       enable = true;
       settings = {
@@ -63,7 +58,6 @@
       };
     };
 
-    # TOML formatting (alternative to prettier-plugin-toml)
     taplo = {
       enable = true;
       settings = {
@@ -71,10 +65,8 @@
       };
     };
 
-    # Justfile formatting
     just.enable = true;
 
-    # Rust formatting (if you have Rust code)
     rustfmt.enable = true;
   };
 
