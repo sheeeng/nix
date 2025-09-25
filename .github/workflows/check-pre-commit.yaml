@@ -36,6 +36,7 @@ jobs:
             ~/.cache/flox
           key: pre-commit-${{ runner.os }}-${{ hashFiles('.pre-commit-config.yaml', '.flox/env/manifest.toml') }}
           restore-keys: |
+            pre-commit-${{ runner.os }}-${{ hashFiles('.pre-commit-config.yaml') }}
             pre-commit-${{ runner.os }}-
 
       - name: Install Flox
