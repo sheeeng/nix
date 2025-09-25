@@ -48,30 +48,46 @@ jobs:
 
       - name: Show Pre-Commit Version
         run: |
-          command -v flox >/dev/null && eval "$(flox activate)"
-          flox activate -- pre-commit --version
+          echo "Checking available tools..."
+          which flox || echo "flox not found in PATH."
+
+          echo "Attempting to activate flox environment with timeout..."
+          timeout 60 flox activate -- pre-commit --version || {
+            echo "Failed to activate flox environment or run pre-commit."
+            echo "Falling back to system pre-commit if available."
+            which pre-commit && pre-commit --version || echo "No pre-commit found."
+          }
 
       - name: Activate Flox Environment
         uses: flox/activate-action@d08556cc1491f3608f5338faf35cfa152dba3d5c # v1.0.0
         with:
           command: |
-            command -v flox >/dev/null && eval "$(flox activate)"
-            flox config --set disable_metrics true
+            set -o errexit  # Exit on any error.
 
-            # Install pre-commit environments if not cached
+            echo "Activating flox environment..."
+            command -v flox >/dev/null && eval "$(flox activate)" || {
+              echo "Failed to activate flox environment."
+              exit 1
+            }
+
+            # Configure flox.
+            flox config --set disable_metrics=true
+
+            # Install pre-commit environments if not cached.
+            echo "Installing pre-commit hooks..."
             pre-commit install-hooks
 
-            # Run pre-commit on all files for push to main branch, otherwise only on changed files
+            # Run pre-commit on all files for push to main branch, otherwise only on changed files.
             if [[ "${{ github.event_name }}" == "push" && "${{ github.ref }}" == "refs/heads/unstable" ]]; then
-              echo "Running pre-commit on all files (push to unstable branch)"
+              echo "Running pre-commit on all files (push to unstable branch)."
               pre-commit run --all-files
             else
-              echo "Running pre-commit on changed files only"
-              # For pull requests, run on files changed compared to the target branch
+              echo "Running pre-commit on changed files only."
+              # For pull requests, run on files changed compared to the target branch.
               if [[ "${{ github.event_name }}" == "pull_request" ]]; then
-                pre-commit run --from-ref origin/${{ github.base_ref }} --to-ref HEAD
+                pre-commit run --from-ref=origin/${{ github.base_ref }} --to-ref=HEAD
               else
-                # For other events, run on all files as fallback
+                # For other events, run on all files as fallback.
                 pre-commit run --all-files
               fi
             fi
