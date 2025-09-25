@@ -48,6 +48,8 @@ jobs:
 
       - name: Show Pre-Commit Version
         run: |
+          set -o xtrace  # set -x # Print a trace of simple commands, for commands, case commands, select commands, and arithmetic for commands and their arguments or associated word lists after they are expanded and before they are executed. The value of the PS4 variable is expanded and the resultant value is printed before the command and its expanded arguments.
+
           echo "Checking available tools..."
           which flox || echo "flox not found in PATH."
 
@@ -62,7 +64,7 @@ jobs:
         uses: flox/activate-action@d08556cc1491f3608f5338faf35cfa152dba3d5c # v1.0.0
         with:
           command: |
-            set -o errexit  # Exit on any error.
+            set -o errexit  # set -e # Exit immediately if a pipeline, which may consist of a single simple command, a list, or a compound command returns a non-zero status.
 
             echo "Activating flox environment..."
             command -v flox >/dev/null && eval "$(flox activate)" || {
