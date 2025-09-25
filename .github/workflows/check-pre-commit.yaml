@@ -73,7 +73,7 @@ jobs:
             }
 
             # Configure flox.
-            flox config --set disable_metrics=true
+            flox config --set disable_metrics true
 
             # Install pre-commit environments if not cached.
             echo "Installing pre-commit hooks..."
