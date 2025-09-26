@@ -49,6 +49,15 @@
       # https://superuser.com/questions/232457/zsh-output-whole-history/1061539#1061539
       histsearch() { fc -lim "*$@*" 1 } # https://superuser.com/a/1061539
 
+      # Switch to new branch from updated default branch.
+      git-switch-from-default-branch() {
+        default_branch=$(git remote show origin | awk '/HEAD branch/ {print $NF}')
+        git fetch origin
+        git switch $default_branch
+        git pull origin $default_branch
+        git switch --create "$1"
+      }
+
       # https://github.com/malev/dotfiles/blob/fbaa079eaaad4b5bf304c133fd05929f90c412d4/config/zsh.nix#L15-L16
       # bindkey '^p' history-search-backward
       # bindkey '^n' history-search-forward
