@@ -136,6 +136,7 @@
       moreutils # https://search.nixos.org/packages?channel=unstable&type=packages&show=moreutils
       # newsboat # https://search.nixos.org/packages?channel=unstable&type=packages&show=newsboat
       nh # https://search.nixos.org/packages?channel=unstable&type=packages&show=nh
+      nixfmt # https://search.nixos.org/packages?channel=unstable&type=packages&show=nixfmt
       nixos-option # https://search.nixos.org/packages?channel=unstable&type=packages&show=nixos-option
       nnn # https://search.nixos.org/packages?channel=unstable&type=packages&show=nnn
       # obsidian # https://search.nixos.org/packages?channel=unstable&type=packages&show=obsidian
