@@ -275,6 +275,17 @@
           # https://code.visualstudio.com/docs/getstarted/settings#_settings-json-file
 
           # Editor configurations.
+          "[dockercompose]" = {
+            "editor.insertSpaces" = true;
+            "editor.tabSize" = 2;
+            "editor.autoIndent" = "advanced";
+            "editor.quickSuggestions" = {
+              "other" = true;
+              "comments" = false;
+              "strings" = true;
+            };
+            "editor.defaultFormatter" = "redhat.vscode-yaml";
+          };
           "[dockerfile]"."editor.defaultFormatter" = "ms-azuretools.vscode-containers";
           "[dockerfile]"."editor.tabSize" = 4;
           "[markdown]"."editor.trimAutoWhitespace" = false;
@@ -370,12 +381,12 @@
           # Putting some conveniences.
           "files.autoSave" = "afterDelay";
           "files.autoSaveDelay" = 2000;
+          "github.copilot.nextEditSuggestions.enabled" = true;
           "github.copilot.chat.codeGeneration.useInstructionFiles" = true;
           "github.copilot.enable" = {
             "enabled" = true;
           };
           "update.showReleaseNotes" = false;
-
           # Extensions settings.
           "direnv.restart.automatic" = true;
           "gitlens.plusFeatures.enabled" = false;
