@@ -1,4 +1,4 @@
-name: Check Pre-Commit
+name: Run Pre-Commit via Flox
 
 permissions:
   contents: read
