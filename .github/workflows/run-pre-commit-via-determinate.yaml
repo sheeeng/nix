@@ -1,0 +1,71 @@
+name: Run Pre-Commit via Determinate
+
+permissions:
+  actions: write
+  contents: read
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+concurrency:
+  group: "${{ github.workflow }}-${{ github.head_ref || github.sha }}"
+  cancel-in-progress: true
+
+jobs:
+  run-pre-commit:
+    name: Run Pre-Commit
+    timeout-minutes: 20
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        with:
+          fetch-depth: 0
+
+      - uses: determinatesystems/nix-installer-action@45a18a69953f27af3c2bfad0a5e01c38ef2da462 # v20
+      - uses: determinatesystems/magic-nix-cache-action@9934a5f127967bcd92e99961e365730ba57253de # v13
+      - uses: determinatesystems/flake-checker-action@3b006c65b880ac90c7894f7d59b892008787cbec # v12
+
+      - name: Show Pre-Commit Version
+        timeout-minutes: 15 # Allow sufficient buffer time for Nix to rebuild Nix store.
+        run: |
+          nix develop --command bash -c '
+            if ! command -v pre-commit &> /dev/null; then
+              echo "Missing pre-commit tool."
+              exit 1
+            fi
+            echo "Found pre-commit $(pre-commit --version | cut --delimiter='\'' '\'' --fields=2) in Nix environment."
+          '
+
+      - name: Install Pre-Commit
+        timeout-minutes: 1 # Nix store should already be built and cached.
+        run: |
+          nix develop --command bash -c '
+            echo "Installing pre-commit hooks..."
+            pre-commit install-hooks
+          '
+      - name: Run Pre-Commit
+        timeout-minutes: 1 # Nix store should already be built and cached.
+        run: |
+          nix develop --command bash -c '
+            echo "Pre-Commit Version: $(pre-commit --version)"
+            echo "Installing pre-commit hooks..."
+            pre-commit install-hooks
+            # Run pre-commit on all files for push to main branch, otherwise only on changed files.
+            if [[ "${{ github.event_name }}" == "push" && "${{ github.ref }}" == "refs/heads/main" ]]; then
+              echo "Running pre-commit on all files (push to main branch)"
+              pre-commit run --all-files
+            else
+              echo "Running pre-commit on changed files only"
+              # For pull requests, run on files changed compared to the target branch.
+              if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+                pre-commit run --from-ref=origin/${{ github.base_ref }} --to-ref=HEAD
+              else
+                # For other events, run on all files as fallback.
+                pre-commit run --all-files
+              fi
+            fi
+          '
