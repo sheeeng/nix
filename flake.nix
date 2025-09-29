@@ -269,6 +269,14 @@
         formatting = treefmtEval.${pkgs.system}.config.build.check self;
       });
 
+      # for `nix develop` - provides development shell
+      devShells = eachSystem (
+        pkgs:
+        import ./shell.nix {
+          inherit pkgs;
+        }
+      );
+
       nixosConfigurations = {
         desktop = nixosConfiguration "desktop" "x86_64-linux";
         laptop = nixosConfiguration "laptop" "x86_64-linux";
