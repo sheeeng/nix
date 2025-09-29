@@ -73,6 +73,7 @@ repos:
         name: python-tests-naming
       - id: no-commit-to-branch
         name: dont-commit-to-branch
+        stages: [manual] # https://pre-commit.com/#confining-hooks-to-run-at-certain-stages
       - id: pretty-format-json
         name: pretty-format-json
         args: [--autofix, --no-ensure-ascii, --no-sort-keys, --indent=2]
