@@ -33,6 +33,7 @@ Use [reference-style links][reference-style-links].
 ## Secure Development
 
 - Use official documentation for security best practices.
+
   - [Azure Security Best Practices And Patterns][azure-security-best-practices]
   - [CIS Benchmarks][cis-benchmarks]
   - [GitHub Actions Secure Use Reference][github-actions-secure-use-reference]
@@ -118,4 +119,4 @@ Please follow these guidelines when contributing:
 [noogle]: https://noogle.dev/
 [owasp-cheat-sheet]: https://cheatsheetseries.owasp.org/
 [owasp-top-ten]: https://owasp.org/www-project-top-ten/
-[reference-style-links]: https://www.markdownguide.org/basic-syntax/#reference-style-links
+[reference-style-links]: https://www.markdownguide.org/basic-syntax#reference-style-links
