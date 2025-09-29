@@ -1,26 +1,14 @@
-# https://github.com/EmergentMind/nix-config/blob/f9168993316e8ff99381ff5dd3c7398273439618/shell.nix
-# https://github.com/NovaViper/NixConfig/blob/2337db1a332b9aeb1e8fb850f77c14ac91367a32/shell.nix
 # Shell for bootstrapping flake-enabled nix and other tooling
 # You can enter it through 'nix develop' or (legacy) 'nix-shell'
 {
-  pkgs ?
-    # If pkgs is not defined, instantiate nixpkgs from locked commit
-    let
-      lock = (builtins.fromJSON (builtins.readFile ./flake.lock)).nodes.nixpkgs.locked;
-      nixpkgs = fetchTarball {
-        url = "https://github.com/nixos/nixpkgs/archive/${lock.rev}.tar.gz";
-        sha256 = lock.narHash;
-      };
-    in
-    import nixpkgs { },
-  checks,
+  pkgs ? import <nixpkgs> { },
   ...
 }:
-let
-  checks-lib = checks.${pkgs.system};
-in
+
 {
   default = pkgs.mkShell {
+    name = "nix-dev-shell";
+
     FLAKE = ".";
     NH_FLAKE = ".";
 
@@ -33,7 +21,7 @@ in
     NIX_CONFIG = "use-xdg-base-directories = true\nextra-experimental-features = nix-command flakes";
 
     PKCS = "${pkgs.opensc}/lib/opensc-pkcs11.so";
-    buildInputs = checks-lib.pre-commit-check.enabledPackages;
+
     nativeBuildInputs = with pkgs; [
       # Nix toolkit
       nix
@@ -47,7 +35,7 @@ in
       gnupg
       openssh
       vim # Needed for age/sops
-      sops # This one is from the overlay
+      sops
       ssh-to-age
       age-plugin-fido2-hmac
       age-plugin-yubikey
@@ -63,9 +51,10 @@ in
       git-crypt
       pre-commit
     ];
+
     shellHook = ''
-      ${checks-lib.pre-commit-check.shellHook}
-        export EDITOR=vim
+      echo "Development shell loaded!"
+      export EDITOR=vim
     '';
   };
 }
