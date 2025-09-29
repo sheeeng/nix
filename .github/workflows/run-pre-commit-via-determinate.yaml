@@ -26,7 +26,7 @@ jobs:
           fetch-depth: 0
 
       - uses: determinatesystems/nix-installer-action@45a18a69953f27af3c2bfad0a5e01c38ef2da462 # v20
-      - uses: determinatesystems/magic-nix-cache-action@9934a5f127967bcd92e99961e365730ba57253de # v13
+      - uses: determinatesystems/magic-nix-cache-action@@565684385bcd71bad329742eefe8d12f2e765b39 # v13
       - uses: determinatesystems/flake-checker-action@3b006c65b880ac90c7894f7d59b892008787cbec # v12
 
       - name: Show Pre-Commit Version
