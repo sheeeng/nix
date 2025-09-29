@@ -286,6 +286,7 @@
             };
             "editor.defaultFormatter" = "redhat.vscode-yaml";
           };
+          "[github-actions-workflow]"."editor.defaultFormatter" = "redhat.vscode-yaml";
           "[dockerfile]"."editor.defaultFormatter" = "ms-azuretools.vscode-containers";
           "[dockerfile]"."editor.tabSize" = 4;
           "[markdown]"."editor.trimAutoWhitespace" = false;
@@ -386,6 +387,9 @@
           "github.copilot.enable" = {
             "enabled" = true;
           };
+          "settingsSync.ignoredSettings" = [
+            "github.copilot.chat.codeGeneration.instructions"
+          ];
           "update.showReleaseNotes" = false;
           # Extensions settings.
           "direnv.restart.automatic" = true;
