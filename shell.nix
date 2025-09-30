@@ -46,7 +46,7 @@
       pre-commit # https://search.nixos.org/packages?channel=unstable&type=packages&show=pre-commit
       pre-commit-hook-ensure-sops # https://search.nixos.org/packages?channel=unstable&type=packages&show=pre-commit-hook-ensure-sops
 
-      cabal # https://search.nixos.org/packages?channel=unstable&type=packages&show=cabal
+      cabal-install # https://search.nixos.org/packages?channel=unstable&type=packages&show=cabal-install
       ghc # https://search.nixos.org/packages?channel=unstable&type=packages&show=ghc
     ];
 
