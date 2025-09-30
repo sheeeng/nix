@@ -1,7 +1,8 @@
 # nixos
 
 [![Built with Nix](https://builtwithnix.org/badge.svg)](https://builtwithnix.org)
-[![Github](https://img.shields.io/badge/github-white.svg?style=for-the-badge&logo=github&logocolor=white&color=121011&test.svg)](https://github.com/sheeeng/nix)
+[![Github](https://img.shields.io/badge/github-white.svg?style=for-the-badge&logo=github&logoColor=white&color=121011#gh-dark-mode-only)](https://github.com/sheeeng/nix)
+[![Github](https://img.shields.io/badge/github-black.svg?style=for-the-badge&logo=github&logoColor=black&color=f6f8fa#gh-light-mode-only)](https://github.com/sheeeng/nix)
 
 ## Getting started
 
