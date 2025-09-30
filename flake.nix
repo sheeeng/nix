@@ -272,7 +272,7 @@
 
       # for `nix develop` - provides development shell
       devShells = eachSystem (pkgs: {
-        default = import ./shell.nix {
+        default = import ./minimal-shell.nix {
           inherit pkgs;
         };
 

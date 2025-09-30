@@ -11,6 +11,7 @@ pkgs.mkShell {
     git # https://search.nixos.org/packages?channel=unstable&type=packages&show=git
     gnupg # https://search.nixos.org/packages?channel=unstable&type=packages&show=gnupg
     nix # https://search.nixos.org/packages?channel=unstable&type=packages&show=nix
+    nixfmt-rfc-style # https://search.nixos.org/packages?channel=unstable&type=packages&show=nixfmt-rfc-style
     pre-commit # https://search.nixos.org/packages?channel=unstable&type=packages&show=pre-commit
     vim # https://search.nixos.org/packages?channel=unstable&type=packages&show=vim
     # keep-sorted end
