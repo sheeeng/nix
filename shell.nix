@@ -40,16 +40,17 @@
       age-plugin-ledger
 
       # Git setup
-      gitFull
-      git-extras
-      tig
-      just
-      git-credential-oauth
-      git-crypt
-      pre-commit
+      gitFull # https://search.nixos.org/packages?channel=unstable&type=packages&show=gitFull
+      git-extras # https://search.nixos.org/packages?channel=unstable&type=packages&show=git-extras
+      tig # https://search.nixos.org/packages?channel=unstable&type=packages&show=tig
+      just # https://search.nixos.org/packages?channel=unstable&type=packages&show=just
+      git-credential-oauth # https://search.nixos.org/packages?channel=unstable&type=packages&show=git-credential-oauth
+      git-crypt # https://search.nixos.org/packages?channel=unstable&type=packages&show=git-crypt
+      pre-commit # https://search.nixos.org/packages?channel=unstable&type=packages&show=pre-commit
+      pre-commit-hook-ensure-sops # https://search.nixos.org/packages?channel=unstable&type=packages&show=pre-commit-hook-ensure-sops
 
-      cabal
-      ghc
+      cabal # https://search.nixos.org/packages?channel=unstable&type=packages&show=cabal
+      ghc # https://search.nixos.org/packages?channel=unstable&type=packages&show=ghc
     ];
 
     shellHook = ''
