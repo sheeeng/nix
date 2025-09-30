@@ -63,7 +63,7 @@ jobs:
       - name: Show Pre-Commit Version
         timeout-minutes: 15 # Allow sufficient buffer time for Nix to rebuild Nix store.
         run: |
-          nix develop --command bash -c "
+          nix develop .#pre-commit --command bash -c "
             if ! command -v pre-commit &> /dev/null; then
               echo 'Missing pre-commit tool.'
               exit 1
@@ -74,14 +74,14 @@ jobs:
       - name: Install Pre-Commit
         timeout-minutes: 5 # Nix store should already be built and cached. But, install hooks from external sources may take time.
         run: |
-          nix develop --command bash -c "
+          nix develop .#pre-commit --command bash -c "
             echo 'Installing pre-commit hooks...'
             pre-commit install-hooks
           "
       - name: Run Pre-Commit
         timeout-minutes: 5 # Nix store should already be built and cached. But, run hooks on all files may take time.
         run: |
-          nix develop --command bash -c "
+          nix develop .#pre-commit --command bash -c "
             echo 'Pre-Commit Version: $(pre-commit --version)'
             echo 'Installing pre-commit hooks...'
             pre-commit install-hooks
