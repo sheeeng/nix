@@ -1,10 +1,9 @@
-# Minimal shell for quick development
 {
   pkgs ? import <nixpkgs> { },
 }:
 
 pkgs.mkShell {
-  name = "nix-dev-minimal";
+  name = "minimal-shell";
 
   buildInputs = with pkgs; [
     # keep-sorted start
@@ -22,7 +21,7 @@ pkgs.mkShell {
     export PATH="${pkgs.uutils-coreutils-noprefix}/bin:$PATH"
 
     echo ""
-    echo "🚀 Shell loaded!"
+    echo "🚀 Minimal shell loaded!"
     echo ""
 
     # Set up environment variables if we're in GitHub Actions.
