@@ -40,4 +40,10 @@ nix why-depends /run/current-system nodejs 2>/dev/null | head -20
 nix eval --json '.#darwinConfigurations.TP95V9LWWL.pkgs.nodejs.version' 2>/dev/null || echo "nodejs not found in pkgs"
 
 nix eval --json '.#darwinConfigurations.TP95V9LWWL.pkgs.nodejs_20.version' 2>/dev/null || echo "nodejs_20 not found"
+
+nix build '.#checks.aarch64-darwin.formatting' --no-link --print-build-logs
+
+nix flake check --no-build 2>&1
+
+nix run '.#formatter' -- --check .
 ```
