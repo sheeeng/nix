@@ -68,7 +68,9 @@
       "automerge": true,
       "automergeType": "pr",
       "platformAutomerge": true,
-      "schedule": "earlyMondays",
+      "schedule": [
+        "before 3am on Monday"
+      ],
       "labels": [
         "dependencies",
         "pre-commit"
