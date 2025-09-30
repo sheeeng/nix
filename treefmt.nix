@@ -29,20 +29,21 @@
         "*.css"
         "*.html"
         "*.js"
-        "*.json"
-        "*.json5"
-        "*.md"
-        "*.mdx"
         "*.yaml"
         "*.yml"
       ];
       excludes = [
+        "*.json"
+        "*.json5"
         "*.lock"
+        "*.md"
+        "*.mdx"
         "flake.lock"
+        ".github/**/*.md"
       ];
       settings = {
         bracketSpacing = true;
-        printWidth = 1; # Force multi-line formatting to match pre-commit's pretty-format-json exactly.
+        printWidth = 120; # More reasonable print width for general files
         tabWidth = 2;
         trailingComma = "none";
         useTabs = false;
