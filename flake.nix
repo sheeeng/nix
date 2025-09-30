@@ -271,26 +271,17 @@
       });
 
       # for `nix develop` - provides development shell
-      devShells = eachSystem (pkgs: {
-        default =
-          import ./shell.nix
-            {
-              inherit pkgs;
-            }
-            .pre-commit;
-        pre-commit =
-          import ./shell.nix
-            {
-              inherit pkgs;
-            }
-            .pre-commit;
-        minimal =
-          import ./shell.nix
-            {
-              inherit pkgs;
-            }
-            .minimal;
-      });
+      devShells = eachSystem (
+        pkgs:
+        let
+          shells = import ./shell.nix { inherit pkgs; };
+        in
+        {
+          default = shells.pre-commit;
+          pre-commit = shells.pre-commit;
+          minimal = shells.minimal;
+        }
+      );
 
       nixosConfigurations = {
         desktop = nixosConfiguration "desktop" "x86_64-linux";
