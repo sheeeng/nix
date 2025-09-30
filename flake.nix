@@ -272,15 +272,24 @@
 
       # for `nix develop` - provides development shell
       devShells = eachSystem (pkgs: {
-        default = import ./minimal-shell.nix {
-          inherit pkgs;
-        };
-
-        full = (import ./shell.nix { inherit pkgs; }).default;
-
-        minimal = import ./minimal-shell.nix {
-          inherit pkgs;
-        };
+        default =
+          import ./shell.nix
+            {
+              inherit pkgs;
+            }
+            .pre-commit;
+        pre-commit =
+          import ./shell.nix
+            {
+              inherit pkgs;
+            }
+            .pre-commit;
+        minimal =
+          import ./shell.nix
+            {
+              inherit pkgs;
+            }
+            .minimal;
       });
 
       nixosConfigurations = {
