@@ -10,6 +10,9 @@
   "nix": {
     "enabled": true
   },
+  "pre-commit": {
+    "enabled": true
+  },
   "customManagers": [
     {
       "customType": "regex",
@@ -55,6 +58,21 @@
       ],
       "description": "Update Nix fetchFromGitHub revisions.",
       "enabled": true
+    },
+    {
+      "matchManagers": [
+        "pre-commit"
+      ],
+      "description": "Group pre-commit hook updates together.",
+      "groupName": "pre-commit hooks",
+      "automerge": true,
+      "automergeType": "pr",
+      "platformAutomerge": true,
+      "schedule": "earlyMondays",
+      "labels": [
+        "dependencies",
+        "pre-commit"
+      ]
     }
   ]
 }
