@@ -1,8 +1,20 @@
 # Copilot Commands
 
-## Node.js Test Skipping Commands
+## Nix
 
 ```shell
+# Enter the default minimal shell
+nix develop
+
+# Enter the full development shell with all tools
+nix develop .#full
+
+# Enter the minimal shell explicitly
+nix develop .#minimal
+
+# Check what shells are available
+nix flake show
+
 # Fast nix-darwin switch without Node.js tests (recommended)
 just switch-fast-nom
 
