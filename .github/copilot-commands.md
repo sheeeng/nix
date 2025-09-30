@@ -26,6 +26,17 @@ grep --recursive --include="*.nix" "nodejs" home-manager/packages/
 
 # Verify Node.js overlay is applied
 nix eval --json '.#darwinConfigurations.TP95V9LWWL.pkgs.nodejs.pname'
+
+nix flake show --json | jq '.devShells."aarch64-darwin" // .devShells."x86_64-linux" // {} | keys[]'
+
+# Verify renovate.json configuration (using renovate-config-validator)
+nix shell github:nixos/nixpkgs/nixpkgs-unstable#nodejs-slim --command npx --yes --package renovate -- renovate-config-validator --strict
+
+# Alternative: Verify renovate.json configuration (dry-run validates config)
+nix shell github:nixos/nixpkgs/nixpkgs-unstable#nodejs-slim --command npx --yes renovate --dry-run --log-level=debug
+
+# Check Renovate version
+nix shell github:nixos/nixpkgs/nixpkgs-unstable#nodejs-slim --command npx --yes renovate --version
 ```
 
 ## Historical Commands
