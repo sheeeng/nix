@@ -271,12 +271,17 @@
       });
 
       # for `nix develop` - provides development shell
-      devShells = eachSystem (
-        pkgs:
-        import ./shell.nix {
+      devShells = eachSystem (pkgs: {
+        default = import ./shell.nix {
           inherit pkgs;
-        }
-      );
+        };
+
+        full = (import ./shell.nix { inherit pkgs; }).default;
+
+        minimal = import ./minimal-shell.nix {
+          inherit pkgs;
+        };
+      });
 
       nixosConfigurations = {
         desktop = nixosConfiguration "desktop" "x86_64-linux";
