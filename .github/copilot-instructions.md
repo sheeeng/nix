@@ -113,7 +113,7 @@ Please follow these guidelines when contributing:
 [azure-security-best-practices]: https://learn.microsoft.com/en-us/azure/security/fundamentals/best-practices-and-patterns
 [cis-benchmarks]: https://www.cisecurity.org/cis-benchmarks/
 [github-actions-secure-use-reference]: https://docs.github.com/en/actions/reference/security/secure-use
-[home-manager-options]: https://nix-community.github.io/home-manager/options.xhtml#opt-programs.claude-code.enable
+[home-manager-options]: https://nix-community.github.io/home-manager/options.xhtml
 [nix-manual]: https://nix.dev/manual/nix/latest
 [nixpkgs-packages]: https://search.nixos.org/packages?channel=unstable&type=packages&show=claude-code
 [noogle]: https://noogle.dev/
