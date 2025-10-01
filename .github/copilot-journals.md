@@ -1,5 +1,50 @@
 # Copilot Journals
 
+## 2025-10-01T07:53:36Z
+
+### Fixed Treefmt Formatting in Flake
+
+Resolved a treefmt formatting error in `flake.nix` that occurred during the code formatting check. The formatter had automatically converted explicit attribute assignments to the more idiomatic Nix `inherit` syntax:
+
+#### Changes Applied
+
+**Before (explicit assignments):**
+
+```nix
+{
+  default = shells.pre-commit;
+  pre-commit = shells.pre-commit;
+  minimal = shells.minimal;
+}
+```
+
+**After (inherit syntax):**
+
+```nix
+{
+  default = shells.pre-commit;
+  inherit (shells) pre-commit;
+  inherit (shells) minimal;
+}
+```
+
+#### Technical Details
+
+- **Tool**: treefmt v2.3.1 detected the formatting inconsistency
+- **File**: `flake.nix` lines 278-283 in the `devShells` output section
+- **Pattern**: Replaced redundant attribute assignments with `inherit (shells)` syntax
+- **Benefit**: More concise and idiomatic Nix code following established conventions
+
+#### Nix Inherit Syntax
+
+The `inherit` keyword in Nix is syntactic sugar for attribute assignment:
+
+- `inherit (source) attr;` is equivalent to `attr = source.attr;`
+- When multiple attributes come from the same source, `inherit` reduces repetition
+- This is considered best practice in the Nix community for cleaner code
+
+The fix ensures the codebase follows Nix formatting standards and passes treefmt checks.
+
 ## 2025-09-25T08:37:17Z
 
 ### Enhanced Pre-Commit Workflow with Caching
