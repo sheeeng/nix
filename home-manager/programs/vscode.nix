@@ -289,7 +289,7 @@
           "[github-actions-workflow]"."editor.defaultFormatter" = "redhat.vscode-yaml";
           "[dockerfile]"."editor.defaultFormatter" = "ms-azuretools.vscode-containers";
           "[dockerfile]"."editor.tabSize" = 4;
-          "[markdown]"."editor.defaultFormatter" = "DavidAnson.vscode-markdownlint";
+          "[markdown]"."editor.defaultFormatter" = "esbenp.prettier-vscode";
           "[markdown]"."editor.trimAutoWhitespace" = false;
           "[nix]"."editor.tabSize" = 2;
           "[terraform]"."editor.codeActionsOnSave"."source.formatAll.terraform" = "explicit";
