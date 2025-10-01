@@ -278,8 +278,8 @@
         in
         {
           default = shells.pre-commit;
-          pre-commit = shells.pre-commit;
-          minimal = shells.minimal;
+          inherit (shells) pre-commit;
+          inherit (shells) minimal;
         }
       );
 
