@@ -301,6 +301,12 @@
             "**/dot-terraform" = true;
             "**/dot-vscode" = true;
           };
+          "search.exclude" = {
+            "**/.git" = true;
+            "**/.direnv" = true;
+            "**/node_modules" = true;
+            "**/tmp" = true;
+          };
           "files.insertFinalNewline" = true;
           "files.trimFinalNewlines" = true;
           "files.trimTrailingWhitespace" = true;
