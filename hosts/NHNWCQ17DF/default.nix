@@ -107,6 +107,7 @@ in
   nix = {
     enable = true;
     package = pkgs-unstable.nix; # https://daiderd.com/nix-darwin/manual/index.html#opt-nix.package
+    channel.enable = false; # https://nix-darwin.github.io/nix-darwin/manual/#opt-nix.channel.enable # TODO: https://github.com/NixOS/nix/issues/2982#issuecomment-2477618346
     optimise.automatic = true; # https://daiderd.com/nix-darwin/manual/index.html#opt-nix.optimise.automatic # https://github.com/NixOS/nix/issues/7273#issuecomment-2295429401
     settings = {
       auto-optimise-store = false; # https://daiderd.com/nix-darwin/manual/index.html#opt-nix.settings.auto-optimise-store # https://github.com/NixOS/nix/issues/7273#issuecomment-1310213986
