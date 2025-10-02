@@ -1,7 +1,6 @@
 {
   config,
   inputs,
-  lib,
   pkgs,
   ...
 }:
@@ -22,48 +21,6 @@ in
     inputs.home-manager.darwinModules.home-manager
     inputs.nixvim.nixDarwinModules.nixvim
   ];
-
-  nixpkgs.config = {
-    allowBroken = false;
-    allowUnfree = true;
-    allowUnsupportedSystem = false;
-
-    packageOverrides = pkgs: {
-      electron_24 = pkgs.electron_26; # Electron v24 is end-of-life, forcing upgrade
-      electron_25 = pkgs.electron_26; # Electron v25 is end-of-life, forcing upgrade
-
-      # Override Node.js packages to disable tests completely
-      nodejs = pkgs.nodejs.overrideAttrs {
-        doCheck = false;
-        doInstallCheck = false;
-        checkPhase = "echo 'Node.js tests disabled'; true";
-        installCheckPhase = "echo 'Node.js install checks disabled'; true";
-      };
-      nodejs_18 = pkgs.nodejs_18.overrideAttrs {
-        doCheck = false;
-        doInstallCheck = false;
-        checkPhase = "echo 'Node.js 18 tests disabled'; true";
-        installCheckPhase = "echo 'Node.js 18 install checks disabled'; true";
-      };
-      nodejs_20 = pkgs.nodejs_20.overrideAttrs {
-        doCheck = false;
-        doInstallCheck = false;
-        checkPhase = "echo 'Node.js 20 tests disabled'; true";
-        installCheckPhase = "echo 'Node.js 20 install checks disabled'; true";
-      };
-      nodejs_22 = pkgs.nodejs_22.overrideAttrs {
-        doCheck = false;
-        doInstallCheck = false;
-        checkPhase = "echo 'Node.js 22 tests disabled'; true";
-        installCheckPhase = "echo 'Node.js 22 install checks disabled'; true";
-      };
-    };
-    permittedInsecurePackages = [
-      # "python3.12-youtube-dl-2021.12.17"
-      # "python3.11-youtube-dl-2021.12.17"
-      # "olm-3.2.16"
-    ];
-  };
 
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
@@ -116,8 +73,7 @@ in
   # The option nixpkgs.system is still fully supported for interoperability, but will be deprecated in the future, so we recommend to set nixpkgs.hostPlatform.
   nixpkgs.system = "aarch64-darwin";
 
-  # Set the hostname for this machine
-  networking.hostName = "TP95V9LWWL";
+  networking.hostName = "TP95V9LWWL"; # https://nix-darwin.github.io/nix-darwin/manual/#opt-networking.hostName
 
   # error: Determinate detected, aborting activation
   # Determinate uses its own daemon to manage the Nix installation that
@@ -132,41 +88,38 @@ in
   # `nix.*` options to adjust Nix settings or configure a Linux builder,
   # will be unavailable.
   nix = {
-    enable = true;
-    package = pkgs-unstable.nix; # https://daiderd.com/nix-darwin/manual/index.html#opt-nix.package
+    enable = true; # https://nix-darwin.github.io/nix-darwin/manual/#opt-nix.enable
+    package = pkgs-unstable.nix; # https://nix-darwin.github.io/nix-darwin/manual/#opt-nix.package
     channel.enable = false; # https://nix-darwin.github.io/nix-darwin/manual/#opt-nix.channel.enable # TODO: https://github.com/NixOS/nix/issues/2982#issuecomment-2477618346
-    optimise.automatic = false; # https://daiderd.com/nix-darwin/manual/index.html#opt-nix.optimise.automatic # https://github.com/NixOS/nix/issues/7273#issuecomment-2295429401
+    optimise.automatic = false; # https://nix-darwin.github.io/nix-darwin/manual/#opt-nix.optimise.automatic # TODO: https://github.com/NixOS/nix/issues/7273#issuecomment-2295429401
     settings = {
-      auto-optimise-store = false; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-nix.settings.auto-optimise-store # https://github.com/NixOS/nix/issues/7273#issuecomment-1310213986
-      sandbox = false; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-nix.settings.sandbox
+      auto-optimise-store = false; # https://nix-darwin.github.io/nix-darwin/manual/#opt-nix.settings.auto-optimise-store # TODO: https://github.com/NixOS/nix/issues/7273#issuecomment-1310213986
+      cores = 0; # https://nix-darwin.github.io/nix-darwin/manual/#opt-nix.settings.cores
+      extra-sandbox-paths = [ ]; # https://nix-darwin.github.io/nix-darwin/manual/#opt-nix.settings.extra-sandbox-paths
+      max-jobs = "auto"; # https://nix-darwin.github.io/nix-darwin/manual/#opt-nix.settings.max-jobs
+      require-sigs = true; # https://nix-darwin.github.io/nix-darwin/manual/#opt-nix.settings.require-sigs
+      sandbox = false; # https://nix-darwin.github.io/nix-darwin/manual/#opt-nix.settings.sandbox
       substituters = [
         "https://cache.nixos.org"
-      ];
+        "https://devenv.cachix.org"
+        "https://nixpkgs-python.cachix.org"
+        "https://ryanccn.cachix.org"
+      ]; # https://nix-darwin.github.io/nix-darwin/manual/#opt-nix.settings.substituters
       trusted-public-keys = [
         "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-      ];
-      extra-substituters = [
-        "https://devenv.cachix.org"
-        "https://ryanccn.cachix.org"
-      ];
-      extra-trusted-public-keys = [
-        "nixpkgs-python.cachix.org-1:hxjI7pFxTyuTHn2NkvWCrAUcNZLNS3ZAvfYNuYifcEU="
         "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw="
+        "hydra.nixos.org-1:CNHJZBh9K4tP3EKF6FkkgeVYsS3ohTl+oS0Qa8bezVs="
+        "nixpkgs-python.cachix.org-1:hxjI7pFxTyuTHn2NkvWCrAUcNZLNS3ZAvfYNuYifcEU="
         "ryanccn.cachix.org-1:Or82F8DeVLJgjSKCaZmBzbSOhnHj82Of0bGeRniUgLQ="
-      ];
+      ]; # https://nix-darwin.github.io/nix-darwin/manual/#opt-nix.settings.trusted-public-keys
+      trusted-substituters = [
+        "https://hydra.nixos.org/"
+      ]; # https://nix-darwin.github.io/nix-darwin/manual/#opt-nix.settings.trusted-substituters
       trusted-users = [
         "root"
         "leonardlee"
         "@admin"
-      ];
-      experimental-features = [
-        "nix-command"
-        "flakes"
-      ];
-      extra-platforms = lib.optionals (pkgs.system == "aarch64-darwin") [
-        "x86_64-darwin"
-        "aarch64-darwin"
-      ];
+      ]; # https://nix-darwin.github.io/nix-darwin/manual/#opt-nix.settings.trusted-users
     }; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-nix.settings
     gc = {
       automatic = true; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-nix.gc.automatic
@@ -184,6 +137,51 @@ in
     ''; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-nix.extraOptions
   };
 
+  nixpkgs = {
+    # buildPlatform = config.nixpkgs.hostPlatform; # https://nix-darwin.github.io/nix-darwin/manual/#opt-nixpkgs.buildPlatform
+    config = {
+      enableParallelBuildingByDefault = false; # https://nixos.org/manual/nixpkgs/unstable/#opt-enableParallelBuildingByDefault
+      showAliases = true; # https://nixos.org/manual/nixpkgs/unstable/#opt-allowAliases
+      allowBroken = false; # https://nixos.org/manual/nixpkgs/unstable/#opt-allowBroken
+      allowUnfree = true; # https://nixos.org/manual/nixpkgs/unstable/#opt-allowUnfree
+      allowUnsupportedSystem = false; # https://nixos.org/manual/nixpkgs/unstable/#opt-allowUnsupportedSystem
+
+      packageOverrides = pkgs: {
+        electron_24 = pkgs.electron_26; # Electron v24 is end-of-life, forcing upgrade
+        electron_25 = pkgs.electron_26; # Electron v25 is end-of-life, forcing upgrade
+
+        # Override Node.js packages to disable tests completely
+        nodejs = pkgs.nodejs.overrideAttrs {
+          doCheck = false;
+          doInstallCheck = false;
+          checkPhase = "echo 'Node.js tests disabled'; true";
+          installCheckPhase = "echo 'Node.js install checks disabled'; true";
+        };
+        nodejs_22 = pkgs.nodejs_22.overrideAttrs {
+          doCheck = false;
+          doInstallCheck = false;
+          checkPhase = "echo 'Node.js 22 tests disabled'; true";
+          installCheckPhase = "echo 'Node.js 22 install checks disabled'; true";
+        };
+        nodejs_24 = pkgs.nodejs_24.overrideAttrs {
+          doCheck = false;
+          doInstallCheck = false;
+          checkPhase = "echo 'Node.js 24 tests disabled'; true";
+          installCheckPhase = "echo 'Node.js 24 install checks disabled'; true";
+        };
+      }; # https://nixos.org/manual/nixpkgs/unstable/#sec-modify-via-packageOverrides
+      permittedInsecurePackages = [
+        # "python3.12-youtube-dl-2021.12.17"
+        # "python3.11-youtube-dl-2021.12.17"
+        # "olm-3.2.16"
+      ]; # https://nixos.org/manual/nixpkgs/unstable/#sec-allow-insecure
+    }; # https://nix-darwin.github.io/nix-darwin/manual/#opt-nixpkgs.config
+    flake = {
+      setFlakeRegistry = config.nix.enable && config.nixpkgs.flake.source != null; # https://nix-darwin.github.io/nix-darwin/manual/#opt-nixpkgs.flake.setFlakeRegistry
+    };
+
+  };
+
   system.stateVersion = 5;
 
   # The option definition `services.nix-daemon.enable' no longer has any effect; please remove it.
@@ -194,16 +192,31 @@ in
   # nix-darwin now manages build users unconditionally when `nix.enable` is on.
   # nix.configureBuildUsers = true;
 
-  security.pam.services.sudo_local.touchIdAuth = true;
+  security.pam.services.sudo_local.touchIdAuth = true; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-security.pam.services.sudo_local.touchIdAuth
 
   # networking = {
   #   dns = [ "1.1.1.1" ];
   # }; # TODO:  warning: networking.knownNetworkServices is empty, dns servers will not be configured.
 
-  users.users.leonardlee = {
-    name = "leonardlee";
-    home = "/Users/leonardlee";
-  }; # https://daiderd.com/nix-darwin/manual/index.html#opt-users.users
+  users.users = {
+    leonardlee = {
+      packages = [ ]; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-users.users._name_.packages
+      createHome = false; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-users.users._name_.createHome
+      gid = 20; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-users.users._name_.gid
+      home = "/Users/leonardlee"; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-users.users._name_.home
+      ignoreShellProgramCheck = false; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-users.users._name_.ignoreShellProgramCheck
+      isHidden = false; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-users.users._name_.isHidden
+      name = "leonardlee"; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-users.users._name_.name
+      openssh = {
+        authorizedKeys = {
+          keyFiles = [ ]; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-users.users._name_.openssh.authorizedKeys.keyFiles
+          keys = [ ]; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-users.users._name_.openssh.authorizedKeys.keys
+        };
+      };
+      shell = null; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-users.users._name_.shell
+      uid = 501; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-users.users._name_.uid
+    };
+  }; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-users.users
 
   # You have set either `nixpkgs.config` or `nixpkgs.overlays` while using `home-manager.useGlobalPkgs`.
   # This will soon not be possible. Please remove all `nixpkgs` options when using `home-manager.useGlobalPkgs`.
