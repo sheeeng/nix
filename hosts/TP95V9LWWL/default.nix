@@ -6,7 +6,7 @@
 }:
 let
   hostConfiguration = rec {
-    # keep-sorted start block=yes newline_separated=no
+    # keep-sorted start block=yes newline_separated=no sticky_comments=no
     networking = {
       hostName = "TP95V9LWWL"; # https://nix-darwin.github.io/nix-darwin/manual/#opt-networking.hostName
     };
