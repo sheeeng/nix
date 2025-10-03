@@ -39,6 +39,8 @@ nix shell github:nixos/nixpkgs/nixpkgs-unstable#nodejs-slim --command npx --yes 
 nix shell github:nixos/nixpkgs/nixpkgs-unstable#nodejs-slim --command npx --yes renovate --version
 
 nix run '.#formatter' -- .github/copilot-journals.md
+
+nix repl --file '<nixpkgs>'
 ```
 
 ## Historical Commands
