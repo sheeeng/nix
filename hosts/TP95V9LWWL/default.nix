@@ -39,36 +39,35 @@ in
     inputs.nixvim.nixDarwinModules.nixvim
   ];
 
-  # List packages installed in system profile. To search by name, run:
-  # $ nix-env -qaP | grep wget
-  # The `home-manager` has issues adding applications to `~/Applications` directory.
-  # Issue: https://github.com/nix-community/home-manager/issues/1341
-  environment.systemPackages = with pkgs; [
-    clang
-    coreutils
-    findutils
-    # gcc-unwrapped # ERROR: collision between `/nix/store/5h4hlzrbr28l208jjj505lkvfpxy57qb-binutils-wrapper-2.43.1/bin/strings' and `/nix/store/71l8fmranva05h25868slk2jci5ib3aw-gcc-wrapper-13.3.0/bin/strings'
-    # gcc-unwrapped # ERROR: collision between `/nix/store/6rhh54a3df1mzw3pqv6mx9vcvrmwvja7-binutils-wrapper-2.44/bin/strings' and `/nix/store/d49w1nr8r3v0pm07hylwgybwqikiwd2y-gcc-wrapper-14.2.1.20250322/bin/strings'
-    git
-    gnumake
-    inputs.flox.packages.${pkgs.system}.default
-    nil # https://search.nixos.org/packages?channel=unstable&type=packages&show=nil
-    nix # https://search.nixos.org/packages?channel=unstable&type=packages&show=nix
-    nix-output-monitor # https://search.nixos.org/packages?channel=unstable&type=packages&show=nix-output-monitor
-    nixd # https://search.nixos.org/packages?channel=unstable&type=packages&show=nixd
-    nixfmt-rfc-style # https://search.nixos.org/packages?channel=unstable&type=packages&show=nixfmt-rfc-style
-    shfmt
-    terminal-notifier
-    unixtools.watch
-    vim
+  fonts.packages = with pkgs; [
+    nerd-fonts.fire-mono # https://search.nixos.org/packages?channel=unstable&query=nerd-fonts.fire-mono
+    nerd-fonts.jetbrains-mono # https://search.nixos.org/packages?channel=unstable&query=nerd-fonts.jetbrains-mono
   ];
 
-  # fonts.packages = with pkgs; [
-  #   recursive
-  #   # (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
-  # ];
-
   environment = {
+    systemPackages = with pkgs; [
+      # List packages installed in system profile.
+      # To search by name, run:
+      # $ nix-env --query --available --prebuilt-only | grep wget # nix.channel.enable = true; # TODO: Use traditional channels.
+      # $ nix search nixpkgs wget
+      # TODO: https://github.com/nix-community/home-manager/issues/1341 # The `home-manager` has issues adding applications to `~/Applications` directory.
+      clang
+      coreutils
+      findutils
+      # gcc-unwrapped # ERROR: collision beween `/nix/store/6rhh54a3df1mzw3pqv6mx9vcvrmwvja7-binutils-wrapper-2.44/bin/strings' and `/nix/store/d49w1nr8r3v0pm07hylwgybwqikiwd2y-gcc-wrapper-14.2.1.20250322/bin/strings'
+      git
+      gnumake
+      inputs.flox.packages.${pkgs.system}.default
+      nil # https://search.nixos.org/packages?channel=unstable&type=packages&show=nil
+      nix # https://search.nixos.org/packages?channel=unstable&type=packages&show=nix
+      nix-output-monitor # https://search.nixos.org/packages?channel=unstable&type=packages&show=nix-output-monitor
+      nixd # https://search.nixos.org/packages?channel=unstable&type=packages&show=nixd
+      nixfmt-rfc-style # https://search.nixos.org/packages?channel=unstable&type=packages&show=nixfmt-rfc-style
+      shfmt
+      terminal-notifier
+      unixtools.watch
+      vim
+    ]; # https://nix-darwin.github.io/nix-darwin/manual/#opt-environment.systemPackages
     shellAliases = {
       show-system = "nix derivation show /run/current-system";
       switch-system = "darwin-rebuild switch --flake .";
