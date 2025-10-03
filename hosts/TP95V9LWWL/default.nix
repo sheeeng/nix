@@ -5,8 +5,25 @@
   ...
 }:
 let
+  host = rec {
+    nixpkgs = {
+      config = {
+        allowUnfree = true; # https://nixos.org/manual/nixpkgs/unstable/#sec-allow-unfree
+      }; # https://nix-darwin.github.io/nix-darwin/manual/#opt-nixpkgs.config
+      buildPlatform = system; # https://nix-darwin.github.io/nix-darwin/manual/#opt-nixpkgs.buildPlatform
+      hostPlatform = system; # https://nix-darwin.github.io/nix-darwin/manual/#opt-nixpkgs.hostPlatform
+    };
+    hostName = "TP95V9LWWL";
+    system = "aarch64-darwin";
+    primaryUser = user.name;
+    user = {
+      guid = 20;
+      name = "leonardlee";
+      uid = 501;
+    };
+  };
   pkgs-unstable = import inputs.nixpkgs {
-    inherit (config.nixpkgs) system;
+    inherit (host) system;
     config.allowUnfree = true;
     inherit (pkgs.stdenv) hostPlatform;
   };
@@ -51,29 +68,35 @@ in
   #   # (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
   # ];
 
-  environment.shellAliases = {
-    show-system = "nix derivation show /run/current-system";
-    switch-system = "darwin-rebuild switch --flake .";
-    list-generations = "nix-env --list-generations";
-  }; # https://daiderd.com/nix-darwin/manual/index.html#opt-environment.shellAliases
-
-  # Environment variables to disable Node.js tests system-wide
-  environment.variables = {
-    SKIP_TESTS = "1";
-    NODE_SKIP_CRYPTO_TESTS = "1";
-    NODE_SKIP_PLATFORM_TESTS = "1";
-    NIX_SKIP_NODEJS_TESTS = "1";
-    NODE_ENV = "production"; # Might help skip development dependencies and tests
+  environment = {
+    shellAliases = {
+      show-system = "nix derivation show /run/current-system";
+      switch-system = "darwin-rebuild switch --flake .";
+      list-generations = "nix-env --list-generations";
+    }; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-environment.shellAliases
+    variables = {
+      SKIP_TESTS = "1";
+      NODE_SKIP_CRYPTO_TESTS = "1";
+      NODE_SKIP_PLATFORM_TESTS = "1";
+      NIX_SKIP_NODEJS_TESTS = "1";
+      NODE_ENV = "production";
+    }; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-environment.variables
   };
 
   # Neither nixpkgs.system nor any other option in nixpkgs.* is meant
   # to be read by modules and configurations.
   # Use pkgs.stdenv.hostPlatform instead.
   #
+  # error: Neither nixpkgs.hostPlatform nor the legacy option nixpkgs.system has been set.
+  # The option nixpkgs.system is still fully supported for interoperability,
+  # but will be deprecated in the future, so we recommend to set nixpkgs.hostPlatform.
+  #
   # The option nixpkgs.system is still fully supported for interoperability, but will be deprecated in the future, so we recommend to set nixpkgs.hostPlatform.
-  nixpkgs.system = "aarch64-darwin";
+  # nixpkgs.system = system;
 
-  networking.hostName = "TP95V9LWWL"; # https://nix-darwin.github.io/nix-darwin/manual/#opt-networking.hostName
+  networking = {
+    inherit (host) hostName; # https://nix-darwin.github.io/nix-darwin/manual/#opt-networking.hostName
+  };
 
   # error: Determinate detected, aborting activation
   # Determinate uses its own daemon to manage the Nix installation that
@@ -117,7 +140,7 @@ in
       ]; # https://nix-darwin.github.io/nix-darwin/manual/#opt-nix.settings.trusted-substituters
       trusted-users = [
         "root"
-        "leonardlee"
+        host.primaryUser
         "@admin"
       ]; # https://nix-darwin.github.io/nix-darwin/manual/#opt-nix.settings.trusted-users
     }; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-nix.settings
@@ -138,7 +161,8 @@ in
   };
 
   nixpkgs = {
-    # buildPlatform = config.nixpkgs.hostPlatform; # https://nix-darwin.github.io/nix-darwin/manual/#opt-nixpkgs.buildPlatform
+    inherit (host.nixpkgs) buildPlatform; # https://nix-darwin.github.io/nix-darwin/manual/#opt-nixpkgs.buildPlatform
+    inherit (host.nixpkgs) hostPlatform; # https://nix-darwin.github.io/nix-darwin/manual/#opt-nixpkgs.hostPlatform
     config = {
       enableParallelBuildingByDefault = false; # https://nixos.org/manual/nixpkgs/unstable/#opt-enableParallelBuildingByDefault
       showAliases = true; # https://nixos.org/manual/nixpkgs/unstable/#opt-allowAliases
@@ -147,8 +171,8 @@ in
       allowUnsupportedSystem = false; # https://nixos.org/manual/nixpkgs/unstable/#opt-allowUnsupportedSystem
 
       packageOverrides = pkgs: {
-        electron_24 = pkgs.electron_26; # Electron v24 is end-of-life, forcing upgrade
-        electron_25 = pkgs.electron_26; # Electron v25 is end-of-life, forcing upgrade
+        # electron_24 = pkgs.electron_26; # Electron v24 is end-of-life, forcing upgrade
+        # electron_25 = pkgs.electron_26; # Electron v25 is end-of-life, forcing upgrade
 
         # Override Node.js packages to disable tests completely
         nodejs = pkgs.nodejs.overrideAttrs {
@@ -178,8 +202,9 @@ in
     }; # https://nix-darwin.github.io/nix-darwin/manual/#opt-nixpkgs.config
     flake = {
       setFlakeRegistry = config.nix.enable && config.nixpkgs.flake.source != null; # https://nix-darwin.github.io/nix-darwin/manual/#opt-nixpkgs.flake.setFlakeRegistry
+      # setNixPath = config.nix.enable && config.nixpkgs.flake.source != null; # https://nix-darwin.github.io/nix-darwin/manual/#opt-nixpkgs.flake.setNixPath
+      # source = null; # https://nix-darwin.github.io/nix-darwin/manual/#opt-nixpkgs.flake.source
     };
-
   };
 
   system.stateVersion = 5;
@@ -202,11 +227,11 @@ in
     leonardlee = {
       packages = [ ]; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-users.users._name_.packages
       createHome = false; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-users.users._name_.createHome
-      gid = 20; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-users.users._name_.gid
+      inherit (host.user) gid; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-users.users._name_.gid
       home = "/Users/leonardlee"; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-users.users._name_.home
       ignoreShellProgramCheck = false; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-users.users._name_.ignoreShellProgramCheck
       isHidden = false; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-users.users._name_.isHidden
-      name = "leonardlee"; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-users.users._name_.name
+      inherit (host.user) name; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-users.users._name_.name
       openssh = {
         authorizedKeys = {
           keyFiles = [ ]; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-users.users._name_.openssh.authorizedKeys.keyFiles
@@ -214,7 +239,7 @@ in
         };
       };
       shell = null; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-users.users._name_.shell
-      uid = 501; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-users.users._name_.uid
+      inherit (host.user) uid; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-users.users._name_.uid
     };
   }; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-users.users
 
@@ -244,7 +269,7 @@ in
   }; # https://nix-community.github.io/home-manager/nixos-options.xhtml#nixos-opt-home-manager.users
   home-manager.verbose = false; # https://nix-community.github.io/home-manager/nixos-options.xhtml#nixos-opt-home-manager.verbose
 
-  system.primaryUser = "leonardlee"; # https://daiderd.com/nix-darwin/manual/index.html#opt-system.primaryUser
+  system.primaryUser = host.primaryUser; # https://nix-darwin.github.io/nix-darwin/manual/#opt-system.primaryUser
   # Failed assertions:
   # - The `system.activationScripts.postUserActivation` option has
   # been removed, as all activation now takes place as `root`. Please
@@ -283,31 +308,33 @@ in
   # open an issue at <https://github.com/nix-darwin/nix-darwin/issues/new>
   # and include as much information as possible.
 
-  system.defaults = {
-    trackpad = {
-      ActuationStrength = 1; # https://daiderd.com/nix-darwin/manual/index.html#opt-system.defaults.trackpad.ActuationStrength
-      Clicking = true; # https://daiderd.com/nix-darwin/manual/index.html#opt-system.defaults.trackpad.Clicking
+  system = {
+    defaults = {
+      trackpad = {
+        ActuationStrength = 1; # https://daiderd.com/nix-darwin/manual/index.html#opt-system.defaults.trackpad.ActuationStrength
+        Clicking = true; # https://daiderd.com/nix-darwin/manual/index.html#opt-system.defaults.trackpad.Clicking
+      };
+      dock = {
+        autohide = true;
+        autohide-delay = 0.24;
+        autohide-time-modifier = 1.0;
+        orientation = "bottom";
+        show-process-indicators = true;
+        show-recents = true;
+        static-only = false;
+      };
+      finder = {
+        AppleShowAllExtensions = true;
+        FXEnableExtensionChangeWarning = false;
+        ShowPathbar = true;
+      };
+      # Tab between form controls and F-row that behaves as F1-F12.
+      # https://evantravers.com/articles/2024/02/06/switching-to-nix-darwin-and-flakes/
+      # NSGlobalDomain = {
+      #   AppleKeyboardUIMode = 3;
+      #   "com.apple.keyboard.fnState" = true;
+      # };
     };
-    dock = {
-      autohide = true;
-      autohide-delay = 0.24;
-      autohide-time-modifier = 1.0;
-      orientation = "bottom";
-      show-process-indicators = true;
-      show-recents = true;
-      static-only = false;
-    };
-    finder = {
-      AppleShowAllExtensions = true;
-      FXEnableExtensionChangeWarning = false;
-      ShowPathbar = true;
-    };
-    # Tab between form controls and F-row that behaves as F1-F12.
-    # https://evantravers.com/articles/2024/02/06/switching-to-nix-darwin-and-flakes/
-    # NSGlobalDomain = {
-    #   AppleKeyboardUIMode = 3;
-    #   "com.apple.keyboard.fnState" = true;
-    # };
   };
 
   # https://chattingdarkly.org/@lhf@fosstodon.org/110661879831891580
