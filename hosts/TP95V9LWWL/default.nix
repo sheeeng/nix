@@ -6,24 +6,29 @@
 }:
 let
   hostConfiguration = rec {
+    # keep-sorted start block=yes newline_separated=no
+    networking = {
+      hostName = "TP95V9LWWL"; # https://nix-darwin.github.io/nix-darwin/manual/#opt-networking.hostName
+    };
     nixpkgs = {
       config = {
         allowUnfree = true; # https://nixos.org/manual/nixpkgs/unstable/#sec-allow-unfree
       }; # https://nix-darwin.github.io/nix-darwin/manual/#opt-nixpkgs.config
       buildPlatform = system; # https://nix-darwin.github.io/nix-darwin/manual/#opt-nixpkgs.buildPlatform
       hostPlatform = system; # https://nix-darwin.github.io/nix-darwin/manual/#opt-nixpkgs.hostPlatform
+      inherit system; # https://nix-darwin.github.io/nix-darwin/manual/#opt-nixpkgs.system
     };
-    hostName = "TP95V9LWWL";
-    system = "aarch64-darwin";
-    primaryUser = user.name;
+    primaryUser = user.name; # https://nix-darwin.github.io/nix-darwin/manual/#opt-system.primaryUser
+    system = "aarch64-darwin"; # https://nix-darwin.github.io/nix-darwin/manual/#opt-nixpkgs.system
     user = {
-      guid = 20;
-      name = "leonardlee";
-      uid = 501;
+      guid = 20; # https://nix-darwin.github.io/nix-darwin/manual/#opt-users.users._name_.gid
+      name = "leonardlee"; # https://nix-darwin.github.io/nix-darwin/manual/#opt-users.users._name_.name
+      uid = 501; # https://nix-darwin.github.io/nix-darwin/manual/#opt-users.users._name_.uid
     };
+    # keep-sorted end
   };
   pkgs-unstable = import inputs.nixpkgs {
-    inherit (hostConfiguration) system;
+    inherit (hostConfiguration.nixpkgs) system;
     config.allowUnfree = true;
     inherit (pkgs.stdenv) hostPlatform;
   };
@@ -51,6 +56,7 @@ in
       # $ nix-env --query --available --prebuilt-only | grep wget # nix.channel.enable = true; # TODO: Use traditional channels.
       # $ nix search nixpkgs wget
       # TODO: https://github.com/nix-community/home-manager/issues/1341 # The `home-manager` has issues adding applications to `~/Applications` directory.
+      # keep-sorted start block=yes newline_separated=no
       clang # https://search.nixos.org/packages?channel=unstable&type=packages&show=clang
       coreutils # https://search.nixos.org/packages?channel=unstable&type=packages&show=coreutils
       findutils # https://search.nixos.org/packages?channel=unstable&type=packages&show=findutils
@@ -63,6 +69,7 @@ in
       nixfmt-rfc-style # https://search.nixos.org/packages?channel=unstable&type=packages&show=nixfmt-rfc-style
       unixtools.watch # https://search.nixos.org/packages?channel=unstable&type=packages&show=unixtools.watch
       vim # https://search.nixos.org/packages?channel=unstable&type=packages&show=vim
+      # keep-sorted end
     ]; # https://nix-darwin.github.io/nix-darwin/manual/#opt-environment.systemPackages
     shellAliases = {
       show-system = "nix derivation show /run/current-system";
@@ -90,7 +97,7 @@ in
   # nixpkgs.system = system;
 
   networking = {
-    inherit (hostConfiguration) hostName; # https://nix-darwin.github.io/nix-darwin/manual/#opt-networking.hostName
+    inherit (hostConfiguration.networking) hostName; # https://nix-darwin.github.io/nix-darwin/manual/#opt-networking.hostName
   };
 
   # error: Determinate detected, aborting activation
@@ -166,27 +173,23 @@ in
       allowUnsupportedSystem = false; # https://nixos.org/manual/nixpkgs/unstable/#opt-allowUnsupportedSystem
 
       packageOverrides = pkgs: {
-        # electron_24 = pkgs.electron_26; # Electron v24 is end-of-life, forcing upgrade
-        # electron_25 = pkgs.electron_26; # Electron v25 is end-of-life, forcing upgrade
-
-        # Override Node.js packages to disable tests completely
         nodejs = pkgs.nodejs.overrideAttrs {
           doCheck = false;
           doInstallCheck = false;
-          checkPhase = "echo 'Node.js tests disabled'; true";
-          installCheckPhase = "echo 'Node.js install checks disabled'; true";
+          checkPhase = "echo 'Node.js tests disabled.'; true";
+          installCheckPhase = "echo 'Node.js install checks disabled.'; true";
         };
         nodejs_22 = pkgs.nodejs_22.overrideAttrs {
           doCheck = false;
           doInstallCheck = false;
-          checkPhase = "echo 'Node.js 22 tests disabled'; true";
-          installCheckPhase = "echo 'Node.js 22 install checks disabled'; true";
+          checkPhase = "echo 'Node.js 22 tests disabled.'; true";
+          installCheckPhase = "echo 'Node.js 22 install checks disabled.'; true";
         };
         nodejs_24 = pkgs.nodejs_24.overrideAttrs {
           doCheck = false;
           doInstallCheck = false;
-          checkPhase = "echo 'Node.js 24 tests disabled'; true";
-          installCheckPhase = "echo 'Node.js 24 install checks disabled'; true";
+          checkPhase = "echo 'Node.js 24 tests disabled.'; true";
+          installCheckPhase = "echo 'Node.js 24 install checks disabled.'; true";
         };
       }; # https://nixos.org/manual/nixpkgs/unstable/#sec-modify-via-packageOverrides
       permittedInsecurePackages = [
