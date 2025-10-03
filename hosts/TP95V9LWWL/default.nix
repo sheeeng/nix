@@ -51,22 +51,18 @@ in
       # $ nix-env --query --available --prebuilt-only | grep wget # nix.channel.enable = true; # TODO: Use traditional channels.
       # $ nix search nixpkgs wget
       # TODO: https://github.com/nix-community/home-manager/issues/1341 # The `home-manager` has issues adding applications to `~/Applications` directory.
-      clang
-      coreutils
-      findutils
-      # gcc-unwrapped # ERROR: collision beween `/nix/store/6rhh54a3df1mzw3pqv6mx9vcvrmwvja7-binutils-wrapper-2.44/bin/strings' and `/nix/store/d49w1nr8r3v0pm07hylwgybwqikiwd2y-gcc-wrapper-14.2.1.20250322/bin/strings'
-      git
-      gnumake
+      clang # https://search.nixos.org/packages?channel=unstable&type=packages&show=clang
+      coreutils # https://search.nixos.org/packages?channel=unstable&type=packages&show=coreutils
+      findutils # https://search.nixos.org/packages?channel=unstable&type=packages&show=findutils
+      git # https://search.nixos.org/packages?channel=unstable&type=packages&show=git
       inputs.flox.packages.${pkgs.system}.default
       nil # https://search.nixos.org/packages?channel=unstable&type=packages&show=nil
       nix # https://search.nixos.org/packages?channel=unstable&type=packages&show=nix
       nix-output-monitor # https://search.nixos.org/packages?channel=unstable&type=packages&show=nix-output-monitor
       nixd # https://search.nixos.org/packages?channel=unstable&type=packages&show=nixd
       nixfmt-rfc-style # https://search.nixos.org/packages?channel=unstable&type=packages&show=nixfmt-rfc-style
-      shfmt
-      terminal-notifier
-      unixtools.watch
-      vim
+      unixtools.watch # https://search.nixos.org/packages?channel=unstable&type=packages&show=unixtools.watch
+      vim # https://search.nixos.org/packages?channel=unstable&type=packages&show=vim
     ]; # https://nix-darwin.github.io/nix-darwin/manual/#opt-environment.systemPackages
     shellAliases = {
       show-system = "nix derivation show /run/current-system";
