@@ -5,7 +5,7 @@
   ...
 }:
 let
-  host = rec {
+  hostConfiguration = rec {
     nixpkgs = {
       config = {
         allowUnfree = true; # https://nixos.org/manual/nixpkgs/unstable/#sec-allow-unfree
@@ -23,7 +23,7 @@ let
     };
   };
   pkgs-unstable = import inputs.nixpkgs {
-    inherit (host) system;
+    inherit (hostConfiguration) system;
     config.allowUnfree = true;
     inherit (pkgs.stdenv) hostPlatform;
   };
@@ -90,7 +90,7 @@ in
   # nixpkgs.system = system;
 
   networking = {
-    inherit (host) hostName; # https://nix-darwin.github.io/nix-darwin/manual/#opt-networking.hostName
+    inherit (hostConfiguration) hostName; # https://nix-darwin.github.io/nix-darwin/manual/#opt-networking.hostName
   };
 
   # error: Determinate detected, aborting activation
@@ -135,7 +135,7 @@ in
       ]; # https://nix-darwin.github.io/nix-darwin/manual/#opt-nix.settings.trusted-substituters
       trusted-users = [
         "root"
-        host.primaryUser
+        hostConfiguration.primaryUser
         "@admin"
       ]; # https://nix-darwin.github.io/nix-darwin/manual/#opt-nix.settings.trusted-users
     }; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-nix.settings
@@ -156,8 +156,8 @@ in
   };
 
   nixpkgs = {
-    inherit (host.nixpkgs) buildPlatform; # https://nix-darwin.github.io/nix-darwin/manual/#opt-nixpkgs.buildPlatform
-    inherit (host.nixpkgs) hostPlatform; # https://nix-darwin.github.io/nix-darwin/manual/#opt-nixpkgs.hostPlatform
+    inherit (hostConfiguration.nixpkgs) buildPlatform; # https://nix-darwin.github.io/nix-darwin/manual/#opt-nixpkgs.buildPlatform
+    inherit (hostConfiguration.nixpkgs) hostPlatform; # https://nix-darwin.github.io/nix-darwin/manual/#opt-nixpkgs.hostPlatform
     config = {
       enableParallelBuildingByDefault = false; # https://nixos.org/manual/nixpkgs/unstable/#opt-enableParallelBuildingByDefault
       showAliases = true; # https://nixos.org/manual/nixpkgs/unstable/#opt-allowAliases
@@ -222,11 +222,11 @@ in
     leonardlee = {
       packages = [ ]; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-users.users._name_.packages
       createHome = false; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-users.users._name_.createHome
-      inherit (host.user) gid; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-users.users._name_.gid
+      inherit (hostConfiguration.user) gid; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-users.users._name_.gid
       home = "/Users/leonardlee"; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-users.users._name_.home
       ignoreShellProgramCheck = false; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-users.users._name_.ignoreShellProgramCheck
       isHidden = false; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-users.users._name_.isHidden
-      inherit (host.user) name; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-users.users._name_.name
+      inherit (hostConfiguration.user) name; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-users.users._name_.name
       openssh = {
         authorizedKeys = {
           keyFiles = [ ]; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-users.users._name_.openssh.authorizedKeys.keyFiles
@@ -234,7 +234,7 @@ in
         };
       };
       shell = null; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-users.users._name_.shell
-      inherit (host.user) uid; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-users.users._name_.uid
+      inherit (hostConfiguration.user) uid; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-users.users._name_.uid
     };
   }; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-users.users
 
@@ -264,7 +264,7 @@ in
   }; # https://nix-community.github.io/home-manager/nixos-options.xhtml#nixos-opt-home-manager.users
   home-manager.verbose = false; # https://nix-community.github.io/home-manager/nixos-options.xhtml#nixos-opt-home-manager.verbose
 
-  system.primaryUser = host.primaryUser; # https://nix-darwin.github.io/nix-darwin/manual/#opt-system.primaryUser
+  system.primaryUser = hostConfiguration.primaryUser; # https://nix-darwin.github.io/nix-darwin/manual/#opt-system.primaryUser
   # Failed assertions:
   # - The `system.activationScripts.postUserActivation` option has
   # been removed, as all activation now takes place as `root`. Please
