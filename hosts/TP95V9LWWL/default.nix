@@ -31,7 +31,7 @@ in
 {
   imports = [
     # ../../modules/yabai
-    # catppuccin.darwinModules.catppuccin # https://github.com/catppuccin/nix/issues/162
+    # catppuccin.darwinModules.catppuccin # TODO: https://github.com/catppuccin/nix/issues/162
     # inputs.home-manager.darwinModules.defaults
     ../core/sops.nix
     inputs.agenix.darwinModules.age
