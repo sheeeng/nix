@@ -372,6 +372,15 @@ in
         condition = "gitdir:${config.xdg.configHome}/srht/**/.git";
         path = "${config.xdg.configHome}/srht/.gitconfig";
       }
+      {
+        condition = "hasconfig:remote.*.url:git@github.com:sheeeng/vscodium-settings.git";
+        contents = {
+          user = {
+            name = "Sheng Sheng";
+            email = "305414+sheeeng@users.noreply.github.com";
+          };
+        };
+      }
     ];
     ignores = [
       # https://github.com/quentinmit/isz/blob/1e2cc2af0b5b10529768bbd003e6bc07209448c0/nix/home/base.nix#L44
@@ -392,12 +401,12 @@ in
       "Thumbs.db"
     ];
     signing = {
-      signByDefault = true;
-      signer = "${pkgs.gnupg}/bin/gpg2";
-      key = "0xB8BFC0DD57F42E03!";
-      format = "openpgp";
+      format = "openpgp"; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.git.signing.format
+      key = "0xB8BFC0DD57F42E03!"; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.git.signing.key
+      signByDefault = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.git.signing.signByDefault
+      signer = "${pkgs.gnupg}/bin/gpg2"; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.git.signing.signer
     };
-    userName = "Leonard Sheng Sheng Lee";
-    userEmail = "leonard.sheng.sheng.lee@gmail.com";
+    userName = "Leonard Sheng Sheng Lee"; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.git.userName
+    userEmail = "leonard.sheng.sheng.lee@gmail.com"; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.git.userEmail
   };
 }
