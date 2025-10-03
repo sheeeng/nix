@@ -44,6 +44,13 @@ in
     inputs.nixvim.nixDarwinModules.nixvim
   ];
 
+  documentation = {
+    enable = true; # https://nix-darwin.github.io/nix-darwin/manual/#opt-documentation.enable
+    doc.enable = true; # https://nix-darwin.github.io/nix-darwin/manual/#opt-documentation.doc.enable
+    info.enable = true; # https://nix-darwin.github.io/nix-darwin/manual/#opt-documentation.info.enable
+    man.enable = true; # https://nix-darwin.github.io/nix-darwin/manual/#opt-documentation.man.enable
+  };
+
   fonts.packages = with pkgs; [
     nerd-fonts.fira-mono # https://search.nixos.org/packages?channel=unstable&query=nerd-fonts.fira-mono
     nerd-fonts.jetbrains-mono # https://search.nixos.org/packages?channel=unstable&query=nerd-fonts.jetbrains-mono
