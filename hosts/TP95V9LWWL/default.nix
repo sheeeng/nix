@@ -40,7 +40,7 @@ in
   ];
 
   fonts.packages = with pkgs; [
-    nerd-fonts.fire-mono # https://search.nixos.org/packages?channel=unstable&query=nerd-fonts.fire-mono
+    nerd-fonts.fira-mono # https://search.nixos.org/packages?channel=unstable&query=nerd-fonts.fira-mono
     nerd-fonts.jetbrains-mono # https://search.nixos.org/packages?channel=unstable&query=nerd-fonts.jetbrains-mono
   ];
 
