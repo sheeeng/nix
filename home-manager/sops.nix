@@ -50,32 +50,32 @@ in
   # Create shell aliases for easy access to secret values
   home.shellAliases = {
     # Basic secret access
-    show-hello = "cat ${config.sops.secrets.hello.path} 2>/dev/null || echo 'Secret not available'";
+    show-hello = "cat ${config.sops.secrets.hello.path} 2>/dev/null || echo 'Secret not available.'";
 
     # Password access aliases
     show-cia-terminal-password = "cat ${
       config.sops.secrets."passwords/cia_terminal".path
-    } 2>/dev/null || echo 'Secret not available'";
+    } 2>/dev/null || echo 'Secret not available.'";
     show-citypower-grid-password = "cat ${
       config.sops.secrets."passwords/citypower_grid".path
-    } 2>/dev/null || echo 'Secret not available'";
+    } 2>/dev/null || echo 'Secret not available.'";
     show-door-of-durin-password = "cat ${
       config.sops.secrets."passwords/door_of_durin".path
-    } 2>/dev/null || echo 'Secret not available'";
+    } 2>/dev/null || echo 'Secret not available.'";
     show-x-files-password = "cat ${
       config.sops.secrets."passwords/x_files".path
-    } 2>/dev/null || echo 'Secret not available'";
+    } 2>/dev/null || echo 'Secret not available.'";
 
     # Token access aliases
     show-atuin-token = "cat ${
       config.sops.secrets."tokens/atuin".path
-    } 2>/dev/null || echo 'Secret not available'";
+    } 2>/dev/null || echo 'Secret not available.'";
     show-github-token = "cat ${
       config.sops.secrets."tokens/github".path
-    } 2>/dev/null || echo 'Secret not available'";
+    } 2>/dev/null || echo 'Secret not available.'";
 
     # List all home secrets
-    list-home-secrets = "ls -la ~/.config/sops-nix/secrets/ 2>/dev/null || echo 'No secrets directory found'";
+    list-home-secrets = "ls -la ~/.config/sops-nix/secrets/ 2>/dev/null || echo 'No secrets directory found.'";
   };
 
   # Helper script for working with secrets
@@ -105,20 +105,20 @@ in
           ;;
         "list-home-secrets")
           echo "Home-manager secrets directory:"
-          ls -la ~/.config/sops-nix/secrets/ 2>/dev/null || echo "No secrets directory found"
+          ls -la ~/.config/sops-nix/secrets/ 2>/dev/null || echo "No secrets directory found."
           ;;
         "list-host-secrets")
           echo "Host-level secrets directory:"
-          sudo ls -la /run/secrets/ 2>/dev/null || echo "No host secrets directory found or no permission"
+          sudo ls -la /run/secrets/ 2>/dev/null || echo "No host secrets directory found or no permission."
           ;;
         *)
           echo "Usage: $0 {edit-common|edit-host|show-passwords|show-tokens|list-home-secrets|list-host-secrets}"
-          echo "  edit-common: Edit the common encrypted secrets file"
-          echo "  edit-host: Edit the host-specific encrypted secrets file"
-          echo "  show-passwords: List available password secrets"
-          echo "  show-tokens: List available token secrets"
-          echo "  list-home-secrets: List all home-manager secret files"
-          echo "  list-host-secrets: List all host-level secret files"
+          echo "  edit-common: Edit the common encrypted secrets file."
+          echo "  edit-host: Edit the host-specific encrypted secrets file."
+          echo "  show-passwords: List available password secrets."
+          echo "  show-tokens: List available token secrets."
+          echo "  list-home-secrets: List all home-manager secret files."
+          echo "  list-host-secrets: List all host-level secret files."
           ;;
       esac
     '';
@@ -128,18 +128,18 @@ in
   # Create shell scripts for specific secret access
   home.packages = [
     (pkgs.writeShellScriptBin "get-hello" ''
-      cat ${config.sops.secrets.hello.path} 2>/dev/null || echo "Hello secret not available"
+      cat ${config.sops.secrets.hello.path} 2>/dev/null || echo "Hello secret not available."
     '')
     (pkgs.writeShellScriptBin "get-cia-terminal-password" ''
       cat ${
         config.sops.secrets."passwords/cia_terminal".path
-      } 2>/dev/null || echo "CIA Terminal password not available"
+      } 2>/dev/null || echo "CIA Terminal password not available."
     '')
     (pkgs.writeShellScriptBin "get-atuin-token" ''
-      cat ${config.sops.secrets."tokens/atuin".path} 2>/dev/null || echo "Atuin token not available"
+      cat ${config.sops.secrets."tokens/atuin".path} 2>/dev/null || echo "Atuin token not available."
     '')
     (pkgs.writeShellScriptBin "get-github-token" ''
-      cat ${config.sops.secrets."tokens/github".path} 2>/dev/null || echo "GitHub token not available"
+      cat ${config.sops.secrets."tokens/github".path} 2>/dev/null || echo "GitHub token not available."
     '')
   ];
 
