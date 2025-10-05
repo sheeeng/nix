@@ -229,11 +229,11 @@ in
   # }; # TODO:  warning: networking.knownNetworkServices is empty, dns servers will not be configured.
 
   users.users = {
-    leonardlee = {
+    "${hostConfiguration.user.name}" = {
       packages = [ ]; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-users.users._name_.packages
       createHome = false; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-users.users._name_.createHome
       inherit (hostConfiguration.user) gid; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-users.users._name_.gid
-      home = "/Users/leonardlee"; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-users.users._name_.home
+      home = "/Users/${hostConfiguration.user.name}"; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-users.users._name_.home
       ignoreShellProgramCheck = false; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-users.users._name_.ignoreShellProgramCheck
       isHidden = false; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-users.users._name_.isHidden
       inherit (hostConfiguration.user) name; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-users.users._name_.name
