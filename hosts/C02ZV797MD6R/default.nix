@@ -78,7 +78,7 @@ in
     }; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-environment.variables
   };
 
-  # Neither nixpkgs.system nor any other option in nixpkgs.* is meant
+  # TODO: Neither nixpkgs.system nor any other option in nixpkgs.* is meant
   # to be read by modules and configurations.
   # Use pkgs.stdenv.hostPlatform instead.
   #
@@ -106,7 +106,7 @@ in
   # `nix.*` options to adjust Nix settings or configure a Linux builder,
   # will be unavailable.
   nix = {
-    enable = true; # https://nix-darwin.github.io/nix-darwin/manual/#opt-nix.enable
+    enable = false; # https://nix-darwin.github.io/nix-darwin/manual/#opt-nix.enable
     package = pkgs-unstable.nix; # https://nix-darwin.github.io/nix-darwin/manual/#opt-nix.package
     channel.enable = false; # https://nix-darwin.github.io/nix-darwin/manual/#opt-nix.channel.enable # TODO: https://github.com/NixOS/nix/issues/2982#issuecomment-2477618346
     optimise.automatic = false; # https://nix-darwin.github.io/nix-darwin/manual/#opt-nix.optimise.automatic # TODO: https://github.com/NixOS/nix/issues/7273#issuecomment-2295429401
@@ -140,7 +140,8 @@ in
       ]; # https://nix-darwin.github.io/nix-darwin/manual/#opt-nix.settings.trusted-users
     }; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-nix.settings
     gc = {
-      automatic = true; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-nix.gc.automatic
+      # TODO: nix.gc.automatic requires nix.enable
+      automatic = false; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-nix.gc.automatic
       interval = {
         Day = 1;
         Hour = 12;
