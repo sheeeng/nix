@@ -8,7 +8,10 @@
     with pkgs;
     [
       # Audio
-      # keep-sorted start block=yes newline_separated=no sticky_comments=no
+      # keep-sorted start block=no newline_separated=no sticky_comments=no
+      # mpc-cli # TODO: https://github.com/NixOS/nixpkgs/issues/355495 # https://search.nixos.org/packages?channel=unstable&type=packages&show=mpc-cli
+      # mpd # https://search.nixos.org/packages?channel=unstable&type=packages&show=mpd
+      # ncmpcpp # https://search.nixos.org/packages?channel=unstable&type=packages&show=ncmpcpp
       # sonic-pi # TODO: Missing "aarch64-apple-darwin" platform. # https://search.nixos.org/packages?channel=unstable&type=packages&show=sonic-pi
       # supercollider-with-plugins # TODO: Missing "aarch64-apple-darwin" platform. # https://search.nixos.org/packages?channel=unstable&type=packages&show=supercollider-with-plugins
       # zrythm # TODO: Marked as broken. # https://search.nixos.org/packages?channel=unstable&type=packages&show=zrythm
@@ -18,7 +21,7 @@
       # keep-sorted end
 
       # Fonts
-      # keep-sorted start block=yes newline_separated=no sticky_comments=no
+      # keep-sorted start block=no newline_separated=no sticky_comments=no
       fontconfig # https://search.nixos.org/packages?channel=unstable&type=packages&show=fontconfig
       google-fonts # https://search.nixos.org/packages?channel=unstable&type=packages&show=google-fonts
       noto-fonts # https://search.nixos.org/packages?channel=unstable&type=packages&show=noto-fonts
@@ -30,194 +33,211 @@
       # keep-sorted end
 
       # Graphics
-      # keep-sorted start block=yes newline_separated=no sticky_comments=no
+      # keep-sorted start block=no newline_separated=no sticky_comments=no
       # aseprite # TODO: Missing "aarch64-apple-darwin" platform. # https://search.nixos.org/packages?channel=unstable&type=packages&show=aseprite
       # blender # TODO: Marked as broken. # https://search.nixos.org/packages?channel=unstable&type=packages&show=blender
       # emulsion-palette # TODO: Missing "aarch64-apple-darwin" platform. # https://search.nixos.org/packages?channel=unstable&type=packages&show=emulsion-palette
       # eyedropper # TODO: Missing "aarch64-apple-darwin" platform. # https://search.nixos.org/packages?channel=unstable&type=packages&show=eyedropper
       # krita # TODO: Missing "aarch64-apple-darwin" platform. # https://search.nixos.org/packages?channel=unstable&type=packages&show=krita
       # pureref # TODO: Missing "aarch64-apple-darwin" platform. # https://search.nixos.org/packages?channel=unstable&type=packages&show=pureref
-      ffmpeg-full # https://search.nixos.org/packages?channel=unstable&type=packages&show=ffmpeg-full
       gimp-with-plugins # https://search.nixos.org/packages?channel=unstable&type=packages&show=gimp-with-plugins
       gmic # https://search.nixos.org/packages?channel=unstable&type=packages&show=gmic
-      imagemagick # https://search.nixos.org/packages?channel=unstable&type=packages&show=imagemagick
       inkscape-with-extensions # https://search.nixos.org/packages?channel=unstable&type=packages&show=inkscape-with-extensions
       # keep-sorted end
 
       # Network
-      # keep-sorted start block=yes newline_separated=no sticky_comments=no
+      # keep-sorted start block=no newline_separated=no sticky_comments=no
       # kanidm # FIXME: Missing "aarch64-apple-darwin" platform. # https://search.nixos.org/packages?channel=unstable&type=packages&show=kanidm
       bind.dnsutils # https://search.nixos.org/packages?channel=unstable&type=packages&show=dnsutils
+      croc # https://search.nixos.org/packages?channel=unstable&type=packages&show=croc
       geoip # https://search.nixos.org/packages?channel=unstable&type=packages&show=geoip
       ipcalc # https://search.nixos.org/packages?channel=unstable&type=packages&show=ipcalc
+      sipcalc # https://search.nixos.org/packages?channel=unstable&type=packages&show=sipcalc
       sshfs # https://search.nixos.org/packages?channel=unstable&type=packages&show=sshfs
+      websocat # https://search.nixos.org/packages?channel=unstable&type=packages&show=websocat
+      wget # https://search.nixos.org/packages?channel=unstable&type=packages&show=wget
       whois # https://search.nixos.org/packages?channel=unstable&type=packages&show=whois
       # keep-sorted end
 
       # Funsies
-      # keep-sorted start block=yes newline_separated=no sticky_comments=no
+      # keep-sorted start block=no newline_separated=no sticky_comments=no
       asciiquarium-transparent # https://search.nixos.org/packages?channel=unstable&type=packages&show=asciiquarium-transparent
+      cbonsai # https://search.nixos.org/packages?channel=unstable&type=packages&show=cbonsai
+      cmatrix # https://search.nixos.org/packages?channel=unstable&type=packages&show=cmatrix
       cowsay # https://search.nixos.org/packages?channel=unstable&type=packages&show=cowsay
       fastfetch # https://search.nixos.org/packages?channel=unstable&type=packages&show=fastfetch
       krabby # https://search.nixos.org/packages?channel=unstable&type=packages&show=krabby
       lavat # https://search.nixos.org/packages?channel=unstable&type=packages&show=lavat
+      lolcat # https://search.nixos.org/packages?channel=unstable&type=packages&show=lolcat
+      pipes # https://search.nixos.org/packages?channel=unstable&type=packages&show=pipes
+      pipes-rs # https://search.nixos.org/packages?channel=unstable&type=packages&show=pipes-rs
       # keep-sorted end
 
-      # Miscellaneous
-      # keep-sorted start block=yes newline_separated=no sticky_comments=no
-      # (lib.hiPrio bat) # TODO: Collision error with `bat-unstable` override package. # https://search.nixos.org/packages?channel=unstable&type=packages&show=bat
-      # (lib.hiPrio go-task) # TODO: Collision error with `taskwarrior-3` package. # https://search.nixos.org/packages?channel=unstable&type=packages&show=go-task
-      # (lib.lowPrio sc) # TODO: Collision error with `smartcat` package. # https://search.nixos.org/packages?channel=unstable&type=packages&show=sc
+      # Communication
+      # keep-sorted start block=no newline_separated=no sticky_comments=no
       # alpine # TODO: Unavailable on aarch64-apple-darwin platform. # https://search.nixos.org/packages?channel=unstable&type=packages&show=alpine
-      # fuff # TODO: https://github.com/ffuf/ffuf # https://search.nixos.org/packages?channel=unstable&type=packages&show=fuff
       # gomuks # https://search.nixos.org/packages?channel=unstable&type=packages&show=gomuks
       # ii # https://search.nixos.org/packages?channel=unstable&type=packages&show=ii
-      # ltex-ls-plus # https://search.nixos.org/packages?channel=unstable&type=packages&show=ltex-ls-plus
-      # mpc-cli # TODO: https://github.com/NixOS/nixpkgs/issues/355495 # https://search.nixos.org/packages?channel=unstable&type=packages&show=mpc-cli
-      # mpd # https://search.nixos.org/packages?channel=unstable&type=packages&show=mpd
       # mutt # https://search.nixos.org/packages?channel=unstable&type=packages&show=mutt
-      # ncdu # TODO: https://github.com/NixOS/nixpkgs/issues/290512 # https://search.nixos.org/packages?channel=unstable&type=packages&show=ncdu
-      # ncmpcpp # https://search.nixos.org/packages?channel=unstable&type=packages&show=ncmpcpp
       # neomutt # https://search.nixos.org/packages?channel=unstable&type=packages&show=neomutt
-      # newsboat # https://search.nixos.org/packages?channel=unstable&type=packages&show=newsboat
+      # weechat # https://search.nixos.org/packages?channel=unstable&type=packages&show=weechat
+      aerc # https://search.nixos.org/packages?channel=unstable&type=packages&show=aerc
+      # keep-sorted end
+
+      # Development Tools
+      # keep-sorted start block=no newline_separated=no sticky_comments=no
+      # (lib.hiPrio go-task) # TODO: Collision error with `taskwarrior-3` package. # https://search.nixos.org/packages?channel=unstable&type=packages&show=go-task
+      # (lib.hiPrio parallel) # TODO: https://haseebmajid.dev/posts/2023-10-02-til-how-to-fix-package-binary-collisions-on-nix/ # https://search.nixos.org/packages?channel=unstable&type=packages&show=parallel
       # nixfmt-tree # https://search.nixos.org/packages?channel=unstable&type=packages&show=nixfmt-tree
-      # obsidian # https://search.nixos.org/packages?channel=unstable&type=packages&show=obsidian
-      # ollama # TODO: Marked as insecure. # https://search.nixos.org/packages?channel=unstable&type=packages&show=ollama
-      # parallel # (lib.hiPrio parallel) # TODO: https://haseebmajid.dev/posts/2023-10-02-til-how-to-fix-package-binary-collisions-on-nix/ # https://search.nixos.org/packages?channel=unstable&type=packages&show=parallel
-      # pympress # https://search.nixos.org/packages?channel=unstable&type=packages&show=pympress
-      # sct # https://search.nixos.org/packages?channel=unstable&type=packages&show=sct
-      # superfile # https://search.nixos.org/packages?channel=unstable&type=packages&show=superfile
       # taskctl # TODO: https://github.com/taskctl/taskctl # https://search.nixos.org/packages?channel=unstable&type=packages&show=taskctl
-      # taskwarrior3 # https://search.nixos.org/packages?channel=unstable&type=packages&show=taskwarrior3
       # terraform # https://search.nixos.org/packages?channel=unstable&type=packages&show=terraform
       # tflint # https://search.nixos.org/packages?channel=unstable&type=packages&show=tflint
       # tfsort # https://search.nixos.org/packages?channel=unstable&type=packages&show=tfsort
-      # uuid7 # TODO: https://github.com/stevesimmons/uuid7 # https://search.nixos.org/packages?channel=unstable&type=packages&show=uuid7
-      # weechat # https://search.nixos.org/packages?channel=unstable&type=packages&show=weechat
-      # ws # TODO: https://github.com/lewoudar/ws/ # https://search.nixos.org/packages?channel=unstable&type=packages&show=ws
       # x-cmd # TODO: https://github.com/x-cmd/x-cmd # https://search.nixos.org/packages?channel=unstable&type=packages&show=x-cmd
       (lib.hiPrio uutils-coreutils-noprefix) # https://search.nixos.org/packages?channel=unstable&type=packages&show=uutils-coreutils-noprefix
       (lib.hiPrio uutils-diffutils) # https://search.nixos.org/packages?channel=unstable&type=packages&show=uutils-diffutils
       (lib.hiPrio uutils-findutils) # https://search.nixos.org/packages?channel=unstable&type=packages&show=uutils-findutils
-      _1password-cli # https://search.nixos.org/packages?channel=unstable&type=packages&show=1password-cli
-      aerc # https://search.nixos.org/packages?channel=unstable&type=packages&show=aerc
-      age # https://search.nixos.org/packages?channel=unstable&type=packages&show=age
-      age-plugin-yubikey # https://search.nixos.org/packages?channel=unstable&type=packages&show=age-plugin-yubikey
       alejandra # https://search.nixos.org/packages?channel=unstable&type=packages&show=alejandra
       asdf-vm # https://search.nixos.org/packages?channel=unstable&type=packages&show=asdf-vm
-      atuin # https://search.nixos.org/packages?channel=unstable&type=packages&show=atuin
       autoconf # https://search.nixos.org/packages?channel=unstable&type=packages&show=autoconf
-      barcode # https://search.nixos.org/packages?channel=unstable&type=packages&show=barcode
-      bc # https://search.nixos.org/packages?channel=unstable&type=packages&show=bc
       binutils # https://search.nixos.org/packages?channel=unstable&type=packages&show=binutils
-      bitwise # https://search.nixos.org/packages?channel=unstable&type=packages&show=bitwise
-      btop # https://search.nixos.org/packages?channel=unstable&type=packages&show=btop
-      byobu # https://search.nixos.org/packages?channel=unstable&type=packages&show=byobu
-      calcurse # https://search.nixos.org/packages?channel=unstable&type=packages&show=calcurse
-      cbonsai # https://search.nixos.org/packages?channel=unstable&type=packages&show=cbonsai
-      chafa # https://search.nixos.org/packages?channel=unstable&type=packages&show=chafa
-      cmatrix # https://search.nixos.org/packages?channel=unstable&type=packages&show=cmatrix
       conform # https://search.nixos.org/packages?channel=unstable&type=packages&show=conform
-      cowsay # https://search.nixos.org/packages?channel=unstable&type=packages&show=cowsay
-      croc # https://search.nixos.org/packages?channel=unstable&type=packages&show=croc
-      dasel # https://search.nixos.org/packages?channel=unstable&type=packages&show=dasel
       delta # https://search.nixos.org/packages?channel=unstable&type=packages&show=delta
       devenv # https://search.nixos.org/packages?channel=unstable&type=packages&show=devenv
-      dos2unix # https://search.nixos.org/packages?channel=unstable&type=packages&show=dos2unix
-      exiftool # https://search.nixos.org/packages?channel=unstable&type=packages&show=exiftool
-      eza # https://search.nixos.org/packages?channel=unstable&type=packages&show=eza
-      f3 # https://search.nixos.org/packages?channel=unstable&type=packages&show=f3
-      fd # https://search.nixos.org/packages?channel=unstable&type=packages&show=fd
-      ffmpeg-full # https://search.nixos.org/packages?channel=unstable&type=packages&show=ffmpeg-full
-      findutils # https://search.nixos.org/packages?channel=unstable&type=packages&show=findutils
-      fq # https://search.nixos.org/packages?channel=unstable&type=packages&show=fq
       gh # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh
-      glow # https://search.nixos.org/packages?channel=unstable&type=packages&show=glow
-      gomtree # https://search.nixos.org/packages?channel=unstable&type=packages&show=gomtree
-      gotop # https://search.nixos.org/packages?channel=unstable&type=packages&show=gotop
-      graphviz # https://search.nixos.org/packages?channel=unstable&type=packages&show=graphviz
-      gzip # https://search.nixos.org/packages?channel=unstable&type=packages&show=gzip
       hadolint # https://search.nixos.org/packages?channel=unstable&type=packages&show=hadolint
-      hexedit # https://search.nixos.org/packages?channel=unstable&type=packages&show=hexedit
-      htop # https://search.nixos.org/packages?channel=unstable&type=packages&show=htop
-      imagemagick # https://search.nixos.org/packages?channel=unstable&type=packages&show=imagemagick
-      ipcalc # https://search.nixos.org/packages?channel=unstable&type=packages&show=ipcalc
-      jq # https://search.nixos.org/packages?channel=unstable&type=packages&show=jq
       just # https://search.nixos.org/packages?channel=unstable&type=packages&show=just
       just-lsp # https://search.nixos.org/packages?channel=unstable&type=packages&show=just-lsp
-      krabby # https://search.nixos.org/packages?channel=unstable&type=packages&show=krabby
       lazygit # https://search.nixos.org/packages?channel=unstable&type=packages&show=lazygit
       lazysql # https://search.nixos.org/packages?channel=unstable&type=packages&show=lazysql
-      lego # https://search.nixos.org/packages?channel=unstable&type=packages&show=lego
-      lolcat # https://search.nixos.org/packages?channel=unstable&type=packages&show=lolcat
       ltex-ls # https://search.nixos.org/packages?channel=unstable&type=packages&show=ltex-ls
       markdown-oxide # https://search.nixos.org/packages?channel=unstable&type=packages&show=markdown-oxide
       marksman # https://search.nixos.org/packages?channel=unstable&type=packages&show=marksman
-      mc # https://search.nixos.org/packages?channel=unstable&type=packages&show=mc
-      mdformat # https://search.nixos.org/packages?channel=unstable&type=packages&show=mdformat
-      minify # https://search.nixos.org/packages?channel=unstable&type=packages&show=minify
-      mkdocs # https://search.nixos.org/packages?channel=unstable&type=packages&show=mkdocs
-      moreutils # https://search.nixos.org/packages?channel=unstable&type=packages&show=moreutils
       nh # https://search.nixos.org/packages?channel=unstable&type=packages&show=nh
       nixfmt # https://search.nixos.org/packages?channel=unstable&type=packages&show=nixfmt
       nixos-option # https://search.nixos.org/packages?channel=unstable&type=packages&show=nixos-option
-      nnn # https://search.nixos.org/packages?channel=unstable&type=packages&show=nnn
-      pandoc # https://search.nixos.org/packages?channel=unstable&type=packages&show=pandoc
+      shfmt # https://search.nixos.org/packages?channel=unstable&type=packages&show=shfmt
+      texlab # https://search.nixos.org/packages?channel=unstable&type=packages&show=texlab
+      tig # https://search.nixos.org/packages?channel=unstable&type=packages&show=tig
+      treefmt # https://search.nixos.org/packages?channel=unstable&type=packages&show=treefmt
+      update-nix-fetchgit # https://search.nixos.org/packages?channel=unstable&type=packages&show=update-nix-fetchgit
+      # keep-sorted end
+
+      # Security & Privacy
+      # keep-sorted start block=no newline_separated=no sticky_comments=no
+      _1password-cli # https://search.nixos.org/packages?channel=unstable&type=packages&show=1password-cli
+      age # https://search.nixos.org/packages?channel=unstable&type=packages&show=age
+      age-plugin-yubikey # https://search.nixos.org/packages?channel=unstable&type=packages&show=age-plugin-yubikey
       pass # https://search.nixos.org/packages?channel=unstable&type=packages&show=pass
       pass-git-helper # https://search.nixos.org/packages?channel=unstable&type=packages&show=pass-git-helper
       passage # https://search.nixos.org/packages?channel=unstable&type=packages&show=passage
       passphrase2pgp # https://search.nixos.org/packages?channel=unstable&type=packages&show=passphrase2pgp
-      pipes # https://search.nixos.org/packages?channel=unstable&type=packages&show=pipes
-      pipes-rs # https://search.nixos.org/packages?channel=unstable&type=packages&show=pipes-rs
-      progress # https://search.nixos.org/packages?channel=unstable&type=packages&show=progress
-      qrencode # https://search.nixos.org/packages?channel=unstable&type=packages&show=qrencode
-      ranger # https://search.nixos.org/packages?channel=unstable&type=packages&show=ranger
-      raycast # https://search.nixos.org/packages?channel=unstable&type=packages&show=raycast
-      rclone # TODO: See `nixpkgs.overlays` in other file. # https://search.nixos.org/packages?channel=unstable&type=packages&show=rclone
-      ripgrep # https://search.nixos.org/packages?channel=unstable&type=packages&show=ripgrep
-      sc-im # https://search.nixos.org/packages?channel=unstable&type=packages&show=sc-im
-      shfmt # https://search.nixos.org/packages?channel=unstable&type=packages&show=shfmt
-      sipcalc # https://search.nixos.org/packages?channel=unstable&type=packages&show=sipcalc
-      smartcat # https://search.nixos.org/packages?channel=unstable&type=packages&show=smartcat
       sops # https://search.nixos.org/packages?channel=unstable&type=packages&show=sops
-      spruce # https://search.nixos.org/packages?channel=unstable&type=packages&show=spruce
-      sqlite # https://search.nixos.org/packages?channel=unstable&type=packages&show=sqlite
       ssss # https://search.nixos.org/packages?channel=unstable&type=packages&show=ssss
-      stow # https://search.nixos.org/packages?channel=unstable&type=packages&show=stow
-      television # https://search.nixos.org/packages?channel=unstable&type=packages&show=television
-      tenki # https://search.nixos.org/packages?channel=unstable&type=packages&show=tenki
-      texlab # https://search.nixos.org/packages?channel=unstable&type=packages&show=texlab
-      tig # https://search.nixos.org/packages?channel=unstable&type=packages&show=tig
-      tldr # https://search.nixos.org/packages?channel=unstable&type=packages&show=tldr
-      tmux # https://search.nixos.org/packages?channel=unstable&type=packages&show=tmux
-      tomlq # https://search.nixos.org/packages?channel=unstable&type=packages&show=tomlq
-      tree # https://search.nixos.org/packages?channel=unstable&type=packages&show=tree
-      treefmt # https://search.nixos.org/packages?channel=unstable&type=packages&show=treefmt
-      unzip # https://search.nixos.org/packages?channel=unstable&type=packages&show=unzip
-      update-nix-fetchgit # https://search.nixos.org/packages?channel=unstable&type=packages&show=update-nix-fetchgit
-      vhs # https://search.nixos.org/packages?channel=unstable&type=packages&show=vhs
-      vifm # https://search.nixos.org/packages?channel=unstable&type=packages&show=vifm
-      watch # https://search.nixos.org/packages?channel=unstable&type=packages&show=watch
-      websocat # https://search.nixos.org/packages?channel=unstable&type=packages&show=websocat
-      wget # https://search.nixos.org/packages?channel=unstable&type=packages&show=wget
-      wyrd # https://search.nixos.org/packages?channel=unstable&type=packages&show=wyrd
-      yazi # https://search.nixos.org/packages?channel=unstable&type=packages&show=yazi
       yubikey-manager # https://search.nixos.org/packages?channel=unstable&type=packages&show=yubikey-manager
       yubikey-personalization # https://search.nixos.org/packages?channel=unstable&type=packages&show=yubikey-personalization
+      # keep-sorted end
+
+      # Productivity
+      # keep-sorted start block=no newline_separated=no sticky_comments=no
+      # newsboat # https://search.nixos.org/packages?channel=unstable&type=packages&show=newsboat
+      # obsidian # https://search.nixos.org/packages?channel=unstable&type=packages&show=obsidian
+      # pympress # https://search.nixos.org/packages?channel=unstable&type=packages&show=pympress
+      # taskwarrior3 # https://search.nixos.org/packages?channel=unstable&type=packages&show=taskwarrior3
+      atuin # https://search.nixos.org/packages?channel=unstable&type=packages&show=atuin
+      calcurse # https://search.nixos.org/packages?channel=unstable&type=packages&show=calcurse
+      raycast # https://search.nixos.org/packages?channel=unstable&type=packages&show=raycast
+      stow # https://search.nixos.org/packages?channel=unstable&type=packages&show=stow
+      wyrd # https://search.nixos.org/packages?channel=unstable&type=packages&show=wyrd
+      # keep-sorted end
+
+      # Utilities
+      # keep-sorted start block=no newline_separated=no sticky_comments=no
+      # (lib.lowPrio sc) # TODO: Collision error with `smartcat` package. # https://search.nixos.org/packages?channel=unstable&type=packages&show=sc
+      # fuff # TODO: https://github.com/ffuf/ffuf # https://search.nixos.org/packages?channel=unstable&type=packages&show=fuff
+      # ltex-ls-plus # https://search.nixos.org/packages?channel=unstable&type=packages&show=ltex-ls-plus
+      # ollama # TODO: Marked as insecure. # https://search.nixos.org/packages?channel=unstable&type=packages&show=ollama
+      # sct # https://search.nixos.org/packages?channel=unstable&type=packages&show=sct
+      # uuid7 # TODO: https://github.com/stevesimmons/uuid7 # https://search.nixos.org/packages?channel=unstable&type=packages&show=uuid7
+      # ws # TODO: https://github.com/lewoudar/ws/ # https://search.nixos.org/packages?channel=unstable&type=packages&show=ws
+      barcode # https://search.nixos.org/packages?channel=unstable&type=packages&show=barcode
+      bc # https://search.nixos.org/packages?channel=unstable&type=packages&show=bc
+      bitwise # https://search.nixos.org/packages?channel=unstable&type=packages&show=bitwise
+      chafa # https://search.nixos.org/packages?channel=unstable&type=packages&show=chafa
+      dasel # https://search.nixos.org/packages?channel=unstable&type=packages&show=dasel
+      dos2unix # https://search.nixos.org/packages?channel=unstable&type=packages&show=dos2unix
+      exiftool # https://search.nixos.org/packages?channel=unstable&type=packages&show=exiftool
+      f3 # https://search.nixos.org/packages?channel=unstable&type=packages&show=f3
+      fq # https://search.nixos.org/packages?channel=unstable&type=packages&show=fq
+      glow # https://search.nixos.org/packages?channel=unstable&type=packages&show=glow
+      gomtree # https://search.nixos.org/packages?channel=unstable&type=packages&show=gomtree
+      graphviz # https://search.nixos.org/packages?channel=unstable&type=packages&show=graphviz
+      hexedit # https://search.nixos.org/packages?channel=unstable&type=packages&show=hexedit
+      jq # https://search.nixos.org/packages?channel=unstable&type=packages&show=jq
+      lego # https://search.nixos.org/packages?channel=unstable&type=packages&show=lego
+      mdformat # https://search.nixos.org/packages?channel=unstable&type=packages&show=mdformat
+      minify # https://search.nixos.org/packages?channel=unstable&type=packages&show=minify
+      mkdocs # https://search.nixos.org/packages?channel=unstable&type=packages&show=mkdocs
+      moreutils # https://search.nixos.org/packages?channel=unstable&type=packages&show=moreutils
+      pandoc # https://search.nixos.org/packages?channel=unstable&type=packages&show=pandoc
+      progress # https://search.nixos.org/packages?channel=unstable&type=packages&show=progress
+      qrencode # https://search.nixos.org/packages?channel=unstable&type=packages&show=qrencode
+      rclone # TODO: See `nixpkgs.overlays` in other file. # https://search.nixos.org/packages?channel=unstable&type=packages&show=rclone
+      sc-im # https://search.nixos.org/packages?channel=unstable&type=packages&show=sc-im
+      smartcat # https://search.nixos.org/packages?channel=unstable&type=packages&show=smartcat
+      spruce # https://search.nixos.org/packages?channel=unstable&type=packages&show=spruce
+      sqlite # https://search.nixos.org/packages?channel=unstable&type=packages&show=sqlite
+      tenki # https://search.nixos.org/packages?channel=unstable&type=packages&show=tenki
+      tomlq # https://search.nixos.org/packages?channel=unstable&type=packages&show=tomlq
+      vhs # https://search.nixos.org/packages?channel=unstable&type=packages&show=vhs
       zenity # https://search.nixos.org/packages?channel=unstable&type=packages&show=zenity
-      zip # https://search.nixos.org/packages?channel=unstable&type=packages&show=zip
       zoxide # https://search.nixos.org/packages?channel=unstable&type=packages&show=zoxide
+      # keep-sorted end
+
+      # Miscellaneous
+      # keep-sorted start block=no newline_separated=no sticky_comments=no
+      # keep-sorted end
+
+      # Terminal
+      # keep-sorted start block=no newline_separated=no sticky_comments=no
+      # bat # https://search.nixos.org/packages?channel=unstable&type=packages&show=bat
+      # ncdu # TODO: https://github.com/NixOS/nixpkgs/issues/290512 # https://search.nixos.org/packages?channel=unstable&type=packages&show=ncdu
+      # superfile # https://search.nixos.org/packages?channel=unstable&type=packages&show=superfile
+      btop # https://search.nixos.org/packages?channel=unstable&type=packages&show=btop
+      byobu # https://search.nixos.org/packages?channel=unstable&type=packages&show=byobu
+      cheat # https://search.nixos.org/packages?channel=unstable&type=packages&show=cheat
+      dust # https://search.nixos.org/packages?channel=unstable&type=packages&show=dust
+      eza # https://search.nixos.org/packages?channel=unstable&type=packages&show=eza
+      fd # https://search.nixos.org/packages?channel=unstable&type=packages&show=fd
+      findutils # https://search.nixos.org/packages?channel=unstable&type=packages&show=findutils
+      gotop # https://search.nixos.org/packages?channel=unstable&type=packages&show=gotop
+      gzip # https://search.nixos.org/packages?channel=unstable&type=packages&show=gzip
+      htop # https://search.nixos.org/packages?channel=unstable&type=packages&show=htop
+      hyperfine # https://search.nixos.org/packages?channel=unstable&type=packages&show=hyperfine
+      mc # https://search.nixos.org/packages?channel=unstable&type=packages&show=mc
+      nnn # https://search.nixos.org/packages?channel=unstable&type=packages&show=nnn
+      ranger # https://search.nixos.org/packages?channel=unstable&type=packages&show=ranger
+      ripgrep # https://search.nixos.org/packages?channel=unstable&type=packages&show=ripgrep
+      television # https://search.nixos.org/packages?channel=unstable&type=packages&show=television
+      tldr # https://search.nixos.org/packages?channel=unstable&type=packages&show=tldr
+      tmux # https://search.nixos.org/packages?channel=unstable&type=packages&show=tmux
+      tree # https://search.nixos.org/packages?channel=unstable&type=packages&show=tree
+      unzip # https://search.nixos.org/packages?channel=unstable&type=packages&show=unzip
+      vifm # https://search.nixos.org/packages?channel=unstable&type=packages&show=vifm
+      watch # https://search.nixos.org/packages?channel=unstable&type=packages&show=watch
+      yazi # https://search.nixos.org/packages?channel=unstable&type=packages&show=yazi
+      zip # https://search.nixos.org/packages?channel=unstable&type=packages&show=zip
       # keep-sorted end
     ]
     ++ (pkgs.lib.optionals pkgs.stdenv.isLinux [
       # Audio
-      # keep-sorted start block=yes newline_separated=no sticky_comments=no
+      # keep-sorted start block=no newline_separated=no sticky_comments=no
       sonic-pi # TODO: Missing "aarch64-apple-darwin" platform. # https://search.nixos.org/packages?channel=unstable&type=packages&show=sonic-pi
       supercollider-with-plugins # TODO: Missing "aarch64-apple-darwin" platform. # https://search.nixos.org/packages?channel=unstable&type=packages&show=supercollider-with-plugins
       # keep-sorted end
 
       # Graphics
-      # keep-sorted start block=yes newline_separated=no sticky_comments=no
+      # keep-sorted start block=no newline_separated=no sticky_comments=no
       aseprite # TODO: Missing "aarch64-apple-darwin" platform. # https://search.nixos.org/packages?channel=unstable&type=packages&show=aseprite
       emulsion-palette # TODO: Missing "aarch64-apple-darwin" platform. # https://search.nixos.org/packages?channel=unstable&type=packages&show=emulsion-palette
       eyedropper # TODO: Missing "aarch64-apple-darwin" platform. # https://search.nixos.org/packages?channel=unstable&type=packages&show=eyedropper
@@ -226,7 +246,7 @@
       # keep-sorted end
 
       # Network
-      # keep-sorted start block=yes newline_separated=no sticky_comments=no
+      # keep-sorted start block=no newline_separated=no sticky_comments=no
       kanidm # TODO: Missing "aarch64-apple-darwin" platform. # https://search.nixos.org/packages?channel=unstable&type=packages&show=kanidm
       # keep-sorted end
     ])
@@ -240,7 +260,7 @@
       # darwin.apple_sdk.frameworks.Foundation
     ])
     ++ (pkgs.lib.optionals (pkgs.stdenv.isDarwin && pkgs.stdenv.hostPlatform.isAarch64) [
-      # keep-sorted start block=yes newline_separated=no sticky_comments=no
+      # keep-sorted start block=no newline_separated=no sticky_comments=no
       podman # https://search.nixos.org/packages?channel=unstable&type=packages&show=podman
       podman-compose # https://search.nixos.org/packages?channel=unstable&type=packages&show=podman-compose
       # keep-sorted end
