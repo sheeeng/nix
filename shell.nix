@@ -62,7 +62,7 @@
     name = "minimal-shell";
 
     buildInputs = with pkgs; [
-      # keep-sorted start
+      # keep-sorted start block=no newline_separated=no sticky_comments=no
       (lib.hiPrio uutils-coreutils-noprefix) # https://search.nixos.org/packages?channel=unstable&type=packages&show=uutils-coreutils-noprefix
       git # https://search.nixos.org/packages?channel=unstable&type=packages&show=git
       gnupg # https://search.nixos.org/packages?channel=unstable&type=packages&show=gnupg
