@@ -18,4 +18,7 @@
         ) (builtins.readDir path)
       )
     );
+
+  # Import Determinate Nix utilities
+  determinateNix = import ./determinate-nix.nix { inherit lib; };
 }

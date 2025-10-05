@@ -22,6 +22,14 @@ let
       uid = 501;
     };
   };
+
+  # Detect if Determinate Nix is installed
+  # Check for common Determinate Nix indicators
+  isDeterminateNix =
+    builtins.pathExists "/nix/receipt.json"
+    || builtins.pathExists "/Library/LaunchDaemons/systems.determinate.nix-daemon.plist"
+    || (builtins.getEnv "NIX_INSTALLER_NO_MODIFY_PROFILE" != "");
+
   pkgs-unstable = import inputs.nixpkgs {
     inherit (hostConfiguration) system;
     config.allowUnfree = true;
@@ -106,7 +114,7 @@ in
   # `nix.*` options to adjust Nix settings or configure a Linux builder,
   # will be unavailable.
   nix = {
-    enable = false; # https://nix-darwin.github.io/nix-darwin/manual/#opt-nix.enable
+    enable = !isDeterminateNix; # https://nix-darwin.github.io/nix-darwin/manual/#opt-nix.enable
     package = pkgs-unstable.nix; # https://nix-darwin.github.io/nix-darwin/manual/#opt-nix.package
     channel.enable = false; # https://nix-darwin.github.io/nix-darwin/manual/#opt-nix.channel.enable # TODO: https://github.com/NixOS/nix/issues/2982#issuecomment-2477618346
     optimise.automatic = false; # https://nix-darwin.github.io/nix-darwin/manual/#opt-nix.optimise.automatic # TODO: https://github.com/NixOS/nix/issues/7273#issuecomment-2295429401
@@ -141,7 +149,7 @@ in
     }; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-nix.settings
     gc = {
       # TODO: nix.gc.automatic requires nix.enable
-      automatic = false; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-nix.gc.automatic
+      automatic = !isDeterminateNix; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-nix.gc.automatic
       interval = {
         Day = 1;
         Hour = 12;
@@ -339,6 +347,26 @@ in
     text = ''
       ${pkgs.nvd}/bin/nvd --nix-bin-dir=${pkgs.nix}/bin diff \
         /run/current-system "$systemConfig"
+    '';
+  };
+
+  # Determinate Nix detection information
+  system.activationScripts.determinateInfo = {
+    supportsDryActivation = true;
+    text = ''
+      ${
+        if isDeterminateNix then
+          ''
+            echo "✓ Determinate Nix detected - nix-darwin Nix management disabled"
+            echo "  Nix installation managed by Determinate Systems"
+            echo "  Some nix-darwin features (like nix.* options) are unavailable"
+          ''
+        else
+          ''
+            echo "✓ Standard Nix installation detected - nix-darwin managing Nix"
+            echo "  Full nix-darwin functionality available"
+          ''
+      }
     '';
   };
 
