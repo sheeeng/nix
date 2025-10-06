@@ -33,7 +33,8 @@ in
       sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
     };
 
-    # System-level secrets (these go to /run/secrets/)
+    # Host-level Secrets
+    # stat --format "%A %a %n" /run/secrets/**/*
     secrets = lib.mkMerge [
       {
         # Extract age key to be available for home-manager
@@ -59,7 +60,7 @@ in
       group = if pkgs.stdenv.isLinux then "users" else "staff";
     in
     ''
-      mkdir -p ${ageFolder} || true
-      chown -R ${user}:${group} ${homeDirectory}/.config || true
+      mkdir --parents ${ageFolder} || true
+      chown --recursive ${user}:${group} ${homeDirectory}/.config || true
     '';
 }
