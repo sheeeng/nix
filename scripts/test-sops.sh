@@ -95,13 +95,12 @@ fi
 # Test home-level secrets based on actual secrets.txt structure
 # Home-level (common.yaml) contains shared application secrets
 home_secrets=(
-  "hello"
-  "passwords/cia_terminal"
-  "passwords/citypower_grid"
-  "passwords/door_of_durin"
-  "passwords/x_files"
-  "tokens/atuin"
-  "tokens/github"
+  "passwords/atuin"
+  "keys/atuin"
+  "keys/id_ed25519/private"
+  "keys/id_ed25519/public"
+  "keys/wakatime"
+  "tokens/github/user_scope"
 )
 
 for secret in "${home_secrets[@]}"; do
@@ -143,10 +142,7 @@ fi
 print_status "INFO" "=== Testing Helper Scripts ==="
 
 helper_scripts=(
-  "get-hello"
-  "get-cia-terminal-password"
   "get-atuin-token"
-  "get-github-token"
 )
 
 for script in "${helper_scripts[@]}"; do
