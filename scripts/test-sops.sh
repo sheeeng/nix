@@ -73,9 +73,7 @@ fi
 # Host-level (tp95v9lwwl.yaml) only contains keys
 host_secrets=(
   "keys/age"
-  "keys/ssh/keyname1"
-  "keys/ssh/keyname2"
-  "keys/ssh/keyname3"
+  tokens/github/public_repo_scope
 )
 
 for secret in "${host_secrets[@]}"; do
