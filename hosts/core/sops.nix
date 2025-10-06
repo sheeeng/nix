@@ -9,21 +9,23 @@
 }:
 let
   sopsFolder = builtins.toString inputs.nix-secrets + "/secrets";
-  # Get primary user from config or fallback to current user
   primaryUser = config.system.primaryUser or (builtins.getEnv "USER");
   homeDirectory = "/Users/${primaryUser}";
 in
 {
-  # Import sops-nix module for system-level
   imports = [
     inputs.sops-nix.darwinModules.sops
   ];
 
-  # Configure sops at system level
   sops = {
-    # Use host name to determine which secrets file to load
     defaultSopsFile = "${sopsFolder}/${lib.strings.toLower config.networking.hostName}.yaml";
-    validateSopsFiles = false; # Set to false to avoid validation issues during development
+    validateSopsFiles = true;
+
+    templates = {
+      nix-access-token-github.content = ''
+        access-tokens = github.com=${config.sops.placeholder."tokens/github/public_repo_scope"}
+      '';
+    };
 
     # Age configuration for system level
     age = {
@@ -42,76 +44,14 @@ in
           path = "${homeDirectory}/.config/sops/age/keys.txt";
         };
 
-        # SSH keys from host-specific YAML (tp95v9lwwl.yaml)
-        "keys/ssh/keyname1" = {
-          owner = primaryUser;
-          mode = "0400";
-        };
-
-        "keys/ssh/keyname2" = {
-          owner = primaryUser;
-          mode = "0400";
-        };
-
-        "keys/ssh/keyname3" = {
+        "tokens/github/public_repo_scope" = {
           owner = primaryUser;
           mode = "0400";
         };
       }
-
-      # Common secrets from common.yaml (if needed at system level)
-      # Uncomment if you need these secrets available to system services
-      # {
-      #   # Common shared secrets from common.yaml
-      #   "hello" = {
-      #     sopsFile = "${sopsFolder}/common.yaml";
-      #     owner = primaryUser;
-      #     mode = "0400";
-      #   };
-      #
-      #   # System-level password secrets from common.yaml
-      #   "passwords/cia_terminal" = {
-      #     sopsFile = "${sopsFolder}/common.yaml";
-      #     owner = primaryUser;
-      #     mode = "0400";
-      #   };
-      #
-      #   "passwords/citypower_grid" = {
-      #     sopsFile = "${sopsFolder}/common.yaml";
-      #     owner = primaryUser;
-      #     mode = "0400";
-      #   };
-      #
-      #   "passwords/door_of_durin" = {
-      #     sopsFile = "${sopsFolder}/common.yaml";
-      #     owner = primaryUser;
-      #     mode = "0400";
-      #   };
-      #
-      #   "passwords/x_files" = {
-      #     sopsFile = "${sopsFolder}/common.yaml";
-      #     owner = primaryUser;
-      #     mode = "0400";
-      #   };
-      #
-      #   # System-level token secrets from common.yaml
-      #   "tokens/atuin" = {
-      #     sopsFile = "${sopsFolder}/common.yaml";
-      #     owner = primaryUser;
-      #     mode = "0400";
-      #   };
-      #
-      #   "tokens/github" = {
-      #     sopsFile = "${sopsFolder}/common.yaml";
-      #     owner = primaryUser;
-      #     mode = "0400";
-      #   };
-      # }
     ];
   };
 
-  # Ensure ownership of age directory for home-manager
-  # This is crucial for home-manager sops to work properly
   system.activationScripts.sopsSetAgeKeyOwnership =
     let
       ageFolder = "${homeDirectory}/.config/sops/age";

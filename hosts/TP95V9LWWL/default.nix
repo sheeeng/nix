@@ -163,6 +163,7 @@ in
       options = "--delete-older-than 7d"; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-nix.gc.options
     };
     extraOptions = ''
+      include ${config.sops.templates.nix-access-token-github.path}
       experimental-features = nix-command flakes
       keep-derivations = true
       keep-outputs = true
@@ -223,10 +224,6 @@ in
   # nix.configureBuildUsers = true;
 
   security.pam.services.sudo_local.touchIdAuth = true; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-security.pam.services.sudo_local.touchIdAuth
-
-  # networking = {
-  #   dns = [ "1.1.1.1" ];
-  # }; # TODO:  warning: networking.knownNetworkServices is empty, dns servers will not be configured.
 
   users.users = {
     "${hostConfiguration.user.name}" = {
