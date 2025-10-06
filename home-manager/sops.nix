@@ -52,6 +52,7 @@ in
         path = "${homeDirectory}/.ssh/id_ed25519";
         mode = "0600";
       };
+      "keys/wakatime" = { };
 
       # Token secrets (from tokens section in YAML)
       "tokens/github" = { };
@@ -95,6 +96,9 @@ in
     } 2>/dev/null || echo 'Secret not available.'";
     show-ed25519-ssh-public-key = "cat ${homeDirectory}/.ssh/id_ed25519.pub 2>/dev/null || echo 'Secret not available.'";
     show-ed25519-ssh-private-key = "cat ${homeDirectory}/.ssh/id_ed25519 2>/dev/null || echo 'Secret not available.'";
+    show-wakatime-api-key = "cat ${
+      config.sops.secrets."keys/wakatime".path
+    } 2>/dev/null || echo 'Secret not available.'";
 
     show-github-token = "cat ${
       config.sops.secrets."tokens/github".path
@@ -230,6 +234,7 @@ in
     ATUIN_KEY_FILE = config.sops.secrets."keys/atuin".path;
     SSH_ED25519_PUBLIC_KEY_FILE = "${homeDirectory}/.ssh/id_ed25519.pub";
     SSH_ED25519_PRIVATE_KEY_FILE = "${homeDirectory}/.ssh/id_ed25519";
+    WAKATIME_API_KEY_FILE = config.sops.secrets."keys/wakatime".path;
 
     # Token secret paths
     GITHUB_TOKEN_FILE = config.sops.secrets."tokens/github".path;
