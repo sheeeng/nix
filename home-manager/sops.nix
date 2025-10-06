@@ -72,6 +72,8 @@ in
       config.sops.secrets."tokens/github/user_scope".path
     } 2>/dev/null || echo 'Secret not available.'";
 
+    show-public-repo-scope-github-token = "cat /run/secrets/tokens/github/public_repo_scope 2>/dev/null || echo 'Secret not available.'";
+
     list-home-secrets = "ls --long --all ~/.config/sops-nix/secrets/ 2>/dev/null || echo 'No secrets directory found.'";
   };
 
@@ -102,6 +104,7 @@ in
         "show-tokens")
           echo "Available tokens:"
           echo "  GitHub User Scope: ${config.sops.secrets."tokens/github/user_scope".path}"
+          echo "  GitHub Public Repo Scope: /run/secrets/tokens/github/public_repo_scope"
           ;;
         "list-home-secrets")
           echo "Home-manager secrets directory:"
@@ -155,6 +158,11 @@ in
         config.sops.secrets."tokens/github/user_scope".path
       } 2>/dev/null || echo "GitHub token not available."
     '')
+
+    (pkgs.writeShellScriptBin "get-public-repo-scope-github-token" ''
+      cat /run/secrets/tokens/github/public_repo_scope 2>/dev/null || echo "GitHub token not available."
+    '')
+
     (pkgs.writeShellScriptBin "test-nix-github-access" ''
       echo "Testing Nix GitHub access configuration..."
       echo "Current Nix access-tokens configuration:"
@@ -182,6 +190,7 @@ in
     WAKATIME_API_KEY_FILE = config.sops.secrets."keys/wakatime".path;
 
     USER_SCOPE_GITHUB_TOKEN_FILE = config.sops.secrets."tokens/github/user_scope".path;
+    PUBLIC_REPO_SCOPE_GITHUB_TOKEN_FILE = "/run/secrets/tokens/github/public_repo_scope";
 
     HOST_AGE_KEY_FILE = "/run/secrets/keys/age";
     HOST_PUBLIC_REPO_SCOPE_GITHUB_TOKEN_FILE = "/run/secrets/tokens/github/public_repo_scope";
