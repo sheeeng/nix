@@ -23,12 +23,22 @@ let
     };
   };
 
-  # Detect if Determinate Nix is installed
-  # Check for common Determinate Nix indicators
+  # TODO: How to force this to boolean?
   isDeterminateNix =
-    builtins.pathExists "/nix/receipt.json"
-    || builtins.pathExists "/Library/LaunchDaemons/systems.determinate.nix-daemon.plist"
-    || (builtins.getEnv "NIX_INSTALLER_NO_MODIFY_PROFILE" != "");
+    let
+      receiptPath = "/nix/receipt.json";
+      receiptExists = builtins.pathExists receiptPath;
+      receiptContent = if receiptExists then builtins.readFile receiptPath else "{}";
+      receiptJSON = builtins.fromJSON receiptContent;
+
+      plannerSettingsDeterminateNixEnabled =
+        receiptExists
+        && receiptJSON ? planner
+        && receiptJSON.planner ? settings
+        && receiptJSON.planner.settings ? determinate_nix
+        && receiptJSON.planner.settings.determinate_nix == true;
+    in
+    plannerSettingsDeterminateNixEnabled;
 
   pkgs-unstable = import inputs.nixpkgs {
     inherit (hostConfiguration) system;
@@ -41,7 +51,7 @@ in
     # ../../modules/yabai
     # catppuccin.darwinModules.catppuccin # TODO: https://github.com/catppuccin/nix/issues/162
     # inputs.home-manager.darwinModules.defaults
-    ../core/sops.nix
+    # ../core/sops.nix
     inputs.agenix.darwinModules.age
     inputs.home-manager.darwinModules.home-manager
     inputs.nixvim.nixDarwinModules.nixvim
@@ -114,7 +124,7 @@ in
   # `nix.*` options to adjust Nix settings or configure a Linux builder,
   # will be unavailable.
   nix = {
-    enable = !isDeterminateNix; # https://nix-darwin.github.io/nix-darwin/manual/#opt-nix.enable
+    enable = false; # !isDeterminateNix; # https://nix-darwin.github.io/nix-darwin/manual/#opt-nix.enable
     package = pkgs-unstable.nix; # https://nix-darwin.github.io/nix-darwin/manual/#opt-nix.package
     channel.enable = false; # https://nix-darwin.github.io/nix-darwin/manual/#opt-nix.channel.enable # TODO: https://github.com/NixOS/nix/issues/2982#issuecomment-2477618346
     optimise.automatic = false; # https://nix-darwin.github.io/nix-darwin/manual/#opt-nix.optimise.automatic # TODO: https://github.com/NixOS/nix/issues/7273#issuecomment-2295429401
@@ -149,7 +159,7 @@ in
     }; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-nix.settings
     gc = {
       # TODO: nix.gc.automatic requires nix.enable
-      automatic = !isDeterminateNix; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-nix.gc.automatic
+      automatic = false; # !isDeterminateNix; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-nix.gc.automatic
       interval = {
         Day = 1;
         Hour = 12;
