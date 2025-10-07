@@ -2,6 +2,7 @@
   config,
   inputs,
   pkgs,
+  lib,
   ...
 }:
 let
@@ -82,6 +83,8 @@ in
       show-system = "nix derivation show /run/current-system";
       switch-system = "darwin-rebuild switch --flake .";
       list-generations = "nix-env --list-generations";
+      setup-nix-github-token = "nix config --set access-tokens \"github.com=$(cat /run/secrets/tokens/github/public_repo_scope 2>/dev/null || echo 'GitHub token not available.')\"";
+      clear-nix-github-token = "nix config --unset access-tokens";
     }; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-environment.shellAliases
     variables = {
       SKIP_TESTS = "1";
@@ -163,7 +166,6 @@ in
       options = "--delete-older-than 7d"; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-nix.gc.options
     };
     extraOptions = ''
-      include ${config.sops.templates.nix-access-token-github.path}
       experimental-features = nix-command flakes
       keep-derivations = true
       keep-outputs = true
@@ -340,15 +342,53 @@ in
   };
 
   # https://chattingdarkly.org/@lhf@fosstodon.org/110661879831891580
+  # https://github.com/luishfonseca/nixos-config/blob/f9369dbe389dafc5537c4b537592b9734fcfec5e/modules/upgrade-diff.nix.
+  # https://gist.github.com/luishfonseca/f183952a77e46ccd6ef7c907ca424517?permalink_comment_id=4620275#gistcomment-4620275
+  # https://github.com/GoldsteinE/nixos/blob/3d7353065c3f42b6442f7df9ab443fcb5381f2ce/rebuild#L13
   system.activationScripts.diff = {
-    supportsDryActivation = true;
-    text = ''
-      ${pkgs.nvd}/bin/nvd --nix-bin-dir=${pkgs.nix}/bin diff \
-        /run/current-system "$systemConfig"
-    '';
+    system.activationScripts.postUserActivation = {
+      text = ''
+        ${pkgs.nvd}/bin/nvd --nix-bin-dir=${pkgs.nix}/bin diff /run/current-system "$systemConfig"
+      '';
+    }
+    // lib.optionalAttrs pkgs.stdenv.isLinux {
+      supportsDryActivation = true;
+    };
   };
 
-  # https://medium.com/@zmre/nix-darwin-quick-tip-activate-your-preferences-f69942a93236
+  system.activationScripts.setupGitHubAccessToken = {
+    supportsDryActivation = false;
+    deps = [ "diff" ];
+    text = ''
+      set -o errexit
+      set -o nounset
+
+      ${pkgs.uutils-coreutils-noprefix}/bin/echo "DEBUG: Starting GitHub access token setup activation script..."
+
+      if [ -f "${config.sops.secrets."tokens/github/public_repo_scope".path}" ]; then
+        ${pkgs.uutils-coreutils-noprefix}/bin/echo "Setting up GitHub access token for Nix..."
+
+        # Read token from sops secret
+        GITHUB_TOKEN=$(${pkgs.uutils-coreutils-noprefix}/bin/cat "${
+          config.sops.secrets."tokens/github/public_repo_scope".path
+        }")
+
+        # Configure access token using nix config
+        ${pkgs.uutils-coreutils-noprefix}/bin/echo "Setting GitHub access token via nix config..."
+        ${pkgs.nix}/bin/nix config --system --set access-tokens "github.com=$GITHUB_TOKEN"
+
+        ${pkgs.uutils-coreutils-noprefix}/bin/echo "GitHub access token configured successfully"
+      else
+        ${pkgs.uutils-coreutils-noprefix}/bin/echo "WARNING: GitHub token secret not found at ${
+          config.sops.secrets."tokens/github/public_repo_scope".path
+        }"
+        ${pkgs.uutils-coreutils-noprefix}/bin/echo "DEBUG: Available files in /run/secrets/:"
+        ${pkgs.findutils}/bin/find /run/secrets/ -type f 2>/dev/null || ${pkgs.uutils-coreutils-noprefix}/bin/echo "No /run/secrets/ directory found"
+      fi
+
+      ${pkgs.uutils-coreutils-noprefix}/bin/echo "DEBUG: GitHub access token setup activation script completed"
+    '';
+  }; # https://medium.com/@zmre/nix-darwin-quick-tip-activate-your-preferences-f69942a93236
   # Failed assertions:
   # - The `system.activationScripts.postUserActivation` option has
   # been removed, as all activation now takes place as `root`. Please
