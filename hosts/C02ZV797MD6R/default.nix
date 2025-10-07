@@ -261,15 +261,17 @@ in
     inputs.mac-app-util.homeManagerModules.default
   ]; # https://nix-community.github.io/home-manager/nixos-options.xhtml#nixos-opt-home-manager.sharedModules
 
-  home-manager.users.leonardlee = {
-    home.stateVersion = "25.11";
-    imports = [
-      ../../home-manager/home.nix
-      inputs.agenix.homeManagerModules.age
-      inputs.catppuccin.homeModules.catppuccin
-      inputs.nix-index-database.homeModules.nix-index
-      inputs.nixvim.homeModules.nixvim
-    ];
+  home-manager.users = {
+    "${hostConfiguration.primaryUser}" = {
+      home.stateVersion = "25.11";
+      imports = [
+        ../../home-manager/home.nix
+        inputs.agenix.homeManagerModules.age
+        inputs.catppuccin.homeModules.catppuccin
+        inputs.nix-index-database.homeModules.nix-index
+        inputs.nixvim.homeModules.nixvim
+      ];
+    };
   }; # https://nix-community.github.io/home-manager/nixos-options.xhtml#nixos-opt-home-manager.users
   home-manager.verbose = false; # https://nix-community.github.io/home-manager/nixos-options.xhtml#nixos-opt-home-manager.verbose
 
