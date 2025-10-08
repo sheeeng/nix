@@ -90,8 +90,6 @@ in
       clear-nix-github-token = "nix config --unset access-tokens";
     }; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-environment.shellAliases
     variables = {
-      SKIP_TESTS = "1";
-      NODE_ENV = "production";
     }; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-environment.variables
   };
 
