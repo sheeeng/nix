@@ -168,7 +168,7 @@ in
       options = "--delete-older-than 7d"; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-nix.gc.options
     };
     extraOptions = ''
-      !include ${config.sops.templates.nix-access-token.path}'
+      !include ${config.sops.templates.nix-access-token.path}
       experimental-features = nix-command flakes
       keep-derivations = true
       keep-outputs = true
