@@ -4,6 +4,7 @@
 {
   # use path relative to the root of the project
   relativeToRoot = lib.path.append ../.;
+
   scanPaths =
     path:
     builtins.map (f: (path + "/${f}")) (
@@ -18,7 +19,4 @@
         ) (builtins.readDir path)
       )
     );
-
-  # Import Determinate Nix utilities
-  determinateNix = import ./determinate-nix.nix { inherit lib; };
 }
