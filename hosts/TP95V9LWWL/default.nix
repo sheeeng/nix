@@ -29,8 +29,7 @@ let
     # keep-sorted end
   };
 
-  # Use the centralized Determinate Nix detection
-  isDeterminateNix = (import ../core/determinate.nix { }).isDeterminateNix;
+  inherit ((import ../core/determinate.nix { })) isDeterminateNix;
 
   pkgs-unstable = import inputs.nixpkgs {
     inherit (hostConfiguration.nixpkgs) system;
@@ -162,7 +161,8 @@ in
       ]; # https://nix-darwin.github.io/nix-darwin/manual/#opt-nix.settings.trusted-users
     }; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-nix.settings
     gc = {
-      automatic = true; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-nix.gc.automatic
+      # TODO: nix.gc.automatic requires nix.enable
+      automatic = !isDeterminateNix; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-nix.gc.automatic
       interval = {
         Day = 1;
         Hour = 12;
