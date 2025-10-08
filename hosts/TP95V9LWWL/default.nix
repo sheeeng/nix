@@ -29,21 +29,8 @@ let
     # keep-sorted end
   };
 
-  isDeterminateNix =
-    let
-      receiptPath = "/nix/receipt.json";
-      receiptExists = builtins.pathExists receiptPath;
-      receiptContent = if receiptExists then builtins.readFile receiptPath else "{}";
-      receiptJSON = builtins.fromJSON receiptContent;
-
-      plannerSettingsDeterminateNixEnabled =
-        receiptExists
-        && receiptJSON ? planner
-        && receiptJSON.planner ? settings
-        && receiptJSON.planner.settings ? determinate_nix
-        && receiptJSON.planner.settings.determinate_nix;
-    in
-    plannerSettingsDeterminateNixEnabled;
+  # Use the centralized Determinate Nix detection
+  isDeterminateNix = (import ../core/determinate.nix { }).isDeterminateNix;
 
   pkgs-unstable = import inputs.nixpkgs {
     inherit (hostConfiguration.nixpkgs) system;
