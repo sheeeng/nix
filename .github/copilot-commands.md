@@ -59,6 +59,51 @@ nix eval --impure --expr '(import ./hosts/core/determinate.nix { }).isDeterminat
 nix eval --impure --expr 'let receiptPath = "/nix/receipt.json"; receiptExists = builtins.pathExists receiptPath; receiptContent = if receiptExists then builtins.readFile receiptPath else "{}"; receiptJSON = builtins.fromJSON receiptContent; plannerSettingsDeterminateNixEnabled = receiptExists && receiptJSON ? planner && receiptJSON.planner ? settings && receiptJSON.planner.settings ? determinate_nix && receiptJSON.planner.settings.determinate_nix; in plannerSettingsDeterminateNixEnabled'
 ```
 
+```console
+$ nix-shell --packages nixfmt-rfc-style
+error:
+       … while calling the 'import' builtin
+         at «string»:1:18:
+            1| {...}@args: with import <nixpkgs> args; (pkgs.runCommandCC or pkgs.runCommand) "shell" { buildInputs = [ (nixfmt-rfc-style) ]; } ""
+             |                  ^
+
+       … while realising the context of a path
+
+       … while calling the 'findFile' builtin
+         at «string»:1:25:
+            1| {...}@args: with import <nixpkgs> args; (pkgs.runCommandCC or pkgs.runCommand) "shell" { buildInputs = [ (nixfmt-rfc-style) ]; } ""
+             |                         ^
+
+       error: file 'nixpkgs' was not found in the Nix search path (add it using $NIX_PATH or -I)
+$
+```
+
+```shell
+nix-channel --add https://nixos.org/channels/nixpkgs-unstable nixpkgs
+nix-channel --update
+nix-shell --packages nixfmt-rfc-style
+
+nix-shell -I nixpkgs=https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz --packages nixfmt-rfc-style
+
+nix-shell -p nixfmt-rfc-style -I nixpkgs=https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz
+
+nix-channel --list
+
+nix-shell --packages nixfmt-rfc-style
+
+nix --extra-experimental-features "flakes nix-command" flake check
+```
+
+```nix
+# shell.nix -> nix-shell
+# nix shell nixpkgs#nixfmt-rfc-style
+{ pkgs ? import <nixpkgs> {} }:
+
+pkgs.mkShell {
+  buildInputs = [ pkgs.nixfmt-rfc-style ];
+}
+```
+
 ## Historical Commands
 
 ```shell
