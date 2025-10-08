@@ -48,16 +48,11 @@ nix eval --json '.#darwinConfigurations.TP95V9LWWL.pkgs.nix.version'
 
 nix eval --json 'nixpkgs#nix.version'
 
-nix eval --json --impure --expr '(import ./lib { lib = (import <nixpkgs> {}).lib; }).determinateNix.isDeterminateNix'
-
-# Direct evaluation through library
-nix eval --json --impure --expr '(import ./lib { lib = (import <nixpkgs> {}).lib; }).determinateNix.isDeterminateNix'
-
-# Through your host configuration
 nix eval --json '.#darwinConfigurations.TP95V9LWWL.config.nix.enable'
 
-# During darwin-rebuild (via the activation script)
 sudo darwin-rebuild switch --flake .
+
+nix eval --impure --expr '(import ./hosts/core/determinate.nix { }).isDeterminateNix'
 ```
 
 ```shell
