@@ -44,7 +44,13 @@ nix repl --file '<nixpkgs>'
 
 nix eval '.#darwinConfigurations.<hostname>.config.home-manager.users'
 
+nix eval --json '.#darwinConfigurations.TP95V9LWWL.pkgs.nix.version'
 
+nix eval --json 'nixpkgs#nix.version'
+```
+
+```shell
+nix eval --impure --expr 'let receiptPath = "/nix/receipt.json"; receiptExists = builtins.pathExists receiptPath; receiptContent = if receiptExists then builtins.readFile receiptPath else "{}"; receiptJSON = builtins.fromJSON receiptContent; plannerSettingsDeterminateNixEnabled = receiptExists && receiptJSON ? planner && receiptJSON.planner ? settings && receiptJSON.planner.settings ? determinate_nix && receiptJSON.planner.settings.determinate_nix; in plannerSettingsDeterminateNixEnabled'
 ```
 
 ## Historical Commands
