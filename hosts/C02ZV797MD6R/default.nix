@@ -72,10 +72,7 @@ in
       switch-system = "darwin-rebuild switch --flake .";
       list-generations = "nix-env --list-generations";
     }; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-environment.shellAliases
-    variables = {
-      SKIP_TESTS = "1";
-      NODE_ENV = "production";
-    }; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-environment.variables
+    variables = { }; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-environment.variables
   };
 
   # TODO: Neither nixpkgs.system nor any other option in nixpkgs.* is meant
