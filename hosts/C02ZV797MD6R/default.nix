@@ -23,7 +23,6 @@ let
     };
   };
 
-  # TODO: How to force this to boolean?
   isDeterminateNix =
     let
       receiptPath = "/nix/receipt.json";
@@ -36,7 +35,7 @@ let
         && receiptJSON ? planner
         && receiptJSON.planner ? settings
         && receiptJSON.planner.settings ? determinate_nix
-        && receiptJSON.planner.settings.determinate_nix == true;
+        && receiptJSON.planner.settings.determinate_nix;
     in
     plannerSettingsDeterminateNixEnabled;
 
@@ -75,9 +74,9 @@ in
       git # https://search.nixos.org/packages?channel=unstable&type=packages&show=git
       inputs.flox.packages.${pkgs.system}.default
       nil # https://search.nixos.org/packages?channel=unstable&type=packages&show=nil
-      nix # https://search.nixos.org/packages?channel=unstable&type=packages&show=nix
+      # nix # https://search.nixos.org/packages?channel=unstable&type=packages&show=nix
       nix-output-monitor # https://search.nixos.org/packages?channel=unstable&type=packages&show=nix-output-monitor
-      nixd # https://search.nixos.org/packages?channel=unstable&type=packages&show=nixd
+      # nixd # https://search.nixos.org/packages?channel=unstable&type=packages&show=nixd
       nixfmt-rfc-style # https://search.nixos.org/packages?channel=unstable&type=packages&show=nixfmt-rfc-style
       unixtools.watch # https://search.nixos.org/packages?channel=unstable&type=packages&show=unixtools.watch
       vim # https://search.nixos.org/packages?channel=unstable&type=packages&show=vim
@@ -124,11 +123,12 @@ in
   # `nix.*` options to adjust Nix settings or configure a Linux builder,
   # will be unavailable.
   nix = {
-    enable = false; # !isDeterminateNix; # https://nix-darwin.github.io/nix-darwin/manual/#opt-nix.enable
+    enable = !isDeterminateNix; # https://nix-darwin.github.io/nix-darwin/manual/#opt-nix.enable
     package = pkgs-unstable.nix; # https://nix-darwin.github.io/nix-darwin/manual/#opt-nix.package
     channel.enable = false; # https://nix-darwin.github.io/nix-darwin/manual/#opt-nix.channel.enable # TODO: https://github.com/NixOS/nix/issues/2982#issuecomment-2477618346
     optimise.automatic = false; # https://nix-darwin.github.io/nix-darwin/manual/#opt-nix.optimise.automatic # TODO: https://github.com/NixOS/nix/issues/7273#issuecomment-2295429401
     settings = {
+      # `nix.settings.auto-optimise-store` is known to corrupt the Nix Store, please use `nix.optimise.automatic` instead.
       auto-optimise-store = false; # https://nix-darwin.github.io/nix-darwin/manual/#opt-nix.settings.auto-optimise-store # TODO: https://github.com/NixOS/nix/issues/7273#issuecomment-1310213986
       cores = 0; # https://nix-darwin.github.io/nix-darwin/manual/#opt-nix.settings.cores
       extra-sandbox-paths = [ ]; # https://nix-darwin.github.io/nix-darwin/manual/#opt-nix.settings.extra-sandbox-paths
@@ -168,6 +168,7 @@ in
       options = "--delete-older-than 7d"; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-nix.gc.options
     };
     extraOptions = ''
+      !include ${config.sops.templates.nix-access-token.path}'
       experimental-features = nix-command flakes
       keep-derivations = true
       keep-outputs = true
