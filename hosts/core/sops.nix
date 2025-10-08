@@ -22,7 +22,7 @@ in
     validateSopsFiles = true;
 
     templates = {
-      nix-access-token-github.content = ''
+      nix-access-token.content = ''
         access-tokens = github.com=${config.sops.placeholder."tokens/github/public_repo_scope"}
       '';
     };
@@ -47,7 +47,6 @@ in
 
         "tokens/github/public_repo_scope" = {
           owner = primaryUser;
-          mode = "0400";
         };
       }
     ];
