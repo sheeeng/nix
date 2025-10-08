@@ -145,7 +145,7 @@ in
     }; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-nix.settings
     gc = {
       # TODO: nix.gc.automatic requires nix.enable
-      automatic = false; # !isDeterminateNix; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-nix.gc.automatic
+      automatic = !isDeterminateNix; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-nix.gc.automatic
       interval = {
         Day = 1;
         Hour = 12;
