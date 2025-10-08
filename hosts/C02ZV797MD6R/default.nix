@@ -103,7 +103,7 @@ in
   # `nix.*` options to adjust Nix settings or configure a Linux builder,
   # will be unavailable.
   nix = {
-    enable = !isDeterminateNix; # https://nix-darwin.github.io/nix-darwin/manual/#opt-nix.enable
+    enable = false; # https://nix-darwin.github.io/nix-darwin/manual/#opt-nix.enable
     package = pkgs-unstable.nix; # https://nix-darwin.github.io/nix-darwin/manual/#opt-nix.package
     channel.enable = false; # https://nix-darwin.github.io/nix-darwin/manual/#opt-nix.channel.enable # TODO: https://github.com/NixOS/nix/issues/2982#issuecomment-2477618346
     optimise.automatic = false; # https://nix-darwin.github.io/nix-darwin/manual/#opt-nix.optimise.automatic # TODO: https://github.com/NixOS/nix/issues/7273#issuecomment-2295429401
@@ -139,7 +139,7 @@ in
     }; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-nix.settings
     gc = {
       # TODO: nix.gc.automatic requires nix.enable
-      automatic = !isDeterminateNix; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-nix.gc.automatic
+      automatic = false; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-nix.gc.automatic
       interval = {
         Day = 1;
         Hour = 12;
@@ -148,7 +148,6 @@ in
       options = "--delete-older-than 7d"; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-nix.gc.options
     };
     extraOptions = ''
-      !include ${config.sops.templates.nix-access-token.path}
       experimental-features = nix-command flakes
       keep-derivations = true
       keep-outputs = true
