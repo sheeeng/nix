@@ -23,7 +23,7 @@ let
     };
   };
 
-  isDeterminateNix = (import ../core/determinate.nix { }).isDeterminateNix;
+  inherit ((import ../core/determinate.nix { })) isDeterminateNix;
 
   pkgs-unstable = import inputs.nixpkgs {
     inherit (hostConfiguration) system;
