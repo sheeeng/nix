@@ -56,7 +56,7 @@ nix eval --impure --expr '(import ./hosts/core/determinate.nix { }).isDeterminat
 ```
 
 ```shell
-nix eval --impure --expr 'let receiptPath = "/nix/receipt.json"; receiptExists = builtins.pathExists receiptPath; receiptContent = if receiptExists then builtins.readFile receiptPath else "{}"; receiptJSON = builtins.fromJSON receiptContent; plannerSettingsDeterminateNixEnabled = receiptExists && receiptJSON ? planner && receiptJSON.planner ? settings && receiptJSON.planner.settings ? determinate_nix && receiptJSON.planner.settings.determinate_nix; in plannerSettingsDeterminateNixEnabled'
+nix --extra-experimental-features "flakes nix-command" eval --impure --expr 'let receiptPath = "/nix/receipt.json"; receiptExists = builtins.pathExists receiptPath; receiptContent = if receiptExists then builtins.readFile receiptPath else "{}"; receiptJSON = builtins.fromJSON receiptContent; plannerSettingsDeterminateNixEnabled = receiptExists && receiptJSON ? planner && receiptJSON.planner ? settings && receiptJSON.planner.settings ? determinate_nix && receiptJSON.planner.settings.determinate_nix; in plannerSettingsDeterminateNixEnabled'
 ```
 
 ```console
