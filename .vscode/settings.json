@@ -22,7 +22,12 @@
     }
   },
   "cSpell.words": [
+    "autohide",
+    "nixpkgs",
+    "Pathbar",
     "pkgs",
-    "stdenv"
+    "recents",
+    "stdenv",
+    "trackpad"
   ]
 }
