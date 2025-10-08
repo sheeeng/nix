@@ -249,13 +249,7 @@
                 };
               };
 
-              # Set environment variables to disable Node.js tests system-wide
-              environment.variables = {
-                SKIP_TESTS = "1";
-                NODE_SKIP_CRYPTO_TESTS = "1";
-                NODE_SKIP_PLATFORM_TESTS = "1";
-                NIX_SKIP_NODEJS_TESTS = "1";
-              };
+              environment.variables = { };
             }
           ];
           specialArgs = { inherit inputs; };
