@@ -442,16 +442,7 @@
           "geminicodeassist.project" = "cloud-nine-265718"; # "gen-lang-client-0457835357";
         }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.vscode.profiles._name_.userSettings
 
-        userTasks = {
-          version = "2.0.0";
-          tasks = [
-            {
-              type = "shell";
-              label = "Hello task";
-              command = "hello";
-            }
-          ];
-        }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.vscode.profiles._name_.userTasks
+        userTasks = { }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.vscode.profiles._name_.userTasks
       };
     }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.vscode.profiles
 
