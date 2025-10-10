@@ -135,3 +135,19 @@ nix flake check --no-build 2>&1
 
 nix run '.#formatter' -- --check .
 ```
+
+```shell
+nom build .#darwinConfigurations.TP95V9LWWL.config.system.build.toplevel --out-link old
+
+darwin-rebuild build --print-build-logs -L --flake ~/github/sheeeng/nix 2>&1 | nix run nixpkgs#nix-output-monitor
+
+nom build .#darwinConfigurations.TP95V9LWWL.config.system.build.toplevel --out-link old
+
+nix flake show
+nix repl nixpkgs
+nix-repl> :lf .
+
+nix-repl> lib. TAB TAB TAB
+nix-repl> lib.attrNames darwinConfigurations.TP95V9LWWL.config.system.build.toplevel
+nix-repl> :b darwinConfigurations.TP95V9LWWL.config.system.build.toplevel
+```
