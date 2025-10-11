@@ -91,8 +91,8 @@ nix-channel --list
 
 nix-shell --packages nixfmt-rfc-style
 
-nix --extra-experimental-features "flakes nix-command" flake check
-```
+nix --extra-experimental-features "flakes nix-command" flake
+
 
 ```nix
 # shell.nix -> nix-shell
@@ -150,4 +150,6 @@ nix-repl> :lf .
 nix-repl> lib. TAB TAB TAB
 nix-repl> lib.attrNames darwinConfigurations.TP95V9LWWL.config.system.build.toplevel
 nix-repl> :b darwinConfigurations.TP95V9LWWL.config.system.build.toplevel
+
+nix run nixpkgs#tokei
 ```
