@@ -93,6 +93,16 @@ nix-shell --packages nixfmt-rfc-style
 
 nix --extra-experimental-features "flakes nix-command" flake
 
+nix --extra-experimental-features "flakes nix-command" flake check
+
+nix --extra-experimental-features 'flakes nix-command' flake update; darwin-rebuild build --print-build-logs -L --flake ~/github/sheeeng/nix 2>&1 | nix --extra-experimental-features 'flakes nix-command' run nixpkgs#nix-output-monitor
+
+darwin-rebuild build --print-build-logs -L --flake ~/github/sheeeng/nix 2>&1 | nix --extra-experimental-features 'flakes nix-command' run nixpkgs#nix-output-monitor
+
+sudo darwin-rebuild switch --print-build-logs -L --flake ~/github/sheeeng/nix 2>&1 | nix --extra-experimental-features 'flakes nix-command' run nixpkgs#nix-output-monitor
+
+
+```
 
 ```nix
 # shell.nix -> nix-shell
