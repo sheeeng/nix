@@ -17,7 +17,7 @@
       # zrythm # TODO: Marked as broken. # https://search.nixos.org/packages?channel=unstable&type=packages&show=zrythm
       audacity # https://search.nixos.org/packages?channel=unstable&type=packages&show=audacity
       ffmpeg-full # https://search.nixos.org/packages?channel=unstable&type=packages&show=ffmpeg-full
-      musescore # https://search.nixos.org/packages?channel=unstable&type=packages&show=musescore
+      # musescore # TODO: https://github.com/NixOS/nixpkgs/pull/450512#issuecomment-3390505837 # https://search.nixos.org/packages?channel=unstable&type=packages&show=musescore
       # keep-sorted end
 
       # Fonts
@@ -40,7 +40,7 @@
       # eyedropper # TODO: Missing "aarch64-apple-darwin" platform. # https://search.nixos.org/packages?channel=unstable&type=packages&show=eyedropper
       # krita # TODO: Missing "aarch64-apple-darwin" platform. # https://search.nixos.org/packages?channel=unstable&type=packages&show=krita
       # pureref # TODO: Missing "aarch64-apple-darwin" platform. # https://search.nixos.org/packages?channel=unstable&type=packages&show=pureref
-      gimp-with-plugins # https://search.nixos.org/packages?channel=unstable&type=packages&show=gimp-with-plugins
+      # gimp-with-plugins # TODO: Missing "aarch64-apple-darwin" platform. # https://search.nixos.org/packages?channel=unstable&type=packages&show=gimp-with-plugins
       gmic # https://search.nixos.org/packages?channel=unstable&type=packages&show=gmic
       inkscape-with-extensions # https://search.nixos.org/packages?channel=unstable&type=packages&show=inkscape-with-extensions
       # keep-sorted end
