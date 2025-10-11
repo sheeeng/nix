@@ -90,18 +90,6 @@ nix-shell -p nixfmt-rfc-style -I nixpkgs=https://github.com/NixOS/nixpkgs/archiv
 nix-channel --list
 
 nix-shell --packages nixfmt-rfc-style
-
-nix --extra-experimental-features "flakes nix-command" flake
-
-nix --extra-experimental-features "flakes nix-command" flake check
-
-nix --extra-experimental-features 'flakes nix-command' flake update; darwin-rebuild build --print-build-logs -L --flake ~/github/sheeeng/nix 2>&1 | nix --extra-experimental-features 'flakes nix-command' run nixpkgs#nix-output-monitor
-
-darwin-rebuild build --print-build-logs -L --flake ~/github/sheeeng/nix 2>&1 | nix --extra-experimental-features 'flakes nix-command' run nixpkgs#nix-output-monitor
-
-sudo darwin-rebuild switch --print-build-logs -L --flake ~/github/sheeeng/nix 2>&1 | nix --extra-experimental-features 'flakes nix-command' run nixpkgs#nix-output-monitor
-
-
 ```
 
 ```nix
@@ -149,7 +137,7 @@ nix run '.#formatter' -- --check .
 ```shell
 nom build .#darwinConfigurations.TP95V9LWWL.config.system.build.toplevel --out-link old
 
-darwin-rebuild build --print-build-logs -L --flake ~/github/sheeeng/nix 2>&1 | nix run nixpkgs#nix-output-monitor
+darwin-rebuild build --print-build-logs --flake ~/github/sheeeng/nix 2>&1 | nix run nixpkgs#nix-output-monitor
 
 nom build .#darwinConfigurations.TP95V9LWWL.config.system.build.toplevel --out-link old
 
@@ -162,4 +150,17 @@ nix-repl> lib.attrNames darwinConfigurations.TP95V9LWWL.config.system.build.topl
 nix-repl> :b darwinConfigurations.TP95V9LWWL.config.system.build.toplevel
 
 nix run nixpkgs#tokei
+
+nix flake update;
+nix --extra-experimental-features "flakes nix-command" flake check
+
+nix --extra-experimental-features 'flakes nix-command' flake update; darwin-rebuild build --print-build-logs -L --flake ~/github/sheeeng/nix 2>&1 | nix --extra-experimental-features 'flakes nix-command' run nixpkgs#nix-output-monitor
+
+darwin-rebuild build --print-build-logs --flake ~/github/sheeeng/nix 2>&1 | nix --extra-experimental-features 'flakes nix-command' run nixpkgs#nix-output-monitor
+
+darwin-rebuild build --print-build-logs --flake ~/github/sheeeng/nix 2>&1 | nix run nixpkgs#nix-output-monitor
+
+sudo darwin-rebuild switch --print-build-logs --flake ~/github/sheeeng/nix 2>&1 | nix --extra-experimental-features 'flakes nix-command' run nixpkgs#nix-output-monitor
+
+sudo darwin-rebuild switch --print-build-logs --flake ~/github/sheeeng/nix 2>&1 | nix run nixpkgs#nix-output-monitor
 ```
