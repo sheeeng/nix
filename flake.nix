@@ -22,9 +22,27 @@
 
   description = "NixOS Configuration";
 
+  # Nix Channels and Git Branches:
+  # https://github.com/nixos/nixpkgs/pull/105986
+  # https://github.com/nixos/rfcs/pull/26
+  # https://github.com/nixos/rfcs/pull/26#issuecomment-739237393
+  # https://wiki.nixos.org/wiki/channel_branches#internal_channel_update_process
+
+  # Which channel branch should I use?
+  # https://nix.dev/concepts/faq#channel-branches
+
+  # https://nix.dev/manual/nix/development/
+  # https://nix.dev/manual/nix/latest/
+  # https://nix.dev/manual/nix/rolling/
+  # https://nix.dev/manual/nix/stable/
+  # https://nix.dev/manual/nix/prev-stable/
+
+  # https://nix.dev/manual/nix/latest/command-ref/new-cli/nix3-flake.html#examples
+  # https://nix.dev/manual/nix/2.32/command-ref/new-cli/nix3-flake.html#examples
+
   inputs = {
-    # nixpkgs.url = "github:nixos/nixpkgs/nixos";
-    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs?branch=nixos-unstable&rev=dc704e6102e76aad573f63b74c742cd96f8f1e6c"; # https://github.com/nixos/nixpkgs/issues/449970
+
     # The next two are for pinning to stable vs unstable regardless of what the above is set to
     # This is particularly useful when an upcoming stable release is in beta because you can effectively
     # keep 'nixpkgs-stable' set to stable for critical packages while setting 'nixpkgs' to the beta branch to
@@ -38,9 +56,10 @@
     # nixpkgs-helix.url = "github:nixos/nixpkgs/bc947f541ae55e999ffdb4013441347d83b00feb"; # Hack for Helix to be able to build tree-sitter. # https://github.com/llakala/nixos/blob/5dae1c83df4835fd23d433adc76f66bca44962ba/flake.nix#L104
 
     # nixpkgs-darwin.url = "github:nixos/nixpkgs/nixpkgs-25.05-darwin";
-    nixpkgs-darwin.url = "github:nixos/nixpkgs/master";
+
+    nixpkgs-darwin.url = "github:nixos/nixpkgs?branch=nixos-unstable&rev=dc704e6102e76aad573f63b74c742cd96f8f1e6c"; # https://github.com/nixos/nixpkgs/issues/449970
     nix-darwin = {
-      url = "github:lnl7/nix-darwin/master";
+      url = "github:lnl7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs-darwin";
     };
 
