@@ -11,6 +11,11 @@
       language = [
         {
           name = "docker";
+          scope = "source.dockerfile";
+          file-types = [
+            "dockerfile"
+            "Dockerfile"
+          ];
           language-servers = [ "docker-langserver" ];
         }
       ];

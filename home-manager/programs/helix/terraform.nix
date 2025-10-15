@@ -31,6 +31,11 @@ in
       language = [
         {
           name = "hcl";
+          scope = "source.hcl";
+          file-types = [
+            "hcl"
+            "tf"
+          ];
           auto-format = true;
           language-id = "terraform";
           language-servers = [
@@ -40,6 +45,8 @@ in
         }
         {
           name = "tfvars";
+          scope = "source.hcl";
+          file-types = [ "tfvars" ];
           auto-format = true;
           language-id = "terraform-vars";
           language-servers = [
