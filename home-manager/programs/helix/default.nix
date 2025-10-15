@@ -41,6 +41,9 @@
     ignores = [
       "!.gitignore"
       ".build/"
+      ".direnv"
+      ".flox"
+      ".git"
       "node_modules"
     ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.helix.ignores
 
