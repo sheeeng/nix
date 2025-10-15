@@ -1,9 +1,11 @@
 _: {
   programs.helix = {
     languages = {
-      languages = [
+      language = [
         {
           name = "toml";
+          scope = "source.toml";
+          file-types = [ "toml" ];
           language-servers = [ "taplo" ];
           formatter = {
             command = "taplo";
