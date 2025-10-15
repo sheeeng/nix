@@ -85,6 +85,8 @@ _: {
       language = [
         {
           name = "rust";
+          scope = "source.rust";
+          file-types = [ "rs" ];
           auto-format = true;
           formatter = {
             command = "rustfmt";
