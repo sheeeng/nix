@@ -13,6 +13,12 @@
       language = [
         {
           name = "bash";
+          scope = "source.bash";
+          file-types = [
+            "sh"
+            "bash"
+            "zsh"
+          ];
           auto-format = true;
           formatter = {
             command = lib.getExe pkgs.shfmt; # https://search.nixos.org/packages?channel=unstable&type=packages&show=shfmt
