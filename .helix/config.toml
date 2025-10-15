@@ -2,35 +2,14 @@
 # This config is specific to this workspace and overrides global settings
 
 [editor]
-# File picker configuration
+# Editor configuration
+
 [editor.file-picker]
-hidden = false      # Show hidden files (dotfiles)
-git-ignore = true   # Respect .gitignore patterns
-max-depth = 10      # Limit directory traversal depth
+hidden = false    # Show hidden files (dotfiles)
+git-ignore = true # Respect .gitignore patterns
+ignore = true     # Enable ignore patterns
+max-depth = 10    # Limit directory traversal depth
 
-# Project-specific ignore patterns
-# These patterns will be ignored in file picker and global search
-file-picker-ignores = [
-  "!.gitignore",     # Always show .gitignore file
-  ".build/",         # Build artifacts
-  ".direnv",         # direnv cache and environment files
-  ".direnv/**",      # All contents of .direnv directory
-  ".flox",           # Flox environment directory
-  ".flox/**",        # All contents of .flox directory
-  ".git",            # Git repository metadata
-  ".git/**",         # All git internal files
-  "node_modules",    # Node.js dependencies
-  "node_modules/**", # All contents of node_modules
-  "result",          # Nix build result symlink
-  "result-*",        # Multiple nix build results
-  ".vscode/",        # VS Code workspace settings
-  "*.log",           # Log files
-  "*.tmp",           # Temporary files
-  ".DS_Store",       # macOS metadata files
-  "Thumbs.db",       # Windows metadata files
-]
-
-# Search configuration
 [editor.search]
-# Make search respect the ignore patterns above
-respect-gitignore = true
+smart-case = true  # Enable smart case searching
+wrap-around = true # Wrap search around file
