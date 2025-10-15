@@ -14,7 +14,7 @@ in
 
   programs.nixvim = {
     enable = false; # https://nix-community.github.io/nixvim/platforms/hm.html#enable
-    # defaultEditor = true; # TODO: Conflicting error. Use `lib.mkForce value` or `lib.mkDefault value` to change the priority on any of these definitions. # https://nix-community.github.io/nixvim/platforms/hm.html#defaulteditor
+    # defaultEditor = false; # TODO: Conflicting error. Use `lib.mkForce value` or `lib.mkDefault value` to change the priority on any of these definitions. # https://nix-community.github.io/nixvim/platforms/hm.html#defaulteditor
     vimdiffAlias = false; # https://nix-community.github.io/nixvim/platforms/hm.html#vimdiffalias
 
     enableMan = true; # https://nix-community.github.io/nixvim/NeovimOptions/index.html#enableman

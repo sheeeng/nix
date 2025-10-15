@@ -19,7 +19,7 @@
   programs.neovim = {
     enable = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.neovim.enable
     package = pkgs.neovim-unwrapped; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.neovim.package
-    defaultEditor = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.neovim.defaultEditor
+    defaultEditor = false; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.neovim.defaultEditor
     viAlias = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.neovim.viAlias
     vimAlias = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.neovim.vimAlias
     vimdiffAlias = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.neovim.vimdiffAlias
