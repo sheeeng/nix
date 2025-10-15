@@ -28,6 +28,13 @@
   # https://github.com/nixos/rfcs/pull/26#issuecomment-739237393
   # https://wiki.nixos.org/wiki/channel_branches#internal_channel_update_process
 
+  # ruby_{3_3,3_4}: backport patches for GCC 15 and LLVM 21
+  # https://github.com/nixos/nixpkgs/pull/451386
+  # https://nixpk.gs/pr-tracker.html?pr=451386
+
+  # The staging workflow exists to batch Hydra builds of many packages together.
+  # https://github.com/nixos/nixpkgs/blob/master/CONTRIBUTING.md#staging
+
   # Which channel branch should I use?
   # https://nix.dev/concepts/faq#channel-branches
 
