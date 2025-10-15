@@ -214,11 +214,14 @@ in
       useUnicodeRuler = true;
     };
     difftastic = {
-      enable = false;
-      package = [ pkgs.difftastic ];
-      background = "light";
-      color = "auto";
-      display = "side-by-side";
+      enable = false; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.git.difftastic.enable
+      enableAsDifftool = false; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.git.difftastic.enableAsDifftool
+      package = [ pkgs.difftastic ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.git.difftastic.package
+      options = {
+        background = "light";
+        color = "auto";
+        display = "side-by-side";
+      }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.git.difftastic.options
     };
     extraConfig = {
       apply = {
@@ -246,7 +249,7 @@ in
         whitespace = "fix,-indent-with-non-tab,trailing-space,space-before-tab";
         untrackedCache = true; # https://groups.google.com/a/chromium.org/g/chromium-dev/c/MbTkba8g_MU/m/NCW0eYknAQAJ
         fsmonitor = false; # TODO: https://discourse.nixos.org/t/builtins-getflake-breaks-if-git-core-fsmonitor-is-enabled/54916
-      };
+      }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.git.extraConfig
       diff = {
         wsErrorHighlight = "all";
         exif = {
@@ -331,10 +334,12 @@ in
       };
     };
     includes = [
-      { path = "~/.gitignore_global"; }
       {
-        condition = "gitdir:${config.home.homeDirectory}/bitbucket/**/.git";
-        path = "${config.home.homeDirectory}/bitbucket/.gitconfig";
+        path = "~/.gitignore_global"; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.git.includes._.path
+      }
+      {
+        condition = "gitdir:${config.home.homeDirectory}/bitbucket/**/.git"; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.git.includes._.condition
+        path = "${config.home.homeDirectory}/bitbucket/.gitconfig"; # # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.git.includes._.path
       }
       {
         condition = "gitdir:~/bitbucket/sheeeng/**/.git";
@@ -381,7 +386,7 @@ in
           };
         };
       }
-    ];
+    ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.git.includes
     ignores = [
       # https://github.com/quentinmit/isz/blob/1e2cc2af0b5b10529768bbd003e6bc07209448c0/nix/home/base.nix#L44
       ''\#*#''
