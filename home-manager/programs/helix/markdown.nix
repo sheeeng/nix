@@ -28,6 +28,11 @@
       language = [
         {
           name = "markdown";
+          scope = "text.html.markdown";
+          file-types = [
+            "md"
+            "markdown"
+          ];
           auto-format = true;
           formatter = {
             command = lib.getExe pkgs.deno; # https://search.nixos.org/packages?channel=unstable&type=packages&show=deno

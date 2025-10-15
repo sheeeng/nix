@@ -16,6 +16,11 @@
       language = [
         {
           name = "json";
+          scope = "source.json";
+          file-types = [
+            "json"
+            "jsonc"
+          ];
           auto-format = true;
           formatter = {
             command = lib.getExe pkgs.fixjson; # https://search.nixos.org/packages?channel=unstable&type=packages&show=fixjson

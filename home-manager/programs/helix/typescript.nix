@@ -37,6 +37,11 @@ in
           cfg
           // {
             name = "html";
+            scope = "text.html.basic";
+            file-types = [
+              "html"
+              "htm"
+            ];
             language-servers = [ "vscode-html-language-server" ];
           }
         )
@@ -44,6 +49,8 @@ in
           cfg
           // {
             name = "css";
+            scope = "source.css";
+            file-types = [ "css" ];
             language-servers = [ "vscode-css-language-server" ];
           }
         )
@@ -51,6 +58,11 @@ in
           cfg
           // {
             name = "scss";
+            scope = "source.scss";
+            file-types = [
+              "scss"
+              "sass"
+            ];
             language-servers = [ "vscode-css-language-server" ];
           }
         )
@@ -58,13 +70,50 @@ in
           cfg
           // {
             name = "json";
+            scope = "source.json";
+            file-types = [
+              "json"
+              "jsonc"
+            ];
             language-servers = [ "vscode-json-language-server" ];
           }
         )
-        (cfg // { name = "tsx"; })
-        (cfg // { name = "typescript"; })
-        (cfg // { name = "jsx"; })
-        (cfg // { name = "javascript"; })
+        (
+          cfg
+          // {
+            name = "tsx";
+            scope = "source.tsx";
+            file-types = [ "tsx" ];
+          }
+        )
+        (
+          cfg
+          // {
+            name = "typescript";
+            scope = "source.ts";
+            file-types = [ "ts" ];
+          }
+        )
+        (
+          cfg
+          // {
+            name = "jsx";
+            scope = "source.jsx";
+            file-types = [ "jsx" ];
+          }
+        )
+        (
+          cfg
+          // {
+            name = "javascript";
+            scope = "source.js";
+            file-types = [
+              "js"
+              "mjs"
+              "cjs"
+            ];
+          }
+        )
       ];
 
       language-server = {

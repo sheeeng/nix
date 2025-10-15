@@ -45,42 +45,81 @@ in
       language = [
         {
           name = "html";
+          scope = "text.html.basic";
+          file-types = [
+            "html"
+            "htm"
+          ];
           formatter = prettier "html";
         }
         {
           name = "css";
+          scope = "source.css";
+          file-types = [ "css" ];
           formatter = prettier "css";
         }
         {
           name = "jsx";
+          scope = "source.jsx";
+          file-types = [ "jsx" ];
           formatter = prettier "typescript";
         }
         {
           name = "tsx";
+          scope = "source.tsx";
+          file-types = [ "tsx" ];
           formatter = prettier "typescript";
         }
         {
           name = "javascript";
+          scope = "source.js";
+          file-types = [
+            "js"
+            "mjs"
+            "cjs"
+          ];
           formatter = prettier "typescript";
         }
         {
           name = "typescript";
+          scope = "source.ts";
+          file-types = [ "ts" ];
           formatter = prettier "typescript";
         }
         {
           name = "json";
+          scope = "source.json";
+          file-types = [
+            "json"
+            "jsonc"
+          ];
           formatter = prettier "json";
         }
         {
           name = "yaml";
+          scope = "source.yaml";
+          file-types = [
+            "yaml"
+            "yml"
+          ];
           formatter = prettier "yaml";
         }
         {
           name = "markdown";
+          scope = "text.html.markdown";
+          file-types = [
+            "md"
+            "markdown"
+          ];
           formatter = prettier "markdown";
         }
         {
           name = "graphql";
+          scope = "source.graphql";
+          file-types = [
+            "gql"
+            "graphql"
+          ];
           formatter = prettier "graphql";
         }
       ];

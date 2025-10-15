@@ -10,6 +10,8 @@
       language = [
         {
           name = "lua";
+          scope = "source.lua";
+          file-types = [ "lua" ];
           indent = {
             tab-width = 2;
             unit = "\t";

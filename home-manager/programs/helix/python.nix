@@ -15,6 +15,15 @@
       language = [
         {
           name = "python";
+          scope = "source.python";
+          file-types = [
+            "py"
+            "pyi"
+            "py3"
+            "pyw"
+            "pyx"
+            "pyz"
+          ];
           roots = [
             "pyproject.toml"
             "setup.py"

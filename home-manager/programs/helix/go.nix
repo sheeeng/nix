@@ -5,6 +5,8 @@
       language = [
         {
           name = "go";
+          scope = "source.go";
+          file-types = [ "go" ];
           auto-format = true;
           language-servers = [
             "gopls"
