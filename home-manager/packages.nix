@@ -11,13 +11,13 @@
       # keep-sorted start block=no newline_separated=no sticky_comments=no
       # mpc-cli # TODO: https://github.com/NixOS/nixpkgs/issues/355495 # https://search.nixos.org/packages?channel=unstable&type=packages&show=mpc-cli
       # mpd # https://search.nixos.org/packages?channel=unstable&type=packages&show=mpd
+      # musescore # TODO: https://github.com/NixOS/nixpkgs/pull/450512#issuecomment-3390505837 # https://search.nixos.org/packages?channel=unstable&type=packages&show=musescore
       # ncmpcpp # https://search.nixos.org/packages?channel=unstable&type=packages&show=ncmpcpp
       # sonic-pi # TODO: Missing "aarch64-apple-darwin" platform. # https://search.nixos.org/packages?channel=unstable&type=packages&show=sonic-pi
       # supercollider-with-plugins # TODO: Missing "aarch64-apple-darwin" platform. # https://search.nixos.org/packages?channel=unstable&type=packages&show=supercollider-with-plugins
       # zrythm # TODO: Marked as broken. # https://search.nixos.org/packages?channel=unstable&type=packages&show=zrythm
       audacity # https://search.nixos.org/packages?channel=unstable&type=packages&show=audacity
       ffmpeg-full # https://search.nixos.org/packages?channel=unstable&type=packages&show=ffmpeg-full
-      # musescore # TODO: https://github.com/NixOS/nixpkgs/pull/450512#issuecomment-3390505837 # https://search.nixos.org/packages?channel=unstable&type=packages&show=musescore
       # keep-sorted end
 
       # Fonts
@@ -38,9 +38,9 @@
       # blender # TODO: Marked as broken. # https://search.nixos.org/packages?channel=unstable&type=packages&show=blender
       # emulsion-palette # TODO: Missing "aarch64-apple-darwin" platform. # https://search.nixos.org/packages?channel=unstable&type=packages&show=emulsion-palette
       # eyedropper # TODO: Missing "aarch64-apple-darwin" platform. # https://search.nixos.org/packages?channel=unstable&type=packages&show=eyedropper
+      # gimp-with-plugins # TODO: Missing "aarch64-apple-darwin" platform. # https://search.nixos.org/packages?channel=unstable&type=packages&show=gimp-with-plugins
       # krita # TODO: Missing "aarch64-apple-darwin" platform. # https://search.nixos.org/packages?channel=unstable&type=packages&show=krita
       # pureref # TODO: Missing "aarch64-apple-darwin" platform. # https://search.nixos.org/packages?channel=unstable&type=packages&show=pureref
-      # gimp-with-plugins # TODO: Missing "aarch64-apple-darwin" platform. # https://search.nixos.org/packages?channel=unstable&type=packages&show=gimp-with-plugins
       gmic # https://search.nixos.org/packages?channel=unstable&type=packages&show=gmic
       inkscape-with-extensions # https://search.nixos.org/packages?channel=unstable&type=packages&show=inkscape-with-extensions
       # keep-sorted end
@@ -90,9 +90,6 @@
       # (lib.hiPrio parallel) # TODO: https://haseebmajid.dev/posts/2023-10-02-til-how-to-fix-package-binary-collisions-on-nix/ # https://search.nixos.org/packages?channel=unstable&type=packages&show=parallel
       # nixfmt-tree # https://search.nixos.org/packages?channel=unstable&type=packages&show=nixfmt-tree
       # taskctl # TODO: https://github.com/taskctl/taskctl # https://search.nixos.org/packages?channel=unstable&type=packages&show=taskctl
-      # terraform # https://search.nixos.org/packages?channel=unstable&type=packages&show=terraform
-      # tflint # https://search.nixos.org/packages?channel=unstable&type=packages&show=tflint
-      # tfsort # https://search.nixos.org/packages?channel=unstable&type=packages&show=tfsort
       # x-cmd # TODO: https://github.com/x-cmd/x-cmd # https://search.nixos.org/packages?channel=unstable&type=packages&show=x-cmd
       (lib.hiPrio uutils-coreutils-noprefix) # https://search.nixos.org/packages?channel=unstable&type=packages&show=uutils-coreutils-noprefix
       (lib.hiPrio uutils-diffutils) # https://search.nixos.org/packages?channel=unstable&type=packages&show=uutils-diffutils
@@ -103,6 +100,7 @@
       binutils # https://search.nixos.org/packages?channel=unstable&type=packages&show=binutils
       conform # https://search.nixos.org/packages?channel=unstable&type=packages&show=conform
       delta # https://search.nixos.org/packages?channel=unstable&type=packages&show=delta
+      dependabot-cli # https://search.nixos.org/packages?channel=unstable&type=packages&show=dependabot-cli
       devenv # https://search.nixos.org/packages?channel=unstable&type=packages&show=devenv
       gh # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh
       hadolint # https://search.nixos.org/packages?channel=unstable&type=packages&show=hadolint
@@ -116,8 +114,12 @@
       nh # https://search.nixos.org/packages?channel=unstable&type=packages&show=nh
       nixfmt # https://search.nixos.org/packages?channel=unstable&type=packages&show=nixfmt
       nixos-option # https://search.nixos.org/packages?channel=unstable&type=packages&show=nixos-option
+      pre-commit # https://search.nixos.org/packages?channel=unstable&type=packages&show=pre-commit
       shfmt # https://search.nixos.org/packages?channel=unstable&type=packages&show=shfmt
+      terraform # https://search.nixos.org/packages?channel=unstable&type=packages&show=terraform
       texlab # https://search.nixos.org/packages?channel=unstable&type=packages&show=texlab
+      tflint # https://search.nixos.org/packages?channel=unstable&type=packages&show=tflint
+      tfsort # https://search.nixos.org/packages?channel=unstable&type=packages&show=tfsort
       tig # https://search.nixos.org/packages?channel=unstable&type=packages&show=tig
       treefmt # https://search.nixos.org/packages?channel=unstable&type=packages&show=treefmt
       update-nix-fetchgit # https://search.nixos.org/packages?channel=unstable&type=packages&show=update-nix-fetchgit
