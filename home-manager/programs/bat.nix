@@ -9,7 +9,7 @@
   # https://rycee.gitlab.io/home-manager/options.xhtml#opt-programs.bat.enable
   # https://github.com/kpritam/nixpkgs/blob/dbc2a1538b2c6dfd1d11fb97c08203643c723ff0/home/packages.nix#L4-L13
   programs.bat = {
-    enable = false; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.bat.enable
+    enable = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.bat.enable
     package = pkgs.bat; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.bat.package
     # TODO: https://github.com/Maka-77x/dotfiles/blob/b66cb03feb5433393197787e2792f870e1ab1e35/home-modules/bat.nix#L26C5-L42C8
     # package = pkgs.bat.overrideAttrs (oldAttrs: rec {
@@ -41,7 +41,7 @@
     # TODO: https://github.com/Maka-77x/dotfiles/blob/b66cb03feb5433393197787e2792f870e1ab1e35/home-modules/bat.nix
     extraPackages = with pkgs; [
       bat-extras.batdiff
-      bat-extras.batgrep
+      # bat-extras.batgrep # https://github.com/nixos/nixpkgs/issues/449970
       bat-extras.batman
       bat-extras.batpipe
       bat-extras.batwatch
