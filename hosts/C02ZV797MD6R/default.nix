@@ -248,7 +248,7 @@ in
   }; # https://nix-community.github.io/home-manager/nixos-options.xhtml#nixos-opt-home-manager.extraSpecialArgs
 
   home-manager.sharedModules = [
-    inputs.mac-app-util.homeManagerModules.default
+    # inputs.mac-app-util.homeManagerModules.default
   ]; # https://nix-community.github.io/home-manager/nixos-options.xhtml#nixos-opt-home-manager.sharedModules
 
   home-manager.users = {
