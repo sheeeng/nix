@@ -48,7 +48,8 @@
   # https://nix.dev/manual/nix/2.32/command-ref/new-cli/nix3-flake.html#examples
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs?branch=nixos-unstable&rev=dc704e6102e76aad573f63b74c742cd96f8f1e6c"; # https://github.com/nixos/nixpkgs/issues/449970
+    # nixpkgs.url = "github:nixos/nixpkgs?branch=nixos-unstable&rev=dc704e6102e76aad573f63b74c742cd96f8f1e6c"; # https://github.com/nixos/nixpkgs/issues/449970
+    nixpkgs.url = "github:nixos/nixpkgs?branch=staging-next&rev=cbc8b5f221eb9c3e19311510407c330f438ea2c9"; # https://github.com/nixos/nixpkgs/issues/449970
 
     # The next two are for pinning to stable vs unstable regardless of what the above is set to
     # This is particularly useful when an upcoming stable release is in beta because you can effectively
@@ -64,7 +65,8 @@
 
     # nixpkgs-darwin.url = "github:nixos/nixpkgs/nixpkgs-25.05-darwin";
 
-    nixpkgs-darwin.url = "github:nixos/nixpkgs?branch=nixos-unstable&rev=dc704e6102e76aad573f63b74c742cd96f8f1e6c"; # https://github.com/nixos/nixpkgs/issues/449970
+    # nixpkgs-darwin.url = "github:nixos/nixpkgs?branch=nixos-unstable&rev=dc704e6102e76aad573f63b74c742cd96f8f1e6c"; # https://github.com/nixos/nixpkgs/issues/449970
+    nixpkgs-darwin.url = "github:nixos/nixpkgs?branch=staging-next&rev=cbc8b5f221eb9c3e19311510407c330f438ea2c9"; # https://github.com/nixos/nixpkgs/issues/449970
     nix-darwin = {
       url = "github:lnl7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs-darwin";
@@ -107,10 +109,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    mac-app-util = {
-      url = "github:hraban/mac-app-util";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # mac-app-util = {
+    #   url = "github:hraban/mac-app-util";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
 
     microvm = {
       url = "github:astro/microvm.nix";
@@ -246,7 +248,7 @@
           modules = [
             ./hosts/${hostname}
             inputs.home-manager.darwinModules.home-manager
-            inputs.mac-app-util.darwinModules.default
+            # inputs.mac-app-util.darwinModules.default
             inputs.nix-index-database.darwinModules.nix-index
             inputs.agenix.darwinModules.default
             inputs.sops-nix.darwinModules.sops
