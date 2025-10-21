@@ -99,7 +99,7 @@
       autoconf # https://search.nixos.org/packages?channel=unstable&type=packages&show=autoconf
       binutils # https://search.nixos.org/packages?channel=unstable&type=packages&show=binutils
       conform # https://search.nixos.org/packages?channel=unstable&type=packages&show=conform
-      delta # https://search.nixos.org/packages?channel=unstable&type=packages&show=delta
+      # delta # https://search.nixos.org/packages?channel=unstable&type=packages&show=delta
       dependabot-cli # https://search.nixos.org/packages?channel=unstable&type=packages&show=dependabot-cli
       devenv # https://search.nixos.org/packages?channel=unstable&type=packages&show=devenv
       gh # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh
