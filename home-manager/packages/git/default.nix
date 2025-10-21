@@ -125,7 +125,7 @@ in
       enable = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.git.enable
       package = pkgs.git; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.git.package
       settings = {
-        aliases = {
+        alias = {
           co = "checkout";
           ci = "commit";
           st = "status";
