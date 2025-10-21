@@ -5,13 +5,16 @@
     ":disableDependencyDashboard"
   ],
   "lockFileMaintenance": {
-    "enabled": true
+    "enabled": true,
+    "description": "https://docs.renovatebot.com/configuration-options/#lockfilemaintenance"
   },
   "nix": {
-    "enabled": true
+    "enabled": true,
+    "description": "https://docs.renovatebot.com/modules/manager/nix/#enabling"
   },
   "pre-commit": {
-    "enabled": true
+    "enabled": true,
+    "description": "https://docs.renovatebot.com/modules/manager/pre-commit/#enabling"
   },
   "customManagers": [
     {
