@@ -348,36 +348,25 @@ in
   # https://github.com/luishfonseca/nixos-config/blob/f9369dbe389dafc5537c4b537592b9734fcfec5e/modules/upgrade-diff.nix.
   # https://gist.github.com/luishfonseca/f183952a77e46ccd6ef7c907ca424517?permalink_comment_id=4620275#gistcomment-4620275
   # https://github.com/GoldsteinE/nixos/blob/3d7353065c3f42b6442f7df9ab443fcb5381f2ce/rebuild#L13
-  system.activationScripts.diff = {
-    system.activationScripts.postUserActivation = {
-      text = ''
-        ${pkgs.nvd}/bin/nvd --nix-bin-dir=${pkgs.nix}/bin diff /run/current-system "$systemConfig"
-      '';
-    }
-    // lib.optionalAttrs pkgs.stdenv.isLinux {
-      supportsDryActivation = true;
-    };
-  };
-
-  system.activationScripts.debugDeterminateNix = {
-    supportsDryActivation = true;
+  system.activationScripts.systemDiff = {
     text = ''
-      echo "DEBUG: isDeterminateNix = ${if isDeterminateNix then "true" else "false"}"
-      echo "DEBUG: nix.enable = ${if config.nix.enable then "true" else "false"}"
+      ${pkgs.nvd}/bin/nvd --nix-bin-dir=${pkgs.nix}/bin diff /run/current-system "$systemConfig"
     '';
+  }
+  // lib.optionalAttrs pkgs.stdenv.isLinux {
+    supportsDryActivation = true;
   };
 
   system.activationScripts.setupGitHubAccessToken = {
-    supportsDryActivation = false;
-    deps = [ "diff" ];
+    supportsDryActivation = true;
     text = ''
       set -o errexit
       set -o nounset
 
-      ${pkgs.uutils-coreutils-noprefix}/bin/echo "DEBUG: Starting GitHub access token setup activation script..."
+      ${pkgs.uutils-coreutils-noprefix}/bin/echo "DEBUG: Starting GitHub access token setup activation script..." >&2
 
       if [ -f "${config.sops.secrets."tokens/github/public_repo_scope".path}" ]; then
-        ${pkgs.uutils-coreutils-noprefix}/bin/echo "Setting up GitHub access token for Nix..."
+        ${pkgs.uutils-coreutils-noprefix}/bin/echo "Setting up GitHub access token for Nix..." >&2
 
         # Read token from sops secret
         GITHUB_TOKEN=$(${pkgs.uutils-coreutils-noprefix}/bin/cat "${
@@ -385,19 +374,19 @@ in
         }")
 
         # Configure access token using nix config
-        ${pkgs.uutils-coreutils-noprefix}/bin/echo "Setting GitHub access token via nix config..."
+        ${pkgs.uutils-coreutils-noprefix}/bin/echo "Setting GitHub access token via nix config..." >&2
         ${pkgs.nix}/bin/nix config --system --set access-tokens "github.com=$GITHUB_TOKEN"
 
-        ${pkgs.uutils-coreutils-noprefix}/bin/echo "GitHub access token configured successfully"
+        ${pkgs.uutils-coreutils-noprefix}/bin/echo "GitHub access token configured successfully" >&2
       else
         ${pkgs.uutils-coreutils-noprefix}/bin/echo "WARNING: GitHub token secret not found at ${
           config.sops.secrets."tokens/github/public_repo_scope".path
-        }"
-        ${pkgs.uutils-coreutils-noprefix}/bin/echo "DEBUG: Available files in /run/secrets/:"
-        ${pkgs.findutils}/bin/find /run/secrets/ -type f 2>/dev/null || ${pkgs.uutils-coreutils-noprefix}/bin/echo "No /run/secrets/ directory found"
+        }" >&2
+        ${pkgs.uutils-coreutils-noprefix}/bin/echo "DEBUG: Available files in /run/secrets/:" >&2
+        ${pkgs.findutils}/bin/find /run/secrets/ -type f 2>&1 || ${pkgs.uutils-coreutils-noprefix}/bin/echo "No /run/secrets/ directory found" >&2
       fi
 
-      ${pkgs.uutils-coreutils-noprefix}/bin/echo "DEBUG: GitHub access token setup activation script completed"
+      ${pkgs.uutils-coreutils-noprefix}/bin/echo "DEBUG: GitHub access token setup activation script completed" >&2
     '';
   }; # https://medium.com/@zmre/nix-darwin-quick-tip-activate-your-preferences-f69942a93236
   # Failed assertions:
