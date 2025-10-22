@@ -380,10 +380,10 @@ in
   system.activationScripts.setupGitHubAccessToken = {
     supportsDryActivation = true;
     text = ''
-      ${pkgs.uutils-coreutils-noprefix}/bin/echo "DEBUG: Starting GitHub access token setup activation script..." >&2
+      ${pkgs.uutils-coreutils-noprefix}/bin/echo "DEBUG: Starting GitHub access token setup activation script..."
 
       if [ -f "${config.sops.secrets."tokens/github/public_repo_scope".path}" ]; then
-        ${pkgs.uutils-coreutils-noprefix}/bin/echo "Setting up GitHub access token for Nix..." >&2
+        ${pkgs.uutils-coreutils-noprefix}/bin/echo "Setting up GitHub access token for Nix..."
 
         # Read token from sops secret
         GITHUB_TOKEN=$(${pkgs.uutils-coreutils-noprefix}/bin/cat "${
@@ -391,19 +391,19 @@ in
         }")
 
         # Configure access token using nix config
-        ${pkgs.uutils-coreutils-noprefix}/bin/echo "Setting GitHub access token via nix config..." >&2
+        ${pkgs.uutils-coreutils-noprefix}/bin/echo "Setting GitHub access token via nix config..."
         ${pkgs.nix}/bin/nix config --system --set access-tokens "github.com=$GITHUB_TOKEN"
 
-        ${pkgs.uutils-coreutils-noprefix}/bin/echo "GitHub access token configured successfully" >&2
+        ${pkgs.uutils-coreutils-noprefix}/bin/echo "GitHub access token configured successfully"
       else
         ${pkgs.uutils-coreutils-noprefix}/bin/echo "WARNING: GitHub token secret not found at ${
           config.sops.secrets."tokens/github/public_repo_scope".path
-        }" >&2
-        ${pkgs.uutils-coreutils-noprefix}/bin/echo "DEBUG: Available files in /run/secrets/:" >&2
-        ${pkgs.findutils}/bin/find /run/secrets/ -type f 2>&1 || ${pkgs.uutils-coreutils-noprefix}/bin/echo "No /run/secrets/ directory found" >&2
+        }"
+        ${pkgs.uutils-coreutils-noprefix}/bin/echo "DEBUG: Available files in /run/secrets/:"
+        ${pkgs.findutils}/bin/find /run/secrets/ -type f 2>&1 || ${pkgs.uutils-coreutils-noprefix}/bin/echo "No /run/secrets/ directory found"
       fi
 
-      ${pkgs.uutils-coreutils-noprefix}/bin/echo "DEBUG: GitHub access token setup activation script completed" >&2
+      ${pkgs.uutils-coreutils-noprefix}/bin/echo "DEBUG: GitHub access token setup activation script completed"
     '';
   }; # https://medium.com/@zmre/nix-darwin-quick-tip-activate-your-preferences-f69942a93236
   # Failed assertions:
