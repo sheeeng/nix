@@ -357,12 +357,29 @@ in
     supportsDryActivation = true;
   };
 
+  system.activationScripts = {
+    extraActivation = {
+      text = ''
+        echo ":: -> Running system.activationScripts.extraActivation..."
+        sudo -u ${hostConfiguration.primaryUser} whoami
+        sudo whoami
+      '';
+    };
+    preActivation = {
+      text = ''
+        echo ":: -> Running system.activationScripts.preActivation..."
+      '';
+    };
+    postActivation = {
+      text = ''
+        echo ":: -> Running system.activationScripts.postActivation..."
+      '';
+    };
+  };
+
   system.activationScripts.setupGitHubAccessToken = {
     supportsDryActivation = true;
     text = ''
-      set -o errexit
-      set -o nounset
-
       ${pkgs.uutils-coreutils-noprefix}/bin/echo "DEBUG: Starting GitHub access token setup activation script..." >&2
 
       if [ -f "${config.sops.secrets."tokens/github/public_repo_scope".path}" ]; then
