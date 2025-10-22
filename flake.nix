@@ -49,7 +49,7 @@
 
   inputs = {
     # nixpkgs.url = "github:nixos/nixpkgs?branch=nixos-unstable&rev=dc704e6102e76aad573f63b74c742cd96f8f1e6c"; # https://github.com/nixos/nixpkgs/issues/449970
-    nixpkgs.url = "github:nixos/nixpkgs?branch=staging-next&rev=aa271cc9a484d6be2863bf0d2917844aeccd3028"; # https://github.com/nixos/nixpkgs/issues/449970
+    nixpkgs.url = "github:nixos/nixpkgs?branch=staging-next&rev=dace194d4791e7dec990c0671795f1e73ff4d196"; # https://github.com/nixos/nixpkgs/issues/449970
 
     # The next two are for pinning to stable vs unstable regardless of what the above is set to
     # This is particularly useful when an upcoming stable release is in beta because you can effectively
@@ -66,7 +66,7 @@
     # nixpkgs-darwin.url = "github:nixos/nixpkgs/nixpkgs-25.05-darwin";
 
     # nixpkgs-darwin.url = "github:nixos/nixpkgs?branch=nixos-unstable&rev=dc704e6102e76aad573f63b74c742cd96f8f1e6c"; # https://github.com/nixos/nixpkgs/issues/449970
-    nixpkgs-darwin.url = "github:nixos/nixpkgs?branch=staging-next&rev=aa271cc9a484d6be2863bf0d2917844aeccd3028"; # https://github.com/nixos/nixpkgs/issues/449970
+    nixpkgs-darwin.url = "github:nixos/nixpkgs?branch=staging-next&rev=dace194d4791e7dec990c0671795f1e73ff4d196"; # https://github.com/nixos/nixpkgs/issues/449970
     nix-darwin = {
       url = "github:lnl7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs-darwin";
