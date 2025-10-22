@@ -33,25 +33,32 @@
     config = {
       lessopen = false;
       # pager = "less --tabs=2 --RAW-CONTROL-CHARS --quit-if-one-screen --no-init";
-      pager = "${lib.getBin pkgs.moar}/bin/moar";
+      pager = "${lib.getBin pkgs.moor}/bin/moor";
       style = "plain,numbers,changes,header";
       # theme = "OneHalfDark"; # Use `lib.mkForce value` or `lib.mkDefault value` to change the priority on any of these definitions.
     }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.bat.config
+
     # Remove once $LESSOPEN support is enabled by default.
     # TODO: https://github.com/Maka-77x/dotfiles/blob/b66cb03feb5433393197787e2792f870e1ab1e35/home-modules/bat.nix
-    extraPackages = with pkgs; [
-      bat-extras.batdiff
-      # bat-extras.batgrep # https://github.com/nixos/nixpkgs/issues/449970
-      bat-extras.batman
-      bat-extras.batpipe
-      bat-extras.batwatch
-      glow
-      odt2txt
-      pdfminer # provides pdf2txt
-      python3Packages.docx2txt
-      unrar
-      unzip # default viewer
-    ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.bat.extraPackages
+    extraPackages =
+      (with pkgs; [
+        glow # https://search.nixos.org/packages?channel=unstable&type=packages&show=glow
+        odt2txt # https://search.nixos.org/packages?channel=unstable&type=packages&show=odt2txt
+        pdfminer # https://search.nixos.org/packages?channel=unstable&type=packages&show=pdfminer
+        python3Packages.docx2txt # https://search.nixos.org/packages?channel=unstable&type=packages&show=docx2txt
+        unrar # https://search.nixos.org/packages?channel=unstable&type=packages&show=unrar
+        unzip # https://search.nixos.org/packages?channel=unstable&type=packages&show=unzip
+      ])
+      ++ (with pkgs.bat-extras; [
+        batdiff # https://search.nixos.org/packages?channel=unstable&type=packages&show=bat-extras.batdiff
+        # batgrep # https://github.com/nixos/nixpkgs/issues/454391
+        batman # https://search.nixos.org/packages?channel=unstable&type=packages&show=bat-extras.batman
+        batpipe # https://search.nixos.org/packages?channel=unstable&type=packages&show=bat-extras.batpipe
+        batwatch # https://search.nixos.org/packages?channel=unstable&type=packages&show=bat-extras.batwatch
+        # core # https://search.nixos.org/packages?channel=unstable&type=packages&show=bat-extras.core
+        prettybat # https://search.nixos.org/packages?channel=unstable&type=packages&show=bat-extras.prettybat
+      ]); # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.bat.extraPackages
+
     syntaxes = {
       gleam = {
         src = pkgs.fetchFromGitHub {
