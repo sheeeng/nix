@@ -167,8 +167,10 @@
 
         auto-save = {
           focus-lost = true;
-          after-delay.enabled = true;
-          after-delay.timeout = 3000;
+          after-delay = {
+            enable = true;
+            timeout = 3000;
+          };
         }; # https://docs.helix-editor.com/editor.html?highlight=git-ignore#editorauto-save-section
 
         search = {
