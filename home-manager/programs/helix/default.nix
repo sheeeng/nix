@@ -50,28 +50,106 @@
     settings = {
       # theme = "base16"; # TODO: Conflicting error. Use `lib.mkForce value` or `lib.mkDefault value` to change the priority on any of these definitions.
       editor = {
-        auto-format = true;
-        color-modes = true;
+        scrolloff = 5;
+        mouse = true;
+        middle-click-paste = true;
+        scroll-lines = 3;
+        shell = [
+          "sh"
+          "-c"
+        ];
+        line-number = "absolute"; # Options: "absolute" | "relative"
         cursorline = true;
-        cursor-shape = {
-          insert = "bar";
-          normal = "block";
-          select = "underline";
-        };
-        line-number = "absolute";
+        cursorcolumn = false;
+        auto-completion = true;
+        auto-format = true;
+        idle-timeout = 250;
+        preview-completion-insert = true;
+        completion-trigger-len = 2;
+        completion-replace = false;
+        auto-info = true;
+        true-color = false;
+        undercurl = false;
+        color-modes = true;
+        text-width = 80;
+        workspace-lsp-roots = [ ];
+        default-line-ending = "native"; # Options: "native" | "lf" | "crlf" | "ff" | "cr" | "nel"
+        insert-final-newline = true;
+        popup-border = "none"; # Options: "none" | "all" | "menu"
+        indent-heuristic = "hybrid"; # Options: "simple" | "tree-sitter" | "hybrid"
+        jump-label-alphabet = "abcdefghijklmnopqrstuvwxyz";
+        bufferline = "always"; # Options: "never" | "always" | "multiple"
         rulers = [
           72
           80
           100
           120
         ];
-        mouse = false;
 
-        indent-guides = {
-          render = true;
-          character = "╎"; # Some characters that work well: "▏", "┆", "┊", "⸽"
-          skip-levels = 1;
-        }; # https://github.com/m0ar/nix/blob/a46f9fba4f8ea3599adf2b7026970f769d0bd721/args/helix/default.nix#L53-L57
+        clipboard-provider = "system"; # https://docs.helix-editor.com/editor.html?highlight=git-ignore#editorclipboard-provider-section
+
+        statusline = {
+          left = [
+            # "mode"
+            # "spacer"
+            # "spinner"
+            # "file-name"
+            "mode"
+            "spinner"
+            "file-name"
+            "read-only-indicator"
+            "file-modification-indicator"
+          ];
+          center = [ ];
+          right = [
+            # "diagnostics"
+            # "position"
+            # "primary-selection-length"
+            # "file-encoding"
+            # "file-type"
+            # "version-control"
+            # "spacer"
+            # "position-percentage"
+            "diagnostics"
+            "selections"
+            "register"
+            "position"
+            "file-encoding"
+          ];
+          separator = "│";
+          mode = {
+            normal = "NOR";
+            insert = "INS";
+            select = "SEL";
+          };
+          diagnostics = [
+            "warning"
+            "error"
+          ];
+          workspace-diagnostics = [
+            "warning"
+            "error"
+          ];
+        }; # https://docs.helix-editor.com/editor.html?highlight=git-ignore#editorstatusline-section
+
+        lsp = {
+          enable = true;
+          display-messages = true;
+          display-progress-messages = false;
+          auto-signature-help = true;
+          display-inlay-hints = false;
+          # inlay-hints-length-limit = null;
+          display-color-swatches = true;
+          display-signature-help-docs = true;
+          snippets = true;
+          goto-reference-include-declaration = true;
+        }; # https://docs.helix-editor.com/editor.html?highlight=git-ignore#editorlsp-section
+
+        cursor-shape = {
+          insert = "bar";
+          normal = "block";
+          select = "underline";
+        }; # https://docs.helix-editor.com/editor.html?highlight=git-ignore#editorcursor-shape-section
 
         file-picker = {
           hidden = true;
@@ -82,50 +160,74 @@
           git-ignore = true;
           git-global = true;
           git-exclude = true;
-          max-depth = null;
+          # max-depth = null;
         }; # https://docs.helix-editor.com/editor.html?highlight=git-ignore#editorfile-picker-section
 
-        statusline = {
-          mode = {
-            normal = "";
-            insert = "";
-            select = "";
+        auto-pairs = true; # https://docs.helix-editor.com/editor.html?highlight=git-ignore#editorauto-pairs-section
+
+        auto-save = {
+          focus-lost = true;
+          after-delay.enabled = true;
+          after-delay.timeout = 3000;
+        }; # https://docs.helix-editor.com/editor.html?highlight=git-ignore#editorauto-save-section
+
+        search = {
+          smart-case = true;
+          wrap-around = true;
+        }; # https://docs.helix-editor.com/editor.html?highlight=git-ignore#editorsearch-section
+
+        whitespace = {
+          render = "all";
+          characters = {
+            space = "·";
+            nbsp = "⍽";
+            nnbsp = "␣";
+            tab = "→";
+            newline = "⏎";
+            tabpad = "·"; # Tabs will look like "→···" depending on tab width.
           };
+        }; # https://docs.helix-editor.com/editor.html?highlight=git-ignore#editorwhitespace-section
 
-          left = [
-            "mode"
-            "spacer"
-            "spinner"
-            "file-name"
-          ];
-          right = [
+        indent-guides = {
+          render = true;
+          character = "╎"; # Some characters that work well: "▏", "┆", "┊", "⸽".
+          skip-levels = 0;
+        }; # https://docs.helix-editor.com/editor.html?highlight=git-ignore#editorindent-guides-section
+
+        gutters = {
+          layout = [
             "diagnostics"
-            "position"
-            "primary-selection-length"
-            "file-encoding"
-            "file-type"
-            "version-control"
             "spacer"
-            "position-percentage"
+            "line-numbers"
+            "spacer"
+            "diff"
           ];
-        };
+          line-numbers = {
+            min-width = 3;
+          }; # https://docs.helix-editor.com/editor.html?highlight=git-ignore#editorguttersline-numbers-section
+        }; # https://docs.helix-editor.com/editor.html?highlight=git-ignore#editorgutters-section
 
-        lsp = {
-          display-messages = true;
-          display-inlay-hints = true;
-        };
-
-        idle-timeout = 0;
-        bufferline = "always";
         soft-wrap = {
-          enable = true;
-        };
-        # inline-diagnostics = {
-        #   cursor-line = "hint";
-        #   other-lines = "warning";
-        # }; # https://github.com/helix-editor/helix/discussions/11230
+          enable = false;
+          max-wrap = 20;
+          max-indent-retain = 40;
+          wrap-indicator = "↪";
+          wrap-at-text-width = false;
+        }; # https://docs.helix-editor.com/editor.html?highlight=git-ignore#editorsoft-wrap-section
 
-      };
+        smart-tab = {
+          enable = true;
+          supersede-menu = false;
+        }; # https://docs.helix-editor.com/editor.html#editorsmart-tab-section
+
+        inline-diagnostics = {
+          cursor-line = "hint";
+          other-lines = "warning";
+          prefix-len = 1;
+          max-wrap = 20;
+          max-diagnostics = 10;
+        }; # https://docs.helix-editor.com/editor.html#editorinline-diagnostics-section
+      }; # https://docs.helix-editor.com/editor.html#editor-section
 
       keys = {
         normal = {
