@@ -114,6 +114,10 @@
       nh # https://search.nixos.org/packages?channel=unstable&type=packages&show=nh
       nixfmt # https://search.nixos.org/packages?channel=unstable&type=packages&show=nixfmt
       nixos-option # https://search.nixos.org/packages?channel=unstable&type=packages&show=nixos-option
+      kubectx # https://search.nixos.org/packages?channel=unstable&type=packages&show=kubectx
+      kubectl # https://search.nixos.org/packages?channel=unstable&type=packages&show=kubectl
+      kustomize # https://search.nixos.org/packages?channel=unstable&type=packages&show=kustomize
+      k9s # https://search.nixos.org/packages?channel=unstable&type=packages&show=k9s
       pre-commit # https://search.nixos.org/packages?channel=unstable&type=packages&show=pre-commit
       shfmt # https://search.nixos.org/packages?channel=unstable&type=packages&show=shfmt
       terraform # https://search.nixos.org/packages?channel=unstable&type=packages&show=terraform
