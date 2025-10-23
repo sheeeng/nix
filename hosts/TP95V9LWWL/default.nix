@@ -77,6 +77,7 @@ in
       # nix # https://search.nixos.org/packages?channel=unstable&type=packages&show=nix
       nix-output-monitor # https://search.nixos.org/packages?channel=unstable&type=packages&show=nix-output-monitor
       # nixd # https://search.nixos.org/packages?channel=unstable&type=packages&show=nixd
+      nvd # https://search.nixos.org/packages?channel=unstable&type=packages&show=nvd
       nixfmt-rfc-style # https://search.nixos.org/packages?channel=unstable&type=packages&show=nixfmt-rfc-style
       unixtools.watch # https://search.nixos.org/packages?channel=unstable&type=packages&show=unixtools.watch
       vim # https://search.nixos.org/packages?channel=unstable&type=packages&show=vim
@@ -367,7 +368,7 @@ in
         # https://github.com/GoldsteinE/nixos/blob/3d7353065c3f42b6442f7df9ab443fcb5381f2ce/rebuild#L13
         # https://medium.com/@zmre/nix-darwin-quick-tip-activate-your-preferences-f69942a93236
 
-        ${pkgs.nvd}/bin/nvd --nix-bin-dir=${pkgs.nix}/bin diff --color=always /run/current-system "$systemConfig"
+        ${pkgs.nvd}/bin/nvd --nix-bin-dir=${pkgs.nix}/bin --color=always diff /run/current-system "$systemConfig"
       '';
     }
     // lib.optionalAttrs pkgs.stdenv.isLinux {
