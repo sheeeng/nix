@@ -74,9 +74,16 @@
         }; # https://github.com/m0ar/nix/blob/a46f9fba4f8ea3599adf2b7026970f769d0bd721/args/helix/default.nix#L53-L57
 
         file-picker = {
-          hidden = false;
-          git-ignore = false;
-        };
+          hidden = true;
+          follow-symlinks = true;
+          deduplicate-links = true;
+          parents = true;
+          ignore = true;
+          git-ignore = true;
+          git-global = true;
+          git-exclude = true;
+          max-depth = null;
+        }; # https://docs.helix-editor.com/editor.html?highlight=git-ignore#editorfile-picker-section
 
         statusline = {
           mode = {
