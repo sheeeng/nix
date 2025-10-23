@@ -3,7 +3,6 @@
 # https://github.com/japiirainen/darwin/blob/ccda9d41071e28db0c70f3e66ac220892ecd180d/home/helix.nix
 
 {
-  # lib,
   pkgs,
   ...
 }:
@@ -86,7 +85,7 @@
           120
         ];
 
-        clipboard-provider = "system"; # https://docs.helix-editor.com/editor.html?highlight=git-ignore#editorclipboard-provider-section
+        clipboard-provider = if pkgs.stdenv.isDarwin then "pasteboard" else "wayland"; # https://docs.helix-editor.com/editor.html?highlight=git-ignore#editorclipboard-provider-section
 
         statusline = {
           left = [
