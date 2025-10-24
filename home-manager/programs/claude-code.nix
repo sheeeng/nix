@@ -122,16 +122,12 @@
       includeCoAuthoredBy = false;
       model = "claude-3-5-sonnet-20241022";
       permissions = {
-        additionalDirectories = [
-          "../docs/"
-        ];
+        additionalDirectories = [ "../docs/" ];
         allow = [
           "Bash(git diff:*)"
           "Edit"
         ];
-        ask = [
-          "Bash(git push:*)"
-        ];
+        ask = [ "Bash(git push:*)" ];
         defaultMode = "acceptEdits";
         deny = [
           "WebFetch"

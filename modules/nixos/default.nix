@@ -64,12 +64,8 @@ in
         "nix-command"
         "flakes"
       ];
-      substituters = [
-        "https://cache.nixos.org"
-      ];
-      trusted-public-keys = [
-        "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-      ];
+      substituters = [ "https://cache.nixos.org" ];
+      trusted-public-keys = [ "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=" ];
       extra-substituters = [
         "https://devenv.cachix.org"
         "https://ryanccn.cachix.org"
@@ -107,9 +103,7 @@ in
 
   home-manager.useGlobalPkgs = true;
   home-manager.useUserPackages = true;
-  home-manager.extraSpecialArgs = {
-    inherit pkgs-unstable;
-  };
+  home-manager.extraSpecialArgs = { inherit pkgs-unstable; };
 
   home-manager.users.leonard = ./home-manager.nix;
 

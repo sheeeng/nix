@@ -128,9 +128,7 @@ in
         "nixpkgs-python.cachix.org-1:hxjI7pFxTyuTHn2NkvWCrAUcNZLNS3ZAvfYNuYifcEU="
         "ryanccn.cachix.org-1:Or82F8DeVLJgjSKCaZmBzbSOhnHj82Of0bGeRniUgLQ="
       ]; # https://nix-darwin.github.io/nix-darwin/manual/#opt-nix.settings.trusted-public-keys
-      trusted-substituters = [
-        "https://hydra.nixos.org/"
-      ]; # https://nix-darwin.github.io/nix-darwin/manual/#opt-nix.settings.trusted-substituters
+      trusted-substituters = [ "https://hydra.nixos.org/" ]; # https://nix-darwin.github.io/nix-darwin/manual/#opt-nix.settings.trusted-substituters
       trusted-users = [
         "root"
         hostConfiguration.primaryUser

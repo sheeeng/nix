@@ -240,13 +240,9 @@
           ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.vscode.profiles._name_.extensions
         globalSnippets = {
           fixme = {
-            body = [
-              "$LINE_COMMENT FIXME: $0"
-            ];
+            body = [ "$LINE_COMMENT FIXME: $0" ];
             description = "Insert a FIXME remark.";
-            prefix = [
-              "fixme"
-            ];
+            prefix = [ "fixme" ];
           };
         }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.vscode.profiles._name_.globalSnippets
 
@@ -264,13 +260,9 @@
         languageSnippets = {
           haskell = {
             fixme = {
-              body = [
-                "$LINE_COMMENT FIXME: $0"
-              ];
+              body = [ "$LINE_COMMENT FIXME: $0" ];
               description = "Insert a FIXME remark";
-              prefix = [
-                "fixme"
-              ];
+              prefix = [ "fixme" ];
             };
           };
         }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.vscode.profiles._name_.languageSnippets
@@ -348,9 +340,7 @@
           "terminal.integrated.fontSize" = 16;
           "terminal.integrated.profiles.linux" = {
             "zsh" = {
-              "args" = [
-                "-l"
-              ];
+              "args" = [ "-l" ];
               "path" = "/usr/bin/zsh -l";
             };
           };
@@ -365,9 +355,7 @@
           }; # https://github.com/microsoft/vscode/issues/143061#issuecomment-1042785423
           "terminal.integrated.profiles.windows" = {
             "PowerShell -NoProfile" = {
-              "args" = [
-                "-NoProfile"
-              ];
+              "args" = [ "-NoProfile" ];
               "source" = "PowerShell";
             };
           };
@@ -432,9 +420,7 @@
           "github.copilot.enable" = {
             "enabled" = true;
           };
-          "settingsSync.ignoredSettings" = [
-            "github.copilot.chat.codeGeneration.instructions"
-          ];
+          "settingsSync.ignoredSettings" = [ "github.copilot.chat.codeGeneration.instructions" ];
           "update.showReleaseNotes" = false;
           # Extensions settings.
           "direnv.restart.automatic" = true;

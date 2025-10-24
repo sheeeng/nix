@@ -13,9 +13,7 @@ let
   hostName = lib.strings.toLower (config.networking.hostName or "UndefinedHostName");
 in
 {
-  imports = [
-    inputs.sops-nix.homeManagerModules.sops
-  ];
+  imports = [ inputs.sops-nix.homeManagerModules.sops ];
 
   sops = {
     # This is the location of the host specific age-key and will have been

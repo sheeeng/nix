@@ -40,9 +40,7 @@ in
     }/lib/rustlib/src/rust/library";
   };
 
-  home.sessionPath = [
-    "${cargoHome}/bin"
-  ];
+  home.sessionPath = [ "${cargoHome}/bin" ];
 
   home.file."${cargoHome}/config.toml".text = ''
     [target.aarch64-apple-darwin]

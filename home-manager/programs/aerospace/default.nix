@@ -45,9 +45,7 @@
         preset = "qwerty"; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.aerospace.userSettings.key-mapping.preset
       };
       on-focus-changed = [ ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.aerospace.userSettings.on-focus-changed
-      on-focused-monitor-changed = [
-        "move-mouse monitor-lazy-center"
-      ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.aerospace.userSettings.on-focused-monitor-changed
+      on-focused-monitor-changed = [ "move-mouse monitor-lazy-center" ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.aerospace.userSettings.on-focused-monitor-changed
       on-window-detected = [ ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.aerospace.userSettings.on-window-detected
       start-at-login = false; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.aerospace.userSettings.start-at-login
       workspace-to-monitor-force-assignment = null; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.aerospace.userSettings.workspace-to-monitor-force-assignment

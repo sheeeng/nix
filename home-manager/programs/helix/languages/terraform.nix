@@ -1,8 +1,4 @@
-{
-  pkgs,
-  pkgs-unstable,
-  ...
-}:
+{ pkgs, pkgs-unstable, ... }:
 let
   buffer-language-server = pkgs.rustPlatform.buildRustPackage rec {
     pname = "buffer-language-server";

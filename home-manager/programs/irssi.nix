@@ -7,9 +7,7 @@ _: {
     extraConfig = ""; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.irssi.extraConfig
     networks = {
       liberachat = {
-        autoCommands = [
-          "/msg NickServ identify password"
-        ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.irssi.networks._name_.autoCommands
+        autoCommands = [ "/msg NickServ identify password" ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.irssi.networks._name_.autoCommands
         channels = {
           nixos = {
             autoJoin = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.irssi.networks._name_.channels._name_.autoJoin
