@@ -1,10 +1,6 @@
 # https://github.com/NovaViper/NixConfig/blob/beaeaf1e9c482a9dbac47f83d92917d09251d720/features/home/cli/shell/zsh/initContent.nix
 
-{
-  config,
-  lib,
-  ...
-}:
+{ config, lib, ... }:
 {
   programs.zsh.initContent = lib.mkMerge [
     # Place before everything (except for zprof)

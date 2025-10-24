@@ -90,8 +90,7 @@ in
       setup-nix-github-token = "nix config --set access-tokens \"github.com=$(cat /run/secrets/tokens/github/public_repo_scope 2>/dev/null || echo 'GitHub token not available.')\"";
       clear-nix-github-token = "nix config --unset access-tokens";
     }; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-environment.shellAliases
-    variables = {
-    }; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-environment.variables
+    variables = { }; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-environment.variables
   };
 
   # Neither nixpkgs.system nor any other option in nixpkgs.* is meant
@@ -147,9 +146,7 @@ in
         "nixpkgs-python.cachix.org-1:hxjI7pFxTyuTHn2NkvWCrAUcNZLNS3ZAvfYNuYifcEU="
         "ryanccn.cachix.org-1:Or82F8DeVLJgjSKCaZmBzbSOhnHj82Of0bGeRniUgLQ="
       ]; # https://nix-darwin.github.io/nix-darwin/manual/#opt-nix.settings.trusted-public-keys
-      trusted-substituters = [
-        "https://hydra.nixos.org/"
-      ]; # https://nix-darwin.github.io/nix-darwin/manual/#opt-nix.settings.trusted-substituters
+      trusted-substituters = [ "https://hydra.nixos.org/" ]; # https://nix-darwin.github.io/nix-darwin/manual/#opt-nix.settings.trusted-substituters
       trusted-users = [
         "root"
         hostConfiguration.primaryUser
@@ -345,8 +342,6 @@ in
     };
   };
 
-
-
   system.activationScripts = {
     extraActivation = {
       text = ''
@@ -371,9 +366,7 @@ in
         ${pkgs.nvd}/bin/nvd --nix-bin-dir=${pkgs.nix}/bin --color=always diff /run/current-system "$systemConfig"
       '';
     }
-    // lib.optionalAttrs pkgs.stdenv.isLinux {
-      supportsDryActivation = true;
-    };
+    // lib.optionalAttrs pkgs.stdenv.isLinux { supportsDryActivation = true; };
     postActivation = {
       text = ''
         echo ":: . "

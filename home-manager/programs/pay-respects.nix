@@ -7,8 +7,6 @@
     enableFishIntegration = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.pay-respects.enableFishIntegration
     enableNushellIntegration = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.pay-respects.enableNushellIntegration
     enableZshIntegration = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.pay-respects.enableZshIntegration
-    options = [
-      "--alias"
-    ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.pay-respects.options
+    options = [ "--alias" ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.pay-respects.options
   };
 }

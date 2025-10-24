@@ -1,8 +1,4 @@
-{
-  lib,
-  pkgs,
-  ...
-}:
+{ lib, pkgs, ... }:
 {
   # Bat, a substitute for cat.
   # https://github.com/sharkdp/bat

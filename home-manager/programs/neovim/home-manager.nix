@@ -1,7 +1,4 @@
-{
-  pkgs,
-  ...
-}:
+{ pkgs, ... }:
 
 {
   home.packages = with pkgs; [
@@ -63,9 +60,7 @@
       in
       with pkgs;
       [
-        {
-          plugin = vimPlugins.diffview-nvim;
-        }
+        { plugin = vimPlugins.diffview-nvim; }
         {
           plugin = vimPlugins.copilot-vim;
           type = "lua";
@@ -86,9 +81,7 @@
           type = "lua";
           config = builtins.readFile ./plugins/nvim-spectre.lua;
         }
-        {
-          plugin = vimPlugins.vim-visual-multi;
-        }
+        { plugin = vimPlugins.vim-visual-multi; }
         {
           plugin = vimPlugins.gitsigns-nvim;
           type = "lua";

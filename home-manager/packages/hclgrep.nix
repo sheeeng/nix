@@ -17,7 +17,5 @@ let
     };
 in
 {
-  home.packages = [
-    hclgrep
-  ];
+  home.packages = [ hclgrep ];
 }
