@@ -265,7 +265,7 @@
                 (import ./overlays inputs).nodejs-skip-tests
                 (import ./overlays inputs).unstable-packages
                 inputs.morlana.overlays.default
-                inputs.nh-plus.overlays.default
+                # inputs.nh-plus.overlays.default
                 inputs.fenix.overlays.default
               ];
 
