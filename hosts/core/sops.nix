@@ -13,9 +13,7 @@ let
   homeDirectory = "/Users/${primaryUser}";
 in
 {
-  imports = [
-    inputs.sops-nix.darwinModules.sops
-  ];
+  imports = [ inputs.sops-nix.darwinModules.sops ];
 
   sops = {
     defaultSopsFile = "${sopsFolder}/${lib.strings.toLower config.networking.hostName}.yaml";

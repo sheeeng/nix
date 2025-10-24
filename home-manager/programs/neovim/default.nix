@@ -6,7 +6,5 @@
     vimAlias = true;
   };
 
-  imports = [
-    ./home-manager.nix
-  ];
+  imports = [ ./home-manager.nix ];
 }
