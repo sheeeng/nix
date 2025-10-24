@@ -10,6 +10,8 @@
     nixfmt = {
       enable = pkgs.hostPlatform.system != "riscv64-linux";
       package = pkgs.nixfmt-rfc-style;
+      includes = [ "*.nix" ];
+      strict = true;
     };
 
     shfmt = {
