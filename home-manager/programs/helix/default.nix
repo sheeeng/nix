@@ -209,9 +209,11 @@
 
       keys = {
         normal = {
-          "space.space" = "file_picker";
-          "space.w" = ":w";
-          "space.q" = ":q";
+          "space" = {
+            "space" = "file_picker";
+            "w" = ":w";
+            "q" = ":q";
+          };
           "esc" = [
             "collapse_selection"
             "keep_primary_selection"
@@ -224,9 +226,6 @@
           "C-k" = "jump_view_up";
           "C-l" = "jump_view_right";
           # "ö" = "goto_word";
-          space.space = "file_picker";
-          space.w = ":w";
-          space.q = ":q";
           "C-s" = ":w"; # Maps Ctrl-s to the typable command :w which is an alias for :write (save file)
           "Cmd-s" = ":write"; # Cmd or Win or Meta and 's' to write
           "C-o" = ":open ~/.config/helix/config.toml"; # Maps Ctrl-o to opening of the helix config file
