@@ -111,7 +111,7 @@
       ltex-ls # https://search.nixos.org/packages?channel=unstable&type=packages&show=ltex-ls
       markdown-oxide # https://search.nixos.org/packages?channel=unstable&type=packages&show=markdown-oxide
       marksman # https://search.nixos.org/packages?channel=unstable&type=packages&show=marksman
-      nh # https://search.nixos.org/packages?channel=unstable&type=packages&show=nh
+      # nh # https://search.nixos.org/packages?channel=unstable&type=packages&show=nh
       nixfmt # https://search.nixos.org/packages?channel=unstable&type=packages&show=nixfmt
       nixos-option # https://search.nixos.org/packages?channel=unstable&type=packages&show=nixos-option
       kubectx # https://search.nixos.org/packages?channel=unstable&type=packages&show=kubectx
