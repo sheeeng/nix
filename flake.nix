@@ -112,10 +112,10 @@
       # url = "github:nix-community/home-manager/release-24.11";
     };
 
-    nh-plus = {
-      url = "github:toyvo/nh_plus";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # nh-plus = {
+    #   url = "github:toyvo/nh_plus";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
 
     # mac-app-util = {
     #   url = "github:hraban/mac-app-util";
