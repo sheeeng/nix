@@ -7,44 +7,21 @@
   ...
 }:
 {
-  # https://snowfall.org/reference/lib/#libsnowfallfsget-non-default-nix-files
-  # imports = lib.snowfall.fs.get-non-default-nix-files ./.; # https://github.com/tommy-donavon/nixos-dots/blob/d824d5ec55109f65f0bc5e042198cafde0fbedc8/modules/home/programs/terminal/editors/helix/default.nix#L15
   imports = [
-    ./all.nix
-    ./bash.nix
-    ./docker.nix
-    ./elixir.nix
-    ./go.nix
-    ./gpt.nix
-    ./json.nix
-    ./lua.nix
-    ./markdown.nix
-    ./nix.nix
-    ./nodejs.nix
-    ./prettier.nix
-    ./python.nix
-    ./rust.nix
-    ./template.nix
-    ./terraform.nix
-    ./toml.nix
-    ./typescript.nix
-    ./vim.nix
-    ./yaml.nix
+    ./languages/default.nix
+    ./themes.nix
   ];
 
   programs.helix = {
     enable = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.helix.enable
     package = pkgs.helix; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.helix.package
-    defaultEditor = true; # TODO: Conflicting error. Use `lib.mkForce value` or `lib.mkDefault value` to change the priority on any of these definitions. # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.helix.defaultEditor
+    defaultEditor = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.helix.defaultEditor
+    extraConfig = ''''; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.helix.extraConfig
     extraPackages = [ ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.helix.extraPackages
     ignores = [
       "!.gitignore"
       ".git"
     ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.helix.ignores
-
-    # languages = {
-    #   language-server = { };
-    # }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.helix.languages
 
     settings = {
       # theme = "base16"; # TODO: Conflicting error. Use `lib.mkForce value` or `lib.mkDefault value` to change the priority on any of these definitions.
@@ -232,6 +209,13 @@
 
       keys = {
         normal = {
+          "space.space" = "file_picker";
+          "space.w" = ":w";
+          "space.q" = ":q";
+          "esc" = [
+            "collapse_selection"
+            "keep_primary_selection"
+          ];
           "0" = "goto_line_start";
           "$" = "goto_line_end";
           "G" = "goto_last_line";
@@ -243,10 +227,25 @@
           space.space = "file_picker";
           space.w = ":w";
           space.q = ":q";
-          esc = [
-            "collapse_selection"
-            "keep_primary_selection"
-          ];
+          "C-s" = ":w"; # Maps Ctrl-s to the typable command :w which is an alias for :write (save file)
+          "Cmd-s" = ":write"; # Cmd or Win or Meta and 's' to write
+          "C-o" = ":open ~/.config/helix/config.toml"; # Maps Ctrl-o to opening of the helix config file
+          a = "move_char_left"; # Maps the 'a' key to the move_char_left command
+          w = "move_line_up"; # Maps the 'w' key to move_line_up
+          "C-S-esc" = "extend_line"; # Maps Ctrl-Shift-Escape to extend_line
+          g = {
+            a = "code_action";
+          }; # Maps `ga` to show possible code actions
+          "ret" = [
+            "open_below"
+            "normal_mode"
+          ]; # Maps the enter key to open_below then re-enter normal mode
+          "A-x" = "@x<A-d>"; # Maps Alt-x to a macro selecting the whole line and deleting it without yanking it
+          "+" = {
+            m = ":run-shell-command make";
+            c = ":run-shell-command cargo build";
+            t = ":run-shell-command cargo test";
+          };
         };
         select = {
           "0" = "goto_line_start";
@@ -256,104 +255,12 @@
         };
         insert = {
           "C-space" = "completion";
+          "A-x" = "normal_mode"; # Maps Alt-X to enter normal mode
+          j = {
+            k = "normal_mode";
+          }; # Maps `jk` to exit insert mode
         }; # https://github.com/Defelo/nixos/blob/e0f26f24dce1a87bd9f4bfd04f23feb2f9c1ea33/home/helix/default.nix#L69-L71
-      };
-
-      # theme = "catppuccin_macchiato"; # Use `lib.mkForce value` or `lib.mkDefault value` to change the priority on any of these definitions.
-    }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.helix.settings
-
-    themes = {
-      # base16 =
-      #   let
-      #     transparent = "none";
-      #     gray = "#665c54";
-      #     dark-gray = "#3c3836";
-      #     white = "#fbf1c7";
-      #     black = "#282828";
-      #     red = "#fb4934";
-      #     green = "#b8bb26";
-      #     yellow = "#fabd2f";
-      #     orange = "#fe8019";
-      #     blue = "#83a598";
-      #     magenta = "#d3869b";
-      #     cyan = "#8ec07c";
-      #   in
-      #   {
-      #     "ui.menu" = transparent;
-      #     "ui.menu.selected" = {
-      #       modifiers = [ "reversed" ];
-      #     };
-      #     "ui.linenr" = {
-      #       fg = gray;
-      #       bg = dark-gray;
-      #     };
-      #     "ui.popup" = {
-      #       modifiers = [ "reversed" ];
-      #     };
-      #     "ui.linenr.selected" = {
-      #       fg = white;
-      #       bg = black;
-      #       modifiers = [ "bold" ];
-      #     };
-      #     "ui.selection" = {
-      #       fg = black;
-      #       bg = blue;
-      #     };
-      #     "ui.selection.primary" = {
-      #       modifiers = [ "reversed" ];
-      #     };
-      #     "comment" = {
-      #       fg = gray;
-      #     };
-      #     "ui.statusline" = {
-      #       fg = white;
-      #       bg = dark-gray;
-      #     };
-      #     "ui.statusline.inactive" = {
-      #       fg = dark-gray;
-      #       bg = white;
-      #     };
-      #     "ui.help" = {
-      #       fg = dark-gray;
-      #       bg = white;
-      #     };
-      #     "ui.cursor" = {
-      #       modifiers = [ "reversed" ];
-      #     };
-      #     "variable" = red;
-      #     "variable.builtin" = orange;
-      #     "constant.numeric" = orange;
-      #     "constant" = orange;
-      #     "attributes" = yellow;
-      #     "type" = yellow;
-      #     "ui.cursor.match" = {
-      #       fg = yellow;
-      #       modifiers = [ "underlined" ];
-      #     };
-      #     "string" = green;
-      #     "variable.other.member" = red;
-      #     "constant.character.escape" = cyan;
-      #     "function" = blue;
-      #     "constructor" = blue;
-      #     "special" = blue;
-      #     "keyword" = magenta;
-      #     "label" = magenta;
-      #     "namespace" = blue;
-      #     "diff.plus" = green;
-      #     "diff.delta" = yellow;
-      #     "diff.minus" = red;
-      #     "diagnostic" = {
-      #       modifiers = [ "underlined" ];
-      #     };
-      #     "ui.gutter" = {
-      #       bg = black;
-      #     };
-      #     "info" = blue;
-      #     "hint" = dark-gray;
-      #     "debug" = dark-gray;
-      #     "warning" = yellow;
-      #     "error" = red;
-      #   };
-    }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.helix.themes
+      }; # https://docs.helix-editor.com/remapping.html
+    };
   };
 }
