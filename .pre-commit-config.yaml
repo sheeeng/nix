@@ -175,4 +175,5 @@ repos:
         language: node
         types: [file]
         files: \.md$
+        args: ["--progress", "--verbose"]
 # keep-sorted end
