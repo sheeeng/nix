@@ -31,13 +31,8 @@ nix run nix-darwin --experimental-features "nix-command flakes" -- switch --flak
 
 ### Using `nix-darwin`
 
-- Extract the inlined configuration from [flake.nix](flake.nix) into a separate
-  file named [darwin.nix](darwin.nix).
-
 - [Setup](https://nix-community.github.io/home-manager/index.xhtml#sec-flakes-nix-darwin-module)
   flake-based Home Manager nix-darwin in [flake.nix](flake.nix).
-
-- Create a [home.nix](home.nix) file.
 
 ```shell
 nix run nix-darwin -- switch --flake ~/github/sheeeng/nix/nix-darwin
