@@ -88,6 +88,8 @@
       # keep-sorted start block=no newline_separated=no sticky_comments=no
       # (lib.hiPrio go-task) # TODO: Collision error with `taskwarrior-3` package. # https://search.nixos.org/packages?channel=unstable&type=packages&show=go-task
       # (lib.hiPrio parallel) # TODO: https://haseebmajid.dev/posts/2023-10-02-til-how-to-fix-package-binary-collisions-on-nix/ # https://search.nixos.org/packages?channel=unstable&type=packages&show=parallel
+      # delta # https://search.nixos.org/packages?channel=unstable&type=packages&show=delta
+      # nh # https://search.nixos.org/packages?channel=unstable&type=packages&show=nh
       # nixfmt-tree # https://search.nixos.org/packages?channel=unstable&type=packages&show=nixfmt-tree
       # taskctl # TODO: https://github.com/taskctl/taskctl # https://search.nixos.org/packages?channel=unstable&type=packages&show=taskctl
       # x-cmd # TODO: https://github.com/x-cmd/x-cmd # https://search.nixos.org/packages?channel=unstable&type=packages&show=x-cmd
@@ -99,25 +101,23 @@
       autoconf # https://search.nixos.org/packages?channel=unstable&type=packages&show=autoconf
       binutils # https://search.nixos.org/packages?channel=unstable&type=packages&show=binutils
       conform # https://search.nixos.org/packages?channel=unstable&type=packages&show=conform
-      # delta # https://search.nixos.org/packages?channel=unstable&type=packages&show=delta
       dependabot-cli # https://search.nixos.org/packages?channel=unstable&type=packages&show=dependabot-cli
       devenv # https://search.nixos.org/packages?channel=unstable&type=packages&show=devenv
       gh # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh
       hadolint # https://search.nixos.org/packages?channel=unstable&type=packages&show=hadolint
       just # https://search.nixos.org/packages?channel=unstable&type=packages&show=just
       just-lsp # https://search.nixos.org/packages?channel=unstable&type=packages&show=just-lsp
+      k9s # https://search.nixos.org/packages?channel=unstable&type=packages&show=k9s
+      kubectl # https://search.nixos.org/packages?channel=unstable&type=packages&show=kubectl
+      kubectx # https://search.nixos.org/packages?channel=unstable&type=packages&show=kubectx
+      kustomize # https://search.nixos.org/packages?channel=unstable&type=packages&show=kustomize
       lazygit # https://search.nixos.org/packages?channel=unstable&type=packages&show=lazygit
       lazysql # https://search.nixos.org/packages?channel=unstable&type=packages&show=lazysql
       ltex-ls # https://search.nixos.org/packages?channel=unstable&type=packages&show=ltex-ls
       markdown-oxide # https://search.nixos.org/packages?channel=unstable&type=packages&show=markdown-oxide
       marksman # https://search.nixos.org/packages?channel=unstable&type=packages&show=marksman
-      # nh # https://search.nixos.org/packages?channel=unstable&type=packages&show=nh
       nixfmt # https://search.nixos.org/packages?channel=unstable&type=packages&show=nixfmt
       nixos-option # https://search.nixos.org/packages?channel=unstable&type=packages&show=nixos-option
-      kubectx # https://search.nixos.org/packages?channel=unstable&type=packages&show=kubectx
-      kubectl # https://search.nixos.org/packages?channel=unstable&type=packages&show=kubectl
-      kustomize # https://search.nixos.org/packages?channel=unstable&type=packages&show=kustomize
-      k9s # https://search.nixos.org/packages?channel=unstable&type=packages&show=k9s
       pre-commit # https://search.nixos.org/packages?channel=unstable&type=packages&show=pre-commit
       shfmt # https://search.nixos.org/packages?channel=unstable&type=packages&show=shfmt
       terraform # https://search.nixos.org/packages?channel=unstable&type=packages&show=terraform
