@@ -92,8 +92,6 @@ in
       show-system = "nix derivation show /run/current-system";
       switch-system = "darwin-rebuild switch --flake .";
       list-generations = "nix-env --list-generations";
-      setup-nix-github-token = "nix config --set access-tokens \"github.com=$(cat /run/secrets/tokens/github/public_repo_scope 2>/dev/null || echo 'GitHub token not available.')\"";
-      clear-nix-github-token = "nix config --unset access-tokens";
     }; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-environment.shellAliases
     variables = { }; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-environment.variables
   };
