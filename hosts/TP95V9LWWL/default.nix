@@ -72,7 +72,6 @@ in
       coreutils # https://search.nixos.org/packages?channel=unstable&type=packages&show=coreutils
       dix # https://search.nixos.org/packages?channel=unstable&type=packages&show=dix
       findutils # https://search.nixos.org/packages?channel=unstable&type=packages&show=findutils
-      git # https://search.nixos.org/packages?channel=unstable&type=packages&show=git
       inputs.flox.packages.${pkgs.system}.default
       nh # https://search.nixos.org/packages?channel=unstable&type=packages&show=nh
       nil # https://search.nixos.org/packages?channel=unstable&type=packages&show=nil
@@ -81,8 +80,10 @@ in
       nixd # https://search.nixos.org/packages?channel=unstable&type=packages&show=nixd
       nixfmt-rfc-style # https://search.nixos.org/packages?channel=unstable&type=packages&show=nixfmt-rfc-style
       nvd # https://search.nixos.org/packages?channel=unstable&type=packages&show=nvd
+      tmux
       unixtools.watch # https://search.nixos.org/packages?channel=unstable&type=packages&show=unixtools.watch
       vim # https://search.nixos.org/packages?channel=unstable&type=packages&show=vim
+      wezterm
       yazi # https://search.nixos.org/packages?channel=unstable&type=packages&show=yazi
       zellij # https://search.nixos.org/packages?channel=unstable&type=packages&show=zellij
       # keep-sorted end
