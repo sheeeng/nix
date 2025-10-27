@@ -138,6 +138,8 @@
       show_hyperlink_targets = "yes";
       strip_trailing_spaces = "never";
       symbol_map = "U+E5FA-U+E62B,U+E700-U+E7C5,U+F000-U+F2E0,U+E200-U+E2A9,U+E0A3,U+E0B4-U+E0C8,U+E0CA,U+E0CC-U+E0D2,U+E0D4,U+f500-U+fd46 JetBrainsMono Nerd Font";
+
+      text_composition_strategy = "legacy";
     }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.kitty.settings
 
     themeFile = "Catppuccin-Mocha"; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.kitty.themeFile
