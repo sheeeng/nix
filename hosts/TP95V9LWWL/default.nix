@@ -70,6 +70,7 @@ in
       # keep-sorted start block=yes newline_separated=no
       clang # https://search.nixos.org/packages?channel=unstable&type=packages&show=clang
       coreutils # https://search.nixos.org/packages?channel=unstable&type=packages&show=coreutils
+      dix # https://search.nixos.org/packages?channel=unstable&type=packages&show=dix
       findutils # https://search.nixos.org/packages?channel=unstable&type=packages&show=findutils
       git # https://search.nixos.org/packages?channel=unstable&type=packages&show=git
       inputs.flox.packages.${pkgs.system}.default
