@@ -80,10 +80,10 @@ in
       nixd # https://search.nixos.org/packages?channel=unstable&type=packages&show=nixd
       nixfmt-rfc-style # https://search.nixos.org/packages?channel=unstable&type=packages&show=nixfmt-rfc-style
       nvd # https://search.nixos.org/packages?channel=unstable&type=packages&show=nvd
-      tmux
+      tmux # https://search.nixos.org/packages?channel=unstable&type=packages&show=tmux
       unixtools.watch # https://search.nixos.org/packages?channel=unstable&type=packages&show=unixtools.watch
       vim # https://search.nixos.org/packages?channel=unstable&type=packages&show=vim
-      wezterm
+      wezterm # https://search.nixos.org/packages?channel=unstable&type=packages&show=wezterm
       yazi # https://search.nixos.org/packages?channel=unstable&type=packages&show=yazi
       zellij # https://search.nixos.org/packages?channel=unstable&type=packages&show=zellij
       # keep-sorted end
