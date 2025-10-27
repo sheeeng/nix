@@ -320,6 +320,59 @@ in
 
   system = {
     defaults = {
+      CustomSystemPreferences = {
+        "com.apple.finder" = {
+          ShowExternalHardDrivesOnDesktop = true;
+          ShowHardDrivesOnDesktop = true;
+          ShowMountedServersOnDesktop = true;
+          ShowRemovableMediaOnDesktop = true;
+          _FXSortFoldersFirst = true;
+          # When performing a search, search the current folder by default.
+          FXDefaultSearchScope = "SCcf";
+        };
+        "com.apple.desktopservices" = {
+          # Avoid creating .DS_Store files on network or USB volumes.
+          DSDontWriteNetworkStores = true;
+          DSDontWriteUSBStores = true;
+        };
+      }; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-system.defaults.CustomSystemPreferences
+      CustomUserPreferences = {
+        "com.apple.Safari" = {
+          # Privacy: don’t send search queries to Apple.
+          UniversalSearchEnabled = false;
+          SuppressSearchSuggestions = true;
+          # Press Tab to highlight each item on a web page.
+          WebKitTabToLinksPreferenceKey = true;
+          ShowFullURLInSmartSearchField = true;
+          # Prevent Safari from opening ‘safe’ files automatically after downloading.
+          AutoOpenSafeDownloads = false;
+          ShowFavoritesBar = false;
+          IncludeInternalDebugMenu = true;
+          IncludeDevelopMenu = true;
+          WebKitDeveloperExtrasEnabledPreferenceKey = true;
+          WebContinuousSpellCheckingEnabled = true;
+          WebAutomaticSpellingCorrectionEnabled = false;
+          AutoFillFromAddressBook = false;
+          AutoFillCreditCardData = false;
+          AutoFillMiscellaneousForms = false;
+          WarnAboutFraudulentWebsites = true;
+          WebKitJavaEnabled = false;
+          WebKitJavaScriptCanOpenWindowsAutomatically = false;
+          "com.apple.Safari.ContentPageGroupIdentifier.WebKit2TabsToLinks" = true;
+          "com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled" = true;
+          "com.apple.Safari.ContentPageGroupIdentifier.WebKit2BackspaceKeyNavigationEnabled" = false;
+          "com.apple.Safari.ContentPageGroupIdentifier.WebKit2JavaEnabled" = false;
+          "com.apple.Safari.ContentPageGroupIdentifier.WebKit2JavaEnabledForLocalFiles" = false;
+          "com.apple.Safari.ContentPageGroupIdentifier.WebKit2JavaScriptCanOpenWindowsAutomatically" = false;
+        };
+      }; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-system.defaults.CustomUserPreferences
+      menuExtraClock = {
+        Show24Hour = true; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-system.defaults.menuExtraClock.ShowDate
+        ShowDate = 0; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-system.defaults.menuExtraClock.ShowDate
+        ShowDayOfMonth = true; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-system.defaults.menuExtraClock.ShowDayOfMonth
+        ShowDayOfWeek = true; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-system.defaults.menuExtraClock.ShowDayOfWeek
+        ShowSeconds = true; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-system.defaults.menuExtraClock.ShowSeconds
+      };
       trackpad = {
         ActuationStrength = 1; # https://daiderd.com/nix-darwin/manual/index.html#opt-system.defaults.trackpad.ActuationStrength
         Clicking = true; # https://daiderd.com/nix-darwin/manual/index.html#opt-system.defaults.trackpad.Clicking
