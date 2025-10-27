@@ -31,7 +31,7 @@
           "sh"
           "-c"
         ];
-        line-number = "absolute"; # Options: "absolute" | "relative"
+        line-number = "relative"; # Options: "absolute" | "relative"
         cursorline = true;
         cursorcolumn = false;
         auto-completion = true;
@@ -110,7 +110,7 @@
           display-messages = true;
           display-progress-messages = false;
           auto-signature-help = true;
-          display-inlay-hints = false;
+          display-inlay-hints = true;
           # inlay-hints-length-limit = null;
           display-color-swatches = true;
           display-signature-help-docs = true;
