@@ -50,7 +50,7 @@ in
     # gcc-unwrapped # ERROR: collision between `/nix/store/6rhh54a3df1mzw3pqv6mx9vcvrmwvja7-binutils-wrapper-2.44/bin/strings' and `/nix/store/d49w1nr8r3v0pm07hylwgybwqikiwd2y-gcc-wrapper-14.2.1.20250322/bin/strings'
     git # https://search.nixos.org/packages?channel=unstable&type=packages&show=git
     gnumake # https://search.nixos.org/packages?channel=unstable&type=packages&show=gnumake
-    inputs.flox.packages.${pkgs.system}.default
+    # inputs.flox.packages.${pkgs.system}.default
     nil # https://search.nixos.org/packages?channel=unstable&type=packages&show=nil
     nix # https://search.nixos.org/packages?channel=unstable&type=packages&show=nix
     nix-output-monitor # https://search.nixos.org/packages?channel=unstable&type=packages&show=nix-output-monitor

@@ -98,8 +98,8 @@
     }; # https://github.com/llakala/nixos/tree/5dae1c83df4835fd23d433adc76f66bca44962ba/apps/programs/firefox
 
     catppuccin.url = "github:catppuccin/nix";
-    devenv.url = "github:cachix/devenv";
-    flox.url = "github:flox/flox";
+    # devenv.url = "github:cachix/devenv";
+    # flox.url = "github:flox/flox";
 
     # helix-unstable = {
     #   url = "github:helix-editor/helix"; # Compile Helix from source to support macro keybinds
