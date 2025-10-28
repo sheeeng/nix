@@ -293,7 +293,6 @@
           "[terraform]"."editor.formatOnSave" = false;
           "[terraform]"."editor.tabSize" = 2;
           "files.exclude" = {
-            "**/dot-flox" = true;
             "**/dot-terraform" = true;
             "**/dot-vscode" = true;
           };
