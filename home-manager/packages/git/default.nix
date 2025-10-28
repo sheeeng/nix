@@ -28,7 +28,7 @@ in
     git-credential-oauth-wrapper # https://search.nixos.org/packages?channel=unstable&type=packages&show=git-credential-oauth
     git-lfs # https://search.nixos.org/packages?channel=unstable&type=packages&show=git-lfs
     gitleaks # https://search.nixos.org/packages?channel=unstable&type=packages&show=gitleaks
-    pre-commit # https://search.nixos.org/packages?channel=unstable&type=packages&show=pre-commit
+    # pre-commit # https://search.nixos.org/packages?channel=unstable&type=packages&show=pre-commit
     # keep-sorted end
   ];
 

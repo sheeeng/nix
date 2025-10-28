@@ -58,7 +58,7 @@ in
       coreutils # https://search.nixos.org/packages?channel=unstable&type=packages&show=coreutils
       findutils # https://search.nixos.org/packages?channel=unstable&type=packages&show=findutils
       git # https://search.nixos.org/packages?channel=unstable&type=packages&show=git
-      inputs.flox.packages.${pkgs.system}.default
+      # inputs.flox.packages.${pkgs.system}.default
       nil # https://search.nixos.org/packages?channel=unstable&type=packages&show=nil
       # nix # https://search.nixos.org/packages?channel=unstable&type=packages&show=nix
       nix-output-monitor # https://search.nixos.org/packages?channel=unstable&type=packages&show=nix-output-monitor

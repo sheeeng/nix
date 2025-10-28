@@ -72,7 +72,7 @@ in
       coreutils # https://search.nixos.org/packages?channel=unstable&type=packages&show=coreutils
       dix # https://search.nixos.org/packages?channel=unstable&type=packages&show=dix
       findutils # https://search.nixos.org/packages?channel=unstable&type=packages&show=findutils
-      inputs.flox.packages.${pkgs.system}.default
+      # inputs.flox.packages.${pkgs.system}.default
       nh # https://search.nixos.org/packages?channel=unstable&type=packages&show=nh
       nil # https://search.nixos.org/packages?channel=unstable&type=packages&show=nil
       nix # https://search.nixos.org/packages?channel=unstable&type=packages&show=nix
@@ -335,35 +335,43 @@ in
         };
       }; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-system.defaults.CustomSystemPreferences
       CustomUserPreferences = {
-        "com.apple.Safari" = {
-          # Privacy: don’t send search queries to Apple.
-          UniversalSearchEnabled = false;
-          SuppressSearchSuggestions = true;
-          # Press Tab to highlight each item on a web page.
-          WebKitTabToLinksPreferenceKey = true;
-          ShowFullURLInSmartSearchField = true;
-          # Prevent Safari from opening ‘safe’ files automatically after downloading.
-          AutoOpenSafeDownloads = false;
-          ShowFavoritesBar = false;
-          IncludeInternalDebugMenu = true;
-          IncludeDevelopMenu = true;
-          WebKitDeveloperExtrasEnabledPreferenceKey = true;
-          WebContinuousSpellCheckingEnabled = true;
-          WebAutomaticSpellingCorrectionEnabled = false;
-          AutoFillFromAddressBook = false;
-          AutoFillCreditCardData = false;
-          AutoFillMiscellaneousForms = false;
-          WarnAboutFraudulentWebsites = true;
-          WebKitJavaEnabled = false;
-          WebKitJavaScriptCanOpenWindowsAutomatically = false;
-          "com.apple.Safari.ContentPageGroupIdentifier.WebKit2TabsToLinks" = true;
-          "com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled" = true;
-          "com.apple.Safari.ContentPageGroupIdentifier.WebKit2BackspaceKeyNavigationEnabled" = false;
-          "com.apple.Safari.ContentPageGroupIdentifier.WebKit2JavaEnabled" = false;
-          "com.apple.Safari.ContentPageGroupIdentifier.WebKit2JavaEnabledForLocalFiles" = false;
-          "com.apple.Safari.ContentPageGroupIdentifier.WebKit2JavaScriptCanOpenWindowsAutomatically" = false;
-        };
-      }; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-system.defaults.CustomUserPreferences
+        # NOTE: Safari preferences are commented out due to sandboxing restrictions.
+        # Safari stores its preferences in a sandboxed container at:
+        # ~/Library/Containers/com.apple.Safari/Data/Library/Preferences/
+        # This prevents nix-darwin from reliably writing these settings.
+        # You may need to configure these manually in Safari's preferences.
+        #
+        # Reference: https://github.com/LnL7/nix-darwin/issues/711
+        #
+        # "com.apple.Safari" = {
+        #   # Privacy: don't send search queries to Apple.
+        #   UniversalSearchEnabled = false;
+        #   SuppressSearchSuggestions = true;
+        #   # Press Tab to highlight each item on a web page.
+        #   WebKitTabToLinksPreferenceKey = true;
+        #   ShowFullURLInSmartSearchField = true;
+        #   # Prevent Safari from opening 'safe' files automatically after downloading.
+        #   AutoOpenSafeDownloads = false;
+        #   ShowFavoritesBar = false;
+        #   IncludeInternalDebugMenu = true;
+        #   IncludeDevelopMenu = true;
+        #   WebKitDeveloperExtrasEnabledPreferenceKey = true;
+        #   WebContinuousSpellCheckingEnabled = true;
+        #   WebAutomaticSpellingCorrectionEnabled = false;
+        #   AutoFillFromAddressBook = false;
+        #   AutoFillCreditCardData = false;
+        #   AutoFillMiscellaneousForms = false;
+        #   WarnAboutFraudulentWebsites = true;
+        #   WebKitJavaEnabled = false;
+        #   WebKitJavaScriptCanOpenWindowsAutomatically = false;
+        #   "com.apple.Safari.ContentPageGroupIdentifier.WebKit2TabsToLinks" = true;
+        #   "com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled" = true;
+        #   "com.apple.Safari.ContentPageGroupIdentifier.WebKit2BackspaceKeyNavigationEnabled" = false;
+        #   "com.apple.Safari.ContentPageGroupIdentifier.WebKit2JavaEnabled" = false;
+        #   "com.apple.Safari.ContentPageGroupIdentifier.WebKit2JavaEnabledForLocalFiles" = false;
+        #   "com.apple.Safari.ContentPageGroupIdentifier.WebKit2JavaScriptCanOpenWindowsAutomatically" = false;
+        # };
+      }; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-system.defaults.CustomUserPreferences # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-system.defaults.CustomUserPreferences
       menuExtraClock = {
         Show24Hour = true; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-system.defaults.menuExtraClock.ShowDate
         ShowDate = 0; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-system.defaults.menuExtraClock.ShowDate
