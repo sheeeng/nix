@@ -91,7 +91,9 @@
       # delta # https://search.nixos.org/packages?channel=unstable&type=packages&show=delta
       # nh # https://search.nixos.org/packages?channel=unstable&type=packages&show=nh
       # nixfmt-tree # https://search.nixos.org/packages?channel=unstable&type=packages&show=nixfmt-tree
+      # pre-commit # https://search.nixos.org/packages?channel=unstable&type=packages&show=pre-commit
       # taskctl # TODO: https://github.com/taskctl/taskctl # https://search.nixos.org/packages?channel=unstable&type=packages&show=taskctl
+      # terraform # https://search.nixos.org/packages?channel=unstable&type=packages&show=terraform
       # x-cmd # TODO: https://github.com/x-cmd/x-cmd # https://search.nixos.org/packages?channel=unstable&type=packages&show=x-cmd
       (lib.hiPrio uutils-coreutils-noprefix) # https://search.nixos.org/packages?channel=unstable&type=packages&show=uutils-coreutils-noprefix
       (lib.hiPrio uutils-diffutils) # https://search.nixos.org/packages?channel=unstable&type=packages&show=uutils-diffutils
@@ -118,9 +120,7 @@
       marksman # https://search.nixos.org/packages?channel=unstable&type=packages&show=marksman
       nixfmt # https://search.nixos.org/packages?channel=unstable&type=packages&show=nixfmt
       nixos-option # https://search.nixos.org/packages?channel=unstable&type=packages&show=nixos-option
-      # pre-commit # https://search.nixos.org/packages?channel=unstable&type=packages&show=pre-commit
       shfmt # https://search.nixos.org/packages?channel=unstable&type=packages&show=shfmt
-      # terraform # https://search.nixos.org/packages?channel=unstable&type=packages&show=terraform
       texlab # https://search.nixos.org/packages?channel=unstable&type=packages&show=texlab
       tflint # https://search.nixos.org/packages?channel=unstable&type=packages&show=tflint
       tfsort # https://search.nixos.org/packages?channel=unstable&type=packages&show=tfsort
