@@ -68,6 +68,45 @@
         save_to_clipboard = true;
       };
 
+      keyboard = {
+        bindings = [
+          # Word navigation
+          {
+            key = "Left";
+            mods = "Alt";
+            chars = "\x1b\x62";
+          }
+          {
+            key = "Right";
+            mods = "Alt";
+            chars = "\x1b\x66";
+          }
+          # Line navigation
+          {
+            key = "Left";
+            mods = "Command";
+            chars = "\x01";
+          }
+          {
+            key = "Right";
+            mods = "Command";
+            chars = "\x05";
+          }
+          # Delete word
+          {
+            key = "Back";
+            mods = "Alt";
+            chars = "\x17";
+          }
+          # Delete line
+          {
+            key = "Back";
+            mods = "Command";
+            chars = "\x15";
+          }
+        ];
+      };
+
       # colors = {
       #   # Use `lib.mkForce value` or `lib.mkDefault value` to change the priority on any of these definitions.
       #   # https://github.com/MatthiasBenaets/nix-config/blob/d14dd9b68805416c527ae998225ce19489d41097/modules/programs/alacritty.nix
