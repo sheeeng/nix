@@ -15,7 +15,13 @@
       "LS_COLORS" = "1";
     }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.kitty.environment
 
-    extraConfig = ""; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.kitty.extraConfig
+    extraConfig = ''
+      mouse_map left click ungrabbed mouse_handle_click prompt
+      mouse_map ctrl+left click ungrabbed mouse_handle_click link
+      map cmd+c        copy_to_clipboard
+      map cmd+v        paste_from_clipboard
+      map shift+insert paste_from_clipboard
+    ''; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.kitty.extraConfig
     # extraConfig = builtins.readFile ./kitty.conf; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.kitty.extraConfig
 
     # font = {
