@@ -89,6 +89,7 @@
       # (lib.hiPrio go-task) # TODO: Collision error with `taskwarrior-3` package. # https://search.nixos.org/packages?channel=unstable&type=packages&show=go-task
       # (lib.hiPrio parallel) # TODO: https://haseebmajid.dev/posts/2023-10-02-til-how-to-fix-package-binary-collisions-on-nix/ # https://search.nixos.org/packages?channel=unstable&type=packages&show=parallel
       # delta # https://search.nixos.org/packages?channel=unstable&type=packages&show=delta
+      # devenv # https://search.nixos.org/packages?channel=unstable&type=packages&show=devenv
       # nh # https://search.nixos.org/packages?channel=unstable&type=packages&show=nh
       # nixfmt-tree # https://search.nixos.org/packages?channel=unstable&type=packages&show=nixfmt-tree
       # pre-commit # https://search.nixos.org/packages?channel=unstable&type=packages&show=pre-commit
@@ -98,13 +99,13 @@
       (lib.hiPrio uutils-coreutils-noprefix) # https://search.nixos.org/packages?channel=unstable&type=packages&show=uutils-coreutils-noprefix
       (lib.hiPrio uutils-diffutils) # https://search.nixos.org/packages?channel=unstable&type=packages&show=uutils-diffutils
       (lib.hiPrio uutils-findutils) # https://search.nixos.org/packages?channel=unstable&type=packages&show=uutils-findutils
+      (pkgs.callPackage ./packages/download-nixos-iso.nix { })
       alejandra # https://search.nixos.org/packages?channel=unstable&type=packages&show=alejandra
       asdf-vm # https://search.nixos.org/packages?channel=unstable&type=packages&show=asdf-vm
       autoconf # https://search.nixos.org/packages?channel=unstable&type=packages&show=autoconf
       binutils # https://search.nixos.org/packages?channel=unstable&type=packages&show=binutils
       conform # https://search.nixos.org/packages?channel=unstable&type=packages&show=conform
       dependabot-cli # https://search.nixos.org/packages?channel=unstable&type=packages&show=dependabot-cli
-      devenv # https://search.nixos.org/packages?channel=unstable&type=packages&show=devenv
       gh # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh
       hadolint # https://search.nixos.org/packages?channel=unstable&type=packages&show=hadolint
       just # https://search.nixos.org/packages?channel=unstable&type=packages&show=just
