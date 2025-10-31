@@ -1,6 +1,15 @@
 _:
 let
   folderFiles = dir: (map (fname: dir + "/${fname}") (builtins.attrNames (builtins.readDir dir)));
+  # Filter out files that are package derivations, not modules
+  packageModuleFiles =
+    dir:
+    let
+      excludedFiles = [ "download-nixos-iso.nix" ];
+      allFiles = builtins.attrNames (builtins.readDir dir);
+      filteredFiles = builtins.filter (fname: !(builtins.elem fname excludedFiles)) allFiles;
+    in
+    map (fname: dir + "/${fname}") filteredFiles;
 in
 {
   imports = [
@@ -12,7 +21,7 @@ in
     ./sops.nix
     ./theme.nix
   ]
-  ++ (folderFiles ./packages)
+  ++ (packageModuleFiles ./packages)
   ++ (folderFiles ./programs);
   # https://github.com/alexnabokikh/nix-config/blob/bddec40e097d4227cd95badfc02164aa006a8a4c/modules/home-manager/common/default.nix
 
