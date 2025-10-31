@@ -26,8 +26,8 @@
         top = 1,
         bottom = 1,
       }
-      config.initial_cols = 256
-      config.initial_rows = 64
+      config.initial_cols = 80
+      config.initial_rows = 24
 
       -- Terminal settings
       config.term = "xterm-256color"
