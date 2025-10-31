@@ -32,7 +32,7 @@ let
   inherit ((import ../core/determinate.nix { })) isDeterminateNix;
 
   pkgs-unstable = import inputs.nixpkgs {
-    inherit (hostConfiguration.nixpkgs) system;
+    system = pkgs.stdenv.hostPlatform.system;
     config.allowUnfree = true;
     inherit (pkgs.stdenv) hostPlatform;
   };

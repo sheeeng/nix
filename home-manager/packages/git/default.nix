@@ -384,7 +384,7 @@ in
 
       signing = {
         format = "openpgp"; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.git.signing.format
-        key = "0xB8BFC0DD57F42E03!"; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.git.signing.key
+        key = "0xF104C3F659438426!"; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.git.signing.key
         signByDefault = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.git.signing.signByDefault
         signer = "${pkgs.gnupg}/bin/gpg2"; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.git.signing.signer
       };
