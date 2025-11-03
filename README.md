@@ -5,6 +5,12 @@
 
 ## Getting started
 
+```shell
+nix --extra-experimental-features 'nix-command flakes' flake update; darwin-rebuild build --print-build-logs --flake ~/github/sheeeng/nix 2>&1 | nix --extra-experimental-features 'nix-command flakes' run nixpkgs#nix-output-monitor
+
+sudo darwin-rebuild switch --print-build-logs --flake ~/github/sheeeng/nix 2>&1 | nix --extra-experimental-features 'flakes nix-command' run nixpkgs#nix-output-monitor
+```
+
 ### Install `lix`
 
 ```shell
