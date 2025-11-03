@@ -23,8 +23,6 @@ let
     };
   };
 
-  inherit ((import ../core/determinate.nix { })) isDeterminateNix;
-
   pkgs-unstable = import inputs.nixpkgs {
     system = pkgs.stdenv.hostPlatform.system;
     config.allowUnfree = true;
