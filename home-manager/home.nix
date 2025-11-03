@@ -31,4 +31,19 @@ in
   # You have set either `nixpkgs.config` or `nixpkgs.overlays` while using `home-manager.useGlobalPkgs`.
   # This will soon not be possible. Please remove all `nixpkgs` options when using `home-manager.useGlobalPkgs`.
   nixpkgs.config.allowUnfree = true;
+
+  home = {
+    shell = {
+      enableBashIntegration = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-home.shell.enableBashIntegration
+      enableFishIntegration = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-home.shell.enableFishIntegration
+      enableIonIntegration = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-home.shell.enableIonIntegration
+      enableNushellIntegration = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-home.shell.enableNushellIntegration
+      enableShellIntegration = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-home.shell.enableShellIntegration
+      enableZshIntegration = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-home.shell.enableZshIntegration
+    };
+    shellAliases = {
+      z = "zoxide";
+    }; # https://nix-community.github.io/home-manager/options.xhtml#opt-home.shellAliases
+    stateVersion = "25.11"; # https://nix-community.github.io/home-manager/options.xhtml#opt-home.stateVersion
+  };
 }
