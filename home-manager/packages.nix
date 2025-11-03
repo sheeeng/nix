@@ -88,13 +88,9 @@
       # keep-sorted start block=no newline_separated=no sticky_comments=no
       # (lib.hiPrio go-task) # TODO: Collision error with `taskwarrior-3` package. # https://search.nixos.org/packages?channel=unstable&type=packages&show=go-task
       # (lib.hiPrio parallel) # TODO: https://haseebmajid.dev/posts/2023-10-02-til-how-to-fix-package-binary-collisions-on-nix/ # https://search.nixos.org/packages?channel=unstable&type=packages&show=parallel
-      # delta # https://search.nixos.org/packages?channel=unstable&type=packages&show=delta
       # devenv # https://search.nixos.org/packages?channel=unstable&type=packages&show=devenv
-      # nh # https://search.nixos.org/packages?channel=unstable&type=packages&show=nh
       # nixfmt-tree # https://search.nixos.org/packages?channel=unstable&type=packages&show=nixfmt-tree
-      # pre-commit # https://search.nixos.org/packages?channel=unstable&type=packages&show=pre-commit
       # taskctl # TODO: https://github.com/taskctl/taskctl # https://search.nixos.org/packages?channel=unstable&type=packages&show=taskctl
-      # terraform # https://search.nixos.org/packages?channel=unstable&type=packages&show=terraform
       # x-cmd # TODO: https://github.com/x-cmd/x-cmd # https://search.nixos.org/packages?channel=unstable&type=packages&show=x-cmd
       (lib.hiPrio uutils-coreutils-noprefix) # https://search.nixos.org/packages?channel=unstable&type=packages&show=uutils-coreutils-noprefix
       (lib.hiPrio uutils-diffutils) # https://search.nixos.org/packages?channel=unstable&type=packages&show=uutils-diffutils
@@ -105,6 +101,7 @@
       autoconf # https://search.nixos.org/packages?channel=unstable&type=packages&show=autoconf
       binutils # https://search.nixos.org/packages?channel=unstable&type=packages&show=binutils
       conform # https://search.nixos.org/packages?channel=unstable&type=packages&show=conform
+      delta # https://search.nixos.org/packages?channel=unstable&type=packages&show=delta
       dependabot-cli # https://search.nixos.org/packages?channel=unstable&type=packages&show=dependabot-cli
       gh # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh
       hadolint # https://search.nixos.org/packages?channel=unstable&type=packages&show=hadolint
@@ -119,9 +116,12 @@
       ltex-ls # https://search.nixos.org/packages?channel=unstable&type=packages&show=ltex-ls
       markdown-oxide # https://search.nixos.org/packages?channel=unstable&type=packages&show=markdown-oxide
       marksman # https://search.nixos.org/packages?channel=unstable&type=packages&show=marksman
+      nh # https://search.nixos.org/packages?channel=unstable&type=packages&show=nh
       nixfmt # https://search.nixos.org/packages?channel=unstable&type=packages&show=nixfmt
       nixos-option # https://search.nixos.org/packages?channel=unstable&type=packages&show=nixos-option
+      pre-commit # https://search.nixos.org/packages?channel=unstable&type=packages&show=pre-commit
       shfmt # https://search.nixos.org/packages?channel=unstable&type=packages&show=shfmt
+      terraform # https://search.nixos.org/packages?channel=unstable&type=packages&show=terraform
       texlab # https://search.nixos.org/packages?channel=unstable&type=packages&show=texlab
       tflint # https://search.nixos.org/packages?channel=unstable&type=packages&show=tflint
       tfsort # https://search.nixos.org/packages?channel=unstable&type=packages&show=tfsort
