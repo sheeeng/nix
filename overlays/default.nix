@@ -17,7 +17,7 @@ inputs: {
       installCheckPhase = null;
     });
 
-    nodejs_20 = prev.nodejs_20.overrideAttrs (_: {
+    nodejs_24 = prev.nodejs_24.overrideAttrs (_: {
       doCheck = false;
       doInstallCheck = false;
       checkPhase = null;
@@ -25,15 +25,6 @@ inputs: {
     });
 
     nodejs_22 = prev.nodejs_22.overrideAttrs (_: {
-      doCheck = false;
-      doInstallCheck = false;
-      checkPhase = null;
-      installCheckPhase = null;
-    });
-  };
-
-  kubelogin-skip-tests = _final: prev: {
-    kubelogin = prev.kubelogin.overrideAttrs (_: {
       doCheck = false;
       doInstallCheck = false;
       checkPhase = null;
