@@ -31,4 +31,13 @@ inputs: {
       installCheckPhase = null;
     });
   };
+
+  kubelogin-skip-tests = _final: prev: {
+    kubelogin = prev.kubelogin.overrideAttrs (_: {
+      doCheck = false;
+      doInstallCheck = false;
+      checkPhase = null;
+      installCheckPhase = null;
+    });
+  };
 }

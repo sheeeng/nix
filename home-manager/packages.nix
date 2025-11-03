@@ -110,6 +110,7 @@
       k9s # https://search.nixos.org/packages?channel=unstable&type=packages&show=k9s
       kubectl # https://search.nixos.org/packages?channel=unstable&type=packages&show=kubectl
       kubectx # https://search.nixos.org/packages?channel=unstable&type=packages&show=kubectx
+      kubelogin # https://search.nixos.org/packages?channel=unstable&type=packages&show=kubelogin
       kustomize # https://search.nixos.org/packages?channel=unstable&type=packages&show=kustomize
       lazygit # https://search.nixos.org/packages?channel=unstable&type=packages&show=lazygit
       lazysql # https://search.nixos.org/packages?channel=unstable&type=packages&show=lazysql

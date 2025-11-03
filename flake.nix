@@ -263,6 +263,7 @@
             {
               nixpkgs.overlays = [
                 (import ./overlays inputs).nodejs-skip-tests
+                (import ./overlays inputs).kubelogin-skip-tests
                 (import ./overlays inputs).unstable-packages
                 inputs.morlana.overlays.default
                 # inputs.nh-plus.overlays.default
