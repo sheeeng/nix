@@ -51,8 +51,6 @@ nix eval --json 'nixpkgs#nix.version'
 nix eval --json '.#darwinConfigurations.TP95V9LWWL.config.nix.enable'
 
 sudo darwin-rebuild switch --flake .
-
-nix eval --impure --expr '(import ./hosts/core/determinate.nix { }).isDeterminateNix'
 ```
 
 ```shell
