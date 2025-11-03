@@ -6,45 +6,47 @@
     enable = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.alacritty.enable
     package = pkgs.alacritty; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.alacritty.package
     settings = {
+      # https://alacritty.org/config-alacritty.html
       # https://github.com/alexnabokikh/nix-config/blob/bddec40e097d4227cd95badfc02164aa006a8a4c/modules/home-manager/programs/alacritty/default.nix
       general = {
         live_config_reload = true;
-      };
+      }; # https://alacritty.org/config-alacritty.html#general
 
       terminal = {
-        shell.program = "zsh";
+        shell.program = "${pkgs.fish}/bin/fish";
         shell.args = [
-          "-l"
-          "-c"
-          "tmux attach || tmux "
+          # "-l"
+          # "-c"
+          # "zellij"
         ];
       };
 
       env = {
         TERM = "xterm-256color";
-      };
+      }; # https://alacritty.org/config-alacritty.html#env
 
       window = {
         decorations = if pkgs.stdenv.isDarwin then "buttonless" else "none";
         dynamic_title = false;
         dynamic_padding = true;
+        option_as_alt = "Both"; # https://github.com/zellij-org/zellij/issues/2051#issuecomment-1461519892
         dimensions = {
-          columns = 170;
-          lines = 45;
+          columns = 160;
+          lines = 48;
         };
         padding = {
           x = 5;
           y = 1;
         };
-      };
+      }; # https://alacritty.org/config-alacritty.html#window
 
       scrolling = {
         history = 10000;
         multiplier = 3;
-      };
+      }; # https://alacritty.org/config-alacritty.html#scrolling
 
       font = {
-        size = if pkgs.stdenv.isDarwin then 15 else 12;
+        size = 10;
         normal = {
           family = "MesloLGS Nerd Font";
           style = "Regular";
@@ -61,12 +63,24 @@
           family = "MesloLGS Nerd Font";
           style = "Italic";
         };
-      };
+      }; # https://alacritty.org/config-alacritty.html#font
+
+      colors = { }; # https://alacritty.org/config-alacritty.html#colors
+
+      bell = { }; # https://alacritty.org/config-alacritty.html#bell
 
       selection = {
         semantic_escape_chars = '',│`|:"' ()[]{}<>'';
         save_to_clipboard = true;
-      };
+      }; # https://alacritty.org/config-alacritty.html#selection
+
+      cursor = { }; # https://alacritty.org/config-alacritty.html#cursor
+
+      terminal = { }; # https://alacritty.org/config-alacritty.html#terminal
+
+      mouse = { }; # https://alacritty.org/config-alacritty.html#mouse
+
+      hints = { }; # https://alacritty.org/config-alacritty.html#hints
 
       keyboard = {
         bindings = [
@@ -105,7 +119,9 @@
             chars = "\x15";
           }
         ];
-      };
+      }; # https://alacritty.org/config-alacritty.html#keyboard
+
+      debug = { }; # https://alacritty.org/config-alacritty.html#debug
 
       # colors = {
       #   # Use `lib.mkForce value` or `lib.mkDefault value` to change the priority on any of these definitions.
@@ -150,5 +166,7 @@
       #   };
       # };
     }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.alacritty.settings
+    theme = "catppuccin_mocha"; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.alacritty.theme
+    themePackage = pkgs.alacritty-theme; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.alacritty.themePackage
   };
 }
