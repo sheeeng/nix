@@ -16,19 +16,5 @@ inputs: {
       checkPhase = null;
       installCheckPhase = null;
     });
-
-    nodejs_24 = prev.nodejs_24.overrideAttrs (_: {
-      doCheck = false;
-      doInstallCheck = false;
-      checkPhase = null;
-      installCheckPhase = null;
-    });
-
-    nodejs_22 = prev.nodejs_22.overrideAttrs (_: {
-      doCheck = false;
-      doInstallCheck = false;
-      checkPhase = null;
-      installCheckPhase = null;
-    });
   };
 }
