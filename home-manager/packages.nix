@@ -89,6 +89,7 @@
       # (lib.hiPrio go-task) # TODO: Collision error with `taskwarrior-3` package. # https://search.nixos.org/packages?channel=unstable&type=packages&show=go-task
       # (lib.hiPrio parallel) # TODO: https://haseebmajid.dev/posts/2023-10-02-til-how-to-fix-package-binary-collisions-on-nix/ # https://search.nixos.org/packages?channel=unstable&type=packages&show=parallel
       # devenv # https://search.nixos.org/packages?channel=unstable&type=packages&show=devenv
+      # kubelogin # https://search.nixos.org/packages?channel=unstable&type=packages&show=kubelogin
       # nixfmt-tree # https://search.nixos.org/packages?channel=unstable&type=packages&show=nixfmt-tree
       # taskctl # TODO: https://github.com/taskctl/taskctl # https://search.nixos.org/packages?channel=unstable&type=packages&show=taskctl
       # x-cmd # TODO: https://github.com/x-cmd/x-cmd # https://search.nixos.org/packages?channel=unstable&type=packages&show=x-cmd
@@ -110,7 +111,6 @@
       k9s # https://search.nixos.org/packages?channel=unstable&type=packages&show=k9s
       kubectl # https://search.nixos.org/packages?channel=unstable&type=packages&show=kubectl
       kubectx # https://search.nixos.org/packages?channel=unstable&type=packages&show=kubectx
-      kubelogin # https://search.nixos.org/packages?channel=unstable&type=packages&show=kubelogin
       kustomize # https://search.nixos.org/packages?channel=unstable&type=packages&show=kustomize
       lazygit # https://search.nixos.org/packages?channel=unstable&type=packages&show=lazygit
       lazysql # https://search.nixos.org/packages?channel=unstable&type=packages&show=lazysql
