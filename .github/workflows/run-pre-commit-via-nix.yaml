@@ -25,7 +25,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - uses: nixbuild/nix-quick-install-action@c57091870f58910a7aef53a0b0a99f6ba568aa6f # v34
+      - uses: nixbuild/nix-quick-install-action@2c9db80fb984ceb1bcaa77cdda3fdf8cfba92035 # v34
         with:
           nix_conf: |
             experimental-features = flakes nix-command
