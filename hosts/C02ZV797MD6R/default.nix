@@ -338,26 +338,6 @@ in
     '';
   };
 
-  # Determinate Nix detection information
-  system.activationScripts.determinateInfo = {
-    supportsDryActivation = true;
-    text = ''
-      ${
-        if isDeterminateNix then
-          ''
-            echo "✓ Determinate Nix detected - nix-darwin Nix management disabled"
-            echo "  Nix installation managed by Determinate Systems"
-            echo "  Some nix-darwin features (like nix.* options) are unavailable"
-          ''
-        else
-          ''
-            echo "✓ Standard Nix installation detected - nix-darwin managing Nix"
-            echo "  Full nix-darwin functionality available"
-          ''
-      }
-    '';
-  };
-
   # https://medium.com/@zmre/nix-darwin-quick-tip-activate-your-preferences-f69942a93236
   # Failed assertions:
   # - The `system.activationScripts.postUserActivation` option has
