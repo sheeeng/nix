@@ -18,6 +18,7 @@
     (lib.mkOrder 550 '''')
 
     # Place where other setopts are declared in home-manager
+    # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.initContent
     (lib.mkOrder 900 (
       ''
         setopt BEEP # Enable terminal bell
@@ -33,9 +34,9 @@
       ''
       + (lib.optionalString config.programs.pyenv.enable ''
         ### Pyenv command
-        if command -v pyenv 1>/dev/null 2>&1; then
-          eval "$(pyenv init -)"
-        fi
+        # if command -v pyenv 1>/dev/null 2>&1; then
+        #   eval "$(pyenv init -)"
+        # fi
       '')
     ))
 
@@ -99,6 +100,7 @@
     (lib.mkOrder 1500 '''')
 
     # Z Style Customizations
+    # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.initContent
     (lib.mkOrder 2000 (
       ''
         # set descriptions format to enable group support
