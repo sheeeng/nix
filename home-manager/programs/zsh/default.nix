@@ -77,12 +77,14 @@
       append = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.history.append
       expireDuplicatesFirst = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.history.expireDuplicatesFirst
       extended = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.history.extended
+      findNoDups = false; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.history.findNoDups
       ignoreAllDups = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.history.ignoreAllDups
       ignoreDups = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.history.ignoreDups
       ignorePatterns = [ ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.history.ignorePatterns
       ignoreSpace = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.history.ignoreSpace
       path = "${config.home.homeDirectory}/zsh/.zsh_history"; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.history.path
       save = 10000; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.history.save
+      saveNoDups = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.history.saveNoDups
       share = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.history.share
       size = 1000000; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.history.size
     }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.history
@@ -93,37 +95,56 @@
       searchUpKey = [ "^[[A" ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.historySubstringSearch.searchUpKey
     }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.historySubstringSearch
 
-    # syntaxHighlighting = {
-    #   enable = true;
-    #   highlighters = [
-    #     "main"
-    #     "brackets"
-    #     "pattern"
-    #     "regexp"
-    #     "cursor"
-    #     "line"
-    #   ];
-    #   patterns = {
-    #     "rm -rf *" = "fg=white,bold,bg=red";
-    #   };
-    # };
-
     localVariables = {
-      # Make ZSH notifications expire, in miliseconds
+      ABBR_SET_EXPANSION_CURSOR = 1;
       AUTO_NOTIFY_EXPIRE_TIME = 5000;
-      # Make zsh-vi-mode be sourced
       ZVM_INIT_MODE = "sourcing";
-      # Disable zsh-vi-mode's custom cursors
       ZVM_CURSOR_STYLE_ENABLED = false;
-      # Prompt message for auto correct
       SPROMPT = "Correct $fg[red]%R$reset_color to $fg[green]%r$reset_color? [ny] ";
-      # Add more Zsh Autosuggestion strategies
       ZSH_AUTOSUGGEST_STRATEGY = [
         "abbreviations"
         "completion"
         "history"
       ];
-    };
+    }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.localVariables
+
+    loginExtra = ""; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.loginExtra
+    logoutExtra = ""; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.logoutExtra
+
+    oh-my-zsh = {
+      enable = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.oh-my-zsh.enable
+      package = pkgs.oh-my-zsh; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.oh-my-zsh.package
+      custom = ""; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.oh-my-zsh.custom
+      extraConfig = ""; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.oh-my-zsh.extraConfig
+      plugins = [ ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.oh-my-zsh.plugins
+      theme = ""; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.oh-my-zsh.theme
+    }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.oh-my-zsh
+
+    # plugins = [ ]; # See plugins.nix file. # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.plugins
+
+    prezto = {
+      enable = false; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.prezto.enable
+      package = pkgs.prezto; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.prezto.package
+      autosuggestions.color = null; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.prezto.autosuggestions.color
+      caseSensitive = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.prezto.caseSensitive
+      color = false; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.prezto.color
+      completions.ignoredHosts = [ ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.prezto.completions.ignoredHosts
+      editor = {
+        dotExpansion = null; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.prezto.editor.dotExpansion
+        keymap = "vi"; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.prezto.editor.keymap
+        promptContext = null; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.prezto.editor.promptContext
+      };
+      extraConfig = ""; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.prezto.extraConfig
+      extraFunctions = [ ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.prezto.extraFunctions
+      extraModules = [ ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.prezto.extraModules
+      git.submoduleIgnore = null; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.prezto.git.submoduleIgnore
+      gnuUtility.prefix = null; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.prezto.gnuUtility.prefix
+    }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.prezto
+
+    profileExtra = ""; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.profileExtra
+
+    sessionVariables = { }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.sessionVariables
+    setOptions = [ ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.setOptions
 
     shellAliases = {
       # ZSH globbing interferes with flake notation for all nix commands
@@ -163,6 +184,8 @@
       # G = "| grep";
     }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.shellGlobalAliases
 
+    siteFunctions = { }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.siteFunctions
+
     syntaxHighlighting = {
       enable = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.syntaxHighlighting.enable
       package = pkgs.zsh-syntax-highlighting; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.syntaxHighlighting.package
@@ -189,21 +212,19 @@
         function = "bg=blue";
       }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.syntaxHighlighting.styles
     }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.syntaxHighlighting
+
     zplug = {
       enable = false; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.zplug.enable
       plugins = [ ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.zplug.plugins
       zplugHome = "${config.home.homeDirectory}/.zplug"; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.zplug.zplugHome
     };
+
     zprof = {
-      # TODO: Optional with a flag.
       enable = false; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.zprof.enable
     };
-    zsh-abbr = {
-      enable = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.zsh-abbr.enable
-      abbreviations = {
-        gco = "git checkout";
-        l = "less";
-      }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.zsh-abbr.abbreviations
-    };
+
+    # zsh-abbr = {
+    #   enable = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.zsh-abbr.enable
+    # }; # See zsh-abbr.nix file.
   };
 }

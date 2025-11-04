@@ -420,6 +420,7 @@
             "enabled" = true;
           };
           "settingsSync.ignoredSettings" = [ "github.copilot.chat.codeGeneration.instructions" ];
+          "telemetry.telemetryLevel" = "off";
           "update.showReleaseNotes" = false;
           # Extensions settings.
           "direnv.restart.automatic" = true;
