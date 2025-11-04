@@ -13,12 +13,14 @@
       keybinds {
           // keybinds are divided into modes
           normal {
+              unbind "Alt f"
+              bind "Alt F" {  ToggleFloatingPanes; }
               // bind instructions can include one or more keys (both keys will be bound separately)
               // bind keys can include one or more actions (all actions will be performed with no sequential guarantees)
               bind "Ctrl g" { SwitchToMode "locked"; }
               bind "Ctrl p" { SwitchToMode "pane"; }
               bind "Alt n" { NewPane; }
-              bind "Alt h" "Alt Left" { MoveFocusOrTab "Left"; }
+              bind "Alt h" { MoveFocusOrTab "Left"; }
           }
           pane {
               bind "h" "Left" { MoveFocus "Left"; }

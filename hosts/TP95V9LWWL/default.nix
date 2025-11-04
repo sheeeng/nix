@@ -53,10 +53,25 @@ in
     man.enable = true; # https://nix-darwin.github.io/nix-darwin/manual/#opt-documentation.man.enable
   };
 
-  fonts.packages = with pkgs; [
-    nerd-fonts.fira-mono # https://search.nixos.org/packages?channel=unstable&query=nerd-fonts.fira-mono
-    nerd-fonts.jetbrains-mono # https://search.nixos.org/packages?channel=unstable&query=nerd-fonts.jetbrains-mono
-  ];
+  fonts.packages =
+    with pkgs;
+    [
+      # keep-sorted start block=no newline_separated=no
+      noto-fonts # https://search.nixos.org/packages?channel=unstable&query=noto-fonts
+      noto-fonts-cjk-sans # https://search.nixos.org/packages?channel=unstable&query=noto-fonts-cjk-sans
+      noto-fonts-cjk-serif # https://search.nixos.org/packages?channel=unstable&query=noto-fonts-cjk-serif
+      # keep-sorted end
+    ]
+    ++ (with nerd-fonts; [
+      # keep-sorted start block=no newline_separated=no
+      fira-mono # https://search.nixos.org/packages?channel=unstable&query=nerd-fonts.fira-mono
+      jetbrains-mono # https://search.nixos.org/packages?channel=unstable&query=nerd-fonts.jetbrains-mono
+      monaspace # https://search.nixos.org/packages?channel=unstable&query=nerd-fonts.monaspace
+      ubuntu # https://search.nixos.org/packages?channel=unstable&query=nerd-fonts.ubuntu
+      ubuntu-mono # https://search.nixos.org/packages?channel=unstable&query=nerd-fonts.ubuntu-mono
+      ubuntu-sans # https://search.nixos.org/packages?channel=unstable&query=nerd-fonts.ubuntu-sans
+      # keep-sorted end
+    ]);
 
   environment = {
     systemPackages = with pkgs; [
