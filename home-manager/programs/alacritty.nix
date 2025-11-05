@@ -29,7 +29,7 @@
         decorations = if pkgs.stdenv.isDarwin then "buttonless" else "none";
         dynamic_title = false;
         dynamic_padding = true;
-        option_as_alt = "Left"; # https://github.com/zellij-org/zellij/issues/2051#issuecomment-1461519892
+        option_as_alt = "OnlyLeft"; # https://github.com/zellij-org/zellij/issues/2051#issuecomment-1461519892
         dimensions = {
           columns = 160;
           lines = 48;
