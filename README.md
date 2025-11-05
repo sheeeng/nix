@@ -3,6 +3,8 @@
 [![Built with Nix](https://builtwithnix.org/badge.svg)](https://builtwithnix.org)
 [![Github](https://img.shields.io/badge/github-blue.svg?style=for-the-badge&logo=github&logoColor=white&color=2088ff)](https://github.com/sheeeng/nix)
 
+[![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/sheeeng/nix/badge)](https://scorecard.dev/viewer/?uri=github.com/sheeeng/nix)
+
 ## Getting started
 
 ```shell
