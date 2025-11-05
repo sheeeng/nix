@@ -25,7 +25,20 @@ in
   ++ (folderFiles ./programs);
   # https://github.com/alexnabokikh/nix-config/blob/bddec40e097d4227cd95badfc02164aa006a8a4c/modules/home-manager/common/default.nix
 
-  fonts.fontconfig.enable = true;
+  fonts.fontconfig = {
+    enable = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-fonts.fontconfig.enable
+    antialiasing = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-fonts.fontconfig.antialiasing
+    configFile = { }; # https://nix-community.github.io/home-manager/options.xhtml#opt-fonts.fontconfig.configFile
+    defaultFonts = {
+      emoji = [ ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-fonts.fontconfig.defaultFonts.emoji
+      monospace = [ ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-fonts.fontconfig.defaultFonts.monospace
+      sansSerif = [ ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-fonts.fontconfig.defaultFonts.sansSerif
+      serif = [ ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-fonts.fontconfig.defaultFonts.serif
+    };
+    hinting = null; # https://nix-community.github.io/home-manager/options.xhtml#opt-fonts.fontconfig.defaultFonts.hinting
+    subpixelRendering = null; # https://nix-community.github.io/home-manager/options.xhtml#opt-fonts.fontconfig.subpixelRendering
+  };
+
   # home.stateVersion = "25.11"; # Please read the comment before changing.
 
   # You have set either `nixpkgs.config` or `nixpkgs.overlays` while using `home-manager.useGlobalPkgs`.
@@ -33,6 +46,14 @@ in
   nixpkgs.config.allowUnfree = true;
 
   home = {
+    file = {
+      ".config/nix/nix.conf" = {
+        text = ''
+          experimental-features = nix-command flakes
+        '';
+        force = true;
+      };
+    }; # https://nix-community.github.io/home-manager/options.xhtml#opt-home.file
     shell = {
       enableBashIntegration = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-home.shell.enableBashIntegration
       enableFishIntegration = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-home.shell.enableFishIntegration
