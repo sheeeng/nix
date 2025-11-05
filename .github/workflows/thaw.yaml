@@ -8,5 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
-      - uses: determinatesystems/nix-installer-action@main
-      - uses: snowfallorg/thaw-action@main
+        with:
+          persist-credentials: false
+      - uses: determinatesystems/nix-installer-action@786fff0690178f1234e4e1fe9b536e94f5433196 # v20
+      - uses: snowfallorg/thaw-action@029cdf961be5c3a39e4aa7dd5ea13ca00a904ae7 # v1.0.7
