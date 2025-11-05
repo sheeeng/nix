@@ -1,9 +1,16 @@
+on:
+  pull_request:
+  push:
+    branches: [unstable]
+
 jobs:
   show-nix-info:
     name: show-nix-info
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        with:
+          persist-credentials: false
       - uses: determinatesystems/nix-installer-action@main
       - run: |
           echo "Version: (\`nix --version\`): $(nix --version)" \
@@ -23,7 +30,3 @@ jobs:
       - run: |
           echo "Nix-Installer-Version: (\`/nix/nix-installer --version\`): $(/nix/nix-installer --version)" \
           | tee --append "${GITHUB_STEP_SUMMARY}"
-on:
-  pull_request:
-  push:
-    branches: [main]
