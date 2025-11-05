@@ -53,26 +53,6 @@ in
     man.enable = true; # https://nix-darwin.github.io/nix-darwin/manual/#opt-documentation.man.enable
   };
 
-  fonts.packages =
-    with pkgs;
-    [
-      # keep-sorted start block=no newline_separated=no
-      noto-fonts # https://search.nixos.org/packages?channel=unstable&query=noto-fonts
-      noto-fonts-cjk-sans # https://search.nixos.org/packages?channel=unstable&query=noto-fonts-cjk-sans
-      noto-fonts-cjk-serif # https://search.nixos.org/packages?channel=unstable&query=noto-fonts-cjk-serif
-      # keep-sorted end
-    ]
-    ++ (with nerd-fonts; [
-      # keep-sorted start block=no newline_separated=no
-      fira-mono # https://search.nixos.org/packages?channel=unstable&query=nerd-fonts.fira-mono
-      jetbrains-mono # https://search.nixos.org/packages?channel=unstable&query=nerd-fonts.jetbrains-mono
-      monaspace # https://search.nixos.org/packages?channel=unstable&query=nerd-fonts.monaspace
-      ubuntu # https://search.nixos.org/packages?channel=unstable&query=nerd-fonts.ubuntu
-      ubuntu-mono # https://search.nixos.org/packages?channel=unstable&query=nerd-fonts.ubuntu-mono
-      ubuntu-sans # https://search.nixos.org/packages?channel=unstable&query=nerd-fonts.ubuntu-sans
-      # keep-sorted end
-    ]);
-
   environment = {
     systemPackages = with pkgs; [
       # List packages installed in system profile.
@@ -105,9 +85,60 @@ in
       show-system = "nix derivation show /run/current-system";
       switch-system = "darwin-rebuild switch --flake .";
       list-generations = "nix-env --list-generations";
-    }; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-environment.shellAliases
-    variables = { }; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-environment.variables
+    }; # https://nix-darwin.github.io/nix-darwin/manual/#opt-environment.shellAliases
+    variables = {
+      EDITOR = "hx";
+      LANG = "en_US.UTF-8";
+    }; # https://nix-darwin.github.io/nix-darwin/manual/#opt-environment.variables
   };
+
+  fonts.packages =
+    with pkgs;
+    [
+      # keep-sorted start block=no newline_separated=no
+      noto-fonts # https://search.nixos.org/packages?channel=unstable&query=noto-fonts
+      noto-fonts-cjk-sans # https://search.nixos.org/packages?channel=unstable&query=noto-fonts-cjk-sans
+      noto-fonts-cjk-serif # https://search.nixos.org/packages?channel=unstable&query=noto-fonts-cjk-serif
+      vt323 # https://search.nixos.org/packages?channel=unstable&query=vt323
+      # keep-sorted end
+    ]
+    ++ (with nerd-fonts; [
+      # keep-sorted start block=no newline_separated=no
+      dejavu-sans-mono # https://search.nixos.org/packages?channel=unstable&query=nerd-fonts.dejavu-sans-mono
+      droid-sans-mono # https://search.nixos.org/packages?channel=unstable&query=nerd-fonts.droid-sans-mono
+      fantasque-sans-mono # https://search.nixos.org/packages?channel=unstable&query=nerd-fonts.fantasque-sans-mono
+      fira-code # https://search.nixos.org/packages?channel=unstable&query=nerd-fonts.fira-code
+      fira-mono # https://search.nixos.org/packages?channel=unstable&query=nerd-fonts.fira-mono
+      geist-mono # https://search.nixos.org/packages?channel=unstable&query=nerd-fonts.geist-mono
+      go-mono # https://search.nixos.org/packages?channel=unstable&query=nerd-fonts.go-mono
+      gohufont # https://search.nixos.org/packages?channel=unstable&query=nerd-fonts.gohufont
+      hack # https://search.nixos.org/packages?channel=unstable&query=nerd-fonts.hack
+      inconsolata # https://search.nixos.org/packages?channel=unstable&query=nerd-fonts.inconsolata
+      intone-mono # https://search.nixos.org/packages?channel=unstable&query=nerd-fonts.intone-mono
+      iosevka # https://search.nixos.org/packages?channel=unstable&query=nerd-fonts.iosevka
+      iosevka-term # https://search.nixos.org/packages?channel=unstable&query=nerd-fonts.iosevka-term
+      iosevka-term-slab # https://search.nixos.org/packages?channel=unstable&query=nerd-fonts.iosevka-term-slab
+      jetbrains-mono # https://search.nixos.org/packages?channel=unstable&query=nerd-fonts.jetbrains-mono
+      lekton # https://search.nixos.org/packages?channel=unstable&query=nerd-fonts.lekton
+      liberation # https://search.nixos.org/packages?channel=unstable&query=nerd-fonts.liberation
+      lilex # https://search.nixos.org/packages?channel=unstable&query=nerd-fonts.lilex
+      martian-mono # https://search.nixos.org/packages?channel=unstable&query=nerd-fonts.martian-mono
+      meslo-lg # https://search.nixos.org/packages?channel=unstable&query=nerd-fonts.meslo-lg
+      monaspace # https://search.nixos.org/packages?channel=unstable&query=nerd-fonts.monaspace
+      monofur # https://search.nixos.org/packages?channel=unstable&query=nerd-fonts.monofur
+      monoid # https://search.nixos.org/packages?channel=unstable&query=nerd-fonts.monoid
+      mononoki # https://search.nixos.org/packages?channel=unstable&query=nerd-fonts.mononoki
+      noto # https://search.nixos.org/packages?channel=unstable&query=nerd-fonts.noto
+      recursive-mono # https://search.nixos.org/packages?channel=unstable&query=nerd-fonts.recursive-mono
+      roboto-mono # https://search.nixos.org/packages?channel=unstable&query=nerd-fonts.roboto-mono
+      symbols-only # https://search.nixos.org/packages?channel=unstable&query=nerd-fonts.symbols-only
+      ubuntu # https://search.nixos.org/packages?channel=unstable&query=nerd-fonts.ubuntu
+      ubuntu-mono # https://search.nixos.org/packages?channel=unstable&query=nerd-fonts.ubuntu-mono
+      ubuntu-sans # https://search.nixos.org/packages?channel=unstable&query=nerd-fonts.ubuntu-sans
+      victor-mono # https://search.nixos.org/packages?channel=unstable&query=nerd-fonts.victor-mono
+      zed-mono # https://search.nixos.org/packages?channel=unstable&query=nerd-fonts.zed-mono
+      # keep-sorted end
+    ]); # https://nix-darwin.github.io/nix-darwin/manual/#opt-fonts.packages
 
   # Neither nixpkgs.system nor any other option in nixpkgs.* is meant
   # to be read by modules and configurations.
@@ -203,18 +234,6 @@ in
           doInstallCheck = false;
           checkPhase = "echo 'Node.js tests disabled.'; true";
           installCheckPhase = "echo 'Node.js install checks disabled.'; true";
-        };
-        nodejs_22 = pkgs.nodejs_22.overrideAttrs {
-          doCheck = false;
-          doInstallCheck = false;
-          checkPhase = "echo 'Node.js 22 tests disabled.'; true";
-          installCheckPhase = "echo 'Node.js 22 install checks disabled.'; true";
-        };
-        nodejs_24 = pkgs.nodejs_24.overrideAttrs {
-          doCheck = false;
-          doInstallCheck = false;
-          checkPhase = "echo 'Node.js 24 tests disabled.'; true";
-          installCheckPhase = "echo 'Node.js 24 install checks disabled.'; true";
         };
       }; # https://nixos.org/manual/nixpkgs/unstable/#sec-modify-via-packageOverrides
       permittedInsecurePackages = [

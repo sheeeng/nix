@@ -3,9 +3,9 @@
 {
   programs.zellij = {
     enable = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zellij.enable
-    enableBashIntegration = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zellij.enableBashIntegration
+    enableBashIntegration = false; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zellij.enableBashIntegration
     enableFishIntegration = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zellij.enableFishIntegration
-    enableZshIntegration = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zellij.enableZshIntegration
+    enableZshIntegration = false; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zellij.enableZshIntegration
     package = pkgs.zellij; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zellij.package
     attachExistingSession = false; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zellij.attachExistingSession
     exitShellOnExit = false; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zellij.exitShellOnExit
@@ -13,6 +13,8 @@
       keybinds {
           // keybinds are divided into modes
           normal {
+              // keybind = alt+left=unbind // https://github.com/zellij-org/zellij/issues/4151#issuecomment-2976947187
+              // keybind = alt+right=unbind // https://github.com/ghostty-org/ghostty/discussions/3207#discussioncomment-11673995
               unbind "Alt f"
               bind "Alt F" {  ToggleFloatingPanes; }
               // bind instructions can include one or more keys (both keys will be bound separately)
@@ -31,6 +33,55 @@
           }
           locked {
               bind "Ctrl g" { SwitchToMode "normal"; }
+          }
+          shared_except "locked" {
+              bind "Ctrl y" {
+                  // LaunchOrFocusPlugin "file:~/zellij-plugins/zellij_forgot.wasm" {
+                  LaunchOrFocusPlugin "https://github.com/karimould/zellij-forgot/releases/latest/download/zellij-forgot.wasm" {
+                      "lock"                  "ctrl + g"
+                      "unlock"                "ctrl + g"
+                      "new pane"              "ctrl + p + n"
+                      "change focus of pane"  "ctrl + p + arrow key"
+                      "close pane"            "ctrl + p + x"
+                      "rename pane"           "ctrl + p + c"
+                      "toggle fullscreen"     "ctrl + p + f"
+                      "toggle floating pane"  "ctrl + p + w"
+                      "toggle embed pane"     "ctrl + p + e"
+                      "choose right pane"     "ctrl + p + l"
+                      "choose left pane"      "ctrl + p + r"
+                      "choose upper pane"     "ctrl + p + k"
+                      "choose lower pane"     "ctrl + p + j"
+                      "new tab"               "ctrl + t + n"
+                      "close tab"             "ctrl + t + x"
+                      "change focus of tab"   "ctrl + t + arrow key"
+                      "rename tab"            "ctrl + t + r"
+                      "sync tab"              "ctrl + t + s"
+                      "brake pane to new tab" "ctrl + t + b"
+                      "brake pane left"       "ctrl + t + ["
+                      "brake pane right"      "ctrl + t + ]"
+                      "toggle tab"            "ctrl + t + tab"
+                      "increase pane size"    "ctrl + n + +"
+                      "decrease pane size"    "ctrl + n + -"
+                      "increase pane top"     "ctrl + n + k"
+                      "increase pane right"   "ctrl + n + l"
+                      "increase pane bottom"  "ctrl + n + j"
+                      "increase pane left"    "ctrl + n + h"
+                      "decrease pane top"     "ctrl + n + K"
+                      "decrease pane right"   "ctrl + n + L"
+                      "decrease pane bottom"  "ctrl + n + J"
+                      "decrease pane left"    "ctrl + n + H"
+                      "move pane to top"      "ctrl + h + k"
+                      "move pane to right"    "ctrl + h + l"
+                      "move pane to bottom"   "ctrl + h + j"
+                      "move pane to left"     "ctrl + h + h"
+                      "search"                "ctrl + s + s"
+                      "go into edit mode"     "ctrl + s + e"
+                      "detach session"        "ctrl + o + w"
+                      "open session manager"  "ctrl + o + w"
+                      "quit zellij"           "ctrl + q"
+                      floating true
+                  }
+              }
           }
       }
     ''; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zellij.extraConfig
