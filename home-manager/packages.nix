@@ -154,6 +154,7 @@
       # taskwarrior3 # https://search.nixos.org/packages?channel=unstable&type=packages&show=taskwarrior3
       atuin # https://search.nixos.org/packages?channel=unstable&type=packages&show=atuin
       calcurse # https://search.nixos.org/packages?channel=unstable&type=packages&show=calcurse
+      fasd # https://search.nixos.org/packages?channel=unstable&type=packages&show=fasd
       raycast # https://search.nixos.org/packages?channel=unstable&type=packages&show=raycast
       stow # https://search.nixos.org/packages?channel=unstable&type=packages&show=stow
       wyrd # https://search.nixos.org/packages?channel=unstable&type=packages&show=wyrd
