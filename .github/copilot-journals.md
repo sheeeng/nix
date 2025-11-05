@@ -19,8 +19,6 @@ Migrated font management from home-manager user-level to nix-darwin system-level
    - Updated `terminal.integrated.fontFamily` from `"Monaspace Nerd Font Mono"` to `"'MonaspaceNeon Nerd Font Mono', 'Monaspace Nerd Font Mono', monospace"`
    - Added proper font family name fallbacks for better compatibility
 
-#### Technical Details
-
 **Font Installation Locations:**
 
 - **User-level** (home-manager): `~/.local/share/fonts` (not reliably accessible by all applications)
