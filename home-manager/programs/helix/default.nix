@@ -125,7 +125,7 @@
         }; # https://docs.helix-editor.com/editor.html?highlight=git-ignore#editorcursor-shape-section
 
         file-picker = {
-          hidden = true;
+          hidden = false; # Disable ignoring hidden files.
           follow-symlinks = true;
           deduplicate-links = true;
           parents = true;
