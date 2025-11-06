@@ -47,7 +47,7 @@
       ])
       ++ (with pkgs.bat-extras; [
         batdiff # https://search.nixos.org/packages?channel=unstable&type=packages&show=bat-extras.batdiff
-        # batgrep # https://github.com/nixos/nixpkgs/issues/454391
+        batgrep # https://github.com/nixos/nixpkgs/issues/454391
         batman # https://search.nixos.org/packages?channel=unstable&type=packages&show=bat-extras.batman
         batpipe # https://search.nixos.org/packages?channel=unstable&type=packages&show=bat-extras.batpipe
         batwatch # https://search.nixos.org/packages?channel=unstable&type=packages&show=bat-extras.batwatch
