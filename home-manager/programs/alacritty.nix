@@ -13,7 +13,7 @@
       }; # https://alacritty.org/config-alacritty.html#general
 
       terminal = {
-        shell.program = "${pkgs.fish}/bin/fish";
+        # shell.program = "${pkgs.fish}/bin/fish";
         shell.args = [
           # "-l"
           # "-c"
