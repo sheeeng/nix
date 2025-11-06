@@ -58,8 +58,8 @@ in
   home.file."dottir/.gitconfig".source = ./gitconfig-private.ini;
   home.file."github/.gitconfig".source = ./gitconfig-github.ini;
   home.file."github/sheeeng/.gitconfig".source = ./gitconfig-github.ini;
-  home.file."github/techcloud0-actions/.gitconfig".source = ./gitconfig-github.ini;
-  home.file."github/techcloud0/.gitconfig".source = ./gitconfig-github.ini;
+  home.file."github/techcloud0-actions/.gitconfig".source = ./gitconfig-github-techcloud0.ini;
+  home.file."github/techcloud0/.gitconfig".source = ./gitconfig-github-techcloud0.ini;
   home.file."gitlab/.gitconfig".source = ./gitconfig-gitlab.ini;
   home.file."srht/.gitconfig".source = ./gitconfig-private.ini;
 
