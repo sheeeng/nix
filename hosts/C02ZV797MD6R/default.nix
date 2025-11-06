@@ -1,26 +1,33 @@
 {
   config,
   inputs,
+  lib,
   pkgs,
   ...
 }:
 let
   hostConfiguration = rec {
+    # keep-sorted start block=yes newline_separated=no sticky_comments=no
+    networking = {
+      hostName = "C02ZV797MD6R"; # https://nix-darwin.github.io/nix-darwin/manual/#opt-networking.hostName
+    };
     nixpkgs = {
       config = {
         allowUnfree = true; # https://nixos.org/manual/nixpkgs/unstable/#sec-allow-unfree
       }; # https://nix-darwin.github.io/nix-darwin/manual/#opt-nixpkgs.config
       buildPlatform = system; # https://nix-darwin.github.io/nix-darwin/manual/#opt-nixpkgs.buildPlatform
       hostPlatform = system; # https://nix-darwin.github.io/nix-darwin/manual/#opt-nixpkgs.hostPlatform
+      system = pkgs.stdenv.hostPlatform.system; # https://nix-darwin.github.io/nix-darwin/manual/#opt-nixpkgs.system
     };
     hostName = "C02ZV797MD6R";
-    system = "x86_64-darwin";
-    primaryUser = user.name;
+    system = "x86_64-darwin"; # https://nix-darwin.github.io/nix-darwin/manual/#opt-nixpkgs.system
+    primaryUser = user.name; # https://nix-darwin.github.io/nix-darwin/manual/#opt-system.primaryUser
     user = {
-      guid = 20;
-      name = "lssl";
-      uid = 501;
+      guid = 20; # https://nix-darwin.github.io/nix-darwin/manual/#opt-users.users._name_.gid
+      name = "lssl"; # https://nix-darwin.github.io/nix-darwin/manual/#opt-users.users._name_.name
+      uid = 501; # https://nix-darwin.github.io/nix-darwin/manual/#opt-users.users._name_.uid
     };
+    # keep-sorted end
   };
 
   pkgs-unstable = import inputs.nixpkgs {
@@ -34,16 +41,18 @@ in
     # ../../modules/yabai
     # catppuccin.darwinModules.catppuccin # TODO: https://github.com/catppuccin/nix/issues/162
     # inputs.home-manager.darwinModules.defaults
-    # ../core/sops.nix
+    ../core/sops.nix
     inputs.agenix.darwinModules.age
     inputs.home-manager.darwinModules.home-manager
     inputs.nixvim.nixDarwinModules.nixvim
   ];
 
-  fonts.packages = with pkgs; [
-    nerd-fonts.fira-mono # https://search.nixos.org/packages?channel=unstable&query=nerd-fonts.fira-mono
-    nerd-fonts.jetbrains-mono # https://search.nixos.org/packages?channel=unstable&query=nerd-fonts.jetbrains-mono
-  ];
+  documentation = {
+    enable = true; # https://nix-darwin.github.io/nix-darwin/manual/#opt-documentation.enable
+    doc.enable = true; # https://nix-darwin.github.io/nix-darwin/manual/#opt-documentation.doc.enable
+    info.enable = true; # https://nix-darwin.github.io/nix-darwin/manual/#opt-documentation.info.enable
+    man.enable = true; # https://nix-darwin.github.io/nix-darwin/manual/#opt-documentation.man.enable
+  };
 
   environment = {
     systemPackages = with pkgs; [
@@ -52,28 +61,90 @@ in
       # $ nix-env --query --available --prebuilt-only | grep wget # nix.channel.enable = true; # TODO: Use traditional channels.
       # $ nix search nixpkgs wget
       # TODO: https://github.com/nix-community/home-manager/issues/1341 # The `home-manager` has issues adding applications to `~/Applications` directory.
+      # keep-sorted start block=yes newline_separated=no
       clang # https://search.nixos.org/packages?channel=unstable&type=packages&show=clang
       coreutils # https://search.nixos.org/packages?channel=unstable&type=packages&show=coreutils
+      dix # https://search.nixos.org/packages?channel=unstable&type=packages&show=dix
       findutils # https://search.nixos.org/packages?channel=unstable&type=packages&show=findutils
-      git # https://search.nixos.org/packages?channel=unstable&type=packages&show=git
       # inputs.flox.packages.${pkgs.system}.default
+      nh # https://search.nixos.org/packages?channel=unstable&type=packages&show=nh
       nil # https://search.nixos.org/packages?channel=unstable&type=packages&show=nil
-      # nix # https://search.nixos.org/packages?channel=unstable&type=packages&show=nix
+      nix # https://search.nixos.org/packages?channel=unstable&type=packages&show=nix
       nix-output-monitor # https://search.nixos.org/packages?channel=unstable&type=packages&show=nix-output-monitor
-      # nixd # https://search.nixos.org/packages?channel=unstable&type=packages&show=nixd
+      nixd # https://search.nixos.org/packages?channel=unstable&type=packages&show=nixd
       nixfmt-rfc-style # https://search.nixos.org/packages?channel=unstable&type=packages&show=nixfmt-rfc-style
+      nvd # https://search.nixos.org/packages?channel=unstable&type=packages&show=nvd
+      tmux # https://search.nixos.org/packages?channel=unstable&type=packages&show=tmux
       unixtools.watch # https://search.nixos.org/packages?channel=unstable&type=packages&show=unixtools.watch
       vim # https://search.nixos.org/packages?channel=unstable&type=packages&show=vim
+      wezterm # https://search.nixos.org/packages?channel=unstable&type=packages&show=wezterm
+      yazi # https://search.nixos.org/packages?channel=unstable&type=packages&show=yazi
+      # zellij # https://search.nixos.org/packages?channel=unstable&type=packages&show=zellij
+      # keep-sorted end
     ]; # https://nix-darwin.github.io/nix-darwin/manual/#opt-environment.systemPackages
     shellAliases = {
       show-system = "nix derivation show /run/current-system";
       switch-system = "darwin-rebuild switch --flake .";
       list-generations = "nix-env --list-generations";
-    }; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-environment.shellAliases
-    variables = { }; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-environment.variables
+    }; # https://nix-darwin.github.io/nix-darwin/manual/#opt-environment.shellAliases
+    variables = {
+      EDITOR = "hx";
+      LANG = "en_US.UTF-8";
+      # https://github.com/NixOS/nixpkgs/issues/176081#issuecomment-1145825623
+      FONTCONFIG_FILE = "${pkgs.fontconfig.out}/etc/fonts/fonts.conf";
+      FONTCONFIG_PATH = "${pkgs.fontconfig.out}/etc/fonts/";
+    }; # https://nix-darwin.github.io/nix-darwin/manual/#opt-environment.variables
   };
 
-  # TODO: Neither nixpkgs.system nor any other option in nixpkgs.* is meant
+  fonts.packages =
+    with pkgs;
+    [
+      # keep-sorted start block=no newline_separated=no
+      noto-fonts # https://search.nixos.org/packages?channel=unstable&query=noto-fonts
+      noto-fonts-cjk-sans # https://search.nixos.org/packages?channel=unstable&query=noto-fonts-cjk-sans
+      noto-fonts-cjk-serif # https://search.nixos.org/packages?channel=unstable&query=noto-fonts-cjk-serif
+      vt323 # https://search.nixos.org/packages?channel=unstable&query=vt323
+      # keep-sorted end
+    ]
+    ++ (with nerd-fonts; [
+      # keep-sorted start block=no newline_separated=no
+      dejavu-sans-mono # https://search.nixos.org/packages?channel=unstable&query=nerd-fonts.dejavu-sans-mono
+      droid-sans-mono # https://search.nixos.org/packages?channel=unstable&query=nerd-fonts.droid-sans-mono
+      fantasque-sans-mono # https://search.nixos.org/packages?channel=unstable&query=nerd-fonts.fantasque-sans-mono
+      fira-code # https://search.nixos.org/packages?channel=unstable&query=nerd-fonts.fira-code
+      fira-mono # https://search.nixos.org/packages?channel=unstable&query=nerd-fonts.fira-mono
+      geist-mono # https://search.nixos.org/packages?channel=unstable&query=nerd-fonts.geist-mono
+      go-mono # https://search.nixos.org/packages?channel=unstable&query=nerd-fonts.go-mono
+      gohufont # https://search.nixos.org/packages?channel=unstable&query=nerd-fonts.gohufont
+      hack # https://search.nixos.org/packages?channel=unstable&query=nerd-fonts.hack
+      inconsolata # https://search.nixos.org/packages?channel=unstable&query=nerd-fonts.inconsolata
+      intone-mono # https://search.nixos.org/packages?channel=unstable&query=nerd-fonts.intone-mono
+      iosevka # https://search.nixos.org/packages?channel=unstable&query=nerd-fonts.iosevka
+      iosevka-term # https://search.nixos.org/packages?channel=unstable&query=nerd-fonts.iosevka-term
+      iosevka-term-slab # https://search.nixos.org/packages?channel=unstable&query=nerd-fonts.iosevka-term-slab
+      jetbrains-mono # https://search.nixos.org/packages?channel=unstable&query=nerd-fonts.jetbrains-mono
+      lekton # https://search.nixos.org/packages?channel=unstable&query=nerd-fonts.lekton
+      liberation # https://search.nixos.org/packages?channel=unstable&query=nerd-fonts.liberation
+      lilex # https://search.nixos.org/packages?channel=unstable&query=nerd-fonts.lilex
+      martian-mono # https://search.nixos.org/packages?channel=unstable&query=nerd-fonts.martian-mono
+      meslo-lg # https://search.nixos.org/packages?channel=unstable&query=nerd-fonts.meslo-lg
+      monaspace # https://search.nixos.org/packages?channel=unstable&query=nerd-fonts.monaspace
+      monofur # https://search.nixos.org/packages?channel=unstable&query=nerd-fonts.monofur
+      monoid # https://search.nixos.org/packages?channel=unstable&query=nerd-fonts.monoid
+      mononoki # https://search.nixos.org/packages?channel=unstable&query=nerd-fonts.mononoki
+      noto # https://search.nixos.org/packages?channel=unstable&query=nerd-fonts.noto
+      recursive-mono # https://search.nixos.org/packages?channel=unstable&query=nerd-fonts.recursive-mono
+      roboto-mono # https://search.nixos.org/packages?channel=unstable&query=nerd-fonts.roboto-mono
+      symbols-only # https://search.nixos.org/packages?channel=unstable&query=nerd-fonts.symbols-only
+      ubuntu # https://search.nixos.org/packages?channel=unstable&query=nerd-fonts.ubuntu
+      ubuntu-mono # https://search.nixos.org/packages?channel=unstable&query=nerd-fonts.ubuntu-mono
+      ubuntu-sans # https://search.nixos.org/packages?channel=unstable&query=nerd-fonts.ubuntu-sans
+      victor-mono # https://search.nixos.org/packages?channel=unstable&query=nerd-fonts.victor-mono
+      zed-mono # https://search.nixos.org/packages?channel=unstable&query=nerd-fonts.zed-mono
+      # keep-sorted end
+    ]); # https://nix-darwin.github.io/nix-darwin/manual/#opt-fonts.packages
+
+  # Neither nixpkgs.system nor any other option in nixpkgs.* is meant
   # to be read by modules and configurations.
   # Use pkgs.stdenv.hostPlatform instead.
   #
@@ -85,7 +156,7 @@ in
   # nixpkgs.system = system;
 
   networking = {
-    inherit (hostConfiguration) hostName; # https://nix-darwin.github.io/nix-darwin/manual/#opt-networking.hostName
+    inherit (hostConfiguration.networking) hostName; # https://nix-darwin.github.io/nix-darwin/manual/#opt-networking.hostName
   };
 
   # error: Determinate detected, aborting activation
@@ -144,6 +215,7 @@ in
       options = "--delete-older-than 7d"; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-nix.gc.options
     };
     extraOptions = ''
+      !include ${config.sops.templates.nix-access-token.path}
       experimental-features = nix-command flakes
       keep-derivations = true
       keep-outputs = true
@@ -161,27 +233,11 @@ in
       allowUnsupportedSystem = false; # https://nixos.org/manual/nixpkgs/unstable/#opt-allowUnsupportedSystem
 
       packageOverrides = pkgs: {
-        # electron_24 = pkgs.electron_26; # Electron v24 is end-of-life, forcing upgrade
-        # electron_25 = pkgs.electron_26; # Electron v25 is end-of-life, forcing upgrade
-
-        # Override Node.js packages to disable tests completely
         nodejs = pkgs.nodejs.overrideAttrs {
           doCheck = false;
           doInstallCheck = false;
-          checkPhase = "echo 'Node.js tests disabled'; true";
-          installCheckPhase = "echo 'Node.js install checks disabled'; true";
-        };
-        nodejs_22 = pkgs.nodejs_22.overrideAttrs {
-          doCheck = false;
-          doInstallCheck = false;
-          checkPhase = "echo 'Node.js 22 tests disabled'; true";
-          installCheckPhase = "echo 'Node.js 22 install checks disabled'; true";
-        };
-        nodejs_24 = pkgs.nodejs_24.overrideAttrs {
-          doCheck = false;
-          doInstallCheck = false;
-          checkPhase = "echo 'Node.js 24 tests disabled'; true";
-          installCheckPhase = "echo 'Node.js 24 install checks disabled'; true";
+          checkPhase = "echo 'Node.js tests disabled.'; true";
+          installCheckPhase = "echo 'Node.js install checks disabled.'; true";
         };
       }; # https://nixos.org/manual/nixpkgs/unstable/#sec-modify-via-packageOverrides
       permittedInsecurePackages = [
@@ -208,10 +264,6 @@ in
   # nix.configureBuildUsers = true;
 
   security.pam.services.sudo_local.touchIdAuth = true; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-security.pam.services.sudo_local.touchIdAuth
-
-  # networking = {
-  #   dns = [ "1.1.1.1" ];
-  # }; # TODO:  warning: networking.knownNetworkServices is empty, dns servers will not be configured.
 
   users.users = {
     "${hostConfiguration.user.name}" = {
@@ -302,6 +354,67 @@ in
 
   system = {
     defaults = {
+      CustomSystemPreferences = {
+        "com.apple.finder" = {
+          ShowExternalHardDrivesOnDesktop = true;
+          ShowHardDrivesOnDesktop = true;
+          ShowMountedServersOnDesktop = true;
+          ShowRemovableMediaOnDesktop = true;
+          _FXSortFoldersFirst = true;
+          # When performing a search, search the current folder by default.
+          FXDefaultSearchScope = "SCcf";
+        };
+        "com.apple.desktopservices" = {
+          # Avoid creating .DS_Store files on network or USB volumes.
+          DSDontWriteNetworkStores = true;
+          DSDontWriteUSBStores = true;
+        };
+      }; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-system.defaults.CustomSystemPreferences
+      CustomUserPreferences = {
+        # NOTE: Safari preferences are commented out due to sandboxing restrictions.
+        # Safari stores its preferences in a sandboxed container at:
+        # ~/Library/Containers/com.apple.Safari/Data/Library/Preferences/
+        # This prevents nix-darwin from reliably writing these settings.
+        # You may need to configure these manually in Safari's preferences.
+        #
+        # Reference: https://github.com/LnL7/nix-darwin/issues/711
+        #
+        # "com.apple.Safari" = {
+        #   # Privacy: don't send search queries to Apple.
+        #   UniversalSearchEnabled = false;
+        #   SuppressSearchSuggestions = true;
+        #   # Press Tab to highlight each item on a web page.
+        #   WebKitTabToLinksPreferenceKey = true;
+        #   ShowFullURLInSmartSearchField = true;
+        #   # Prevent Safari from opening 'safe' files automatically after downloading.
+        #   AutoOpenSafeDownloads = false;
+        #   ShowFavoritesBar = false;
+        #   IncludeInternalDebugMenu = true;
+        #   IncludeDevelopMenu = true;
+        #   WebKitDeveloperExtrasEnabledPreferenceKey = true;
+        #   WebContinuousSpellCheckingEnabled = true;
+        #   WebAutomaticSpellingCorrectionEnabled = false;
+        #   AutoFillFromAddressBook = false;
+        #   AutoFillCreditCardData = false;
+        #   AutoFillMiscellaneousForms = false;
+        #   WarnAboutFraudulentWebsites = true;
+        #   WebKitJavaEnabled = false;
+        #   WebKitJavaScriptCanOpenWindowsAutomatically = false;
+        #   "com.apple.Safari.ContentPageGroupIdentifier.WebKit2TabsToLinks" = true;
+        #   "com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled" = true;
+        #   "com.apple.Safari.ContentPageGroupIdentifier.WebKit2BackspaceKeyNavigationEnabled" = false;
+        #   "com.apple.Safari.ContentPageGroupIdentifier.WebKit2JavaEnabled" = false;
+        #   "com.apple.Safari.ContentPageGroupIdentifier.WebKit2JavaEnabledForLocalFiles" = false;
+        #   "com.apple.Safari.ContentPageGroupIdentifier.WebKit2JavaScriptCanOpenWindowsAutomatically" = false;
+        # };
+      }; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-system.defaults.CustomUserPreferences # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-system.defaults.CustomUserPreferences
+      menuExtraClock = {
+        Show24Hour = true; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-system.defaults.menuExtraClock.ShowDate
+        ShowDate = 0; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-system.defaults.menuExtraClock.ShowDate
+        ShowDayOfMonth = true; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-system.defaults.menuExtraClock.ShowDayOfMonth
+        ShowDayOfWeek = true; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-system.defaults.menuExtraClock.ShowDayOfWeek
+        ShowSeconds = true; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-system.defaults.menuExtraClock.ShowSeconds
+      };
       trackpad = {
         ActuationStrength = 1; # https://daiderd.com/nix-darwin/manual/index.html#opt-system.defaults.trackpad.ActuationStrength
         Clicking = true; # https://daiderd.com/nix-darwin/manual/index.html#opt-system.defaults.trackpad.Clicking
@@ -329,16 +442,40 @@ in
     };
   };
 
-  # https://chattingdarkly.org/@lhf@fosstodon.org/110661879831891580
-  system.activationScripts.diff = {
-    supportsDryActivation = true;
-    text = ''
-      ${pkgs.nvd}/bin/nvd --nix-bin-dir=${pkgs.nix}/bin diff \
-        /run/current-system "$systemConfig"
-    '';
+  system.activationScripts = {
+    extraActivation = {
+      text = ''
+        echo ":: . "
+        echo ":: └── Running system.activationScripts.extraActivation..."
+
+        sudo -u ${hostConfiguration.primaryUser} whoami
+        sudo whoami
+      '';
+    };
+    preActivation = {
+      text = ''
+        echo ":: . "
+        echo ":: └── Running system.activationScripts.preActivation..."
+
+        # https://chattingdarkly.org/@lhf@fosstodon.org/110661879831891580
+        # https://github.com/luishfonseca/nixos-config/blob/f9369dbe389dafc5537c4b537592b9734fcfec5e/modules/upgrade-diff.nix.
+        # https://gist.github.com/luishfonseca/f183952a77e46ccd6ef7c907ca424517?permalink_comment_id=4620275#gistcomment-4620275
+        # https://github.com/GoldsteinE/nixos/blob/3d7353065c3f42b6442f7df9ab443fcb5381f2ce/rebuild#L13
+        # https://medium.com/@zmre/nix-darwin-quick-tip-activate-your-preferences-f69942a93236
+
+        ${pkgs.nvd}/bin/nvd --nix-bin-dir=${pkgs.nix}/bin --color=always diff /run/current-system "$systemConfig"
+      '';
+    }
+    // lib.optionalAttrs pkgs.stdenv.isLinux { supportsDryActivation = true; };
+    postActivation = {
+      text = ''
+        echo ":: . "
+        echo ":: └── Running system.activationScripts.postActivation..."
+
+      '';
+    };
   };
 
-  # https://medium.com/@zmre/nix-darwin-quick-tip-activate-your-preferences-f69942a93236
   # Failed assertions:
   # - The `system.activationScripts.postUserActivation` option has
   # been removed, as all activation now takes place as `root`. Please
