@@ -30,7 +30,7 @@ let
   };
 
   pkgs-unstable = import inputs.nixpkgs {
-    system = pkgs.stdenv.hostPlatform.system;
+    inherit (pkgs.stdenv.hostPlatform) system;
     config.allowUnfree = true;
     inherit (pkgs.stdenv) hostPlatform;
   };
@@ -123,8 +123,8 @@ in
       EDITOR = "hx";
       LANG = "en_US.UTF-8";
       # https://github.com/NixOS/nixpkgs/issues/176081#issuecomment-1145825623
-      FONTCONFIG_FILE="${pkgs.fontconfig.out}/etc/fonts/fonts.conf";
-      FONTCONFIG_PATH="${pkgs.fontconfig.out}/etc/fonts/";
+      FONTCONFIG_FILE = "${pkgs.fontconfig.out}/etc/fonts/fonts.conf";
+      FONTCONFIG_PATH = "${pkgs.fontconfig.out}/etc/fonts/";
     }; # https://nix-darwin.github.io/nix-darwin/manual/#opt-environment.variables
   };
 
