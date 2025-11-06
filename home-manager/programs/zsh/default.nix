@@ -97,7 +97,6 @@
 
     localVariables = {
       ABBR_SET_EXPANSION_CURSOR = 1;
-      AUTO_NOTIFY_EXPIRE_TIME = 5000;
       ZVM_INIT_MODE = "sourcing";
       ZVM_CURSOR_STYLE_ENABLED = false;
       SPROMPT = "Correct $fg[red]%R$reset_color to $fg[green]%r$reset_color? [ny] ";
