@@ -85,6 +85,39 @@ in
       show-system = "nix derivation show /run/current-system";
       switch-system = "darwin-rebuild switch --flake .";
       list-generations = "nix-env --list-generations";
+      set-brightness = ''
+        osascript -e "
+          on run argv
+            set brightness_percentage to item 1 of argv
+            if brightness_percentage is less than 0 or brightness_percentage is greater than 100 then
+              error "Brightness percentage must be between 0 and 100."
+            end if
+            set brightness_level to brightness_percentage / 100
+            tell application \"System Events\"
+              tell process \"System Preferences\"
+                tell window 1
+                  tell tab group 1
+                    tell slider 1 of group 1
+                      set value to brightness_level
+                    end tell
+                  end tell
+                end tell
+              end tell
+            end tell
+          end run
+        "
+      '';
+      set-volume = ''
+        osascript -e "
+          on run argv
+            set volume_percentage to item 1 of argv
+            if volume_percentage is less than 0 or volume_percentage is greater than 100 then
+              error "Volume percentage must be between 0 and 100."
+            end if
+            set volume output volume volume_percentage
+          end run
+        "
+      '';
     }; # https://nix-darwin.github.io/nix-darwin/manual/#opt-environment.shellAliases
     variables = {
       EDITOR = "hx";
