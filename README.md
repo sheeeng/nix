@@ -13,6 +13,14 @@ nix --extra-experimental-features 'nix-command flakes' flake update; darwin-rebu
 sudo darwin-rebuild switch --print-build-logs --flake ~/github/sheeeng/nix 2>&1 | nix --extra-experimental-features 'flakes nix-command' run nixpkgs#nix-output-monitor
 ```
 
+```shell
+nix flake update
+
+darwin-rebuild build --show-trace --print-build-logs --verbose --flake ~/github/sheeeng/nix 2>&1 | nix run nixpkgs#nix-output-monitor
+
+sudo darwin-rebuild switch --print-build-logs --flake ~/github/sheeeng/nix 2>&1 | nix --extra-experimental-features 'flakes nix-command' run nixpkgs#nix-output-monitor
+```
+
 ### Install `lix`
 
 ```shell
