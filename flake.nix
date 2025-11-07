@@ -208,7 +208,7 @@
     };
 
     nix-secrets-example = {
-      url = "https://github.com/sheeeng/nix-secrets-example.git?ref=main&shallow=1";
+      url = "git+https://github.com/sheeeng/nix-secrets-example?ref=main&shallow=1";
       # url = "git+file:///home/.../nix-secrets-example?ref=main&shallow=1";
     };
   };
