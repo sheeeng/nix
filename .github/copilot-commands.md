@@ -170,3 +170,13 @@ nix repl --include nixpkgs=https://github.com/NixOS/nixpkgs/archive/nixos-unstab
 > pkgs = import <nixpkgs> {}
 > pkgs.stdenv.hostPlatform
 ```
+
+```console
+$ nix repl
+nix-repl> :lf .
+```
+
+```shell
+nix repl ".#darwinConfigurations.$(hostname)"
+nix repl --expr "builtins.getFlake \"$PWD\""
+```
