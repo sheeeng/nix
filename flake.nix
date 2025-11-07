@@ -246,10 +246,12 @@
       nixosConfiguration =
         hostname: system:
         inputs.nixpkgs.lib.nixosSystem {
-          inherit system;
           modules = [
             ./hosts/${hostname}
-            { networking.hostName = "${hostname}"; }
+            {
+              networking.hostName = "${hostname}";
+              nixpkgs.hostPlatform = system;
+            }
             inputs.nix-index-database.nixosModules.nix-index
           ];
           specialArgs = { inherit inputs outputs lib; };
@@ -298,11 +300,11 @@
     in
     {
       # for `nix fmt`
-      formatter = eachSystem (pkgs: treefmtEval.${pkgs.system}.config.build.wrapper);
+      formatter = eachSystem (pkgs: treefmtEval.${pkgs.stdenv.hostPlatform.system}.config.build.wrapper);
 
       # for `nix flake check`
       checks = eachSystem (pkgs: {
-        formatting = treefmtEval.${pkgs.system}.config.build.check self;
+        formatting = treefmtEval.${pkgs.stdenv.hostPlatform.system}.config.build.check self;
       });
 
       # for `nix develop` - provides development shell
