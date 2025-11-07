@@ -8,7 +8,6 @@ let
   pkgs-unstable = import inputs.nixpkgs {
     inherit (pkgs.stdenv.hostPlatform) system;
     config.allowUnfree = true;
-    inherit (pkgs.stdenv) hostPlatform;
   };
 in
 {

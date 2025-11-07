@@ -8,7 +8,7 @@
 
   programs = {
     nixfmt = {
-      enable = pkgs.hostPlatform.system != "riscv64-linux";
+      enable = pkgs.stdenv.hostPlatform.system != "riscv64-linux";
       package = pkgs.nixfmt-rfc-style;
       includes = [ "*.nix" ];
       strict = true;
@@ -19,7 +19,7 @@
       indent_size = 2;
     };
     shellcheck = {
-      enable = pkgs.hostPlatform.system != "riscv64-linux";
+      enable = pkgs.stdenv.hostPlatform.system != "riscv64-linux";
     };
 
     deadnix.enable = true;
