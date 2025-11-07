@@ -28,10 +28,7 @@ let
     # keep-sorted end
   };
 
-  pkgs-unstable = import inputs.nixpkgs {
-    system = hostConfiguration.systemPlatform;
-    config.allowUnfree = true;
-  };
+  pkgs-unstable = inputs.nixpkgs.legacyPackages.${hostConfiguration.systemPlatform};
 in
 {
   imports = [
