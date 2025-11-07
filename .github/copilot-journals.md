@@ -1,14 +1,76 @@
 # Copilot Journals
 
+## 2025-11-07T12:04:09Z
+
+### Migrated to Modern Nixpkgs Patterns and Removed Deprecated Attributes
+
+Applied modern nixpkgs best practices by removing deprecated attribute references and following recommendations from <https://isabelroses.com/blog/im-not-mad-im-disappointed/> and nixpkgs PR #456527.
+
+#### Changes
+
+1. **Flake Configuration** (`flake.nix`):
+
+   - Updated `formatter` and `checks` to use `pkgs.stdenv.hostPlatform.system` instead of deprecated `pkgs.system`
+   - Properly set `nixpkgs.hostPlatform` in modules instead of using legacy `system` parameter for `nixosSystem`
+
+2. **Rust Packages** (`home-manager/packages/rust.nix`):
+
+   - Replaced all 14 occurrences of `pkgs.system` with `pkgs.stdenv.hostPlatform.system`
+   - Updated fenix package references to use proper platform detection
+
+3. **Host Configurations** (all Darwin hosts):
+
+   - Removed deprecated `inherit (pkgs.stdenv.hostPlatform) system;` from nixpkgs config
+   - Removed `inherit (pkgs.stdenv) hostPlatform;` from pkgs-unstable imports
+   - Migrated from `import inputs.nixpkgs { ... }` to `inputs.nixpkgs.legacyPackages.${system}`
+
+4. **Treefmt Configuration** (`treefmt.nix`):
+
+   - Changed `pkgs.hostPlatform.system` to `pkgs.stdenv.hostPlatform.system` (2 occurrences)
+
+5. **Overlays** (`overlays/default.nix`):
+   - Replaced `import inputs.nixpkgs` with `inputs.nixpkgs.legacyPackages.${final.stdenv.hostPlatform.system}`
+   - Eliminated unnecessary nixpkgs re-evaluation for better performance
+
+#### Deprecated Attributes Removed
+
+- `pkgs.system` → `pkgs.stdenv.hostPlatform.system`
+- `pkgs.hostPlatform` → `pkgs.stdenv.hostPlatform`
+- `nixpkgs.system` → `nixpkgs.hostPlatform`
+- `import nixpkgs { system = ...; }` → `nixpkgs.legacyPackages.${system}`
+
+#### Benefits
+
+- **Performance**: Using `legacyPackages` avoids re-evaluating nixpkgs
+- **Future-proof**: Follows modern nixpkgs conventions that will be required in future releases
+- **Consistency**: All system references now use the recommended path through `stdenv.hostPlatform`
+- **No warnings**: Eliminated all evaluation warnings about renamed/deprecated attributes
+
+#### Files Modified
+
+- `flake.nix`
+- `home-manager/packages/rust.nix`
+- `hosts/TP95V9LWWL/default.nix`
+- `hosts/C02ZV797MD6R/default.nix`
+- `hosts/NHNWCQ17DF/default.nix`
+- `treefmt.nix`
+- `overlays/default.nix`
+
+#### See Also
+
+- Blog post: <https://isabelroses.com/blog/im-not-mad-im-disappointed/>
+- Nixpkgs PR: <https://github.com/NixOS/nixpkgs/pull/456527/files>
+
 ## 2025-11-05T00:00:00Z
 
 ### Configured System-Level Fonts for VS Code and Nerd Fonts
 
 Migrated font management from home-manager user-level to nix-darwin system-level configuration to ensure VS Code can properly access Nerd Fonts. This resolves the issue where VS Code could not find Nerd Font families when installed only at the user level.
 
-#### Changes Made
+#### Configuration Changes
 
 1. **Host Configuration** (`hosts/TP95V9LWWL/default.nix`):
+
    - Expanded `fonts.packages` to include all Nerd Fonts from home-manager configuration
    - Added `roboto-mono` Nerd Font (required for VS Code editor)
    - Added `vt323` font
@@ -42,7 +104,7 @@ The following Nerd Fonts are now available system-wide:
 - recursive-mono, roboto-mono, symbols-only
 - ubuntu, ubuntu-mono, ubuntu-sans, victor-mono, zed-mono
 
-#### Verification
+#### Verification Commands
 
 After applying with `darwin-rebuild switch`, verify font installation:
 
@@ -54,7 +116,7 @@ ls /Library/Fonts/Nix\ Fonts/
 fc-list | grep --ignore-case "nerd font" | grep --ignore-case "roboto\|monaspace"
 ```
 
-#### References
+#### Documentation Links
 
 - nix-darwin fonts documentation: <https://nix-darwin.github.io/nix-darwin/manual/#opt-fonts.packages>
 - Nerd Fonts NixOS: <https://search.nixos.org/packages?channel=unstable&query=nerd-fonts>
@@ -113,6 +175,7 @@ Optimized the GitHub Actions pre-commit workflow in `.github/workflows/check-pre
 #### Caching Implementation
 
 1. **Environment Caching**: Added `actions/cache@v4.3.0` to cache pre-commit and Flox environments:
+
    - Cache paths: `~/.cache/pre-commit` and `~/.cache/flox`
    - Cache key: `pre-commit-${{ runner.os }}-${{ hashFiles('.pre-commit-config.yaml', '.flox/env/manifest.toml') }}`
    - Restore keys: Tiered fallback strategy for better cache hits:
@@ -124,6 +187,7 @@ Optimized the GitHub Actions pre-commit workflow in `.github/workflows/check-pre
 #### Intelligent Hook Execution
 
 1. **Conditional Execution Strategy**:
+
    - Push to `unstable` branch: Runs on all files for comprehensive validation
    - Pull requests: Runs only on changed files using `--from-ref` and `--to-ref` flags
    - Other events: Falls back to all files execution
@@ -164,6 +228,7 @@ Added `treefmt-vscode` extension from GitHub repository [https://github.com/isbe
 In the output from `nix-prefetch-git`, there are two hash values provided:
 
 1. `sha256`: `14rz33a1b11p835xb5d4kyw0al2s77qyddhim859j06znhyy9m7h`
+
    - This is a Nix-specific base-32 encoded hash format
 
 1. `hash`: `sha256-8NTkPbTfAJkKqhG25vE5WlAFuJ+kldXLQDeEFdQYP5M=`

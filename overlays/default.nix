@@ -3,10 +3,7 @@ inputs: {
   # nodejs-skip-tests = import ./nodejs.nix;
 
   unstable-packages = final: _prev: {
-    unstable = import inputs.nixpkgs {
-      inherit (final.stdenv.hostPlatform) system;
-      config.allowUnfree = true;
-    };
+    unstable = inputs.nixpkgs.legacyPackages.${final.stdenv.hostPlatform.system};
   };
 
   nodejs-skip-tests = _final: prev: {
