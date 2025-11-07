@@ -76,12 +76,12 @@
     # nixpkgs-darwin.url = "github:nixos/nixpkgs?branch=staging-next&rev=dace194d4791e7dec990c0671795f1e73ff4d196"; # https://github.com/nixos/nixpkgs/issues/449970
     nixpkgs-darwin.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     nix-darwin = {
-      url = "github:lnl7/nix-darwin/master";
+      url = "github:lnl7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs-darwin";
     };
 
     disko = {
-      url = "github:nix-community/disko/master";
+      url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -90,14 +90,14 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    flake-utils.url = "github:numtide/flake-utils/main"; # https://github.com/edgelesssys/contrast/blob/7c5206269d2ce0440090f05db601506011e2cd5f/flake.nix#L13-L15
+    flake-utils.url = "github:numtide/flake-utils"; # https://github.com/edgelesssys/contrast/blob/7c5206269d2ce0440090f05db601506011e2cd5f/flake.nix#L13-L15
 
     firefox-gnome-theme = {
-      url = "github:rafaelmardojai/firefox-gnome-theme/master";
+      url = "github:rafaelmardojai/firefox-gnome-theme";
       flake = false;
     }; # https://github.com/llakala/nixos/tree/5dae1c83df4835fd23d433adc76f66bca44962ba/apps/programs/firefox
 
-    catppuccin.url = "github:catppuccin/nix/main";
+    catppuccin.url = "github:catppuccin/nix";
     # devenv.url = "github:cachix/devenv";
     # flox.url = "github:flox/flox";
 
@@ -123,12 +123,12 @@
     # };
 
     microvm = {
-      url = "github:astro/microvm.nix/main";
+      url = "github:astro/microvm.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     agenix = {
-      url = "github:ryantm/agenix/main";
+      url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -171,27 +171,27 @@
     };
 
     nur = {
-      url = "github:nix-community/nur/main";
+      url = "github:nix-community/nur";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     pre-commit-hooks = {
-      url = "github:cachix/git-hooks.nix/master";
+      url = "github:cachix/git-hooks.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     ragenix = {
-      url = "github:yaxitech/ragenix/main";
+      url = "github:yaxitech/ragenix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     sops-nix = {
-      url = "github:mic92/sops-nix/master";
+      url = "github:mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     treefmt-nix = {
-      url = "github:numtide/treefmt-nix/main";
+      url = "github:numtide/treefmt-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -200,7 +200,7 @@
       flake = false;
     };
 
-    nix-systems.url = "github:nix-systems/default/main"; # https://github.com/nix-systems/nix-systems
+    nix-systems.url = "github:nix-systems/default"; # https://github.com/nix-systems/nix-systems
 
     nix-secrets = {
       url = "git+ssh://git@github.com/sheeeng/nix-secrets.git?ref=main&shallow=1";
