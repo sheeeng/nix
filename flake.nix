@@ -206,6 +206,11 @@
       url = "git+ssh://git@github.com/sheeeng/nix-secrets.git?ref=main&shallow=1";
       # url = "git+file:///home/.../nix-secrets?ref=main&shallow=1";
     };
+
+    nix-secrets-example = {
+      url = "https://github.com/sheeeng/nix-secrets-example.git?ref=main&shallow=1";
+      # url = "git+file:///home/.../nix-secrets-example?ref=main&shallow=1";
+    };
   };
 
   outputs =
