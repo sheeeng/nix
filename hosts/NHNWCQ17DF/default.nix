@@ -5,10 +5,7 @@
   ...
 }:
 let
-  pkgs-unstable = import inputs.nixpkgs {
-    inherit (pkgs.stdenv.hostPlatform) system;
-    config.allowUnfree = true;
-  };
+  pkgs-unstable = inputs.nixpkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system};
 in
 {
   imports = [
