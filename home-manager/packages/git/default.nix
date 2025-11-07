@@ -61,11 +61,11 @@ in
   home.file."github/github/github/.gitconfig" = {
     text = ''
       [user]
-        name = ${inputs.nix-secrets-example.github.github.name or "Octocat"}
-        email = ${inputs.nix-secrets-example.github.email or "583231+octocat@users.noreply.github.com"}
+        name = ${inputs.nix-secrets-example.octocat.userFullName or "Octocat"}
+        email = ${inputs.nix-secrets-example.octocat.email.work or "583231+octocat@users.noreply.github.com"}
         useConfigOnly = true
       [commit]
-        gpgsign = ${inputs.nix-secrets-example.github.github.gpgsign or "false"}
+        gpgsign = ${inputs.nix-secrets-example.octocat.gpgsign or "false"}
     '';
   };
   home.file."github/techcloud0-actions/.gitconfig".source = ./gitconfig-github-techcloud0.ini;
