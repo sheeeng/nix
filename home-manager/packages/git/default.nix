@@ -62,7 +62,9 @@ in
     text = ''
       [user]
         name = ${inputs.nix-secrets-example.octocat.userFullName or "Octocat"}
-        email = ${inputs.nix-secrets-example.octocat.email.work or "583231+octocat@users.noreply.github.com"}
+        email = ${
+          inputs.nix-secrets-example.octocat.email.work or "583231+octocat@users.noreply.github.com"
+        }
         useConfigOnly = true
       [commit]
         gpgsign = ${inputs.nix-secrets-example.octocat.gpgsign or "false"}
