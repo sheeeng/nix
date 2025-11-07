@@ -164,3 +164,9 @@ sudo darwin-rebuild switch --print-build-logs --flake ~/github/sheeeng/nix 2>&1 
 
 nix run nixpkgs#sbomnix -- .#darwinConfigurations.TP95V9LWWL.config.system.build.toplevel
 ```
+
+```shell
+nix repl --include nixpkgs=https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz
+> pkgs = import <nixpkgs> {}
+> pkgs.stdenv.hostPlatform
+```
