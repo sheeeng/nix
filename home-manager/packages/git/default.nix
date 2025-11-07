@@ -58,6 +58,16 @@ in
   home.file."dottir/.gitconfig".source = ./gitconfig-private.ini;
   home.file."github/.gitconfig".source = ./gitconfig-github.ini;
   home.file."github/sheeeng/.gitconfig".source = ./gitconfig-github.ini;
+  home.file."github/github/github/.gitconfig" = {
+    text = ''
+      [user]
+        name = ${inputs.nix-secrets-example.github.github.name or "Octocat"}
+        email = ${inputs.nix-secrets-example.github.email or "583231+octocat@users.noreply.github.com"}
+        useConfigOnly = true
+      [commit]
+        gpgsign = ${inputs.nix-secrets-example.github.github.gpgsign or "false"}
+    '';
+  };
   home.file."github/techcloud0-actions/.gitconfig".source = ./gitconfig-github-techcloud0.ini;
   home.file."github/techcloud0/.gitconfig".source = ./gitconfig-github-techcloud0.ini;
   home.file."gitlab/.gitconfig".source = ./gitconfig-gitlab.ini;
