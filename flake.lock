@@ -19,6 +19,7 @@
       },
       "original": {
         "owner": "ryantm",
+        "ref": "main",
         "repo": "agenix",
         "type": "github"
       }
@@ -61,6 +62,7 @@
       },
       "original": {
         "owner": "catppuccin",
+        "ref": "main",
         "repo": "nix",
         "type": "github"
       }
@@ -141,6 +143,7 @@
       },
       "original": {
         "owner": "nix-community",
+        "ref": "master",
         "repo": "disko",
         "type": "github"
       }
@@ -216,6 +219,7 @@
       },
       "original": {
         "owner": "rafaelmardojai",
+        "ref": "master",
         "repo": "firefox-gnome-theme",
         "type": "github"
       }
@@ -292,6 +296,7 @@
       },
       "original": {
         "owner": "numtide",
+        "ref": "main",
         "repo": "flake-utils",
         "type": "github"
       }
@@ -481,6 +486,7 @@
       },
       "original": {
         "owner": "astro",
+        "ref": "main",
         "repo": "microvm.nix",
         "type": "github"
       }
@@ -522,6 +528,7 @@
       },
       "original": {
         "owner": "lnl7",
+        "ref": "master",
         "repo": "nix-darwin",
         "type": "github"
       }
@@ -591,6 +598,7 @@
       },
       "original": {
         "owner": "nix-systems",
+        "ref": "main",
         "repo": "default",
         "type": "github"
       }
@@ -700,6 +708,7 @@
       },
       "original": {
         "owner": "nix-community",
+        "ref": "main",
         "repo": "nur",
         "type": "github"
       }
@@ -745,6 +754,7 @@
       },
       "original": {
         "owner": "cachix",
+        "ref": "master",
         "repo": "git-hooks.nix",
         "type": "github"
       }
@@ -769,6 +779,7 @@
       },
       "original": {
         "owner": "yaxitech",
+        "ref": "main",
         "repo": "ragenix",
         "type": "github"
       }
@@ -856,6 +867,7 @@
       },
       "original": {
         "owner": "mic92",
+        "ref": "master",
         "repo": "sops-nix",
         "type": "github"
       }
@@ -997,6 +1009,7 @@
       },
       "original": {
         "owner": "numtide",
+        "ref": "main",
         "repo": "treefmt-nix",
         "type": "github"
       }
