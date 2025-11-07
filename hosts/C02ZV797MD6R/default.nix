@@ -6,7 +6,7 @@
   ...
 }:
 let
-    hostConfiguration = rec {
+  hostConfiguration = rec {
     # keep-sorted start block=yes newline_separated=no sticky_comments=no
     networking = {
       hostName = "C02ZV797MD6R"; # https://nix-darwin.github.io/nix-darwin/manual/#opt-networking.hostName
@@ -17,7 +17,6 @@ let
       }; # https://nix-darwin.github.io/nix-darwin/manual/#opt-nixpkgs.config
       buildPlatform = systemPlatform; # https://nix-darwin.github.io/nix-darwin/manual/#opt-nixpkgs.buildPlatform
       hostPlatform = systemPlatform; # https://nix-darwin.github.io/nix-darwin/manual/#opt-nixpkgs.hostPlatform
-      inherit (pkgs.stdenv.hostPlatform) system; # https://nix-darwin.github.io/nix-darwin/manual/#opt-nixpkgs.system
     };
     primaryUser = user.name; # https://nix-darwin.github.io/nix-darwin/manual/#opt-system.primaryUser
     systemPlatform = "x86_64-darwin"; # https://nix-darwin.github.io/nix-darwin/manual/#opt-nixpkgs.system
@@ -32,11 +31,10 @@ let
   pkgs-unstable = import inputs.nixpkgs {
     system = hostConfiguration.systemPlatform;
     config.allowUnfree = true;
-    inherit (pkgs.stdenv) hostPlatform;
   };
 in
 {
-    imports = [
+  imports = [
     # ../../modules/yabai
     # catppuccin.darwinModules.catppuccin # TODO: https://github.com/catppuccin/nix/issues/162
     # inputs.home-manager.darwinModules.defaults
