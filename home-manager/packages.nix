@@ -42,6 +42,7 @@
       # krita # TODO: Missing "aarch64-apple-darwin" platform. # https://search.nixos.org/packages?channel=unstable&type=packages&show=krita
       # pureref # TODO: Missing "aarch64-apple-darwin" platform. # https://search.nixos.org/packages?channel=unstable&type=packages&show=pureref
       gmic # https://search.nixos.org/packages?channel=unstable&type=packages&show=gmic
+      imagemagick # https://search.nixos.org/packages?channel=unstable&type=packages&show=imagemagick
       inkscape-with-extensions # https://search.nixos.org/packages?channel=unstable&type=packages&show=inkscape-with-extensions
       # keep-sorted end
 
