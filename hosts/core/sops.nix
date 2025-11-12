@@ -16,7 +16,7 @@ in
   imports = [ inputs.sops-nix.darwinModules.sops ];
 
   sops = {
-    defaultSopsFile = "${sopsFolder}/${lib.strings.toLower config.networking.hostName}.yaml";
+    defaultSopsFile = "${sopsFolder}/hosts/${lib.strings.toLower config.networking.hostName}.yaml";
     validateSopsFiles = true;
 
     templates = {
