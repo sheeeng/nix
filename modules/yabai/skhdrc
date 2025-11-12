@@ -110,5 +110,16 @@ shift + ctrl + lalt - s: yabai -m window --insert stack
 # New window in hor./ vert. splits for all applications with yabai
 lalt - s: yabai -m window --insert east;  skhd -k "cmd - n"
 lalt - v: yabai -m window --insert south; skhd -k "cmd - n"
+
+# Toggle mute/unmute: lalt - m
+# https://gist.github.com/vookimedlo/c35d5d681d7798b5150330795ab43f4e?permalink_comment_id=4435996#gistcomment-4435996
+lalt - m: \
+  current=$(osascript -e "output muted of (get volume settings)"); \
+  if [ "$current" = "true" ]; then \
+    osascript -e "set volume without output muted"; \
+  else \
+    osascript -e "set volume with output muted"; \
+  fi
+
 # Toggle sketchybar
 # shift + lalt - space: sketchybar --bar hidden=toggle
