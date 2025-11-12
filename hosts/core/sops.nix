@@ -33,9 +33,10 @@ in
     # Only uses the host SSH key to decrypt host-specific secrets
     age = {
       # Host SSH key path - sops-nix will convert this to age format automatically
-      sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519" ];
+      # Explicitly specify only ed25519 to prevent sops-nix from looking for RSA keys
+      sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
       # Store the derived host age key at /etc/sops/age/keys.txt
-      # This is the HOST's age key, derived from /etc/ssh/ssh_host_ed25519
+      # This is the HOST's age key, derived from /etc/ssh/ssh_host_ed25519_key
       keyFile = "/etc/sops/age/keys.txt";
     };
 
