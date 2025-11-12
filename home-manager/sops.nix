@@ -18,9 +18,12 @@ in
   sops = {
     # This is the location of the host specific age-key and will have been
     # extracted to this location via hosts/core/sops.nix on the host
-    age.keyFile = "${homeDirectory}/.config/sops/age/keys.txt";
+    age = {
+      sshKeyPaths = [ "${homeDirectory}/.ssh/id_ed25519" ];
+      keyFile = "${homeDirectory}/.config/sops/age/keys.txt";
+    };
     defaultSopsFile = "${sopsFolder}/common.yaml";
-    validateSopsFiles = false;
+    validateSopsFiles = true;
 
     # Home-level Secrets
     # stat --format "%A %a %n" ~/.config/sops-nix/secrets/**/*
