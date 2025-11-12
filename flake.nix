@@ -204,12 +204,12 @@
 
     nix-secrets = {
       url = "git+ssh://git@github.com/sheeeng/nix-secrets.git?ref=main&shallow=1";
-      # url = "git+file:///home/.../nix-secrets?ref=main&shallow=1";
+      # url = "git+file:///home/.../nix-secrets";
     };
 
     nix-secrets-example = {
       url = "git+https://github.com/sheeeng/nix-secrets-example?ref=main&shallow=1";
-      # url = "git+file:///home/.../nix-secrets-example?ref=main&shallow=1";
+      # url = "git+file:///home/.../nix-secrets-example";
     };
   };
 
