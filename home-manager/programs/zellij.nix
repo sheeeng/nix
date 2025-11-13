@@ -199,6 +199,7 @@
     }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zellij.layouts
 
     settings = {
+      simplified_ui = false; # https://github.com/zellij-org/zellij/issues/3486#issuecomment-2562137415
       # theme = "custom";
       # themes.custom.fg = "#f8f8f2";
       # themes.custom.bg = "#282a36";
