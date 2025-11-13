@@ -3,13 +3,13 @@
 ## Journals
 
 - Use proper grammar and punctuation in journals.
-- Use ISO8601 timestamps from terminal.
-- Read [copilot-journals.md](./copilot-journals.md) for history.
-- Save summaries in [copilot-journals.md](./copilot-journals.md).
-- Organize entries chronologically, newest first.
+- Use ISO8601 timestamps in journals. Example: `2024-01-31T13:45:00Z`.
+- Use 20240131T134500Z-style timestamps as name for the journal files. Example: `20240131T134500Z.md`.
+- Read all journals inside [journals](journals) directory for historical context.
+- Save summaries in [journals](journals) directory.
+- Conform to Markdown linting rules in journals.
 - Do not use fully qualified paths in journals. Example: Use `~` or `${HOME}` instead of `/home/username`.
 - Do not include any PII or sensitive information in journals. Example: Do not include usernames, email addresses, IP addresses, or any other information that could be used to identify an individual.
-- Conform to Markdown linting rules in journals.
 
 ## Commands
 
