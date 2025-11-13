@@ -1,6 +1,29 @@
 # TODO: https://github.com/uesyn/dotfiles/blob/a28964187ab74b880f2e8ae561359451e9a05e29/home-manager/zellij/default.nix
-{ pkgs, ... }:
 {
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+{
+  xdg.configFile = {
+    # https://github.com/cratedev/snowcrate/blob/78fc9f15c9497a4577f4407ba64b5dea550c657b/modules/home/cli/zellij/default.nix#L30
+
+    "zellij/plugins/zjstatus.wasm".source = pkgs.fetchurl {
+      url = "https://github.com/dj95/zjstatus/releases/download/v0.21.1/zjstatus.wasm";
+      sha256 = "sha256-3BmCogjCf2aHHmmBFFj7savbFeKGYv3bE2tXXWVkrho=";
+    };
+    "zellij/plugins/zellij_forgot.wasm".source = pkgs.fetchurl {
+      url = "https://github.com/karimould/zellij-forgot/releases/download/0.4.2/zellij_forgot.wasm";
+      # sha256 = lib.fakeSha256; # sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=
+      sha256 = "sha256-MRlBRVGdvcEoaFtFb5cDdDePoZ/J2nQvvkoyG6zkSds=";
+    };
+    "zellij/plugins/zellij-datetime.wasm".source = pkgs.fetchurl {
+      url = "https://github.com/h1romas4/zellij-datetime/releases/download/v0.21.0/zellij-datetime.wasm";
+      sha256 = "sha256-oVMh3LlFe4hcY9XmcEHz8pmodyf1aMvgDH31QEusEEE=";
+    };
+  };
+
   programs.zellij = {
     enable = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zellij.enable
     enableBashIntegration = false; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zellij.enableBashIntegration
@@ -36,8 +59,7 @@
           }
           shared_except "locked" {
               bind "Ctrl y" {
-                  // LaunchOrFocusPlugin "file:~/zellij-plugins/zellij_forgot.wasm" {
-                  LaunchOrFocusPlugin "https://github.com/karimould/zellij-forgot/releases/latest/download/zellij-forgot.wasm" {
+                  LaunchOrFocusPlugin "file:${config.xdg.configHome}/zellij/plugins/zellij_forgot.wasm" {
                       "lock"                  "ctrl + g"
                       "unlock"                "ctrl + g"
                       "new pane"              "ctrl + p + n"
