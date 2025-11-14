@@ -8,6 +8,29 @@
 {
   xdg.configFile = {
     # https://github.com/cratedev/snowcrate/blob/78fc9f15c9497a4577f4407ba64b5dea550c657b/modules/home/cli/zellij/default.nix#L30
+    # https://github.com/not-matthias/dotfiles-nix/blob/b3d3f7166a6d8c97942781fa7ac4804352f72bcc/modules/home/programs/zellij.nix#L64-L77
+    "zellij/layouts/default.kdl".text = ''
+      layout {
+        pane
+
+        pane size=2 borderless=true {
+          plugin location="https://github.com/dj95/zjstatus/releases/latest/download/zjstatus.wasm" {
+            format_left  "#[fg=0,bg=10][{session}]  {tabs}"
+            format_right "#[fg=0,bg=10]{datetime}"
+            format_space "#[bg=10]"
+
+            hide_frame_for_single_pane "true"
+
+            tab_normal   "{index}:{name}  "
+            tab_active   "{index}:{name}* "
+
+            datetime          " {format} "
+            datetime_format   "%H:%M %d-%b-%y"
+            datetime_timezone "Europe/Vienna"
+          }
+        }
+      }
+    '';
 
     "zellij/plugins/zjstatus.wasm".source = pkgs.fetchurl {
       url = "https://github.com/dj95/zjstatus/releases/download/v0.21.1/zjstatus.wasm";
@@ -46,6 +69,16 @@
               bind "Ctrl p" { SwitchToMode "pane"; }
               bind "Alt n" { NewPane; }
               bind "Alt h" { MoveFocusOrTab "Left"; }
+          }
+          tmux {
+              bind "1" { GoToTab 1; SwitchToMode "Normal"; }
+              bind "2" { GoToTab 2; SwitchToMode "Normal"; }
+              bind "3" { GoToTab 3; SwitchToMode "Normal"; }
+              bind "4" { GoToTab 4; SwitchToMode "Normal"; }
+              bind "5" { GoToTab 5; SwitchToMode "Normal"; }
+              bind "6" { GoToTab 6; SwitchToMode "Normal"; }
+              bind "7" { GoToTab 7; SwitchToMode "Normal"; }
+              bind "8" { GoToTab 8; SwitchToMode "Normal"; }
           }
           pane {
               bind "h" "Left" { MoveFocus "Left"; }
