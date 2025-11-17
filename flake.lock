@@ -571,13 +571,13 @@
         "rev": "961818a9c71aca2ffbcf3fb8cc7cad8ad569ef60",
         "shallow": true,
         "type": "git",
-        "url": "https://github.com/sheeeng/nix-secrets-example"
+        "url": "ssh://git@github.com/sheeeng/nix-secrets-example.git"
       },
       "original": {
         "ref": "main",
         "shallow": true,
         "type": "git",
-        "url": "https://github.com/sheeeng/nix-secrets-example"
+        "url": "ssh://git@github.com/sheeeng/nix-secrets-example.git"
       }
     },
     "nix-systems": {
