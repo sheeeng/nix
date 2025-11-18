@@ -82,6 +82,8 @@ in
     }
     // lib.optionalAttrs pkgs.stdenv.isDarwin {
       switch-system = "darwin-rebuild switch --flake .";
+      setVolume5 = "osascript -e 'set volume output volume 5' -e 'get volume settings'";
+      setVolume10 = "osascript -e 'set volume output volume 10' -e 'get volume settings'";
       setVolume25 = "osascript -e 'set volume output volume 25' -e 'get volume settings'";
       setVolume50 = "osascript -e 'set volume output volume 50' -e 'get volume settings'";
       setVolume75 = "osascript -e 'set volume output volume 75' -e 'get volume settings'";
@@ -89,6 +91,8 @@ in
       isMuted = "osascript -e 'output muted of (get volume settings)'";
       muted = "osascript -e 'set volume with output muted'";
       unmute = "osascript -e 'set volume without output muted'";
+      setVolume035 = "osascript -e 'set volume 0.35' -e 'get volume settings'";
+      setVolume070 = "osascript -e 'set volume 0.70' -e 'get volume settings'";
       setVolume175 = "osascript -e 'set volume 1.75' -e 'get volume settings'";
       setVolume350 = "osascript -e 'set volume 3.50' -e 'get volume settings'";
       setVolume525 = "osascript -e 'set volume 5.25' -e 'get volume settings'";
