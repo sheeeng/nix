@@ -274,6 +274,16 @@
                 inputs.morlana.overlays.default
                 # inputs.nh-plus.overlays.default
                 inputs.fenix.overlays.default
+                # TODO: Remove below anonymous/lambda function block after https://github.com/NixOS/nixpkgs/pull/461779 is resolved upstream.
+                (_self: super: {
+                  fish = super.fish.overrideAttrs (oldAttrs: {
+                    doCheck = false;
+                    checkPhase = "";
+                    cmakeFlags = (oldAttrs.cmakeFlags or [ ]) ++ [
+                      "-DBUILD_TESTING=OFF"
+                    ];
+                  }); # TODO: Remove anonymous/lambda function after https://github.com/NixOS/nixpkgs/pull/462589 is resolved upstream.
+                }) # TODO: Remove above anonymous/lambda function after https://github.com/NixOS/nixpkgs/issues/461406 is resolved upstream.
               ];
 
               # Global configuration to disable tests for better performance
