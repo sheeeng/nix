@@ -78,8 +78,21 @@ in
     ]; # https://nix-darwin.github.io/nix-darwin/manual/#opt-environment.systemPackages
     shellAliases = {
       show-system = "nix derivation show /run/current-system";
-      switch-system = "darwin-rebuild switch --flake .";
       list-generations = "nix-env --list-generations";
+    }
+    // lib.optionalAttrs pkgs.stdenv.isDarwin {
+      switch-system = "darwin-rebuild switch --flake .";
+      setVolume25 = "osascript -e 'set volume output volume 25' -e 'get volume settings'";
+      setVolume50 = "osascript -e 'set volume output volume 50' -e 'get volume settings'";
+      setVolume75 = "osascript -e 'set volume output volume 75' -e 'get volume settings'";
+      setVolumeMax = "osascript -e 'set volume output volume 100' -e 'get volume settings'";
+      isMuted = "osascript -e 'output muted of (get volume settings)'";
+      muted = "osascript -e 'set volume with output muted'";
+      unmute = "osascript -e 'set volume without output muted'";
+      setVolume175 = "osascript -e 'set volume 1.75' -e 'get volume settings'";
+      setVolume350 = "osascript -e 'set volume 3.50' -e 'get volume settings'";
+      setVolume525 = "osascript -e 'set volume 5.25' -e 'get volume settings'";
+      setVolume700 = "osascript -e 'set volume 7.00' -e 'get volume settings'";
     }; # https://nix-darwin.github.io/nix-darwin/manual/#opt-environment.shellAliases
     variables = {
       EDITOR = "hx";
