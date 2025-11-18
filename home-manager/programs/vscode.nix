@@ -46,7 +46,7 @@
             davidanson.vscode-markdownlint
             dbaeumer.vscode-eslint
             dracula-theme.theme-dracula # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.dracula-theme.theme-dracula
-            eamodio.gitlens
+            # eamodio.gitlens # TODO: Enable after https://github.com/NixOS/nixpkgs/issues/462082 is fixed upstream.
             ecmel.vscode-html-css
             editorconfig.editorconfig
             esbenp.prettier-vscode
@@ -391,7 +391,7 @@
           "update.showReleaseNotes" = false;
           # Extensions settings.
           "direnv.restart.automatic" = true;
-          "gitlens.plusFeatures.enabled" = false;
+          # "gitlens.plusFeatures.enabled" = false; # TODO: Enable after https://github.com/NixOS/nixpkgs/issues/462082 is fixed upstream.
           "geminicodeassist.project" = "cloud-nine-265718"; # "gen-lang-client-0457835357";
         }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.vscode.profiles._name_.userSettings
 
