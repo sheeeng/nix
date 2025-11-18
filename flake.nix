@@ -275,15 +275,19 @@
                 # inputs.nh-plus.overlays.default
                 inputs.fenix.overlays.default
                 # TODO: Remove below anonymous/lambda function block after https://github.com/NixOS/nixpkgs/pull/461779 is resolved upstream.
-                (_self: super: {
-                  fish = super.fish.overrideAttrs (oldAttrs: {
-                    doCheck = false;
-                    checkPhase = "";
-                    cmakeFlags = (oldAttrs.cmakeFlags or [ ]) ++ [
-                      "-DBUILD_TESTING=OFF"
-                    ];
-                  }); # TODO: Remove anonymous/lambda function after https://github.com/NixOS/nixpkgs/pull/462589 is resolved upstream.
-                }) # TODO: Remove above anonymous/lambda function after https://github.com/NixOS/nixpkgs/issues/461406 is resolved upstream.
+                # https://github.com/NixOS/nixpkgs/pull/461779#issuecomment-3540524291
+                # $ PAGER=cat nix why-depends --derivation github:NixOS/nixpkgs#direnv github:NixOS/nixpkgs#fish
+                # /nix/store/jw5h4ds90v9kkbazby807qzwvgg0562h-direnv-2.37.1.drv
+                # └───/nix/store/3kinxxz53hwmzw22l4cvpkxidiwh4w80-fish-4.2.1.drv
+                # (_self: super: {
+                #   fish = super.fish.overrideAttrs (oldAttrs: {
+                #     # TODO: Remove after https://github.com/NixOS/nixpkgs/pull/462090 is resolved upstream.
+                #     doCheck = false;
+                #     doInstallCheck = false;
+                #     checkPhase = ":";
+                #     installCheckPhase = ":";
+                #   }); # TODO: Remove anonymous/lambda function after https://github.com/NixOS/nixpkgs/pull/462589 is resolved upstream.
+                # }) # TODO: Remove above anonymous/lambda function after https://github.com/NixOS/nixpkgs/issues/461406 is resolved upstream.
               ];
 
               # Global configuration to disable tests for better performance
