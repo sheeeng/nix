@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
   programs.fish = {
-    enable = false; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.fish.enable
+    enable = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.fish.enable
     package = pkgs.fish; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.fish.package
     binds = { }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.fish.binds
     functions = { }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.fish.functions
