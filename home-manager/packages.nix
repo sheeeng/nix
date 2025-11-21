@@ -110,6 +110,7 @@
       just # https://search.nixos.org/packages?channel=unstable&type=packages&show=just
       just-lsp # https://search.nixos.org/packages?channel=unstable&type=packages&show=just-lsp
       k9s # https://search.nixos.org/packages?channel=unstable&type=packages&show=k9s
+      keep-sorted # https://search.nixos.org/packages?channel=unstable&type=packages&show=keep-sorted
       kubectl # https://search.nixos.org/packages?channel=unstable&type=packages&show=kubectl
       kubectx # https://search.nixos.org/packages?channel=unstable&type=packages&show=kubectx
       kustomize # https://search.nixos.org/packages?channel=unstable&type=packages&show=kustomize
