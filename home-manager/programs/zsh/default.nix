@@ -142,7 +142,9 @@
 
     profileExtra = ""; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.profileExtra
 
-    sessionVariables = { }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.sessionVariables
+    sessionVariables = {
+      PAGER = "${pkgs.less}/bin/less --RAW-CONTROL-CHARS --quit-if-one-screen --no-init";
+    }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.sessionVariables
     setOptions = [ ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.setOptions
 
     shellAliases = {
