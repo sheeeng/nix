@@ -1,5 +1,4 @@
 { pkgs, ... }:
-
 {
   programs.vscode = {
     enable = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.vscode.enable
@@ -30,6 +29,7 @@
             # ms-azuretools.vscode-bicep # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.ms-azuretools.vscode-bicep # FIXME: Temporarily disabled due to Azure CLI Python 3.13 compatibility issue.  the VS Code Bicep extension (ms-azuretools.vscode-bicep) is still enabled, which depends on the Azure CLI. The error is occurring because there's a compatibility issue with Python 3.13 and Azure CLI 2.75.0.
 
             # keep-sorted start block=no case=no newline_separated=no sticky_comments=no
+            # eamodio.gitlens # TODO: Enable after https://github.com/NixOS/nixpkgs/issues/462082 is fixed upstream.
             aaron-bond.better-comments # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.aaron-bond.better-comments
             adpyke.codesnap # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.adpyke.codesnap
             arrterian.nix-env-selector # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.arrterian.nix-env-selector
@@ -46,7 +46,6 @@
             davidanson.vscode-markdownlint
             dbaeumer.vscode-eslint
             dracula-theme.theme-dracula # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.dracula-theme.theme-dracula
-            # eamodio.gitlens # TODO: Enable after https://github.com/NixOS/nixpkgs/issues/462082 is fixed upstream.
             ecmel.vscode-html-css
             editorconfig.editorconfig
             esbenp.prettier-vscode

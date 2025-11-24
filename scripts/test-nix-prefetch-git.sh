@@ -45,7 +45,7 @@ SHA256_AS_CALCULATED_BY_PREFETCH=$(echo "${OUTPUT_FROM_PREFETCH}" | jq -r '.sha2
 
 REVISION=$(echo "${OUTPUT_FROM_PREFETCH}" | jq -r '.rev')
 
-HASH_IN_SRI_FORMAT=$(nix hash to-sri sha256:${SHA256_AS_CALCULATED_BY_PREFETCH} | sed -e 's/^sha256\-//')
+HASH_IN_SRI_FORMAT=$(nix hash to-sri sha256:"${SHA256_AS_CALCULATED_BY_PREFETCH}" | sed -e 's/^sha256\-//')
 
 nix-build --no-out-link --expr "with import <nixpkgs> {};
 fetchgit
