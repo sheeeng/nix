@@ -65,14 +65,17 @@ in
       nil # https://search.nixos.org/packages?channel=unstable&type=packages&show=nil
       nix # https://search.nixos.org/packages?channel=unstable&type=packages&show=nix
       nix-output-monitor # https://search.nixos.org/packages?channel=unstable&type=packages&show=nix-output-monitor
+      nix-prefetch-git # https://search.nixos.org/packages?channel=unstable&type=packages&show=nix-prefetch-git
+      nix-prefetch-github # https://search.nixos.org/packages?channel=unstable&type=packages&show=nix-prefetch-github
+      nix-prefetch-scripts # https://search.nixos.org/packages?channel=unstable&type=packages&show=nix-prefetch-scripts
       nixd # https://search.nixos.org/packages?channel=unstable&type=packages&show=nixd
       nixfmt-rfc-style # https://search.nixos.org/packages?channel=unstable&type=packages&show=nixfmt-rfc-style
       nvd # https://search.nixos.org/packages?channel=unstable&type=packages&show=nvd
       tmux # https://search.nixos.org/packages?channel=unstable&type=packages&show=tmux
       unixtools.watch # https://search.nixos.org/packages?channel=unstable&type=packages&show=unixtools.watch
       vim # https://search.nixos.org/packages?channel=unstable&type=packages&show=vim
-      wezterm # https://search.nixos.org/packages?channel=unstable&type=packages&show=wezterm
-      yazi # https://search.nixos.org/packages?channel=unstable&type=packages&show=yazi
+      # wezterm # https://search.nixos.org/packages?channel=unstable&type=packages&show=wezterm
+      # yazi # https://search.nixos.org/packages?channel=unstable&type=packages&show=yazi
       # zellij # https://search.nixos.org/packages?channel=unstable&type=packages&show=zellij
       # keep-sorted end
     ]; # https://nix-darwin.github.io/nix-darwin/manual/#opt-environment.systemPackages
