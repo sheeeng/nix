@@ -71,9 +71,6 @@ in
       tmux # https://search.nixos.org/packages?channel=unstable&type=packages&show=tmux
       unixtools.watch # https://search.nixos.org/packages?channel=unstable&type=packages&show=unixtools.watch
       vim # https://search.nixos.org/packages?channel=unstable&type=packages&show=vim
-      wezterm # https://search.nixos.org/packages?channel=unstable&type=packages&show=wezterm
-      yazi # https://search.nixos.org/packages?channel=unstable&type=packages&show=yazi
-      # zellij # https://search.nixos.org/packages?channel=unstable&type=packages&show=zellij
       # keep-sorted end
     ]; # https://nix-darwin.github.io/nix-darwin/manual/#opt-environment.systemPackages
     shellAliases = {
