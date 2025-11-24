@@ -236,7 +236,6 @@
       unzip # https://search.nixos.org/packages?channel=unstable&type=packages&show=unzip
       vifm # https://search.nixos.org/packages?channel=unstable&type=packages&show=vifm
       watch # https://search.nixos.org/packages?channel=unstable&type=packages&show=watch
-      yazi # https://search.nixos.org/packages?channel=unstable&type=packages&show=yazi
       zip # https://search.nixos.org/packages?channel=unstable&type=packages&show=zip
       # keep-sorted end
     ]
