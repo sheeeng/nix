@@ -2,13 +2,14 @@
 {
   config,
   pkgs,
+  lib,
   inputs,
   ...
 }:
 let
   cargoHome = "${config.xdg.dataHome}/.cargo";
 in
-pkgs.lib.mkIf (pkgs.stdenv.hostPlatform.system != "x86_64-darwin") {
+lib.mkIf (pkgs.stdenv.hostPlatform.system != "x86_64-darwin") {
   home.packages = [
     # Use individual components instead of the full toolchain to avoid conflicts
     inputs.fenix.packages.${pkgs.stdenv.hostPlatform.system}.latest.cargo
