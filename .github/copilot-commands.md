@@ -190,3 +190,9 @@ git remote set-url origin git@github.com:sheeeng/nix.git \
 # git remote set-url --delete --push origin 'ssh://git@codeberg.org/sheeeng/nix.git'
 # git config --unset-all remote.origin.pushurl
 ```
+
+```shell
+nix-shell --include nixpkgs=https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz --packages nix-info --run "nix-info --markdown"
+nix run nixpkgs#nix-info -- "--markdown"
+nix shell nixpkgs#nix-info --command nix-info --markdown
+```
