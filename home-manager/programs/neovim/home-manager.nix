@@ -76,11 +76,11 @@
           type = "lua";
           config = builtins.readFile ./plugins/nvim-lspconfig.lua;
         }
-        {
-          plugin = vimPlugins.nvim-spectre;
-          type = "lua";
-          config = builtins.readFile ./plugins/nvim-spectre.lua;
-        }
+        # {
+        #   plugin = vimPlugins.nvim-spectre; # TODO: Enable after https://github.com/NixOS/nixpkgs/issues/464899 is fixed upstream.
+        #   type = "lua";
+        #   config = builtins.readFile ./plugins/nvim-spectre.lua;
+        # }
         { plugin = vimPlugins.vim-visual-multi; }
         {
           plugin = vimPlugins.gitsigns-nvim;
