@@ -47,52 +47,56 @@ fd '\.nix$' --exclude flake.nix --type f --print0 | while IFS= read -r -d '' FIL
   echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
   echo "Processing: ${FILE}"
 
-  # Process fetchFromGitHub blocks - extract fields with grep.
-  OWNER=$(grep --only-matching 'owner = "[^"]*"' "${FILE}" | head -1 | cut -d'"' -f2)
-  REPO=$(grep --only-matching 'repo = "[^"]*"' "${FILE}" | head -1 | cut -d'"' -f2)
-  REV=$(grep --only-matching 'rev = "[^"]*"' "${FILE}" | head -1 | cut -d'"' -f2)
-  OLD_SHA=$(grep --only-matching 'sha256 = "[^"]*"' "${FILE}" | head -1 | cut -d'"' -f2)
+  # Process fetchFromGitHub blocks - extract fields with grep (skip commented lines).
+  OWNER=$(grep --invert-match '^[[:space:]]*#' "${FILE}" | grep --only-matching 'owner = "[^"]*"' | head -1 | cut -d'"' -f2)
+  REPO=$(grep --invert-match '^[[:space:]]*#' "${FILE}" | grep --only-matching 'repo = "[^"]*"' | head -1 | cut -d'"' -f2)
+  REV=$(grep --invert-match '^[[:space:]]*#' "${FILE}" | grep --only-matching 'rev = "[^"]*"' | head -1 | cut -d'"' -f2)
+  OLD_SHA=$(grep --invert-match '^[[:space:]]*#' "${FILE}" | grep --extended-regexp --only-matching '(sha256|hash) = "[^"]*"' | head -1 | cut -d'"' -f2)
 
   if [ -n "${OWNER}" ] && [ -n "${REPO}" ] && [ -n "${REV}" ]; then
+      echo "  Found fetchFromGitHub block:"
+      echo "    Owner: ${OWNER}"
+      echo "    Repository: ${REPO}"
+      echo "    Revision: ${REV}"
+      echo "    Old sha256: ${OLD_SHA}"
+
+      echo "  Fetching latest commit from default branch..."
       LATEST_COMMIT=$(curl --silent --show-error --location --header "Authorization: Bearer ${GITHUB_TOKEN_NIX}" "https://api.github.com/repos/${OWNER}/${REPO}/commits/HEAD" | jq --raw-output '.sha // empty')
 
       if [ -z "${LATEST_COMMIT}" ]; then
+        echo "  ✗ Failed to fetch latest commit."
         continue
       fi
 
-      # Only process if there's a newer commit.
-      if [ "${REV}" != "${LATEST_COMMIT}" ]; then
-        echo "  Found fetchFromGitHub block:"
-        echo "    Owner: ${OWNER}"
-        echo "    Repository: ${REPO}"
-        echo "    Current revision: ${REV}"
-        echo "    Latest commit: ${LATEST_COMMIT}"
-        echo "    Old sha256: ${OLD_SHA}"
+      echo "    Latest commit: ${LATEST_COMMIT}"
 
-        # Fetch new hash using nix-prefetch-github with latest commit.
-        echo "  Fetching new hash..."
-        NEW_SHA=$(nix-prefetch-github "${OWNER}" "${REPO}" --rev "${LATEST_COMMIT}" --nix 2>&1 | grep -E 'hash = ' | sed 's/.*hash = "\([^"]*\)".*/\1/')
+      # Fetch new hash using nix-prefetch-github with latest commit.
+      echo "  Fetching new hash..."
+      NEW_SHA=$(nix-prefetch-github "${OWNER}" "${REPO}" --rev "${LATEST_COMMIT}" --nix 2>&1 | grep -E 'hash = ' | sed 's/.*hash = "\([^"]*\)".*/\1/')
 
-        if [ -n "${NEW_SHA}" ]; then
-          echo "    New hash: ${NEW_SHA}"
+      if [ -n "${NEW_SHA}" ]; then
+        echo "    New hash: ${NEW_SHA}"
 
+        if [ "${OLD_SHA}" = "${NEW_SHA}" ]; then
+          echo "  ✓ Hash is already up to date."
+        else
           # Update the file. Escape special characters for sed command.
           ESCAPED_OLD=$(printf '%s\n' "${OLD_SHA}" | sed 's/[[\.*^$()+?{|]/\\&/g')
           ESCAPED_NEW=$(printf '%s\n' "${NEW_SHA}" | sed 's/[[\.*^$()+?{|]/\\&/g')
 
-          # Update the file in-place.
-          sed --in-place "s|sha256 = \"${ESCAPED_OLD}\"|sha256 = \"${ESCAPED_NEW}\"|" "${FILE}"
+          # Update the file in-place (handle both sha256 and hash).
+          sed --in-place "s|\(sha256\|hash\) = \"${ESCAPED_OLD}\"|\1 = \"${ESCAPED_NEW}\"|" "${FILE}"
 
-          echo "  ✓ Updated sha256 in ${FILE}."
-        else
-          echo "  ✗ Failed to fetch new hash."
+          echo "  ✓ Updated hash in ${FILE}."
         fi
+      else
+        echo "  ✗ Failed to fetch new hash."
       fi
   fi
 
-  # Process fetchurl blocks - extract fields with grep.
-  URL=$(grep --only-matching 'url = "[^"]*"' "${FILE}" | head -1 | cut -d'"' -f2)
-  FETCHURL_SHA=$(grep 'fetchurl' "${FILE}" -A 5 | grep --only-matching 'sha256 = "[^"]*"' | head -1 | cut -d'"' -f2)
+  # Process fetchurl blocks - extract fields with grep (skip commented lines).
+  URL=$(grep --invert-match '^[[:space:]]*#' "${FILE}" | grep --only-matching 'url = "[^"]*"' | head -1 | cut -d'"' -f2)
+  FETCHURL_SHA=$(grep --invert-match '^[[:space:]]*#' "${FILE}" | grep 'fetchurl' -A 5 | grep --extended-regexp --only-matching '(sha256|hash) = "[^"]*"' | head -1 | cut -d'"' -f2)
 
   if [ -n "${URL}" ] && [ -n "${FETCHURL_SHA}" ]; then
       echo "  Found fetchurl block:"
@@ -100,7 +104,16 @@ fd '\.nix$' --exclude flake.nix --type f --print0 | while IFS= read -r -d '' FIL
       echo "    Old sha256: ${FETCHURL_SHA}"
 
       echo "  Fetching new hash..."
-      NEW_SHA=$(nix-prefetch-url "${URL}" 2>&1 | tail -n 1)
+      BASE32_HASH=$(nix-prefetch-url "${URL}" 2>&1 | tail -n 1)
+
+      if [ -n "${BASE32_HASH}" ]; then
+        # warning: The old format conversion subcommands of `nix hash` were deprecated in favor of `nix hash convert`.
+        # # Convert base32 to SRI format using nix hash to-sri.
+        # NEW_SHA=$(nix hash to-sri sha256:"${BASE32_HASH}")
+
+        # Convert base32 to SRI format using nix hash convert.
+        NEW_SHA=$(nix hash convert --from nix32 --to sri "sha256:${BASE32_HASH}" 2>/dev/null || nix hash to-sri "sha256:${BASE32_HASH}")
+      fi
 
       if [ -n "${NEW_SHA}" ]; then
         echo "    New hash: ${NEW_SHA}"
@@ -112,10 +125,10 @@ fd '\.nix$' --exclude flake.nix --type f --print0 | while IFS= read -r -d '' FIL
           ESCAPED_OLD=$(printf '%s\n' "${FETCHURL_SHA}" | sed 's/[[\.*^$()+?{|]/\\&/g')
           ESCAPED_NEW=$(printf '%s\n' "${NEW_SHA}" | sed 's/[[\.*^$()+?{|]/\\&/g')
 
-          # Update the file in-place.
-          sed --in-place "s|sha256 = \"${ESCAPED_OLD}\"|sha256 = \"${ESCAPED_NEW}\"|" "${FILE}"
+          # Update the file in-place (handle both sha256 and hash).
+          sed --in-place "s|\(sha256\|hash\) = \"${ESCAPED_OLD}\"|\1 = \"${ESCAPED_NEW}\"|" "${FILE}"
 
-          echo "  ✓ Updated sha256 in ${FILE}."
+          echo "  ✓ Updated hash in ${FILE}."
         fi
       else
         echo "  ✗ Failed to fetch new hash."
