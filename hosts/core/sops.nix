@@ -11,8 +11,7 @@ let
   sopsFolder = builtins.toString inputs.nix-secrets + "/secrets";
   primaryUser = config.system.primaryUser or (builtins.getEnv "USER");
   homeDirectory = "/Users/${primaryUser}";
-  isLinux = pkgs.stdenv.isLinux;
-  isDarwin = pkgs.stdenv.isDarwin;
+  inherit (pkgs.stdenv) isLinux;
 in
 {
   imports = [ inputs.sops-nix.darwinModules.sops ];
