@@ -34,46 +34,46 @@ EOF
 ACTION="${1:-toggle}"
 
 case "${ACTION}" in
-  toggle)
-    if [ "$(osascript -e "output muted of (get volume settings)")" = "true" ]; then
-      osascript -e "set volume without output muted"
-    else
-      osascript -e "set volume with output muted"
-    fi
-    osascript -e "get volume settings"
-    ;;
-  set)
-    if [ $# -lt 2 ]; then
-      echo "Error: Volume level required for 'set' command" >&2
-      show_usage
-      exit 1
-    fi
-    VOLUME="$2"
-    if ! [[ "${VOLUME}" =~ ^[0-9]+$ ]] || [ "${VOLUME}" -lt 0 ] || [ "${VOLUME}" -gt 100 ]; then
-      echo "Error: Volume must be a number between 0 and 100." >&2
-      exit 1
-    fi
-    osascript -e "set volume output volume ${VOLUME}"
-    osascript -e "get volume settings"
-    ;;
-  mute)
-    osascript -e "set volume with output muted"
-    osascript -e "get volume settings"
-    ;;
-  unmute)
+toggle)
+  if [ "$(osascript -e "output muted of (get volume settings)")" = "true" ]; then
     osascript -e "set volume without output muted"
-    osascript -e "get volume settings"
-    ;;
-  get)
-    osascript -e "get volume settings"
-    ;;
-  --help|-h|help)
-    show_usage
-    exit 0
-    ;;
-  *)
-    echo "Error: Unknown command '${ACTION}'" >&2
+  else
+    osascript -e "set volume with output muted"
+  fi
+  osascript -e "get volume settings"
+  ;;
+set)
+  if [ $# -lt 2 ]; then
+    echo "Error: Volume level required for 'set' command" >&2
     show_usage
     exit 1
-    ;;
+  fi
+  VOLUME="$2"
+  if ! [[ ${VOLUME} =~ ^[0-9]+$ ]] || [ "${VOLUME}" -lt 0 ] || [ "${VOLUME}" -gt 100 ]; then
+    echo "Error: Volume must be a number between 0 and 100." >&2
+    exit 1
+  fi
+  osascript -e "set volume output volume ${VOLUME}"
+  osascript -e "get volume settings"
+  ;;
+mute)
+  osascript -e "set volume with output muted"
+  osascript -e "get volume settings"
+  ;;
+unmute)
+  osascript -e "set volume without output muted"
+  osascript -e "get volume settings"
+  ;;
+get)
+  osascript -e "get volume settings"
+  ;;
+--help | -h | help)
+  show_usage
+  exit 0
+  ;;
+*)
+  echo "Error: Unknown command '${ACTION}'" >&2
+  show_usage
+  exit 1
+  ;;
 esac

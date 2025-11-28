@@ -1,10 +1,5 @@
 # TODO: https://github.com/uesyn/dotfiles/blob/a28964187ab74b880f2e8ae561359451e9a05e29/home-manager/zellij/default.nix
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, pkgs, ... }:
 {
   xdg.configFile = {
     # https://github.com/cratedev/snowcrate/blob/78fc9f15c9497a4577f4407ba64b5dea550c657b/modules/home/cli/zellij/default.nix#L30
