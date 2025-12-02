@@ -5,7 +5,7 @@
     ":disableDependencyDashboard"
   ],
   "lockFileMaintenance": {
-    "enabled": false,
+    "enabled": true,
     "description": "https://docs.renovatebot.com/configuration-options/#lockfilemaintenance"
   },
   "nix": {

@@ -1,5 +1,3 @@
-# home level sops. see hosts/core/sops.nix for hosts level
-
 {
   inputs,
   config,
@@ -16,8 +14,6 @@ in
   imports = [ inputs.sops-nix.homeManagerModules.sops ];
 
   sops = {
-    # This is the location of the host specific age-key and will have been
-    # extracted to this location via hosts/core/sops.nix on the host
     age = {
       sshKeyPaths = [ "${homeDirectory}/.ssh/id_ed25519" ];
       keyFile = "${homeDirectory}/.config/sops/age/keys.txt";
@@ -25,7 +21,6 @@ in
     defaultSopsFile = "${sopsFolder}/common.yaml";
     validateSopsFiles = true;
 
-    # Home-level Secrets
     # stat --format "%A %a %n" ~/.config/sops-nix/secrets/**/*
     secrets = {
       "passwords/atuin" = { };
@@ -39,13 +34,38 @@ in
         path = "${homeDirectory}/.ssh/id_ed25519";
         mode = "0600";
       };
+      "keys/ssh/id_ed25519_corporate/public" = {
+        path = "${homeDirectory}/.ssh/id_ed25519_corporate.pub";
+        mode = "0644";
+      };
+      "keys/ssh/id_ed25519_corporate/private" = {
+        path = "${homeDirectory}/.ssh/id_ed25519_corporate";
+        mode = "0600";
+      };
+      "keys/ssh/id_ed25519_individual/public" = {
+        path = "${homeDirectory}/.ssh/id_ed25519_individual.pub";
+        mode = "0644";
+      };
+      "keys/ssh/id_ed25519_individual/private" = {
+        path = "${homeDirectory}/.ssh/id_ed25519_individual";
+        mode = "0600";
+      };
+      "keys/ssh/id_ed25519_personal/public" = {
+        path = "${homeDirectory}/.ssh/id_ed25519_personal.pub";
+        mode = "0644";
+      };
+      "keys/ssh/id_ed25519_personal/private" = {
+        path = "${homeDirectory}/.ssh/id_ed25519_personal";
+        mode = "0600";
+      };
       "keys/wakatime" = { };
 
+      "tokens/github/gist_scope" = { };
+      "tokens/github/public_repo_scope" = { };
       "tokens/github/user_scope" = { };
     };
   };
 
-  # Ensure .ssh directory exists with proper permissions
   home.file.".ssh/.keep" = {
     text = "";
   };
@@ -65,24 +85,32 @@ in
     } 2>/dev/null || echo 'Secret not available.'";
     show-ed25519-ssh-public-key = "cat ${homeDirectory}/.ssh/id_ed25519.pub 2>/dev/null || echo 'Secret not available.'";
     show-ed25519-ssh-private-key = "cat ${homeDirectory}/.ssh/id_ed25519 2>/dev/null || echo 'Secret not available.'";
+    show-ssh-corporate-public = "cat ${homeDirectory}/.ssh/id_ed25519_corporate.pub 2>/dev/null || echo 'Secret not available.'";
+    show-ssh-corporate-private = "cat ${homeDirectory}/.ssh/id_ed25519_corporate 2>/dev/null || echo 'Secret not available.'";
+    show-ssh-individual-public = "cat ${homeDirectory}/.ssh/id_ed25519_individual.pub 2>/dev/null || echo 'Secret not available.'";
+    show-ssh-individual-private = "cat ${homeDirectory}/.ssh/id_ed25519_individual 2>/dev/null || echo 'Secret not available.'";
+    show-ssh-personal-public = "cat ${homeDirectory}/.ssh/id_ed25519_personal.pub 2>/dev/null || echo 'Secret not available.'";
+    show-ssh-personal-private = "cat ${homeDirectory}/.ssh/id_ed25519_personal 2>/dev/null || echo 'Secret not available.'";
     show-wakatime-api-key = "cat ${
       config.sops.secrets."keys/wakatime".path
     } 2>/dev/null || echo 'Secret not available.'";
 
+    show-gist-scope-github-token = "cat ${
+      config.sops.secrets."tokens/github/gist_scope".path
+    } 2>/dev/null || echo 'Secret not available.'";
+    show-public-repo-scope-github-token = "cat ${
+      config.sops.secrets."tokens/github/public_repo_scope".path
+    } 2>/dev/null || echo 'Secret not available.'";
     show-user-scope-github-token = "cat ${
       config.sops.secrets."tokens/github/user_scope".path
     } 2>/dev/null || echo 'Secret not available.'";
 
-    show-public-repo-scope-github-token = "cat /run/secrets/tokens/github/public_repo_scope 2>/dev/null || echo 'Secret not available.'";
-
     list-home-secrets = "ls --long --all ~/.config/sops-nix/secrets/ 2>/dev/null || echo 'No secrets directory found.'";
   };
 
-  # Helper script for working with secrets
   home.file.".local/bin/sops-helper" = {
     text = ''
       #!/usr/bin/env bash
-      # Helper script for working with secrets
 
       case "$1" in
         "edit-common")
@@ -100,12 +128,19 @@ in
           echo "  Atuin: ${config.sops.secrets."keys/atuin".path}"
           echo "  SSH Ed25519 Public: ${homeDirectory}/.ssh/id_ed25519.pub"
           echo "  SSH Ed25519 Private: ${homeDirectory}/.ssh/id_ed25519"
+          echo "  SSH Corporate Public: ${homeDirectory}/.ssh/id_ed25519_corporate.pub"
+          echo "  SSH Corporate Private: ${homeDirectory}/.ssh/id_ed25519_corporate"
+          echo "  SSH Individual Public: ${homeDirectory}/.ssh/id_ed25519_individual.pub"
+          echo "  SSH Individual Private: ${homeDirectory}/.ssh/id_ed25519_individual"
+          echo "  SSH Personal Public: ${homeDirectory}/.ssh/id_ed25519_personal.pub"
+          echo "  SSH Personal Private: ${homeDirectory}/.ssh/id_ed25519_personal"
           echo "  Wakatime: ${config.sops.secrets."keys/wakatime".path}"
           ;;
         "show-tokens")
           echo "Available tokens:"
+          echo "  GitHub Gist Scope: ${config.sops.secrets."tokens/github/gist_scope".path}"
+          echo "  GitHub Public Repo Scope: ${config.sops.secrets."tokens/github/public_repo_scope".path}"
           echo "  GitHub User Scope: ${config.sops.secrets."tokens/github/user_scope".path}"
-          echo "  GitHub Public Repo Scope: /run/secrets/tokens/github/public_repo_scope"
           ;;
         "list-home-secrets")
           echo "Home-manager secrets directory:"
@@ -131,7 +166,6 @@ in
     executable = true;
   };
 
-  # Create shell scripts for specific secret access
   home.packages = [
     (pkgs.writeShellScriptBin "get-atuin-password" ''
       cat ${
@@ -148,20 +182,44 @@ in
     (pkgs.writeShellScriptBin "get-ssh-ed25519-private-key" ''
       cat ${homeDirectory}/.ssh/id_ed25519 2>/dev/null || echo "SSH Ed25519 private key not available."
     '')
+    (pkgs.writeShellScriptBin "get-ssh-corporate-public-key" ''
+      cat ${homeDirectory}/.ssh/id_ed25519_corporate.pub 2>/dev/null || echo "SSH corporate public key not available."
+    '')
+    (pkgs.writeShellScriptBin "get-ssh-corporate-private-key" ''
+      cat ${homeDirectory}/.ssh/id_ed25519_corporate 2>/dev/null || echo "SSH corporate private key not available."
+    '')
+    (pkgs.writeShellScriptBin "get-ssh-individual-public-key" ''
+      cat ${homeDirectory}/.ssh/id_ed25519_individual.pub 2>/dev/null || echo "SSH individual public key not available."
+    '')
+    (pkgs.writeShellScriptBin "get-ssh-individual-private-key" ''
+      cat ${homeDirectory}/.ssh/id_ed25519_individual 2>/dev/null || echo "SSH individual private key not available."
+    '')
+    (pkgs.writeShellScriptBin "get-ssh-personal-public-key" ''
+      cat ${homeDirectory}/.ssh/id_ed25519_personal.pub 2>/dev/null || echo "SSH personal public key not available."
+    '')
+    (pkgs.writeShellScriptBin "get-ssh-personal-private-key" ''
+      cat ${homeDirectory}/.ssh/id_ed25519_personal 2>/dev/null || echo "SSH personal private key not available."
+    '')
     (pkgs.writeShellScriptBin "get-wakatime-api-key" ''
       cat ${
         config.sops.secrets."keys/wakatime".path
       } 2>/dev/null || echo "Wakatime API key not available."
     '')
 
+    (pkgs.writeShellScriptBin "get-gist-scope-github-token" ''
+      cat ${
+        config.sops.secrets."tokens/github/gist_scope".path
+      } 2>/dev/null || echo "GitHub gist token not available."
+    '')
+    (pkgs.writeShellScriptBin "get-public-repo-scope-github-token" ''
+      cat ${
+        config.sops.secrets."tokens/github/public_repo_scope".path
+      } 2>/dev/null || echo "GitHub public repo token not available."
+    '')
     (pkgs.writeShellScriptBin "get-user-scope-github-token" ''
       cat ${
         config.sops.secrets."tokens/github/user_scope".path
-      } 2>/dev/null || echo "GitHub token not available."
-    '')
-
-    (pkgs.writeShellScriptBin "get-public-repo-scope-github-token" ''
-      cat /run/secrets/tokens/github/public_repo_scope 2>/dev/null || echo "GitHub token not available."
+      } 2>/dev/null || echo "GitHub user token not available."
     '')
 
     (pkgs.writeShellScriptBin "test-nix-github-access" ''
@@ -188,12 +246,18 @@ in
     ATUIN_KEY_FILE = config.sops.secrets."keys/atuin".path;
     SSH_ED25519_PUBLIC_KEY_FILE = "${homeDirectory}/.ssh/id_ed25519.pub";
     SSH_ED25519_PRIVATE_KEY_FILE = "${homeDirectory}/.ssh/id_ed25519";
+    SSH_CORPORATE_PUBLIC_KEY_FILE = "${homeDirectory}/.ssh/id_ed25519_corporate.pub";
+    SSH_CORPORATE_PRIVATE_KEY_FILE = "${homeDirectory}/.ssh/id_ed25519_corporate";
+    SSH_INDIVIDUAL_PUBLIC_KEY_FILE = "${homeDirectory}/.ssh/id_ed25519_individual.pub";
+    SSH_INDIVIDUAL_PRIVATE_KEY_FILE = "${homeDirectory}/.ssh/id_ed25519_individual";
+    SSH_PERSONAL_PUBLIC_KEY_FILE = "${homeDirectory}/.ssh/id_ed25519_personal.pub";
+    SSH_PERSONAL_PRIVATE_KEY_FILE = "${homeDirectory}/.ssh/id_ed25519_personal";
     WAKATIME_API_KEY_FILE = config.sops.secrets."keys/wakatime".path;
 
+    GIST_SCOPE_GITHUB_TOKEN_FILE = config.sops.secrets."tokens/github/gist_scope".path;
+    PUBLIC_REPO_SCOPE_GITHUB_TOKEN_FILE = config.sops.secrets."tokens/github/public_repo_scope".path;
     USER_SCOPE_GITHUB_TOKEN_FILE = config.sops.secrets."tokens/github/user_scope".path;
-    PUBLIC_REPO_SCOPE_GITHUB_TOKEN_FILE = "/run/secrets/tokens/github/public_repo_scope";
 
     HOST_AGE_KEY_FILE = "/run/secrets/keys/age";
-    HOST_PUBLIC_REPO_SCOPE_GITHUB_TOKEN_FILE = "/run/secrets/tokens/github/public_repo_scope";
   };
 }
