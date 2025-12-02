@@ -46,15 +46,15 @@ if [ ${EUID:-0} -ne 0 ] || [ "$(id -u)" -ne 0 ]; then
   exit 42
 fi
 
-# Grep if "access-tokens = github.com=" is already in the file.
+# Remove existing access-tokens setting if present, then add the new one.
 if grep --quiet "access-tokens = github.com=" /etc/nix/nix.conf; then
-  echo "The 'access-tokens = github.com=' option already set in the file."
-else
-  echo "The 'access-tokens = github.com=' option not set in the file."
-
-  cat <<EOF >>/etc/nix/nix.conf
-access-tokens = github.com=${GITHUB_TOKEN_NIX}
-EOF
+  echo "Removing existing 'access-tokens = github.com=' option from the file."
+  sed --in-place '/^access-tokens = github\.com=/d' /etc/nix/nix.conf
 fi
+
+echo "Adding 'access-tokens = github.com=' option to the file."
+cat <<EOF >>/etc/nix/nix.conf
+access-tokens = github.com=${PUBLIC_REPO_SCOPE_GITHUB_TOKEN}
+EOF
 
 popd || exit
