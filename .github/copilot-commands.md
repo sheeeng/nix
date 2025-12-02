@@ -182,7 +182,10 @@ nix repl --expr "builtins.getFlake \"$PWD\""
 ```
 
 ```shell
+git config --unset-all remote.origin.pushurl; \
 git remote set-url origin git@github.com:sheeeng/nix.git \
+&& git remote set-url --add --push origin git@git.sr.ht:~sheeeng/nix \
+&& git remote set-url --add --push origin git@gitea.com:sheeeng/nix.git \
 && git remote set-url --add --push origin git@github.com:sheeeng/nix.git \
 && git remote set-url --add --push origin git@gitlab.com:sheeeng/nix.git \
 && git remote set-url --add --push origin ssh://git@codeberg.org/sheeeng/nix.git

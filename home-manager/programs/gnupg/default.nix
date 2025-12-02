@@ -17,7 +17,6 @@
       {
         # sec   rsa4096/1F2A97D0690D038B 2024-02-01 [SCEAR]
         #       Key fingerprint = 5556 F727 77F5 2A06 F581  0596 1F2A 97D0 690D 038B
-        # uid                 [ultimate] Leonard Lee <leonard.lee@bidbax.no>
         source = ./1F2A97D0690D038B.gpg; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.gpg.publicKeys._.source
         trust = "ultimate"; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.gpg.publicKeys._.trust
       }
@@ -25,7 +24,6 @@
       {
         # sec   rsa4096/0CDBE52904CA3543 2023-05-05 [SCEAR]
         #       Key fingerprint = 444E 47CF 8B37 E775 83B2  4F15 0CDB E529 04CA 3543
-        # uid                 [ultimate] Leonard Sheng Sheng Lee <leonard.sheng.sheng.lee@gmail.com>
         source = ./0CDBE52904CA3543.gpg; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.gpg.publicKeys._.source
         trust = "ultimate"; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.gpg.publicKeys._.trust
       }
@@ -33,7 +31,6 @@
       {
         # sec   rsa4096/C6797A2CF7074F4E 2023-05-05 [SCEAR]
         #       Key fingerprint = 0AE9 626A 398D 1D6D B068  D66B C679 7A2C F707 4F4E
-        # uid                 [ultimate] Leonard Sheng Sheng Lee <sheeeng@gmail.com>
         source = ./C6797A2CF7074F4E.gpg; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.gpg.publicKeys._.source
         trust = "ultimate"; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.gpg.publicKeys._.trust
       }

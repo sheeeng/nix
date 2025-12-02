@@ -26,9 +26,10 @@ in
     # keep-sorted start
     ghq # https://search.nixos.org/packages?channel=unstable&type=packages&show=ghq
     git-credential-oauth-wrapper # https://search.nixos.org/packages?channel=unstable&type=packages&show=git-credential-oauth
+    git-filter-repo # https://search.nixos.org/packages?channel=unstable&type=packages&show=git-filter-repo
     git-lfs # https://search.nixos.org/packages?channel=unstable&type=packages&show=git-lfs
     gitleaks # https://search.nixos.org/packages?channel=unstable&type=packages&show=gitleaks
-    # pre-commit # https://search.nixos.org/packages?channel=unstable&type=packages&show=pre-commit
+    pre-commit # https://search.nixos.org/packages?channel=unstable&type=packages&show=pre-commit
     # keep-sorted end
   ];
 
@@ -56,9 +57,9 @@ in
   home.file."bitbucket/sheeeng/.gitconfig".source = ./gitconfig-private.ini;
   home.file."codeberg/.gitconfig".source = ./gitconfig-private.ini;
   home.file."dottir/.gitconfig".source = ./gitconfig-private.ini;
-  home.file."github/.gitconfig".source = ./gitconfig-github.ini;
-  home.file."github/sheeeng/.gitconfig".source = ./gitconfig-github.ini;
-  home.file."github/github/github/.gitconfig" = {
+  home.file."github/.gitconfig".source = ./gitconfig-github-noreply.ini;
+  home.file."github/sheeeng/.gitconfig".source = ./gitconfig-github-noreply.ini;
+  home.file."github/github/.gitconfig" = {
     text = ''
       [user]
         name = ${inputs.nix-secrets-example.octocat.userFullName or "Octocat"}
@@ -74,6 +75,7 @@ in
   home.file."github/techcloud0/.gitconfig".source = ./gitconfig-github-techcloud0.ini;
   home.file."gitlab/.gitconfig".source = ./gitconfig-gitlab.ini;
   home.file."srht/.gitconfig".source = ./gitconfig-private.ini;
+  home.file."gitea/.gitconfig".source = ./gitconfig-private.ini;
 
   # https://github.com/lasseheia/nix/blob/2804cb5670f54c91da65067b204a71a5ff5695fc/modules/git/home-manager.nix#L7
   services.ssh-agent.enable = if pkgs.stdenv.isDarwin then false else true;
@@ -366,6 +368,10 @@ in
         {
           condition = "gitdir:${config.xdg.configHome}/srht/**/.git";
           path = "${config.xdg.configHome}/srht/.gitconfig";
+        }
+        {
+          condition = "gitdir:${config.xdg.configHome}/gitea/**/.git";
+          path = "${config.xdg.configHome}/gitea/.gitconfig";
         }
         {
           condition = "hasconfig:remote.*.url:git@github.com:sheeeng/vscodium-settings.git";
