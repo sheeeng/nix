@@ -1,25 +1,14 @@
 # https://github.com/alexnabokikh/nix-config/blob/bddec40e097d4227cd95badfc02164aa006a8a4c/modules/home-manager/programs/aerospace/default.nix
 
-# {
-#   lib,
-#   pkgs,
-#   ...
-# }:
-# {
-#   config = lib.mkIf (pkgs.stdenv.isDarwin) {
-#     home.packages = with pkgs; [
-#       aerospace # https://search.nixos.org/packages?channel=unstable&type=packages&show=aerospace
-#     ];
-
-#     home.file.".aerospace.toml".source = ./aerospace.toml;
-#   };
-# }
-
 { pkgs, ... }:
 {
   programs.aerospace = {
     enable = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.aerospace.enable
     package = pkgs.aerospace; # https://nix-community.github.io/home-manager
+    launchd = {
+      enable = false; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.aerospace.launchd.enable
+      keepAlive = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.aerospace.launchd.keepAlive
+    };
     settings = {
       gaps = {
         outer.left = 8;
