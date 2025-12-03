@@ -203,7 +203,7 @@
     nix-systems.url = "github:nix-systems/default"; # https://github.com/nix-systems/nix-systems
 
     nix-secrets = {
-      url = "git+ssh://git@github.com/sheeeng/nix-secrets.git?ref=refactor/ephmeral-workspace&shallow=1";
+      url = "git+ssh://git@github.com/sheeeng/nix-secrets.git?ref=main&shallow=1";
       # url = "git+file://absolute/path/to/nix-secrets";
     };
 
