@@ -1,0 +1,76 @@
+name: "Update Flake Lock"
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+  schedule:
+    - cron: "0 03 * * 1-5" # “At 03:00 UTC on every day-of-week from Monday through Friday.” # https://crontab.guru/#0_3_*_*_1-5
+
+permissions: {}
+
+jobs:
+  update-flake-lock:
+    permissions:
+      contents: write
+      pull-requests: write
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/create-github-app-token@7e473efe3cb98aa54f8d4bac15400b15fad77d94 # v2.2.0
+        id: create-token
+        with:
+          app-id: ${{ vars.APP_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+
+      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+        with:
+          token: ${{ steps.create-token.outputs.token }}
+
+      - uses: determinatesystems/determinate-nix-action@b3e3f405539b332fcb96794525f35fb10c230baa # v3.13.2
+
+      # References:
+      # dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
+      # https://api.github.com/users/dependabot%5Bbot%5D
+      #
+      # github-actions[bot] <github-actions[bot]@users.noreply.github.com>
+      # https://api.github.com/users/github-actions%5Bbot%5D
+      #
+      # https://github.com/orgs/community/discussions/26560#discussioncomment-12555758
+      # https://github.com/actions/checkout/blob/8e8c483db84b4bee98b60c0593521ed34d9990e8/README.md#L358
+
+      - name: Update Flake Lock & Create PR
+        run: |
+          # Configure git identity.
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          # Update flake.lock file with Nix.
+          nix --debug --log-format raw flake update \
+            --commit-lock-file \
+            --option commit-lockfile-summary "chore(deps): update flake.lock"
+
+          # Check if there are any changes to flake.lock file.
+          if git diff --quiet HEAD flake.lock; then
+            echo "No changes to flake.lock file, skipping PR creation."
+            exit 0
+          fi
+
+          # Create a new branch with ISO 8601 UTC timestamp.
+          BRANCH="update-flake-lock-$(date --utc +%Y-%m-%dT%H:%M:%SZ)"
+          git switch --create "$BRANCH"
+
+          # Push the branch to the remote repository.
+          git push origin "$BRANCH"
+
+          # Create a pull request using GitHub CLI.
+          gh pr create \
+            --title "chore(deps): update flake.lock" \
+            --body "Automated update of flake.lock dependencies.
+
+          This PR updates the Nix flake dependencies to their latest versions." \
+            --label "dependencies" \
+            --base main \
+            --head "$BRANCH"
+        env:
+          GH_TOKEN: ${{ steps.create-token.outputs.token }}
