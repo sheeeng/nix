@@ -1,0 +1,26 @@
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  nix-flake-check:
+    name: nix-flake-check
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+      - uses: determinatesystems/nix-installer-action@c5a866b6ab867e88becbed4467b93592bce69f8a # v21
+      - run: |
+          echo "Version: \`$(nix --version)\`" \
+          | tee --append "${GITHUB_STEP_SUMMARY}"
+      - run: |
+          nix-shell --packages nix-info --run 'nix-info --markdown --sandbox --host-os' \
+          | tee --append "${GITHUB_STEP_SUMMARY}"
+      - run: |
+          nix --experimental-features "nix-command flakes" flake check \
+          | tee --append "${GITHUB_STEP_SUMMARY}"
