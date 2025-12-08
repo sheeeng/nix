@@ -15,8 +15,14 @@ in
 
   sops = {
     age = {
-      sshKeyPaths = [ "${homeDirectory}/.ssh/id_ed25519" ];
+      # Use dedicated age key instead of SSH key to avoid passphrase issues.
+      # Generate with: age-keygen -o ~/.config/sops/age/keys.txt
+      # Get public key with: age-keygen -y ~/.config/sops/age/keys.txt
+      # Alternatively, convert SSH key once: ssh-to-age -private-key -i ~/.ssh/id_ed25519 > ~/.config/sops/age/keys.txt
       keyFile = "${homeDirectory}/.config/sops/age/keys.txt";
+      # The sshKeyPaths option is commented out to avoid passphrase prompts.
+      # Uncomment only if using ssh-agent with loaded keys.
+      # sshKeyPaths = [ "${homeDirectory}/.ssh/id_ed25519" ];
     };
     defaultSopsFile = "${sopsFolder}/common.yaml";
     validateSopsFiles = true;
@@ -42,12 +48,12 @@ in
         path = "${homeDirectory}/.ssh/id_ed25519_corporate";
         mode = "0600";
       };
-      "keys/ssh/id_ed25519_individual/public" = {
-        path = "${homeDirectory}/.ssh/id_ed25519_individual.pub";
+      "keys/ssh/id_ed25519_acute/public" = {
+        path = "${homeDirectory}/.ssh/id_ed25519_acute.pub";
         mode = "0644";
       };
-      "keys/ssh/id_ed25519_individual/private" = {
-        path = "${homeDirectory}/.ssh/id_ed25519_individual";
+      "keys/ssh/id_ed25519_acute/private" = {
+        path = "${homeDirectory}/.ssh/id_ed25519_acute";
         mode = "0600";
       };
       "keys/ssh/id_ed25519_personal/public" = {
@@ -87,8 +93,8 @@ in
     show-ed25519-ssh-private-key = "cat ${homeDirectory}/.ssh/id_ed25519 2>/dev/null || echo 'Secret not available.'";
     show-ssh-corporate-public = "cat ${homeDirectory}/.ssh/id_ed25519_corporate.pub 2>/dev/null || echo 'Secret not available.'";
     show-ssh-corporate-private = "cat ${homeDirectory}/.ssh/id_ed25519_corporate 2>/dev/null || echo 'Secret not available.'";
-    show-ssh-individual-public = "cat ${homeDirectory}/.ssh/id_ed25519_individual.pub 2>/dev/null || echo 'Secret not available.'";
-    show-ssh-individual-private = "cat ${homeDirectory}/.ssh/id_ed25519_individual 2>/dev/null || echo 'Secret not available.'";
+    show-ssh-acute-public = "cat ${homeDirectory}/.ssh/id_ed25519_acute.pub 2>/dev/null || echo 'Secret not available.'";
+    show-ssh-acute-private = "cat ${homeDirectory}/.ssh/id_ed25519_acute 2>/dev/null || echo 'Secret not available.'";
     show-ssh-personal-public = "cat ${homeDirectory}/.ssh/id_ed25519_personal.pub 2>/dev/null || echo 'Secret not available.'";
     show-ssh-personal-private = "cat ${homeDirectory}/.ssh/id_ed25519_personal 2>/dev/null || echo 'Secret not available.'";
     show-wakatime-api-key = "cat ${
@@ -130,8 +136,8 @@ in
           echo "  SSH Ed25519 Private: ${homeDirectory}/.ssh/id_ed25519"
           echo "  SSH Corporate Public: ${homeDirectory}/.ssh/id_ed25519_corporate.pub"
           echo "  SSH Corporate Private: ${homeDirectory}/.ssh/id_ed25519_corporate"
-          echo "  SSH Individual Public: ${homeDirectory}/.ssh/id_ed25519_individual.pub"
-          echo "  SSH Individual Private: ${homeDirectory}/.ssh/id_ed25519_individual"
+          echo "  SSH Acute Public: ${homeDirectory}/.ssh/id_ed25519_acute.pub"
+          echo "  SSH Acute Private: ${homeDirectory}/.ssh/id_ed25519_acute"
           echo "  SSH Personal Public: ${homeDirectory}/.ssh/id_ed25519_personal.pub"
           echo "  SSH Personal Private: ${homeDirectory}/.ssh/id_ed25519_personal"
           echo "  Wakatime: ${config.sops.secrets."keys/wakatime".path}"
@@ -188,11 +194,11 @@ in
     (pkgs.writeShellScriptBin "get-ssh-corporate-private-key" ''
       cat ${homeDirectory}/.ssh/id_ed25519_corporate 2>/dev/null || echo "SSH corporate private key not available."
     '')
-    (pkgs.writeShellScriptBin "get-ssh-individual-public-key" ''
-      cat ${homeDirectory}/.ssh/id_ed25519_individual.pub 2>/dev/null || echo "SSH individual public key not available."
+    (pkgs.writeShellScriptBin "get-ssh-acute-public-key" ''
+      cat ${homeDirectory}/.ssh/id_ed25519_acute.pub 2>/dev/null || echo "SSH acute public key not available."
     '')
-    (pkgs.writeShellScriptBin "get-ssh-individual-private-key" ''
-      cat ${homeDirectory}/.ssh/id_ed25519_individual 2>/dev/null || echo "SSH individual private key not available."
+    (pkgs.writeShellScriptBin "get-ssh-acute-private-key" ''
+      cat ${homeDirectory}/.ssh/id_ed25519_acute 2>/dev/null || echo "SSH acute private key not available."
     '')
     (pkgs.writeShellScriptBin "get-ssh-personal-public-key" ''
       cat ${homeDirectory}/.ssh/id_ed25519_personal.pub 2>/dev/null || echo "SSH personal public key not available."
@@ -248,8 +254,8 @@ in
     SSH_ED25519_PRIVATE_KEY_FILE = "${homeDirectory}/.ssh/id_ed25519";
     SSH_CORPORATE_PUBLIC_KEY_FILE = "${homeDirectory}/.ssh/id_ed25519_corporate.pub";
     SSH_CORPORATE_PRIVATE_KEY_FILE = "${homeDirectory}/.ssh/id_ed25519_corporate";
-    SSH_INDIVIDUAL_PUBLIC_KEY_FILE = "${homeDirectory}/.ssh/id_ed25519_individual.pub";
-    SSH_INDIVIDUAL_PRIVATE_KEY_FILE = "${homeDirectory}/.ssh/id_ed25519_individual";
+    SSH_ACUTE_PUBLIC_KEY_FILE = "${homeDirectory}/.ssh/id_ed25519_acute.pub";
+    SSH_ACUTE_PRIVATE_KEY_FILE = "${homeDirectory}/.ssh/id_ed25519_acute";
     SSH_PERSONAL_PUBLIC_KEY_FILE = "${homeDirectory}/.ssh/id_ed25519_personal.pub";
     SSH_PERSONAL_PRIVATE_KEY_FILE = "${homeDirectory}/.ssh/id_ed25519_personal";
     WAKATIME_API_KEY_FILE = config.sops.secrets."keys/wakatime".path;
