@@ -407,6 +407,6 @@
   home.file.".vscode/argv.json".text = builtins.toJSON {
     disable-hardware-acceleration = true;
     enable-crash-reporter = false;
-    locale = "ja";
+    # locale = "ja";
   };
 }
