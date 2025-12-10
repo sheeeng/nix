@@ -137,6 +137,7 @@
       # keep-sorted start block=no newline_separated=no sticky_comments=no
       _1password-cli # https://search.nixos.org/packages?channel=unstable&type=packages&show=1password-cli
       age # https://search.nixos.org/packages?channel=unstable&type=packages&show=age
+      age-plugin-1p # https://search.nixos.org/packages?channel=unstable&type=packages&show=age-plugin-1p
       age-plugin-yubikey # https://search.nixos.org/packages?channel=unstable&type=packages&show=age-plugin-yubikey
       pass # https://search.nixos.org/packages?channel=unstable&type=packages&show=pass
       pass-git-helper # https://search.nixos.org/packages?channel=unstable&type=packages&show=pass-git-helper
