@@ -11,10 +11,7 @@
 
     # 500 (mkBefore): Early initialization (replaces initExtraFirst)
     # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.initContent
-    # https://github.com/Vinzent03/obsidian-git/issues/959#issuecomment-3458757190
-    (lib.mkOrder 500 ''
-      export SSH_AUTH_SOCK="$HOME/.gnupg/S.gpg-agent.ssh"
-    '')
+    (lib.mkOrder 500 '''')
 
     # 550: Before completion initialization (replaces initExtraBeforeCompInit)
     # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.initContent
