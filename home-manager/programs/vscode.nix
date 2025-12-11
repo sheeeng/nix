@@ -391,6 +391,7 @@
           # Extensions settings.
           "direnv.restart.automatic" = true;
           # "gitlens.plusFeatures.enabled" = false; # TODO: Enable after https://github.com/NixOS/nixpkgs/issues/462082 is fixed upstream.
+          "geminicodeassist.displayInlineContextHint" = false;
           "geminicodeassist.project" = "cloud-nine-265718"; # "gen-lang-client-0457835357";
         }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.vscode.profiles._name_.userSettings
 
