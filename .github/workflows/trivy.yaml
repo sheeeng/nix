@@ -21,20 +21,20 @@ jobs:
     steps:
       - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
 
-      - name: Run Trivy security scan
+      - name: Scan
         uses: aquasecurity/trivy-action@b6643a29fecd7f34b3597bc6acb0a98b03d33ff8 # v0.33.1
         with:
           scan-type: "fs"
           scan-ref: "."
           trivy-config: trivy.yaml
 
-      - name: Upload Trivy results to GitHub Security
+      - name: Upload Results to GitHub Security
         uses: github/codeql-action/upload-sarif@cf1bb45a277cb3c205638b2cd5c984db1c46a412 # v4.31.7
         if: always()
         with:
           sarif_file: "trivy-results.sarif"
 
-      - name: Generate summary report
+      - name: Generate Summary Report
         uses: aquasecurity/trivy-action@b6643a29fecd7f34b3597bc6acb0a98b03d33ff8 # v0.33.1
         with:
           scan-type: "fs"
