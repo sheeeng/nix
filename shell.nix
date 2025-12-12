@@ -6,8 +6,8 @@
 }:
 
 {
-  pre-commit = pkgs.mkShell {
-    name = "pre-commit-shell";
+  standard-shell = pkgs.mkShell {
+    name = "standard-shell";
 
     # # if you set use-xdg-base-directories = true in your /etc/nix/nix.conf,
     # # all the "classic" Nix tools (nix-env, nix-channel, ...)
@@ -17,48 +17,56 @@
     # # https://github.com/NixOS/nix/issues/1079#issuecomment-1632043144
     # NIX_CONFIG = "use-xdg-base-directories = true\nextra-experimental-features = nix-command flakes";
 
-    nativeBuildInputs = with pkgs; [
+    nativeBuildInputs =
+      (with pkgs; [
 
-      deadnix
-      nix
-      nix-inspect
-      nix-output-monitor
-      nixfmt-rfc-style
-      statix
+        deadnix # https://search.nixos.org/packages?channel=unstable&type=packages&show=deadnix
+        nix # https://search.nixos.org/packages?channel=unstable&type=packages&show=nix
+        nix-inspect # https://search.nixos.org/packages?channel=unstable&type=packages&show=nix-inspect
+        nix-output-monitor # https://search.nixos.org/packages?channel=unstable&type=packages&show=nix-output-monitor
+        nixfmt-rfc-style # https://search.nixos.org/packages?channel=unstable&type=packages&show=nixfmt-rfc-style
+        statix # https://search.nixos.org/packages?channel=unstable&type=packages&show=statix
 
-      gnupg
-      openssh
-      vim
-      sops
-      ssh-to-age
-      age-plugin-fido2-hmac
-      age-plugin-yubikey
-      age-plugin-tpm
-      age-plugin-ledger
+        gnupg # https://search.nixos.org/packages?channel=unstable&type=packages&show=gnupg
+        openssh # https://search.nixos.org/packages?channel=unstable&type=packages&show=openssh
+        vim # https://search.nixos.org/packages?channel=unstable&type=packages&show=vim
+        sops # https://search.nixos.org/packages?channel=unstable&type=packages&show=sops
+        ssh-to-age # https://search.nixos.org/packages?channel=unstable&type=packages&show=ssh-to-age
+        age-plugin-fido2-hmac # https://search.nixos.org/packages?channel=unstable&type=packages&show=age-plugin-fido2-hmac
+        age-plugin-yubikey # https://search.nixos.org/packages?channel=unstable&type=packages&show=age-plugin-yubikey
+        age-plugin-tpm # https://search.nixos.org/packages?channel=unstable&type=packages&show=age-plugin-tpm
+        age-plugin-ledger # https://search.nixos.org/packages?channel=unstable&type=packages&show=age-plugin-ledger
 
-      gitFull # https://search.nixos.org/packages?channel=unstable&type=packages&show=gitFull
-      git-extras # https://search.nixos.org/packages?channel=unstable&type=packages&show=git-extras
-      tig # https://search.nixos.org/packages?channel=unstable&type=packages&show=tig
-      just # https://search.nixos.org/packages?channel=unstable&type=packages&show=just
-      git-credential-oauth # https://search.nixos.org/packages?channel=unstable&type=packages&show=git-credential-oauth
-      git-crypt # https://search.nixos.org/packages?channel=unstable&type=packages&show=git-crypt
+        gitFull # https://search.nixos.org/packages?channel=unstable&type=packages&show=gitFull
+        git-extras # https://search.nixos.org/packages?channel=unstable&type=packages&show=git-extras
+        tig # https://search.nixos.org/packages?channel=unstable&type=packages&show=tig
+        just # https://search.nixos.org/packages?channel=unstable&type=packages&show=just
+        git-credential-oauth # https://search.nixos.org/packages?channel=unstable&type=packages&show=git-credential-oauth
+        git-crypt # https://search.nixos.org/packages?channel=unstable&type=packages&show=git-crypt
 
-      pre-commit # https://search.nixos.org/packages?channel=unstable&type=packages&show=pre-commit
-      pre-commit-hook-ensure-sops # https://search.nixos.org/packages?channel=unstable&type=packages&show=pre-commit-hook-ensure-sops
+        pre-commit # https://search.nixos.org/packages?channel=unstable&type=packages&show=pre-commit
+        pre-commit-hook-ensure-sops # https://search.nixos.org/packages?channel=unstable&type=packages&show=pre-commit-hook-ensure-sops
 
-      cabal-install # https://search.nixos.org/packages?channel=unstable&type=packages&show=cabal-install
-      ghc # https://search.nixos.org/packages?channel=unstable&type=packages&show=ghc
-    ];
+        cabal-install # https://search.nixos.org/packages?channel=unstable&type=packages&show=cabal-install
+        ghc # https://search.nixos.org/packages?channel=unstable&type=packages&show=ghc
+      ])
+      ++ [
+        (pkgs.python313.withPackages (
+          ps: with ps; [
+            ruamel-yaml # https://search.nixos.org/packages?channel=unstable&type=packages&show=python313Packages.ruamel-yaml
+          ]
+        ))
+      ];
 
     shellHook = ''
       echo ""
-      echo "🚀 pre-commit shell loaded!"
+      echo "🚀 Shell loaded!"
       echo ""
       export EDITOR=vim
     '';
   };
 
-  minimal = pkgs.mkShell {
+  minimal-shell = pkgs.mkShell {
     name = "minimal-shell";
 
     buildInputs = with pkgs; [
@@ -78,7 +86,7 @@
       export PATH="${pkgs.uutils-coreutils-noprefix}/bin:$PATH"
 
       echo ""
-      echo "🚀 minimal shell loaded!"
+      echo "🚀 Shell loaded!"
       echo ""
 
       # Set up environment variables if we're in GitHub Actions.
