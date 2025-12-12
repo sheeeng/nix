@@ -172,6 +172,7 @@
       # sct # https://search.nixos.org/packages?channel=unstable&type=packages&show=sct
       # uuid7 # TODO: https://github.com/stevesimmons/uuid7 # https://search.nixos.org/packages?channel=unstable&type=packages&show=uuid7
       # ws # TODO: https://github.com/lewoudar/ws/ # https://search.nixos.org/packages?channel=unstable&type=packages&show=ws
+      azure-cli # https://search.nixos.org/packages?channel=unstable&type=packages&show=azure-cli
       barcode # https://search.nixos.org/packages?channel=unstable&type=packages&show=barcode
       bc # https://search.nixos.org/packages?channel=unstable&type=packages&show=bc
       bitwise # https://search.nixos.org/packages?channel=unstable&type=packages&show=bitwise
