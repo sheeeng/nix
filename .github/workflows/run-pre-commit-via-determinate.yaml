@@ -42,7 +42,7 @@ jobs:
           "
 
       - name: Install Pre-Commit
-        timeout-minutes: 5 # Nix store should already be built and cached. But, install hooks from external sources may take time.
+        timeout-minutes: 15 # Nix store should already be built and cached. But, install hooks from external sources may take time.
         run: |
           nix develop --command bash -c "
             echo 'Installing pre-commit hooks...'
