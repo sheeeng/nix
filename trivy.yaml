@@ -1,0 +1,46 @@
+# Trivy configuration file.
+# Scans for vulnerabilities, secrets, misconfigurations, and license issues.
+
+severity:
+  - CRITICAL
+  - HIGH
+  - MEDIUM
+
+# Enable multiple scanners.
+scanners:
+  - vuln
+  - secret
+  - misconfig
+  - license
+
+# Vulnerability settings.
+vulnerability:
+  type:
+    - os
+    - library
+
+# Ignore unfixed vulnerabilities to reduce noise.
+ignore-unfixed: true
+
+# Secret scanning configuration.
+secret:
+  skip-dirs:
+    - .git
+
+# Misconfiguration settings.
+misconfig:
+  include-non-failures: false
+  # Scan Terraform, Kubernetes, Dockerfiles, etc.
+  helm-values:
+  terraform-vars:
+
+# Output settings.
+format: sarif
+output: trivy-results.sarif
+
+# Cache settings.
+cache:
+  backend: fs
+
+# Timeout for the scan.
+timeout: 10m
