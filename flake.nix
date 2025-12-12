@@ -328,9 +328,9 @@
           shells = import ./shell.nix { inherit pkgs; };
         in
         {
-          default = shells.pre-commit;
-          inherit (shells) pre-commit;
-          inherit (shells) minimal;
+          default = shells.standard-shell;
+          inherit (shells) minimal-shell;
+          inherit (shells) standard-shell;
         }
       );
 
