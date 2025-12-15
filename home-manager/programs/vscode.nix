@@ -359,6 +359,16 @@
           };
           "terminal.integrated.shellIntegration.enabled" = false;
           "terminal.integrated.smoothScrolling" = true;
+          # Terminal IntelliSense settings. https://code.visualstudio.com/docs/terminal/shell-integration#_intellisense
+          "terminal.integrated.suggest.enabled" = true;
+          "terminal.integrated.suggest.quickSuggestions" = true;
+          "terminal.integrated.suggest.suggestOnTriggerCharacters" = true;
+          "terminal.integrated.suggest.runOnEnter" = false;
+          "terminal.integrated.suggest.showStatusBar" = true;
+          "terminal.integrated.suggest.inlineSuggestion" = "on";
+          "terminal.integrated.suggest.selectionMode" = "list";
+          "terminal.integrated.suggest.insertTrailingSpace" = true;
+          "terminal.integrated.suggest.upArrowNavigatesHistory" = false;
           "window.autoDetectColorScheme" = true;
           # error: hash mismatch in fixed-output derivation '/nix/store/k11s2vdibpp3xj2dhrbfl3c1lw0nq6gx-vscode-extension-catppuccin-vscode-pnpm-deps.drv':
           #   specified: sha256-ksxzTirYEzgaQOJ+43K6SUAD/UA1b3Mtyc3HDGtMXeM=
