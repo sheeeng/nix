@@ -25,7 +25,6 @@ in
   home.packages = with pkgs; [
     # keep-sorted start
     codeberg-cli # https://search.nixos.org/packages?channel=unstable&type=packages&show=codeberg-cli
-    fjo # https://search.nixos.org/packages?channel=unstable&type=packages&show=fjo
     gh # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh
     gh-f # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-f
     gh-i # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-i
