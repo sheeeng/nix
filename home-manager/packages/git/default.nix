@@ -24,12 +24,21 @@ in
   # https://github.com/uesyn/dotfiles/blob/a28964187ab74b880f2e8ae561359451e9a05e29/home-manager/git/default.nix#L14
   home.packages = with pkgs; [
     # keep-sorted start
+    codeberg-cli # https://search.nixos.org/packages?channel=unstable&type=packages&show=codeberg-cli
+    fjo # https://search.nixos.org/packages?channel=unstable&type=packages&show=fjo
+    gh # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh
+    gh-f # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-f
+    gh-i # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-i
+    gh-s # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-s
     ghq # https://search.nixos.org/packages?channel=unstable&type=packages&show=ghq
     git-credential-oauth-wrapper # https://search.nixos.org/packages?channel=unstable&type=packages&show=git-credential-oauth
     git-filter-repo # https://search.nixos.org/packages?channel=unstable&type=packages&show=git-filter-repo
     git-lfs # https://search.nixos.org/packages?channel=unstable&type=packages&show=git-lfs
     gitleaks # https://search.nixos.org/packages?channel=unstable&type=packages&show=gitleaks
+    glab # https://search.nixos.org/packages?channel=unstable&type=packages&show=glab
+    hut # https://search.nixos.org/packages?channel=unstable&type=packages&show=hut
     pre-commit # https://search.nixos.org/packages?channel=unstable&type=packages&show=pre-commit
+    tea # https://search.nixos.org/packages?channel=unstable&type=packages&show=tea
     # keep-sorted end
   ];
 
