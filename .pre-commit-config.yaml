@@ -95,7 +95,7 @@ repos:
 
   # keep-sorted start
   - repo: https://github.com/charliermarsh/ruff-pre-commit
-    rev: v0.14.5
+    rev: v0.14.9
     hooks:
       - id: ruff
         name: ruff
@@ -112,7 +112,7 @@ repos:
         stages: [commit-msg]
         args: [--strict]
   - repo: https://github.com/gitleaks/gitleaks
-    rev: v8.29.1
+    rev: v8.30.0
     hooks:
       - id: gitleaks
         name: gitleaks
@@ -133,7 +133,7 @@ repos:
         name: yamlfmt
         args: [--formatter, retain_line_breaks_single=true]
   - repo: https://github.com/igorshubovych/markdownlint-cli
-    rev: v0.46.0
+    rev: v0.47.0
     hooks:
       - id: markdownlint
         name: markdownlint
@@ -144,18 +144,20 @@ repos:
       - id: nixfmt
         name: nixfmt
         files: \.nix$
+        language: system
+        entry: nixfmt
   - repo: https://github.com/psf/black
-    rev: 25.11.0
+    rev: 25.12.0
     hooks:
       - id: black
         name: black
   - repo: https://github.com/renovatebot/pre-commit-hooks
-    rev: 42.17.1
+    rev: 42.52.8
     hooks:
       - id: renovate-config-validator
         args: [--strict]
   - repo: https://github.com/rhysd/actionlint
-    rev: v1.7.8
+    rev: v1.7.9
     hooks:
       - id: actionlint
         name: actionlint
