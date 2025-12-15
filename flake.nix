@@ -200,6 +200,8 @@
       flake = false;
     };
 
+    _1password-shell-plugins.url = "github:1password/shell-plugins";
+
     nix-systems.url = "github:nix-systems/default"; # https://github.com/nix-systems/nix-systems
 
     nix-secrets = {
