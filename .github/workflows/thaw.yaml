@@ -9,6 +9,6 @@ jobs:
     steps:
       - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
         with:
-          persist-credentials: false
+          persist-credentials: true
       - uses: determinatesystems/nix-installer-action@c5a866b6ab867e88becbed4467b93592bce69f8a # v21
       - uses: snowfallorg/thaw-action@029cdf961be5c3a39e4aa7dd5ea13ca00a904ae7 # v1.0.7
