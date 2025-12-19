@@ -11,4 +11,4 @@ jobs:
         with:
           persist-credentials: true
       - uses: determinatesystems/nix-installer-action@c5a866b6ab867e88becbed4467b93592bce69f8a # v21
-      - uses: snowfallorg/thaw-action@029cdf961be5c3a39e4aa7dd5ea13ca00a904ae7 # v1.0.7
+      - uses: snowfallorg/thaw-action@b45b391aeaba32f50e8bd29fa1abea7133270eb3
