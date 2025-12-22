@@ -91,6 +91,26 @@
       # (lib.hiPrio go-task) # TODO: Collision error with `taskwarrior-3` package. # https://search.nixos.org/packages?channel=unstable&type=packages&show=go-task
       # (lib.hiPrio parallel) # TODO: https://haseebmajid.dev/posts/2023-10-02-til-how-to-fix-package-binary-collisions-on-nix/ # https://search.nixos.org/packages?channel=unstable&type=packages&show=parallel
       # devenv # https://search.nixos.org/packages?channel=unstable&type=packages&show=devenv
+      # gh # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh
+      # gh-actions-cache # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-actions-cache
+      # gh-cal # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-cal
+      # gh-classroom # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-classroom
+      # gh-contribs # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-contribs
+      # gh-copilot # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-copilot
+      # gh-dash # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-dash
+      # gh-eco # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-eco
+      # gh-f # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-f
+      # gh-gei # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-gei
+      # gh-i # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-i
+      # gh-markdown-preview # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-markdown-preview
+      # gh-notify # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-notify
+      # gh-ost # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-ost
+      # gh-poi # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-poi
+      # gh-s # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-s
+      # gh-screensaver # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-screensaver
+      # gh-signoff # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-signoff
+      # gh-skyline # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-skyline
+      # gh-webhook # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-webhook
       # kubelogin # https://search.nixos.org/packages?channel=unstable&type=packages&show=kubelogin
       # nixfmt-tree # https://search.nixos.org/packages?channel=unstable&type=packages&show=nixfmt-tree
       # taskctl # TODO: https://github.com/taskctl/taskctl # https://search.nixos.org/packages?channel=unstable&type=packages&show=taskctl
@@ -106,7 +126,6 @@
       conform # https://search.nixos.org/packages?channel=unstable&type=packages&show=conform
       delta # https://search.nixos.org/packages?channel=unstable&type=packages&show=delta
       dependabot-cli # https://search.nixos.org/packages?channel=unstable&type=packages&show=dependabot-cli
-      gh # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh
       hadolint # https://search.nixos.org/packages?channel=unstable&type=packages&show=hadolint
       just # https://search.nixos.org/packages?channel=unstable&type=packages&show=just
       just-lsp # https://search.nixos.org/packages?channel=unstable&type=packages&show=just-lsp
