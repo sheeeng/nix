@@ -44,6 +44,7 @@
       gmic # https://search.nixos.org/packages?channel=unstable&type=packages&show=gmic
       imagemagick # https://search.nixos.org/packages?channel=unstable&type=packages&show=imagemagick
       inkscape-with-extensions # https://search.nixos.org/packages?channel=unstable&type=packages&show=inkscape-with-extensions
+      libwebp # https://search.nixos.org/packages?channel=unstable&type=packages&show=libwebp
       # keep-sorted end
 
       # Network
