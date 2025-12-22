@@ -443,46 +443,51 @@ in
         # keep-sorted end
       ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.gh.extensions
       gitCredentialHelper = {
-        enable = false; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.gh.gitCredentialHelper.enable
+        enable = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.gh.gitCredentialHelper.enable
         hosts = [
           "https://github.com"
           "https://gist.github.com"
         ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.gh.gitCredentialHelper.hosts
       };
+      hosts = { }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.gh.hosts
       settings = {
-        # https://cli.github.com/manual/gh_config
-        # keep-sorted start block=yes newline_separated=no sticky_comments=yes
-        aliases = {
-          # https://github.com/kpritam/nixpkgs/blob/dbc2a1538b2c6dfd1d11fb97c08203643c723ff0/home/gh-aliases.nix
-          icl = "issue close";
-          icr = "issue create";
-          il = "issue list";
-          ire = "issue reopen";
-          iv = "issue view";
-          ivw = "issue view --web";
-          pck = "pr checks";
-          pcl = "pr close";
-          pco = "pr checkout";
-          pcr = "pr create";
-          pd = "pr diff";
-          pl = "pr list";
-          pm = "pr merge";
-          pre = "pr reopen";
-          pv = "pr view";
-          pvw = "pr view --web";
-          rcl = "repo clone";
-          rcr = "repo create";
-          rfk = "repo fork --clone --remote";
-          rv = "repo view";
-          rvw = "repo view --web";
-        }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.gh.settings.aliases
         editor = ""; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.gh.settings.editor
         git_protocol = "ssh"; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.gh.settings.git_protocol
-        pager = "cat";
-        prompt = "enabled";
-        spinner = "enabled";
-        # keep-sorted end
       }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.gh.settings
+      # settings = {
+      #   # https://cli.github.com/manual/gh_config
+      #   # keep-sorted start block=yes newline_separated=no sticky_comments=yes
+      #   aliases = {
+      #     # https://github.com/kpritam/nixpkgs/blob/dbc2a1538b2c6dfd1d11fb97c08203643c723ff0/home/gh-aliases.nix
+      #     icl = "issue close";
+      #     icr = "issue create";
+      #     il = "issue list";
+      #     ire = "issue reopen";
+      #     iv = "issue view";
+      #     ivw = "issue view --web";
+      #     pck = "pr checks";
+      #     pcl = "pr close";
+      #     pco = "pr checkout";
+      #     pcr = "pr create";
+      #     pd = "pr diff";
+      #     pl = "pr list";
+      #     pm = "pr merge";
+      #     pre = "pr reopen";
+      #     pv = "pr view";
+      #     pvw = "pr view --web";
+      #     rcl = "repo clone";
+      #     rcr = "repo create";
+      #     rfk = "repo fork --clone --remote";
+      #     rv = "repo view";
+      #     rvw = "repo view --web";
+      #   }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.gh.settings.aliases
+      #   editor = ""; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.gh.settings.editor
+      #   git_protocol = "ssh"; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.gh.settings.git_protocol
+      #   pager = "cat";
+      #   prompt = "enabled";
+      #   spinner = "enabled";
+      #   # keep-sorted end
+      # }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.gh.settings
     };
   };
 }
