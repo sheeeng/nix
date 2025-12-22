@@ -419,20 +419,28 @@ in
     gh = {
       enable = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.gh.enable
       package = pkgs.gh; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.gh.package
-      extensions = [
-        pkgs.gh-actions-cache
-        pkgs.gh-cal
-        pkgs.gh-contribs
-        pkgs.gh-copilot
-        pkgs.gh-dash
-        pkgs.gh-eco
-        pkgs.gh-f
-        pkgs.gh-i
-        pkgs.gh-markdown-preview
-        pkgs.gh-notify
-        pkgs.gh-poi
-        pkgs.gh-s
-        pkgs.gh-screensaver
+      extensions = with pkgs; [
+        # keep-sorted start
+        gh-actions-cache # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-actions-cache
+        gh-cal # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-cal
+        gh-classroom # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-classroom
+        gh-contribs # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-contribs
+        gh-copilot # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-copilot
+        gh-dash # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-dash
+        gh-eco # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-eco
+        gh-f # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-f
+        gh-gei # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-gei
+        gh-i # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-i
+        gh-markdown-preview # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-markdown-preview
+        gh-notify # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-notify
+        gh-ost # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-ost
+        gh-poi # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-poi
+        gh-s # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-s
+        gh-screensaver # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-screensaver
+        gh-signoff # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-signoff
+        gh-skyline # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-skyline
+        gh-webhook # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-webhook
+        # keep-sorted end
       ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.gh.extensions
       gitCredentialHelper = {
         enable = false; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.gh.gitCredentialHelper.enable
@@ -442,8 +450,10 @@ in
         ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.gh.gitCredentialHelper.hosts
       };
       settings = {
+        # https://cli.github.com/manual/gh_config
+        # keep-sorted start block=yes newline_separated=no sticky_comments=yes
         aliases = {
-          # # https://github.com/kpritam/nixpkgs/blob/dbc2a1538b2c6dfd1d11fb97c08203643c723ff0/home/gh-aliases.nix
+          # https://github.com/kpritam/nixpkgs/blob/dbc2a1538b2c6dfd1d11fb97c08203643c723ff0/home/gh-aliases.nix
           icl = "issue close";
           icr = "issue create";
           il = "issue list";
@@ -466,9 +476,12 @@ in
           rv = "repo view";
           rvw = "repo view --web";
         }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.gh.settings.aliases
-        # editor = "${pkgs.neovim}/bin/nvim"; # TODO: Conflicting error. Use `lib.mkForce value` or `lib.mkDefault value` to change the priority on any of these definitions. # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.gh.settings.editor
+        editor = ""; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.gh.settings.editor
         git_protocol = "ssh"; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.gh.settings.git_protocol
+        pager = "cat";
         prompt = "enabled";
+        spinner = "enabled";
+        # keep-sorted end
       }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.gh.settings
     };
   };
