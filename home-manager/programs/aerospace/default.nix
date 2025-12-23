@@ -37,7 +37,7 @@
       on-focused-monitor-changed = [ "move-mouse monitor-lazy-center" ];
       on-window-detected = [ ];
       start-at-login = false;
-      workspace-to-monitor-force-assignment = null;
+      workspace-to-monitor-force-assignment = { };
     }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.aerospace.settings
   };
 }
