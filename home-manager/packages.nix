@@ -144,7 +144,6 @@
       nixos-option # https://search.nixos.org/packages?channel=unstable&type=packages&show=nixos-option
       pre-commit # https://search.nixos.org/packages?channel=unstable&type=packages&show=pre-commit
       shfmt # https://search.nixos.org/packages?channel=unstable&type=packages&show=shfmt
-      terraform # https://search.nixos.org/packages?channel=unstable&type=packages&show=terraform
       texlab # https://search.nixos.org/packages?channel=unstable&type=packages&show=texlab
       tflint # https://search.nixos.org/packages?channel=unstable&type=packages&show=tflint
       tfsort # https://search.nixos.org/packages?channel=unstable&type=packages&show=tfsort
@@ -268,6 +267,11 @@
       supercollider-with-plugins # TODO: Missing "aarch64-apple-darwin" platform. # https://search.nixos.org/packages?channel=unstable&type=packages&show=supercollider-with-plugins
       # keep-sorted end
 
+      # Development
+      # keep-sorted start block=no newline_separated=no sticky_comments=no
+      terraform # https://search.nixos.org/packages?channel=unstable&type=packages&show=terraform
+      # keep-sorted end
+
       # Graphics
       # keep-sorted start block=no newline_separated=no sticky_comments=no
       aseprite # TODO: Missing "aarch64-apple-darwin" platform. # https://search.nixos.org/packages?channel=unstable&type=packages&show=aseprite
@@ -295,6 +299,7 @@
       # keep-sorted start block=no newline_separated=no sticky_comments=no
       podman # https://search.nixos.org/packages?channel=unstable&type=packages&show=podman
       podman-compose # https://search.nixos.org/packages?channel=unstable&type=packages&show=podman-compose
+      terraform # https://search.nixos.org/packages?channel=unstable&type=packages&show=terraform
       # keep-sorted end
     ]);
 }
