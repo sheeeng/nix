@@ -1,8 +1,6 @@
 name: Run Pre-Commit via Determinate
 
-permissions:
-  actions: write
-  contents: read
+permissions: {}
 
 on:
   pull_request:
@@ -20,6 +18,9 @@ jobs:
     name: Run Pre-Commit
     timeout-minutes: 20
     runs-on: ubuntu-latest
+    permissions:
+      actions: write
+      contents: read
     steps:
       - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
         with:
