@@ -1,4 +1,111 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
+let
+  # Extensions that require LLVM/compiler-rt (disabled on Intel macOS due to build issues)
+  # > ninja: build stopped: subcommand failed.
+  #        For full logs, run:
+  #          nix log /nix/store/gj40yabysxzjap3fgkw4lq0z0qyi28v5-compiler-rt-libc-20.1.8.drv
+  # apple-macos != x86_64-apple-darwin argument to a nix-wrapped compiler may not work correctly - cc-wrapper is currently not designed with multi-target compilers in mind. You may want to use an un-wrapped compiler instead.
+  #        > ld: warning: changing Mac Catalyst minOS version from 13.1 to 17.0
+  #        > ld: -sdk_version may not be used for zippered binaries
+  #        > clang++: error: linker command failed with exit code 1 (use -v to see invocation)
+  #        > [746/797] Building CXX object lib/tsan/rtl/CMakeFiles/RTTsan_dynamic.osx.dir/tsan_ignoreset.cpp.o
+  #        > Warning: supplying the --target x86_64-apple-macos != x86_64-apple-darwin argument to a nix-wrapped compiler may not work correctly - cc-wrapper is currently not designed with multi-target compilers in mind. You may want to use an un-wrapped compiler instead.
+  #        > [747/797] Building CXX object lib/tsan/rtl/CMakeFiles/RTTsan_dynamic.osx.dir/tsan_external.cpp.o
+  #        > Warning: supplying the --target x86_64-apple-macos != x86_64-apple-darwin argument to a nix-wrapped compiler may not work correctly - cc-wrapper is currently not designed with multi-target compilers in mind. You may want to use an un-wrapped compiler instead.
+  #        > [748/797] Building CXX object lib/tsan/rtl/CMakeFiles/RTTsan_dynamic.osx.dir/tsan_debugging.cpp.o
+  #        > Warning: supplying the --target x86_64-apple-macos != x86_64-apple-darwin argument to a nix-wrapped compiler may not work correctly - cc-wrapper is currently not designed with multi-target compilers in mind. You may want to use an un-wrapped compiler instead.
+  #        > [749/797] Building CXX object lib/tsan/rtl/CMakeFiles/RTTsan_dynamic.osx.dir/tsan_flags.cpp.o
+  #        > Warning: supplying the --target x86_64-apple-macos != x86_64-apple-darwin argument to a nix-wrapped compiler may not work correctly - cc-wrapper is currently not designed with multi-target compilers in mind. You may want to use an un-wrapped compiler instead.
+  #        > [750/797] Building CXX object lib/tsan/rtl/CMakeFiles/RTTsan_dynamic.osx.dir/tsan_interface.cpp.o
+  #        > Warning: supplying the --target x86_64-apple-macos != x86_64-apple-darwin argument to a nix-wrapped compiler may not work correctly - cc-wrapper is currently not designed with multi-target compilers in mind. You may want to use an un-wrapped compiler instead.
+  #        > [751/797] Building CXX object lib/tsan/rtl/CMakeFiles/RTTsan_dynamic.osx.dir/tsan_fd.cpp.o
+  #        > Warning: supplying the --target x86_64-apple-macos != x86_64-apple-darwin argument to a nix-wrapped compiler may not work correctly - cc-wrapper is currently not designed with multi-target compilers in mind. You may want to use an un-wrapped compiler instead.
+  #        > [752/797] Building CXX object lib/tsan/rtl/CMakeFiles/RTTsan_dynamic.osx.dir/tsan_interceptors_memintrinsics.cpp.o
+  #        > Warning: supplying the --target x86_64-apple-macos != x86_64-apple-darwin argument to a nix-wrapped compiler may not work correctly - cc-wrapper is currently not designed with multi-target compilers in mind. You may want to use an un-wrapped compiler instead.
+  #        > [753/797] Building CXX object lib/orc/CMakeFiles/RTOrc.osx.dir/macho_platform.cpp.o
+  #        > Warning: supplying the --target x86_64-apple-macos != x86_64-apple-darwin argument to a nix-wrapped compiler may not work correctly - cc-wrapper is currently not designed with multi-target compilers in mind. You may want to use an un-wrapped compiler instead.
+  #        > [754/797] Building CXX object lib/tsan/rtl/CMakeFiles/RTTsan_dynamic.osx.dir/tsan_interceptors_posix.cpp.o
+  #        > Warning: supplying the --target x86_64-apple-macos != x86_64-apple-darwin argument to a nix-wrapped compiler may not work correctly - cc-wrapper is currently not designed with multi-target compilers in mind. You may want to use an un-wrapped compiler instead.
+  #        > ninja: build stopped: subcommand failed.
+  #        For full logs, run:
+  #          nix log /nix/store/gj40yabysxzjap3fgkw4lq0z0qyi28v5-compiler-rt-libc-20.1.8.drv
+  # error: Cannot build '/nix/store/kky8b9s3xayvm13g5hgmr2h7ns2ywn8c-clang-wrapper-20.1.8.drv'.
+  #        Reason: 1 dependency failed.
+  #        Output paths:
+  #          /nix/store/gn0p7flixqbx788pa3xyp1yzkw0sxrm0-clang-wrapper-20.1.8
+  # error: Cannot build '/nix/store/kky8b9s3xayvm13g5hgmr2h7ns2ywn8c-clang-wrapper-20.1.8.drv'.
+  #        Reason: 1 dependency failed.
+  #        Output paths:
+  #          /nix/store/gn0p7flixqbx788pa3xyp1yzkw0sxrm0-clang-wrapper-20.1.8
+  # error: Cannot build '/nix/store/0alc7b1k24y097889mv7v299aa86497c-rust-analyzer-0.3.2593.vsix.drv'.
+  #        Reason: 1 dependency failed.
+  #        Output paths:
+  #          /nix/store/9kj3dg4w4423634wdb2d9kxjyfq9npcg-rust-analyzer-0.3.2593.vsix
+  # error: Cannot build '/nix/store/0alc7b1k24y097889mv7v299aa86497c-rust-analyzer-0.3.2593.vsix.drv'.
+  #        Reason: 1 dependency failed.
+  #        Output paths:
+  #          /nix/store/9kj3dg4w4423634wdb2d9kxjyfq9npcg-rust-analyzer-0.3.2593.vsix
+  # error: Cannot build '/nix/store/67fbaik9s517cg5sd59bl9zv5fg0g52i-vscode-extension-gemini-cli-vscode-ide-companion-0.22.5.vsix.drv'.
+  #        Reason: 1 dependency failed.
+  #        Output paths:
+  #          /nix/store/a4m0jgqbxmm9wvi7kiga48lxphaijmxv-vscode-extension-gemini-cli-vscode-ide-companion-0.22.5.vsix
+  # error: Cannot build '/nix/store/67fbaik9s517cg5sd59bl9zv5fg0g52i-vscode-extension-gemini-cli-vscode-ide-companion-0.22.5.vsix.drv'.
+  #        Reason: 1 dependency failed.
+  #        Output paths:
+  #          /nix/store/a4m0jgqbxmm9wvi7kiga48lxphaijmxv-vscode-extension-gemini-cli-vscode-ide-companion-0.22.5.vsix
+  # error: Cannot build '/nix/store/hwhzy08fda7ph57m6yp11wfnp3jg2y6f-vscode-extension-gemini-cli-vscode-ide-companion-0.22.5.drv'.
+  #        Reason: 1 dependency failed.
+  #        Output paths:
+  #          /nix/store/yd47ixndavcsyz7x7m876k58fjcv70zm-vscode-extension-gemini-cli-vscode-ide-companion-0.22.5
+  # error: Cannot build '/nix/store/hwhzy08fda7ph57m6yp11wfnp3jg2y6f-vscode-extension-gemini-cli-vscode-ide-companion-0.22.5.drv'.
+  #        Reason: 1 dependency failed.
+  #        Output paths:
+  #          /nix/store/yd47ixndavcsyz7x7m876k58fjcv70zm-vscode-extension-gemini-cli-vscode-ide-companion-0.22.5
+  # error: Cannot build '/nix/store/sw90qyp6hprwxcap4diq7nlmi1w08cc9-hm_.vscodeextensions.extensionsimmutable.json.drv'.
+  #        Reason: 1 dependency failed.
+  #        Output paths:
+  #          /nix/store/bhj0fl9ayc71fj600q98fgn1jiicij2a-hm_.vscodeextensions.extensionsimmutable.json
+  # error: Cannot build '/nix/store/sw90qyp6hprwxcap4diq7nlmi1w08cc9-hm_.vscodeextensions.extensionsimmutable.json.drv'.
+  #        Reason: 1 dependency failed.
+  #        Output paths:
+  #          /nix/store/bhj0fl9ayc71fj600q98fgn1jiicij2a-hm_.vscodeextensions.extensionsimmutable.json
+  # error: Cannot build '/nix/store/jik5vnjxmpbzr8y8n5fhr6vr53r7xjrc-home-manager-files.drv'.
+  #        Reason: 1 dependency failed.
+  #        Output paths:
+  #          /nix/store/hkcy9fsywkz7lgxifw5b4pjylmfkp458-home-manager-files
+  # error: Cannot build '/nix/store/jik5vnjxmpbzr8y8n5fhr6vr53r7xjrc-home-manager-files.drv'.
+  #        Reason: 1 dependency failed.
+  #        Output paths:
+  #          /nix/store/hkcy9fsywkz7lgxifw5b4pjylmfkp458-home-manager-files
+  # error: Cannot build '/nix/store/gaspv0di2gbbb46qhv2l2b421j9gnygs-home-manager-generation.drv'.
+  #        Reason: 1 dependency failed.
+  #        Output paths:
+  #          /nix/store/n5i37r37wg0p1l5qj7xkshg7f1fzhckk-home-manager-generation
+  # error: Cannot build '/nix/store/gaspv0di2gbbb46qhv2l2b421j9gnygs-home-manager-generation.drv'.
+  #        Reason: 1 dependency failed.
+  #        Output paths:
+  #          /nix/store/n5i37r37wg0p1l5qj7xkshg7f1fzhckk-home-manager-generation
+  # error: Cannot build '/nix/store/ab08mvgxdmhpf5zyf884ahylcwmsm2kz-activation-lssl.drv'.
+  #        Reason: 1 dependency failed.
+  #        Output paths:
+  #          /nix/store/zfjavf96m92zmf3m4i3b64i2sdlrvpqp-activation-lssl
+  # error: Cannot build '/nix/store/ab08mvgxdmhpf5zyf884ahylcwmsm2kz-activation-lssl.drv'.
+  #        Reason: 1 dependency failed.
+  #        Output paths:
+  #          /nix/store/zfjavf96m92zmf3m4i3b64i2sdlrvpqp-activation-lssl
+  # error: Cannot build '/nix/store/m6bp11ypg5v3avpyzm72af9f8nkb3yhk-darwin-system-26.05.c31afa6.drv'.
+  #        Reason: 1 dependency failed.
+  #        Output paths:
+  #          /nix/store/z3010bcdflwfljji7phjagsrl0dfmadx-darwin-system-26.05.c31afa6
+  # error: Cannot build '/nix/store/m6bp11ypg5v3avpyzm72af9f8nkb3yhk-darwin-system-26.05.c31afa6.drv'.
+  #        Reason: 1 dependency failed.
+  #        Output paths:
+  #          /nix/store/z3010bcdflwfljji7phjagsrl0dfmadx-darwin-system-26.05.c31afa6
+  llvmDependentExtensions = with pkgs.vscode-extensions; [
+    Google.gemini-cli-vscode-ide-companion # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.Google.gemini-cli-vscode-ide-companion
+    rust-lang.rust-analyzer # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.rust-lang.rust-analyzer
+  ];
+in
 {
   programs.vscode = {
     enable = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.vscode.enable
@@ -58,7 +165,7 @@
             github.vscode-github-actions # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.github.vscode-github-actions
             github.vscode-pull-request-github # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.github.vscode-pull-request-github
             golang.go # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.golang.go
-            Google.gemini-cli-vscode-ide-companion # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.Google.gemini-cli-vscode-ide-companion
+            # Google.gemini-cli-vscode-ide-companion # Moved to llvmDependentExtensions (disabled on Intel macOS)
             grapecity.gc-excelviewer # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.grapecity.gc-excelviewer
             hashicorp.terraform # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.hashicorp.terraform
             haskell.haskell # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.haskell.haskell
@@ -92,7 +199,7 @@
             redhat.java
             redhat.vscode-xml
             redhat.vscode-yaml
-            rust-lang.rust-analyzer # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.rust-lang.rust-analyzer
+            # rust-lang.rust-analyzer # Moved to llvmDependentExtensions (disabled on Intel macOS)
             sdras.night-owl
             shardulm94.trailing-spaces
             shopify.ruby-lsp
@@ -114,6 +221,8 @@
             yzhang.markdown-all-in-one # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.yzhang.markdown-all-in-one
             # keep-sorted end
           ]
+          # Conditionally add LLVM-dependent extensions (not on Intel macOS)
+          ++ (lib.optionals (pkgs.stdenv.hostPlatform.system != "x86_64-darwin") llvmDependentExtensions)
           ++ [
             # isbecker.treefmt-vscode
             (
