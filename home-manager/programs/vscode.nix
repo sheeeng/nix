@@ -108,7 +108,10 @@ let
 in
 {
   programs.vscode = {
-    enable = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.vscode.enable
+    # FIXME: Temporarily disabled due to build failure in VSCode 1.107.1 on macOS.
+    # Error: mkdir: cannot create directory '/nix/store/.../Applications/Visual Studio Code.app': Operation not permitted
+    # Workaround: Install VSCode manually from https://code.visualstudio.com or via Homebrew.
+    enable = false; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.vscode.enable
     package = pkgs.vscode; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.vscode.package
 
     mutableExtensionsDir = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.vscode.mutableExtensionsDir
