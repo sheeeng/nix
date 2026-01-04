@@ -199,3 +199,28 @@ nix-shell --include nixpkgs=https://github.com/NixOS/nixpkgs/archive/nixos-unsta
 nix run nixpkgs#nix-info -- "--markdown"
 nix shell nixpkgs#nix-info --command nix-info --markdown
 ```
+
+```console
+TP95V9LWWL% nix-shell --include nixpkgs=channel:nixpkgs-unstable --packages nix --run "nix --version"
+
+TP95V9LWWL% nix-shell --include nixpkgs=https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz --packages nix-info --run "nix-info --markdown"
+
+TP95V9LWWL% # https://github.com/NixOS/nix/issues/7894#issuecomment-2367730519
+sudo unlink /etc/bashrc
+sudo unlink /etc/zshrc
+
+TP95V9LWWL% sudo darwin-rebuild switch --print-build-logs --flake ~/github/sheeeng/nix 2>&1 | nix --extra-experimental-features 'flakes nix-command' run nixpkgs#nix-output-monitor
+sudo: darwin-rebuild: command not found
+sudo nix run github:LnL7/nix-darwin -- switch --flake ~/github/sheeeng/nix --print-build-logs 2>&1 | nix run nixpkgs#nix-output-monitor
+
+
+TP95V9LWWL% sudo nix run github:lnl7/nix-darwin -- switch --flake ~/github/sheeeng/nix --print-build-logs 2>&1 | nix run nixpkgs#nix-output-monitor
+warning: $HOME ('/Users/leonardlee') is not owned by you, falling back to the one defined in the 'passwd' file ('/var/root')
+building the system configuration...
+The authenticity of host 'github.com (140.82.121.3)' can't be established.
+ED25519 key fingerprint is SHA256:+DiY3wvvV6TuJJhbpZisF/zLDA0zPMSvHdkr4UvCOqU.
+This key is not known by any other names.
+⏱ 16s
+Host key verification failed.
+TP95V9LWWL% sudo ssh -T git@github.com
+```
