@@ -141,6 +141,8 @@ in
 
             # keep-sorted start block=no case=no newline_separated=no sticky_comments=no
             # eamodio.gitlens # TODO: Enable after https://github.com/NixOS/nixpkgs/issues/462082 is fixed upstream.
+            # Google.gemini-cli-vscode-ide-companion # Moved to llvmDependentExtensions (disabled on Intel macOS)
+            # rust-lang.rust-analyzer # Moved to llvmDependentExtensions (disabled on Intel macOS)
             aaron-bond.better-comments # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.aaron-bond.better-comments
             adpyke.codesnap # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.adpyke.codesnap
             arrterian.nix-env-selector # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.arrterian.nix-env-selector
@@ -169,7 +171,6 @@ in
             github.vscode-github-actions # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.github.vscode-github-actions
             github.vscode-pull-request-github # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.github.vscode-pull-request-github
             golang.go # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.golang.go
-            # Google.gemini-cli-vscode-ide-companion # Moved to llvmDependentExtensions (disabled on Intel macOS)
             grapecity.gc-excelviewer # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.grapecity.gc-excelviewer
             hashicorp.terraform # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.hashicorp.terraform
             haskell.haskell # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.haskell.haskell
@@ -203,7 +204,6 @@ in
             redhat.java
             redhat.vscode-xml
             redhat.vscode-yaml
-            # rust-lang.rust-analyzer # Moved to llvmDependentExtensions (disabled on Intel macOS)
             sdras.night-owl
             shardulm94.trailing-spaces
             shopify.ruby-lsp
