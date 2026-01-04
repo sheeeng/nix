@@ -321,6 +321,34 @@ build-log: _check-non-root _check-nix
     just _darwin-rebuild "build" "" 2>&1 | tee "$LOGFILE"
     echo "✅ Build completed. Logs saved to: $LOGFILE"
 
+[doc('Build darwin configuration and show diff with nvd')]
+build-diff: _check-non-root _check-nix
+    #!/usr/bin/env bash
+    echo "🔨 Building darwin configuration..."
+    darwin-rebuild build --print-build-logs --flake '.#{{ HOSTNAME }}'
+
+    if [ -e /run/current-system ]; then
+      echo ""
+      echo "📊 Comparing package versions..."
+      nvd --nix-bin-dir="$(dirname "$(command -v nix)")" --color=always diff /run/current-system result
+    else
+      echo "⚠️  No current system found (initial installation?)"
+    fi
+
+[doc('Build darwin configuration and show diff with nvd (using nom)')]
+build-diff-nom: _check-non-root _check-nix
+    #!/usr/bin/env bash
+    echo "🔨 Building darwin configuration..."
+    darwin-rebuild build --print-build-logs --flake '.#{{ HOSTNAME }}' |& nom
+
+    if [ -e /run/current-system ]; then
+      echo ""
+      echo "📊 Comparing package versions..."
+      nvd --nix-bin-dir="$(dirname "$(command -v nix)")" --color=always diff /run/current-system result
+    else
+      echo "⚠️  No current system found (initial installation?)"
+    fi
+
 [doc('Check darwin-rebuild configuration')]
 check-darwin: _check-non-root
     #!/usr/bin/env bash
