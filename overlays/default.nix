@@ -14,4 +14,13 @@ inputs: {
       installCheckPhase = null;
     });
   };
+
+  # Workaround for VSCode "Operation not permitted" issue.
+  # https://github.com/NixOS/nixpkgs/issues/476838
+  # https://github.com/nix-darwin/nix-darwin/issues/1315#issuecomment-2629517646
+  fix-vscode-operation-not-permitted = _final: prev: {
+    vscode = prev.vscode.overrideAttrs (old: {
+      installPhase = "whoami\n" + old.installPhase;
+    });
+  };
 }
