@@ -29,16 +29,16 @@
 
     "zellij/plugins/zjstatus.wasm".source = pkgs.fetchurl {
       url = "https://github.com/dj95/zjstatus/releases/download/v0.21.1/zjstatus.wasm";
-      sha256 = "sha256-3BmCogjCf2aHHmmBFFj7savbFeKGYv3bE2tXXWVkrho=";
+      sha256 = "06mfcijmsmvb2gdzsql6w8axpaxizdc190b93s3nczy212i846fw";
     };
     "zellij/plugins/zellij_forgot.wasm".source = pkgs.fetchurl {
       url = "https://github.com/karimould/zellij-forgot/releases/download/0.4.2/zellij_forgot.wasm";
       # sha256 = lib.fakeSha256; # sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=
-      sha256 = "sha256-MRlBRVGdvcEoaFtFb5cDdDePoZ/J2nQvvkoyG6zkSds=";
+      sha256 = "1ns9wjn1ncjapqpp9nn9kyhqydvl0fbnyiavd0lc3gcxa52l269i";
     };
     "zellij/plugins/zellij-datetime.wasm".source = pkgs.fetchurl {
       url = "https://github.com/h1romas4/zellij-datetime/releases/download/v0.21.0/zellij-datetime.wasm";
-      sha256 = "sha256-oVMh3LlFe4hcY9XmcEHz8pmodyf1aMvgDH31QEusEEE=";
+      sha256 = "0h8hmi5l1xbx1khcns7m4xvsi6gjyd0p1rnmcdf8hys5p7f22lx1";
     };
   };
 

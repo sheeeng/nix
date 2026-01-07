@@ -14,8 +14,8 @@
         src = pkgs.fetchFromGitHub {
           owner = "jethrokuan";
           repo = "z";
-          rev = "067e867debee59aee231e789fc4631f80fa5788e";
-          sha256 = "sha256-emmjTsqt8bdI5qpx1bAzhVACkg0MNB/uffaRjjeuFxU=";
+          rev = "d2f502f5575b18a32e1bee2f2b3f869a5053c159";
+          sha256 = "08gwkdgjv3b45bq7zi45mywdx8m2gyxfr4fn03v9drsz0mqm5kz1";
           # nix run nixpkgs#nix-prefetch-git -- --url https://github.com/jethrokuan/z --rev 067e867debee59aee231e789fc4631f80fa5788e | jq --raw-output ".hash"
         }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.fish.plugins._.src
       }
@@ -25,7 +25,7 @@
           owner = "oh-my-fish";
           repo = "plugin-fasd";
           rev = "98c4c729780d8bd0a86031db7d51a97d55025cf5";
-          sha256 = "sha256-8JASaNylXAGnWd2IV88juk73b8eJJlVrpyiRZUwHGFQ=";
+          sha256 = "0m0q0x66b498lxmma9l9qxpzfkms4g7mg26xb6kh2p55vil1547h";
           # nix run nixpkgs#nix-prefetch-git -- --url https://github.com/oh-my-fish/plugin-fasd --rev 98c4c729780d8bd0a86031db7d51a97d55025cf5 | jq --raw-output ".hash"
         }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.fish.plugins._.src
       }
