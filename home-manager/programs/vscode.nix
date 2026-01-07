@@ -233,10 +233,10 @@ in
                 src = pkgs.fetchFromGitHub {
                   owner = "isbecker";
                   repo = "treefmt-vscode";
-                  rev = "e91d2246e1a1a684ac2065f329ed09fd6cc9dd08";
-                  sha256 = "14rz33a1b11p835xb5d4kyw0al2s77qyddhim859j06znhyy9m7h";
+                  rev = "a789643afb1dfe9c51f7ed2626994bb84d9bb392";
+                  sha256 = "0axm5cs7y3m62gxj0r8y01yfzj53rlm0k4lc7ab3v2grbni9q80j";
                 };
-                version = "unstable-2025-04-26";
+                version = "unstable-2025-12-23";
                 vscodeExtName = "treefmt-vscode";
                 vscodeExtPublisher = "isbecker";
                 vscodeExtUniqueId = "isbecker.treefmt-vscode";
@@ -334,7 +334,7 @@ in
                 src = pkgs.fetchFromGitHub {
                   owner = "usernamehw";
                   repo = "vscode-remove-empty-lines";
-                  rev = "f7e38a316fbd5a317de7b58dbf8fbb81b4a66044"; # v1.0.1
+                  rev = "ec587c853cfbd48b8250c4b823e47854e3362768"; # v1.0.1
                   sha256 = "1ch2p0s5c75vilxpp3yppi32v69rzav9npk9l0q15h40npphp95c";
                 };
                 version = "unstable-2023-02-28";
