@@ -1,10 +1,11 @@
 # Copilot Instructions
 
-- Ensure adherence to Chicago Manual of Style, using sentence-case capitalization and maintaining correct grammar and punctuation throughout comments and documentation.
+- Ensure adherence to Chicago Manual of Style by applying sentence-case capitalization, maintaining correct grammar, and using proper punctuation in all comments and documentation.
+- Follow Chicago Manual of Style: use sentence case, correct grammar, and proper punctuation in comments and documentation.
+- Apply Chicago Manual of Style conventions in comments and documentation, including sentence-case capitalization, accurate grammar, and proper punctuation.
 
 ## Journals
 
-- Use Chicago Manual of Style conventions with sentence-case capitalization and proper grammar and punctuation in comments and documentation.
 - Use ISO8601 timestamps in journals. Example: `2024-01-31T13:45:00Z`.
 - Use 20240131T134500Z-style timestamps as name for the journal files. Example: `20240131T134500Z.md`.
 - Read all journals inside [journals](journals) directory for historical context.
