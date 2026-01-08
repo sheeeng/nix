@@ -2,7 +2,7 @@
 
 ## Journals
 
-- Use Chicago Manual of Style conventions with sentence-case capitalization and proper proper grammar and punctuation in comments and documentation.
+- Use Chicago Manual of Style conventions with sentence-case capitalization and proper grammar and punctuation in comments and documentation.
 - Use ISO8601 timestamps in journals. Example: `2024-01-31T13:45:00Z`.
 - Use 20240131T134500Z-style timestamps as name for the journal files. Example: `20240131T134500Z.md`.
 - Read all journals inside [journals](journals) directory for historical context.
