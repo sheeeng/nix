@@ -1,5 +1,7 @@
 # Copilot Instructions
 
+- Ensure adherence to Chicago Manual of Style, using sentence-case capitalization and maintaining correct grammar and punctuation throughout comments and documentation.
+
 ## Journals
 
 - Use Chicago Manual of Style conventions with sentence-case capitalization and proper grammar and punctuation in comments and documentation.
