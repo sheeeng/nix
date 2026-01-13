@@ -117,10 +117,10 @@
     #   inputs.nixpkgs.follows = "nixpkgs";
     # };
 
-    # mac-app-util = {
-    #   url = "github:hraban/mac-app-util";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
+    mac-app-util = {
+      url = "github:hraban/mac-app-util";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     microvm = {
       url = "github:astro/microvm.nix";
@@ -265,7 +265,7 @@
           modules = [
             ./hosts/${hostname}
             inputs.home-manager.darwinModules.home-manager
-            # inputs.mac-app-util.darwinModules.default
+            inputs.mac-app-util.darwinModules.default
             inputs.nix-index-database.darwinModules.nix-index
             inputs.agenix.darwinModules.default
             inputs.sops-nix.darwinModules.sops
