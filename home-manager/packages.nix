@@ -142,6 +142,7 @@
       nh # https://search.nixos.org/packages?channel=unstable&type=packages&show=nh
       nixfmt # https://search.nixos.org/packages?channel=unstable&type=packages&show=nixfmt
       nixos-option # https://search.nixos.org/packages?channel=unstable&type=packages&show=nixos-option
+      opencode # https://search.nixos.org/packages?channel=unstable&type=packages&show=opencode
       pre-commit # https://search.nixos.org/packages?channel=unstable&type=packages&show=pre-commit
       shfmt # https://search.nixos.org/packages?channel=unstable&type=packages&show=shfmt
       texlab # https://search.nixos.org/packages?channel=unstable&type=packages&show=texlab
