@@ -152,6 +152,8 @@
       treefmt # https://search.nixos.org/packages?channel=unstable&type=packages&show=treefmt
       update-nix-fetchgit # https://search.nixos.org/packages?channel=unstable&type=packages&show=update-nix-fetchgit
       xz # https://search.nixos.org/packages?channel=unstable&type=packages&show=xz
+      yamlfmt # https://search.nixos.org/packages?channel=unstable&type=packages&show=yamlfmt
+      yamllint # https://search.nixos.org/packages?channel=unstable&type=packages&show=yamllint
       # keep-sorted end
 
       # Security & Privacy
