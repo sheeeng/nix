@@ -210,8 +210,6 @@ in
             tamasfe.even-better-toml
             timonwong.shellcheck
             tomoki1207.pdf
-            visualstudioexptteam.intellicode-api-usage-examples
-            visualstudioexptteam.vscodeintellicode
             vscjava.vscode-gradle
             vscjava.vscode-java-debug
             vscjava.vscode-java-dependency
