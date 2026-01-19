@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
   programs.claude-code = {
-    enable = false; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.claude-code.enable
+    enable = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.claude-code.enable
     package = pkgs.claude-code; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.claude-code.package
     agents = {
       code-reviewer = ''
