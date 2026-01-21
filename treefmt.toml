@@ -1,0 +1,22 @@
+# keep-sorted start block=yes newline_separated=yes sticky_comments=yes group_prefixes=command,excludes,includes,options
+# https://github.com/numtide/treefmt-nix/blob/5eda4ee8121f97b218f7cc73f5172098d458f1d1/examples/formatter-alejandra.toml
+[formatter.alejandra]
+command = "alejandra"
+excludes = []
+includes = ["*.nix"]
+options = []
+
+# https://github.com/numtide/treefmt-nix/blob/5eda4ee8121f97b218f7cc73f5172098d458f1d1/examples/formatter-deadnix.toml
+[formatter.deadnix]
+command = "deadnix"
+excludes = []
+includes = ["*.nix"]
+options = ["--edit"]
+
+# https://github.com/numtide/treefmt-nix/blob/5eda4ee8121f97b218f7cc73f5172098d458f1d1/examples/formatter-mdformat.toml
+[formatter.mdformat]
+command = "mdformat"
+excludes = []
+includes = ["*.md"]
+options = []
+# keep-sorted end
