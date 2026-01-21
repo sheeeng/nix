@@ -126,6 +126,7 @@
       conform # https://search.nixos.org/packages?channel=unstable&type=packages&show=conform
       delta # https://search.nixos.org/packages?channel=unstable&type=packages&show=delta
       dependabot-cli # https://search.nixos.org/packages?channel=unstable&type=packages&show=dependabot-cli
+      golangci-lint # https://search.nixos.org/packages?channel=unstable&type=packages&show=golangci-lint
       hadolint # https://search.nixos.org/packages?channel=unstable&type=packages&show=hadolint
       just # https://search.nixos.org/packages?channel=unstable&type=packages&show=just
       just-lsp # https://search.nixos.org/packages?channel=unstable&type=packages&show=just-lsp
@@ -272,7 +273,6 @@
 
       # Development
       # keep-sorted start block=no newline_separated=no sticky_comments=no
-      golangci-lint # https://search.nixos.org/packages?channel=unstable&type=packages&show=golangci-lint
       terraform # https://search.nixos.org/packages?channel=unstable&type=packages&show=terraform
       # keep-sorted end
 
