@@ -399,6 +399,9 @@ in
           "[terraform]"."editor.defaultFormatter" = "hashicorp.terraform";
           "[terraform]"."editor.formatOnSave" = false;
           "[terraform]"."editor.tabSize" = 2;
+          "files.associations" = {
+            ".tflint.hcl" = "terraform";
+          };
           "files.exclude" = {
             "**/dot-terraform" = true;
             "**/dot-vscode" = true;
