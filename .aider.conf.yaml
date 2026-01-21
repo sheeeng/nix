@@ -1,0 +1,4 @@
+# TODO: https://github.com/aider-ai/aider/pull/4031
+read:
+  - AGENTS.md
+  - .github/copilot-instructions.md
