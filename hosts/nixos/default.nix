@@ -39,7 +39,6 @@ in
     # inputs.nixos-hardware.nixosModules.lenovo-thinkpad-t14-amd-gen3
     # inputs.nixos-hardware.nixosModules.common-cpu-intel
 
-    ../../modules/nixos
     ./hardware-configuration.nix
     # ../core/sops.nix
     inputs.home-manager.nixosModules.home-manager
