@@ -58,10 +58,17 @@ in
   environment = {
     systemPackages = with pkgs; [
       # keep-sorted start block=yes newline_separated=no
+      btop
       clang
       coreutils
       dix
+      enpass
       findutils
+      firefox
+      firefox-beta
+      helix
+      htop
+      neovim
       nh
       nil
       nix
@@ -74,6 +81,9 @@ in
       nvd
       tmux
       vim
+      vscode
+      vscode-insiders
+      zsh
       # keep-sorted end
     ];
     shellAliases = {
