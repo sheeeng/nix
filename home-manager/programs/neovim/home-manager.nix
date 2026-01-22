@@ -88,6 +88,7 @@
           type = "lua";
           config = builtins.readFile ./plugins/gitsigns-nvim.lua;
         }
+        { plugin = vimPlugins.aider-nvim; } # https://search.nixos.org/packages?channel=unstable&type=packages&show=aider-nvim
       ]
       ++ telescope
       ++ cmp
