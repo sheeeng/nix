@@ -3,7 +3,7 @@
 { pkgs, ... }:
 {
   programs.aerospace = {
-    enable = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.aerospace.enable
+    enable = pkgs.stdenv.isDarwin; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.aerospace.enable
     package = pkgs.aerospace; # https://nix-community.github.io/home-manager
     launchd = {
       enable = false; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.aerospace.launchd.enable
