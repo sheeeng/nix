@@ -1,4 +1,6 @@
 # hosts level sops. see home/[user]/common/optional/sops.nix for home/user level
+# This module is for macOS (nix-darwin) only.
+# For NixOS, configure sops directly in hosts/nixos/default.nix
 
 {
   inputs,
