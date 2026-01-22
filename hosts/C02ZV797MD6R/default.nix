@@ -35,7 +35,7 @@ in
     # ../../modules/yabai
     # catppuccin.darwinModules.catppuccin # TODO: https://github.com/catppuccin/nix/issues/162
     # inputs.home-manager.darwinModules.defaults
-    ../core/sops.nix
+    ../darwin/sops.nix
     inputs.agenix.darwinModules.age
     inputs.home-manager.darwinModules.home-manager
     inputs.nixvim.nixDarwinModules.nixvim
