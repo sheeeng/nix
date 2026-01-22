@@ -1,4 +1,5 @@
-_: {
+{ pkgs, lib, ... }:
+{
   programs.ssh = {
     enable = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.ssh.enable
     enableDefaultConfig = false; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.ssh.enableDefaultConfig
@@ -20,13 +21,13 @@ _: {
         controlPersist = "no"; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.ssh.matchBlocks._name_.controlPersist
       }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.ssh.enableDefaultConfig
       "GitHub" = {
-        addKeysToAgent = "yes"; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.ssh.matchBlocks._name_.addKeysToAgent
+        addKeysToAgent = lib.mkIf pkgs.stdenv.isDarwin "yes"; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.ssh.matchBlocks._name_.addKeysToAgent
         checkHostIP = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.ssh.matchBlocks._name_.checkHostIP
         compression = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.ssh.matchBlocks._name_.compression
         host = "github.com"; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.ssh.matchBlocks._name_.host
         hostname = "github.com"; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.ssh.matchBlocks._name_.hostname
         identityFile = [ "~/.ssh/id_ed25519" ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.ssh.matchBlocks._name_.identityFile
-        extraOptions = {
+        extraOptions = lib.mkIf pkgs.stdenv.isDarwin {
           UseKeychain = "yes";
         }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.ssh.matchBlocks._name_.extraOptions
       };
