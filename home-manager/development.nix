@@ -12,7 +12,7 @@
     ]
     ++ (pkgs.lib.optionals pkgs.stdenv.isLinux [ ])
     ++ (pkgs.lib.optionals pkgs.stdenv.isDarwin [
-      # vscodium # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.claude-code.enable # https://search.nixos.org/packages?channel=unstable&type=packages&show=vscodium
+      vscodium # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.claude-code.enable # https://search.nixos.org/packages?channel=unstable&type=packages&show=vscodium
     ])
     ++ (pkgs.lib.optionals (pkgs.stdenv.isDarwin && pkgs.stdenv.hostPlatform.isAarch64) [ ]);
 }
