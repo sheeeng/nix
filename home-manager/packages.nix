@@ -181,7 +181,6 @@
       atuin # https://search.nixos.org/packages?channel=unstable&type=packages&show=atuin
       calcurse # https://search.nixos.org/packages?channel=unstable&type=packages&show=calcurse
       fasd # https://search.nixos.org/packages?channel=unstable&type=packages&show=fasd
-      raycast # https://search.nixos.org/packages?channel=unstable&type=packages&show=raycast
       stow # https://search.nixos.org/packages?channel=unstable&type=packages&show=stow
       wyrd # https://search.nixos.org/packages?channel=unstable&type=packages&show=wyrd
       # keep-sorted end
@@ -298,6 +297,7 @@
       # darwin.apple_sdk.frameworks.CoreServices
       # darwin.apple_sdk.frameworks.CoreFoundation
       # darwin.apple_sdk.frameworks.Foundation
+      raycast # https://search.nixos.org/packages?channel=unstable&type=packages&show=raycast
     ])
     ++ (pkgs.lib.optionals (pkgs.stdenv.isDarwin && pkgs.stdenv.hostPlatform.isAarch64) [
       # keep-sorted start block=no newline_separated=no sticky_comments=no
