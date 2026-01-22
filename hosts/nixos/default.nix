@@ -246,8 +246,10 @@ in
 
   programs.zsh.enable = true;
 
-  # Home Manager configuration - reused from darwin
-  home-manager.useGlobalPkgs = true;
+  # You have set either `nixpkgs.config` or `nixpkgs.overlays` while using `home-manager.useGlobalPkgs`.
+  # This will soon not be possible. Please remove all `nixpkgs` options when using `home-manager.useGlobalPkgs`.
+  home-manager.useGlobalPkgs = false;
+
   home-manager.useUserPackages = true;
   home-manager.extraSpecialArgs = {
     inherit inputs;
@@ -267,6 +269,10 @@ in
       inputs.nix-index-database.homeModules.nix-index
       inputs.nixvim.homeModules.nixvim
     ];
+
+    # Add any laptop-specific home-manager overrides here
+    # For example:
+    # programs.kitty.settings.font_size = 11;
   };
 
   home-manager.verbose = false;
