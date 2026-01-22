@@ -287,6 +287,7 @@
       # Network
       # keep-sorted start block=no newline_separated=no sticky_comments=no
       # kanidm # TODO: Missing "aarch64-apple-darwin" platform. # https://search.nixos.org/packages?channel=unstable&type=packages&show=kanidm
+      tor-browser # https://search.nixos.org/packages?channel=unstable&type=packages&show=tor-browser
       # keep-sorted end
     ])
     ++ (pkgs.lib.optionals pkgs.stdenv.isDarwin [
