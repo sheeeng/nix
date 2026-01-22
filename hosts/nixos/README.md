@@ -161,7 +161,7 @@ sudo cp /etc/nixos/hardware-configuration.nix ~/hardware-configuration.nix.backu
    imports = [
      ../../modules/nixos
      ./hardware-configuration.nix
-     # ../core/sops.nix  # Comment this out temporarily
+     # ../darwin/sops.nix  # Darwin-only, not needed for NixOS
      inputs.home-manager.nixosModules.home-manager
      # ...
    ];
@@ -268,7 +268,7 @@ imports = [
 
   ../../modules/nixos
   ./hardware-configuration.nix
-  ../core/sops.nix
+  # ../darwin/sops.nix  # Darwin-only, not needed for NixOS
   inputs.home-manager.nixosModules.home-manager
   inputs.agenix.nixosModules.age
   inputs.nixvim.nixosModules.nixvim
@@ -344,7 +344,7 @@ If needed, temporarily change the nix-secrets URL in `flake.nix` to use a local 
 For the first build, either:
 
 1. **Temporarily disable SOPS** (recommended for first build):
-   - Comment out `../core/sops.nix` import
+   - Comment out `../darwin/sops.nix` import (Darwin-only, not applicable to NixOS)
    - Comment out the `!include` line in `nix.extraOptions`
    - Rebuild successfully
    - Then uncomment and set up secrets properly
@@ -376,18 +376,18 @@ If your laptop is ARM instead of x86_64, change in both places:
 
 ## Comparison with Other Hosts
 
-| Feature | Darwin (TP95V9LWWL) | NixOS (this laptop) | Shared? |
-|---------|---------------------|---------------------|---------|
-| Home Manager | ✅ | ✅ | ✅ |
-| SOPS Secrets | ✅ | ✅ | ✅ |
-| Fonts | ✅ | ✅ | ✅ |
-| System Packages | ✅ | ✅ | ✅ |
-| Cachix | ✅ | ✅ | ✅ |
-| Activation Scripts | ✅ | ✅ | ✅ |
-| macOS Settings | ✅ | ❌ | ❌ |
-| Touch ID | ✅ | ❌ | ❌ |
-| Linux Hardware | ❌ | ✅ | ❌ |
-| systemd Services | ❌ | ✅ | ❌ |
+| Feature            | Darwin (TP95V9LWWL) | NixOS (this laptop) | Shared? |
+| ------------------ | ------------------- | ------------------- | ------- |
+| Home Manager       | ✅                  | ✅                  | ✅      |
+| SOPS Secrets       | ✅                  | ✅                  | ✅      |
+| Fonts              | ✅                  | ✅                  | ✅      |
+| System Packages    | ✅                  | ✅                  | ✅      |
+| Cachix             | ✅                  | ✅                  | ✅      |
+| Activation Scripts | ✅                  | ✅                  | ✅      |
+| macOS Settings     | ✅                  | ❌                  | ❌      |
+| Touch ID           | ✅                  | ❌                  | ❌      |
+| Linux Hardware     | ❌                  | ✅                  | ❌      |
+| systemd Services   | ❌                  | ✅                  | ❌      |
 
 ## Complete First-Time Checklist
 
