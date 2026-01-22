@@ -21,6 +21,7 @@ let
     systemPlatform = "x86_64-linux"; # Change to "aarch64-linux" if ARM
     user = {
       name = "llee";
+      description = "Leonard Lee";
       uid = 1000;
       gid = 100;
     };
@@ -66,6 +67,8 @@ in
       findutils
       firefox
       firefox-beta
+      git
+      gnupg
       helix
       htop
       neovim
@@ -79,8 +82,10 @@ in
       nixd
       nixfmt-rfc-style
       nvd
+      openssh
       tmux
       vim
+      wget
       xclip
       zsh
       # keep-sorted end
@@ -161,8 +166,7 @@ in
 
   networking = {
     inherit (hostConfiguration.networking) hostName;
-    useNetworkd = true;
-    wireless.iwd.enable = true;
+    networkmanager.enable = true;
     firewall.enable = true;
   };
 
@@ -238,7 +242,17 @@ in
     enable = true;
     displayManager.gdm.enable = true;
     desktopManager.gnome.enable = true;
+    xkb = {
+      layout = "us";
+      variant = "";
+    };
   };
+
+  # Enable CUPS to print documents
+  services.printing.enable = true;
+
+  # Disable PulseAudio in favor of PipeWire
+  services.pulseaudio.enable = false;
 
   security.rtkit.enable = true;
   services.pipewire = {
@@ -255,6 +269,7 @@ in
   # User configuration
   users.users."${hostConfiguration.user.name}" = {
     isNormalUser = true;
+    description = hostConfiguration.user.description;
     uid = hostConfiguration.user.uid;
     extraGroups = [
       "wheel"
@@ -267,6 +282,19 @@ in
   };
 
   programs.zsh.enable = true;
+  programs.firefox.enable = true;
+
+  # GnuPG agent with SSH support
+  programs.gnupg.agent = {
+    enable = true;
+    enableSSHSupport = true;
+  };
+
+  # System auto-upgrade
+  system.autoUpgrade = {
+    enable = true;
+    allowReboot = true;
+  };
 
   # You have set either `nixpkgs.config` or `nixpkgs.overlays` while using `home-manager.useGlobalPkgs`.
   # This will soon not be possible. Please remove all `nixpkgs` options when using `home-manager.useGlobalPkgs`.
