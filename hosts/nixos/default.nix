@@ -41,11 +41,14 @@ in
     # inputs.nixos-hardware.nixosModules.common-cpu-intel
 
     ./hardware-configuration.nix
-    # ../core/sops.nix
+    ../linux/sops.nix
     inputs.home-manager.nixosModules.home-manager
     inputs.agenix.nixosModules.age
     inputs.nixvim.nixosModules.nixvim
   ];
+
+  # Make primaryUser available to sops module
+  system.primaryUser = hostConfiguration.primaryUser;
 
   # Documentation - reused from darwin config
   documentation = {
@@ -221,6 +224,7 @@ in
       options = "--delete-older-than 7d";
     };
     extraOptions = ''
+      !include ${config.sops.templates.nix-access-token.path}
       experimental-features = nix-command flakes
       keep-derivations = true
       keep-outputs = true
@@ -233,6 +237,15 @@ in
     defaultLocale = "en_US.UTF-8";
     extraLocaleSettings = {
       LC_TIME = "nb_NO.UTF-8";
+    };
+    inputMethod = {
+      enable = true;
+      type = "ibus";
+      ibus.engines = with pkgs.ibus-engines; [
+        uniemoji # https://search.nixos.org/packages?channel=unstable&type=packages&show=ibus-engine-uniemoji
+        pinyin # https://search.nixos.org/packages?channel=unstable&type=packages&show=ibus-engine-pinyin
+        mozc # https://search.nixos.org/packages?channel=unstable&type=packages&show=ibus-engine-mozc
+      ];
     };
   };
 
