@@ -20,9 +20,9 @@ let
     primaryUser = user.name;
     systemPlatform = "x86_64-linux"; # Change to "aarch64-linux" if ARM
     user = {
-      name = "leonard"; # Adjust to your username
+      name = "llee";
       uid = 1000;
-      gid = 1000;
+      gid = 100;
     };
     # keep-sorted end
   };
