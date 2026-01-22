@@ -81,7 +81,7 @@ in
       nvd
       tmux
       vim
-      vscodium
+      vscode
       xclip
       zsh
       # keep-sorted end
