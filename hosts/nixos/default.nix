@@ -208,7 +208,7 @@ in
       options = "--delete-older-than 7d";
     };
     extraOptions = ''
-      !include ${config.sops.templates.nix-access-token.path}
+      # !include ${config.sops.templates.nix-access-token.path}
       experimental-features = nix-command flakes
       keep-derivations = true
       keep-outputs = true
