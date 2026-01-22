@@ -83,6 +83,7 @@ in
       vim
       vscode
       vscode-insiders
+      xclip
       zsh
       # keep-sorted end
     ];
