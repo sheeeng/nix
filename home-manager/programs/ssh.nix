@@ -27,9 +27,7 @@
         host = "github.com"; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.ssh.matchBlocks._name_.host
         hostname = "github.com"; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.ssh.matchBlocks._name_.hostname
         identityFile = [ "~/.ssh/id_ed25519" ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.ssh.matchBlocks._name_.identityFile
-        extraOptions = lib.mkIf pkgs.stdenv.isDarwin {
-          UseKeychain = "yes";
-        }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.ssh.matchBlocks._name_.extraOptions
+        extraOptions = lib.mkIf pkgs.stdenv.isDarwin { UseKeychain = "yes"; }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.ssh.matchBlocks._name_.extraOptions
       };
       "SourceHut" = {
         addKeysToAgent = "yes"; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.ssh.matchBlocks._name_.addKeysToAgent
