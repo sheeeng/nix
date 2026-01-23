@@ -95,7 +95,7 @@ repos:
 
   # keep-sorted start
   - repo: https://github.com/charliermarsh/ruff-pre-commit
-    rev: v0.14.9
+    rev: v0.14.14
     hooks:
       - id: ruff
         name: ruff
@@ -127,7 +127,7 @@ repos:
               .envrc
           )$
   - repo: https://github.com/google/yamlfmt
-    rev: v0.20.0
+    rev: v0.21.0
     hooks:
       - id: yamlfmt
         name: yamlfmt
@@ -139,7 +139,7 @@ repos:
         name: markdownlint
         files: \.md$
   - repo: https://github.com/nixos/nixfmt
-    rev: v1.1.0
+    rev: v1.2.0
     hooks:
       - id: nixfmt
         name: nixfmt
@@ -147,17 +147,17 @@ repos:
         language: system
         entry: nixfmt
   - repo: https://github.com/psf/black
-    rev: 25.12.0
+    rev: 26.1.0
     hooks:
       - id: black
         name: black
   - repo: https://github.com/renovatebot/pre-commit-hooks
-    rev: 42.52.8
+    rev: 42.84.0
     hooks:
       - id: renovate-config-validator
         args: [--strict]
   - repo: https://github.com/rhysd/actionlint
-    rev: v1.7.9
+    rev: v1.7.10
     hooks:
       - id: actionlint
         name: actionlint
