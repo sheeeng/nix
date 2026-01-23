@@ -9,12 +9,12 @@ set -u # set -o nounset # set -u # Treat unset variables and parameters other th
 # https://www.gnu.org/software/bash/manual/html_node/The-Shopt-Builtin.html
 # shopt -s inherit_errexit # If set, command substitution inherits the value of the errexit option, instead of unsetting it in the subshell environment. This option is enabled when POSIX mode is enabled.
 
-if [ -d ".git" ] || git rev-parse --git-dir >/dev/null 2>&1; then
+if [ -d ".git" ] || git rev-parse --git-dir > /dev/null 2>&1; then
   GIT_ROOT_DIRECTORY=$(git rev-parse --show-toplevel)
   echo "\${GIT_ROOT_DIRECTORY}: ${GIT_ROOT_DIRECTORY}"
 fi
 
-SCRIPT_DIRECTORY="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
+SCRIPT_DIRECTORY="$(cd "$(dirname "${BASH_SOURCE[0]}")" > /dev/null 2>&1 && pwd)"
 echo "\${SCRIPT_DIRECTORY}: ${SCRIPT_DIRECTORY}"
 
 # ----------------------------------------------------------------------
@@ -112,7 +112,7 @@ fd '\.nix$' --exclude flake.nix --type f --print0 | while IFS= read -r -d '' FIL
       # NEW_SHA=$(nix hash to-sri sha256:"${BASE32_HASH}")
 
       # Convert base32 to SRI format using nix hash convert.
-      NEW_SHA=$(nix hash convert --from nix32 --to sri "sha256:${BASE32_HASH}" 2>/dev/null || nix hash to-sri "sha256:${BASE32_HASH}")
+      NEW_SHA=$(nix hash convert --from nix32 --to sri "sha256:${BASE32_HASH}" 2> /dev/null || nix hash to-sri "sha256:${BASE32_HASH}")
     fi
 
     if [ -n "${NEW_SHA}" ]; then

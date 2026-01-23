@@ -41,7 +41,7 @@ test_secret() {
 
         # Show first few characters (for verification, but don't expose full secret)
         local preview
-        preview=$(head -c 10 "$secret_path" | od -A n -t x1 | tr -d ' \n' 2>/dev/null || echo "cannot preview")
+        preview=$(head -c 10 "$secret_path" | od -A n -t x1 | tr -d ' \n' 2> /dev/null || echo "cannot preview")
         print_status "INFO" "$level secret '$secret_name' preview (hex): ${preview}..."
       else
         print_status "FAIL" "$level secret '$secret_name' is empty"
@@ -64,7 +64,7 @@ print_status "INFO" "=== Testing Host-Level Secrets ==="
 if [ -d "/run/secrets" ]; then
   print_status "PASS" "Host secrets directory exists at /run/secrets"
   print_status "INFO" "Host secrets directory contents:"
-  find /run/secrets -maxdepth 1 -exec ls -ld {} \; 2>/dev/null | sed 's/^/    /' || print_status "INFO" "Cannot list /run/secrets (permission denied - this may be normal)"
+  find /run/secrets -maxdepth 1 -exec ls -ld {} \; 2> /dev/null | sed 's/^/    /' || print_status "INFO" "Cannot list /run/secrets (permission denied - this may be normal)"
 else
   print_status "FAIL" "Host secrets directory not found at /run/secrets"
 fi
@@ -87,7 +87,7 @@ home_secrets_dir="$HOME/.config/sops-nix/secrets"
 if [ -d "$home_secrets_dir" ]; then
   print_status "PASS" "Home secrets directory exists at $home_secrets_dir"
   print_status "INFO" "Home secrets directory contents:"
-  find "$home_secrets_dir" -maxdepth 1 -exec ls -ld {} \; 2>/dev/null | sed 's/^/    /' || print_status "INFO" "Cannot list home secrets directory"
+  find "$home_secrets_dir" -maxdepth 1 -exec ls -ld {} \; 2> /dev/null | sed 's/^/    /' || print_status "INFO" "Cannot list home secrets directory"
 else
   print_status "FAIL" "Home secrets directory not found at $home_secrets_dir"
 fi
@@ -146,10 +146,10 @@ helper_scripts=(
 )
 
 for script in "${helper_scripts[@]}"; do
-  if command -v "$script" &>/dev/null; then
+  if command -v "$script" &> /dev/null; then
     print_status "PASS" "Helper script '$script' is available"
     # Test running the script
-    if "$script" &>/dev/null; then
+    if "$script" &> /dev/null; then
       print_status "PASS" "Helper script '$script' executes successfully"
     else
       print_status "INFO" "Helper script '$script' executed but may not have found secret (this is expected if secrets aren't deployed yet)"
