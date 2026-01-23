@@ -13,7 +13,7 @@
     enable = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.helix.enable
     package = pkgs.helix; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.helix.package
     defaultEditor = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.helix.defaultEditor
-    extraConfig = ''''; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.helix.extraConfig
+    extraConfig = ""; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.helix.extraConfig
     extraPackages = [ ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.helix.extraPackages
     ignores = [
       "!.gitignore"
