@@ -8,6 +8,10 @@ on:
   schedule:
     - cron: "0 03 * * 1-5" # “At 03:00 UTC on every day-of-week from Monday through Friday.” # https://crontab.guru/#0_3_*_*_1-5
 
+concurrency:
+  group: "${{ github.workflow }}-${{ github.head_ref || github.sha }}"
+  cancel-in-progress: true
+
 permissions: {}
 
 jobs:

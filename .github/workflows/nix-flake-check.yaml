@@ -1,9 +1,9 @@
 name: Nix Flake Check
 
 on:
-  pull_request:
   push:
     branches: [unstable, main]
+  pull_request:
   workflow_dispatch:
 
 concurrency:
