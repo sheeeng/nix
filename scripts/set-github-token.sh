@@ -9,12 +9,12 @@ set -u # set -o nounset # set -u # Treat unset variables and parameters other th
 # https://www.gnu.org/software/bash/manual/html_node/The-Shopt-Builtin.html
 # shopt -s inherit_errexit # If set, command substitution inherits the value of the errexit option, instead of unsetting it in the subshell environment. This option is enabled when POSIX mode is enabled.
 
-if [ -d ".git" ] || git rev-parse --git-dir >/dev/null 2>&1; then
+if [ -d ".git" ] || git rev-parse --git-dir > /dev/null 2>&1; then
   GIT_ROOT_DIRECTORY=$(git rev-parse --show-toplevel)
   echo "\${GIT_ROOT_DIRECTORY}: ${GIT_ROOT_DIRECTORY}"
 fi
 
-SCRIPT_DIRECTORY="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
+SCRIPT_DIRECTORY="$(cd "$(dirname "${BASH_SOURCE[0]}")" > /dev/null 2>&1 && pwd)"
 echo "\${SCRIPT_DIRECTORY}: ${SCRIPT_DIRECTORY}"
 
 # ----------------------------------------------------------------------
@@ -54,6 +54,6 @@ fi
 
 echo "Adding 'access-tokens = github.com=' option to the file."
 echo "access-tokens = github.com=${PUBLIC_REPO_SCOPE_GITHUB_TOKEN}" \
-  | sudo tee --append /etc/nix/nix.conf >/dev/null
+  | sudo tee --append /etc/nix/nix.conf > /dev/null
 
 popd || exit
