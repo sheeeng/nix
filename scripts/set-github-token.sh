@@ -46,14 +46,44 @@ eval "$(direnv export bash)"
 #   exit 42
 # fi
 
-# Remove existing access-tokens setting if present, then add the new one.
-if grep --quiet "access-tokens = github.com=" /etc/nix/nix.conf; then
-  echo "Removing existing 'access-tokens = github.com=' option from the file."
-  sudo sed --in-place '/^access-tokens = github\.com=/d' /etc/nix/nix.conf
+# Determine the nix.conf path based on the system:
+# - For Linux x86_64: use /root/.config/nix/nix.conf
+# - For Linux NixOS systems: use /etc/static/nix/nix.conf
+# - For other systems: use /etc/nix/nix.conf
+SYSTEM_ARCH=$(uname --machine)
+
+if [ "$(uname)" = "Linux" ] && [ "${SYSTEM_ARCH}" = "x86_64" ]; then
+  NIX_CONF="/root/.config/nix/nix.conf"
+elif [ "$(uname)" = "Linux" ] && [ -d /etc/nixos ]; then
+  NIX_CONF="/etc/static/nix/nix.conf"
+else
+  NIX_CONF="/etc/nix/nix.conf"
 fi
 
-echo "Adding 'access-tokens = github.com=' option to the file."
-echo "access-tokens = github.com=${PUBLIC_REPO_SCOPE_GITHUB_TOKEN}" \
-  | sudo tee --append /etc/nix/nix.conf > /dev/null
+echo "Using nix.conf path: ${NIX_CONF}"
+
+# Create the directory if it does not exist.
+sudo mkdir --parents "$(dirname "${NIX_CONF}")"
+
+# Create a temporary file with non-token content preserved and the new token added.
+TEMP_CONF="${TEMPORARY_DIRECTORY}/nix.conf.tmp"
+
+# Copy existing content, excluding access-tokens for GitHub.com.
+if [ -f "${NIX_CONF}" ]; then
+  sudo grep --invert-match '^access-tokens = github\.com=' "${NIX_CONF}" | sudo tee "${TEMP_CONF}" >/dev/null 2>&1 || true
+else
+  touch "${TEMP_CONF}"
+fi
+
+# Add the new token.
+echo "access-tokens = github.com=${REPO_SCOPE_GITHUB_TOKEN}" | sudo tee --append "${TEMP_CONF}" >/dev/null
+
+# Replace the original file.
+sudo mv "${TEMP_CONF}" "${NIX_CONF}"
+
+echo "Output:"
+echo ""
+sudo cat "${NIX_CONF}"
+echo ""
 
 popd || exit

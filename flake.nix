@@ -298,6 +298,42 @@
           ];
           specialArgs = { inherit inputs; };
         };
+
+      nixosConfiguration =
+        hostname: system:
+        nixpkgs.lib.nixosSystem {
+          inherit system;
+          modules = [
+            ./hosts/${hostname}
+            inputs.home-manager.nixosModules.home-manager
+            inputs.disko.nixosModules.disko
+            inputs.agenix.nixosModules.default
+            inputs.sops-nix.nixosModules.sops
+            {
+              nixpkgs.overlays = [
+                (import ./overlays inputs).nodejs-skip-tests
+                (import ./overlays inputs).fix-vscode-operation-not-permitted
+                (import ./overlays inputs).unstable-packages
+                inputs.morlana.overlays.default
+                inputs.fenix.overlays.default
+              ];
+
+              # Global configuration to disable tests for better performance
+              nixpkgs.config = {
+                allowUnfree = true;
+                doCheck = false;
+                doInstallCheck = false;
+                packageOverrides = pkgs: {
+                  nodejs = pkgs.nodejs.overrideAttrs {
+                    doCheck = false;
+                    doInstallCheck = false;
+                  };
+                };
+              };
+            }
+          ];
+          specialArgs = { inherit inputs; };
+        };
     in
     {
       # for `nix fmt`
@@ -321,12 +357,12 @@
         }
       );
 
-      # nixosConfigurations = {
-      #   desktop = nixosConfiguration "desktop" "x86_64-linux";
-      #   laptop = nixosConfiguration "laptop" "x86_64-linux";
-      #   rpi = nixosConfiguration "rpi" "aarch64-linux";
-      #   nixos = nixosConfiguration "nixos" "x86_64-linux";
-      # };
+      nixosConfigurations = {
+        desktop = nixosConfiguration "desktop" "x86_64-linux";
+        laptop = nixosConfiguration "laptop" "x86_64-linux";
+        rpi = nixosConfiguration "rpi" "aarch64-linux";
+        nixos = nixosConfiguration "nixos" "x86_64-linux";
+      };
 
       darwinConfigurations = {
         TP95V9LWWL = darwinConfiguration "TP95V9LWWL" "aarch64-darwin";

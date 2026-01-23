@@ -1,6 +1,7 @@
 # nixos
 
 <!-- [![Built with Nix](https://builtwithnix.org/badge.svg)](https://builtwithnix.org) -->
+
 [![Built with Nix](https://img.shields.io/badge/Built_with-Nix-5277C3.svg?style=for-the-badge&logo=nixos&logoColor=7EBAE4)](https://nixos.org)
 [![Codeberg](https://img.shields.io/badge/codeberg-2185D0.svg?style=for-the-badge&logo=codeberg&logoColor=B5DDFF&color=2185D0&test.svg)](https://codeberg.org/sheeeng/nix)
 [![GitHub](https://img.shields.io/badge/github-000000.svg?style=for-the-badge&logo=github&logoColor=FFFFFF&color=000000)](https://github.com/sheeeng/nix)
@@ -22,6 +23,10 @@ nix flake update
 darwin-rebuild build --show-trace --print-build-logs --verbose --flake ~/github/sheeeng/nix 2>&1 | nix run nixpkgs#nix-output-monitor
 
 sudo darwin-rebuild switch --print-build-logs --flake ~/github/sheeeng/nix 2>&1 | nix --extra-experimental-features 'flakes nix-command' run nixpkgs#nix-output-monitor
+```
+
+```shell
+sudo --preserve-env=SSH_AUTH_SOCK nixos-rebuild switch --print-build-logs --show-trace --flake ~/github/sheeeng/nix 2>&1 | nix run nixpkgs#nix-output-monitor
 ```
 
 ### Install `lix`
