@@ -1,0 +1,43 @@
+name: Validate Renovate Configuration
+
+on:
+  push:
+    branches:
+      - main
+    paths: &paths
+      - .github/workflows/validate-renovate-configuration.yaml
+      - renovate.json
+      - renovate.json5
+      - .github/renovate.json
+      - .github/renovate.json5
+      - .gitlab/renovate.json
+      - .gitlab/renovate.json5
+      - .renovaterc
+      - .renovaterc.json
+      - .renovaterc.json5
+  pull_request:
+    paths: *paths
+  workflow_dispatch:
+
+concurrency:
+  group: "${{ github.workflow }}-${{ github.head_ref || github.sha }}"
+  cancel-in-progress: true
+
+permissions: {}
+
+jobs:
+  validate:
+    name: Validate
+    timeout-minutes: 3
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+      - uses: determinatesystems/nix-installer-action@c5a866b6ab867e88becbed4467b93592bce69f8a # v21
+      - name: Validate Renovate Configuration
+        run: |-
+          nix shell nixpkgs#renovate --command renovate-config-validator --strict
