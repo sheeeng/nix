@@ -2,13 +2,12 @@
 {
   projectRootFile = "flake.nix";
 
-  programs.mdsh.enable = true;
-
   programs = {
     # keep-sorted start block=yes newline_separated=no case=no sticky_comments=yes
     deadnix.enable = true;
     just.enable = true;
     keep-sorted.enable = true;
+    mdsh.enable = true;
     nixfmt = {
       enable = pkgs.stdenv.hostPlatform.system != "riscv64-linux";
       package = pkgs.nixfmt-rfc-style;
