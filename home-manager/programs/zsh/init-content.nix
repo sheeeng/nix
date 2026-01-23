@@ -11,11 +11,11 @@
 
     # 500 (mkBefore): Early initialization (replaces initExtraFirst)
     # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.initContent
-    (lib.mkOrder 500 '''')
+    (lib.mkOrder 500 "")
 
     # 550: Before completion initialization (replaces initExtraBeforeCompInit)
     # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.initContent
-    (lib.mkOrder 550 '''')
+    (lib.mkOrder 550 "")
 
     # Place where other setopts are declared in home-manager
     # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.initContent
@@ -97,7 +97,7 @@
 
     # 1500 (mkAfter): Last to run configuration
     # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.initContent
-    (lib.mkOrder 1500 '''')
+    (lib.mkOrder 1500 "")
 
     # Z Style Customizations
     # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.initContent
