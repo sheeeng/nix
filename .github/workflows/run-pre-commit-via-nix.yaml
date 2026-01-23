@@ -1,7 +1,5 @@
 name: Run Pre-Commit via Nix
 
-permissions: {}
-
 on:
   pull_request:
   push:
@@ -14,14 +12,16 @@ concurrency:
   group: "${{ github.workflow }}-${{ github.head_ref || github.sha }}"
   cancel-in-progress: true
 
+permissions: {}
+
 jobs:
   run-pre-commit:
     name: Run Pre-Commit
-    timeout-minutes: 20
     runs-on: ubuntu-latest
     permissions:
       actions: write
       contents: read
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
