@@ -10,7 +10,7 @@ set -o nounset  # set -u # Treat unset variables and parameters other than the s
 # shopt -s inherit_errexit # If set, command substitution inherits the value of the errexit option, instead of unsetting it in the subshell environment. This option is enabled when POSIX mode is enabled.
 
 show_usage() {
-  cat <<EOF
+  cat << EOF
 Usage: $(basename "$0") [COMMAND] [VOLUME]
 
 Commands:

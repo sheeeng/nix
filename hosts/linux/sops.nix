@@ -6,12 +6,11 @@
   inputs,
   config,
   lib,
-  pkgs,
   ...
 }:
 let
   sopsFolder = builtins.toString inputs.nix-secrets + "/secrets";
-  primaryUser = config.system.primaryUser;
+  inherit (config.system) primaryUser;
   homeDirectory = "/home/${primaryUser}";
 in
 {
