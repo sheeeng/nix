@@ -40,20 +40,20 @@ date -u +"%Y%m%dT%H%M%SZ"
 direnv allow
 eval "$(direnv export bash)"
 
-# Check if the script is running as root.
-if [ ${EUID:-0} -ne 0 ] || [ "$(id -u)" -ne 0 ]; then
-  echo "This script requires root access."
-  exit 42
-fi
+# # Check if the script is running as root.
+# if [ ${EUID:-0} -ne 0 ] || [ "$(id -u)" -ne 0 ]; then
+#   echo "This script requires root access."
+#   exit 42
+# fi
 
 # Remove existing access-tokens setting if present, then add the new one.
 if grep --quiet "access-tokens = github.com=" /etc/nix/nix.conf; then
   echo "Removing existing 'access-tokens = github.com=' option from the file."
-  sed --in-place '/^access-tokens = github\.com=/d' /etc/nix/nix.conf
+  sudo sed --in-place '/^access-tokens = github\.com=/d' /etc/nix/nix.conf
 fi
 
 echo "Adding 'access-tokens = github.com=' option to the file."
-cat <<EOF >>/etc/nix/nix.conf
+sudo tee --append /etc/nix/nix.conf >/dev/null <<EOF
 access-tokens = github.com=${PUBLIC_REPO_SCOPE_GITHUB_TOKEN}
 EOF
 
