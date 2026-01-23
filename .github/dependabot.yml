@@ -16,14 +16,14 @@ updates:
     schedule:
       interval: "daily"
     groups:
-      pip:
+      pre-commit-hooks:
         patterns:
           - "*"
         update-types:
-          - "major"
-          - "minor"
-          - "patch"
+          - major
+          - minor
+          - patch
     labels:
       - dependencies
-      - pip
-    open-pull-requests-limit: 5
+      - pre-commit-hooks
+    open-pull-requests-limit: 10
