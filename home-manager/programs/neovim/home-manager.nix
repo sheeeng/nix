@@ -61,7 +61,6 @@
       with pkgs;
       [
         { plugin = vimPlugins.diffview-nvim; } # https://search.nixos.org/packages?channel=unstable&type=packages&show=diffview-nvim
-        { plugin = vimPlugins.opencode-nvim; } # https://search.nixos.org/packages?channel=unstable&type=packages&show=opencode-nvim
         {
           plugin = vimPlugins.copilot-vim;
           type = "lua";
@@ -89,6 +88,9 @@
           config = builtins.readFile ./plugins/gitsigns-nvim.lua;
         }
         { plugin = vimPlugins.aider-nvim; } # https://search.nixos.org/packages?channel=unstable&type=packages&show=aider-nvim
+      ]
+      ++ pkgs.lib.optionals (pkgs.stdenv.system != "x86_64-darwin") [
+        { plugin = vimPlugins.opencode-nvim; } # https://search.nixos.org/packages?channel=unstable&type=packages&show=opencode-nvim
       ]
       ++ telescope
       ++ cmp
