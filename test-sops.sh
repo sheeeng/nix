@@ -64,7 +64,7 @@ test_secret_permissions() {
   if [ -f "$secret_path" ]; then
     # Check permissions
     local actual_mode
-    actual_mode=$(stat -f "%Mp%Lp" "$secret_path" 2>/dev/null || stat -c "%a" "$secret_path" 2>/dev/null)
+    actual_mode=$(stat -f "%Mp%Lp" "$secret_path" 2> /dev/null || stat -c "%a" "$secret_path" 2> /dev/null)
     if [ "$actual_mode" = "$expected_mode" ]; then
       print_status "PASS" "Secret '$secret_name' has correct permissions ($actual_mode)"
     else
@@ -73,7 +73,7 @@ test_secret_permissions() {
 
     # Check owner
     local actual_owner
-    actual_owner=$(stat -f "%Su" "$secret_path" 2>/dev/null || stat -c "%U" "$secret_path" 2>/dev/null)
+    actual_owner=$(stat -f "%Su" "$secret_path" 2> /dev/null || stat -c "%U" "$secret_path" 2> /dev/null)
     if [ "$actual_owner" = "$expected_owner" ]; then
       print_status "PASS" "Secret '$secret_name' has correct owner ($actual_owner)"
     else

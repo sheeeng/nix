@@ -9,12 +9,12 @@ set -o xtrace # set -x # Print a trace of simple commands, for commands, case co
 # https://www.gnu.org/software/bash/manual/html_node/The-Shopt-Builtin.html
 # shopt -s inherit_errexit # If set, command substitution inherits the value of the errexit option, instead of unsetting it in the subshell environment. This option is enabled when POSIX mode is enabled.
 
-if [ -d ".git" ] || git rev-parse --git-dir >/dev/null 2>&1; then
+if [ -d ".git" ] || git rev-parse --git-dir > /dev/null 2>&1; then
   GIT_ROOT_DIRECTORY=$(git rev-parse --show-toplevel)
   echo "\${GIT_ROOT_DIRECTORY}: ${GIT_ROOT_DIRECTORY}"
 fi
 
-SCRIPT_DIRECTORY="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
+SCRIPT_DIRECTORY="$(cd "$(dirname "${BASH_SOURCE[0]}")" > /dev/null 2>&1 && pwd)"
 echo "\${SCRIPT_DIRECTORY}: ${SCRIPT_DIRECTORY}"
 
 # ----------------------------------------------------------------------

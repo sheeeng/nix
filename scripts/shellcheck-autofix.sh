@@ -29,15 +29,15 @@ fix_file() {
   fi
 
   # Check if it's a shell script
-  if [[ $file == *.sh ]] || [[ $file == *.bash ]] || [[ "$(head -n1 "$file" 2>/dev/null)" =~ ^#!.*/(ba)?sh ]]; then
+  if [[ $file == *.sh ]] || [[ $file == *.bash ]] || [[ "$(head -n1 "$file" 2> /dev/null)" =~ ^#!.*/(ba)?sh ]]; then
     print_status "INFO" "Checking $file..."
 
     # Get shellcheck diff output
     local diff_output
-    if diff_output=$(shellcheck --format=diff "$file" 2>/dev/null); then
+    if diff_output=$(shellcheck --format=diff "$file" 2> /dev/null); then
       if [[ -n $diff_output ]]; then
         print_status "INFO" "Applying fixes to $file..."
-        echo "$diff_output" | patch -p1 -s 2>/dev/null || {
+        echo "$diff_output" | patch -p1 -s 2> /dev/null || {
           print_status "FAIL" "Failed to apply patch to $file"
           echo "$diff_output"
           return 1
@@ -63,7 +63,7 @@ main() {
 
   if [[ $# -eq 0 ]]; then
     # Find all shell files in the current directory and subdirectories
-    mapfile -t files < <(find . -name "*.sh" -o -name "*.bash" -o -type f -executable -exec grep -l '^#!.*sh' {} \; 2>/dev/null | grep -v '/\.' | sort)
+    mapfile -t files < <(find . -name "*.sh" -o -name "*.bash" -o -type f -executable -exec grep -l '^#!.*sh' {} \; 2> /dev/null | grep -v '/\.' | sort)
   else
     files=("$@")
   fi

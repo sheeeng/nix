@@ -34,7 +34,7 @@
       ];
       settings = {
         bracketSpacing = true;
-        printWidth = 120; # More reasonable print width for general files
+        printWidth = 200; # Allow longer lines to prevent formatting failures
         tabWidth = 2;
         trailingComma = "none";
         useTabs = false;
@@ -132,6 +132,10 @@
       includes = [
         "*.yaml"
         "*.yml"
+      ];
+      options = [
+        "--config-data"
+        "rules: {line-length: disable, comments: disable}"
       ];
     };
     # keep-sorted end

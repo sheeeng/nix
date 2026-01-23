@@ -2,7 +2,6 @@
   config,
   inputs,
   pkgs,
-  lib,
   ...
 }:
 let
@@ -282,8 +281,8 @@ in
   # User configuration
   users.users."${hostConfiguration.user.name}" = {
     isNormalUser = true;
-    description = hostConfiguration.user.description;
-    uid = hostConfiguration.user.uid;
+    inherit (hostConfiguration.user) description;
+    inherit (hostConfiguration.user) uid;
     extraGroups = [
       "wheel"
       "networkmanager"
@@ -319,9 +318,7 @@ in
     inherit pkgs-unstable;
   };
 
-  home-manager.sharedModules = [
-    inputs.nix-index-database.homeModules.nix-index
-  ];
+  home-manager.sharedModules = [ inputs.nix-index-database.homeModules.nix-index ];
 
   home-manager.users."${hostConfiguration.primaryUser}" = {
     home.stateVersion = "25.11";
