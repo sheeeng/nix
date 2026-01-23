@@ -3,6 +3,7 @@ name: Validate Renovate Configuration
 on:
   push:
     branches:
+      - unstable
       - main
     paths: &paths
       - .github/workflows/validate-renovate-configuration.yaml
