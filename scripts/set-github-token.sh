@@ -53,8 +53,7 @@ if grep --quiet "access-tokens = github.com=" /etc/nix/nix.conf; then
 fi
 
 echo "Adding 'access-tokens = github.com=' option to the file."
-sudo tee --append /etc/nix/nix.conf >/dev/null <<EOF
-access-tokens = github.com=${PUBLIC_REPO_SCOPE_GITHUB_TOKEN}
-EOF
+echo "access-tokens = github.com=${PUBLIC_REPO_SCOPE_GITHUB_TOKEN}" \
+  | sudo tee --append /etc/nix/nix.conf >/dev/null
 
 popd || exit
