@@ -224,7 +224,6 @@
       ...
     }@inputs:
     let
-      inherit (self) outputs;
 
       # Small tool to iterate over each systems
       eachSystem =
@@ -242,22 +241,7 @@
 
       # ========== Extend lib with lib.custom ==========
       # NOTE: This approach allows lib.custom to propagate into hm
-      # see: https://github.com/nix-community/home-manager/pull/3454
-      lib = nixpkgs.lib.extend (_self: _super: { custom = import ./lib { inherit (nixpkgs) lib; }; }); # https://github.com/EmergentMind/nix-config/blob/f9168993316e8ff99381ff5dd3c7398273439618/flake.nix#L24
-
-      nixosConfiguration =
-        hostname: system:
-        inputs.nixpkgs.lib.nixosSystem {
-          modules = [
-            ./hosts/${hostname}
-            {
-              networking.hostName = "${hostname}";
-              nixpkgs.hostPlatform = system;
-            }
-            inputs.nix-index-database.nixosModules.nix-index
-          ];
-          specialArgs = { inherit inputs outputs lib; };
-        };
+      # see: https://github.com/nix-community/home-manager/pull/3454 # https://github.com/EmergentMind/nix-config/blob/f9168993316e8ff99381ff5dd3c7398273439618/flake.nix#L24
 
       darwinConfiguration =
         hostname: _system:
@@ -337,12 +321,12 @@
         }
       );
 
-      nixosConfigurations = {
-        desktop = nixosConfiguration "desktop" "x86_64-linux";
-        laptop = nixosConfiguration "laptop" "x86_64-linux";
-        rpi = nixosConfiguration "rpi" "aarch64-linux";
-        nixos = nixosConfiguration "nixos" "x86_64-linux";
-      };
+      # nixosConfigurations = {
+      #   desktop = nixosConfiguration "desktop" "x86_64-linux";
+      #   laptop = nixosConfiguration "laptop" "x86_64-linux";
+      #   rpi = nixosConfiguration "rpi" "aarch64-linux";
+      #   nixos = nixosConfiguration "nixos" "x86_64-linux";
+      # };
 
       darwinConfigurations = {
         TP95V9LWWL = darwinConfiguration "TP95V9LWWL" "aarch64-darwin";
