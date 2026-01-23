@@ -3,7 +3,7 @@ name: Nix Flake Check
 on:
   pull_request:
   push:
-    branches: [main]
+    branches: [unstable, main]
   workflow_dispatch:
 
 permissions: {}
