@@ -425,7 +425,6 @@ in
         gh-cal # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-cal
         gh-classroom # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-classroom
         gh-contribs # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-contribs
-        gh-copilot # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-copilot
         gh-dash # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-dash
         gh-eco # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-eco
         gh-f # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-f
@@ -440,6 +439,7 @@ in
         gh-signoff # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-signoff
         gh-skyline # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-skyline
         gh-webhook # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-webhook
+        github-copilot-cli # https://search.nixos.org/packages?channel=unstable&type=packages&show=github-copilot-cli
         # keep-sorted end
       ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.gh.extensions
       gitCredentialHelper = {
