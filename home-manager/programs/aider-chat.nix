@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
   programs.aider-chat = {
-    enable = pkgs.stdenv.system != "x86_64-darwin"; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.aider-chat.enable
+    enable = false; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.aider-chat.enable
     package = pkgs.aider-chat; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.aider-chat.package
     settings = {
       architect = false;
