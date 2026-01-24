@@ -46,10 +46,8 @@ in
     inputs.nixvim.nixosModules.nixvim
   ];
 
-  # Make primaryUser available to sops module
   system.primaryUser = hostConfiguration.primaryUser;
 
-  # Documentation - reused from darwin config
   documentation = {
     enable = true;
     doc.enable = true;
@@ -57,18 +55,14 @@ in
     man.enable = true;
   };
 
-  # Environment - reused system packages and variables from darwin
   environment = {
     systemPackages = with pkgs; [
       # keep-sorted start block=yes newline_separated=no
       btop
-      clang
       coreutils
-      dix
       enpass
       findutils
       firefox
-      firefox-beta
       git
       gnupg
       helix
@@ -85,7 +79,6 @@ in
       nixfmt
       nvd
       openssh
-      tmux
       vim
       wget
       xclip
@@ -93,8 +86,10 @@ in
       # keep-sorted end
     ];
     shellAliases = {
-      show-system = "nix derivation show /run/current-system";
       list-generations = "nix-env --list-generations";
+      pbcopy = "xclip -selection clipboard -in";
+      pbpaste = "xclip -selection clipboard -out";
+      show-system = "nix derivation show /run/current-system";
       switch-system = "sudo nixos-rebuild switch --flake .";
     };
     variables = {
