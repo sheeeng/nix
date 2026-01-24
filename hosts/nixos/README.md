@@ -2,7 +2,7 @@
 
 ## Configuration Overview
 
-Your new NixOS laptop configuration at [hosts/nixos](hosts/nixos) reuses:
+Your new NixOS laptop configuration in this directory reuses:
 
 ✅ **From Darwin Config:**
 
@@ -33,7 +33,7 @@ Your laptop has:
 
 ### 1. Set Your Hostname
 
-Edit [hosts/nixos/default.nix](hosts/nixos/default.nix#L15):
+Edit [default.nix](default.nix#L15):
 
 ```nix
 networking = {
@@ -43,7 +43,7 @@ networking = {
 
 ### 2. Set Your Username (if different from "leonard")
 
-Edit [hosts/nixos/default.nix](hosts/nixos/default.nix#L23):
+Edit [default.nix](default.nix#L23):
 
 ```nix
 user = {
@@ -55,7 +55,7 @@ user = {
 
 ### 3. Update flake.nix
 
-Rename the configuration in [flake.nix](flake.nix#L303):
+Rename the configuration in [flake.nix](../../flake.nix#L303):
 
 ```nix
 nixosConfigurations = {
@@ -159,7 +159,6 @@ sudo cp /etc/nixos/hardware-configuration.nix ~/hardware-configuration.nix.backu
 
    ```nix
    imports = [
-     ../../modules/nixos
      ./hardware-configuration.nix
      # ../darwin/sops.nix  # Darwin-only, not needed for NixOS
      inputs.home-manager.nixosModules.home-manager
@@ -256,7 +255,7 @@ Your configuration uses SOPS for secrets management. To enable it:
 
 If you want to add hardware-specific optimizations from nixos-hardware:
 
-Uncomment in [hosts/nixos/default.nix](hosts/nixos/default.nix#L41):
+Uncomment in [default.nix](default.nix#L41):
 
 ```nix
 imports = [
@@ -266,7 +265,6 @@ imports = [
   # inputs.nixos-hardware.nixosModules.framework-13-7040-amd
   # See: https://github.com/nixos/nixos-hardware
 
-  ../../modules/nixos
   ./hardware-configuration.nix
   # ../darwin/sops.nix  # Darwin-only, not needed for NixOS
   inputs.home-manager.nixosModules.home-manager
@@ -361,7 +359,7 @@ Check your interface name and adjust:
 ip link show
 ```
 
-Then update in [hosts/nixos/default.nix](hosts/nixos/default.nix):
+Then update in `default.nix`:
 
 ```nix
 networking.interfaces.wlp1s0.useDHCP = lib.mkDefault true;
@@ -371,7 +369,7 @@ networking.interfaces.wlp1s0.useDHCP = lib.mkDefault true;
 
 If your laptop is ARM instead of x86_64, change in both places:
 
-- `hosts/nixos/default.nix`: `systemPlatform = "aarch64-linux";`
+- `default.nix`: `systemPlatform = "aarch64-linux";`
 - `flake.nix`: `nixosConfiguration "nixos" "aarch64-linux"`
 
 ## Comparison with Other Hosts
@@ -397,7 +395,7 @@ If your laptop is ARM instead of x86_64, change in both places:
 - [ ] Flakes enabled temporarily (via flag or nix.conf)
 - [ ] Repository cloned to `~/nix-config`
 - [ ] Hardware configuration copied to `hosts/nixos/hardware-configuration.nix`
-- [ ] Hostname customized in `hosts/nixos/default.nix`
+- [ ] Hostname customized in `default.nix`
 - [ ] Username customized (if not "leonard")
 - [ ] SOPS temporarily disabled for first build (recommended)
 - [ ] First rebuild successful with `--extra-experimental-features` flag

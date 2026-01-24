@@ -65,18 +65,20 @@ echo "Using nix.conf path: ${NIX_CONF}"
 # Create the directory if it does not exist.
 sudo mkdir --parents "$(dirname "${NIX_CONF}")"
 
-# Create a temporary file with non-token content preserved and the new token added.
+# Create a temporary file with non-token content preserved.
 TEMP_CONF="${TEMPORARY_DIRECTORY}/nix.conf.tmp"
 
-# Copy existing content, excluding access-tokens for GitHub.com.
+# Copy existing content, excluding access-tokens for GitHub.
 if [ -f "${NIX_CONF}" ]; then
-  sudo grep --invert-match '^access-tokens = github\.com=' "${NIX_CONF}" | sudo tee "${TEMP_CONF}" >/dev/null 2>&1 || true
+  sudo grep --invert-match '^access-tokens = github\.com=' "${NIX_CONF}" \
+    | sudo tee "${TEMP_CONF}" > /dev/null 2>&1 || true
 else
   touch "${TEMP_CONF}"
 fi
 
 # Add the new token.
-echo "access-tokens = github.com=${REPO_SCOPE_GITHUB_TOKEN}" | sudo tee --append "${TEMP_CONF}" >/dev/null
+echo "access-tokens = github.com=${REPO_SCOPE_GITHUB_TOKEN}" \
+  | sudo tee --append "${TEMP_CONF}" > /dev/null
 
 # Replace the original file.
 sudo mv "${TEMP_CONF}" "${NIX_CONF}"
