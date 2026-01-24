@@ -96,7 +96,6 @@
       # gh-cal # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-cal
       # gh-classroom # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-classroom
       # gh-contribs # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-contribs
-      # gh-copilot # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-copilot
       # gh-dash # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-dash
       # gh-eco # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-eco
       # gh-f # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-f
