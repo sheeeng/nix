@@ -252,13 +252,14 @@ in
 
   services.xserver = {
     enable = true;
-    displayManager.gdm.enable = true;
-    desktopManager.gnome.enable = true;
     xkb = {
       layout = "us";
       variant = "";
     };
   };
+
+  services.displayManager.gdm.enable = true;
+  services.desktopManager.gnome.enable = true;
 
   # Enable CUPS to print documents
   services.printing.enable = true;
