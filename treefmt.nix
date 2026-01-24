@@ -1,143 +1,124 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 {
   projectRootFile = "flake.nix";
 
-  programs = {
-    # keep-sorted start block=yes newline_separated=no case=no sticky_comments=yes
-    deadnix.enable = true;
-    just.enable = true;
-    keep-sorted.enable = true;
-    mdsh.enable = true;
-    nixfmt = {
-      enable = pkgs.stdenv.hostPlatform.system != "riscv64-linux";
-      package = pkgs.nixfmt-rfc-style;
-      includes = [ "*.nix" ];
-      strict = true;
-    };
-    prettier = {
-      enable = true;
-      includes = [
-        "*.css"
-        "*.html"
-        "*.js"
-        "*.yaml"
-        "*.yml"
-      ];
-      excludes = [
-        "*.json"
-        "*.json5"
-        "*.lock"
-        "*.md"
-        "*.mdx"
-        "flake.lock"
-        ".github/**/*.md"
-      ];
-      settings = {
-        bracketSpacing = true;
-        printWidth = 200; # Allow longer lines to prevent formatting failures
-        tabWidth = 2;
-        trailingComma = "none";
-        useTabs = false;
-      };
-    };
-    rustfmt.enable = true;
-    shellcheck = {
-      enable = pkgs.stdenv.hostPlatform.system != "riscv64-linux";
-      includes = [
-        "*.bash"
-        "*.bats"
-        "*.sh"
-      ];
-    };
-    shfmt = {
-      enable = true;
-      indent_size = 2;
-      includes = [
-        "*.bash"
-        "*.bats"
-        "*.sh"
-      ];
-    };
-    statix.enable = true;
-    taplo = {
-      enable = true;
-      settings = {
-        include = [ "*.toml" ];
-      };
-    };
-    yamlfmt = {
-      enable = true;
-      settings = {
-        formatter = {
-          disallow_anchors = false;
-          eof_newline = true;
-          include_document_start = false;
-          indent = 2;
-          line_endings = "lf";
-          max_line_length = 0;
-          retain_line_breaks = true;
-          retain_line_breaks_single = true;
-          scan_folded_as_literal = true;
-          trim_trailing_whitespace = true;
-        };
-      };
-    };
-    # keep-sorted end
-  };
-
   settings = {
+    formatter = {
+      # keep-sorted start block=yes newline_separated=no case=no sticky_comments=yes
+      deadnix = {
+        command = "${lib.getExe pkgs.deadnix}";
+        includes = [ "*.nix" ];
+        excludes = [ ];
+        options = [ "--edit" ];
+        settings = { };
+      };
+      keep-sorted = {
+        command = "${lib.getExe pkgs.keep-sorted}";
+        includes = [ "*" ];
+        excludes = [ ];
+        options = [
+          "--mode"
+          "fix"
+        ];
+        settings = { };
+      };
+      nixfmt = {
+        command = "${lib.getExe pkgs.nixfmt}";
+        includes = [ "*.nix" ];
+        excludes = [ ];
+        options = [ ];
+        settings = { };
+      };
+      prettier = {
+        command = "${lib.getExe pkgs.prettier}";
+        includes = [
+          "*.css"
+          "*.html"
+          "*.js"
+          "*.yaml"
+          "*.yml"
+        ];
+        excludes = [
+          "*.json"
+          "*.json5"
+          "*.md"
+          "*.mdx"
+          "flake.lock"
+        ];
+        options = [
+          "--write"
+          "--bracket-spacing"
+          "--print-width=200"
+          "--tab-width=2"
+          "--trailing-comma=none"
+          "--use-tabs=false"
+        ];
+        settings = { };
+      };
+      rustfmt = {
+        command = "${lib.getExe pkgs.rustfmt}";
+        includes = [ "*.rs" ];
+        excludes = [ ];
+        options = [ ];
+        settings = { };
+      };
+      shellcheck = {
+        command = "${lib.getExe pkgs.shellcheck}";
+        includes = [
+          "*.bash"
+          "*.bats"
+          "*.sh"
+        ];
+        excludes = [ ];
+        options = [ ];
+        settings = { };
+      };
+      shfmt = {
+        command = "${lib.getExe pkgs.shfmt}";
+        includes = [
+          "*.bash"
+          "*.bats"
+          "*.sh"
+        ];
+        excludes = [ ];
+        options = [
+          "--indent"
+          "2"
+          "--space-redirects"
+          "--binary-next-line"
+          "--diff"
+          "--simplify"
+          "--list"
+          "--write"
+        ];
+        settings = { };
+      };
+      taplo = {
+        command = "${lib.getExe pkgs.taplo}";
+        includes = [ "*.toml" ];
+        excludes = [ ];
+        options = [ "format" ];
+        settings = { };
+      };
+      # Using opentofu as the formatter for Terraform files, as official terraform binaries are not pre-built due to restrictive license.
+      # Building terraform from source is not time-efficient for CI runs.
+      terraform = {
+        command = "${lib.getExe pkgs.opentofu}"; # https://search.nixos.org/packages?channel=unstable&type=packages&show=opentofu
+        includes = [
+          "*.tf"
+          "*.tfvars"
+          "*.tftest.hcl"
+        ];
+        excludes = [ ];
+        options = [ "fmt" ];
+        settings = { };
+      };
+      # keep-sorted end
+    };
     global.excludes = [
       "*.lock"
       "*.patch"
       "LICENSE*"
-      "archive/**"
-      ".github/**/*.md"
     ];
-  };
-
-  settings.formatter = {
-    # keep-sorted start block=yes newline_separated=no case=no sticky_comments=yes
-    keep-sorted = {
-      options = [
-        "--mode"
-        "fix"
-      ];
-    };
-    shfmt = {
-      options = [
-        "--indent"
-        "2"
-        "--space-redirects"
-        "--binary-next-line"
-        "--diff"
-        "--simplify"
-        "--list"
-        "--write"
-      ];
-    };
-    # Using opentofu as the formatter for Terraform files, as official terraform binaries are not pre-built due to restrictive license.
-    # Building terraform from source is not time-efficient for CI runs.
-    terraform = {
-      command = "${pkgs.opentofu}/bin/tofu"; # https://search.nixos.org/packages?channel=unstable&type=packages&show=opentofu
-      options = [ "fmt" ];
-      includes = [
-        "*.tf"
-        "*.tfvars"
-        "*.tftest.hcl"
-      ];
-      excludes = [ ];
-    };
-    yamllint = {
-      command = "${pkgs.yamllint}/bin/yamllint";
-      includes = [
-        "*.yaml"
-        "*.yml"
-      ];
-      options = [
-        "--config-data"
-        "rules: {line-length: disable, comments: disable}"
-      ];
-    };
-    # keep-sorted end
   };
 }
