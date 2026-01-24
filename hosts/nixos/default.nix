@@ -82,7 +82,7 @@ in
       nix-prefetch-github
       nix-prefetch-scripts
       nixd
-      nixfmt-rfc-style
+      nixfmt
       nvd
       openssh
       tmux
