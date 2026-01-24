@@ -1,7 +1,23 @@
+# https://github.com/markdownlint/markdownlint/blob/main/docs/RULES.md
 # https://github.com/DavidAnson/markdownlint/blob/main/schema/.markdownlint.yaml
 
-# Disable line-length rule.
+# keep-sorted start group=yes
+MD010: # no-hard-tabs
+  code_blocks: true
+  ignore_code_languages: []
+  spaces_per_tab: 1
 MD013: false # line-length
-
-# Disable no-bare-urls rule.
+# code_block_line_length: 80
+# code_blocks: true
+# heading_line_length: 80
+# headings: true
+# line_length: 80
+# stern: false
+# strict: false
+# tables: true
+MD024: # no-duplicate-heading
+  # Only check sibling headings.
+  siblings_only: true
+MD028: false # no-blanks-blockquote
 MD034: false # no-bare-urls
+# keep-sorted end
