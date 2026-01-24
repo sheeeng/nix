@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 
 {
   home.packages = with pkgs; [
@@ -88,8 +88,10 @@
           config = builtins.readFile ./plugins/gitsigns-nvim.lua;
         }
       ]
-      ++ pkgs.lib.optionals (pkgs.stdenv.system != "x86_64-darwin") [
+      ++ pkgs.lib.optionals (pkgs.stdenv.system != "x86_64-darwin" && config.programs.aider-chat.enable) [
         { plugin = vimPlugins.aider-nvim; } # https://search.nixos.org/packages?channel=unstable&type=packages&show=aider-nvim
+      ]
+      ++ pkgs.lib.optionals (config.programs.opencode.enable) [
         { plugin = vimPlugins.opencode-nvim; } # https://search.nixos.org/packages?channel=unstable&type=packages&show=opencode-nvim
       ]
       ++ telescope
