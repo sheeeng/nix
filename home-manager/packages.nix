@@ -209,7 +209,7 @@
       hexedit # https://search.nixos.org/packages?channel=unstable&type=packages&show=hexedit
       jq # https://search.nixos.org/packages?channel=unstable&type=packages&show=jq
       lego # https://search.nixos.org/packages?channel=unstable&type=packages&show=lego
-      mdformat # https://search.nixos.org/packages?channel=unstable&type=packages&show=mdformat
+      # mdformat # TODO: https://github.com/NixOS/nixpkgs/issues/483613 # https://search.nixos.org/packages?channel=unstable&type=packages&show=mdformat
       minify # https://search.nixos.org/packages?channel=unstable&type=packages&show=minify
       mkdocs # https://search.nixos.org/packages?channel=unstable&type=packages&show=mkdocs
       moreutils # https://search.nixos.org/packages?channel=unstable&type=packages&show=moreutils
