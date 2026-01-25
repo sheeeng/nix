@@ -16,15 +16,24 @@
   programs.neovim = {
     enable = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.neovim.enable
     package = pkgs.neovim-unwrapped; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.neovim.package
+    autowrapRuntimeDeps = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.neovim.autowrapRuntimeDeps
+    coc = {
+      enable = false; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.neovim.coc.enable
+      package = pkgs.vimPlugins.coc-nvim; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.neovim.coc.package
+      pluginConfig = ""; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.neovim.coc.pluginConfig
+      settings = { }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.neovim.coc.settings
+    };
     defaultEditor = false; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.neovim.defaultEditor
-    viAlias = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.neovim.viAlias
-    vimAlias = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.neovim.vimAlias
-    vimdiffAlias = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.neovim.vimdiffAlias
     extraConfig = builtins.readFile ./vimrc; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.neovim.extraConfig
-    extraLuaConfig = builtins.readFile ./init.lua; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.neovim.extraLuaConfig
-    withNodeJs = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.neovim.withNodeJs
-    withPython3 = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.neovim.withPython3
-    withRuby = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.neovim.withRuby
+    extraLuaPackages = _ps: [ ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.neovim.extraLuaPackages
+    extraName = ""; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.neovim.extraName
+    extraPackages = [ ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.neovim.extraPackages
+    extraPython3Packages = _ps: [ ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.neovim.extraPython3Packages
+    extraWrapperArgs = [ ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.neovim.extraWrapperArgs
+    # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.neovim.finalPackage
+    # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.neovim.generatedConfigViml
+    # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.neovim.generatedConfigs
+    initLua = builtins.readFile ./init.lua; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.neovim.initLua
     plugins =
       let
         cmp = with pkgs; [
@@ -97,5 +106,12 @@
       ++ telescope
       ++ cmp
       ++ searchbox; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.neovim.plugins
+    viAlias = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.neovim.viAlias
+    vimAlias = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.neovim.vimAlias
+    vimdiffAlias = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.neovim.vimdiffAlias
+    withNodeJs = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.neovim.withNodeJs
+    withPerl = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.neovim.withPerl
+    withPython3 = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.neovim.withPython3
+    withRuby = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.neovim.withRuby
   };
 }
