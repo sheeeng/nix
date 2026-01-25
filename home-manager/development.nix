@@ -2,7 +2,7 @@
 
 # https://github.com/hardselius/dotfiles/blob/b801fd8aba017a588ce56430d8345449ec396c96/home/packages.nix
 
-_: {}
+_: { }
 
 # { pkgs, ... }:
 # {
