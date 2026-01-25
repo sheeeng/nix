@@ -119,7 +119,7 @@
 
     mac-app-util = {
       url = "github:hraban/mac-app-util";
-      inputs.nixpkgs.follows = "nixpkgs";
+      # inputs.nixpkgs.follows = "nixpkgs"; # TODO: https://github.com/hraban/mac-app-util/issues/42
     };
 
     microvm = {
