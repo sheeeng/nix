@@ -95,7 +95,6 @@ in
     variables = {
       EDITOR = "hx";
       LANG = "en_US.UTF-8";
-      SSH_AUTH_SOCK = "$HOME/.gnupg/S.gpg-agent.ssh";
       FONTCONFIG_FILE = "${pkgs.fontconfig.out}/etc/fonts/fonts.conf";
       FONTCONFIG_PATH = "${pkgs.fontconfig.out}/etc/fonts/";
     };
@@ -296,6 +295,7 @@ in
   programs.gnupg.agent = {
     enable = true;
     enableSSHSupport = true;
+    pinentryPackage = pkgs.pinentry-curses;
   };
 
   # System auto-upgrade
