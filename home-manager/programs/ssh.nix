@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ config, pkgs, lib, ... }:
 {
   programs.ssh = {
     enable = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.ssh.enable
@@ -10,7 +10,7 @@
     matchBlocks = {
       "*" = {
         forwardAgent = false; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.ssh.matchBlocks._name_.forwardAgent
-        addKeysToAgent = "no"; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.ssh.matchBlocks._name_.addKeysToAgent
+        addKeysToAgent = "yes"; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.ssh.matchBlocks._name_.addKeysToAgent
         compression = false; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.ssh.matchBlocks._name_.compression;
         serverAliveInterval = 0; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.ssh.matchBlocks._name_.serverAliveInterval
         serverAliveCountMax = 3; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.ssh.matchBlocks._name_.serverAliveCountMax
@@ -19,6 +19,7 @@
         controlMaster = "no"; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.ssh.matchBlocks._name_.controlMaster
         controlPath = "~/.ssh/master-%r@%n:%p"; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.ssh.matchBlocks._name_.controlPath
         controlPersist = "no"; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.ssh.matchBlocks._name_.controlPersist
+        extraOptions = lib.mkIf pkgs.stdenv.isDarwin { UseKeychain = "yes"; }; # macOS keychain support
       }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.ssh.enableDefaultConfig
       "GitHub" = {
         addKeysToAgent = "yes"; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.ssh.matchBlocks._name_.addKeysToAgent
@@ -39,5 +40,10 @@
         identityFile = [ ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.ssh.matchBlocks._name_.identityFile
       };
     }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.ssh.matchBlocks
+  };
+
+  # Set SSH_AUTH_SOCK for GPG agent SSH support on NixOS.
+  home.sessionVariables = lib.mkIf pkgs.stdenv.isLinux {
+    SSH_AUTH_SOCK = "${builtins.getEnv "XDG_RUNTIME_DIR"}/gnupg/S.gpg-agent.ssh";
   };
 }
