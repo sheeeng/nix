@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ pkgs, lib, ... }:
 {
   programs.ssh = {
     enable = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.ssh.enable
