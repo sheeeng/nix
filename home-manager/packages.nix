@@ -189,6 +189,7 @@
       # (lib.lowPrio sc) # TODO: Collision error with `smartcat` package. # https://search.nixos.org/packages?channel=unstable&type=packages&show=sc
       # fuff # TODO: https://github.com/ffuf/ffuf # https://search.nixos.org/packages?channel=unstable&type=packages&show=fuff
       # ltex-ls-plus # https://search.nixos.org/packages?channel=unstable&type=packages&show=ltex-ls-plus
+      # mdformat # TODO: https://github.com/NixOS/nixpkgs/issues/483613 # https://search.nixos.org/packages?channel=unstable&type=packages&show=mdformat
       # ollama # TODO: Marked as insecure. # https://search.nixos.org/packages?channel=unstable&type=packages&show=ollama
       # sct # https://search.nixos.org/packages?channel=unstable&type=packages&show=sct
       # uuid7 # TODO: https://github.com/stevesimmons/uuid7 # https://search.nixos.org/packages?channel=unstable&type=packages&show=uuid7
@@ -209,7 +210,6 @@
       hexedit # https://search.nixos.org/packages?channel=unstable&type=packages&show=hexedit
       jq # https://search.nixos.org/packages?channel=unstable&type=packages&show=jq
       lego # https://search.nixos.org/packages?channel=unstable&type=packages&show=lego
-      # mdformat # TODO: https://github.com/NixOS/nixpkgs/issues/483613 # https://search.nixos.org/packages?channel=unstable&type=packages&show=mdformat
       minify # https://search.nixos.org/packages?channel=unstable&type=packages&show=minify
       mkdocs # https://search.nixos.org/packages?channel=unstable&type=packages&show=mkdocs
       moreutils # https://search.nixos.org/packages?channel=unstable&type=packages&show=moreutils
