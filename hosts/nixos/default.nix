@@ -253,6 +253,7 @@ in
 
   services.displayManager.gdm.enable = true;
   services.desktopManager.gnome.enable = true;
+  services.gnome.gnome-browser-connector.enable = true;
 
   # Enable CUPS to print documents
   services.printing.enable = true;
@@ -288,7 +289,11 @@ in
   };
 
   programs.zsh.enable = true;
-  programs.firefox.enable = true;
+  programs.firefox = {
+    enable = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.firefox.enable
+    enableGnomeExtensions = config.services.gnome.gnome-browser-connector.enable; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.firefox.enableGnomeExtensions
+    package = pkgs.firefox; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.firefox.package
+  };
 
   # GnuPG agent with SSH support
   programs.gnupg.agent = {
