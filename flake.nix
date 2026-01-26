@@ -117,6 +117,10 @@
     #   inputs.nixpkgs.follows = "nixpkgs";
     # };
 
+    # mac-app-util fails to build with sbcl-2.6.0 package.
+    # sbcl-2.6.0 broke fare-quasiquote/cl-interpol readtable handling.
+    # Tracking: https://github.com/hraban/mac-app-util/issues/42
+    # TODO: Enable once upstream issue is fixed. See beads issue nixcfg-gl7.
     mac-app-util = {
       url = "github:hraban/mac-app-util";
       # inputs.nixpkgs.follows = "nixpkgs"; # TODO: https://github.com/hraban/mac-app-util/issues/42
