@@ -199,7 +199,7 @@ let
 
       eval "$(starship init bash)"
 
-      export PATH="$PATH:"${config.xdg.dataHome}/.local/bin"
+      export PATH="$PATH:${config.xdg.dataHome}/.local/bin"
     ''; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.bash.initExtra
     logoutExtra = ""; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.bash.logoutExtra
     profileExtra = ""; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.bash.profileExtra
