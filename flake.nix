@@ -262,6 +262,8 @@
                 (import ./overlays inputs).nodejs-skip-tests
                 (import ./overlays inputs).fix-vscode-operation-not-permitted
                 (import ./overlays inputs).unstable-packages
+                (import ./overlays inputs).mdformat
+                (import ./overlays inputs).beads
                 inputs.morlana.overlays.default
                 # inputs.nh-plus.overlays.default
                 inputs.fenix.overlays.default
@@ -318,6 +320,8 @@
                 (import ./overlays inputs).nodejs-skip-tests
                 (import ./overlays inputs).fix-vscode-operation-not-permitted
                 (import ./overlays inputs).unstable-packages
+                (import ./overlays inputs).mdformat
+                (import ./overlays inputs).beads
                 inputs.morlana.overlays.default
                 inputs.fenix.overlays.default
               ];
