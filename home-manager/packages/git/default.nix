@@ -36,7 +36,7 @@ in
     gitleaks # https://search.nixos.org/packages?channel=unstable&type=packages&show=gitleaks
     glab # https://search.nixos.org/packages?channel=unstable&type=packages&show=glab
     hut # https://search.nixos.org/packages?channel=unstable&type=packages&show=hut
-    pre-commit # https://search.nixos.org/packages?channel=unstable&type=packages&show=pre-commit
+    # pre-commit # TODO: https://github.com/nixos/nixpkgs/issues/483584 # https://search.nixos.org/packages?channel=unstable&type=packages&show=pre-commit
     tea # https://search.nixos.org/packages?channel=unstable&type=packages&show=tea
     # keep-sorted end
   ];
@@ -428,7 +428,7 @@ in
         gh-dash # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-dash
         gh-eco # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-eco
         gh-f # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-f
-        gh-gei # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-gei
+        # gh-gei # TODO: https://github.com/nixos/nixpkgs/issues/483584 # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-gei
         gh-i # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-i
         gh-markdown-preview # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-markdown-preview
         gh-notify # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-notify
