@@ -111,7 +111,9 @@
       # gh-skyline # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-skyline
       # gh-webhook # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-webhook
       # kubelogin # https://search.nixos.org/packages?channel=unstable&type=packages&show=kubelogin
+      # marksman # TODO: https://github.com/nixos/nixpkgs/issues/483584 # https://search.nixos.org/packages?channel=unstable&type=packages&show=marksman
       # nixfmt-tree # https://search.nixos.org/packages?channel=unstable&type=packages&show=nixfmt-tree
+      # pre-commit # TODO: https://github.com/nixos/nixpkgs/issues/483584 # https://search.nixos.org/packages?channel=unstable&type=packages&show=pre-commit
       # taskctl # TODO: https://github.com/taskctl/taskctl # https://search.nixos.org/packages?channel=unstable&type=packages&show=taskctl
       # x-cmd # TODO: https://github.com/x-cmd/x-cmd # https://search.nixos.org/packages?channel=unstable&type=packages&show=x-cmd
       (lib.hiPrio uutils-coreutils-noprefix) # https://search.nixos.org/packages?channel=unstable&type=packages&show=uutils-coreutils-noprefix
@@ -138,11 +140,9 @@
       lazysql # https://search.nixos.org/packages?channel=unstable&type=packages&show=lazysql
       ltex-ls # https://search.nixos.org/packages?channel=unstable&type=packages&show=ltex-ls
       markdown-oxide # https://search.nixos.org/packages?channel=unstable&type=packages&show=markdown-oxide
-      marksman # https://search.nixos.org/packages?channel=unstable&type=packages&show=marksman
       nh # https://search.nixos.org/packages?channel=unstable&type=packages&show=nh
       nixfmt # https://search.nixos.org/packages?channel=unstable&type=packages&show=nixfmt
       nixos-option # https://search.nixos.org/packages?channel=unstable&type=packages&show=nixos-option
-      pre-commit # https://search.nixos.org/packages?channel=unstable&type=packages&show=pre-commit
       shfmt # https://search.nixos.org/packages?channel=unstable&type=packages&show=shfmt
       texlab # https://search.nixos.org/packages?channel=unstable&type=packages&show=texlab
       tflint # https://search.nixos.org/packages?channel=unstable&type=packages&show=tflint
