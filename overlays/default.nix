@@ -34,15 +34,39 @@ inputs: {
     python3 = prev.python3.override {
       packageOverrides = _: pyPrev: {
         mdformat = pyPrev.mdformat.overridePythonAttrs (_: rec {
-          version = "1.0.0";
+          version = "82912cdaea4fb830f751504486a7879c70526547"; # 1.0.0
           src = prev.fetchFromGitHub {
             owner = "hukkin";
             repo = "mdformat";
             tag = version;
+            # nix-prefetch-git \
+            #   https://github.com/hukkin/mdformat \
+            #   82912cdaea4fb830f751504486a7879c70526547 \
+            #   | jq --raw-output '.hash'
             hash = "sha256-fo4xO4Y89qPAggEjwuf6dnTyu1JzhZVdJyUqGNpti7g=";
           };
         });
       };
     };
   };
+
+  # nix eval nixpkgs#beads --json 2>&1 | head -20
+  # nix eval .#darwinConfigurations.$(hostname).pkgs.beads.version --raw 2>&1
+  # nix build .#darwinConfigurations.$(hostname).pkgs.beads --print-build-logs 2>&1
+  beads = final: prev: {
+    beads = prev.beads.overrideAttrs (old: rec {
+      version = "0d99d15370030b953a8df0ea67cd3d1b845bb07b"; # v0.49.1
+      src = prev.fetchFromGitHub {
+        owner = "steveyegge";
+        repo = "beads";
+        rev = version;
+        # nix-prefetch-git \
+        #   https://github.com/steveyegge/beads \
+        #   0d99d15370030b953a8df0ea67cd3d1b845bb07b \
+        #   | jq --raw-output '.hash'
+        hash = "sha256-roOyTMy9nKxH2Bk8MnP4h2CDjStwK6z0ThQhFcM64QI=";
+      };
+    });
+  };
+
 }
