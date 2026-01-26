@@ -2,10 +2,12 @@ inputs: {
   # Skip Node.js tests during nix-darwin switch for improved performance
   # nodejs-skip-tests = import ./nodejs.nix;
 
+  # --------------------------------------------------------------------
   unstable-packages = final: _prev: {
     unstable = inputs.nixpkgs.legacyPackages.${final.stdenv.hostPlatform.system};
   };
 
+  # --------------------------------------------------------------------
   nodejs-skip-tests = _final: prev: {
     nodejs = prev.nodejs.overrideAttrs (_: {
       doCheck = false;
@@ -15,6 +17,7 @@ inputs: {
     });
   };
 
+  # --------------------------------------------------------------------
   # Workaround for VSCode "Operation not permitted" issue.
   # https://github.com/NixOS/nixpkgs/issues/476838
   # https://github.com/nix-darwin/nix-darwin/issues/1315#issuecomment-2629517646
@@ -24,6 +27,7 @@ inputs: {
     });
   };
 
+  # --------------------------------------------------------------------
   # https://github.com/hraban/mac-app-util/issues/42
   # https://github.com/gkze/nixcfg/commit/8d39c5bfd9e3fade36a8383798a5bcc3fcf9e7b3
   # mdformat: Update to 1.0.0 for markdown-it-py 4.x compatibility.
@@ -39,17 +43,18 @@ inputs: {
             owner = "hukkin";
             repo = "mdformat";
             tag = version;
-            # nix-prefetch-git \
-            #   https://github.com/hukkin/mdformat \
-            #   82912cdaea4fb830f751504486a7879c70526547 \
-            #   | jq --raw-output '.hash'
             hash = "sha256-fo4xO4Y89qPAggEjwuf6dnTyu1JzhZVdJyUqGNpti7g=";
           };
         });
       };
     };
   };
+  # nix-prefetch-git \
+  #   https://github.com/hukkin/mdformat \
+  #   82912cdaea4fb830f751504486a7879c70526547 \
+  #   | jq --raw-output '.hash'
 
+  # --------------------------------------------------------------------
   # nix eval nixpkgs#beads --json 2>&1 | head -20
   # nix eval .#darwinConfigurations.$(hostname).pkgs.beads.version --raw 2>&1
   # nix build .#darwinConfigurations.$(hostname).pkgs.beads --print-build-logs 2>&1
@@ -60,13 +65,15 @@ inputs: {
         owner = "steveyegge";
         repo = "beads";
         rev = version;
-        # nix-prefetch-git \
-        #   https://github.com/steveyegge/beads \
-        #   0d99d15370030b953a8df0ea67cd3d1b845bb07b \
-        #   | jq --raw-output '.hash'
         hash = "sha256-roOyTMy9nKxH2Bk8MnP4h2CDjStwK6z0ThQhFcM64QI=";
       };
     });
   };
+  # nix-prefetch-git \
+  #   https://github.com/steveyegge/beads \
+  #   0d99d15370030b953a8df0ea67cd3d1b845bb07b \
+  #   | jq --raw-output '.hash'
+
+  # --------------------------------------------------------------------
 
 }
