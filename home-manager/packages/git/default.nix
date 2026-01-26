@@ -362,7 +362,7 @@ in
           path = "~/github/sheeeng/.gitconfig";
         }
         {
-          condition = "gitdir:~/github/techcloud0/**/.git";
+          condition = "gitdir:~/github/techcloud0/";
           path = "~/github/techcloud0/.gitconfig";
         }
         {
