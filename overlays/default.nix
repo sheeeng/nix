@@ -23,4 +23,26 @@ inputs: {
       installPhase = "whoami\n" + old.installPhase;
     });
   };
+
+  # https://github.com/hraban/mac-app-util/issues/42
+  # https://github.com/gkze/nixcfg/commit/8d39c5bfd9e3fade36a8383798a5bcc3fcf9e7b3
+  # mdformat: Update to 1.0.0 for markdown-it-py 4.x compatibility.
+  # nixos-unstable has markdown-it-py 4.0.0 but mdformat 0.7.22 requires <4.0.0 package.
+  # https://github.com/NixOS/nixpkgs/issues/483613 merged to master but not yet available in unstable.
+  # TODO: Remove the following override once nixos-unstable has mdformat 1.0.0 package.
+  mdformat = _final: prev: {
+    python3 = prev.python3.override {
+      packageOverrides = _: pyPrev: {
+        mdformat = pyPrev.mdformat.overridePythonAttrs (_: rec {
+          version = "1.0.0";
+          src = prev.fetchFromGitHub {
+            owner = "hukkin";
+            repo = "mdformat";
+            tag = version;
+            hash = "sha256-fo4xO4Y89qPAggEjwuf6dnTyu1JzhZVdJyUqGNpti7g=";
+          };
+        });
+      };
+    };
+  };
 }
