@@ -62,7 +62,6 @@ in
       coreutils
       enpass
       findutils
-      firefox
       git
       gnupg
       helix
