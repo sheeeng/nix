@@ -5,3 +5,5 @@ dist/
 node_modules/
 result*
 result/
+
+# !.beads/issues.jsonl # Keep track of https://github.com/steveyegge/beads issues.
