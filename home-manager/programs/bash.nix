@@ -2,42 +2,24 @@
 
 # https://github.com/jonringOer/nixpkgs-config/blob/399724e3c8b1756f636f8d485eed25d03f64aa76/bash.nix
 
-{ lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   bashConfiguration = {
-    enable = true;
-    enableCompletion = true;
-    shellAliases = {
-      sudo = "sudo "; # will now check for alias expansion after sudo
-      ls = "exa ";
-      ll = "exa -l --color=always";
-      la = "exa -a --color=always";
-      lla = "exa -al --color=always";
-      ".." = "cd ..";
-      "..." = "cd ../..";
-      "...." = "cd ../../..";
-      ".2" = "cd ../..";
-      ".3" = "cd ../../..";
-      ".4" = "cd ../../../..";
-      ".5" = "cd ../../../../..";
-      ".6" = "cd ../../../../../..";
-      bro = "bitte rebuild --only";
-      g = "git";
-      grbc = "git rebase --continue";
-      gco = "git checkout";
-      gst = "git status";
-      nfl = "nix flake lock";
-      nflu = "nix flake lock --update-input";
-      vimdiff = "nvim -d";
-      vim = "nvim";
-      vi = "nvim";
-      opt = ''manix "" | grep '^# ' | sed 's/^# \(.*\) (.*/\1/;s/ (.*//;s/^# //' | fzf --ansi --preview="manix '{}' | sed 's/type: /> type: /g' | bat -l Markdown --color=always --plain"'';
-      to32 = "nix-hash --to-base32 --type sha256";
-
-      suspend = "systemctl suspend";
-    };
-
+    enable = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.bash.enable
+    enableCompletion = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.bash.enableCompletion
+    enableVteIntegration = false; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.bash.enableVteIntegration
+    package = pkgs.bashInteractive; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.bash.package
+    bashrcExtra = ""; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.bash.bashrcExtra
+    historyControl = [ ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.bash.historyControl
+    historyFile = "${config.xdg.dataHome}/.bash_history"; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.bash.historyFile
+    historyFileSize = 1000000; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.bash.historyIgnore
+    historyIgnore = [ ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.bash.historySize
     initExtra = ''
       set -o vi  # enable vi-like control
       # export EDITOR=nvim # TODO: Conflicting error. Use `lib.mkForce value` or `lib.mkDefault value` to change the priority on any of these definitions.
@@ -216,7 +198,47 @@ let
       }
 
       eval "$(starship init bash)"
-    '';
+
+      export PATH="$PATH:"${config.xdg.dataHome}/.local/bin"
+    ''; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.bash.initExtra
+    logoutExtra = ""; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.bash.logoutExtra
+    profileExtra = ""; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.bash.profileExtra
+    sessionVariables = { }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.bash.sessionVariables
+    shellAliases = {
+      sudo = "sudo "; # will now check for alias expansion after sudo
+      ls = "exa ";
+      ll = "exa -l --color=always";
+      la = "exa -a --color=always";
+      lla = "exa -al --color=always";
+      ".." = "cd ..";
+      "..." = "cd ../..";
+      "...." = "cd ../../..";
+      ".2" = "cd ../..";
+      ".3" = "cd ../../..";
+      ".4" = "cd ../../../..";
+      ".5" = "cd ../../../../..";
+      ".6" = "cd ../../../../../..";
+      bro = "bitte rebuild --only";
+      g = "git";
+      grbc = "git rebase --continue";
+      gco = "git checkout";
+      gst = "git status";
+      nfl = "nix flake lock";
+      nflu = "nix flake lock --update-input";
+      vimdiff = "nvim -d";
+      vim = "nvim";
+      vi = "nvim";
+      opt = ''manix "" | grep '^# ' | sed 's/^# \(.*\) (.*/\1/;s/ (.*//;s/^# //' | fzf --ansi --preview="manix '{}' | sed 's/type: /> type: /g' | bat -l Markdown --color=always --plain"'';
+      to32 = "nix-hash --to-base32 --type sha256";
+
+      suspend = "systemctl suspend";
+    }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.bash.shellAliases
+    shellOptions = [
+      "histappend"
+      "extglob"
+      "globstar"
+      "checkjobs"
+    ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.bash.shellOptions
   };
 in
 {
