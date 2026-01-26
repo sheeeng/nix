@@ -67,16 +67,16 @@ in
       helix
       htop
       neovim
-      nh
-      nil
-      nix
-      nix-output-monitor
-      nix-prefetch-git
-      nix-prefetch-github
-      nix-prefetch-scripts
-      nixd
-      nixfmt
-      nvd
+      nh # https://search.nixos.org/packages?channel=unstable&type=packages&show=nh
+      nil # https://search.nixos.org/packages?channel=unstable&type=packages&show=nil
+      nix # https://search.nixos.org/packages?channel=unstable&type=packages&show=nix
+      nix-output-monitor # https://search.nixos.org/packages?channel=unstable&type=packages&show=nix-output-monitor
+      nix-prefetch-git # https://search.nixos.org/packages?channel=unstable&type=packages&show=nix-prefetch-git
+      nix-prefetch-github # https://search.nixos.org/packages?channel=unstable&type=packages&show=nix-prefetch-github
+      nix-prefetch-scripts # https://search.nixos.org/packages?channel=unstable&type=packages&show=nix-prefetch-scripts
+      nixd # https://search.nixos.org/packages?channel=unstable&type=packages&show=nixd
+      nixfmt # https://search.nixos.org/packages?channel=unstable&type=packages&show=nixfmt
+      nvd # https://search.nixos.org/packages?channel=unstable&type=packages&show=nvd
       openssh
       vim
       wget
