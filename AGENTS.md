@@ -1,5 +1,7 @@
 # AGENTS
 
+## Writing Style
+
 - Ensure adherence to Chicago Manual of Style by maintaining correct grammar and using proper punctuation in all comments and documentation.
 - Follow Chicago Manual of Style capitalization conventions.
   - Use title case (headline style) for headings, titles, and section names.
@@ -14,3 +16,7 @@
   - Lowercase prepositions such as at, by, for, from, in, into, of, on, to, with, between, through.
   - Lowercase "to" in infinitives such as to run, to see, to build.
   - Exception: Capitalize prepositions when used adverbially or adjectivally ("Look Up," "Turn Down") or in verb phrases.
+
+## Tracking Tasks
+
+Use [bd](https://github.com/steveyegge/beads) for tracking tasks.
