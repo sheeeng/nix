@@ -259,7 +259,7 @@
             inputs.sops-nix.darwinModules.sops
             {
               nixpkgs.overlays = [
-                (import ./overlays inputs).nodejs-skip-tests
+                # NOTE: nodejs-skip-tests overlay removed - it causes cache misses for webkitgtk and other large packages
                 (import ./overlays inputs).fix-vscode-operation-not-permitted
                 (import ./overlays inputs).unstable-packages
                 (import ./overlays inputs).mdformat
@@ -283,20 +283,8 @@
                 # }) # TODO: Remove above anonymous/lambda function after https://github.com/NixOS/nixpkgs/issues/461406 is resolved upstream.
               ];
 
-              # Global configuration to disable tests for better performance
               nixpkgs.config = {
                 allowUnfree = true;
-                # Disable checks globally for faster rebuilds
-                doCheck = false;
-                doInstallCheck = false;
-                # Override package defaults to skip tests
-                packageOverrides = pkgs: {
-                  # Global override for any Node.js related packages
-                  nodejs = pkgs.nodejs.overrideAttrs {
-                    doCheck = false;
-                    doInstallCheck = false;
-                  };
-                };
               };
 
               environment.variables = { };
@@ -317,7 +305,7 @@
             inputs.sops-nix.nixosModules.sops
             {
               nixpkgs.overlays = [
-                (import ./overlays inputs).nodejs-skip-tests
+                # NOTE: nodejs-skip-tests overlay removed - it causes cache misses for webkitgtk and other large packages
                 (import ./overlays inputs).fix-vscode-operation-not-permitted
                 (import ./overlays inputs).unstable-packages
                 (import ./overlays inputs).mdformat
@@ -326,17 +314,8 @@
                 inputs.fenix.overlays.default
               ];
 
-              # Global configuration to disable tests for better performance
               nixpkgs.config = {
                 allowUnfree = true;
-                doCheck = false;
-                doInstallCheck = false;
-                packageOverrides = pkgs: {
-                  nodejs = pkgs.nodejs.overrideAttrs {
-                    doCheck = false;
-                    doInstallCheck = false;
-                  };
-                };
               };
             }
           ];

@@ -244,14 +244,7 @@ in
       allowUnfree = true; # https://nixos.org/manual/nixpkgs/unstable/#opt-allowUnfree
       allowUnsupportedSystem = false; # https://nixos.org/manual/nixpkgs/unstable/#opt-allowUnsupportedSystem
 
-      packageOverrides = pkgs: {
-        nodejs = pkgs.nodejs.overrideAttrs {
-          doCheck = false;
-          doInstallCheck = false;
-          checkPhase = "echo 'Node.js tests disabled.'; true";
-          installCheckPhase = "echo 'Node.js install checks disabled.'; true";
-        };
-      }; # https://nixos.org/manual/nixpkgs/unstable/#sec-modify-via-packageOverrides
+      # NOTE: nodejs packageOverrides removed - it causes cache misses for large packages
       permittedInsecurePackages = [
         # "python3.12-youtube-dl-2021.12.17"
         # "python3.11-youtube-dl-2021.12.17"
