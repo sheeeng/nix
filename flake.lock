@@ -647,10 +647,10 @@
     },
     "nix-secrets": {
       "locked": {
-        "lastModified": 1769529433,
-        "narHash": "sha256-LjwXsVxrLq0ZnlhteRKL335Uo3JhsCNNUUNYsy7W3jU=",
+        "lastModified": 1769529642,
+        "narHash": "sha256-gHLk6SdzwlO9GAlv6j79OdGNRgBkO6vuhnztjmbwZPI=",
         "ref": "main",
-        "rev": "ce600f5fff0cd42e6512b2894d22988bf401bd6c",
+        "rev": "782888d59b05169296fdf69ae5adf313b298b4a2",
         "shallow": true,
         "type": "git",
         "url": "ssh://git@github.com/sheeeng/nix-secrets.git"
