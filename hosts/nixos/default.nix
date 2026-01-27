@@ -295,7 +295,7 @@ in
 
   programs.zsh.enable = true;
   programs.firefox = {
-    enable = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.firefox.enable
+    enable = false; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.firefox.enable
     package = pkgs.firefox; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.firefox.package
   };
 
