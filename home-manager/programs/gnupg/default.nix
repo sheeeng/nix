@@ -100,4 +100,20 @@
   services.gpg-agent.enable = lib.mkDefault true;
   services.gpg-agent.enableSshSupport = lib.mkDefault true;
   services.gpg-agent.enableExtraSocket = lib.mkDefault true;
+
+  # Cache TTL settings for passphrase caching (in seconds)
+  services.gpg-agent.defaultCacheTtl = 3600; # 1 hour for GPG keys
+  services.gpg-agent.defaultCacheTtlSsh = 3600; # 1 hour for SSH keys
+  services.gpg-agent.maxCacheTtl = 7200; # Maximum 2 hours for GPG keys
+  services.gpg-agent.maxCacheTtlSsh = 7200; # Maximum 2 hours for SSH keys
+
+  services.gpg-agent.pinentryPackage = lib.mkIf pkgs.stdenv.isLinux (
+    pkgs.writeShellScriptBin "pinentry" ''
+      if [[ -n "$DISPLAY" || -n "$WAYLAND_DISPLAY" ]]; then
+        exec ${pkgs.pinentry-gnome3}/bin/pinentry "$@"
+      else
+        exec ${pkgs.pinentry-curses}/bin/pinentry "$@"
+      fi
+    ''
+  );
 }
