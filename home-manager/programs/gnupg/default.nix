@@ -98,24 +98,34 @@
   };
 
   services.gpg-agent = {
-    enable = lib.mkDefault true;
-    enableSshSupport = lib.mkDefault true;
-    enableExtraSocket = lib.mkDefault true;
-
-    # Cache TTL settings for passphrase caching (in seconds)
-    defaultCacheTtl = 3600; # 1 hour for GPG keys
-    defaultCacheTtlSsh = 3600; # 1 hour for SSH keys
-    maxCacheTtl = 7200; # Maximum 2 hours for GPG keys
-    maxCacheTtlSsh = 7200; # Maximum 2 hours for SSH keys
-
-    pinentry.package = lib.mkIf pkgs.stdenv.isLinux (
-      pkgs.writeShellScriptBin "pinentry" ''
-        if [[ -n "$DISPLAY" || -n "$WAYLAND_DISPLAY" ]]; then
-          exec ${pkgs.pinentry-gnome3}/bin/pinentry "$@"
-        else
-          exec ${pkgs.pinentry-curses}/bin/pinentry "$@"
-        fi
-      ''
-    ); # https://nix-community.github.io/home-manager/options.xhtml#opt-services.gpg-agent.pinentry.package
+    enable = lib.mkDefault true; # https://nix-community.github.io/home-manager/options.xhtml#opt-services.gpg-agent.enable
+    enableBashIntegration = lib.mkDefault true; # https://nix-community.github.io/home-manager/options.xhtml#opt-services.gpg-agent.enableBashIntegration
+    enableExtraSocket = lib.mkDefault true; # https://nix-community.github.io/home-manager/options.xhtml#opt-services.gpg-agent.enableExtraSocket
+    enableFishIntegration = lib.mkDefault true; # https://nix-community.github.io/home-manager/options.xhtml#opt-services.gpg-agent.enableFishIntegration
+    enableNushellIntegration = lib.mkDefault true; # https://nix-community.github.io/home-manager/options.xhtml#opt-services.gpg-agent.enableNushellIntegration
+    enableScDaemon = lib.mkDefault true; # https://nix-community.github.io/home-manager/options.xhtml#opt-services.gpg-agent.enableScDaemon
+    enableSshSupport = lib.mkDefault true; # https://nix-community.github.io/home-manager/options.xhtml#opt-services.gpg-agent.enableSshSupport
+    enableZshIntegration = lib.mkDefault true; # https://nix-community.github.io/home-manager/options.xhtml#opt-services.gpg-agent.enableZshIntegration
+    defaultCacheTtl = 3600; # https://nix-community.github.io/home-manager/options.xhtml#opt-services.gpg-agent.defaultCacheTtl
+    defaultCacheTtlSsh = 3600; # https://nix-community.github.io/home-manager/options.xhtml#opt-services.gpg-agent.defaultCacheTtlSsh
+    extraConfig = ""; # https://nix-community.github.io/home-manager/options.xhtml#opt-services.gpg-agent.extraConfig
+    grabKeyboardAndMouse = lib.mkDefault false; # https://nix-community.github.io/home-manager/options.xhtml#opt-services.gpg-agent.grabKeyboardAndMouse
+    maxCacheTtl = 7200; # https://nix-community.github.io/home-manager/options.xhtml#opt-services.gpg-agent.maxCacheTtl
+    maxCacheTtlSsh = 7200; # https://nix-community.github.io/home-manager/options.xhtml#opt-services.gpg-agent.maxCacheTtlSsh
+    noAllowExternalCache = lib.mkDefault false; # https://nix-community.github.io/home-manager/options.xhtml#opt-services.gpg-agent.noAllowExternalCache
+    pinentry = {
+      package = lib.mkIf pkgs.stdenv.isLinux (
+        pkgs.writeShellScriptBin "pinentry" ''
+          if [[ -n "$DISPLAY" || -n "$WAYLAND_DISPLAY" ]]; then
+            exec ${pkgs.pinentry-gnome3}/bin/pinentry "$@"
+          else
+            exec ${pkgs.pinentry-curses}/bin/pinentry "$@"
+          fi
+        ''
+      ); # https://nix-community.github.io/home-manager/options.xhtml#opt-services.gpg-agent.pinentry.package
+      # programs = null; # https://nix-community.github.io/home-manager/options.xhtml#opt-services.gpg-agent.pinentry.programs
+    };
+    sshKeys = [ ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-services.gpg-agent.sshKeys
+    verbose = lib.mkDefault false; # https://nix-community.github.io/home-manager/options.xhtml#opt-services.gpg-agent.verbose
   };
 }
