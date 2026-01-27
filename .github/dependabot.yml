@@ -14,5 +14,5 @@ updates:
         patterns:
           - "*"
     labels:
-      - dependencies
+      - "dependencies"
     open-pull-requests-limit: 5
