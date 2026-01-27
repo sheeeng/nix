@@ -417,3 +417,10 @@ If your laptop is ARM instead of x86_64, change in both places:
 
 **Issue:** "error: getting status of '.../hardware-configuration.nix': No such file or directory"
 **Solution:** Copy your hardware configuration: `sudo cp /etc/nixos/hardware-configuration.nix ~/nix-config/hosts/nixos/`
+
+## Miscellenous
+
+```shell
+# https://github.com/NixOS/nix/issues/8271#issuecomment-2870219149
+nixos-rebuild switch --option substituters "https://cache.nixos.org/" --option trusted-public-keys "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+```
