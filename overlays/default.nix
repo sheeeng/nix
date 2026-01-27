@@ -72,8 +72,8 @@ inputs: {
   # nix --extra-experimental-features 'nix-command flakes' run nixpkgs#nix-prefetch -- \
   #   '{ sha256 }: (builtins.getFlake "git+file://'$(pwd)'").darwinConfigurations.'$(hostname)'.pkgs.beads.goModules.overrideAttrs (_: { outputHash = sha256; })'
   # TODO: https://github.com/NixOS/nixpkgs/pull/483469
-  beads = final: prev: {
-    beads = prev.beads.overrideAttrs (old: rec {
+  beads = _final: prev: {
+    beads = prev.beads.overrideAttrs (_old: rec {
       version = "0d99d15370030b953a8df0ea67cd3d1b845bb07b"; # v0.49.1
       src = prev.fetchFromGitHub {
         owner = "steveyegge";
