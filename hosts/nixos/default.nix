@@ -8,7 +8,7 @@ let
   hostConfiguration = rec {
     # keep-sorted start block=yes newline_separated=no sticky_comments=no
     networking = {
-      hostName = "nixos"; # Adjust this to your actual hostname
+      hostName = "soxin";
     };
     nixpkgs = {
       config = {
@@ -274,11 +274,13 @@ in
     pulse.enable = true;
   };
 
-  # Hardware - Bluetooth
-  hardware.bluetooth.enable = true;
-  hardware.bluetooth.powerOnBoot = true;
+  services.yubikey-agent.enable = true; # https://search.nixos.org/options?channel=unstable&show=services.yubikey-agent.enable
 
-  # User configuration
+  hardware.bluetooth = {
+    enable = true; # https://search.nixos.org/options?channel=unstable&show=hardware.bluetooth.enable
+    powerOnBoot = true; # https://search.nixos.org/options?channel=unstable&show=hardware.bluetooth.powerOnBoot
+  }; # https://search.nixos.org/options?channel=unstable&show=hardware.bluetooth
+
   users.users."${hostConfiguration.user.name}" = {
     isNormalUser = true;
     inherit (hostConfiguration.user) description;
@@ -291,26 +293,27 @@ in
     ];
     shell = pkgs.zsh;
     openssh.authorizedKeys.keys = [ ];
-  };
+  }; # https://search.nixos.org/options?channel=unstable&show=users.users
 
-  programs.zsh.enable = true;
-  programs.firefox = {
-    enable = false; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.firefox.enable
-    package = pkgs.firefox; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.firefox.package
-  };
+  programs.zsh.enable = true; # https://search.nixos.org/options?channel=unstable&show=programs.zsh.enable
+  programs.firefox.enable = false; # https://search.nixos.org/options?channel=unstable&show=programs.firefox.enable
 
-  # GnuPG agent with SSH support
   programs.gnupg.agent = {
-    enable = true;
-    enableSSHSupport = true;
-    pinentryPackage = pkgs.pinentry-curses;
-  };
+    enable = true; # https://search.nixos.org/options?channel=unstable&show=programs.gnupg.agent.enable
+    enableSSHSupport = true; # https://search.nixos.org/options?channel=unstable&show=programs.gnupg.agent.enableSSHSupport
+    pinentryPackage = pkgs.writeShellScriptBin "pinentry" ''
+      if [[ -n "$DISPLAY" || -n "$WAYLAND_DISPLAY" ]]; then
+        exec ${pkgs.pinentry-gnome3}/bin/pinentry "$@"
+      else
+        exec ${pkgs.pinentry-curses}/bin/pinentry "$@"
+      fi
+    '';
+  }; # https://search.nixos.org/options?channel=unstable&show=programs.gnupg.agent
 
-  # System auto-upgrade
   system.autoUpgrade = {
-    enable = true;
-    allowReboot = true;
-  };
+    enable = true; # https://search.nixos.org/options?channel=unstable&show=system.autoUpgrade.enable
+    allowReboot = true; # https://search.nixos.org/options?channel=unstable&show=system.autoUpgrade.allowReboot
+  }; # https://search.nixos.org/options?channel=unstable&show=system.autoUpgrade
 
   # You have set either `nixpkgs.config` or `nixpkgs.overlays` while using `home-manager.useGlobalPkgs`.
   # This will soon not be possible. Please remove all `nixpkgs` options when using `home-manager.useGlobalPkgs`.
