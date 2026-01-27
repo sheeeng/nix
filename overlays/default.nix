@@ -58,6 +58,7 @@ inputs: {
   # nix eval nixpkgs#beads --json 2>&1 | head -20
   # nix eval .#darwinConfigurations.$(hostname).pkgs.beads.version --raw 2>&1
   # nix build .#darwinConfigurations.$(hostname).pkgs.beads --print-build-logs 2>&1
+  # nix path-info .#darwinConfigurations.TP95V9LWWL.pkgs.beads
   # To update source hash:
   # nix-prefetch-git \
   #   https://github.com/steveyegge/beads \
