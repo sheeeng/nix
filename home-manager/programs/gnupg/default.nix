@@ -107,7 +107,7 @@
   services.gpg-agent.maxCacheTtl = 7200; # Maximum 2 hours for GPG keys
   services.gpg-agent.maxCacheTtlSsh = 7200; # Maximum 2 hours for SSH keys
 
-  services.gpg-agent.pinentryPackage = lib.mkIf pkgs.stdenv.isLinux (
+  services.gpg-agent.pinentry.package = lib.mkIf pkgs.stdenv.isLinux (
     pkgs.writeShellScriptBin "pinentry" ''
       if [[ -n "$DISPLAY" || -n "$WAYLAND_DISPLAY" ]]; then
         exec ${pkgs.pinentry-gnome3}/bin/pinentry "$@"
@@ -115,5 +115,5 @@
         exec ${pkgs.pinentry-curses}/bin/pinentry "$@"
       fi
     ''
-  );
+  ); # https://nix-community.github.io/home-manager/options.xhtml#opt-services.gpg-agent.pinentry.package
 }
