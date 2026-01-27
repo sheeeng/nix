@@ -45,8 +45,8 @@
         git-crypt # https://search.nixos.org/packages?channel=unstable&type=packages&show=git-crypt
 
         # TODO: https://github.com/nixos/nixpkgs/issues/483584
-        # pre-commit # https://search.nixos.org/packages?channel=unstable&type=packages&show=pre-commit
-        # pre-commit-hook-ensure-sops # https://search.nixos.org/packages?channel=unstable&type=packages&show=pre-commit-hook-ensure-sops
+        pre-commit # https://search.nixos.org/packages?channel=unstable&type=packages&show=pre-commit
+        pre-commit-hook-ensure-sops # https://search.nixos.org/packages?channel=unstable&type=packages&show=pre-commit-hook-ensure-sops
 
         cabal-install # https://search.nixos.org/packages?channel=unstable&type=packages&show=cabal-install
         ghc # https://search.nixos.org/packages?channel=unstable&type=packages&show=ghc
