@@ -198,7 +198,9 @@ in
         "https://nix-community.cachix.org?priority=20" # curl https://nix-community.cachix.org/nix-cache-info
         "https://nix-gaming.cachix.org"
         "https://nix-citizen.cachix.org"
-        "https://cache.nixos-cuda.org"
+        "https://cache.nixos-cuda.org" # https://wiki.nixos.org/wiki/CUDA#Setting_up_CUDA_Binary_Cache
+        "https://cache.garnix.io" # https://garnix.io/docs/ci/caching/
+        "https://cache.numtide.com" # https://cache.numtide.com/index.html
       ];
       trusted-public-keys = [
         "hydra.nixos.org-1:CNHJZBh9K4tP3EKF6FkkgeVYsS3ohTl+oS0Qa8bezVs="
@@ -209,7 +211,9 @@ in
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
         "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="
         "nix-citizen.cachix.org-1:lPMkWc2X8XD4/7YPEEwXKKBg+SVbYTVrAaLA2wQTKCo="
-        "cache.nixos-cuda.org:74DUi4Ye579gUqzH4ziL9IyiJBlDpMRn9MBN8oNan9M="
+        "cache.nixos-cuda.org:74DUi4Ye579gUqzH4ziL9IyiJBlDpMRn9MBN8oNan9M=" # https://wiki.nixos.org/wiki/CUDA#Setting_up_CUDA_Binary_Cache
+        "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g=" # https://garnix.io/docs/ci/caching/
+        "niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g=" # https://cache.numtide.com/index.html
       ];
       trusted-substituters = [ "https://hydra.nixos.org/" ];
       trusted-users = [
