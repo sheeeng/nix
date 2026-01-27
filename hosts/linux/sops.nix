@@ -33,7 +33,7 @@ in
       templates = {
         nix-access-token = {
           content = ''
-            access-tokens = github.com=${config.sops.placeholder."tokens/github/public_repo_scope"}
+            access-tokens = github.com=${config.sops.placeholder."tokens/github/repo_scope"}
           '';
         };
       };
@@ -54,7 +54,7 @@ in
       # stat --format "%A %a %n" /run/secrets/**/*
       secrets = {
         # Host-level GitHub token (encrypted with host key in host-specific secrets file)
-        "tokens/github/public_repo_scope" = {
+        "tokens/github/repo_scope" = {
           owner = primaryUser;
           group = "users";
         };
