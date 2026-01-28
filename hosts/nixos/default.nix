@@ -267,11 +267,11 @@ in
   services.displayManager.gdm.enable = true;
   services.desktopManager.gnome.enable = true;
 
-  # Disable GNOME's SSH agent (gcr-ssh-agent) since gpg-agent handles SSH.
+  # Disable system SSH agent - home-manager's ssh-agent.service is used instead.
   programs.ssh.startAgent = false;
-  services.gnome.gnome-keyring.enable = lib.mkForce false;
 
-  # Disable gcr-ssh-agent socket via systemd user units.
+  # Disable GNOME's gcr-ssh-agent socket to prevent it from overriding SSH_AUTH_SOCK.
+  # Home-manager's ssh-agent.service provides the SSH agent.
   systemd.user.sockets.gcr-ssh-agent.enable = false;
 
   # Enable CUPS to print documents
