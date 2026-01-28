@@ -36,7 +36,7 @@ in
     gitleaks # https://search.nixos.org/packages?channel=unstable&type=packages&show=gitleaks
     glab # https://search.nixos.org/packages?channel=unstable&type=packages&show=glab
     hut # https://search.nixos.org/packages?channel=unstable&type=packages&show=hut
-    # pre-commit # DISABLED: Swift build failure. Tracking: https://github.com/nixos/nixpkgs/issues/483584
+    # pre-commit # Swift build failure on darwin systems. Tracking: https://github.com/nixos/nixpkgs/issues/483584
     tea # https://search.nixos.org/packages?channel=unstable&type=packages&show=tea
     # keep-sorted end
   ];
