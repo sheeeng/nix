@@ -2,7 +2,10 @@
 
 { config, pkgs, ... }:
 {
-  home.packages = [ pkgs.go ];
+  home.packages = [
+    pkgs.go
+    pkgs.gcc # Required for CGO (C compiler)
+  ];
 
   home.sessionVariables = {
     GOPATH = "${config.home.homeDirectory}";
