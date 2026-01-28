@@ -104,7 +104,7 @@
     enableFishIntegration = lib.mkDefault true; # https://nix-community.github.io/home-manager/options.xhtml#opt-services.gpg-agent.enableFishIntegration
     enableNushellIntegration = lib.mkDefault true; # https://nix-community.github.io/home-manager/options.xhtml#opt-services.gpg-agent.enableNushellIntegration
     enableScDaemon = lib.mkDefault true; # https://nix-community.github.io/home-manager/options.xhtml#opt-services.gpg-agent.enableScDaemon
-    enableSshSupport = lib.mkDefault false; # Disabled - using ssh-agent for file-based SSH keys. https://nix-community.github.io/home-manager/options.xhtml#opt-services.gpg-agent.enableSshSupport
+    enableSshSupport = lib.mkDefault true; # https://nix-community.github.io/home-manager/options.xhtml#opt-services.gpg-agent.enableSshSupport
     enableZshIntegration = lib.mkDefault true; # https://nix-community.github.io/home-manager/options.xhtml#opt-services.gpg-agent.enableZshIntegration
     defaultCacheTtl = 28800; # 8 hours - https://nix-community.github.io/home-manager/options.xhtml#opt-services.gpg-agent.defaultCacheTtl
     defaultCacheTtlSsh = 28800; # 8 hours - https://nix-community.github.io/home-manager/options.xhtml#opt-services.gpg-agent.defaultCacheTtlSsh
@@ -125,7 +125,11 @@
       ); # https://nix-community.github.io/home-manager/options.xhtml#opt-services.gpg-agent.pinentry.package
       # programs = null; # https://nix-community.github.io/home-manager/options.xhtml#opt-services.gpg-agent.pinentry.programs
     };
-    sshKeys = [ ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-services.gpg-agent.sshKeys
+    sshKeys = [
+      "09048FC32D93C2AA3AB8BEB4B22A77DD1889822C" # rsa4096/0x174CED9ACADEACF4 [SEA]
+      "FF3B68875CB838FA156153C9C90553D1B79B744F" # rsa4096/0xDBCABCB535F08E4C [SEAR]
+      "7502D01ABFAB2F88772FFC454938191A7A1F0C4C" # rsa4096/0xD8900279F772DD27 [SEAR]
+    ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-services.gpg-agent.sshKeys
     verbose = lib.mkDefault false; # https://nix-community.github.io/home-manager/options.xhtml#opt-services.gpg-agent.verbose
   };
 }
