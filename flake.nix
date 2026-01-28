@@ -262,8 +262,6 @@
                 # NOTE: nodejs-skip-tests overlay removed - it causes cache misses for webkitgtk and other large packages
                 (import ./overlays inputs).fix-vscode-operation-not-permitted
                 (import ./overlays inputs).unstable-packages
-                (import ./overlays inputs).mdformat
-                (import ./overlays inputs).beads
                 inputs.morlana.overlays.default
                 # inputs.nh-plus.overlays.default
                 inputs.fenix.overlays.default
@@ -308,8 +306,6 @@
                 # NOTE: nodejs-skip-tests overlay removed - it causes cache misses for webkitgtk and other large packages
                 (import ./overlays inputs).fix-vscode-operation-not-permitted
                 (import ./overlays inputs).unstable-packages
-                (import ./overlays inputs).mdformat
-                (import ./overlays inputs).beads
                 inputs.morlana.overlays.default
                 inputs.fenix.overlays.default
               ];
