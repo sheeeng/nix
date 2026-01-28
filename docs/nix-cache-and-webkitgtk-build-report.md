@@ -5,24 +5,24 @@
 Your NixOS system was building WebKitGTK from source (~8500 compilation units, 20+ minutes) due to two issues:
 
 1. **Initial issue:** Your `flake.lock` was pinned to a bleeding-edge `nixpkgs-unstable` revision that Hydra had not yet fully cached.
-2. **Hidden issue:** Even after switching to `nixos-unstable`, the `nodejs-skip-tests` overlay was modifying nodejs, causing a cascading rebuild of all packages that depend on nodejs in their build process—including WebKitGTK.
+1. **Hidden issue:** Even after switching to `nixos-unstable`, the `nodejs-skip-tests` overlay was modifying nodejs, causing a cascading rebuild of all packages that depend on nodejs in their build process—including WebKitGTK.
 
 ## Root Cause Analysis
 
 ### Issue 1: Wrong Nixpkgs Channel
 
-| Your Configuration | Hydra-Cached Channel |
-|--------------------|----------------------|
-| `nixpkgs-unstable` (rev `13b0f9e...`) | `nixos-unstable` (rev `c5296fdd...`) |
-| Updated: Jan 26, 2026 | Updated: Jan 23, 2026 |
-| **Not fully cached** | **Fully cached** |
+| Your Configuration                       | Hydra-Cached Channel                 |
+| ---------------------------------------- | ------------------------------------ |
+| `nixpkgs-unstable` (rev `13b0f9e...`)    | `nixos-unstable` (rev `c5296fdd...`) |
+| Updated: Jan 26, 2026                    | Updated: Jan 23, 2026                |
+| **Not fully cached**                     | **Fully cached**                     |
 
 #### Why This Happens
 
 1. **`nixpkgs-unstable`** tracks the latest commits to nixpkgs master branch
-2. **`nixos-unstable`** only advances when Hydra has successfully built most packages
-3. Large packages like WebKitGTK take hours to build on Hydra
-4. If you update your flake before Hydra finishes, you get cache misses
+1. **`nixos-unstable`** only advances when Hydra has successfully built most packages
+1. Large packages like WebKitGTK take hours to build on Hydra
+1. If you update your flake before Hydra finishes, you get cache misses
 
 ### Issue 2: Overlay Causing Hash Mismatch (The Hidden Culprit)
 
@@ -51,17 +51,19 @@ $ nix eval --raw '.#nixosConfigurations.nixos.pkgs.nodejs.outPath'
 ```
 
 The `nodejs-skip-tests` overlay was modifying nodejs, which caused a **cascading effect**:
+
 - Modified nodejs → different hash
 - Packages that use nodejs in their build → different hash
 - WebKitGTK (uses nodejs build tools) → different hash → **cache miss**
 
 ### The Build You Experienced
 
-```
+```text
 webkitgtk> [2756/8476] Building CXX object ...
 ```
 
 WebKitGTK is one of the largest packages in nixpkgs:
+
 - ~8500 compilation units
 - 20-60 minutes build time depending on hardware
 - Required by GNOME desktop (evolution-data-server, sushi, epiphany, etc.)
@@ -99,7 +101,7 @@ HTTP/2 200
 
 ```bash
 # Your config's webkitgtk path
-$ nix eval --raw '.#nixosConfigurations.nixos.pkgs.webkitgtk_6_0.outPath'
+nix eval --raw '.#nixosConfigurations.nixos.pkgs.webkitgtk_6_0.outPath'
 /nix/store/zzpima0whqvf7sk76ccx4fvn78dyd91l-webkitgtk-2.50.4+abi=6.0
 
 # If the hash differs from official, something in your config is modifying it!
@@ -161,6 +163,7 @@ error: while uploading to HTTP binary cache at 'https://cache.nixos.org':
 **Why it failed:** The `--store` flag tells nix to use that store for the operation. Since cache.nixos.org is read-only, it fails when nix tries to write. Use `curl` to check cache status instead.
 
 **Correct approach:**
+
 ```bash
 # Use curl to check if a hash exists in cache
 $ curl -sI "https://cache.nixos.org/HASH.narinfo" | head -1
@@ -178,6 +181,7 @@ $ nix why-depends --quiet '.#nixosConfigurations.nixos.config.system.build.tople
 **Why it failed:** The `why-depends` command traces the entire dependency graph, which can be enormous for a full NixOS system. WebKitGTK has thousands of transitive dependencies.
 
 **Workaround:** Use `--derivation` flag and limit output, or just compare store paths directly:
+
 ```bash
 # Compare paths instead - much faster
 $ nix eval --raw 'nixpkgs#webkitgtk_6_0.outPath'
@@ -195,8 +199,9 @@ error: flake does not provide attribute '...src.rev'
 **Why it failed:** Not all packages have a `src.rev` attribute. The attribute path structure varies by package.
 
 **Correct approach:** Use `outPath` which always exists:
+
 ```bash
-$ nix eval --raw '.#nixosConfigurations.nixos.pkgs.webkitgtk_6_0.outPath'
+nix eval --raw '.#nixosConfigurations.nixos.pkgs.webkitgtk_6_0.outPath'
 ```
 
 ### 4. User-Level nix.conf Not Taking Effect
@@ -209,8 +214,9 @@ $ nix eval --raw '.#nixosConfigurations.nixos.pkgs.webkitgtk_6_0.outPath'
 **Why it failed:** The system-level `/etc/nix/nix.conf` includes a bad token via `!include`. System config takes precedence, and the bad token is being used.
 
 **Workaround:** Use `NIX_CONFIG` environment variable which has highest precedence:
+
 ```bash
-$ NIX_CONFIG="access-tokens =" nix flake update
+NIX_CONFIG="access-tokens =" nix flake update
 ```
 
 ### 5. Cannot Edit /etc/nix/nix.conf Even as Root
@@ -221,6 +227,7 @@ $ sudo vim /etc/nix/nix.conf
 ```
 
 **Why it failed:** On NixOS, `/etc/nix/nix.conf` is a symlink to the Nix store:
+
 ```bash
 $ ls -la /etc/nix/nix.conf
 lrwxrwxrwx 1 root root 24 /etc/nix/nix.conf -> /etc/static/nix/nix.conf
@@ -229,8 +236,9 @@ lrwxrwxrwx 1 root root 24 /etc/nix/nix.conf -> /etc/static/nix/nix.conf
 The Nix store is **immutable by design**. Even root cannot modify files there.
 
 **Solution:** Modify the configuration in your Nix files and rebuild:
+
 ```bash
-$ sudo nixos-rebuild switch --flake .#nixos
+sudo nixos-rebuild switch --flake .#nixos
 ```
 
 ### 6. `sops` Editor Crash
@@ -244,6 +252,7 @@ reader source not set
 **Why it failed:** The default editor (helix) crashed because it couldn't initialize the terminal properly in this environment.
 
 **Workaround:** Use `sops --decrypt` and `sops --encrypt` separately, or set a different editor:
+
 ```bash
 $ EDITOR=nano sops secrets/hosts/nixos.yaml
 # Or decrypt/encrypt manually:
@@ -262,6 +271,7 @@ error loading config: no matching creation rules found
 **Why it failed:** sops uses `.sops.yaml` to determine which keys to encrypt with, based on the file path. Files outside the expected paths don't match any rules.
 
 **Solution:** The file must be at the path matching `.sops.yaml` rules before encrypting:
+
 ```bash
 # Copy to correct location first
 $ cp /tmp/secrets.yaml secrets/hosts/nixos.yaml
@@ -279,8 +289,9 @@ $ curl -s "https://hydra.nixos.org/job/nixos/trunk-combined/nixpkgs.webkitgtk_6_
 **Why:** Hydra redirects to the actual build page. This is normal - the redirect means the job exists.
 
 **Better approach:** Visit the URL in a browser, or check the channel revision:
+
 ```bash
-$ curl -sL "https://channels.nixos.org/nixos-unstable/git-revision"
+curl -sL "https://channels.nixos.org/nixos-unstable/git-revision"
 ```
 
 ## Changes Made
@@ -288,12 +299,14 @@ $ curl -sL "https://channels.nixos.org/nixos-unstable/git-revision"
 ### 1. Changed Nixpkgs Channel (flake.nix)
 
 **Before:**
+
 ```nix
 nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 nixpkgs-darwin.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 ```
 
 **After:**
+
 ```nix
 nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 nixpkgs-darwin.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -302,6 +315,7 @@ nixpkgs-darwin.url = "github:nixos/nixpkgs/nixos-unstable";
 ### 2. Removed Nodejs Overlay (flake.nix)
 
 **Before:**
+
 ```nix
 nixpkgs.overlays = [
   (import ./overlays inputs).nodejs-skip-tests  # THIS BREAKS CACHE!
@@ -323,6 +337,7 @@ nixpkgs.config = {
 ```
 
 **After:**
+
 ```nix
 nixpkgs.overlays = [
   # NOTE: nodejs-skip-tests overlay removed - it causes cache misses
@@ -338,10 +353,12 @@ nixpkgs.config = {
 ### 3. Removed Nodejs Override from Darwin Hosts
 
 **Files modified:**
+
 - `hosts/TP95V9LWWL/default.nix`
 - `hosts/C02ZV797MD6R/default.nix`
 
 **Before:**
+
 ```nix
 packageOverrides = pkgs: {
   nodejs = pkgs.nodejs.overrideAttrs {
@@ -352,6 +369,7 @@ packageOverrides = pkgs: {
 ```
 
 **After:**
+
 ```nix
 # NOTE: nodejs packageOverrides removed - it causes cache misses
 ```
@@ -359,6 +377,7 @@ packageOverrides = pkgs: {
 ### 4. Added Extra Binary Caches (hosts/nixos/default.nix)
 
 **Added substituters:**
+
 ```nix
 substituters = [
   # ... existing caches ...
@@ -368,6 +387,7 @@ substituters = [
 ```
 
 **Added trusted public keys:**
+
 ```nix
 trusted-public-keys = [
   # ... existing keys ...
@@ -382,7 +402,7 @@ trusted-public-keys = [
 
 When you modify a package via overlay, **all packages that depend on it get a new hash**:
 
-```
+```text
 nodejs (modified by overlay)
     └── different hash
          └── build tools using nodejs
@@ -394,12 +414,12 @@ nodejs (modified by overlay)
 
 ### Safe vs. Unsafe Overlays
 
-| Overlay Type | Cache Impact | Example |
-|--------------|--------------|---------|
-| Adding new packages | Safe | `myPackage = pkgs.callPackage ./my-package.nix {}` |
-| Modifying leaf packages | Usually safe | Modifying a package nothing depends on |
-| Modifying core packages | **BREAKS CACHE** | Modifying nodejs, python, gcc, stdenv |
-| Modifying build tools | **BREAKS CACHE** | Modifying cmake, meson, pkg-config |
+| Overlay Type            | Cache Impact     | Example                                            |
+| ----------------------- | ---------------- | -------------------------------------------------- |
+| Adding new packages     | Safe             | `myPackage = pkgs.callPackage ./my-package.nix {}` |
+| Modifying leaf packages | Usually safe     | Modifying a package nothing depends on             |
+| Modifying core packages | **BREAKS CACHE** | Modifying nodejs, python, gcc, stdenv              |
+| Modifying build tools   | **BREAKS CACHE** | Modifying cmake, meson, pkg-config                 |
 
 ### Packages You Should Never Overlay
 
@@ -417,12 +437,12 @@ These packages are dependencies of many others. Modifying them causes massive re
 
 ### Channel Comparison
 
-| Channel | Description | Cache Status |
-|---------|-------------|--------------|
-| `nixos-unstable` | Passes Hydra jobset tests | Always cached |
-| `nixpkgs-unstable` | Latest commits | May not be cached |
-| `nixos-24.11` | Stable release | Always cached |
-| `nixpkgs-24.11-darwin` | Stable for macOS | Always cached |
+| Channel                | Description                 | Cache Status      |
+| ---------------------- | --------------------------- | ----------------- |
+| `nixos-unstable`       | Passes Hydra jobset tests   | Always cached     |
+| `nixpkgs-unstable`     | Latest commits              | May not be cached |
+| `nixos-24.11`          | Stable release              | Always cached     |
+| `nixpkgs-24.11-darwin` | Stable for macOS            | Always cached     |
 
 ### How to Check Cache Status
 
@@ -441,87 +461,92 @@ curl -sL "https://channels.nixos.org/nixos-unstable/git-revision"
 
 ### Substituters (Binary Caches)
 
-| Cache | Purpose | Priority |
-|-------|---------|----------|
-| `cache.nixos.org` | Official NixOS cache | 10 (highest) |
-| `nix-community.cachix.org` | Community packages | 20 |
-| `devenv.cachix.org` | devenv packages | default |
-| `nixpkgs-python.cachix.org` | Python packages | default |
-| `ryanccn.cachix.org` | ryanccn's packages | default |
-| `nix-gaming.cachix.org` | Gaming packages | default |
-| `nix-citizen.cachix.org` | Star Citizen | default |
-| `cache.nixos-cuda.org` | CUDA packages | default |
-| `numtide.cachix.org` | Numtide packages | default |
-| `cache.garnix.io` | Garnix CI builds | default |
+| Cache                        | Purpose              | Priority         |
+| ---------------------------- | -------------------- | ---------------- |
+| `cache.nixos.org`            | Official NixOS cache | 10 (highest)     |
+| `nix-community.cachix.org`   | Community packages   | 20               |
+| `devenv.cachix.org`          | devenv packages      | default          |
+| `nixpkgs-python.cachix.org`  | Python packages      | default          |
+| `ryanccn.cachix.org`         | ryanccn's packages   | default          |
+| `nix-gaming.cachix.org`      | Gaming packages      | default          |
+| `nix-citizen.cachix.org`     | Star Citizen         | default          |
+| `cache.nixos-cuda.org`       | CUDA packages        | default          |
+| `numtide.cachix.org`         | Numtide packages     | default          |
+| `cache.garnix.io`            | Garnix CI builds     | default          |
 
 ### How Nix Cache Lookup Works
 
 1. Nix computes the derivation hash for a package
-2. Nix queries each substituter in priority order
-3. If found, downloads the pre-built binary (NAR)
-4. If not found in any cache, builds from source
+1. Nix queries each substituter in priority order
+1. If found, downloads the pre-built binary (NAR)
+1. If not found in any cache, builds from source
 
 ## Preventing Future Cache Misses
 
 ### Best Practices
 
 1. **Use `nixos-unstable` instead of `nixpkgs-unstable`**
+
    - Only advances when Hydra has built packages
    - Guarantees cache hits for most packages
 
-2. **Avoid overlays that modify core packages**
+1. **Avoid overlays that modify core packages**
+
    - Never overlay nodejs, python, gcc, stdenv
    - The "time saved" by skipping tests is nothing compared to rebuilding webkitgtk
 
-3. **Check before updating**
+1. **Check before updating**
+
    ```bash
    # See what will change
    nix flake update --dry-run
-   
+
    # Check Hydra status before updating
    curl -sL "https://channels.nixos.org/nixos-unstable/git-revision"
    ```
 
-4. **Verify your config matches official hashes**
+1. **Verify your config matches official hashes**
+
    ```bash
    # Compare paths - they should match!
    nix eval --raw 'nixpkgs#webkitgtk_6_0.outPath'
    nix eval --raw '.#nixosConfigurations.nixos.pkgs.webkitgtk_6_0.outPath'
    ```
 
-5. **Pin to specific revisions for stability**
+1. **Pin to specific revisions for stability**
+
    ```nix
    nixpkgs.url = "github:nixos/nixpkgs/c5296fdd05cfa2c187990dd909864da9658df755";
    ```
 
 ### Packages That Commonly Cause Long Builds
 
-| Package | Build Time | Pulled In By |
-|---------|------------|--------------|
-| `webkitgtk` | 20-60 min | GNOME, Evolution, Epiphany |
-| `llvm` | 15-30 min | Rust, Mesa, many compilers |
-| `gcc` | 20-40 min | Bootstrap, cross-compilation |
-| `firefox` | 30-60 min | Direct installation |
-| `chromium` | 60-120 min | Direct installation |
-| `libreoffice` | 30-60 min | Direct installation |
-| `mesa` | 10-20 min | Graphics drivers |
-| `aseprite` | 10-15 min | Direct (always builds - unfree) |
+| Package        | Build Time   | Pulled In By                        |
+| -------------- | ------------ | ----------------------------------- |
+| `webkitgtk`    | 20-60 min    | GNOME, Evolution, Epiphany          |
+| `llvm`         | 15-30 min    | Rust, Mesa, many compilers          |
+| `gcc`          | 20-40 min    | Bootstrap, cross-compilation        |
+| `firefox`      | 30-60 min    | Direct installation                 |
+| `chromium`     | 60-120 min   | Direct installation                 |
+| `libreoffice`  | 30-60 min    | Direct installation                 |
+| `mesa`         | 10-20 min    | Graphics drivers                    |
+| `aseprite`     | 10-15 min    | Direct (always builds - unfree)     |
 
 ## Packages That Always Build from Source
 
 Some packages will **always** build from source regardless of cache configuration:
 
-| Package | Reason |
-|---------|--------|
-| `aseprite` | Unfree/proprietary - cannot distribute binaries |
-| `spotify` | Unfree - fetches binary, but wrapper rebuilds |
-| Custom overlayed packages | Your modifications = unique hash |
+| Package                    | Reason                                          |
+| -------------------------- | ----------------------------------------------- |
+| `aseprite`                 | Unfree/proprietary - cannot distribute binaries |
+| `spotify`                  | Unfree - fetches binary, but wrapper rebuilds   |
+| Custom overlayed packages  | Your modifications = unique hash                |
 
 ## GitHub API Rate Limiting Issue
 
 ### Symptom
 
-```
+```text
 error: unable to download 'https://api.github.com/repos/...': HTTP error 401
 {
   "message": "Bad credentials",
@@ -547,14 +572,18 @@ The Nix store is **immutable** - you cannot edit files there even as root.
 ### Solution
 
 1. Generate a new GitHub Personal Access Token at https://github.com/settings/tokens
-2. Update the token in your `nix-secrets` repository:
+
+1. Update the token in your `nix-secrets` repository:
+
    ```bash
    cd ~/github/sheeeng/nix-secrets
    sops secrets/hosts/nixos.yaml
    # Update tokens/github/public_repo_scope
    git add -A && git commit -m "Update GitHub token" && git push
    ```
-3. Update flake input and rebuild:
+
+1. Update flake input and rebuild:
+
    ```bash
    nix flake update nix-secrets
    sudo nixos-rebuild switch --flake .#nixos
@@ -574,7 +603,7 @@ NIX_CONFIG="access-tokens = github.com=ghp_YOUR_TOKEN" nix flake update
 
 ### Symptom
 
-```
+```text
 error: gpg failed to sign the data:
 gpg: Note: database_open 134217901 waiting for lock (held by 2472) ...
 gpg: Note: database_open 134217901 waiting for lock (held by 2472) ...
@@ -592,47 +621,51 @@ Another process (PID 2472) was holding a lock on the GPG database, and the timeo
 ### Solutions
 
 1. **Find and kill the blocking process:**
+
    ```bash
    # Find what's holding the lock
-   $ ps aux | grep gpg
-   $ lsof ~/.gnupg/*.lock
-   
+   ps aux | grep gpg
+   lsof ~/.gnupg/*.lock
+
    # Kill the blocking process if safe
-   $ kill 2472
+   kill 2472
    ```
 
-2. **Remove stale lock files:**
+1. **Remove stale lock files:**
+
    ```bash
-   $ rm -f ~/.gnupg/*.lock
-   $ rm -f ~/.gnupg/public-keys.d/*.lock
+   rm -f ~/.gnupg/*.lock
+   rm -f ~/.gnupg/public-keys.d/*.lock
    ```
 
-3. **Restart gpg-agent:**
+1. **Restart gpg-agent:**
+
    ```bash
-   $ gpgconf --kill gpg-agent
-   $ gpg-agent --daemon
+   gpgconf --kill gpg-agent
+   gpg-agent --daemon
    ```
 
-4. **Skip signing temporarily:**
+1. **Skip signing temporarily:**
+
    ```bash
-   $ git commit --no-gpg-sign -m "message"
+   git commit --no-gpg-sign -m "message"
    ```
 
-5. **During NixOS rebuild:** The rebuild process may use GPG. Wait for the rebuild to complete before making commits.
+1. **During NixOS rebuild:** The rebuild process may use GPG. Wait for the rebuild to complete before making commits.
 
 ## File Locations Reference
 
-| File | Purpose |
-|------|---------|
-| `flake.nix` | Flake inputs including nixpkgs URL and overlays |
-| `flake.lock` | Pinned revisions of all inputs |
-| `overlays/default.nix` | Custom package overlays |
-| `hosts/nixos/default.nix` | NixOS host configuration including cache settings |
-| `hosts/TP95V9LWWL/default.nix` | Darwin host configuration |
-| `hosts/C02ZV797MD6R/default.nix` | Darwin host configuration |
-| `hosts/linux/sops.nix` | sops-nix configuration for secrets |
-| `/etc/nix/nix.conf` | Generated nix configuration (read-only symlink) |
-| `/run/secrets/rendered/nix-access-token` | Decrypted GitHub token |
+| File                                     | Purpose                                           |
+| ---------------------------------------- | ------------------------------------------------- |
+| `flake.nix`                              | Flake inputs including nixpkgs URL and overlays   |
+| `flake.lock`                             | Pinned revisions of all inputs                    |
+| `overlays/default.nix`                   | Custom package overlays                           |
+| `hosts/nixos/default.nix`                | NixOS host configuration including cache settings |
+| `hosts/TP95V9LWWL/default.nix`           | Darwin host configuration                         |
+| `hosts/C02ZV797MD6R/default.nix`         | Darwin host configuration                         |
+| `hosts/linux/sops.nix`                   | sops-nix configuration for secrets                |
+| `/etc/nix/nix.conf`                      | Generated nix configuration (read-only symlink)   |
+| `/run/secrets/rendered/nix-access-token` | Decrypted GitHub token                            |
 
 ## Commands Reference
 
@@ -698,11 +731,12 @@ nix why-depends .#nixosConfigurations.nixos.config.system.build.toplevel nixpkgs
 Two issues caused WebKitGTK to build from source:
 
 1. **Using `nixpkgs-unstable`** - Contains commits not yet cached by Hydra
-2. **Nodejs overlay** - Modified a core package, causing cascading hash changes
+1. **Nodejs overlay** - Modified a core package, causing cascading hash changes
 
 The fixes:
+
 1. Switch to `nixos-unstable` - Only contains cached commits
-2. Remove nodejs overlays - Use official cached nodejs
-3. Add extra caches - Backup sources for packages
+1. Remove nodejs overlays - Use official cached nodejs
+1. Add extra caches - Backup sources for packages
 
 **Key lesson:** Overlays that modify core packages (nodejs, python, gcc) will cause massive rebuilds. The few seconds saved by skipping tests is not worth the 20+ minutes rebuilding webkitgtk!
