@@ -88,6 +88,7 @@
 
       # Development Tools
       # keep-sorted start block=no newline_separated=no sticky_comments=no
+
       # (lib.hiPrio go-task) # TODO: Collision error with `taskwarrior-3` package. # https://search.nixos.org/packages?channel=unstable&type=packages&show=go-task
       # (lib.hiPrio parallel) # TODO: https://haseebmajid.dev/posts/2023-10-02-til-how-to-fix-package-binary-collisions-on-nix/ # https://search.nixos.org/packages?channel=unstable&type=packages&show=parallel
       # devenv # https://search.nixos.org/packages?channel=unstable&type=packages&show=devenv
@@ -140,10 +141,11 @@
       lazysql # https://search.nixos.org/packages?channel=unstable&type=packages&show=lazysql
       ltex-ls # https://search.nixos.org/packages?channel=unstable&type=packages&show=ltex-ls
       markdown-oxide # https://search.nixos.org/packages?channel=unstable&type=packages&show=markdown-oxide
+      markdownlint-cli # https://search.nixos.org/packages?channel=unstable&type=packages&show=markdownlint-cli
+      markdownlint-cli2 # https://search.nixos.org/packages?channel=unstable&type=packages&show=markdownlint-cli2
       nh # https://search.nixos.org/packages?channel=unstable&type=packages&show=nh
       nixfmt # https://search.nixos.org/packages?channel=unstable&type=packages&show=nixfmt
       nixos-option # https://search.nixos.org/packages?channel=unstable&type=packages&show=nixos-option
-      # pre-commit # DISABLED: Swift build failure. Tracking: https://github.com/nixos/nixpkgs/issues/483584
       shfmt # https://search.nixos.org/packages?channel=unstable&type=packages&show=shfmt
       texlab # https://search.nixos.org/packages?channel=unstable&type=packages&show=texlab
       tflint # https://search.nixos.org/packages?channel=unstable&type=packages&show=tflint
@@ -272,6 +274,7 @@
 
       # Development
       # keep-sorted start block=no newline_separated=no sticky_comments=no
+      pre-commit # Swift build failure on Darwin. Tracking: https://github.com/nixos/nixpkgs/issues/483584
       terraform # https://search.nixos.org/packages?channel=unstable&type=packages&show=terraform
       # keep-sorted end
 
