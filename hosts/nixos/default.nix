@@ -314,7 +314,7 @@ in
   }; # https://search.nixos.org/options?channel=unstable&show=users.users
 
   programs.zsh.enable = true; # https://search.nixos.org/options?channel=unstable&show=programs.zsh.enable
-  programs.firefox.enable = false; # https://search.nixos.org/options?channel=unstable&show=programs.firefox.enable
+  programs.firefox.enable = true; # https://search.nixos.org/options?channel=unstable&show=programs.firefox.enable
 
   # GPG agent is configured via home-manager (services.gpg-agent).
   # System-level configuration is disabled to avoid conflicts.
