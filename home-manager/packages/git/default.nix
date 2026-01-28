@@ -85,8 +85,9 @@ in
   home.file."srht/.gitconfig".source = ./gitconfig-private.ini;
   home.file."gitea/.gitconfig".source = ./gitconfig-private.ini;
 
-  # https://github.com/lasseheia/nix/blob/2804cb5670f54c91da65067b204a71a5ff5695fc/modules/git/home-manager.nix#L7
-  services.ssh-agent.enable = if pkgs.stdenv.isDarwin then false else true;
+  # Disable ssh-agent on all platforms since gpg-agent handles SSH keys via enableSshSupport.
+  # On Darwin, this is already false; on Linux, gpg-agent provides the SSH agent socket.
+  services.ssh-agent.enable = false;
 
   programs = {
     delta = {
