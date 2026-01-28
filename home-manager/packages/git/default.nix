@@ -36,7 +36,7 @@ in
     gitleaks # https://search.nixos.org/packages?channel=unstable&type=packages&show=gitleaks
     glab # https://search.nixos.org/packages?channel=unstable&type=packages&show=glab
     hut # https://search.nixos.org/packages?channel=unstable&type=packages&show=hut
-    # pre-commit # TODO: https://github.com/nixos/nixpkgs/issues/483584 # https://search.nixos.org/packages?channel=unstable&type=packages&show=pre-commit
+    pre-commit # TODO: https://github.com/nixos/nixpkgs/issues/483584 # https://search.nixos.org/packages?channel=unstable&type=packages&show=pre-commit
     tea # https://search.nixos.org/packages?channel=unstable&type=packages&show=tea
     # keep-sorted end
   ];
