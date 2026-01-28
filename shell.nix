@@ -44,9 +44,9 @@
         git-credential-oauth # https://search.nixos.org/packages?channel=unstable&type=packages&show=git-credential-oauth
         git-crypt # https://search.nixos.org/packages?channel=unstable&type=packages&show=git-crypt
 
-        # TODO: https://github.com/nixos/nixpkgs/issues/483584
-        pre-commit # https://search.nixos.org/packages?channel=unstable&type=packages&show=pre-commit
-        pre-commit-hook-ensure-sops # https://search.nixos.org/packages?channel=unstable&type=packages&show=pre-commit-hook-ensure-sops
+        # DISABLED: Swift build failure. Tracking: https://github.com/nixos/nixpkgs/issues/483584
+        # pre-commit # https://search.nixos.org/packages?channel=unstable&type=packages&show=pre-commit
+        # pre-commit-hook-ensure-sops # https://search.nixos.org/packages?channel=unstable&type=packages&show=pre-commit-hook-ensure-sops
 
         cabal-install # https://search.nixos.org/packages?channel=unstable&type=packages&show=cabal-install
         ghc # https://search.nixos.org/packages?channel=unstable&type=packages&show=ghc
@@ -77,7 +77,7 @@
       gnupg # https://search.nixos.org/packages?channel=unstable&type=packages&show=gnupg
       nix # https://search.nixos.org/packages?channel=unstable&type=packages&show=nix
       nixfmt # https://search.nixos.org/packages?channel=unstable&type=packages&show=nixfmt
-      pre-commit # TODO: https://github.com/nixos/nixpkgs/issues/483584 # https://search.nixos.org/packages?channel=unstable&type=packages&show=pre-commit
+      # pre-commit # DISABLED: Swift build failure. Tracking: https://github.com/nixos/nixpkgs/issues/483584
       vim # https://search.nixos.org/packages?channel=unstable&type=packages&show=vim
       # keep-sorted end
     ];
