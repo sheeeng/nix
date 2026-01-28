@@ -10,32 +10,34 @@ This document describes the GPG and SSH key agent configuration for NixOS hosts 
 │        (home-manager services.gpg-agent)        │
 ├─────────────────────────────────────────────────┤
 │  - GPG key operations (signing, encryption)     │
-│  - SSH authentication (enableSshSupport)        │
 │  - YubiKey/smart card support (via pcscd)       │
 │  - Pinentry (gnome3 or curses based on display) │
 └─────────────────────────────────────────────────┘
-                      │
-                      ▼
-    $XDG_RUNTIME_DIR/gnupg/S.gpg-agent.ssh
-                      │
-                      ▼
-               SSH_AUTH_SOCK
+
+┌─────────────────────────────────────────────────┐
+│                 ssh-agent                       │
+│        (home-manager services.ssh-agent)        │
+├─────────────────────────────────────────────────┤
+│  - SSH key caching for file-based keys          │
+│  - Passphrase caching (AddKeysToAgent)          │
+│  - Automatic key loading on first use           │
+└─────────────────────────────────────────────────┘
 ```
 
-The configuration uses **gpg-agent as a unified agent** for both GPG and SSH operations. This approach:
+The configuration uses **separate agents** for GPG and SSH:
 
-- Eliminates conflicts between multiple agents
-- Enables using GPG authentication subkeys for SSH
-- Supports YubiKey/smart card–based keys via the smart card daemon
-- Provides a consistent experience across terminal and graphical sessions
+- **gpg-agent**: Handles GPG signing, encryption, and YubiKey/smart card operations
+- **ssh-agent**: Handles file-based SSH key passphrase caching
+
+This approach is simpler for file-based SSH keys (`~/.ssh/id_ed25519`) and avoids the complexity of GPG-based SSH authentication.
 
 ## Configuration Files
 
 | File | Purpose |
 |------|---------|
 | `home-manager/programs/gnupg/default.nix` | GPG and gpg-agent configuration |
-| `home-manager/programs/ssh.nix` | SSH client and environment variables |
-| `home-manager/packages/git/default.nix` | Disables ssh-agent (gpg-agent handles SSH) |
+| `home-manager/programs/ssh.nix` | SSH client configuration |
+| `home-manager/packages/git/default.nix` | Enables ssh-agent on Linux |
 | `hosts/nixos/default.nix` | NixOS system-level services (pcscd) |
 
 ## Key Configuration Details
@@ -47,12 +49,10 @@ The gpg-agent is configured in `home-manager/programs/gnupg/default.nix`:
 ```nix
 services.gpg-agent = {
   enable = true;
-  enableSshSupport = true;        # Handle SSH keys
-  enableScDaemon = true;          # Smart card support
+  enableSshSupport = false;       # Disabled - ssh-agent handles SSH keys
+  enableScDaemon = true;          # Smart card support for GPG
   defaultCacheTtl = 28800;        # 8 hours cache
-  defaultCacheTtlSsh = 28800;     # 8 hours cache for SSH
   maxCacheTtl = 86400;            # 24 hours max cache
-  maxCacheTtlSsh = 86400;         # 24 hours max cache for SSH
   # Shell integrations
   enableBashIntegration = true;
   enableZshIntegration = true;
@@ -61,39 +61,53 @@ services.gpg-agent = {
 };
 ```
 
-### SSH Environment Variables
+### SSH Agent (Home-Manager)
+
+The ssh-agent is enabled in `home-manager/packages/git/default.nix`:
+
+```nix
+# Enable ssh-agent on Linux for file-based SSH keys.
+services.ssh-agent.enable = if pkgs.stdenv.isDarwin then false else true;
+```
+
+### SSH Client Configuration
 
 Configured in `home-manager/programs/ssh.nix`:
 
 ```nix
-# Point SSH to gpg-agent's socket
-home.sessionVariables = lib.mkIf pkgs.stdenv.isLinux {
-  SSH_AUTH_SOCK = "$XDG_RUNTIME_DIR/gnupg/S.gpg-agent.ssh";
+programs.ssh.matchBlocks."*" = {
+  addKeysToAgent = "yes";  # Automatically add keys on first use
 };
 
-# Set GPG_TTY for pinentry in terminals
+# GPG_TTY is set for pinentry in terminals
 home.sessionVariablesExtra = lib.mkIf pkgs.stdenv.isLinux ''
   export GPG_TTY="$(tty)"
 '';
 ```
+
+The `addKeysToAgent = "yes"` setting means:
+- First SSH connection prompts for passphrase
+- Key is automatically added to ssh-agent
+- Subsequent connections use the cached key (no passphrase needed)
 
 ### System Services (NixOS)
 
 Configured in `hosts/nixos/default.nix`:
 
 ```nix
-# Smart card daemon for YubiKey support
+# Smart card daemon for YubiKey support with GPG
 services.pcscd.enable = true;
 
-# Disable yubikey-agent (conflicts with gpg-agent SSH support)
+# Disable yubikey-agent (not needed, gpg-agent handles YubiKey for GPG)
 services.yubikey-agent.enable = false;
 
 # Disable system-level gpg-agent (home-manager manages it)
 programs.gnupg.agent.enable = false;
 
-# Disable GNOME's SSH agent (gcr-ssh-agent) since gpg-agent handles SSH
+# Disable system SSH agent - home-manager's ssh-agent.service is used
 programs.ssh.startAgent = false;
-services.gnome.gnome-keyring.enable = lib.mkForce false;
+
+# Disable GNOME's gcr-ssh-agent to prevent SSH_AUTH_SOCK conflicts
 systemd.user.sockets.gcr-ssh-agent.enable = false;
 ```
 
@@ -103,25 +117,26 @@ To avoid conflicts, the following are explicitly disabled:
 
 | Service | Reason |
 |---------|--------|
-| `services.ssh-agent` | gpg-agent handles SSH |
-| `services.yubikey-agent` | gpg-agent handles YubiKey via scdaemon |
+| `programs.ssh.startAgent` | home-manager ssh-agent is used instead |
+| `services.yubikey-agent` | gpg-agent handles YubiKey for GPG operations |
 | `programs.gnupg.agent` (system) | home-manager gpg-agent is used instead |
-| `programs.ssh.startAgent` | Prevents system SSH agent from starting |
-| `services.gnome.gnome-keyring` | Prevents GNOME keyring from managing keys |
-| `gcr-ssh-agent.socket` | GNOME's GCR SSH agent wrapper conflicts with gpg-agent |
+| `gcr-ssh-agent.socket` | GNOME's SSH agent conflicts with home-manager ssh-agent |
 
 ## GNOME Desktop Considerations
 
-When using GNOME desktop, additional steps are required because GNOME provides its own SSH agent via `gcr-ssh-agent`. This agent sets `SSH_AUTH_SOCK` to `/run/user/UID/ssh-agent`, which overrides the gpg-agent socket.
+When using GNOME desktop, the `gcr-ssh-agent` socket is disabled to prevent it from overriding `SSH_AUTH_SOCK`. The home-manager `ssh-agent.service` provides the SSH agent instead.
 
-The configuration disables:
-1. **`services.gnome.gnome-keyring`** - Prevents GNOME keyring daemon from starting
-2. **`gcr-ssh-agent.socket`** - Disables the systemd user socket for GCR SSH agent
-3. **`programs.ssh.startAgent`** - Ensures NixOS doesn't start its own ssh-agent
+## How SSH Key Caching Works
+
+1. **First use**: SSH prompts for your key passphrase
+2. **Automatic caching**: With `addKeysToAgent = "yes"`, the key is added to ssh-agent
+3. **Subsequent uses**: No passphrase needed until you log out or reboot
+
+The ssh-agent caches keys for the duration of your session. After logout or reboot, you'll need to enter the passphrase again on first use.
 
 ## Pinentry Configuration
 
-The pinentry program is selected automatically based on the display environment:
+The pinentry program for GPG is selected automatically based on the display environment:
 
 ```nix
 pinentry.package = pkgs.writeShellScriptBin "pinentry" ''
@@ -136,79 +151,41 @@ pinentry.package = pkgs.writeShellScriptBin "pinentry" ''
 - **Graphical session**: Uses `pinentry-gnome3` for a GUI dialog
 - **Terminal session**: Uses `pinentry-curses` for a text-based dialog
 
-## SSH Key Setup with GPG
-
-To use a GPG authentication subkey for SSH:
-
-### 1. Identify Your Authentication Key
-
-```bash
-gpg --list-keys --keyid-format long
-```
-
-Look for a key with `[A]` (authentication) capability.
-
-### 2. Get the Keygrip
-
-```bash
-gpg --list-keys --with-keygrip
-```
-
-### 3. Add to sshcontrol (Optional)
-
-If you want to explicitly control which keys are available for SSH:
-
-```bash
-echo "KEYGRIP_HERE" >> ~/.gnupg/sshcontrol
-```
-
-### 4. Verify SSH Key Is Available
-
-```bash
-ssh-add -L
-```
-
-This should display your GPG authentication key in SSH public key format.
-
-## YubiKey Setup
-
-For YubiKey users with GPG keys stored on the device:
-
-### 1. Verify YubiKey Is Detected
-
-```bash
-gpg --card-status
-```
-
-### 2. Check pcscd Service
-
-```bash
-systemctl status pcscd
-```
-
-### 3. Fetch Public Key (If Needed)
-
-If the public key is not yet imported:
-
-```bash
-gpg --card-edit
-> fetch
-> quit
-```
-
 ## Troubleshooting
 
-### SSH Agent Not Working
+### SSH Still Asking for Passphrase Every Time
 
-1. **Verify SSH_AUTH_SOCK**:
+1. **Verify ssh-agent is running**:
    ```bash
-   echo $SSH_AUTH_SOCK
-   # Should output: /run/user/1000/gnupg/S.gpg-agent.ssh
+   systemctl --user status ssh-agent.service
    ```
 
-2. **Check gpg-agent is running**:
+2. **Check SSH_AUTH_SOCK**:
    ```bash
-   gpg-connect-agent 'getinfo version' /bye
+   echo $SSH_AUTH_SOCK
+   # Should show something like /run/user/1000/ssh-agent
+   ```
+
+3. **List keys in agent**:
+   ```bash
+   ssh-add -l
+   ```
+
+4. **Manually add key** (temporary fix):
+   ```bash
+   ssh-add ~/.ssh/id_ed25519
+   ```
+
+### GPG Signing Not Working
+
+1. **Verify GPG_TTY is set**:
+   ```bash
+   echo $GPG_TTY
+   ```
+
+2. **Test GPG signing**:
+   ```bash
+   echo "test" | gpg --clearsign
    ```
 
 3. **Restart gpg-agent**:
@@ -217,55 +194,9 @@ gpg --card-edit
    gpg-connect-agent /bye
    ```
 
-### Pinentry Not Appearing
+### After Rebuild, Agents Not Working
 
-1. **Verify GPG_TTY is set**:
-   ```bash
-   echo $GPG_TTY
-   # Should output your tty, e.g., /dev/pts/0
-   ```
-
-2. **Set manually if needed**:
-   ```bash
-   export GPG_TTY=$(tty)
-   ```
-
-3. **Force terminal pinentry**:
-   ```bash
-   gpg-connect-agent updatestartuptty /bye
-   ```
-
-### YubiKey Not Detected
-
-1. **Check pcscd service**:
-   ```bash
-   systemctl status pcscd
-   sudo systemctl restart pcscd
-   ```
-
-2. **Restart scdaemon**:
-   ```bash
-   gpgconf --kill scdaemon
-   gpg --card-status
-   ```
-
-3. **Check USB permissions**:
-   Ensure your user is in the appropriate groups or that udev rules are configured.
-
-### Multiple Agents Conflict
-
-If you see errors about agents conflicting:
-
-```bash
-# Kill all GPG daemons
-gpgconf --kill all
-
-# Verify no stale sockets
-ls -la $XDG_RUNTIME_DIR/gnupg/
-
-# Restart
-gpg-connect-agent /bye
-```
+Log out and log back in (or reboot) to ensure systemd user services are restarted with the correct environment.
 
 ## Applying Changes
 
@@ -275,28 +206,26 @@ After modifying the configuration:
 # Rebuild NixOS
 sudo nixos-rebuild switch --flake .
 
-# Reload shell or log out/in for environment variables
-exec $SHELL
-
-# Or source profile manually
-source ~/.profile
+# Log out and log back in for systemd user services to restart
 ```
 
 ## Commands Reference
 
 ```bash
+# Check ssh-agent status
+systemctl --user status ssh-agent.service
+
+# List SSH keys in agent
+ssh-add -l
+
+# Add SSH key manually
+ssh-add ~/.ssh/id_ed25519
+
 # Check gpg-agent status
 gpg-connect-agent 'getinfo version' /bye
 
-# List SSH keys from gpg-agent
-ssh-add -L
-
 # Reload gpg-agent
 gpg-connect-agent reloadagent /bye
-
-# Kill and restart gpg-agent
-gpgconf --kill gpg-agent
-gpg-connect-agent /bye
 
 # Update TTY for pinentry
 gpg-connect-agent updatestartuptty /bye
@@ -306,9 +235,6 @@ echo "test" | gpg --clearsign
 
 # Test SSH connection
 ssh -T git@github.com
-
-# Check YubiKey status
-gpg --card-status
 ```
 
 ## Related Documentation
@@ -316,4 +242,4 @@ gpg --card-status
 - [GPG Signing Troubleshooting](./gpg-signing-troubleshooting.md)
 - [Home-Manager GPG Options](https://nix-community.github.io/home-manager/options.xhtml#opt-programs.gpg.enable)
 - [Home-Manager gpg-agent Options](https://nix-community.github.io/home-manager/options.xhtml#opt-services.gpg-agent.enable)
-- [NixOS GPG Agent Options](https://search.nixos.org/options?channel=unstable&show=programs.gnupg.agent)
+- [Home-Manager ssh-agent Options](https://nix-community.github.io/home-manager/options.xhtml#opt-services.ssh-agent.enable)
