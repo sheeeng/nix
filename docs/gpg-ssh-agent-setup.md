@@ -4,7 +4,7 @@ This document describes the GPG and SSH key agent configuration for NixOS hosts 
 
 ## Architecture Overview
 
-```
+```text
 ┌─────────────────────────────────────────────────┐
 │                 gpg-agent                       │
 │        (home-manager services.gpg-agent)        │
@@ -33,12 +33,12 @@ This approach is simpler for file-based SSH keys (`~/.ssh/id_ed25519`) and avoid
 
 ## Configuration Files
 
-| File | Purpose |
-|------|---------|
-| `home-manager/programs/gnupg/default.nix` | GPG and gpg-agent configuration |
-| `home-manager/programs/ssh.nix` | SSH client configuration |
-| `home-manager/packages/git/default.nix` | Enables ssh-agent on Linux |
-| `hosts/nixos/default.nix` | NixOS system-level services (pcscd) |
+| File                                      | Purpose                             |
+| ----------------------------------------- | ----------------------------------- |
+| `home-manager/programs/gnupg/default.nix` | GPG and gpg-agent configuration     |
+| `home-manager/programs/ssh.nix`           | SSH client configuration            |
+| `home-manager/packages/git/default.nix`   | Enables ssh-agent on Linux          |
+| `hosts/nixos/default.nix`                 | NixOS system-level services (pcscd) |
 
 ## Key Configuration Details
 
@@ -86,6 +86,7 @@ home.sessionVariablesExtra = lib.mkIf pkgs.stdenv.isLinux ''
 ```
 
 The `addKeysToAgent = "yes"` setting means:
+
 - First SSH connection prompts for passphrase
 - Key is automatically added to ssh-agent
 - Subsequent connections use the cached key (no passphrase needed)
@@ -115,12 +116,12 @@ systemd.user.sockets.gcr-ssh-agent.enable = false;
 
 To avoid conflicts, the following are explicitly disabled:
 
-| Service | Reason |
-|---------|--------|
-| `programs.ssh.startAgent` | home-manager ssh-agent is used instead |
-| `services.yubikey-agent` | gpg-agent handles YubiKey for GPG operations |
-| `programs.gnupg.agent` (system) | home-manager gpg-agent is used instead |
-| `gcr-ssh-agent.socket` | GNOME's SSH agent conflicts with home-manager ssh-agent |
+| Service                         | Reason                                                  |
+| ------------------------------- | ------------------------------------------------------- |
+| `programs.ssh.startAgent`       | home-manager ssh-agent is used instead                  |
+| `services.yubikey-agent`        | gpg-agent handles YubiKey for GPG operations            |
+| `programs.gnupg.agent` (system) | home-manager gpg-agent is used instead                  |
+| `gcr-ssh-agent.socket`          | GNOME's SSH agent conflicts with home-manager ssh-agent |
 
 ## GNOME Desktop Considerations
 
@@ -129,8 +130,8 @@ When using GNOME desktop, the `gcr-ssh-agent` socket is disabled to prevent it f
 ## How SSH Key Caching Works
 
 1. **First use**: SSH prompts for your key passphrase
-2. **Automatic caching**: With `addKeysToAgent = "yes"`, the key is added to ssh-agent
-3. **Subsequent uses**: No passphrase needed until you log out or reboot
+1. **Automatic caching**: With `addKeysToAgent = "yes"`, the key is added to ssh-agent
+1. **Subsequent uses**: No passphrase needed until you log out or reboot
 
 The ssh-agent caches keys for the duration of your session. After logout or reboot, you'll need to enter the passphrase again on first use.
 
@@ -156,22 +157,26 @@ pinentry.package = pkgs.writeShellScriptBin "pinentry" ''
 ### SSH Still Asking for Passphrase Every Time
 
 1. **Verify ssh-agent is running**:
+
    ```bash
    systemctl --user status ssh-agent.service
    ```
 
-2. **Check SSH_AUTH_SOCK**:
+1. **Check SSH_AUTH_SOCK**:
+
    ```bash
    echo $SSH_AUTH_SOCK
    # Should show something like /run/user/1000/ssh-agent
    ```
 
-3. **List keys in agent**:
+1. **List keys in agent**:
+
    ```bash
    ssh-add -l
    ```
 
-4. **Manually add key** (temporary fix):
+1. **Manually add key** (temporary fix):
+
    ```bash
    ssh-add ~/.ssh/id_ed25519
    ```
@@ -179,16 +184,19 @@ pinentry.package = pkgs.writeShellScriptBin "pinentry" ''
 ### GPG Signing Not Working
 
 1. **Verify GPG_TTY is set**:
+
    ```bash
    echo $GPG_TTY
    ```
 
-2. **Test GPG signing**:
+1. **Test GPG signing**:
+
    ```bash
    echo "test" | gpg --clearsign
    ```
 
-3. **Restart gpg-agent**:
+1. **Restart gpg-agent**:
+
    ```bash
    gpgconf --kill gpg-agent
    gpg-connect-agent /bye

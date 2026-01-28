@@ -4,7 +4,7 @@
 
 ### Symptom
 
-```
+```text
 error: gpg failed to sign the data:
 gpg: Note: database_open 134217901 waiting for lock (held by 2472) ...
 gpg: Note: database_open 134217901 waiting for lock (held by 2472) ...
@@ -20,8 +20,8 @@ fatal: failed to write commit object
 The GPG keybox database is locked by another process. This typically happens when:
 
 1. **Duplicate `keyboxd` daemons** are running (common after crashes or hibernation)
-2. **Stale lock files** remain from previous GPG sessions
-3. **GPG agent** became unresponsive
+1. **Stale lock files** remain from previous GPG sessions
+1. **GPG agent** became unresponsive
 
 ### Diagnosis
 
@@ -33,7 +33,7 @@ ps aux | grep -E "gpg|keyboxd" | grep -v grep
 
 If you see multiple `keyboxd` processes, that's the problem:
 
-```
+```text
 llee  2472  keyboxd --homedir /home/llee/.gnupg --daemon
 llee  4141  keyboxd --homedir /home/llee/.gnupg --daemon  # duplicate!
 ```
@@ -79,18 +79,18 @@ echo "test" | gpg --clearsign
 ### Prevention
 
 1. **Avoid hibernation with active GPG operations**
-2. **Clean shutdown** ensures proper daemon termination
-3. **Periodic cleanup** of stale lock files if issues recur
+1. **Clean shutdown** ensures proper daemon termination
+1. **Periodic cleanup** of stale lock files if issues recur
 
 ### Related Files
 
-| File/Directory | Purpose |
-|----------------|---------|
-| `~/.gnupg/` | GPG home directory |
-| `~/.gnupg/public-keys.d/` | Keybox database directory |
-| `~/.gnupg/public-keys.d/pubring.db` | Public key database |
-| `~/.gnupg/public-keys.d/.#lk*` | Lock files (can become stale) |
-| `~/.gnupg/public-keys.d/pubring.db.lock` | Database lock file |
+| File/Directory                           | Purpose                              |
+| ---------------------------------------- | ------------------------------------ |
+| `~/.gnupg/`                              | GPG home directory                   |
+| `~/.gnupg/public-keys.d/`                | Keybox database directory            |
+| `~/.gnupg/public-keys.d/pubring.db`      | Public key database                  |
+| `~/.gnupg/public-keys.d/.#lk*`           | Lock files (can become stale)        |
+| `~/.gnupg/public-keys.d/pubring.db.lock` | Database lock file                   |
 
 ### Commands Reference
 

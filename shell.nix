@@ -72,12 +72,12 @@
 
     buildInputs = with pkgs; [
       # keep-sorted start block=no newline_separated=no sticky_comments=no
+      # pre-commit # DISABLED: Swift build failure. Tracking: https://github.com/nixos/nixpkgs/issues/483584
       (lib.hiPrio uutils-coreutils-noprefix) # https://search.nixos.org/packages?channel=unstable&type=packages&show=uutils-coreutils-noprefix
       git # https://search.nixos.org/packages?channel=unstable&type=packages&show=git
       gnupg # https://search.nixos.org/packages?channel=unstable&type=packages&show=gnupg
       nix # https://search.nixos.org/packages?channel=unstable&type=packages&show=nix
       nixfmt # https://search.nixos.org/packages?channel=unstable&type=packages&show=nixfmt
-      # pre-commit # DISABLED: Swift build failure. Tracking: https://github.com/nixos/nixpkgs/issues/483584
       vim # https://search.nixos.org/packages?channel=unstable&type=packages&show=vim
       # keep-sorted end
     ];

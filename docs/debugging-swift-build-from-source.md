@@ -6,7 +6,7 @@ This document captures the debugging steps and commands used to investigate and 
 
 When running `darwin-rebuild switch --flake .`, Swift 5.10.1 was being built from source, taking 30-60+ minutes. The dependency graph showed:
 
-```
+```text
 ┏━ Dependency Graph:
 ┃                                        ┌─ ⏵ swift-5.10.1 ⏱ 1m29s
 ┃                                     ┌─ ⏸ clang-wrapper-21.1.8
@@ -46,7 +46,8 @@ nix why-depends --derivation nixpkgs#pre-commit nixpkgs#swift
 ```
 
 This revealed the dependency chain:
-```
+
+```text
 pre-commit → dotnet-sdk-wrapped → dotnet-sdk → dotnet-runtime-wrapped → dotnet-runtime → dotnet-vmr → swift-wrapper → swift
 ```
 
@@ -140,7 +141,7 @@ Swift 5.10.1 was failing to build on darwin due to an incompatibility with clang
 
 The error message from the build:
 
-```
+```text
 /nix/var/nix/builds/.../swift/include/swift/SIL/SILInstruction.h:1150:17: warning: 'offsetof' on non-standard-layout type 'NonSingleValueInstruction' [-Winvalid-offsetof]
 ninja: build stopped: subcommand failed.
 ```
@@ -209,11 +210,11 @@ in
 
 1. **Created a reusable helper function** `mkPkgsSwift` to import the pinned nixpkgs-swift revision with proper config inheritance.
 
-2. **Fixed the swiftPackages/swift inheritance** using `inherit` to properly replace at the top level.
+1. **Fixed the swiftPackages/swift inheritance** using `inherit` to properly replace at the top level.
 
-3. **Added dotnet package inheritance** since `pre-commit` → `dotnet-sdk` → `swift`.
+1. **Added dotnet package inheritance** since `pre-commit` → `dotnet-sdk` → `swift`.
 
-4. **Added pre-commit inheritance** to ensure the entire package uses the cached Swift.
+1. **Added pre-commit inheritance** to ensure the entire package uses the cached Swift.
 
 ### Flake Input for Pinned Swift
 
@@ -238,6 +239,7 @@ The fastest fix is to comment out `pre-commit` from your packages:
 ```
 
 You can still use pre-commit via:
+
 - `pipx install pre-commit`
 - A separate devShell with pre-commit from an older nixpkgs
 
@@ -254,6 +256,7 @@ Then inherit `pre-commit` from `nixpkgs-stable`.
 ### Option 3: Wait for Upstream Fix
 
 Monitor the GitHub issue for a fix:
+
 - [NixOS/nixpkgs#483584](https://github.com/NixOS/nixpkgs/issues/483584)
 
 ## Useful Links
@@ -267,15 +270,15 @@ Monitor the GitHub issue for a fix:
 
 1. **Overlays don't transitively replace dependencies** - If package A depends on B which depends on C, overriding C in an overlay won't affect A unless you also override A or B.
 
-2. **Always check Hydra build status** before assuming a package is cached.
+1. **Always check Hydra build status** before assuming a package is cached.
 
-3. **Use `nix why-depends`** to trace dependency chains when investigating build issues.
+1. **Use `nix why-depends`** to trace dependency chains when investigating build issues.
 
-4. **Pin problematic packages to known-good revisions** when upstream is broken.
+1. **Pin problematic packages to known-good revisions** when upstream is broken.
 
-5. **Consider the entire dependency chain** when pinning packages—you may need to pin multiple packages.
+1. **Consider the entire dependency chain** when pinning packages—you may need to pin multiple packages.
 
-6. **Pinned revisions may also be broken** - Just because you pin to a specific revision doesn't mean that revision has working builds. You must verify the pinned revision actually has cached binaries.
+1. **Pinned revisions may also be broken** - Just because you pin to a specific revision doesn't mean that revision has working builds. You must verify the pinned revision actually has cached binaries.
 
 ## Why the Overlay Approach Was Reverted
 
@@ -285,9 +288,9 @@ The overlay approach attempted to pin Swift and related packages to a specific n
 
 1. **The pinned revision also had broken Swift** - The Swift build failure existed before the GitHub issue was opened on January 25, 2026. The pinned revision from January 22 was already affected by the clang 21 incompatibility.
 
-2. **No cached binaries available** - Even with a correctly structured overlay, if the pinned nixpkgs revision doesn't have Swift successfully built and cached in Hydra, Nix will still attempt to build from source.
+1. **No cached binaries available** - Even with a correctly structured overlay, if the pinned nixpkgs revision doesn't have Swift successfully built and cached in Hydra, Nix will still attempt to build from source.
 
-3. **The derivation hash remained the same** - After applying the overlay, the build still used the same derivation (`/nix/store/lghszxcp38ydvdlmcmkk7w1fsszyp7cp-swift-5.10.1.drv`), indicating the overlay wasn't changing the actual Swift being used, or both revisions produced the same broken derivation.
+1. **The derivation hash remained the same** - After applying the overlay, the build still used the same derivation (`/nix/store/lghszxcp38ydvdlmcmkk7w1fsszyp7cp-swift-5.10.1.drv`), indicating the overlay wasn't changing the actual Swift being used, or both revisions produced the same broken derivation.
 
 ### What Was Reverted
 
@@ -333,12 +336,12 @@ Back to:
 
 The following files were modified to comment out `pre-commit`:
 
-| File | Change |
-|------|--------|
-| `home-manager/packages.nix:146` | Commented out `pre-commit` |
-| `home-manager/packages/git/default.nix:39` | Commented out `pre-commit` |
-| `shell.nix:48-49` | Commented out `pre-commit` and `pre-commit-hook-ensure-sops` |
-| `shell.nix:80` | Commented out `pre-commit` in minimal-shell |
+| File                                       | Change                                                       |
+| ------------------------------------------ | ------------------------------------------------------------ |
+| `home-manager/packages.nix:146`            | Commented out `pre-commit`                                   |
+| `home-manager/packages/git/default.nix:39` | Commented out `pre-commit`                                   |
+| `shell.nix:48-49`                          | Commented out `pre-commit` and `pre-commit-hook-ensure-sops` |
+| `shell.nix:80`                             | Commented out `pre-commit` in minimal-shell                  |
 
 ## Alternatives to Nix-Managed pre-commit
 
@@ -365,11 +368,13 @@ pre-commit install
 ```
 
 **Pros:**
+
 - Isolated from system Python
 - Easy to update: `pipx upgrade pre-commit`
 - Works immediately
 
 **Cons:**
+
 - Not managed by Nix
 - Requires separate installation step
 
@@ -386,10 +391,12 @@ alias pre-commit='nix-shell -p pre-commit -I nixpkgs=https://github.com/NixOS/ni
 ```
 
 **Pros:**
+
 - Still uses Nix
 - Reproducible
 
 **Cons:**
+
 - Slower startup (downloads/builds on first use)
 - Uses older package versions
 
@@ -400,10 +407,12 @@ brew install pre-commit
 ```
 
 **Pros:**
+
 - Simple installation
 - Well-maintained on macOS
 
 **Cons:**
+
 - Not managed by Nix
 - May conflict with Nix packages
 
@@ -420,10 +429,12 @@ docker run --rm -v $(pwd):/app -w /app ghcr.io/pre-commit/pre-commit run --all-f
 ```
 
 **Pros:**
+
 - Completely isolated
 - Consistent across machines
 
 **Cons:**
+
 - Requires Docker
 - Slower than native execution
 
@@ -453,11 +464,13 @@ in
 ```
 
 **Pros:**
+
 - Managed by Nix
 - Explicit version pinning
 - Works with flake lock
 
 **Cons:**
+
 - Adds another nixpkgs to evaluate
 - May have version mismatches with other packages
 
@@ -480,24 +493,28 @@ nix build nixpkgs#swift --dry-run 2>&1 | grep -q "will be built" && echo "Still 
 Once Swift is fixed in nixpkgs, follow these steps:
 
 1. **Update flake.lock:**
+
    ```bash
    nix flake update nixpkgs
    ```
 
-2. **Verify Swift is cached:**
+1. **Verify Swift is cached:**
+
    ```bash
    nix build nixpkgs#swift --dry-run
    # Should show "will be fetched" not "will be built"
    ```
 
-3. **Uncomment pre-commit in all files:**
+1. **Uncomment pre-commit in all files:**
+
    - `home-manager/packages.nix`
    - `home-manager/packages/git/default.nix`
    - `shell.nix` (both locations)
 
-4. **Remove the nixpkgs-swift input** from `flake.nix` if no longer needed.
+1. **Remove the nixpkgs-swift input** from `flake.nix` if no longer needed.
 
-5. **Rebuild:**
+1. **Rebuild:**
+
    ```bash
    darwin-rebuild switch --flake .
    ```
