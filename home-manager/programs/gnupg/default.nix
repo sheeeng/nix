@@ -106,12 +106,12 @@
     enableScDaemon = lib.mkDefault true; # https://nix-community.github.io/home-manager/options.xhtml#opt-services.gpg-agent.enableScDaemon
     enableSshSupport = lib.mkDefault true; # https://nix-community.github.io/home-manager/options.xhtml#opt-services.gpg-agent.enableSshSupport
     enableZshIntegration = lib.mkDefault true; # https://nix-community.github.io/home-manager/options.xhtml#opt-services.gpg-agent.enableZshIntegration
-    defaultCacheTtl = 3600; # https://nix-community.github.io/home-manager/options.xhtml#opt-services.gpg-agent.defaultCacheTtl
-    defaultCacheTtlSsh = 3600; # https://nix-community.github.io/home-manager/options.xhtml#opt-services.gpg-agent.defaultCacheTtlSsh
+    defaultCacheTtl = 28800; # 8 hours - https://nix-community.github.io/home-manager/options.xhtml#opt-services.gpg-agent.defaultCacheTtl
+    defaultCacheTtlSsh = 28800; # 8 hours - https://nix-community.github.io/home-manager/options.xhtml#opt-services.gpg-agent.defaultCacheTtlSsh
     extraConfig = ""; # https://nix-community.github.io/home-manager/options.xhtml#opt-services.gpg-agent.extraConfig
     grabKeyboardAndMouse = lib.mkDefault false; # https://nix-community.github.io/home-manager/options.xhtml#opt-services.gpg-agent.grabKeyboardAndMouse
-    maxCacheTtl = 7200; # https://nix-community.github.io/home-manager/options.xhtml#opt-services.gpg-agent.maxCacheTtl
-    maxCacheTtlSsh = 7200; # https://nix-community.github.io/home-manager/options.xhtml#opt-services.gpg-agent.maxCacheTtlSsh
+    maxCacheTtl = 86400; # 24 hours - https://nix-community.github.io/home-manager/options.xhtml#opt-services.gpg-agent.maxCacheTtl
+    maxCacheTtlSsh = 86400; # 24 hours - https://nix-community.github.io/home-manager/options.xhtml#opt-services.gpg-agent.maxCacheTtlSsh
     noAllowExternalCache = lib.mkDefault false; # https://nix-community.github.io/home-manager/options.xhtml#opt-services.gpg-agent.noAllowExternalCache
     pinentry = {
       package = lib.mkIf pkgs.stdenv.isLinux (

@@ -1,6 +1,7 @@
 {
   config,
   inputs,
+  lib,
   pkgs,
   ...
 }:
@@ -266,6 +267,13 @@ in
   services.displayManager.gdm.enable = true;
   services.desktopManager.gnome.enable = true;
 
+  # Disable GNOME's SSH agent (gcr-ssh-agent) since gpg-agent handles SSH.
+  programs.ssh.startAgent = false;
+  services.gnome.gnome-keyring.enable = lib.mkForce false;
+
+  # Disable gcr-ssh-agent socket via systemd user units.
+  systemd.user.sockets.gcr-ssh-agent.enable = false;
+
   # Enable CUPS to print documents
   services.printing.enable = true;
 
@@ -280,7 +288,12 @@ in
     pulse.enable = true;
   };
 
-  services.yubikey-agent.enable = true; # https://search.nixos.org/options?channel=unstable&show=services.yubikey-agent.enable
+  # Disable yubikey-agent as gpg-agent with SSH support is used instead.
+  # The gpg-agent (configured via home-manager) handles both GPG and SSH keys.
+  services.yubikey-agent.enable = false; # https://search.nixos.org/options?channel=unstable&show=services.yubikey-agent.enable
+
+  # Enable pcscd for smart card (YubiKey) support with gpg-agent.
+  services.pcscd.enable = true; # https://search.nixos.org/options?channel=unstable&show=services.pcscd.enable
 
   hardware.bluetooth = {
     enable = true; # https://search.nixos.org/options?channel=unstable&show=hardware.bluetooth.enable
@@ -304,16 +317,12 @@ in
   programs.zsh.enable = true; # https://search.nixos.org/options?channel=unstable&show=programs.zsh.enable
   programs.firefox.enable = false; # https://search.nixos.org/options?channel=unstable&show=programs.firefox.enable
 
+  # GPG agent is configured via home-manager (services.gpg-agent).
+  # System-level configuration is disabled to avoid conflicts.
+  # The home-manager gpg-agent handles SSH support and pinentry.
   programs.gnupg.agent = {
-    enable = true; # https://search.nixos.org/options?channel=unstable&show=programs.gnupg.agent.enable
-    enableSSHSupport = true; # https://search.nixos.org/options?channel=unstable&show=programs.gnupg.agent.enableSSHSupport
-    pinentryPackage = pkgs.writeShellScriptBin "pinentry" ''
-      if [[ -n "$DISPLAY" || -n "$WAYLAND_DISPLAY" ]]; then
-        exec ${pkgs.pinentry-gnome3}/bin/pinentry "$@"
-      else
-        exec ${pkgs.pinentry-curses}/bin/pinentry "$@"
-      fi
-    '';
+    enable = false; # https://search.nixos.org/options?channel=unstable&show=programs.gnupg.agent.enable
+    # SSH support is configured in home-manager's services.gpg-agent.enableSshSupport
   }; # https://search.nixos.org/options?channel=unstable&show=programs.gnupg.agent
 
   system.autoUpgrade = {
