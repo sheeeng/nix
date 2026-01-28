@@ -43,7 +43,14 @@
   };
 
   # Set SSH_AUTH_SOCK for GPG agent SSH support on NixOS.
+  # Note: Use $XDG_RUNTIME_DIR (shell variable) rather than builtins.getEnv,
+  # which evaluates at build time when XDG_RUNTIME_DIR is not set.
   home.sessionVariables = lib.mkIf pkgs.stdenv.isLinux {
-    SSH_AUTH_SOCK = "${builtins.getEnv "XDG_RUNTIME_DIR"}/gnupg/S.gpg-agent.ssh";
+    SSH_AUTH_SOCK = "$XDG_RUNTIME_DIR/gnupg/S.gpg-agent.ssh";
   };
+
+  # Set GPG_TTY for pinentry to work correctly in terminal sessions.
+  home.sessionVariablesExtra = lib.mkIf pkgs.stdenv.isLinux ''
+    export GPG_TTY="$(tty)"
+  '';
 }
