@@ -22,6 +22,21 @@
 
   description = "NixOS Configuration";
 
+  nixConfig = {
+    # The extra- prefix appends to any list setting rather than overriding it.
+    # https://nix.dev/manual/nix/latest/command-ref/conf-file#file-format
+    extra-substituters = [
+      "https://cache.nixos.org"
+      "https://nix-community.cachix.org"
+    ]; # https://nix.dev/manual/nix/latest/command-ref/conf-file#conf-substituters
+
+    # The extra- prefix appends to any list setting rather than overriding it.
+    extra-trusted-public-keys = [
+      "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+    ]; # https://nix.dev/manual/nix/latest/command-ref/conf-file#conf-trusted-public-keys
+  };
+
   # Nix Channels and Git Branches:
   # https://github.com/nixos/nixpkgs/pull/105986
   # https://github.com/nixos/rfcs/pull/26
@@ -55,6 +70,9 @@
     # FAIL
     # nixpkgs.url = "github:nixos/nixpkgs?branch=staging-next&rev=387a92d18b3ff50e3eca63cb5b2bff679a068985"; # https://github.com/nixos/nixpkgs/issues/449970
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+
+    # Tracking: https://github.com/NixOS/nixpkgs/issues/483584
+    nixpkgs-swift.url = "git+ssh://git@github.com/nixos/nixpkgs.git?rev=70801e06d9730c4f1704fbd3bbf5b8e11c03a2a7&shallow=1";
 
     # The next two are for pinning to stable vs unstable regardless of what the above is set to
     # This is particularly useful when an upcoming stable release is in beta because you can effectively
@@ -134,6 +152,22 @@
     agenix = {
       url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    flake-parts = {
+      url = "git+ssh://git@github.com/hercules-ci/flake-parts.git?ref=main&shallow=1";
+      inputs.nixpkgs-lib.follows = "nixpkgs";
+    };
+
+    stylix = {
+      url = "github:nix-community/stylix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    wrapix = {
+      url = "git+ssh://git@github.com/taheris/wrapix.git?ref=main&shallow=1";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-parts.follows = "flake-parts";
     };
 
     # errata-ai-alex.flake = false;
@@ -260,8 +294,7 @@
             {
               nixpkgs.overlays = [
                 # NOTE: nodejs-skip-tests overlay removed - it causes cache misses for webkitgtk and other large packages
-                (import ./overlays inputs).fix-vscode-operation-not-permitted
-                (import ./overlays inputs).unstable-packages
+                (import ./overlays { inherit inputs; }).modifications
                 inputs.morlana.overlays.default
                 # inputs.nh-plus.overlays.default
                 inputs.fenix.overlays.default
@@ -304,8 +337,7 @@
             {
               nixpkgs.overlays = [
                 # NOTE: nodejs-skip-tests overlay removed - it causes cache misses for webkitgtk and other large packages
-                (import ./overlays inputs).fix-vscode-operation-not-permitted
-                (import ./overlays inputs).unstable-packages
+                (import ./overlays { inherit inputs; }).modifications
                 inputs.morlana.overlays.default
                 inputs.fenix.overlays.default
               ];
