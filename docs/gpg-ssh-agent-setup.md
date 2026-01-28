@@ -49,8 +49,10 @@ services.gpg-agent = {
   enable = true;
   enableSshSupport = true;        # Handle SSH keys
   enableScDaemon = true;          # Smart card support
-  defaultCacheTtl = 3600;         # 1 hour cache
-  maxCacheTtl = 7200;             # 2 hour max cache
+  defaultCacheTtl = 28800;        # 8 hours cache
+  defaultCacheTtlSsh = 28800;     # 8 hours cache for SSH
+  maxCacheTtl = 86400;            # 24 hours max cache
+  maxCacheTtlSsh = 86400;         # 24 hours max cache for SSH
   # Shell integrations
   enableBashIntegration = true;
   enableZshIntegration = true;
@@ -88,6 +90,11 @@ services.yubikey-agent.enable = false;
 
 # Disable system-level gpg-agent (home-manager manages it)
 programs.gnupg.agent.enable = false;
+
+# Disable GNOME's SSH agent (gcr-ssh-agent) since gpg-agent handles SSH
+programs.ssh.startAgent = false;
+services.gnome.gnome-keyring.enable = lib.mkForce false;
+systemd.user.sockets.gcr-ssh-agent.enable = false;
 ```
 
 ### Disabled Services
@@ -99,6 +106,18 @@ To avoid conflicts, the following are explicitly disabled:
 | `services.ssh-agent` | gpg-agent handles SSH |
 | `services.yubikey-agent` | gpg-agent handles YubiKey via scdaemon |
 | `programs.gnupg.agent` (system) | home-manager gpg-agent is used instead |
+| `programs.ssh.startAgent` | Prevents system SSH agent from starting |
+| `services.gnome.gnome-keyring` | Prevents GNOME keyring from managing keys |
+| `gcr-ssh-agent.socket` | GNOME's GCR SSH agent wrapper conflicts with gpg-agent |
+
+## GNOME Desktop Considerations
+
+When using GNOME desktop, additional steps are required because GNOME provides its own SSH agent via `gcr-ssh-agent`. This agent sets `SSH_AUTH_SOCK` to `/run/user/UID/ssh-agent`, which overrides the gpg-agent socket.
+
+The configuration disables:
+1. **`services.gnome.gnome-keyring`** - Prevents GNOME keyring daemon from starting
+2. **`gcr-ssh-agent.socket`** - Disables the systemd user socket for GCR SSH agent
+3. **`programs.ssh.startAgent`** - Ensures NixOS doesn't start its own ssh-agent
 
 ## Pinentry Configuration
 
