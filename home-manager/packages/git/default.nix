@@ -85,9 +85,9 @@ in
   home.file."srht/.gitconfig".source = ./gitconfig-private.ini;
   home.file."gitea/.gitconfig".source = ./gitconfig-private.ini;
 
-  # Disable ssh-agent on all platforms since gpg-agent handles SSH keys via enableSshSupport.
-  # On Darwin, this is already false; on Linux, gpg-agent provides the SSH agent socket.
-  services.ssh-agent.enable = false;
+  # Enable ssh-agent on Linux for file-based SSH keys.
+  # gpg-agent handles GPG operations only; ssh-agent handles SSH key caching.
+  services.ssh-agent.enable = if pkgs.stdenv.isDarwin then false else true;
 
   programs = {
     delta = {
