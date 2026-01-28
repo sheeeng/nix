@@ -42,12 +42,8 @@
     }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.ssh.matchBlocks
   };
 
-  # Set SSH_AUTH_SOCK for GPG agent SSH support on NixOS.
-  # Note: Use $XDG_RUNTIME_DIR (shell variable) rather than builtins.getEnv,
-  # which evaluates at build time when XDG_RUNTIME_DIR is not set.
-  home.sessionVariables = lib.mkIf pkgs.stdenv.isLinux {
-    SSH_AUTH_SOCK = "$XDG_RUNTIME_DIR/gnupg/S.gpg-agent.ssh";
-  };
+  # SSH_AUTH_SOCK is set automatically by ssh-agent.service on Linux.
+  # No manual override needed since we're using ssh-agent (not gpg-agent) for SSH.
 
   # Set GPG_TTY for pinentry to work correctly in terminal sessions.
   home.sessionVariablesExtra = lib.mkIf pkgs.stdenv.isLinux ''
