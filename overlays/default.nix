@@ -33,22 +33,22 @@ inputs: {
   # mdformat: Update to 1.0.0 for markdown-it-py 4.x compatibility.
   # nixos-unstable has markdown-it-py 4.0.0 but mdformat 0.7.22 requires <4.0.0 package.
   # https://github.com/NixOS/nixpkgs/issues/483613 merged to master but not yet available in unstable.
-  # TODO: Remove the following override once nixos-unstable has mdformat 1.0.0 package.
-  mdformat = _final: prev: {
-    python3 = prev.python3.override {
-      packageOverrides = _: pyPrev: {
-        mdformat = pyPrev.mdformat.overridePythonAttrs (_: rec {
-          version = "82912cdaea4fb830f751504486a7879c70526547"; # 1.0.0
-          src = prev.fetchFromGitHub {
-            owner = "hukkin";
-            repo = "mdformat";
-            tag = version;
-            hash = "sha256-fo4xO4Y89qPAggEjwuf6dnTyu1JzhZVdJyUqGNpti7g=";
-          };
-        });
-      };
-    };
-  };
+  # # TODO: Remove the following override once nixos-unstable has mdformat 1.0.0 package.
+  # mdformat = _final: prev: {
+  #   python3 = prev.python3.override {
+  #     packageOverrides = _: pyPrev: {
+  #       mdformat = pyPrev.mdformat.overridePythonAttrs (_: rec {
+  #         version = "82912cdaea4fb830f751504486a7879c70526547"; # 1.0.0
+  #         src = prev.fetchFromGitHub {
+  #           owner = "hukkin";
+  #           repo = "mdformat";
+  #           tag = version;
+  #           hash = "sha256-fo4xO4Y89qPAggEjwuf6dnTyu1JzhZVdJyUqGNpti7g=";
+  #         };
+  #       });
+  #     };
+  #   };
+  # };
   # nix-prefetch-git \
   #   https://github.com/hukkin/mdformat \
   #   82912cdaea4fb830f751504486a7879c70526547 \
@@ -71,19 +71,19 @@ inputs: {
   # Alternative vendorHash method (may not work):
   # nix --extra-experimental-features 'nix-command flakes' run nixpkgs#nix-prefetch -- \
   #   '{ sha256 }: (builtins.getFlake "git+file://'$(pwd)'").darwinConfigurations.'$(hostname)'.pkgs.beads.goModules.overrideAttrs (_: { outputHash = sha256; })'
-  # TODO: https://github.com/NixOS/nixpkgs/pull/483469
-  beads = _final: prev: {
-    beads = prev.beads.overrideAttrs (_old: rec {
-      version = "0d99d15370030b953a8df0ea67cd3d1b845bb07b"; # v0.49.1
-      src = prev.fetchFromGitHub {
-        owner = "steveyegge";
-        repo = "beads";
-        rev = version;
-        hash = "sha256-roOyTMy9nKxH2Bk8MnP4h2CDjStwK6z0ThQhFcM64QI=";
-      };
-      vendorHash = "sha256-YU+bRLVlWtHzJ1QPzcKJ70f+ynp8lMoIeFlm+29BNPE=";
-    });
-  };
+  # # TODO: https://github.com/NixOS/nixpkgs/pull/483469
+  # beads = _final: prev: {
+  #   beads = prev.beads.overrideAttrs (_old: rec {
+  #     version = "0d99d15370030b953a8df0ea67cd3d1b845bb07b"; # v0.49.1
+  #     src = prev.fetchFromGitHub {
+  #       owner = "steveyegge";
+  #       repo = "beads";
+  #       rev = version;
+  #       hash = "sha256-roOyTMy9nKxH2Bk8MnP4h2CDjStwK6z0ThQhFcM64QI=";
+  #     };
+  #     vendorHash = "sha256-YU+bRLVlWtHzJ1QPzcKJ70f+ynp8lMoIeFlm+29BNPE=";
+  #   });
+  # };
 
   # --------------------------------------------------------------------
 
