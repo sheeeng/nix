@@ -4,7 +4,6 @@
 {
   home.packages = [
     pkgs.go
-    pkgs.gcc # Required for CGO (C compiler)
   ];
 
   home.sessionVariables = {
