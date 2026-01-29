@@ -10,7 +10,7 @@
     enableInteractive = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.starship.enableInteractive
     enableIonIntegration = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.starship.enableIonIntegration
     enableNushellIntegration = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.starship.enableNushellIntegration
-    enableTransience = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.starship.enableTransience
+    enableTransience = false; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.starship.enableTransience
     enableZshIntegration = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.starship.enableZshIntegration
     package = pkgs.starship; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.starship.package
     settings =
