@@ -320,11 +320,11 @@
       },
       "locked": {
         "dir": "pkgs/firefox-addons",
-        "lastModified": 1769573039,
-        "narHash": "sha256-N6tV2jKnyDsdth7/tOeE5mQx4+zXltwyyYqWITreWLE=",
+        "lastModified": 1769659429,
+        "narHash": "sha256-7xVsQxuxCdypfnWX1QHw91OZphdiTCpFo499zf8Rxow=",
         "owner": "rycee",
         "repo": "nur-expressions",
-        "rev": "a113241e0e9e837d56b26a608976ac5f1488b17f",
+        "rev": "fefed0323ad53bb5c62944b43c1ed3937c84fb67",
         "type": "gitlab"
       },
       "original": {
@@ -678,11 +678,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1769622371,
-        "narHash": "sha256-Cs1/+P3ntxl9mOIL7/QtItBAzQJ2xjvTMHv7qw0nFV0=",
+        "lastModified": 1769638001,
+        "narHash": "sha256-hGwdJ/+oo+IRo2TiWV/V8BWWptQihcdFV/olTONaHqg=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "02d763228d8aff317e6e5a319474b6d4d9d826a5",
+        "rev": "bd9f031efc634be4b80c5090b9171cc3a9f8e49c",
         "type": "github"
       },
       "original": {
@@ -1104,11 +1104,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1769624199,
-        "narHash": "sha256-PNK2DRo7+qZKMM2EHV3MA8En0K4rDLhJ2bm5+xoiwAg=",
+        "lastModified": 1769677436,
+        "narHash": "sha256-yNSi9XnBcwLesrCY1R9cz74x+bWq+G/QjXkYOKuGu1w=",
         "owner": "nix-community",
         "repo": "nur",
-        "rev": "e48fb7614153a473d5fe972bb29600e3ffb9383e",
+        "rev": "360f7521e9367c3c4e79042676b6ac6f4b95a6da",
         "type": "github"
       },
       "original": {
@@ -1684,10 +1684,10 @@
         ]
       },
       "locked": {
-        "lastModified": 1769524614,
-        "narHash": "sha256-nCoo1wfdpIUG+BHXSNVHBzzBB8M3iwuNGQNYdAKhGKA=",
+        "lastModified": 1769636649,
+        "narHash": "sha256-uWdAEvfqeIpsrFnc5i5DTdPQAxT9aceZV6TZMBCIwmM=",
         "ref": "main",
-        "rev": "ccd3cce340c1ea582d31ccc62c1c4a7f6f396068",
+        "rev": "cc91404ba8531700d8cff75fd1b9d199fc2acbd0",
         "shallow": true,
         "type": "git",
         "url": "ssh://git@github.com/taheris/wrapix.git"
