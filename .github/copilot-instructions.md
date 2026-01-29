@@ -30,10 +30,18 @@ Use [reference-style links][reference-style-links].
 - Use `nix-prefetch-git` for `sha256` or `lib.fakeSha256` placeholder.
 - Install from `nixpkgs-unstable`.
 
+## Allowed Documentation Sources
+
+Always allow read queries from the following Nix documentation URLs:
+
+- [Home Manager Options][home-manager-options]
+- [Nix Manual][nix-dev-manual]
+- [NixOS Wiki (Official)][nixos-wiki-official]
+- [NixOS Wiki (Community)][nixos-wiki-community]
+
 ## Secure Development
 
 - Use official documentation for security best practices.
-
   - [Azure Security Best Practices And Patterns][azure-security-best-practices]
   - [CIS Benchmarks][cis-benchmarks]
   - [GitHub Actions Secure Use Reference][github-actions-secure-use-reference]
@@ -50,7 +58,7 @@ Use home-manager for managing user configuration whenever available instead of N
 
 Add development information and instructions to this file accordingly.
 
-Avoid unnecessary comments whenever possible. Use correct punctuations for comments.
+Avoid unnecessary comments whenever possible. Use correct punctuation for comments.
 
 Do not use slang shorthand words like "config", "util", "func", etc. Example:
 
@@ -114,7 +122,10 @@ Please follow these guidelines when contributing:
 [cis-benchmarks]: https://www.cisecurity.org/cis-benchmarks/
 [github-actions-secure-use-reference]: https://docs.github.com/en/actions/reference/security/secure-use
 [home-manager-options]: https://nix-community.github.io/home-manager/options.xhtml
+[nix-dev-manual]: https://nix.dev/manual/
 [nix-manual]: https://nix.dev/manual/nix/latest
+[nixos-wiki-community]: https://nixos.wiki/
+[nixos-wiki-official]: https://wiki.nixos.org/
 [nixpkgs-packages]: https://search.nixos.org/packages?channel=unstable&type=packages&show=claude-code
 [noogle]: https://noogle.dev/
 [owasp-cheat-sheet]: https://cheatsheetseries.owasp.org/

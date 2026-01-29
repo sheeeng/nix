@@ -1,4 +1,10 @@
 {
+  "chat.allowedWebDomains": [
+    "nix-community.github.io",
+    "nix.dev",
+    "nixos.wiki",
+    "wiki.nixos.org"
+  ],
   "chat.mcp.serverSampling": {
     "nix/.vscode/mcp.json: time": {
       "allowedModels": [
