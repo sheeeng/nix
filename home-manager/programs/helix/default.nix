@@ -236,7 +236,18 @@
             "open_below"
             "normal_mode"
           ]; # Maps the enter key to open_below then re-enter normal mode
-          "A-x" = "@x<A-d>"; # Maps Alt-x to a macro selecting the whole line and deleting it without yanking it
+          "A-x" = "@x<A-d>"; # Maps Alt-x to a macro selecting the whole line and deleting it without yanking it.
+          "A-down" = [
+            "extend_to_line_bounds"
+            "delete_selection"
+            "paste_after"
+          ];
+          "A-up" = [
+            "extend_to_line_bounds"
+            "delete_selection"
+            "move_line_up"
+            "paste_before"
+          ];
           "+" = {
             m = ":run-shell-command make";
             c = ":run-shell-command cargo build";
