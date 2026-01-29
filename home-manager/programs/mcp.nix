@@ -9,6 +9,10 @@
         # nix eval --impure --raw --expr 'with import <nixpkgs> {}; lib.getExe aks-mcp-server'
         # $(nix eval --raw nixpkgs#aks-mcp-server.outPath)/bin/aks-mcp --version
         command = "${pkgs.aks-mcp-server}/bin/aks-mcp"; # https://search.nixos.org/packages?channel=unstable&type=packages&show=aks-mcp-server
+        args = [
+          "--log-level"
+          "error"
+        ];
       };
       context7 = {
         url = "https://mcp.context7.com/mcp";
