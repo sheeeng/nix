@@ -514,6 +514,15 @@ in
           # "gitlens.plusFeatures.enabled" = false; # TODO: Enable after https://github.com/NixOS/nixpkgs/issues/462082 is fixed upstream.
           "geminicodeassist.displayInlineContextHint" = false;
           "geminicodeassist.project" = "cloud-nine-265718"; # "gen-lang-client-0457835357";
+          "json.schemas" = [
+            {
+              "fileMatch" = [
+                "opencode.json"
+                "opencode.jsonc"
+              ];
+              "url" = "https://opencode.ai/config.json";
+            }
+          ];
         }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.vscode.profiles._name_.userSettings
 
         userTasks = { }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.vscode.profiles._name_.userTasks
