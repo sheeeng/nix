@@ -522,6 +522,13 @@ in
               ];
               "url" = "https://opencode.ai/config.json";
             }
+            {
+              "fileMatch" = [
+                "*-theme.json"
+                "*-theme.jsonc"
+              ];
+              "url" = "https://opencode.ai/theme.json";
+            }
           ];
         }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.vscode.profiles._name_.userSettings
 
