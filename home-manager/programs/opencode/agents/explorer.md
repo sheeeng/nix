@@ -1,4 +1,5 @@
 ---
+name: explorer
 description: Fast, read-only agent for exploring codebases.
 mode: subagent
 model: anthropic/claude-haiku-4-5
