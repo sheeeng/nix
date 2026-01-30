@@ -32,7 +32,6 @@
         args = [
           "run"
           "github:utensils/mcp-nixos"
-          "--"
         ];
       };
       playwright = {
