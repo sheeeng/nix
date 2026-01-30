@@ -1,4 +1,5 @@
 ---
+name: planner
 mode: primary
 model: anthropic/claude-haiku-4-5
 temperature: 0.1
