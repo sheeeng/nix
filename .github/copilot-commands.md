@@ -224,3 +224,13 @@ This key is not known by any other names.
 Host key verification failed.
 TP95V9LWWL% sudo ssh -T git@github.com
 ```
+
+```shell
+# On fast machine
+nix build .#nixosConfigurations.slow-computer.config.system.build.toplevel
+nix copy --to ssh://root@<slow computer IP> ./result
+readlink ./result
+
+# On slow machine
+/nix/store/<path that the readlink shows>/bin/switch-to-configuration switch
+```
