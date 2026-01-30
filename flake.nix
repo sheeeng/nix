@@ -22,20 +22,20 @@
 
   description = "NixOS Configuration";
 
-  nixConfig = {
-    # The extra- prefix appends to any list setting rather than overriding it.
-    # https://nix.dev/manual/nix/latest/command-ref/conf-file#file-format
-    extra-substituters = [
-      "https://cache.nixos.org"
-      "https://nix-community.cachix.org"
-    ]; # https://nix.dev/manual/nix/latest/command-ref/conf-file#conf-substituters
+  # nixConfig = {
+  #   # The extra- prefix appends to any list setting rather than overriding it.
+  #   # https://nix.dev/manual/nix/latest/command-ref/conf-file#file-format
+  #   extra-substituters = [
+  #     "https://cache.nixos.org"
+  #     "https://nix-community.cachix.org"
+  #   ]; # https://nix.dev/manual/nix/latest/command-ref/conf-file#conf-substituters
 
-    # The extra- prefix appends to any list setting rather than overriding it.
-    extra-trusted-public-keys = [
-      "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-    ]; # https://nix.dev/manual/nix/latest/command-ref/conf-file#conf-trusted-public-keys
-  };
+  #   # The extra- prefix appends to any list setting rather than overriding it.
+  #   extra-trusted-public-keys = [
+  #     "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+  #     "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+  #   ]; # https://nix.dev/manual/nix/latest/command-ref/conf-file#conf-trusted-public-keys
+  # };
 
   # Nix Channels and Git Branches:
   # https://github.com/nixos/nixpkgs/pull/105986
