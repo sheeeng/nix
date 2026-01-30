@@ -240,6 +240,12 @@
 
     _1password-shell-plugins.url = "github:1password/shell-plugins";
 
+    beads-flake = {
+      # # TODO: Undo when https://github.com/steveyegge/beads/issues/1373#issuecomment-3815509770 is fixed.
+      url = "github:steveyegge/beads/v0.49.1";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nix-systems.url = "github:nix-systems/default"; # https://github.com/nix-systems/nix-systems
 
     nix-secrets = {
