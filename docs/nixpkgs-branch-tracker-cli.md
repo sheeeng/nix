@@ -2,23 +2,25 @@
 
 This guide provides CLI steps to check whether a NixOS/nixpkgs PR merge commit has propagated to various NixOS branches. This is the CLI equivalent of what the [nixpkgs.js](./nixpkgs.js) userscript does in the browser.
 
+See [staging](https://github.com/NixOS/nixpkgs/blob/ec80ea750adcfbd3a20e9fa623096135b3f5194e/CONTRIBUTING.md#staging) documentation.
+
 ## Overview
 
 When a PR is merged into NixOS/nixpkgs, it first lands in `master`. From there, it propagates to other branches/channels:
 
-| Branch | Description |
-| ------ | ----------- |
-| `master` | Main development branch where PRs are merged first |
-| `staging-next` | Staging area for large rebuilds before merging to master |
-| `nixpkgs-unstable` | Continuously updated from master after CI passes (for general packages) |
-| `nixos-unstable` | Like nixpkgs-unstable but includes NixOS tests |
-| `nixos-unstable-small` | Fast-track channel for small, critical updates |
+| Branch                 | Description                                                             |
+| ---------------------- | ----------------------------------------------------------------------- |
+| `master`               | Main development branch where PRs are merged first                      |
+| `staging-next`         | Staging area for large rebuilds before merging to master                |
+| `nixpkgs-unstable`     | Continuously updated from master after CI passes (for general packages) |
+| `nixos-unstable`       | Like nixpkgs-unstable but includes NixOS tests                          |
+| `nixos-unstable-small` | Fast-track channel for small, critical updates                          |
 
 ## Example: PR #484788
 
 We will use [PR #484788](https://github.com/NixOS/nixpkgs/pull/484788) (`_3cpio: 0.13.0 -> 0.13.1`) as an example.
 
-______________________________________________________________________
+---
 
 ## Step 1: Get the Merge Commit SHA
 
@@ -55,7 +57,7 @@ git log pr-484788 -1 --format="%H"
 
 For PR #484788, the merge commit is: `3f96296da66f5ecf3d8106c61281b823949a56c0`
 
-______________________________________________________________________
+---
 
 ## Step 2: Check if the Commit Exists in Each Branch
 
@@ -77,7 +79,7 @@ BRANCHES=("master" "nixos-unstable-small" "nixos-unstable" "nixpkgs-unstable" "s
 # Check each branch
 for BRANCH in "${BRANCHES[@]}"; do
   STATUS=$(curl -s "https://api.github.com/repos/${REPO}/compare/${MERGE_COMMIT}...${BRANCH}" | jq -r '.status')
-  
+
   if [[ "$STATUS" == "ahead" || "$STATUS" == "identical" ]]; then
     echo "✅ $BRANCH: commit is present"
   else
@@ -94,7 +96,7 @@ REPO="NixOS/nixpkgs"
 
 for BRANCH in master nixos-unstable-small nixos-unstable nixpkgs-unstable staging-next; do
   STATUS=$(gh api "repos/${REPO}/compare/${MERGE_COMMIT}...${BRANCH}" --jq '.status')
-  
+
   if [[ "$STATUS" == "ahead" || "$STATUS" == "identical" ]]; then
     echo "✅ $BRANCH"
   else
@@ -123,7 +125,7 @@ for BRANCH in master nixos-unstable-small nixos-unstable nixpkgs-unstable stagin
 done
 ```
 
-______________________________________________________________________
+---
 
 ## Complete Script
 
@@ -174,7 +176,7 @@ BRANCHES=("master" "nixos-unstable-small" "nixos-unstable" "nixpkgs-unstable" "s
 
 for BRANCH in "${BRANCHES[@]}"; do
   STATUS=$(gh api "repos/${REPO}/compare/${MERGE_COMMIT}...${BRANCH}" --jq '.status' 2>/dev/null || echo "error")
-  
+
   case "$STATUS" in
     ahead|identical)
       printf "✅ %-20s (commit present)\n" "$BRANCH"
@@ -238,7 +240,7 @@ View comparisons on GitHub:
 
 > **Note:** Branch propagation status changes over time as commits flow from `master` to other branches/channels. The output above reflects the state at the time of writing.
 
-______________________________________________________________________
+---
 
 ## Prerequisites
 
@@ -254,18 +256,18 @@ nix-shell -p gh jq curl
 nix shell nixpkgs#gh nixpkgs#jq nixpkgs#curl
 ```
 
-______________________________________________________________________
+---
 
 ## Understanding the Compare API Response
 
 The GitHub Compare API (`/repos/{owner}/{repo}/compare/{base}...{head}`) returns:
 
-| Status | Meaning |
-| ------ | ------- |
-| `ahead` | Head branch is ahead of base (contains base's commits plus more) |
-| `behind` | Head branch is behind base (base has commits not in head) |
-| `identical` | Both refs point to the same commit |
-| `diverged` | Branches have diverged (each has unique commits) |
+| Status      | Meaning                                                          |
+| ----------- | ---------------------------------------------------------------- |
+| `ahead`     | Head branch is ahead of base (contains base's commits plus more) |
+| `behind`    | Head branch is behind base (base has commits not in head)        |
+| `identical` | Both refs point to the same commit                               |
+| `diverged`  | Branches have diverged (each has unique commits)                 |
 
 When checking if a merge commit is in a branch:
 
@@ -273,7 +275,7 @@ When checking if a merge commit is in a branch:
 - If status is `ahead` or `identical`, the branch contains the commit
 - If status is `behind`, the commit has not propagated to that branch yet
 
-______________________________________________________________________
+---
 
 ## Related Resources
 
