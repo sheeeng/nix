@@ -1,4 +1,5 @@
 ---
+name: code-reviewer
 description: Reviews code for best practices and potential issues.
 mode: subagent
 model: anthropic/claude-sonnet-4-5
