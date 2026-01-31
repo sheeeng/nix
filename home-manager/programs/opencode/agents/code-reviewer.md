@@ -2,15 +2,15 @@
 name: code-reviewer
 description: Reviews code for best practices and potential issues.
 mode: subagent
-model: anthropic/claude-sonnet-4-5
+model: anthropic/claude-sonnet-4-5-20250929
 temperature: 0.1
 tools:
-  write: false
-  edit: false
-  bash: false
+    write: false
+    edit: false
+    bash: false
 permission:
-  edit: deny
-  bash: deny
+    edit: deny
+    bash: deny
 ---
 
 # Code Reviewer
