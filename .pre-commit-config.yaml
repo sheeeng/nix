@@ -35,6 +35,7 @@ repos:
         name: check-xml
       - id: check-yaml
         name: check-yaml
+        args: ["--allow-multiple-documents"]
       - id: debug-statements
         name: debug-statements-python
       - id: destroyed-symlinks
@@ -46,6 +47,7 @@ repos:
         name: detect-private-key
       - id: double-quote-string-fixer
         name: fix-double-quoted-strings
+        exclude: \.py$
       - id: end-of-file-fixer
         name: fix-end-of-files
         exclude: |
@@ -92,7 +94,6 @@ repos:
         args: [--markdown-linebreak-ext=md]
         exclude: \.md$
         # keep-sorted end
-
   # keep-sorted start
   - repo: https://github.com/charliermarsh/ruff-pre-commit
     rev: v0.14.14
@@ -132,19 +133,23 @@ repos:
       - id: yamlfmt
         name: yamlfmt
         args: [--formatter, retain_line_breaks_single=true]
+  - repo: https://github.com/igorshubovych/markdownlint-cli
+    rev: v0.47.0
+    hooks:
+      - id: markdownlint
+        name: markdownlint
+        files: \.md$
   - repo: https://github.com/nixos/nixfmt
     rev: v1.2.0
     hooks:
       - id: nixfmt
         name: nixfmt
         files: \.nix$
-        language: system
-        entry: nixfmt
-  - repo: https://github.com/psf/black
-    rev: 26.1.0
+  - repo: https://github.com/renovatebot/pre-commit-hooks
+    rev: 42.84.0
     hooks:
-      - id: black
-        name: black
+      - id: renovate-config-validator
+        args: [--strict]
   - repo: https://github.com/rhysd/actionlint
     rev: v1.7.10
     hooks:
@@ -157,24 +162,14 @@ repos:
       - id: shellcheck
         name: shellcheck
         args: []
-  - repo: local
+  - repo: https://github.com/tcort/markdown-link-check
+    rev: v3.14.2
     hooks:
       - id: markdown-link-check
         name: markdown-link-check
-        entry: nix shell nixpkgs#markdown-link-check -c markdown-link-check --progress --verbose
-        language: system
-        types: [markdown]
+        entry: markdown-link-check
+        language: node
+        types: [file]
         files: \.md$
-      - id: markdownlint
-        name: markdownlint
-        language: system
-        entry: nix shell nixpkgs#markdownlint-cli -c markdownlint
-        files: \.md$
-        types: [markdown]
-      - id: renovate-config-validator
-        name: renovate-config-validator
-        language: system
-        entry: nix shell nixpkgs#renovate -c renovate-config-validator --strict
-        files: (^|/)\.?renovate(rc)?\.json5?$|^renovate\.json$
-        types: [json]
-        # keep-sorted end
+        args: ["--quiet", "--config", ".markdown-link-check.json"]
+# keep-sorted end
