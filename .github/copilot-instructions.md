@@ -42,11 +42,11 @@ Always allow read queries from the following Nix documentation URLs:
 ## Secure Development
 
 - Use official documentation for security best practices.
-  - [Azure Security Best Practices And Patterns][azure-security-best-practices]
-  - [CIS Benchmarks][cis-benchmarks]
-  - [GitHub Actions Secure Use Reference][github-actions-secure-use-reference]
-  - [OWASP Cheat Sheet Series][owasp-cheat-sheet]
-  - [OWASP Top Ten][owasp-top-ten]
+    - [Azure Security Best Practices And Patterns][azure-security-best-practices]
+    - [CIS Benchmarks][cis-benchmarks]
+    - [GitHub Actions Secure Use Reference][github-actions-secure-use-reference]
+    - [OWASP Cheat Sheet Series][owasp-cheat-sheet]
+    - [OWASP Top Ten][owasp-top-ten]
 
 - Avoid hardcoding sensitive information like API keys, passwords, or secrets in the codebase. Use environment variables or secure vaults instead.
 
