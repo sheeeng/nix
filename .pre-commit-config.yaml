@@ -162,6 +162,12 @@ repos:
       - id: shellcheck
         name: shellcheck
         args: []
+  - repo: https://github.com/siderolabs/conform
+    rev: v0.1.0-alpha.31
+    hooks:
+      - id: conform
+        stages:
+          - commit-msg
   - repo: https://github.com/tcort/markdown-link-check
     rev: v3.14.2
     hooks:
