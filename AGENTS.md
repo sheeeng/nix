@@ -25,6 +25,17 @@ Always allow read queries from the following Nix documentation URLs:
     - Lowercase "to" in infinitives such as to run, to see, to build.
     - Exception: Capitalize prepositions when used adverbially or adjectivally ("Look Up," "Turn Down") or in verb phrases.
 
+## AI Model Verification
+
+Always verifyAI model names against the open-source database of AI models before configuring agents. Use the following API to check valid model identifiers.
+
+```shell
+curl --silent https://models.dev/api.json \
+    | jq '.anthropic.models | .[] | .id'
+```
+
+Model names follow the `provider/model-id` format. For example, `anthropic/claude-sonnet-4-5-20250929`.
+
 ## Tracking Tasks
 
 Use [bd](https://github.com/steveyegge/beads) for tracking tasks.

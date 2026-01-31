@@ -1,14 +1,14 @@
 ---
 name: builder
 mode: primary
-model: anthropic/claude-sonnet-4-5
+model: anthropic/claude-sonnet-4-5-20250929
 tools:
-  write: true
-  edit: true
-  bash: true
+    write: true
+    edit: true
+    bash: true
 permission:
-  edit: allow
-  bash: allow
+    edit: allow
+    bash: allow
 ---
 
 # Builder

@@ -2,15 +2,15 @@
 name: security-auditor
 description: Performs security audits and identifies vulnerabilities.
 mode: subagent
-model: anthropic/claude-sonnet-4-5
+model: anthropic/claude-sonnet-4-5-20250929
 temperature: 0.1
 tools:
-  write: false
-  edit: false
-  bash: true
+    write: false
+    edit: false
+    bash: true
 permission:
-  edit: deny
-  bash: ask
+    edit: deny
+    bash: ask
 ---
 
 # Security Auditor
