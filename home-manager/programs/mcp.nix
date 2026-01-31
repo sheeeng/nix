@@ -14,6 +14,20 @@
           "error"
         ];
       };
+      beads = {
+        # https://github.com/steveyegge/beads/blob/main/docs/PLUGIN.md
+        # Note: beads-mcp is a Python MCP server that wraps the bd Go CLI.
+        # The BEADS_PATH env var tells it where to find the bd binary.
+        command = "uvx";
+        args = [
+          "--from"
+          "beads-mcp"
+          "beads-mcp"
+        ];
+        env = {
+          BEADS_PATH = "bd";
+        };
+      };
       context7 = {
         url = "https://mcp.context7.com/mcp";
         headers = {
@@ -28,17 +42,17 @@
         };
       };
       nixos = {
-        command = "nix";
+        # https://github.com/utensils/mcp-nixos
+        # Using uvx for fast startup (no nix build delay)
+        command = "uvx";
         args = [
-          "run"
-          "github:utensils/mcp-nixos"
+          "mcp-nixos"
         ];
       };
       playwright = {
-        command = "npx";
-        args = [
-          "@playwright/mcp@latest"
-        ];
+        # https://github.com/microsoft/playwright-mcp
+        # Using Nix package for fast startup (~0.02s vs 1.4s with npx)
+        command = lib.getExe pkgs.playwright-mcp; # https://search.nixos.org/packages?channel=unstable&type=packages&show=playwright-mcp
       };
       terraform = {
         command = lib.getExe pkgs.terraform-mcp-server; # https://search.nixos.org/packages?channel=unstable&type=packages&show=terraform-mcp-server
