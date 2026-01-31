@@ -2,6 +2,8 @@
 # https://github.com/DavidAnson/markdownlint/blob/main/schema/.markdownlint.yaml
 
 # keep-sorted start group=yes
+MD007: # ul-indent
+  indent: 4
 MD010: # no-hard-tabs
   code_blocks: true
   ignore_code_languages: []
