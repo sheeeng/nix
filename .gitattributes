@@ -2,3 +2,6 @@ flake.lock -diff
 
 *.age -text -diff
 
+
+# Use bd merge for beads JSONL files.
+.beads/issues.jsonl merge=beads
