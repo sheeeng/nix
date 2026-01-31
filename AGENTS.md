@@ -5,7 +5,6 @@
 Always allow read queries from the following Nix documentation URLs:
 
 - <https://nix-community.github.io/home-manager/options.xhtml>
-- <https://nix.dev/manual/>
 - <https://wiki.nixos.org/>
 - <https://nixos.wiki/>
 
