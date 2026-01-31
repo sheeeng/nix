@@ -1,0 +1,8 @@
+[extend]
+# Use the default gitleaks configuration as a base.
+useDefault = true
+
+# Allowlist for false positives.
+# GITHUB_TOKEN placeholder in documentation examples is not a real secret.
+[allowlist]
+paths = ['''.*README\.md''']
