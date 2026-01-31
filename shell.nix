@@ -50,6 +50,7 @@
 
         cabal-install # https://search.nixos.org/packages?channel=unstable&type=packages&show=cabal-install
         ghc # https://search.nixos.org/packages?channel=unstable&type=packages&show=ghc
+        gmp # https://search.nixos.org/packages?channel=unstable&type=packages&show=gmp
       ])
       ++ [
         (pkgs.python313.withPackages (
@@ -73,7 +74,10 @@
     buildInputs = with pkgs; [
       # keep-sorted start block=no newline_separated=no sticky_comments=no
       (lib.hiPrio uutils-coreutils-noprefix) # https://search.nixos.org/packages?channel=unstable&type=packages&show=uutils-coreutils-noprefix
+      cabal-install # https://search.nixos.org/packages?channel=unstable&type=packages&show=cabal-install
+      ghc # https://search.nixos.org/packages?channel=unstable&type=packages&show=ghc
       git # https://search.nixos.org/packages?channel=unstable&type=packages&show=git
+      gmp # https://search.nixos.org/packages?channel=unstable&type=packages&show=gmp
       gnupg # https://search.nixos.org/packages?channel=unstable&type=packages&show=gnupg
       nix # https://search.nixos.org/packages?channel=unstable&type=packages&show=nix
       nixfmt # https://search.nixos.org/packages?channel=unstable&type=packages&show=nixfmt
