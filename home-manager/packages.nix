@@ -127,13 +127,13 @@
       alejandra # https://search.nixos.org/packages?channel=unstable&type=packages&show=alejandra
       asdf-vm # https://search.nixos.org/packages?channel=unstable&type=packages&show=asdf-vm
       autoconf # https://search.nixos.org/packages?channel=unstable&type=packages&show=autoconf
-      inputs.beads-flake.packages.${pkgs.system}.default # TODO: Undo when https://github.com/steveyegge/beads/issues/1373#issuecomment-3815509770 is fixed.
       conform # https://search.nixos.org/packages?channel=unstable&type=packages&show=conform
       delta # https://search.nixos.org/packages?channel=unstable&type=packages&show=delta
       dependabot-cli # https://search.nixos.org/packages?channel=unstable&type=packages&show=dependabot-cli
       gcc # https://search.nixos.org/packages?channel=unstable&type=packages&show=gcc
       golangci-lint # https://search.nixos.org/packages?channel=unstable&type=packages&show=golangci-lint
       hadolint # https://search.nixos.org/packages?channel=unstable&type=packages&show=hadolint
+      inputs.beads-flake.packages.${pkgs.system}.default # TODO: Undo when https://github.com/steveyegge/beads/issues/1373#issuecomment-3815509770 is fixed.
       just # https://search.nixos.org/packages?channel=unstable&type=packages&show=just
       just-lsp # https://search.nixos.org/packages?channel=unstable&type=packages&show=just-lsp
       k9s # https://search.nixos.org/packages?channel=unstable&type=packages&show=k9s
