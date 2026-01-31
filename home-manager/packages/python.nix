@@ -5,6 +5,8 @@
 { pkgs, ... }:
 {
   home.packages = with pkgs; [
+    uv # https://search.nixos.org/packages?channel=unstable&type=packages&show=uv
+
     (python3.withPackages (
       pkgs: with pkgs; [
         black # https://search.nixos.org/packages?channel=unstable&type=packages&show=black
