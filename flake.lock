@@ -164,16 +164,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1769403857,
-        "narHash": "sha256-roOyTMy9nKxH2Bk8MnP4h2CDjStwK6z0ThQhFcM64QI=",
+        "lastModified": 1769851299,
+        "narHash": "sha256-XvP7nXLBVJY2vBwssoTViCi8sL2rqU12kjnf0gHP9EY=",
         "owner": "steveyegge",
         "repo": "beads",
-        "rev": "0d99d15370030b953a8df0ea67cd3d1b845bb07b",
+        "rev": "9e5ea59fea9d10cf73b0af2bce434225b8f5fe67",
         "type": "github"
       },
       "original": {
         "owner": "steveyegge",
-        "ref": "v0.49.1",
+        "ref": "v0.49.2",
         "repo": "beads",
         "type": "github"
       }
@@ -718,11 +718,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1769813945,
-        "narHash": "sha256-9ABv9Lo9t6MrFjlnRnU8Zw1C6LVj2+R8PipQ/rxGLHk=",
+        "lastModified": 1769872935,
+        "narHash": "sha256-07HMIGQ/WJeAQJooA7Kkg1SDKxhAiV6eodvOwTX6WKI=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "475921375def3eb930e1f8883f619ff8609accb6",
+        "rev": "f4ad5068ee8e89e4a7c2e963e10dd35cd77b37b7",
         "type": "github"
       },
       "original": {
@@ -1144,11 +1144,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1769854182,
-        "narHash": "sha256-+x4Hwff7A2gkKqXFmiwoCrXkqg+UkKLKC6hPqiLHFjo=",
+        "lastModified": 1769876589,
+        "narHash": "sha256-/r1fEFKQqMNtv6c4JUXjy1Au06PrQp8K8AP2rWEM/hI=",
         "owner": "nix-community",
         "repo": "nur",
-        "rev": "3cfde19c56816f180bf4bb75b13cc207821d4f88",
+        "rev": "f792ac11fc18ef015d41102bf86d992fa39cb1d0",
         "type": "github"
       },
       "original": {
