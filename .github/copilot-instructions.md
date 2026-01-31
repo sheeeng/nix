@@ -35,7 +35,7 @@ Use [reference-style links][reference-style-links].
 Always allow read queries from the following Nix documentation URLs:
 
 - [Home Manager Options][home-manager-options]
-- [Nix Manual][nix-dev-manual]
+- [Nix Manual][nix-manual]
 - [NixOS Wiki (Official)][nixos-wiki-official]
 - [NixOS Wiki (Community)][nixos-wiki-community]
 
@@ -122,7 +122,6 @@ Please follow these guidelines when contributing:
 [cis-benchmarks]: https://www.cisecurity.org/cis-benchmarks/
 [github-actions-secure-use-reference]: https://docs.github.com/en/actions/reference/security/secure-use
 [home-manager-options]: https://nix-community.github.io/home-manager/options.xhtml
-[nix-dev-manual]: https://nix.dev/manual/
 [nix-manual]: https://nix.dev/manual/nix/latest
 [nixos-wiki-community]: https://nixos.wiki/
 [nixos-wiki-official]: https://wiki.nixos.org/

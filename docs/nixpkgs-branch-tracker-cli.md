@@ -1,6 +1,6 @@
 # Nixpkgs PR Branch Tracker: CLI Guide
 
-This guide provides CLI steps to check whether a NixOS/nixpkgs PR merge commit has propagated to various NixOS branches. This is the CLI equivalent of what the [nixpkgs.js](./nixpkgs.js) userscript does in the browser.
+This guide provides CLI steps to check whether a NixOS/nixpkgs PR merge commit has propagated to various NixOS branches.
 
 See [staging](https://github.com/NixOS/nixpkgs/blob/ec80ea750adcfbd3a20e9fa623096135b3f5194e/CONTRIBUTING.md#staging) documentation.
 
@@ -280,5 +280,4 @@ When checking if a merge commit is in a branch:
 ## Related Resources
 
 - [NixOS Channel Status](https://status.nixos.org/) - Official channel status page
-- [nixpkgs.js](./nixpkgs.js) - Browser userscript version of this tool
 - [Nixpkgs Manual: Channels](https://nixos.org/manual/nixpkgs/stable/#sec-channel-branches)
