@@ -1,80 +1,210 @@
-name: "Update Flake Lock"
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
+name: Update Flake Lock
+# Workflow to automatically update Nix flake dependencies.
+#
+# Required Permissions (GITHUB_TOKEN):
+# - contents: write   - Push commits to the update branch.
+# - pull-requests: write - Create and update pull requests.
+#
+# These permissions are granted via the 'permissions' block below.
+# No additional repository settings are required when using GITHUB_TOKEN.
 
 on:
-  pull_request:
   push:
-    branches: [main]
-  workflow_dispatch:
+    branches:
+      - unstable
   schedule:
     - cron: "0 03 * * 1-5" # “At 03:00 UTC on every day-of-week from Monday through Friday.” # https://crontab.guru/#0_3_*_*_1-5
+  workflow_dispatch:
+
+defaults:
+  run:
+    shell: bash
 
 concurrency:
-  group: "${{ github.workflow }}-${{ github.head_ref || github.sha }}"
+  group: update-${{ github.ref_name }}
   cancel-in-progress: true
 
 permissions: {}
 
 jobs:
   update-flake-lock:
+    name: Update the Flake Inputs
+    runs-on: ubuntu-latest
     permissions:
       contents: write
       pull-requests: write
-    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    if: github.ref_name == 'unstable' && (github.event_name != 'schedule' || github.repository == 'sheeeng/nix')
+    env:
+      base_branch: ${{ github.ref_name }}
+      pr_branch: update/${{ github.ref_name }}
     steps:
-      - uses: actions/create-github-app-token@29824e69f54612133e76f7eaac726eef6c875baf # v2.2.1
-        id: create-token
-        with:
-          app-id: ${{ vars.APP_ID }}
-          private-key: ${{ secrets.APP_PRIVATE_KEY }}
-
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-        with:
-          token: ${{ steps.create-token.outputs.token }}
-
-      - uses: determinatesystems/determinate-nix-action@89ab342bd48ff7318caf8d39d6a330c7b1df8f2f # v3.15.2
-
-      # References:
-      # dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
-      # https://api.github.com/users/dependabot%5Bbot%5D
-      #
-      # github-actions[bot] <github-actions[bot]@users.noreply.github.com>
-      # https://api.github.com/users/github-actions%5Bbot%5D
-      #
-      # https://github.com/orgs/community/discussions/26560#discussioncomment-12555758
-      # https://github.com/actions/checkout/blob/8e8c483db84b4bee98b60c0593521ed34d9990e8/README.md#L358
-
-      - name: Update Flake Lock & Create PR
+      - name: Configure Git
+        # github-actions[bot] User ID: 41898282
+        # https://api.github.com/users/github-actions%5Bbot%5D
         run: |
-          # Configure git identity.
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+      - name: Check Out Repository
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Install Nix
+        uses: determinatesystems/determinate-nix-action@89ab342bd48ff7318caf8d39d6a330c7b1df8f2f # v3.15.2
+      - name: Create Update Branch
+        run: |
+          git branch -D "$pr_branch" 2>/dev/null || echo "Branch does not exist locally"
+          git switch -c "$pr_branch"
+      - name: Get Info on the Current PR
+        id: open_pr_info
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Query for info about the already open update PR.
+          info=$(
+            gh api graphql -F owner='{owner}' -F repo='{repo}' -F branch="$pr_branch" -f query='
+              query($owner:String!, $repo:String!, $branch:String!) {
+                repository(owner: $owner, name: $repo) {
+                  pullRequests(first: 1, states: OPEN, headRefName: $branch) {
+                    nodes {
+                      number
+                      url
+                    }
+                  }
+                }
+              }
+            ' | jq --raw-output '
+              .data.repository.pullRequests.nodes[]
+              | to_entries[]
+              | "\(.key)=\(.value)"
+            '
+          )
+          if [[ -n "$info" ]]; then
+            echo "PR info:"
+            echo "$info"
+            echo "$info" >> $GITHUB_OUTPUT
+          else
+            echo "No PR is currently open"
+          fi
+      - name: Fetch Current PR's Branch
+        if: steps.open_pr_info.outputs.number
+        run: |
+          git fetch origin "$pr_branch"
+          git branch --set-upstream-to "origin/$pr_branch"
+      - name: Update Flake Lock
+        id: update_flake_lock
+        run: |
+          # Store the old commit hash.
+          old=$(git rev-parse HEAD)
 
-          # Update flake.lock file with Nix.
-          nix --debug --log-format raw flake update \
-            --commit-lock-file \
-            --option commit-lockfile-summary "chore(deps): update flake.lock"
+          # Update flake.lock.
+          nix flake update --commit-lock-file
 
-          # Check if there are any changes to flake.lock file.
-          if git diff --quiet HEAD flake.lock; then
-            echo "No changes to flake.lock file, skipping PR creation."
-            exit 0
+          # Store the new commit hash.
+          new=$(git rev-parse HEAD)
+
+          if [ "$old" != "$new" ]; then
+            echo "updated=true" >> "$GITHUB_OUTPUT"
+            # Get the list of updated inputs from the commit.
+            body=$(git show --no-patch --format=%b)
+            echo "body<<EOF" >> "$GITHUB_OUTPUT"
+            echo "$body" >> "$GITHUB_OUTPUT"
+            echo "EOF" >> "$GITHUB_OUTPUT"
+          else
+            echo "updated=false" >> "$GITHUB_OUTPUT"
+            echo "No updates available"
+          fi
+      - name: Check if There Are Differences to Push
+        id: diff
+        env:
+          pr_num: ${{ steps.open_pr_info.outputs.number }}
+        run: |
+          if [[ -n "$pr_num" ]]; then
+            remote="origin/$pr_branch"
+          else
+            remote="origin/$base_branch"
           fi
 
-          # Create a new branch with ISO 8601 UTC timestamp.
-          BRANCH="update-flake-lock-$(date --utc +%Y-%m-%dT%H:%M:%SZ)"
-          git switch --create "$BRANCH"
-
-          # Push the branch to the remote repository.
-          git push origin "$BRANCH"
-
-          # Create a pull request using GitHub CLI.
-          gh pr create \
-            --title "chore(deps): update flake.lock" \
-            --body "Automated update of flake.lock dependencies.
-
-          This PR updates the Nix flake dependencies to their latest versions." \
-            --label "dependencies" \
-            --base main \
-            --head "$BRANCH"
+          # Check if there are any differences.
+          if git diff --quiet "$remote" HEAD -- flake.lock 2>/dev/null; then
+            echo "No differences to push"
+            echo "count=0" >> $GITHUB_OUTPUT
+          else
+            echo "Changes detected in flake.lock"
+            echo "count=1" >> $GITHUB_OUTPUT
+          fi
+      - name: Create or Update Pull Request
+        id: updated_pr
+        if: steps.diff.outputs.count != '0'
         env:
-          GH_TOKEN: ${{ steps.create-token.outputs.token }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          pr_num: ${{ steps.open_pr_info.outputs.number }}
+          title: "chore(deps): update flake.lock"
+          lock_body: ${{ steps.update_flake_lock.outputs.body }}
+          workflow_run_url: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          echo "Pushing to remote branch $pr_branch"
+          git push --force --set-upstream origin "$pr_branch"
+
+          echo "Writing PR body file"
+          (
+            echo '## Updated Inputs'
+            echo
+            if [[ -n "$lock_body" ]]; then
+              echo '```'
+              echo "$lock_body"
+              echo '```'
+            else
+              echo 'No input changes recorded.'
+            fi
+            echo
+            echo '---'
+            echo
+            echo "This PR was updated by workflow run [${{ github.run_id }}]($workflow_run_url)."
+            echo
+            echo 'You can manually trigger an update from the [workflow page](${{ github.server_url }}/${{ github.repository }}/actions/workflows/update-flake-lock.yml).'
+          ) > body.md
+
+          if [[ -n "$pr_num" ]]; then
+            echo "Editing existing PR #$pr_num"
+            gh pr edit "$pr_num" --body-file body.md
+            echo "number=$pr_num" >> $GITHUB_OUTPUT
+            echo "operation=updated" >> $GITHUB_OUTPUT
+          else
+            if [[ "${{ steps.update_flake_lock.outputs.updated }}" == "true" ]]; then
+              echo "Creating new PR"
+              gh pr create \
+                --base "$base_branch" \
+                --title "$title" \
+                --body-file body.md \
+                --label "dependencies"
+              # Get the PR number.
+              pr_info=$(gh pr view --json number,url --jq '.number')
+              echo "number=$pr_info" >> $GITHUB_OUTPUT
+              echo "operation=created" >> $GITHUB_OUTPUT
+            else
+              echo "Skipping PR creation - no updates in flake.lock"
+            fi
+          fi
+      - name: Print Summary
+        if: steps.updated_pr.outputs.number
+        env:
+          pr_num: ${{ steps.updated_pr.outputs.number }}
+          operation: ${{ steps.updated_pr.outputs.operation }}
+        run: |
+          echo "PR #$pr_num was $operation"
+          (
+            echo "## ${{ github.ref_name }}"
+            echo
+            echo "PR #$pr_num was $operation."
+          ) >> $GITHUB_STEP_SUMMARY
+      - name: Print No-Update Summary
+        if: steps.diff.outputs.count == '0'
+        run: |
+          echo "No updates needed"
+          (
+            echo "## No Updates"
+            echo
+            echo "flake.lock is already up to date."
+          ) >> $GITHUB_STEP_SUMMARY
