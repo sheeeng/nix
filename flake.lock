@@ -183,11 +183,11 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1769784115,
-        "narHash": "sha256-QIZLsan8c+Kje4rqlXUd9KW/Rmpss5p5GNqV0V12OY8=",
+        "lastModified": 1769946009,
+        "narHash": "sha256-cjPsPx3qlP7RW78lcGJoTP/B6yqY6BJJjwT7QUg8ByY=",
         "owner": "catppuccin",
         "repo": "nix",
-        "rev": "d745dab3172e426fef9767f46651ba073db4d04b",
+        "rev": "ff59ad5085b7d71705ea1f019c02b08dfe40d9c8",
         "type": "github"
       },
       "original": {
@@ -305,11 +305,11 @@
         "rust-analyzer-src": "rust-analyzer-src"
       },
       "locked": {
-        "lastModified": 1767250179,
-        "narHash": "sha256-PnQdWvPZqHp+7yaHWDFX3NYSKaOy0fjkwpR+rIQC7AY=",
+        "lastModified": 1769929675,
+        "narHash": "sha256-EBpe7sXCPLs+qVePXbA7kc+Kmpmp0pWysEpjjEWTK+E=",
         "owner": "nix-community",
         "repo": "fenix",
-        "rev": "a3eaf682db8800962943a77ab77c0aae966f9825",
+        "rev": "78d518f5ca32a86dc767de481160dbae640c70cf",
         "type": "github"
       },
       "original": {
@@ -430,17 +430,16 @@
       "locked": {
         "lastModified": 1768135262,
         "narHash": "sha256-PVvu7OqHBGWN16zSi6tEmPwwHQ4rLPU9Plvs8/1TUBY=",
-        "ref": "main",
+        "owner": "hercules-ci",
+        "repo": "flake-parts",
         "rev": "80daad04eddbbf5a4d883996a73f3f542fa437ac",
-        "shallow": true,
-        "type": "git",
-        "url": "ssh://git@github.com/hercules-ci/flake-parts.git"
+        "type": "github"
       },
       "original": {
+        "owner": "hercules-ci",
         "ref": "main",
-        "shallow": true,
-        "type": "git",
-        "url": "ssh://git@github.com/hercules-ci/flake-parts.git"
+        "repo": "flake-parts",
+        "type": "github"
       }
     },
     "flake-parts_2": {
@@ -718,11 +717,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1769872935,
-        "narHash": "sha256-07HMIGQ/WJeAQJooA7Kkg1SDKxhAiV6eodvOwTX6WKI=",
+        "lastModified": 1769951345,
+        "narHash": "sha256-I1ZVdwGERLVdsi9FMVP2nLtlwUyfI0WGJjowjlMc4DU=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "f4ad5068ee8e89e4a7c2e963e10dd35cd77b37b7",
+        "rev": "47d542afdd31797a3f725b7639a6bae82aea5bb6",
         "type": "github"
       },
       "original": {
@@ -970,11 +969,11 @@
     },
     "nixpkgs-darwin": {
       "locked": {
-        "lastModified": 1769461804,
-        "narHash": "sha256-msG8SU5WsBUfVVa/9RPLaymvi5bI8edTavbIq3vRlhI=",
+        "lastModified": 1769789167,
+        "narHash": "sha256-kKB3bqYJU5nzYeIROI82Ef9VtTbu4uA3YydSk/Bioa8=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "bfc1b8a4574108ceef22f02bafcf6611380c100d",
+        "rev": "62c8382960464ceb98ea593cb8321a2cf8f9e3e5",
         "type": "github"
       },
       "original": {
@@ -1003,17 +1002,16 @@
       "locked": {
         "lastModified": 1769105483,
         "narHash": "sha256-cC4W6KDq3942hk4zyoDWYOvb/9lvlsPZbrdlTj9hsxw=",
-        "ref": "refs/heads/master",
+        "owner": "nixos",
+        "repo": "nixpkgs",
         "rev": "70801e06d9730c4f1704fbd3bbf5b8e11c03a2a7",
-        "shallow": true,
-        "type": "git",
-        "url": "ssh://git@github.com/nixos/nixpkgs.git"
+        "type": "github"
       },
       "original": {
+        "owner": "nixos",
+        "repo": "nixpkgs",
         "rev": "70801e06d9730c4f1704fbd3bbf5b8e11c03a2a7",
-        "shallow": true,
-        "type": "git",
-        "url": "ssh://git@github.com/nixos/nixpkgs.git"
+        "type": "github"
       }
     },
     "nixpkgs_2": {
@@ -1098,11 +1096,11 @@
     },
     "nixpkgs_7": {
       "locked": {
-        "lastModified": 1769461804,
-        "narHash": "sha256-msG8SU5WsBUfVVa/9RPLaymvi5bI8edTavbIq3vRlhI=",
+        "lastModified": 1769789167,
+        "narHash": "sha256-kKB3bqYJU5nzYeIROI82Ef9VtTbu4uA3YydSk/Bioa8=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "bfc1b8a4574108ceef22f02bafcf6611380c100d",
+        "rev": "62c8382960464ceb98ea593cb8321a2cf8f9e3e5",
         "type": "github"
       },
       "original": {
@@ -1144,11 +1142,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1769929655,
-        "narHash": "sha256-oMq/KVItqeE84Zu7M80tKiYtKr7OEuqCzvTtxZnC+ik=",
+        "lastModified": 1769952087,
+        "narHash": "sha256-xegMq0Fmo5+tSjthr9qWRCnZ6iZmoCaz8c0eYRAg6ew=",
         "owner": "nix-community",
         "repo": "nur",
-        "rev": "be840a60fdaec8a0e56ed7d60134c0a2be89b005",
+        "rev": "e13ce539e2caa86ef43bc402ecec1525c029863e",
         "type": "github"
       },
       "original": {
@@ -1214,11 +1212,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1769069492,
-        "narHash": "sha256-Efs3VUPelRduf3PpfPP2ovEB4CXT7vHf8W+xc49RL/U=",
+        "lastModified": 1769939035,
+        "narHash": "sha256-Fok2AmefgVA0+eprw2NDwqKkPGEI5wvR+twiZagBvrg=",
         "owner": "cachix",
         "repo": "git-hooks.nix",
-        "rev": "a1ef738813b15cf8ec759bdff5761b027e3e1d23",
+        "rev": "a8ca480175326551d6c4121498316261cbb5b260",
         "type": "github"
       },
       "original": {
@@ -1290,11 +1288,11 @@
     "rust-analyzer-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1767191410,
-        "narHash": "sha256-cCZGjubgDWmstvFkS6eAw2qk2ihgWkycw55u2dtLd70=",
+        "lastModified": 1769857242,
+        "narHash": "sha256-3eKpRRzKz0KzY7CJzRXFm4POwEqbuTohyQ2ajI/zKvg=",
         "owner": "rust-lang",
         "repo": "rust-analyzer",
-        "rev": "a9026e6d5068172bf5a0d52a260bb290961d1cb4",
+        "rev": "17304e9c7e11d26139672d3d77aa498b1cae0d69",
         "type": "github"
       },
       "original": {
@@ -1742,17 +1740,16 @@
       "locked": {
         "lastModified": 1769810294,
         "narHash": "sha256-gjDao9VBpHis8VSlh399Bv1xgIM6zG9xsWcYB6ZI7eo=",
-        "ref": "main",
+        "owner": "taheris",
+        "repo": "wrapix",
         "rev": "d3e84499c7c693deb8dd98c7b935d1a8430a39db",
-        "shallow": true,
-        "type": "git",
-        "url": "ssh://git@github.com/taheris/wrapix.git"
+        "type": "github"
       },
       "original": {
+        "owner": "taheris",
         "ref": "main",
-        "shallow": true,
-        "type": "git",
-        "url": "ssh://git@github.com/taheris/wrapix.git"
+        "repo": "wrapix",
+        "type": "github"
       }
     }
   },
