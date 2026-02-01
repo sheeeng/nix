@@ -278,7 +278,7 @@
 
       # Development
       # keep-sorted start block=no newline_separated=no sticky_comments=no
-      pre-commit # Swift build failure on Darwin. Tracking: https://github.com/nixos/nixpkgs/issues/483584
+      pre-commit # @upstream-issue https://github.com/nixos/nixpkgs/issues/483584
       terraform # https://search.nixos.org/packages?channel=unstable&type=packages&show=terraform
       # keep-sorted end
 
