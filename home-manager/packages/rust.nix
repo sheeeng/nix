@@ -22,7 +22,8 @@ lib.mkIf
       inputs.fenix.packages.${pkgs.stdenv.hostPlatform.system}.latest.llvm-tools
       inputs.fenix.packages.${pkgs.stdenv.hostPlatform.system}.latest.miri
       inputs.fenix.packages.${pkgs.stdenv.hostPlatform.system}.latest.rust-analysis
-      inputs.fenix.packages.${pkgs.stdenv.hostPlatform.system}.latest.rust-docs
+      # @upstream-issue https://github.com/NixOS/nixpkgs/issues/486012
+      # inputs.fenix.packages.${pkgs.stdenv.hostPlatform.system}.latest.rust-docs
       inputs.fenix.packages.${pkgs.stdenv.hostPlatform.system}.latest.rust-src
       inputs.fenix.packages.${pkgs.stdenv.hostPlatform.system}.latest.rustc
       inputs.fenix.packages.${pkgs.stdenv.hostPlatform.system}.latest.rustc-codegen-cranelift
