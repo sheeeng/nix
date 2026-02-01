@@ -63,7 +63,7 @@ jobs:
         run: |
           # Query for info about the already open update PR.
           info=$(
-            gh api graphql -F owner='{owner}' -F repo='{repo}' -F branch="$pr_branch" -f query='
+            gh api graphql -F owner={owner} -F repo={repo} -F branch="$pr_branch" -f query='
               query($owner:String!, $repo:String!, $branch:String!) {
                 repository(owner: $owner, name: $repo) {
                   pullRequests(first: 1, states: OPEN, headRefName: $branch) {
@@ -83,7 +83,7 @@ jobs:
           if [[ -n "$info" ]]; then
             echo "PR info:"
             echo "$info"
-            echo "$info" >> $GITHUB_OUTPUT
+            echo "$info" >> "$GITHUB_OUTPUT"
           else
             echo "No PR is currently open"
           fi
@@ -113,10 +113,10 @@ jobs:
           )
 
           if [[ -n "$inputs_to_update" ]]; then
-            for input in $inputs_to_update; do
+            while IFS= read -r input; do
               echo "Updating input: $input"
               nix flake lock --update-input "$input" || echo "Failed to update $input, skipping..."
-            done
+            done <<< "$inputs_to_update"
           fi
 
           # Commit changes if any.
@@ -133,9 +133,11 @@ jobs:
             echo "updated=true" >> "$GITHUB_OUTPUT"
             # Get the list of updated inputs from the commit.
             body=$(git show --no-patch --format=%b)
-            echo "body<<EOF" >> "$GITHUB_OUTPUT"
-            echo "$body" >> "$GITHUB_OUTPUT"
-            echo "EOF" >> "$GITHUB_OUTPUT"
+            {
+              echo "body<<EOF"
+              echo "$body"
+              echo "EOF"
+            } >> "$GITHUB_OUTPUT"
           else
             echo "updated=false" >> "$GITHUB_OUTPUT"
             echo "No updates available"
@@ -154,10 +156,10 @@ jobs:
           # Check if there are any differences.
           if git diff --quiet "$remote" HEAD -- flake.lock 2>/dev/null; then
             echo "No differences to push"
-            echo "count=0" >> $GITHUB_OUTPUT
+            echo "count=0" >> "$GITHUB_OUTPUT"
           else
             echo "Changes detected in flake.lock"
-            echo "count=1" >> $GITHUB_OUTPUT
+            echo "count=1" >> "$GITHUB_OUTPUT"
           fi
       - name: Create or Update Pull Request
         id: updated_pr
@@ -194,8 +196,8 @@ jobs:
           if [[ -n "$pr_num" ]]; then
             echo "Editing existing PR #$pr_num"
             gh pr edit "$pr_num" --body-file body.md
-            echo "number=$pr_num" >> $GITHUB_OUTPUT
-            echo "operation=updated" >> $GITHUB_OUTPUT
+            echo "number=$pr_num" >> "$GITHUB_OUTPUT"
+            echo "operation=updated" >> "$GITHUB_OUTPUT"
           else
             if [[ "${{ steps.update_flake_lock.outputs.updated }}" == "true" ]]; then
               echo "Creating new PR"
@@ -206,8 +208,8 @@ jobs:
                 --label "dependencies"
               # Get the PR number.
               pr_info=$(gh pr view --json number,url --jq '.number')
-              echo "number=$pr_info" >> $GITHUB_OUTPUT
-              echo "operation=created" >> $GITHUB_OUTPUT
+              echo "number=$pr_info" >> "$GITHUB_OUTPUT"
+              echo "operation=created" >> "$GITHUB_OUTPUT"
             else
               echo "Skipping PR creation - no updates in flake.lock"
             fi
@@ -219,17 +221,17 @@ jobs:
           operation: ${{ steps.updated_pr.outputs.operation }}
         run: |
           echo "PR #$pr_num was $operation"
-          (
+          {
             echo "## ${{ github.ref_name }}"
             echo
             echo "PR #$pr_num was $operation."
-          ) >> $GITHUB_STEP_SUMMARY
+          } >> "$GITHUB_STEP_SUMMARY"
       - name: Print No-Update Summary
         if: steps.diff.outputs.count == '0'
         run: |
           echo "No updates needed"
-          (
+          {
             echo "## No Updates"
             echo
             echo "flake.lock is already up to date."
-          ) >> $GITHUB_STEP_SUMMARY
+          } >> "$GITHUB_STEP_SUMMARY"
