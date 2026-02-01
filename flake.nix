@@ -71,7 +71,7 @@
     # nixpkgs.url = "github:nixos/nixpkgs?branch=staging-next&rev=387a92d18b3ff50e3eca63cb5b2bff679a068985"; # https://github.com/nixos/nixpkgs/issues/449970
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    # Tracking: https://github.com/NixOS/nixpkgs/issues/483584
+    # @upstream-issue https://github.com/NixOS/nixpkgs/issues/483584
     nixpkgs-swift.url = "github:nixos/nixpkgs/70801e06d9730c4f1704fbd3bbf5b8e11c03a2a7";
 
     # The next two are for pinning to stable vs unstable regardless of what the above is set to
@@ -137,7 +137,7 @@
 
     # mac-app-util fails to build with sbcl-2.6.0 package.
     # sbcl-2.6.0 broke fare-quasiquote/cl-interpol readtable handling.
-    # Tracking: https://github.com/hraban/mac-app-util/issues/42
+    # @upstream-issue https://github.com/hraban/mac-app-util/issues/42
     # TODO: Enable once upstream issue is fixed. See beads issue nixcfg-gl7.
     mac-app-util = {
       url = "github:hraban/mac-app-util";

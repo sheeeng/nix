@@ -5,53 +5,12 @@
   modifications = final: prev: {
     unstable = inputs.nixpkgs.legacyPackages.${final.stdenv.hostPlatform.system};
 
-    # NOTE: Swift/dotnet overlay disabled - the pinned nixpkgs-swift revision also has Swift broken.
-    # Tracking: https://github.com/NixOS/nixpkgs/issues/483584
-    # The workaround is to disable pre-commit until upstream fixes Swift.
-    # TODO: Re-enable once Swift builds successfully on darwin.
-    #
-    # mkPkgsSwift = system: config: import inputs.nixpkgs-swift { inherit system config; };
-    # inherit (mkPkgsSwift final.system final.config) swiftPackages swift dotnetCorePackages dotnet-sdk dotnet-runtime pre-commit;
-
-    # Skip Node.js tests during nix-darwin switch for improved performance
-    # NOTE: nodejs-skip-tests removed from active overlays - it causes cache misses
-    # nodejs = prev.nodejs.overrideAttrs (_: {
-    #   doCheck = false;
-    #   doInstallCheck = false;
-    #   checkPhase = null;
-    #   installCheckPhase = null;
-    # });
-
     # Workaround for VSCode "Operation not permitted" issue.
-    # https://github.com/NixOS/nixpkgs/issues/476838
-    # https://github.com/nix-darwin/nix-darwin/issues/1315#issuecomment-2629517646
+    # @upstream-issue https://github.com/NixOS/nixpkgs/issues/476838
+    # @upstream-issue https://github.com/nix-darwin/nix-darwin/issues/1315#issuecomment-2629517646
     vscode = prev.vscode.overrideAttrs (old: {
       installPhase = "whoami\n" + old.installPhase;
     });
-
-    # https://github.com/hraban/mac-app-util/issues/42
-    # https://github.com/gkze/nixcfg/commit/8d39c5bfd9e3fade36a8383798a5bcc3fcf9e7b3
-    # mdformat: Update to 1.0.0 for markdown-it-py 4.x compatibility.
-    # nixos-unstable has markdown-it-py 4.0.0 but mdformat 0.7.22 requires <4.0.0 package.
-    # https://github.com/NixOS/nixpkgs/issues/483613 merged to master but not yet available in unstable.
-    # TODO: Remove the following override once nixos-unstable has mdformat 1.0.0 package.
-    # python3 = prev.python3.override {
-    #   packageOverrides = _: pyPrev: {
-    #     mdformat = pyPrev.mdformat.overridePythonAttrs (_: rec {
-    #       version = "82912cdaea4fb830f751504486a7879c70526547"; # 1.0.0
-    #       src = prev.fetchFromGitHub {
-    #         owner = "hukkin";
-    #         repo = "mdformat";
-    #         tag = version;
-    #         hash = "sha256-fo4xO4Y89qPAggEjwuf6dnTyu1JzhZVdJyUqGNpti7g=";
-    #       };
-    #     });
-    #   };
-    # };
-    # nix-prefetch-git \
-    #   https://github.com/hukkin/mdformat \
-    #   82912cdaea4fb830f751504486a7879c70526547 \
-    #   | jq --raw-output '.hash'
 
     # nix eval nixpkgs#beads --json 2>&1 | head -20
     # nix eval .#darwinConfigurations.$(hostname).pkgs.beads.version --raw 2>&1

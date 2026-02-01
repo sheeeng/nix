@@ -44,7 +44,7 @@
         git-credential-oauth # https://search.nixos.org/packages?channel=unstable&type=packages&show=git-credential-oauth
         git-crypt # https://search.nixos.org/packages?channel=unstable&type=packages&show=git-crypt
 
-        # Swift build failure on darwin systems. Tracking: https://github.com/nixos/nixpkgs/issues/483584
+        # @upstream-issue https://github.com/nixos/nixpkgs/issues/483584
         pre-commit # https://search.nixos.org/packages?channel=unstable&type=packages&show=pre-commit
         pre-commit-hook-ensure-sops # https://search.nixos.org/packages?channel=unstable&type=packages&show=pre-commit-hook-ensure-sops
 
@@ -81,7 +81,7 @@
       gnupg # https://search.nixos.org/packages?channel=unstable&type=packages&show=gnupg
       nix # https://search.nixos.org/packages?channel=unstable&type=packages&show=nix
       nixfmt # https://search.nixos.org/packages?channel=unstable&type=packages&show=nixfmt
-      pre-commit # Swift build failure on darwin systems. Tracking: https://github.com/nixos/nixpkgs/issues/483584
+      pre-commit # @upstream-issue https://github.com/nixos/nixpkgs/issues/483584
       vim # https://search.nixos.org/packages?channel=unstable&type=packages&show=vim
       # keep-sorted end
     ];

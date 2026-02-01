@@ -175,7 +175,7 @@ The corrected overlay in `overlays/default.nix`:
 { inputs, ... }:
 let
   # Import nixpkgs-swift for packages that need a working Swift.
-  # Tracking: https://github.com/NixOS/nixpkgs/issues/483584
+  # @upstream-issue https://github.com/NixOS/nixpkgs/issues/483584
   mkPkgsSwift =
     system: config:
     import inputs.nixpkgs-swift {
@@ -189,7 +189,7 @@ in
     unstable = inputs.nixpkgs.legacyPackages.${final.stdenv.hostPlatform.system};
 
     # Pin swift to working version from a nixpkgs revision where it builds.
-    # Tracking: https://github.com/NixOS/nixpkgs/issues/483584
+    # @upstream-issue https://github.com/NixOS/nixpkgs/issues/483584
     # This properly replaces swiftPackages and swift at the top level.
     inherit (mkPkgsSwift final.system final.config) swiftPackages swift;
 
@@ -222,7 +222,7 @@ In `flake.nix`:
 
 ```nix
 inputs = {
-  # Tracking: https://github.com/NixOS/nixpkgs/issues/483584
+  # @upstream-issue https://github.com/NixOS/nixpkgs/issues/483584
   nixpkgs-swift.url = "git+ssh://git@github.com/nixos/nixpkgs.git?rev=70801e06d9730c4f1704fbd3bbf5b8e11c03a2a7&shallow=1";
 };
 ```
@@ -324,7 +324,7 @@ Back to:
 {
   modifications = final: prev: {
     # NOTE: Swift/dotnet overlay disabled - the pinned nixpkgs-swift revision also has Swift broken.
-    # Tracking: https://github.com/NixOS/nixpkgs/issues/483584
+    # @upstream-issue https://github.com/NixOS/nixpkgs/issues/483584
     # The workaround is to disable pre-commit until upstream fixes Swift.
     # TODO: Re-enable once Swift builds successfully on darwin.
     # ...
@@ -494,27 +494,26 @@ Once Swift is fixed in nixpkgs, follow these steps:
 
 1. **Update flake.lock:**
 
-   ```bash
-   nix flake update nixpkgs
-   ```
+    ```bash
+    nix flake update nixpkgs
+    ```
 
 1. **Verify Swift is cached:**
 
-   ```bash
-   nix build nixpkgs#swift --dry-run
-   # Should show "will be fetched" not "will be built"
-   ```
+    ```bash
+    nix build nixpkgs#swift --dry-run
+    # Should show "will be fetched" not "will be built"
+    ```
 
 1. **Uncomment pre-commit in all files:**
-
-   - `home-manager/packages.nix`
-   - `home-manager/packages/git/default.nix`
-   - `shell.nix` (both locations)
+    - `home-manager/packages.nix`
+    - `home-manager/packages/git/default.nix`
+    - `shell.nix` (both locations)
 
 1. **Remove the nixpkgs-swift input** from `flake.nix` if no longer needed.
 
 1. **Rebuild:**
 
-   ```bash
-   darwin-rebuild switch --flake .
-   ```
+    ```bash
+    darwin-rebuild switch --flake .
+    ```
