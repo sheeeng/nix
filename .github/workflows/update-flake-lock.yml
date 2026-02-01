@@ -98,8 +98,33 @@ jobs:
           # Store the old commit hash.
           old=$(git rev-parse HEAD)
 
-          # Update flake.lock.
-          nix flake update --commit-lock-file
+          # Get all inputs and filter out SSH-based URLs.
+          # SSH URLs (git+ssh://) indicate private repositories requiring authentication.
+          inputs_to_update=$(
+            nix flake metadata --json | \
+            jq -r '
+              .locks.nodes.root.inputs as $inputs |
+              .locks.nodes |
+              to_entries[] |
+              select(.key as $key | $inputs | has($key)) |
+              select(.value.locked.type == "github" or (.value.locked.url? // "" | startswith("git+ssh://") | not)) |
+              .key
+            ' 2>/dev/null || echo ""
+          )
+
+          if [[ -n "$inputs_to_update" ]]; then
+            for input in $inputs_to_update; do
+              echo "Updating input: $input"
+              nix flake lock --update-input "$input" || echo "Failed to update $input, skipping..."
+            done
+          fi
+
+          # Commit changes if any.
+          if ! git diff --quiet flake.lock; then
+            git add flake.lock
+            git commit --message "chore(deps): update flake inputs" \
+              --message "$(git diff HEAD~1 HEAD --stat flake.lock)"
+          fi
 
           # Store the new commit hash.
           new=$(git rev-parse HEAD)
