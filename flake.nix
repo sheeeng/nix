@@ -72,7 +72,7 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
     # Tracking: https://github.com/NixOS/nixpkgs/issues/483584
-    nixpkgs-swift.url = "git+ssh://git@github.com/nixos/nixpkgs.git?rev=70801e06d9730c4f1704fbd3bbf5b8e11c03a2a7&shallow=1";
+    nixpkgs-swift.url = "github:nixos/nixpkgs/70801e06d9730c4f1704fbd3bbf5b8e11c03a2a7";
 
     # The next two are for pinning to stable vs unstable regardless of what the above is set to
     # This is particularly useful when an upcoming stable release is in beta because you can effectively
@@ -155,7 +155,7 @@
     };
 
     flake-parts = {
-      url = "git+ssh://git@github.com/hercules-ci/flake-parts.git?ref=main&shallow=1";
+      url = "github:hercules-ci/flake-parts/main";
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
 
@@ -165,7 +165,7 @@
     };
 
     wrapix = {
-      url = "git+ssh://git@github.com/taheris/wrapix.git?ref=main&shallow=1";
+      url = "github:taheris/wrapix/main";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-parts.follows = "flake-parts";
     };
