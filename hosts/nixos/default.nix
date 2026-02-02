@@ -339,7 +339,16 @@ in
     inherit pkgs-unstable;
   };
 
-  home-manager.sharedModules = [ inputs.nix-index-database.homeModules.nix-index ];
+  home-manager.sharedModules = [
+    inputs.nix-index-database.homeModules.nix-index
+    # Apply overlays to home-manager's pkgs. It is required when useGlobalPkgs = false.
+    {
+      nixpkgs.overlays = [
+        (import ../../overlays { inherit inputs; }).additions
+        (import ../../overlays { inherit inputs; }).modifications
+      ];
+    }
+  ];
 
   home-manager.users."${hostConfiguration.primaryUser}" = {
     home.stateVersion = "25.11";

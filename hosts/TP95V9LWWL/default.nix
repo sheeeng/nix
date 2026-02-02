@@ -319,7 +319,16 @@ in
     inherit pkgs-unstable;
   }; # https://nix-community.github.io/home-manager/nixos-options.xhtml#nixos-opt-home-manager.extraSpecialArgs
 
-  home-manager.sharedModules = [ inputs.mac-app-util.homeManagerModules.default ]; # https://nix-community.github.io/home-manager/nixos-options.xhtml#nixos-opt-home-manager.sharedModules
+  home-manager.sharedModules = [
+    inputs.mac-app-util.homeManagerModules.default
+    # Apply overlays to home-manager's pkgs. It is required when useGlobalPkgs = false.
+    {
+      nixpkgs.overlays = [
+        (import ../../overlays { inherit inputs; }).additions
+        (import ../../overlays { inherit inputs; }).modifications
+      ];
+    }
+  ]; # https://nix-community.github.io/home-manager/nixos-options.xhtml#nixos-opt-home-manager.sharedModules
 
   home-manager.users = {
     "${hostConfiguration.primaryUser}" = {

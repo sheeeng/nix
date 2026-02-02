@@ -1,49 +1,21 @@
 { lib, pkgs, ... }:
-let
-  # Sandbox Runtime (srt) by Anthropic
-  # https://github.com/anthropic-experimental/sandbox-runtime
-  # A lightweight sandboxing tool for enforcing filesystem and network
-  # restrictions on arbitrary processes at the OS level.
-  sandbox-runtime = pkgs.buildNpmPackage rec {
-    pname = "sandbox-runtime";
-    version = "0.0.32";
-
-    src = pkgs.fetchFromGitHub {
-      owner = "anthropic-experimental";
-      repo = "sandbox-runtime";
-      rev = "54ecea4d4717cd8c22bd111bd4461d5ed6cd603e"; # v0.0.32
-      hash = "sha256-M1eFZJ3dScI61xaHMRnRr5jnXD4fmSRiSwsUph24OyQ=";
-    };
-
-    npmDepsHash = "sha256-7ohrHpsDNHgt/VraqyTLzmz84JLhRcKOZdk2M8Rul5E=";
-
-    # The package needs to be built from TypeScript.
-    npmBuildScript = "build";
-
-    # Copy vendor directory after build (contains seccomp binaries).
-    postBuild = "if [ -d vendor ]; then cp -r vendor dist/; fi";
-
-    meta = {
-      description = "Anthropic Sandbox Runtime - A lightweight sandboxing tool for enforcing filesystem and network restrictions";
-      homepage = "https://github.com/anthropic-experimental/sandbox-runtime";
-      license = lib.licenses.asl20;
-      maintainers = [ ];
-      mainProgram = "srt";
-    };
-  };
-in
 {
+  # Sandbox Runtime (srt) dependencies and package.
+  # Package defined in overlays/default.nix, available as pkgs.sandbox-runtime.
+  # https://github.com/anthropic-experimental/sandbox-runtime
   home.packages =
-    with pkgs;
-    lib.optionals pkgs.stdenv.isLinux [
-      # Required on Linux only.
-      bubblewrap # https://search.nixos.org/packages?channel=unstable&type=packages&show=bubblewrap
-      socat # https://search.nixos.org/packages?channel=unstable&type=packages&show=socat
-    ]
-    ++ [
+    (
+      with pkgs;
+      lib.optionals stdenv.isLinux [
+        # Required on Linux only.
+        bubblewrap # https://search.nixos.org/packages?channel=unstable&type=packages&show=bubblewrap
+        socat # https://search.nixos.org/packages?channel=unstable&type=packages&show=socat
+      ]
+    )
+    ++ (with pkgs; [
       ripgrep # https://search.nixos.org/packages?channel=unstable&type=packages&show=ripgrep
-      sandbox-runtime # Provides the `srt` command
-    ];
+      sandbox-runtime # Provides the 'srt' command.
+    ]);
 
   # Settings file for sandbox-runtime.
   # https://github.com/anthropic-experimental/sandbox-runtime#configuration
@@ -56,7 +28,7 @@ in
         "lfs.github.com"
         "api.github.com"
         "raw.githubusercontent.com"
-        # npm
+        # Node
         "npmjs.org"
         "*.npmjs.org"
         "registry.npmjs.org"
@@ -67,34 +39,58 @@ in
         # Nix
         "cache.nixos.org"
         "*.cachix.org"
+        # Go
+        "proxy.golang.org"
+        "sum.golang.org"
+        # Rust
+        "crates.io"
+        "*.crates.io"
+        "static.crates.io"
+        # Ruby
+        "rubygems.org"
+        "*.rubygems.org"
       ];
       deniedDomains = [ ];
       allowUnixSockets = [ ];
       allowLocalBinding = false;
     };
     filesystem = {
+      # Read restrictions (deny-only pattern) - all reads allowed by default.
       denyRead = [
         "~/.ssh"
         "~/.gnupg"
         "~/.aws/credentials"
         "~/.config/sops"
+        "~/.config/age"
       ];
+      # Write restrictions (allow-only pattern) - all writes denied by default.
       allowWrite = [
         "."
+        "src/"
+        "test/"
         "/tmp"
       ];
+      # Deny write within allowed paths (takes precedence over allowWrite).
       denyWrite = [
         ".env"
         ".env.local"
+        ".env.production"
         "secrets/"
+        "config/production.json"
       ];
     };
+    # Ignore violations for specific commands at specific paths.
     ignoreViolations = {
       "*" = [
         "/usr/bin"
         "/System"
       ];
+      "git push" = [ "/usr/bin/nc" ];
+      "npm" = [ "/private/tmp" ];
     };
+    # Default search depth for mandatory deny paths on Linux.
+    mandatoryDenySearchDepth = 3;
+    # Enable weaker sandbox mode for Docker environments (default: false).
     enableWeakerNestedSandbox = false;
   };
 }
