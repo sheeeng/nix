@@ -470,13 +470,13 @@ in
           };
           "terminal.integrated.shellIntegration.enabled" = false;
           "terminal.integrated.smoothScrolling" = false;
-          "terminal.integrated.suggest.cdPath" = false;
+          "terminal.integrated.suggest.cdPath" = "off";
           "terminal.integrated.suggest.enabled" = false;
           "terminal.integrated.suggest.inlineSuggestion" = "off";
           "terminal.integrated.suggest.insertTrailingSpace" = false;
           "terminal.integrated.suggest.quickSuggestions" = false;
-          "terminal.integrated.suggest.runOnEnter" = false;
-          "terminal.integrated.suggest.selectionMode" = "list";
+          "terminal.integrated.suggest.runOnEnter" = "never";
+          "terminal.integrated.suggest.selectionMode" = "never";
           "terminal.integrated.suggest.showStatusBar" = false;
           "terminal.integrated.suggest.suggestOnTriggerCharacters" = false;
           "terminal.integrated.suggest.upArrowNavigatesHistory" = false;
@@ -502,7 +502,6 @@ in
           "files.autoSaveDelay" = 2000;
           "github.copilot.nextEditSuggestions.enabled" = true;
           "github.copilot.chat.codeGeneration.useInstructionFiles" = true;
-          "github.copilot.chat.codeGeneration.instructions" = [ ];
           "github.copilot.enable" = {
             "enabled" = true;
           };
