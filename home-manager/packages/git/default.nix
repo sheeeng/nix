@@ -417,6 +417,19 @@ in
       };
     };
 
+    # curl \
+    #   --silent \
+    #   --location \
+    #   --header "Accept: application/vnd.github+json" \
+    #   --header "Authorization: Bearer $GITHUB_TOKEN" \
+    #   --header "X-GitHub-Api-Version: 2022-11-28" \
+    #   "https://models.github.ai/catalog/models" \
+    #   | jq '.[] | {id, name, publisher}'
+
+    # Important note: The GitHub Models API queried (models.github.ai) does not include Anthropic Claude models.
+    # Claude Opus 4.5 is only available through GitHub Copilot (api.githubcopilot.com), which is a separate service.
+    # That's why opencode was using the github-copilot provider, not github-models.
+
     gh = {
       enable = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.gh.enable
       package = pkgs.gh; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.gh.package
@@ -429,7 +442,7 @@ in
         gh-dash # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-dash
         gh-eco # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-eco
         gh-f # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-f
-        # gh-gei # @upstream-issue https://github.com/NixOS/nixpkgs/issues/483584 # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-gei
+        gh-gei # @upstream-issue https://github.com/NixOS/nixpkgs/issues/483584 # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-gei
         gh-i # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-i
         gh-markdown-preview # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-markdown-preview
         gh-notify # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-notify
