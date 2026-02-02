@@ -13,9 +13,9 @@
     [
       # Audio
       # keep-sorted start block=no newline_separated=no sticky_comments=no
-      # mpc-cli # TODO: https://github.com/NixOS/nixpkgs/issues/355495 # https://search.nixos.org/packages?channel=unstable&type=packages&show=mpc-cli
+      # mpc-cli # @upstream-issue https://github.com/NixOS/nixpkgs/issues/355495 # https://search.nixos.org/packages?channel=unstable&type=packages&show=mpc-cli
       # mpd # https://search.nixos.org/packages?channel=unstable&type=packages&show=mpd
-      # musescore # TODO: https://github.com/NixOS/nixpkgs/pull/450512#issuecomment-3390505837 # https://search.nixos.org/packages?channel=unstable&type=packages&show=musescore
+      # musescore # @upstream-issue https://github.com/NixOS/nixpkgs/pull/450512#issuecomment-3390505837 # https://search.nixos.org/packages?channel=unstable&type=packages&show=musescore
       # ncmpcpp # https://search.nixos.org/packages?channel=unstable&type=packages&show=ncmpcpp
       # sonic-pi # TODO: Missing "aarch64-apple-darwin" platform. # https://search.nixos.org/packages?channel=unstable&type=packages&show=sonic-pi
       # supercollider-with-plugins # TODO: Missing "aarch64-apple-darwin" platform. # https://search.nixos.org/packages?channel=unstable&type=packages&show=supercollider-with-plugins
@@ -116,7 +116,7 @@
       # gh-skyline # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-skyline
       # gh-webhook # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-webhook
       # kubelogin # https://search.nixos.org/packages?channel=unstable&type=packages&show=kubelogin
-      # marksman # TODO: https://github.com/nixos/nixpkgs/issues/483584 # https://search.nixos.org/packages?channel=unstable&type=packages&show=marksman
+      # marksman # @upstream-issue https://github.com/NixOS/nixpkgs/issues/483584 # https://search.nixos.org/packages?channel=unstable&type=packages&show=marksman
       # nixfmt-tree # https://search.nixos.org/packages?channel=unstable&type=packages&show=nixfmt-tree
       # taskctl # TODO: https://github.com/taskctl/taskctl # https://search.nixos.org/packages?channel=unstable&type=packages&show=taskctl
       # x-cmd # TODO: https://github.com/x-cmd/x-cmd # https://search.nixos.org/packages?channel=unstable&type=packages&show=x-cmd
@@ -216,7 +216,7 @@
       hexedit # https://search.nixos.org/packages?channel=unstable&type=packages&show=hexedit
       jq # https://search.nixos.org/packages?channel=unstable&type=packages&show=jq
       lego # https://search.nixos.org/packages?channel=unstable&type=packages&show=lego
-      mdformat # TODO: https://github.com/NixOS/nixpkgs/issues/483613 # https://search.nixos.org/packages?channel=unstable&type=packages&show=mdformat
+      mdformat # @upstream-issue https://github.com/NixOS/nixpkgs/issues/483613 # https://search.nixos.org/packages?channel=unstable&type=packages&show=mdformat
       minify # https://search.nixos.org/packages?channel=unstable&type=packages&show=minify
       mkdocs # https://search.nixos.org/packages?channel=unstable&type=packages&show=mkdocs
       moreutils # https://search.nixos.org/packages?channel=unstable&type=packages&show=moreutils
@@ -242,7 +242,7 @@
       # Terminal
       # keep-sorted start block=no newline_separated=no sticky_comments=no
       # bat # https://search.nixos.org/packages?channel=unstable&type=packages&show=bat
-      # ncdu # TODO: https://github.com/NixOS/nixpkgs/issues/290512 # https://search.nixos.org/packages?channel=unstable&type=packages&show=ncdu
+      # ncdu # @upstream-issue https://github.com/NixOS/nixpkgs/issues/290512 # https://search.nixos.org/packages?channel=unstable&type=packages&show=ncdu
       # superfile # https://search.nixos.org/packages?channel=unstable&type=packages&show=superfile
       btop # https://search.nixos.org/packages?channel=unstable&type=packages&show=btop
       byobu # https://search.nixos.org/packages?channel=unstable&type=packages&show=byobu

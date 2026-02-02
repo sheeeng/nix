@@ -130,7 +130,7 @@ in
             # Use `lib.mkForce value` or `lib.mkDefault value` to change the priority on any of these definitions.
             # (lib.mkForce catppuccin.catppuccin-vsc) # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.catppuccin.catppuccin-vsc
             # (lib.mkForce catppuccin.catppuccin-vsc-icons) # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.catppuccin.catppuccin-vsc-icons
-            # ms-python.python # TODO: https://github.com/NixOS/nixpkgs/issues/387828
+            # ms-python.python # @upstream-issue https://github.com/NixOS/nixpkgs/issues/387828
             # rust-lang.rust-analyzer
             # vscodevim.vim # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.vscodevim.vim
             # yzane.markdown-pdf # FIXME: Package ‘ungoogled-chromium-133.0.6943.53’ not available on "aarch64-apple-darwin" platform. # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.yzane.markdown-pdf

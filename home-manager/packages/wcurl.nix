@@ -1,4 +1,4 @@
-# TODO: https://github.com/NixOS/nixpkgs/pull/325779/files
+# @upstream-issue https://github.com/NixOS/nixpkgs/pull/325779/files
 
 {
   pkgs,

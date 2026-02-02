@@ -26,16 +26,17 @@ in
         # https://github.com/steveyegge/beads/blob/main/docs/PLUGIN.md
         # Note: beads-mcp is a Python MCP server that wraps the bd Go CLI.
         # The BEADS_PATH env var tells it where to find the bd binary.
-        # Sandboxed with srt for filesystem and network restrictions.
-        command = srt;
+        # Not sandboxed - srt blocks required filesystem/network access.
+        command = lib.getExe pkgs.uv;
         args = [
-          "uvx"
+          "tool"
+          "run"
           "--from"
           "beads-mcp"
           "beads-mcp"
         ];
         env = {
-          BEADS_PATH = "bd";
+          BEADS_PATH = lib.getExe pkgs.beads;
         };
       };
       context7 = {
@@ -58,21 +59,20 @@ in
       nixos = {
         # https://github.com/utensils/mcp-nixos
         # Using uvx for fast startup (no nix build delay).
-        # Sandboxed with srt for filesystem and network restrictions.
-        command = srt;
+        # Not sandboxed - srt blocks required filesystem/network access.
+        command = lib.getExe pkgs.uv;
         args = [
-          "uvx"
+          "tool"
+          "run"
           "mcp-nixos"
         ];
       };
       playwright = {
         # https://github.com/microsoft/playwright-mcp
         # Using Nix package for fast startup (~0.02s vs 1.4s with npx).
-        # Sandboxed with srt for filesystem and network restrictions.
-        command = srt;
-        args = [
-          (lib.getExe pkgs.playwright-mcp)
-        ];
+        # Not sandboxed - srt blocks required filesystem/network access.
+        command = lib.getExe pkgs.playwright-mcp;
+        args = [ ];
       };
       terraform = {
         # Sandboxed with srt for filesystem and network restrictions.
