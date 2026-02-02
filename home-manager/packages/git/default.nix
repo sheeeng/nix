@@ -442,7 +442,7 @@ in
         gh-dash # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-dash
         gh-eco # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-eco
         gh-f # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-f
-        gh-gei # @upstream-issue https://github.com/NixOS/nixpkgs/issues/483584 # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-gei
+        # gh-gei # @upstream-issue https://github.com/NixOS/nixpkgs/issues/483584 # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-gei
         gh-i # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-i
         gh-markdown-preview # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-markdown-preview
         gh-notify # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-notify
