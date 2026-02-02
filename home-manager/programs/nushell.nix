@@ -2,7 +2,7 @@
 {
   programs.nushell = {
     # @upstream-issue https://github.com/NixOS/nixpkgs/issues/485915
-    enable = false; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.nushell.enable
+    enable = !pkgs.stdenv.isDarwin; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.nushell.enable
     package = pkgs.nushell; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.nushell.package
     configFile = null; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.nushell.configFile
     envFile = null; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.nushell.envFile

@@ -22,8 +22,6 @@ lib.mkIf
       inputs.fenix.packages.${pkgs.stdenv.hostPlatform.system}.latest.llvm-tools
       inputs.fenix.packages.${pkgs.stdenv.hostPlatform.system}.latest.miri
       inputs.fenix.packages.${pkgs.stdenv.hostPlatform.system}.latest.rust-analysis
-      # @upstream-issue https://github.com/NixOS/nixpkgs/issues/486012
-      # inputs.fenix.packages.${pkgs.stdenv.hostPlatform.system}.latest.rust-docs
       inputs.fenix.packages.${pkgs.stdenv.hostPlatform.system}.latest.rust-src
       inputs.fenix.packages.${pkgs.stdenv.hostPlatform.system}.latest.rustc
       inputs.fenix.packages.${pkgs.stdenv.hostPlatform.system}.latest.rustc-codegen-cranelift
@@ -37,6 +35,10 @@ lib.mkIf
       pkgs.rust-analyzer # TODO: # Use nixpkgs rust-analyzer to avoid apple_sdk_11_0 issue. # https://search.nixos.org/packages?channel=unstable&type=packages&show=rust-analyzer
       # inputs.fenix.packages.${pkgs.stdenv.hostPlatform.system}.latest.rust-analyzer # Temporarily disabled due to apple_sdk_11_0 issue
       # inputs.fenix.packages.${pkgs.stdenv.hostPlatform.system}.rust-analyzer-vscode-extension # Temporarily disabled due to apple_sdk_11_0 issue
+    ]
+    # @upstream-issue https://github.com/NixOS/nixpkgs/issues/486012
+    ++ lib.optionals (!pkgs.stdenv.isDarwin) [
+      inputs.fenix.packages.${pkgs.stdenv.hostPlatform.system}.latest.rust-docs
     ];
 
     home.sessionVariables = {
