@@ -22,8 +22,8 @@
     rules = ""; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.opencode.rules
     settings = {
       theme = "opencode";
-      model = "anthropic/claude-sonnet-4-5-20250929";
-      small_model = "anthropic/claude-haiku-4-5-20251001";
+      model = "github-copilot/claude-sonnet-4.5"; # opencode models
+      small_model = "github-copilot/claude-haiku-4.5"; # opencode models
       autoshare = false;
       autoupdate = true;
       permission = {

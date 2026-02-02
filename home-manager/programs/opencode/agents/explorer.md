@@ -2,7 +2,7 @@
 name: explorer
 description: Fast, read-only agent for exploring codebases.
 mode: subagent
-model: anthropic/claude-haiku-4-5-20251001
+model: github-copilot/claude-haiku-4.5
 tools:
     write: false
     edit: false

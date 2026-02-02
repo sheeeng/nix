@@ -2,7 +2,7 @@
 name: security-auditor
 description: Performs security audits and identifies vulnerabilities.
 mode: subagent
-model: anthropic/claude-sonnet-4-5-20250929
+model: github-copilot/claude-sonnet-4.5
 temperature: 0.1
 tools:
     write: false
