@@ -303,7 +303,7 @@
             inputs.sops-nix.darwinModules.sops
             {
               nixpkgs.overlays = [
-                # NOTE: nodejs-skip-tests overlay removed - it causes cache misses for webkitgtk and other large packages
+                (import ./overlays { inherit inputs; }).additions
                 (import ./overlays { inherit inputs; }).modifications
                 inputs.morlana.overlays.default
                 # inputs.nh-plus.overlays.default
@@ -346,7 +346,7 @@
             inputs.sops-nix.nixosModules.sops
             {
               nixpkgs.overlays = [
-                # NOTE: nodejs-skip-tests overlay removed - it causes cache misses for webkitgtk and other large packages
+                (import ./overlays { inherit inputs; }).additions
                 (import ./overlays { inherit inputs; }).modifications
                 inputs.morlana.overlays.default
                 inputs.fenix.overlays.default
@@ -391,7 +391,6 @@
 
       darwinConfigurations = {
         TP95V9LWWL = darwinConfiguration "TP95V9LWWL" "aarch64-darwin";
-        NHNWCQ17DF = darwinConfiguration "NHNWCQ17DF" "aarch64-darwin";
         C02ZV797MD6R = darwinConfiguration "C02ZV797MD6R" "x86_64-darwin";
       };
     };

@@ -1,6 +1,38 @@
 { inputs, ... }:
 {
-  additions = _final: _prev: { };
+  additions = final: _prev: {
+    # Sandbox Runtime (srt) by Anthropic.
+    # https://github.com/anthropic-experimental/sandbox-runtime
+    # A lightweight sandboxing tool for enforcing filesystem and network
+    # restrictions on arbitrary processes at the OS level.
+    sandbox-runtime = final.buildNpmPackage {
+      pname = "sandbox-runtime";
+      version = "0.0.32";
+
+      src = final.fetchFromGitHub {
+        owner = "anthropic-experimental";
+        repo = "sandbox-runtime";
+        rev = "ec0c24c41d1f2f341f30b17909e2d27a5d8ae01f"; # v0.0.32
+        hash = "sha256-M1eFZJ3dScI61xaHMRnRr5jnXD4fmSRiSwsUph24OyQ=";
+      };
+
+      npmDepsHash = "sha256-7ohrHpsDNHgt/VraqyTLzmz84JLhRcKOZdk2M8Rul5E=";
+
+      # The package needs to be built from TypeScript.
+      npmBuildScript = "build";
+
+      # Copy vendor directory after build (contains seccomp binaries).
+      postBuild = "if [ -d vendor ]; then cp -r vendor dist/; fi";
+
+      meta = {
+        description = "Anthropic Sandbox Runtime - A lightweight sandboxing tool for enforcing filesystem and network restrictions";
+        homepage = "https://github.com/anthropic-experimental/sandbox-runtime";
+        license = final.lib.licenses.asl20;
+        maintainers = [ ];
+        mainProgram = "srt";
+      };
+    };
+  };
 
   modifications = final: prev: {
     unstable = inputs.nixpkgs.legacyPackages.${final.stdenv.hostPlatform.system};
