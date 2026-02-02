@@ -9,7 +9,7 @@
     package = pkgs.direnv; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.direnv.package
     config = { }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.direnv.config
     mise = {
-      enable = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.direnv.mise.enable
+      enable = false; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.direnv.mise.enable
       package = pkgs.mise; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.direnv.mise.package
     };
     nix-direnv = {
