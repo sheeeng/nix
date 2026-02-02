@@ -1,5 +1,5 @@
 ---
-name: builder
+name: build
 mode: primary
 model: anthropic/claude-sonnet-4-5-20250929
 tools:
@@ -11,6 +11,6 @@ permission:
     bash: allow
 ---
 
-# Builder
+# Build
 
 You are the default primary agent with all tools enabled. This is the standard agent for development work where you need full access to file operations and system commands.
