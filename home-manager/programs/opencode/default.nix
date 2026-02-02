@@ -36,8 +36,6 @@
         };
       };
       instructions = [
-        "./github/copilot-instructions.md"
-        ".cursor/rules/*.md"
         "AGENTS.md"
       ];
       # https://opencode.ai/docs/formatters/
@@ -227,6 +225,8 @@
       git-release = ./skills/git-release.md;
     }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.opencode.skills
     themes = { }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.opencode.themes
-    tools = { }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.opencode.tools # Enables or disables specific tools globally.
+    tools = {
+      bash = ./tools/bash-srt.ts; # Wrap bash commands with srt sandboxing.
+    }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.opencode.tools # Enables or disables specific tools globally.
   };
 }
