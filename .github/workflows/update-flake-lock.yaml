@@ -63,7 +63,11 @@ jobs:
         run: |
           # Query for info about the already open update PR.
           info=$(
-            gh api graphql -F owner={owner} -F repo={repo} -F branch="$pr_branch" -f query='
+            gh api graphql \
+              -F owner="${{ github.repository_owner }}" \
+              -F repo="${{ github.event.repository.name }}" \
+              -F branch="$pr_branch" \
+              -f query='
               query($owner:String!, $repo:String!, $branch:String!) {
                 repository(owner: $owner, name: $repo) {
                   pullRequests(first: 1, states: OPEN, headRefName: $branch) {
