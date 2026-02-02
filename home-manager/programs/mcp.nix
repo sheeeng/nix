@@ -27,8 +27,7 @@ in
         # Note: beads-mcp is a Python MCP server that wraps the bd Go CLI.
         # The BEADS_PATH env var tells it where to find the bd binary.
         # @upstream-issue https://github.com/anthropic-experimental/sandbox-runtime/issues/104
-        # Cannot sandbox with srt on macOS.
-        # Error: "Attempted to create a NULL object" in system-configuration crate.
+        # Cannot sandbox with srt on macOS: uv panics when SCDynamicStore is blocked.
         command = lib.getExe pkgs.uv;
         args = [
           "tool"
@@ -62,8 +61,7 @@ in
         # https://github.com/utensils/mcp-nixos
         # Using uvx for fast startup (no nix build delay).
         # @upstream-issue https://github.com/anthropic-experimental/sandbox-runtime/issues/104
-        # Cannot sandbox with srt on macOS.
-        # Error: "Attempted to create a NULL object" in system-configuration crate.
+        # Cannot sandbox with srt on macOS: uv panics when SCDynamicStore is blocked.
         command = lib.getExe pkgs.uv;
         args = [
           "tool"

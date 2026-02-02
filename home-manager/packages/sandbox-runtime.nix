@@ -59,6 +59,15 @@
       deniedDomains = [ ];
       allowUnixSockets = [ ];
       allowLocalBinding = false;
+      # Allow macOS Mach services for tools that need system configuration access.
+      # Required for uv (Python) which uses SCDynamicStore for network settings.
+      # This service provides read-only access to system network configuration.
+      # It does not allow modifying system settings.
+      # The risk is minimal and comparable to allowing network access, which srt already permits via allowedDomains options.
+      # @upstream-issue https://github.com/anthropic-experimental/sandbox-runtime/issues/104
+      allowMachServices = [
+        "com.apple.SystemConfiguration.configd"
+      ];
     };
     filesystem = {
       # Read restrictions (deny-only pattern) - all reads allowed by default.
