@@ -127,12 +127,14 @@
       alejandra # https://search.nixos.org/packages?channel=unstable&type=packages&show=alejandra
       asdf-vm # https://search.nixos.org/packages?channel=unstable&type=packages&show=asdf-vm
       autoconf # https://search.nixos.org/packages?channel=unstable&type=packages&show=autoconf
+      cilium-cli # https://search.nixos.org/packages?channel=unstable&type=packages&show=cilium-cli
       conform # https://search.nixos.org/packages?channel=unstable&type=packages&show=conform
       delta # https://search.nixos.org/packages?channel=unstable&type=packages&show=delta
       dependabot-cli # https://search.nixos.org/packages?channel=unstable&type=packages&show=dependabot-cli
       gcc # https://search.nixos.org/packages?channel=unstable&type=packages&show=gcc
       golangci-lint # https://search.nixos.org/packages?channel=unstable&type=packages&show=golangci-lint
       hadolint # https://search.nixos.org/packages?channel=unstable&type=packages&show=hadolint
+      hubble # https://search.nixos.org/packages?channel=unstable&type=packages&show=hubble
       inputs.beads-flake.packages.${pkgs.system}.default # TODO: Undo when https://github.com/steveyegge/beads/issues/1373#issuecomment-3815509770 is fixed.
       just # https://search.nixos.org/packages?channel=unstable&type=packages&show=just
       just-lsp # https://search.nixos.org/packages?channel=unstable&type=packages&show=just-lsp
@@ -140,6 +142,7 @@
       keep-sorted # https://search.nixos.org/packages?channel=unstable&type=packages&show=keep-sorted
       kubectl # https://search.nixos.org/packages?channel=unstable&type=packages&show=kubectl
       kubectx # https://search.nixos.org/packages?channel=unstable&type=packages&show=kubectx
+      kubernetes-helm # https://search.nixos.org/packages?channel=unstable&type=packages&show=kubernetes-helm
       kustomize # https://search.nixos.org/packages?channel=unstable&type=packages&show=kustomize
       lazygit # https://search.nixos.org/packages?channel=unstable&type=packages&show=lazygit
       lazysql # https://search.nixos.org/packages?channel=unstable&type=packages&show=lazysql

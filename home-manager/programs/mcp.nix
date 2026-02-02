@@ -12,6 +12,8 @@
         args = [
           "--log-level"
           "error"
+          "--enabled-components"
+          "az_cli,monitor,fleet,network,compute,detectors,advisor,inspektorgadget,kubectl,helm,cilium,hubble"
         ];
       };
       beads = {
