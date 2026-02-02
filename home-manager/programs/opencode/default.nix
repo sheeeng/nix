@@ -225,8 +225,6 @@
       git-release = ./skills/git-release.md;
     }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.opencode.skills
     themes = { }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.opencode.themes
-    tools = {
-      bash = ./tools/bash-srt.ts; # Wrap bash commands with srt sandboxing.
-    }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.opencode.tools # Enables or disables specific tools globally.
+    tools = { }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.opencode.tools # Enables or disables specific tools globally.
   };
 }
