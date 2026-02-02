@@ -107,7 +107,7 @@ Please follow these guidelines when contributing:
 
 ## AI Model Verification
 
-Always verifyAI model names against the open-source database of AI models before configuring agents. Use the following API to check valid model identifiers.
+Always verify AI model names against the open-source database of AI models before configuring agents. Use the following API to check valid model identifiers.
 
 ```shell
 curl --silent https://models.dev/api.json \
