@@ -241,8 +241,8 @@
     _1password-shell-plugins.url = "github:1password/shell-plugins";
 
     beads-flake = {
-      # # TODO: Undo when https://github.com/steveyegge/beads/issues/1373#issuecomment-3815509770 is fixed.
-      url = "github:steveyegge/beads/v0.49.1"; # TODO: See https://github.com/steveyegge/beads/issues/1373 issue.
+      # @upstream-issue https://github.com/steveyegge/beads/issues/1373#issuecomment-3815509770
+      url = "github:steveyegge/beads/v0.49.1"; # @upstream-issue https://github.com/steveyegge/beads/issues/1373
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
