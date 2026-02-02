@@ -1,10 +1,4 @@
 { lib, pkgs, ... }:
-let
-  # Sandbox Runtime (srt) for sandboxing MCP servers.
-  # Package defined in overlays/default.nix.
-  # https://github.com/anthropic-experimental/sandbox-runtime#example-use-case-sandboxing-mcp-servers
-  srt = lib.getExe pkgs.sandbox-runtime;
-in
 {
   programs.mcp = {
     enable = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.mcp.enable
@@ -14,10 +8,8 @@ in
         # nix eval --raw nixpkgs#aks-mcp-server.meta.mainProgram
         # nix eval --impure --raw --expr 'with import <nixpkgs> {}; lib.getExe aks-mcp-server'
         # $(nix eval --raw nixpkgs#aks-mcp-server.outPath)/bin/aks-mcp --version
-        # Sandboxed with srt for filesystem and network restrictions.
-        command = srt;
+        command = lib.getExe pkgs.aks-mcp-server;
         args = [
-          (lib.getExe pkgs.aks-mcp-server)
           "--log-level"
           "error"
         ];
@@ -47,10 +39,8 @@ in
         };
       };
       github = {
-        # Sandboxed with srt for filesystem and network restrictions.
-        command = srt;
+        command = lib.getExe pkgs.github-mcp-server;
         args = [
-          (lib.getExe pkgs.github-mcp-server)
           "stdio"
         ];
         env = {
@@ -72,17 +62,10 @@ in
       playwright = {
         # https://github.com/microsoft/playwright-mcp
         # Using Nix package for fast startup (~0.02s vs 1.4s with npx).
-        command = srt;
-        args = [
-          (lib.getExe pkgs.playwright-mcp)
-        ];
+        command = lib.getExe pkgs.playwright-mcp;
       };
       terraform = {
-        # Sandboxed with srt for filesystem and network restrictions.
-        command = srt;
-        args = [
-          (lib.getExe pkgs.terraform-mcp-server)
-        ];
+        command = lib.getExe pkgs.terraform-mcp-server;
       };
     }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.mcp.servers
   };
