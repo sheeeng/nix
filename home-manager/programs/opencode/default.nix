@@ -6,10 +6,10 @@
     package = pkgs.opencode; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.opencode.package
     agents = {
       # https://opencode.ai/docs/agents/#markdown
-      builder = ./agents/builder.md;
+      build = ./agents/build.md;
       code-reviewer = ./agents/code-reviewer.md;
       explorer = ./agents/explorer.md;
-      planner = ./agents/planner.md;
+      plan = ./agents/plan.md;
       security-auditor = ./agents/security-auditor.md;
       technical-writer = ./agents/technical-writer.md;
     }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.opencode.agents
