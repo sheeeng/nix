@@ -2,7 +2,7 @@
 name: technical-writer
 description: Writes and maintains documentation.
 mode: subagent
-model: anthropic/claude-sonnet-4-5-20250929
+model: github-copilot/claude-sonnet-4.5
 tools:
     write: true
     edit: true

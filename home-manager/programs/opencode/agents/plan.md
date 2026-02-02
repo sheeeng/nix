@@ -1,7 +1,7 @@
 ---
 name: plan
 mode: primary
-model: anthropic/claude-haiku-4-5-20251001
+model: github-copilot/claude-haiku-4.5
 temperature: 0.1
 tools:
     write: false
