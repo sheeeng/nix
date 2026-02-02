@@ -141,7 +141,7 @@
     # TODO: Enable once upstream issue is fixed. See beads issue nixcfg-gl7.
     mac-app-util = {
       url = "github:hraban/mac-app-util";
-      # inputs.nixpkgs.follows = "nixpkgs"; # TODO: https://github.com/hraban/mac-app-util/issues/42
+      # inputs.nixpkgs.follows = "nixpkgs"; # @upstream-issue https://github.com/hraban/mac-app-util/issues/42
     };
 
     microvm = {

@@ -20,7 +20,7 @@
     # extraPackages = [
     #   pkgs.comrak
     #   pkgs.markdown-oxide
-    #   pkgs.marksman # TODO: https://github.com/nixos/nixpkgs/issues/483584
+    #   pkgs.marksman # @upstream-issue https://github.com/NixOS/nixpkgs/issues/483584
     #   pkgs.mdctags
     #   pkgs.mdformat
     # ]; # FIXME: error: collision between `/nix/store/jbympkpfxd2j2qnncsk5rfrkwr9xqpdx-helix-wrapped-24.07/bin/hx' and `/nix/store/k7qpx67xhgmkvvgb2fpwdy611cw98nx4-helix-24.07/bin/hx'
@@ -50,7 +50,7 @@
           language-servers = [
             "ltex-ls"
             "markdown-oxide"
-            # "marksman" # TODO: https://github.com/nixos/nixpkgs/issues/483584
+            # "marksman" # @upstream-issue https://github.com/NixOS/nixpkgs/issues/483584
           ];
         }
       ];
@@ -73,7 +73,7 @@
           command = lib.getExe pkgs.markdown-oxide; # https://search.nixos.org/packages?channel=unstable&type=packages&show=markdown-oxide
         };
         # marksman = {
-        #   command = lib.getExe pkgs.marksman; # TODO: https://github.com/nixos/nixpkgs/issues/483584 # https://search.nixos.org/packages?channel=unstable&type=packages&show=marksman
+        #   command = lib.getExe pkgs.marksman; # @upstream-issue https://github.com/NixOS/nixpkgs/issues/483584 # https://search.nixos.org/packages?channel=unstable&type=packages&show=marksman
         #   args = [ "server" ];
         # };
         # mdpls = {
