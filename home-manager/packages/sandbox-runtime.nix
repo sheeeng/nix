@@ -3,6 +3,12 @@
   # Sandbox Runtime (srt) dependencies and package.
   # Package defined in overlays/default.nix, available as pkgs.sandbox-runtime.
   # https://github.com/anthropic-experimental/sandbox-runtime
+
+  # Create /tmp/claude directory for playwright-mcp temp files.
+  home.activation.createTmpClaude = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    run mkdir --parents /tmp/claude
+  '';
+
   home.packages =
     (
       with pkgs;
@@ -69,6 +75,18 @@
         "src/"
         "test/"
         "/tmp"
+        "/tmp/claude"
+        "/private/tmp"
+        # uv (Python) tool cache and data directories.
+        "~/.cache/uv"
+        "~/.local/share/uv"
+        # Playwright browser cache.
+        "~/.cache/ms-playwright"
+        # General cache directories.
+        "~/.cache"
+        "~/.local/share"
+        # Nix store is read-only but some tools need to write derivation outputs.
+        "/nix/store"
       ];
       # Deny write within allowed paths (takes precedence over allowWrite).
       denyWrite = [
@@ -84,9 +102,19 @@
       "*" = [
         "/usr/bin"
         "/System"
+        "/nix/store"
       ];
       "git push" = [ "/usr/bin/nc" ];
       "npm" = [ "/private/tmp" ];
+      "uv" = [
+        "/private/tmp"
+        "~/.cache/uv"
+        "~/.local/share/uv"
+      ];
+      "playwright" = [
+        "~/.cache/ms-playwright"
+        "/private/tmp"
+      ];
     };
     # Default search depth for mandatory deny paths on Linux.
     mandatoryDenySearchDepth = 3;
