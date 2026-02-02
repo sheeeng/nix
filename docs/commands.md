@@ -1,4 +1,4 @@
-# Copilot Commands
+# Commands
 
 ## Nix
 

@@ -1,13 +1,5 @@
 # AGENTS
 
-## Allowed Documentation Sources
-
-Always allow read queries from the following Nix documentation URLs:
-
-- <https://nix-community.github.io/home-manager/options.xhtml>
-- <https://wiki.nixos.org/>
-- <https://nixos.wiki/>
-
 ## Writing Style
 
 - Ensure adherence to Chicago Manual of Style by maintaining correct grammar and using proper punctuation in all comments and documentation.
@@ -24,6 +16,94 @@ Always allow read queries from the following Nix documentation URLs:
     - Lowercase prepositions such as at, by, for, from, in, into, of, on, to, with, between, through.
     - Lowercase "to" in infinitives such as to run, to see, to build.
     - Exception: Capitalize prepositions when used adverbially or adjectivally ("Look Up," "Turn Down") or in verb phrases.
+
+## Commands
+
+- Use GNU-style explicit arguments over abbreviated ones. Example: Use `date --universal +"%Y-%m-%dT%H:%M:%SZ"` over `date -u +"%Y-%m-%dT%H:%M:%SZ"`. Use `set -o errexit` over `set -e` in shell scripts.
+- Save suggested commands in [docs/commands.md](./docs/commands.md).
+
+## Journals
+
+- Use ISO8601 timestamps in journals. Example: `2024-01-31T13:45:00Z`.
+- Use 20240131T134500Z-style timestamps as name for the journal files. Example: `20240131T134500Z.md`.
+- Read all journals inside [docs/journals](docs/journals) directory for historical context.
+- Save summaries in [docs/journals](docs/journals) directory.
+- Conform to Markdown linting rules in journals.
+- Do not use fully qualified paths in journals. Example: Use `~` or `${HOME}` instead of hardcoded `/home/USERNAME`.
+- Do not include any Personally Identifiable Information (PII) or sensitive information in journals. Example: Do not include usernames, email addresses, IP addresses, or any other information that could be used to identify individuals.
+
+## Markdown
+
+- Use [reference-style links][reference-style-links].
+
+## Nix
+
+- Use Nix packages, not Homebrew on macOS.
+- Install GNU tools when available.
+- Search Nix store paths for dependencies.
+- Use identical shells from `nix develop` and `nix-shell`.
+- Reference [Nix manual][nix-manual] and [Noogle].
+- Use `nix-prefetch-git` for `sha256` or `lib.fakeSha256` placeholder.
+- Install from `nixpkgs-unstable`.
+
+## Allowed Documentation Sources
+
+Always allow read queries from the following documentation URLs:
+
+- [Home Manager Options][home-manager-options]
+- [Nix Manual][nix-manual]
+- [NixOS Manual][nixos-manual]
+- [NixOS Wiki (Community)][nixos-wiki-community]
+- [NixOS Wiki (Official)][nixos-wiki-official]
+
+## Secure Development
+
+- Use official documentation for security best practices.
+    - [Azure Security Best Practices And Patterns][azure-security-best-practices]
+    - [CIS Benchmarks][cis-benchmarks]
+    - [GitHub Actions Secure Use Reference][github-actions-secure-use-reference]
+    - [OWASP Cheat Sheet Series][owasp-cheat-sheet]
+    - [OWASP Top Ten][owasp-top-ten]
+- Forbid hardcoding sensitive information like API keys, passwords, or secrets in the codebase. Use environment variables or secure vaults instead.
+- Regularly update dependencies to patch known vulnerabilities. Use tools like Dependabot or Renovate to automate this process.
+
+## Instructions
+
+Use home-manager for managing user configuration whenever available instead of Nix's packages. Example: Use [home-manager options][home-manager-options] instead of installing it from [nixpkgs packages][nixpkgs-packages] directly.
+
+Add development information and instructions to this file accordingly.
+
+Avoid unnecessary comments whenever possible. Use correct punctuation for comments.
+
+Do not use slang shorthand words like "config", "util", "func", etc. Example:
+
+- Avoid `CONFIG_DIR`, use `CONFIGURATION_DIRECTORY`
+- Avoid `customConfigContent`, use `customConfigurationContent`.
+
+Suggest concise, "Don't Repeat Yourself" (DRY), short, maintainable solutions.
+Suggest modifications to lists that are alphanumerically sorted in ascending
+order.
+
+Do not automatically run commands in the terminal without explicit approval,
+except for read-only commands like `nix eval`, `nix search`, `nix flake show`,
+`git status`, `ls`, etc. Do not automatically commit changes to files without
+explicit approval. Do not automatically push changes to remote repositories
+without explicit approval. Do not automatically create pull requests to remote
+repositories without explicit approval.
+
+Keep comments if links are provided.
+
+Discard all empty trailing whitespace from every file, except Markdown files.
+
+Please follow these guidelines when contributing:
+
+## Code Standards
+
+### Required Before Each Commit
+
+- Run the following tools before committing any changes to ensure proper code formatting.
+    - `nix flake check`
+    - `pre-commit run --all-files`
 
 ## AI Model Verification
 
@@ -73,3 +153,19 @@ Ensure the following non-negotiable critical steps are done successfully.
 - Never stop before pushing because it leaves work stranded locally.
 - Never say "ready to push when you are", the local commits must be pushed to remote repositories successfully.
 - If push fails, resolve and retry until it succeeds.
+
+---
+
+[azure-security-best-practices]: https://learn.microsoft.com/en-us/azure/security/fundamentals/best-practices-and-patterns
+[cis-benchmarks]: https://www.cisecurity.org/cis-benchmarks/
+[github-actions-secure-use-reference]: https://docs.github.com/en/actions/reference/security/secure-use
+[home-manager-options]: https://nix-community.github.io/home-manager/options.xhtml
+[nix-manual]: https://nix.dev/manual/nix/latest
+[nixos-manual]: https://nixos.org/manual/nixos/unstable/
+[nixos-wiki-community]: https://nixos.wiki/
+[nixos-wiki-official]: https://wiki.nixos.org/
+[nixpkgs-packages]: https://search.nixos.org/packages?channel=unstable&type=packages
+[noogle]: https://noogle.dev/
+[owasp-cheat-sheet]: https://cheatsheetseries.owasp.org/
+[owasp-top-ten]: https://owasp.org/www-project-top-ten/
+[reference-style-links]: https://www.markdownguide.org/basic-syntax#reference-style-links
