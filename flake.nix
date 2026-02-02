@@ -71,9 +71,6 @@
     # nixpkgs.url = "github:nixos/nixpkgs?branch=staging-next&rev=387a92d18b3ff50e3eca63cb5b2bff679a068985"; # https://github.com/nixos/nixpkgs/issues/449970
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    # @upstream-issue https://github.com/NixOS/nixpkgs/issues/483584
-    nixpkgs-swift.url = "github:nixos/nixpkgs/70801e06d9730c4f1704fbd3bbf5b8e11c03a2a7";
-
     # The next two are for pinning to stable vs unstable regardless of what the above is set to
     # This is particularly useful when an upcoming stable release is in beta because you can effectively
     # keep 'nixpkgs-stable' set to stable for critical packages while setting 'nixpkgs' to the beta branch to
