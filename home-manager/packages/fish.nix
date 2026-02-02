@@ -225,7 +225,7 @@ _: { }
 #         k = "kubectl";
 #         dc = "docker-compose";
 #         find = lib.getExe pkgs.fd;
-#         # du = "ncdu --color dark -rr -x"; # TODO: https://github.com/NixOS/nixpkgs/issues/290512
+#         # du = "ncdu --color dark -rr -x"; # @upstream-issue https://github.com/NixOS/nixpkgs/issues/290512
 
 #         v = "lvim";
 #         vi = "nvim";
