@@ -205,11 +205,11 @@ let
     profileExtra = ""; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.bash.profileExtra
     sessionVariables = { }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.bash.sessionVariables
     shellAliases = {
-      sudo = "sudo "; # will now check for alias expansion after sudo
-      ls = "exa ";
-      ll = "exa -l --color=always";
-      la = "exa -a --color=always";
-      lla = "exa -al --color=always";
+      sudo = "sudo "; # @note Expand aliases after sudo command.
+      # ls = "exa ";
+      # ll = "exa -l --color=always";
+      # la = "exa -a --color=always";
+      # lla = "exa -al --color=always";
       ".." = "cd ..";
       "..." = "cd ../..";
       "...." = "cd ../../..";
