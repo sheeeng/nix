@@ -1,6 +1,11 @@
 # https://github.com/NovaViper/NixConfig/blob/beaeaf1e9c482a9dbac47f83d92917d09251d720/features/home/cli/shell/zsh/initContent.nix
 
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 {
   programs.zsh.initContent = lib.mkMerge [
     # Place before everything (except for zprof)
@@ -133,16 +138,20 @@
         zstyle ':fzf-tab:complete:(kill|ps):argument-rest' fzf-flags --preview-window=down:3:wrap
 
         ### Systemctl previews
-        zstyle ':fzf-tab:complete:systemctl-cat:*' fzf-preview 'SYSTEMD_COLORS=false systemctl cat -- $word | bat -lini' # @note Show unit file contents.
-        zstyle ':fzf-tab:complete:systemctl-help:*' fzf-preview 'systemctl help -- $word 2>/dev/null | bat -lhelp' # @note Show unit help.
+        zstyle ':fzf-tab:complete:systemctl-cat:*' fzf-preview 'SYSTEMD_COLORS=false systemctl cat -- $word | ${lib.getExe pkgs.bat} -lini' # @note Show unit file contents.
+        zstyle ':fzf-tab:complete:systemctl-help:*' fzf-preview 'systemctl help -- $word 2>/dev/null | ${lib.getExe pkgs.bat} -lhelp' # @note Show unit help.
         zstyle ':fzf-tab:complete:(\\|*/|)systemctl-list-dependencies:*' fzf-preview \
           'case $group in
           unit)
             systemctl list-dependencies -- $word
             ;;
           esac' # @note Show unit dependencies tree.
-        zstyle ':fzf-tab:complete:systemctl-show:*' fzf-preview 'systemctl show $word | bat -lini' # @note Show unit properties.
-        zstyle ':fzf-tab:complete:systemctl-(status|(re|)start|(dis|en)able):*' fzf-preview 'systemctl status -- $word' # @note Show unit status.
+        zstyle ':fzf-tab:complete:systemctl-show:*' \
+          fzf-preview \
+          'systemctl show $word | ${lib.getExe pkgs.bat} -lini' # @note Show unit properties.
+        zstyle ':fzf-tab:complete:systemctl-(status|(re|)start|(dis|en)able):*' \
+          fzf-preview \
+          'systemctl status -- $word' # @note Show unit status.
 
         ### Git previews
         zstyle ':fzf-tab:complete:git-(add|diff|restore):*' fzf-preview \
@@ -150,7 +159,7 @@
         zstyle ':fzf-tab:complete:git-log:*' fzf-preview \
           'git log --color=always $word' # @note Show commit log.
         zstyle ':fzf-tab:complete:git-help:*' fzf-preview \
-          'git help $word | bat -plman --color=always' # @note Show git command help.
+          'git help $word | ${lib.getExe pkgs.bat} -plman --color=always' # @note Show git command help.
         zstyle ':fzf-tab:complete:git-show:*' fzf-preview \
           'case "$group" in
           "commit tag") git show --color=always $word ;;
@@ -164,9 +173,9 @@
           esac' # @note Show diff, commit, or log based on type.
       '')
       + (lib.optionalString config.programs.eza.enable ''
-        zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --group-directories-first --color=always $realpath' # @note Preview directory contents with eza.
-        zstyle ':fzf-tab:complete:z:*' fzf-preview 'eza -1 --group-directories-first --color=always $realpath' # @note Preview zoxide jump targets.
-        zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'eza --color=always $realpath' # @note Preview zoxide directory.
+        zstyle ':fzf-tab:complete:cd:*' fzf-preview '${lib.getExe pkgs.eza} -1 --group-directories-first --color=always $realpath' # @note Preview directory contents with eza.
+        zstyle ':fzf-tab:complete:z:*' fzf-preview '${lib.getExe pkgs.eza} -1 --group-directories-first --color=always $realpath' # @note Preview zoxide jump targets.
+        zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview '${lib.getExe pkgs.eza} --color=always $realpath' # @note Preview zoxide directory.
       '')
       + (lib.optionalString config.programs.tmux.enable ''
         zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup # @note Use tmux popup for fzf-tab.
