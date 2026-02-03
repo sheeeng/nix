@@ -182,7 +182,7 @@
     }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.shellAliases
 
     shellGlobalAliases = {
-      generate-uuid = "$(uuidgen | tr -d \\n)";
+      generate-uuid = "$(${lib.getExe' pkgs.util-linux "uuidgen"} | tr -d \\n)";
       # G = "| grep";
     }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.shellGlobalAliases
 
