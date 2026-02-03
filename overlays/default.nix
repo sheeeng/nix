@@ -72,6 +72,17 @@
     #   vendorHash = "sha256-YU+bRLVlWtHzJ1QPzcKJ70f+ynp8lMoIeFlm+29BNPE=";
     # });
 
+    # Add kubelogin to AKS MCP server PATH for Azure AD authentication.
+    # This allows kubectl to authenticate to AKS clusters using Azure AD.
+    # @upstream-issue https://github.com/Azure/aks-mcp/issues/TBD
+    aks-mcp-server = prev.aks-mcp-server.overrideAttrs (old: {
+      buildInputs = (old.buildInputs or [ ]) ++ [ final.makeWrapper ];
+      postFixup = (old.postFixup or "") + ''
+        wrapProgram $out/bin/aks-mcp \
+          --prefix PATH : ${final.lib.makeBinPath [ final.kubelogin ]}
+      '';
+    });
+
     stable-packages = final: _prev: {
       stable = import inputs.nixpkgs-stable {
         system = final.system;
