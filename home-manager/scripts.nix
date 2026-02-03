@@ -106,5 +106,18 @@ in
         echo '----------------'
       ''
     ))
+
+    # Generate a UUID v5 (SHA-1 based) from a string argument.
+    (pkgs.writeShellScriptBin "my-uuid" (
+      "${shellHeader}"
+      + ''
+        if [ -z "''${1:-}" ]; then
+          echo "Usage: my-uuid <string>"
+          echo "Generates a UUID v5 (SHA-1 based) from the input string using OID namespace."
+          exit 1
+        fi
+        ${pkgs.util-linux}/bin/uuidgen --sha1 --namespace @oid --name "$1"
+      ''
+    ))
   ];
 }
