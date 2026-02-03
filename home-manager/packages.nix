@@ -244,9 +244,7 @@
 
       # Terminal
       # keep-sorted start block=no newline_separated=no sticky_comments=no
-      # bat # https://search.nixos.org/packages?channel=unstable&type=packages&show=bat
-      # ncdu # @upstream-issue https://github.com/NixOS/nixpkgs/issues/290512 # https://search.nixos.org/packages?channel=unstable&type=packages&show=ncdu
-      # superfile # https://search.nixos.org/packages?channel=unstable&type=packages&show=superfile
+      bat # https://search.nixos.org/packages?channel=unstable&type=packages&show=bat
       btop # https://search.nixos.org/packages?channel=unstable&type=packages&show=btop
       byobu # https://search.nixos.org/packages?channel=unstable&type=packages&show=byobu
       cheat # https://search.nixos.org/packages?channel=unstable&type=packages&show=cheat
@@ -259,9 +257,11 @@
       htop # https://search.nixos.org/packages?channel=unstable&type=packages&show=htop
       hyperfine # https://search.nixos.org/packages?channel=unstable&type=packages&show=hyperfine
       mc # https://search.nixos.org/packages?channel=unstable&type=packages&show=mc
+      ncdu # @upstream-issue https://github.com/NixOS/nixpkgs/issues/290512 # https://search.nixos.org/packages?channel=unstable&type=packages&show=ncdu
       nnn # https://search.nixos.org/packages?channel=unstable&type=packages&show=nnn
       ranger # https://search.nixos.org/packages?channel=unstable&type=packages&show=ranger
       ripgrep # https://search.nixos.org/packages?channel=unstable&type=packages&show=ripgrep
+      superfile # https://search.nixos.org/packages?channel=unstable&type=packages&show=superfile
       television # https://search.nixos.org/packages?channel=unstable&type=packages&show=television
       tldr # https://search.nixos.org/packages?channel=unstable&type=packages&show=tldr
       tmux # https://search.nixos.org/packages?channel=unstable&type=packages&show=tmux
