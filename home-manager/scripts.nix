@@ -24,7 +24,7 @@ let
 
   #  https://github.com/legendofmiracles/dotnix/blob/8dfa01af04d6391a1f5cb2c788bdecc1ee748ca9/hm/shell-scripts.nix
 
-  build-my-live-iso = pkgs.writeScriptBin "build-my-live-iso" (
+  run-my-build-live-iso = pkgs.writeScriptBin "run-my-build-live-iso" (
     "${shellScriptHeader}"
     + ''
       cd /tmp
@@ -32,7 +32,7 @@ let
     ''
   );
 
-  show-my-host = pkgs.writeScriptBin "show-my-host" (
+  run-my-show-host = pkgs.writeScriptBin "run-my-show-host" (
     "${shellScriptHeader}"
     + ''
       OS_TYPE=$(uname -s)
@@ -95,11 +95,11 @@ in
 {
   # https://discourse.nixos.org/t/how-to-import-into-main-home-nix/55289/2
   home.packages = [
-    build-my-live-iso
-    show-my-host
+    run-my-build-live-iso
+    run-my-show-host
     run-my-tmux
 
-    (pkgs.writeShellScriptBin "say-my-hello" (
+    (pkgs.writeShellScriptBin "run-my-hello" (
       "${shellScriptHeader}"
       + ''
         echo "Hello, ${config.home.username}!"
@@ -118,7 +118,7 @@ in
       ''
     ))
 
-    (pkgs.writeShellScriptBin "show-my-path" (
+    (pkgs.writeShellScriptBin "run-my-show-path" (
       "${shellScriptHeader}"
       + ''
         echo \$\{PATH\} Items: $(echo ''${PATH} | tr ':' '\n' | wc --lines)
@@ -128,7 +128,7 @@ in
       ''
     ))
 
-    (pkgs.writeShellScriptBin "show-my-colors" (
+    (pkgs.writeShellScriptBin "run-my-show-colors" (
       "${shellScriptHeader}"
       + ''
         # https://unix.stackexchange.com/questions/60968/tmux-bottom-status-bar-color-change/60969#60969
@@ -141,11 +141,11 @@ in
     ))
 
     # Generate a UUID v5 (SHA-1 based) from a string argument.
-    (pkgs.writeShellScriptBin "generate-my-uuid" (
+    (pkgs.writeShellScriptBin "run-my-uuidgen" (
       "${shellScriptHeader}"
       + ''
         if [ -z "''${1:-}" ]; then
-          echo "Usage: generate-my-uuid <string>"
+          echo "Usage: run-my-uuidgen <string>"
           echo "Generates a UUID v5 (SHA-1 based) from the input string using OID namespace."
           exit 1
         fi
