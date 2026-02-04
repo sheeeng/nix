@@ -68,6 +68,7 @@ in
 
       "tokens/github/gist_scope" = { };
       "tokens/github/public_repo_scope" = { };
+      "tokens/github/repo_scope" = { };
       "tokens/github/user_scope" = { };
     };
   };
@@ -79,6 +80,16 @@ in
   home.activation.setupSshDir = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     $DRY_RUN_CMD mkdir --parents $VERBOSE_ARG ${homeDirectory}/.ssh
     $DRY_RUN_CMD chmod 700 ${homeDirectory}/.ssh
+  '';
+
+  home.activation.setupNixAccessTokens = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    # Set up Nix access tokens for GitHub from sops secrets.
+    $DRY_RUN_CMD mkdir --parents $VERBOSE_ARG ${homeDirectory}/.config/nix || true
+    if [ -f ${config.sops.secrets."tokens/github/repo_scope".path} ]; then
+      GITHUB_TOKEN=$(cat ${config.sops.secrets."tokens/github/repo_scope".path})
+      printf "experimental-features = nix-command flakes\n" > ${homeDirectory}/.config/nix/nix.conf
+      printf "access-tokens = github.com=%s\n" "$GITHUB_TOKEN" >> ${homeDirectory}/.config/nix/nix.conf
+    fi
   '';
 
   home.shellAliases = {
@@ -103,6 +114,9 @@ in
 
     show-gist-scope-github-token = "cat ${
       config.sops.secrets."tokens/github/gist_scope".path
+    } 2>/dev/null || echo 'Secret not available.'";
+    show-repo-scope-github-token = "cat ${
+      config.sops.secrets."tokens/github/repo_scope".path
     } 2>/dev/null || echo 'Secret not available.'";
     show-public-repo-scope-github-token = "cat ${
       config.sops.secrets."tokens/github/public_repo_scope".path
@@ -145,6 +159,7 @@ in
         "show-tokens")
           echo "Available tokens:"
           echo "  GitHub Gist Scope: ${config.sops.secrets."tokens/github/gist_scope".path}"
+          echo "  GitHub Repo Scope: ${config.sops.secrets."tokens/github/repo_scope".path}"
           echo "  GitHub Public Repo Scope: ${config.sops.secrets."tokens/github/public_repo_scope".path}"
           echo "  GitHub User Scope: ${config.sops.secrets."tokens/github/user_scope".path}"
           ;;
