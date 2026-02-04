@@ -66,9 +66,17 @@ nix config show | nix run nixpkgs#ripgrep -- '^access-tokens'
 - Update and fetch dependencies.
 
 ```shell
-nix run nixpkgs#fd -- .nix --exclude flake.nix --exec update-nix-fetchgit
+fd .nix --exclude flake.nix --exec update-nix-fetchgit
+# fd .nix --exclude flake.nix --exec sh -x 'echo {}; update-nix-fetchgit {}'
 
-nix run nixpkgs#fd -- .nix --exclude flake.nix --exec sh -c 'echo {}; update-nix-fetchgit {}'
+fd -e nix --exclude flake.nix \
+  -x sh -c 'echo "$1"; update-nix-fetchgit "$1"' _ {}
+
+nix run nixpkgs#fd -- .nix --exclude flake.nix --exec \
+    nix run nixpkgs#update-nix-fetchgit --
+
+nix run nixpkgs#fd -- .nix --exclude flake.nix --exec \
+    sh -c 'echo {}; nix run nixpkgs#update-nix-fetchgit -- {}'
 ```
 
 - Format files.
