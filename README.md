@@ -67,9 +67,10 @@ nix config show | nix run nixpkgs#ripgrep -- '^access-tokens'
 
 ```shell
 fd .nix --exclude flake.nix --exec update-nix-fetchgit
-# fd .nix --exclude flake.nix --exec sh -x 'echo {}; update-nix-fetchgit {}'
 
-fd -e nix --exclude flake.nix \
+fd .nix --exclude flake.nix --exec sh -x 'echo {}; update-nix-fetchgit {}'
+
+fd --extension nix --exclude flake.nix \
   -x sh -c 'echo "$1"; update-nix-fetchgit "$1"' _ {}
 
 nix run nixpkgs#fd -- .nix --exclude flake.nix --exec \
