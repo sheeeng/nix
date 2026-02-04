@@ -57,12 +57,18 @@ curl --silent --show-error --fail --location https://install.lix.systems/lix | s
 sudo launchctl kickstart -k -p system/systems.determinate.nix-daemon
 ```
 
+- Verify access token.
+
+```shell
+nix config show | nix run nixpkgs#ripgrep -- '^access-tokens'
+```
+
 - Update and fetch dependencies.
 
 ```shell
-fd .nix --exclude flake.nix --exec update-nix-fetchgit
+nix run nixpkgs#fd -- .nix --exclude flake.nix --exec update-nix-fetchgit
 
-fd .nix --exclude flake.nix --exec sh -c 'echo {}; update-nix-fetchgit {}'
+nix run nixpkgs#fd -- .nix --exclude flake.nix --exec sh -c 'echo {}; update-nix-fetchgit {}'
 ```
 
 - Format files.
