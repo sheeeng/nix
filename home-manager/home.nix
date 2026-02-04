@@ -46,14 +46,7 @@ in
   nixpkgs.config.allowUnfree = true;
 
   home = {
-    file = {
-      ".config/nix/nix.conf" = {
-        text = ''
-          experimental-features = nix-command flakes
-        '';
-        force = true;
-      };
-    }; # https://nix-community.github.io/home-manager/options.xhtml#opt-home.file
+    file = { }; # https://nix-community.github.io/home-manager/options.xhtml#opt-home.file
     shell = {
       enableBashIntegration = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-home.shell.enableBashIntegration
       enableFishIntegration = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-home.shell.enableFishIntegration

@@ -875,11 +875,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1765267181,
-        "narHash": "sha256-d3NBA9zEtBu2JFMnTBqWj7Tmi7R5OikoU2ycrdhQEws=",
+        "lastModified": 1770202486,
+        "narHash": "sha256-VhmDekVd7JUEw6CRrN27cou1FfQuoRHhUEq3uCzfl98=",
         "owner": "nix-community",
         "repo": "nix-index-database",
-        "rev": "82befcf7dc77c909b0f2a09f5da910ec95c5b78f",
+        "rev": "f7d77408f21b6e8d03a5271ad9e633bfbac9cc7a",
         "type": "github"
       },
       "original": {
@@ -890,10 +890,10 @@
     },
     "nix-secrets": {
       "locked": {
-        "lastModified": 1769543206,
-        "narHash": "sha256-LHQuiXLsyragit/ZuXpeTyNYnfFYXUdS+skr41hAI2s=",
+        "lastModified": 1770219058,
+        "narHash": "sha256-2v81zdVylmzRO6zNnPVILNEi7Q3r93daXLUwUIcqMjM=",
         "ref": "main",
-        "rev": "c486df066460150d41883d525bb42e7b070edf58",
+        "rev": "c48a0f98af343203aacafd858ff98d0803e18a60",
         "shallow": true,
         "type": "git",
         "url": "ssh://git@github.com/sheeeng/nix-secrets.git"
@@ -1128,11 +1128,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1770192788,
-        "narHash": "sha256-uylU1WQO/P+x7WlZnPvQtATK6tvii+nUTBoIESFAq18=",
+        "lastModified": 1770216132,
+        "narHash": "sha256-/P55MyvNqQxQfzKOU9IPkI9PeRA9qULzR4lnesZj/uU=",
         "owner": "nix-community",
         "repo": "nur",
-        "rev": "721ca0f0f89082005e99381daf0d70b2df38c66d",
+        "rev": "d2e67f3df1316784ac5da990ce7b7de82c3de878",
         "type": "github"
       },
       "original": {
