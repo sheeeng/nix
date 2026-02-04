@@ -85,10 +85,12 @@ in
   home.activation.setupNixAccessTokens = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     # Set up Nix access tokens for GitHub from sops secrets.
     $DRY_RUN_CMD mkdir --parents $VERBOSE_ARG ${homeDirectory}/.config/nix || true
+    printf "experimental-features = nix-command flakes\n" > ${homeDirectory}/.config/nix/nix.conf
     if [ -f ${config.sops.secrets."tokens/github/repo_scope".path} ]; then
       GITHUB_TOKEN=$(cat ${config.sops.secrets."tokens/github/repo_scope".path})
-      printf "experimental-features = nix-command flakes\n" > ${homeDirectory}/.config/nix/nix.conf
-      printf "access-tokens = github.com=%s\n" "$GITHUB_TOKEN" >> ${homeDirectory}/.config/nix/nix.conf
+      if [ -n "$GITHUB_TOKEN" ]; then
+        printf "access-tokens = github.com=%s\n" "$GITHUB_TOKEN" >> ${homeDirectory}/.config/nix/nix.conf
+      fi
     fi
   '';
 
