@@ -51,6 +51,12 @@ curl --silent --show-error --fail --location https://install.lix.systems/lix | s
 
 ## Miscellaneous
 
+- Restart Nix daemon.
+
+```shell
+sudo launchctl kickstart -k -p system/systems.determinate.nix-daemon
+```
+
 - Update and fetch dependencies.
 
 ```shell
