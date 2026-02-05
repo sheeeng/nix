@@ -467,6 +467,38 @@ in
         echo ":: . "
         echo ":: └── Running system.activationScripts.postActivation..."
 
+        # Configure GitHub access tokens for Determinate Nix
+        # Since nix.enable = false, nix.extraOptions won't write to /etc/nix/nix.conf
+        # Determinate Nix reads /etc/nix/nix.custom.conf for user modifications
+        echo ":: Configuring GitHub access tokens for Determinate Nix..."
+
+        # Path to the sops-nix template containing the access token
+        TOKEN_FILE="${config.sops.templates.nix-access-token.path}"
+
+        # Check if token file exists and is readable
+        if [[ -r "$TOKEN_FILE" ]]; then
+          # Create or update /etc/nix/nix.custom.conf with access token
+          # Remove any existing access-tokens lines to avoid duplicates
+          if [[ -f /etc/nix/nix.custom.conf ]]; then
+            grep --invert-match --extended-regexp '^(access-tokens|!include.*nix-access-token)' /etc/nix/nix.custom.conf > /tmp/nix.custom.conf.tmp || true
+          else
+            echo "# Written by https://github.com/DeterminateSystems/nix-installer." > /tmp/nix.custom.conf.tmp
+            echo "# The contents below are based on options specified at installation time." >> /tmp/nix.custom.conf.tmp
+            echo "" >> /tmp/nix.custom.conf.tmp
+          fi
+          
+          # Append the include directive for the access token
+          echo "!include $TOKEN_FILE" >> /tmp/nix.custom.conf.tmp
+          
+          # Move the temporary file to the final location
+          mv /tmp/nix.custom.conf.tmp /etc/nix/nix.custom.conf
+          chmod 644 /etc/nix/nix.custom.conf
+          
+          echo ":: ✓ GitHub access token configured in /etc/nix/nix.custom.conf"
+        else
+          echo ":: ⚠ Warning: Access token file not found at $TOKEN_FILE"
+          echo "::   This is expected on first activation. Token will be available after sops-nix processes secrets."
+        fi
       '';
     };
   }; # https://search.nixos.org/options?channel=unstable&query=system.activationScripts&show=system.activationScripts
