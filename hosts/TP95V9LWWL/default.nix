@@ -526,14 +526,14 @@ in
             echo "# The contents below are based on options specified at installation time." >> /tmp/nix.custom.conf.tmp
             echo "" >> /tmp/nix.custom.conf.tmp
           fi
-          
+
           # Append the include directive for the access token
           echo "!include $TOKEN_FILE" >> /tmp/nix.custom.conf.tmp
-          
+
           # Move the temporary file to the final location
           mv /tmp/nix.custom.conf.tmp /etc/nix/nix.custom.conf
           chmod 644 /etc/nix/nix.custom.conf
-          
+
           echo ":: ✓ GitHub access token configured in /etc/nix/nix.custom.conf"
         else
           echo ":: ⚠ Warning: Access token file not found at $TOKEN_FILE"
