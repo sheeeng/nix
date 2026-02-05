@@ -1,5 +1,41 @@
 # Commands
 
+## GitHub Token Configuration
+
+The Nix configuration uses sops-nix to securely manage GitHub access tokens for private repository access. The token is stored in encrypted secrets and injected into `nix.conf` at build time.
+
+### How It Works
+
+1. **Secret Storage**: GitHub tokens are stored in `nix-secrets/secrets/hosts/<hostname>.yaml` under the key `tokens/github/repo_scope`
+2. **Template Generation**: sops-nix creates a template file at runtime with the format:
+    ```
+    access-tokens = github.com=<token>
+    ```
+3. **Nix Configuration**: The template is included in `nix.conf` via `!include` directive (the `!` prefix makes missing files non-fatal during build)
+
+### Implementation Details
+
+- **Darwin hosts**: `hosts/darwin/sops.nix` defines the template and secret
+- **Linux hosts**: `hosts/linux/sops.nix` defines the template and secret
+- **Host configurations**: Each host includes the template path in `nix.extraOptions`:
+    ```nix
+    nix.extraOptions = ''
+      !include ${config.sops.templates.nix-access-token.path}
+    '';
+    ```
+
+### Benefits
+
+- Tokens never appear in the Nix store or version control
+- Declarative configuration across all hosts
+- Automatic token injection at build time
+- Works with both NixOS and nix-darwin
+
+### References
+
+- [NixOS/nix#6536 (comment)][nix-issue-6536-comment] - Original implementation method
+- [sops-nix Documentation][sops-nix-docs] - Template and secret management
+
 ## Nix
 
 ```shell
@@ -234,3 +270,8 @@ readlink ./result
 # On slow machine
 /nix/store/<path that the readlink shows>/bin/switch-to-configuration switch
 ```
+
+---
+
+[nix-issue-6536-comment]: https://github.com/NixOS/nix/issues/6536#issuecomment-1254858889
+[sops-nix-docs]: https://github.com/Mic92/sops-nix
