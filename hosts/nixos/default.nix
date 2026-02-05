@@ -255,6 +255,13 @@ in
 
   security.polkit.enable = true;
 
+  # Preserve SSH_AUTH_SOCK when using sudo.
+  # This allows root processes to access the user's SSH agent for authentication,
+  # which is required by nixos-rebuild when fetching private flake inputs.
+  security.sudo.extraConfig = ''
+    Defaults env_keep += "SSH_AUTH_SOCK"
+  '';
+
   services.xserver = {
     enable = true;
     xkb = {
