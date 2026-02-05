@@ -67,10 +67,10 @@ jobs:
               -F owner="${{ github.repository_owner }}" \
               -F repo="${{ github.event.repository.name }}" \
               -F branch="$pr_branch" \
-              -f query='
-              query($owner:String!, $repo:String!, $branch:String!) {
-                repository(owner: $owner, name: $repo) {
-                  pullRequests(first: 1, states: OPEN, headRefName: $branch) {
+              -f query="
+              query(\$owner:String!, \$repo:String!, \$branch:String!) {
+                repository(owner: \$owner, name: \$repo) {
+                  pullRequests(first: 1, states: OPEN, headRefName: \$branch) {
                     nodes {
                       number
                       url
@@ -78,7 +78,7 @@ jobs:
                   }
                 }
               }
-            ' | jq --raw-output '
+            " | jq --raw-output '
               .data.repository.pullRequests.nodes[]
               | to_entries[]
               | "\(.key)=\(.value)"
