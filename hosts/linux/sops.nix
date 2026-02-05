@@ -31,11 +31,9 @@ in
       validateSopsFiles = true;
 
       templates = {
-        nix-access-token = {
-          content = ''
-            access-tokens = github.com=${config.sops.placeholder."tokens/github/repo_scope"}
-          '';
-        };
+        nix-access-token.content = ''
+          access-tokens = github.com=${config.sops.placeholder."tokens/github/repo_scope"}
+        '';
       };
 
       # Age configuration for HOST-LEVEL decryption only
@@ -55,8 +53,8 @@ in
       secrets = {
         # Host-level GitHub token (encrypted with host key in host-specific secrets file)
         "tokens/github/repo_scope" = {
-          owner = primaryUser;
-          group = "users";
+          mode = "0440";
+          group = config.users.groups.keys.name;
         };
 
         # USER's age key extracted from host-level secrets
