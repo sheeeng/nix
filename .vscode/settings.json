@@ -3,6 +3,6 @@
     "autohide",
     "nixpkgs",
     "pkgs",
-    "stdenv",
+    "stdenv"
   ]
 }

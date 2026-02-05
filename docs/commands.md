@@ -8,9 +8,11 @@ The Nix configuration uses sops-nix to securely manage GitHub access tokens for 
 
 1. **Secret Storage**: GitHub tokens are stored in `nix-secrets/secrets/hosts/<hostname>.yaml` under the key `tokens/github/repo_scope`
 2. **Template Generation**: sops-nix creates a template file at runtime with the format:
-    ```
+
+    ```text
     access-tokens = github.com=<token>
     ```
+
 3. **Nix Configuration**: The template is included in `nix.conf` via `!include` directive (the `!` prefix makes missing files non-fatal during build)
 
 ### Implementation Details
@@ -18,6 +20,7 @@ The Nix configuration uses sops-nix to securely manage GitHub access tokens for 
 - **Darwin hosts**: `hosts/darwin/sops.nix` defines the template and secret
 - **Linux hosts**: `hosts/linux/sops.nix` defines the template and secret
 - **Host configurations**: Each host includes the template path in `nix.extraOptions`:
+
     ```nix
     nix.extraOptions = ''
       !include ${config.sops.templates.nix-access-token.path}
@@ -31,7 +34,8 @@ For Darwin hosts using Determinate Nix (where `nix.enable = false`), the `nix.ex
 1. **Activation Script Location**: `system.activationScripts.postActivation` in each Darwin host configuration
 2. **Target File**: `/etc/nix/nix.custom.conf` (read by Determinate Nix's `/etc/nix/nix.conf`)
 3. **Configuration Chain**:
-    ```
+
+    ```text
     /etc/nix/nix.conf (managed by Determinate Nix)
       └─> !include nix.custom.conf
             └─> /etc/nix/nix.custom.conf (managed by nix-darwin activation script)
@@ -193,7 +197,7 @@ nix eval --json '.#darwinConfigurations.TP95V9LWWL.pkgs.sf-mono-nerd-font-ligatu
 
 nix eval --impure --json --expr 'let inputs = { nixpkgs = import <nixpkgs> {}; }; overlays = import ./overlays inputs; in builtins.hasAttr "sf-mono-nerd-font-ligatured" overlays'
 
-nix eval --json '.#darwinConfigurations.TP95V9LWWL.pkgs.sf-mono
+nix eval --json '.#darwinConfigurations.TP95V9LWWL.pkgs.sf-mono'
 
 nix why-depends /run/current-system nodejs 2>/dev/null | head -20
 
