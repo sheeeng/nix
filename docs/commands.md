@@ -24,17 +24,65 @@ The Nix configuration uses sops-nix to securely manage GitHub access tokens for 
     '';
     ```
 
+#### Determinate Nix Specific Configuration
+
+For Darwin hosts using Determinate Nix (where `nix.enable = false`), the `nix.extraOptions` approach doesn't work because nix-darwin doesn't manage `/etc/nix/nix.conf`. Instead, we use a system activation script to write the configuration:
+
+1. **Activation Script Location**: `system.activationScripts.postActivation` in each Darwin host configuration
+2. **Target File**: `/etc/nix/nix.custom.conf` (read by Determinate Nix's `/etc/nix/nix.conf`)
+3. **Configuration Chain**:
+    ```
+    /etc/nix/nix.conf (managed by Determinate Nix)
+      └─> !include nix.custom.conf
+            └─> /etc/nix/nix.custom.conf (managed by nix-darwin activation script)
+                  └─> !include /var/run/secrets/rendered/nix-access-token
+                        └─> access-tokens = github.com=<token>
+    ```
+
+The activation script:
+
+- Runs after sops-nix creates the token template
+- Removes duplicate access-token entries to prevent conflicts
+- Writes the `!include` directive to `/etc/nix/nix.custom.conf`
+- Handles missing token file gracefully (expected on first activation)
+
+### Verification Commands
+
+After system activation, verify the token configuration:
+
+```shell
+# Check that nix.custom.conf contains the include directive
+cat /etc/nix/nix.custom.conf
+
+# Verify the token template exists and has content (requires sudo)
+sudo cat /var/run/secrets/rendered/nix-access-token
+
+# Confirm Nix sees the access token
+nix show-config | grep access-tokens
+
+# Test with a private repository (if available)
+nix flake metadata github:owner/private-repo
+```
+
+Expected output:
+
+- `/etc/nix/nix.custom.conf` should contain: `!include /var/run/secrets/rendered/nix-access-token`
+- `/var/run/secrets/rendered/nix-access-token` should contain: `access-tokens = github.com=ghp_...`
+- `nix show-config` should show: `access-tokens = github.com=ghp_...`
+
 ### Benefits
 
 - Tokens never appear in the Nix store or version control
 - Declarative configuration across all hosts
 - Automatic token injection at build time
-- Works with both NixOS and nix-darwin
+- Works with both NixOS and nix-darwin (including Determinate Nix)
+- Graceful handling of missing secrets during initial setup
 
 ### References
 
 - [NixOS/nix#6536 (comment)][nix-issue-6536-comment] - Original implementation method
 - [sops-nix Documentation][sops-nix-docs] - Template and secret management
+- [Determinate Nix Documentation][determinate-nix-docs] - Determinate Nix custom configuration
 
 ## Nix
 
@@ -273,5 +321,6 @@ readlink ./result
 
 ---
 
+[determinate-nix-docs]: https://docs.determinate.systems/determinate-nix/
 [nix-issue-6536-comment]: https://github.com/NixOS/nix/issues/6536#issuecomment-1254858889
 [sops-nix-docs]: https://github.com/Mic92/sops-nix
