@@ -150,6 +150,7 @@
       markdown-oxide # https://search.nixos.org/packages?channel=unstable&type=packages&show=markdown-oxide
       markdownlint-cli # https://search.nixos.org/packages?channel=unstable&type=packages&show=markdownlint-cli
       markdownlint-cli2 # https://search.nixos.org/packages?channel=unstable&type=packages&show=markdownlint-cli2
+      marp-cli # https://search.nixos.org/packages?channel=unstable&type=packages&show=marp-cli
       nh # https://search.nixos.org/packages?channel=unstable&type=packages&show=nh
       nixfmt # https://search.nixos.org/packages?channel=unstable&type=packages&show=nixfmt
       nixos-option # https://search.nixos.org/packages?channel=unstable&type=packages&show=nixos-option
