@@ -11,6 +11,7 @@ When a PR is merged into NixOS/nixpkgs, it first lands in `master`. From there, 
 | Branch                 | Description                                                             |
 | ---------------------- | ----------------------------------------------------------------------- |
 | `master`               | Main development branch where PRs are merged first                      |
+| `staging`              | Target branch for PRs causing large rebuilds (501+ packages)            |
 | `staging-next`         | Staging area for large rebuilds before merging to master                |
 | `nixpkgs-unstable`     | Continuously updated from master after CI passes (for general packages) |
 | `nixos-unstable`       | Like nixpkgs-unstable but includes NixOS tests                          |
@@ -74,7 +75,7 @@ MERGE_COMMIT="3f96296da66f5ecf3d8106c61281b823949a56c0"
 REPO="NixOS/nixpkgs"
 
 # Define branches to check
-BRANCHES=("master" "nixos-unstable-small" "nixos-unstable" "nixpkgs-unstable" "staging-next")
+BRANCHES=("master" "staging" "staging-next" "nixos-unstable-small" "nixos-unstable" "nixpkgs-unstable")
 
 # Check each branch
 for BRANCH in "${BRANCHES[@]}"; do
@@ -94,7 +95,7 @@ done
 MERGE_COMMIT="3f96296da66f5ecf3d8106c61281b823949a56c0"
 REPO="NixOS/nixpkgs"
 
-for BRANCH in master nixos-unstable-small nixos-unstable nixpkgs-unstable staging-next; do
+for BRANCH in master staging staging-next nixos-unstable-small nixos-unstable nixpkgs-unstable; do
   STATUS=$(gh api "repos/${REPO}/compare/${MERGE_COMMIT}...${BRANCH}" --jq '.status')
 
   if [[ "$STATUS" == "ahead" || "$STATUS" == "identical" ]]; then
@@ -116,7 +117,7 @@ MERGE_COMMIT="3f96296da66f5ecf3d8106c61281b823949a56c0"
 # Fetch all remote branches
 git fetch origin
 
-for BRANCH in master nixos-unstable-small nixos-unstable nixpkgs-unstable staging-next; do
+for BRANCH in master staging staging-next nixos-unstable-small nixos-unstable nixpkgs-unstable; do
   if git merge-base --is-ancestor "$MERGE_COMMIT" "origin/$BRANCH" 2>/dev/null; then
     echo "✅ $BRANCH: commit is present"
   else
@@ -172,7 +173,7 @@ fi
 echo "Checking branch propagation..."
 echo "────────────────────────────────────────"
 
-BRANCHES=("master" "nixos-unstable-small" "nixos-unstable" "nixpkgs-unstable" "staging-next")
+BRANCHES=("master" "staging" "staging-next" "nixos-unstable-small" "nixos-unstable" "nixpkgs-unstable")
 
 for BRANCH in "${BRANCHES[@]}"; do
   STATUS=$(gh api "repos/${REPO}/compare/${MERGE_COMMIT}...${BRANCH}" --jq '.status' 2>/dev/null || echo "error")
@@ -226,10 +227,11 @@ Merge Commit: 3f96296da66f5ecf3d8106c61281b823949a56c0
 Checking branch propagation...
 ────────────────────────────────────────
 ✅ master               (commit present)
+⚠️  staging              (not yet propagated)
+✅ staging-next         (commit present)
 ⚠️  nixos-unstable-small (not yet propagated)
 ⚠️  nixos-unstable       (not yet propagated)
 ⚠️  nixpkgs-unstable     (not yet propagated)
-✅ staging-next         (commit present)
 ────────────────────────────────────────
 
 View comparisons on GitHub:
@@ -277,7 +279,30 @@ When checking if a merge commit is in a branch:
 
 ---
 
+## Example: PR #480465 (Staging Branch)
+
+PR [#480465][pr-480465] (`go_1_25: 1.25.5 -> 1.25.6`) was merged into the `staging` branch rather than `master`, because Go rebuilds 501+ packages. This demonstrates the staging workflow for large-rebuild PRs.
+
+Merge commit: `291061e90921577ecabcd323f78de4996820d2a1`
+
+```bash
+./nixpkgs-branch-tracker.sh 480465
+```
+
+Since this PR targets `staging`, the propagation path differs:
+
+1. The commit first appears in `staging`.
+2. It moves to `staging-next` when staging is merged.
+3. From `staging-next`, it reaches `master`.
+4. Finally, it propagates to the channel branches (`nixpkgs-unstable`, `nixos-unstable`, `nixos-unstable-small`).
+
+---
+
 ## Related Resources
 
-- [NixOS Channel Status](https://status.nixos.org/) - Official channel status page
-- [Nixpkgs Manual: Channels](https://nixos.org/manual/nixpkgs/stable/#sec-channel-branches)
+- [NixOS Channel Status][nixos-channel-status] - Official channel status page
+- [Nixpkgs Manual: Channels][nixpkgs-manual-channels]
+
+[nixos-channel-status]: https://status.nixos.org/
+[nixpkgs-manual-channels]: https://nixos.org/manual/nixpkgs/stable/#sec-channel-branches
+[pr-480465]: https://github.com/NixOS/nixpkgs/pull/480465
