@@ -508,7 +508,73 @@ in
           "settingsSync.ignoredSettings" = [ "github.copilot.chat.codeGeneration.instructions" ];
           "telemetry.telemetryLevel" = "off";
           "update.showReleaseNotes" = false;
-          # Extensions settings.
+          "better-comments.highlightPlainText" = false;
+          "better-comments.multilineComments" = true;
+          "better-comments.tags" = [
+            {
+              "backgroundColor" = "transparent";
+              "bold" = false;
+              "color" = "#80D7AB";
+              "italic" = false;
+              "strikethrough" = false;
+              "tag" = "@upstream-issue";
+              "underline" = false;
+            }
+            {
+              "backgroundColor" = "transparent";
+              "bold" = false;
+              "color" = "#C792EA";
+              "italic" = false;
+              "strikethrough" = false;
+              "tag" = "@note";
+              "underline" = false;
+            }
+            {
+              "backgroundColor" = "transparent";
+              "bold" = false;
+              "color" = "#FF2D00";
+              "italic" = false;
+              "strikethrough" = false;
+              "tag" = "!";
+              "underline" = false;
+            }
+            {
+              "backgroundColor" = "transparent";
+              "bold" = false;
+              "color" = "#3498DB";
+              "italic" = false;
+              "strikethrough" = false;
+              "tag" = "?";
+              "underline" = false;
+            }
+            {
+              "backgroundColor" = "transparent";
+              "bold" = false;
+              "color" = "#474747";
+              "italic" = false;
+              "strikethrough" = true;
+              "tag" = "//";
+              "underline" = false;
+            }
+            {
+              "backgroundColor" = "transparent";
+              "bold" = false;
+              "color" = "#FF8C00";
+              "italic" = false;
+              "strikethrough" = false;
+              "tag" = "todo";
+              "underline" = false;
+            }
+            {
+              "backgroundColor" = "transparent";
+              "bold" = false;
+              "color" = "#98C379";
+              "italic" = false;
+              "strikethrough" = false;
+              "tag" = "*";
+              "underline" = false;
+            }
+          ];
           "direnv.restart.automatic" = true;
           # "gitlens.plusFeatures.enabled" = false; # TODO: Enable after https://github.com/NixOS/nixpkgs/issues/462082 is fixed upstream.
           "geminicodeassist.displayInlineContextHint" = false;
