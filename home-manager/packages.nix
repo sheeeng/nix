@@ -309,6 +309,11 @@
       # keep-sorted start block=no newline_separated=no sticky_comments=no
       _1password-gui # TODO: Missing "aarch64-apple-darwin" platform. # https://search.nixos.org/packages?channel=unstable&type=packages&show=_1password-gui
       # keep-sorted end
+
+      # Shell Utilities
+      # keep-sorted start block=no newline_separated=no sticky_comments=no
+      libnotify # https://search.nixos.org/packages?channel=unstable&type=packages&show=libnotify
+      # keep-sorted end
     ])
     ++ (pkgs.lib.optionals pkgs.stdenv.isDarwin [
       # Cross-platform Rust Environment
