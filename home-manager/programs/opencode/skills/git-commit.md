@@ -13,7 +13,8 @@ metadata:
 ## What I Do
 
 - Analyze staged changes to generate commit messages.
-- Follow the Conventional Commits specification (https://www.conventionalcommits.org/).
+- Follow the Conventional Commits specification
+  (https://www.conventionalcommits.org/).
 - Suggest appropriate commit type and scope.
 
 ## Commit Format
@@ -54,10 +55,12 @@ metadata:
 
 - Use proper grammar and punctuation following Chicago Manual of Style.
 - Start sentences with capital letters.
-- End sentences with proper punctuation (periods, question marks, exclamation points).
+- End sentences with proper punctuation (periods, question marks, exclamation
+  points).
 - Wrap lines at 72 characters maximum per line.
 - Use the body to explain what and why, not how.
-- Write in complete sentences with correct punctuation.
+- Write in complete sentences with correct grammar and punctuation.
+- When using lists, each item must be a complete sentence ending with a period.
 
 ### Footer
 
@@ -79,7 +82,8 @@ metadata:
 - `fix: Resolve memory leak in parser` (incorrect: capitalized)
 - `docs: Update Nix installation guide` (incorrect: capitalized)
 - `docs: Update installation guide.` (incorrect: ends with period)
-- `feat: This adds a new feature for user authentication` (incorrect: too long, not imperative)
+- `feat: This adds a new feature for user authentication` (incorrect: too long,
+  not imperative)
 
 **Good commit with body (proper punctuation and grammar):**
 
@@ -94,6 +98,26 @@ All browsers are configured for Linux only using pkgs.stdenv.isLinux.
 Browsers without full home-manager support remain as packages.
 ```
 
+**Good commit with bulleted list (complete sentences with periods):**
+
+```
+feat(home-manager): configure browsers using programs options
+
+Enable browser configurations using home-manager's programs.* options
+instead of just adding packages to the package list.
+
+Changes:
+- Enable chromium with programs.chromium on Linux hosts only.
+- Enable firefox with programs.firefox on Linux hosts only.
+- Enable librewolf with programs.librewolf on Linux hosts only.
+- Enable qutebrowser with programs.qutebrowser on Linux hosts only.
+- Add brave, epiphany, edge, tor-browser, and vivaldi as packages.
+- Remove librewolf and qutebrowser from the packages list.
+
+All browser configurations use the 'enable = pkgs.stdenv.isLinux'
+configuration line for platform-specific enablement.
+```
+
 **Bad commit body (missing punctuation):**
 
 ```
@@ -106,7 +130,20 @@ Configure LibreWolf and Qutebrowser
 
 (incorrect: missing periods, not complete sentences)
 
+**Bad commit body with list (missing periods on list items):**
+
+```
+feat(home-manager): configure browsers using programs options
+
+Changes:
+- Enable chromium with programs.chromium (Linux-only)
+- Enable firefox with programs.firefox (Linux-only)
+- Add brave, epiphany, edge, tor-browser, vivaldi as packages
+```
+
+(incorrect: list items are not complete sentences and lack periods)
+
 ## When to Use Me
 
-Use this when you need help writing a commit message.
-Run `git diff --staged` first to see what will be committed.
+Use this when you need help writing a commit message. Run `git diff --staged`
+first to see what will be committed.
