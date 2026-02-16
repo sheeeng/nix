@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
   programs.firefox = {
-    enable = false; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.firefox.enable
+    enable = pkgs.stdenv.isLinux; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.firefox.enable
     enableGnomeExtensions = false; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.firefox.enableGnomeExtensions
     package = pkgs.firefox; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.firefox.package
     # # finalPackage = null; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.firefox.finalPackage
