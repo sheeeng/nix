@@ -318,9 +318,9 @@
     ])
     ++ (pkgs.lib.optionals (pkgs.stdenv.isDarwin && pkgs.stdenv.hostPlatform.isAarch64) [
       # keep-sorted start block=no newline_separated=no sticky_comments=no
+      opentofu # https://search.nixos.org/packages?channel=unstable&type=packages&show=opentofu
       podman # https://search.nixos.org/packages?channel=unstable&type=packages&show=podman
       podman-compose # https://search.nixos.org/packages?channel=unstable&type=packages&show=podman-compose
-      terraform # https://search.nixos.org/packages?channel=unstable&type=packages&show=terraform
       # keep-sorted end
     ]);
 }
