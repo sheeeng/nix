@@ -4,8 +4,8 @@ description: Create conventional commit messages.
 license: MIT
 compatibility: opencode
 metadata:
-  audience: developers
-  workflow: github
+    audience: developers
+    workflow: github
 ---
 
 # Git Commit
@@ -43,12 +43,31 @@ metadata:
 ## Guidelines
 
 - Use imperative mood in the description ("add" not "added").
-- Do not capitalize the first letter of the description.
+- Keep the description entirely lowercase, including product names.
+- Do not capitalize any words in the description.
 - Do not end the description with a period.
-- Limit the description to 50 characters.
-- Wrap the body at 72 characters.
+- Limit the description to 50 characters maximum.
+- Wrap the body at 72 characters maximum per line.
 - Use the body to explain what and why, not how.
 - Add `BREAKING CHANGE:` footer for breaking changes.
+
+## Examples
+
+**Good commit titles:**
+
+- `feat: add user authentication`
+- `fix: resolve memory leak in parser`
+- `docs: update nix installation guide`
+- `refactor: simplify opentofu configuration`
+- `fix: replace terraform with opentofu`
+
+**Bad commit titles:**
+
+- `feat: Add user authentication` (incorrect: capitalized)
+- `fix: Resolve memory leak in parser` (incorrect: capitalized)
+- `docs: Update Nix installation guide` (incorrect: capitalized)
+- `docs: Update installation guide.` (incorrect: ends with period)
+- `feat: This adds a new feature for user authentication` (incorrect: too long, not imperative)
 
 ## When to Use Me
 
