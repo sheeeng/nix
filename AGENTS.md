@@ -116,6 +116,31 @@ curl --silent https://models.dev/api.json \
 
 Model names follow the `provider/model-id` format. For example, `anthropic/claude-sonnet-4-5-20250929`.
 
+## Git Commits
+
+**ALWAYS use Conventional Commits specification for ALL commit messages.**
+
+- **MANDATORY**: Every commit message MUST follow the Conventional Commits format: `<type>(<scope>): <description>`.
+- **MANDATORY**: Load the `git-commit` skill before creating any commit.
+- Use imperative mood in the description ("add" not "added").
+- Keep the description entirely lowercase, including product names.
+- Do not capitalize any words in the description.
+- Do not end the description with a period.
+- Limit the description to 50 characters maximum.
+- Use proper grammar and punctuation in the commit body following Chicago Manual of Style.
+
+Common types: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `build`, `ci`, `chore`, `revert`.
+
+Example:
+
+```text
+fix(packages): add libnotify for zsh-auto-notify on Linux hosts
+
+The zsh-auto-notify plugin requires notify-send (provided by libnotify)
+to display desktop notifications on Linux. This adds libnotify to the
+Linux-specific package list to satisfy this dependency.
+```
+
 ## Tracking Tasks
 
 Use [bd](https://github.com/steveyegge/beads) for tracking tasks.
