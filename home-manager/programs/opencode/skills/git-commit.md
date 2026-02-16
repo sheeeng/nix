@@ -13,8 +13,7 @@ metadata:
 ## What I Do
 
 - Analyze staged changes to generate commit messages.
-- Follow the Conventional Commits specification
-  (https://www.conventionalcommits.org/).
+- Follow the [Conventional Commits specification][conventional-commits].
 - Suggest appropriate commit type and scope.
 
 ## Commit Format
@@ -78,12 +77,12 @@ metadata:
 
 **Bad commit titles:**
 
-- `feat: Add user authentication` (incorrect: capitalized)
-- `fix: Resolve memory leak in parser` (incorrect: capitalized)
-- `docs: Update Nix installation guide` (incorrect: capitalized)
-- `docs: Update installation guide.` (incorrect: ends with period)
-- `feat: This adds a new feature for user authentication` (incorrect: too long,
-  not imperative)
+- `feat: Add user authentication` - Incorrect: capitalized.
+- `fix: Resolve memory leak in parser` - Incorrect: capitalized.
+- `docs: Update Nix installation guide` - Incorrect: capitalized.
+- `docs: Update installation guide.` - Incorrect: ends with period.
+- `feat: This adds a new feature for user authentication` - Incorrect: too long,
+  not imperative.
 
 **Good commit with body (proper punctuation and grammar):**
 
@@ -98,7 +97,9 @@ All browsers are configured for Linux only using pkgs.stdenv.isLinux.
 Browsers without full home-manager support remain as packages.
 ```
 
-**Good commit with bulleted list (complete sentences with periods):**
+**Good commit with bulleted list:**
+
+Complete sentences with periods.
 
 ```
 feat(home-manager): configure browsers using programs options
@@ -118,7 +119,9 @@ All browser configurations use the 'enable = pkgs.stdenv.isLinux'
 configuration line for platform-specific enablement.
 ```
 
-**Bad commit body (missing punctuation):**
+**Bad commit body:**
+
+Missing punctuation.
 
 ```
 feat(home-manager): configure browsers using programs options
@@ -128,9 +131,11 @@ Add Chromium configuration via programs.chromium
 Configure LibreWolf and Qutebrowser
 ```
 
-(incorrect: missing periods, not complete sentences)
+Incorrect: missing periods, not complete sentences.
 
-**Bad commit body with list (missing periods on list items):**
+**Bad commit body with list:**
+
+Missing periods on list items.
 
 ```
 feat(home-manager): configure browsers using programs options
@@ -141,9 +146,17 @@ Changes:
 - Add brave, epiphany, edge, tor-browser, vivaldi as packages
 ```
 
-(incorrect: list items are not complete sentences and lack periods)
+Incorrect: list items are not complete sentences and lack periods.
 
 ## When to Use Me
 
 Use this when you need help writing a commit message. Run `git diff --staged`
 first to see what will be committed.
+
+## References
+
+- [Conventional Commits specification][conventional-commits]
+- [Markdown reference-style links][markdown-reference-links]
+
+[conventional-commits]: https://www.conventionalcommits.org/
+[markdown-reference-links]: https://www.markdownguide.org/basic-syntax/#reference-style-links
