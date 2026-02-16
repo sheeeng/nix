@@ -172,6 +172,7 @@
       # lsn = "${pkgs.eza}/bin/eza --long --header --git --sort name";
       # lss = "${pkgs.eza}/bin/eza --long --header --git --sort size";
       reset-dock = "defaults delete com.apple.dock; killall Dock";
+      terraform = "${lib.getExe' pkgs.opentofu "tofu"}"; # Alias terraform command to OpenTofu's tofu binary
       # tf = "${pkgs.terraform}/bin/terraform";
       # mt = "cd $(mktemp --directory ${"TMPDIR:-/tmp"}/zombie.XXXXXXXXX)";
       # tg = "${pkgs.terragrunt}/bin/terragrunt";
