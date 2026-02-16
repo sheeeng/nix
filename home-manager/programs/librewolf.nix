@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
   programs.librewolf = {
-    enable = pkgs.stdenv.isLinux; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.librewolf.enable
+    enable = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.librewolf.enable
     enableGnomeExtensions = false; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.librewolf.enableGnomeExtensions
     package = pkgs.librewolf; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.librewolf.package
     # languagePacks = [
