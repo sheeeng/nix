@@ -42,11 +42,18 @@
       };
       github = {
         command = lib.getExe pkgs.github-mcp-server;
+        # https://github.com/github/github-mcp-server?tab=readme-ov-file#specifying-toolsets
         args = [
+          "--toolset"
+          "default"
+          "--toolset"
+          "stargazers"
           "stdio"
         ];
         env = {
           GITHUB_PERSONAL_ACCESS_TOKEN = "{env:GITHUB_MCP_SERVER_GITHUB_TOKEN}";
+          # The GITHUB_TOOLSETS environment variable takes precedence over the command line argument if both are provided.
+          GITHUB_TOOLSETS = "context,repos,issues,pull_requests,users,stargazers,pull_requests,actions,code_security";
         };
       };
       nixos = {
