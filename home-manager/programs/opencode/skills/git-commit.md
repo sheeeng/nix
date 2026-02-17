@@ -13,10 +13,23 @@ metadata:
 ## What I Do
 
 - Analyze staged changes to generate commit messages.
-- Follow the [Conventional Commits specification][conventional-commits].
+- Follow the [Conventional Commits specification][conventional-commits] for most repositories.
+- For nixpkgs or its forks, follow the [nixpkgs commit conventions][nixpkgs-commit-conventions].
 - Suggest appropriate commit type and scope.
 
+## Repository Detection
+
+**CRITICAL**: Always detect the repository type before creating commits:
+
+1. Check if the repository is nixpkgs or a nixpkgs fork by examining:
+    - Remote URLs containing `NixOS/nixpkgs` or similar
+    - Presence of `pkgs/top-level/all-packages.nix` or similar nixpkgs structure
+2. If nixpkgs: Use [nixpkgs commit conventions][nixpkgs-commit-conventions]
+3. Otherwise: Use [Conventional Commits specification][conventional-commits]
+
 ## Commit Format
+
+### For Most Repositories (Conventional Commits)
 
 ```text
 <type>(<scope>): <description>
@@ -25,6 +38,24 @@ metadata:
 
 [optional footer(s)]
 ```
+
+### For nixpkgs and Its Forks
+
+nixpkgs does **NOT** use Conventional Commits. Follow these conventions instead:
+
+```text
+<component>: <description>
+
+[optional body]
+
+[optional footer(s)]
+```
+
+**Key differences from Conventional Commits:**
+
+- No type prefix (no `feat:`, `fix:`, etc.)
+- Component/scope comes first, followed by colon
+- Otherwise follows similar style guidelines
 
 ## Types
 
@@ -42,13 +73,40 @@ metadata:
 
 ## Guidelines
 
-### Title (First Line)
+### General Rules (All Repositories)
 
 - Use imperative mood in the description ("add" not "added").
 - Keep the description entirely lowercase, including product names.
 - Do not capitalize any words in the description.
 - Do not end the description with a period.
 - Limit the description to 50 characters maximum.
+
+### nixpkgs-Specific Rules
+
+When working in nixpkgs or its forks:
+
+1. **Create one commit per logical unit** - Keep changes focused and atomic.
+
+2. **Squash "oops" commits** - Use `git rebase -i` to squash commits like "oh, forgot to insert whitespace".
+
+3. **No period at end of summary line** - The first line of the commit message should not end with a period.
+
+4. **Special format for adding maintainers**: When adding yourself to `maintainer-list.nix`, use a separate commit with the message `maintainers: add <handle>`.
+
+5. **Component-based commits**: Common patterns include:
+    - `<package-name>: <version> -> <new-version>` - Version updates
+    - `<package-name>: init at <version>` - New packages
+    - `nixos/<module-name>: <description>` - NixOS module changes
+    - `lib/<function>: <description>` - Library function changes
+    - `doc: <description>` - Documentation changes
+
+6. **Include relevant information**: For version updates, reference release notes or changelog URLs in the commit body.
+
+7. **Area-specific conventions**: Consult area-specific commit conventions:
+    - `doc/README.md` for documentation changes
+    - `lib/README.md` for library changes
+    - `nixos/README.md` for NixOS changes
+    - `pkgs/README.md` for package changes
 
 ### Body (Optional Multi-Line Description)
 
@@ -60,6 +118,10 @@ metadata:
 - Use the body to explain what and why, not how.
 - Write in complete sentences with correct grammar and punctuation.
 - When using lists, each item must be a complete sentence ending with a period.
+- Use proper casing for product names (e.g., "Microsoft.Compute", "Azure"),
+  namespaces, technical identifiers, and acronyms in the body.
+- Wrap technical identifiers, resource names, and code elements in backticks
+  (e.g., `Microsoft.Compute`, `local-exec`, `EncryptionAtHost`).
 
 ### Footer
 
@@ -67,77 +129,140 @@ metadata:
 
 ## Examples
 
+### Conventional Commits (Non-nixpkgs Repositories)
+
 **Good commit titles:**
 
 - `feat: add user authentication`
 - `fix: resolve memory leak in parser`
-- `docs: update nix installation guide`
-- `refactor: simplify opentofu configuration`
-- `fix: replace terraform with opentofu`
+- `docs: update installation guide`
+- `refactor: simplify database queries`
+- `perf: optimize image loading`
+- `ci: add automated security scanning`
 
 **Bad commit titles:**
 
 - `feat: Add user authentication` - Incorrect: capitalized.
 - `fix: Resolve memory leak in parser` - Incorrect: capitalized.
-- `docs: Update Nix installation guide` - Incorrect: capitalized.
-- `docs: Update installation guide.` - Incorrect: ends with period.
+- `docs: Update installation guide` - Incorrect: capitalized.
+- `docs: update installation guide.` - Incorrect: ends with period.
 - `feat: This adds a new feature for user authentication` - Incorrect: too long,
   not imperative.
+- `Fix bug` - Incorrect: missing type prefix and colon.
 
 **Good commit with body (proper punctuation and grammar):**
 
+```markdown
+feat(api): add rate limiting middleware
+
+Implement `express-rate-limit` middleware to prevent API abuse.
+Configure sliding window with 100 requests per 15-minute window per
+IP address. Add custom error messages and logging for rate limit
+violations.
+
+Rate limiting applies to all `/api/*` endpoints except health checks.
 ```
-feat(home-manager): configure browsers using programs options
 
-Enable Firefox via programs.firefox for Linux systems. Add Chromium
-configuration via programs.chromium. Configure LibreWolf and
-Qutebrowser using their respective home-manager program options.
+### nixpkgs Commit Examples
 
-All browsers are configured for Linux only using pkgs.stdenv.isLinux.
-Browsers without full home-manager support remain as packages.
+**Good nixpkgs commit titles:**
+
+- `hello: 2.10 -> 2.12`
+- `python311Packages.requests: 2.28.1 -> 2.31.0`
+- `firefox: init at 121.0`
+- `nixos/postgresql: add option for custom configuration`
+- `lib/strings: fix off-by-one error in substring function`
+- `doc: add guide for packaging python applications`
+- `maintainers: add johndoe`
+
+**Bad nixpkgs commit titles:**
+
+- `feat: add hello package` - Incorrect: uses Conventional Commits format.
+- `fix(python): update requests` - Incorrect: uses Conventional Commits format.
+- `Hello: 2.10 -> 2.12` - Incorrect: capitalized package name.
+- `hello: 2.10 -> 2.12.` - Incorrect: ends with period.
+- `Update hello to version 2.12` - Incorrect: not concise, missing old version.
+
+**Good nixpkgs commit with body:**
+
+```markdown
+python311Packages.requests: 2.28.1 -> 2.31.0
+
+This release includes several security fixes and bug fixes.
+Notable changes include improved handling of redirect loops
+and better support for international domain names.
+
+Release notes: https://github.com/psf/requests/releases/tag/v2.31.0
+```
+
+**Good nixpkgs maintainer addition:**
+
+```markdown
+maintainers: add johndoe
+```
+
+**Good nixpkgs new package:**
+
+```markdown
+hello: init at 2.12
+
+GNU Hello is a program that prints "Hello, world!" when run.
+It serves as an example of standard GNU coding practices.
+```
+
+**Good commit with proper casing for product names in body:**
+
+```markdown
+fix(storage): configure blob lifecycle management
+
+Enable `Azure Blob Storage` lifecycle policies to automatically
+transition blobs between `Hot`, `Cool`, and `Archive` tiers. Configure
+rules to move logs older than 30 days to `Cool` tier and delete blobs
+older than 90 days. Add `ManagementPolicies` resource with proper
+filtering by `blobTypes` and `prefixMatch`.
 ```
 
 **Good commit with bulleted list:**
 
 Complete sentences with periods.
 
-```
-feat(home-manager): configure browsers using programs options
+```markdown
+feat(network): configure virtual network peering
 
-Enable browser configurations using home-manager's programs.* options
-instead of just adding packages to the package list.
+Establish `VNet` peering between production and monitoring networks
+to enable cross-network communication for observability stack.
 
 Changes:
-- Enable chromium with programs.chromium on Linux hosts only.
-- Enable firefox with programs.firefox on Linux hosts only.
-- Enable librewolf with programs.librewolf on Linux hosts only.
-- Enable qutebrowser with programs.qutebrowser on Linux hosts only.
-- Add brave, epiphany, edge, tor-browser, and vivaldi as packages.
-- Remove librewolf and qutebrowser from the packages list.
 
-All browser configurations use the 'enable = pkgs.stdenv.isLinux'
-configuration line for platform-specific enablement.
+- Create `VirtualNetworkPeering` resource for prod-to-monitor direction.
+- Create reverse peering for monitor-to-prod direction.
+- Enable `allowForwardedTraffic` on both peering connections.
+- Set `allowGatewayTransit` to false on production side.
+- Configure `useRemoteGateways` to false on monitoring side.
+
+Both peerings use `remoteVirtualNetworkId` to reference target networks.
 ```
 
 **Bad commit body:**
 
-Missing punctuation.
+Missing punctuation and code blocks around technical identifiers.
 
+```text
+fix(monitoring): resolve container insights data collection
+
+Configure ContainerInsights solution to collect metrics from
+kube-state-metrics pod
+Update Azure Monitor workspace to use Log Analytics integration
 ```
-feat(home-manager): configure browsers using programs options
 
-Enable Firefox via programs.firefox for Linux systems
-Add Chromium configuration via programs.chromium
-Configure LibreWolf and Qutebrowser
-```
-
-Incorrect: missing periods, not complete sentences.
+Incorrect: missing periods, not complete sentences, missing backticks
+around technical identifiers.
 
 **Bad commit body with list:**
 
 Missing periods on list items.
 
-```
+```text
 feat(home-manager): configure browsers using programs options
 
 Changes:
@@ -156,7 +281,9 @@ first to see what will be committed.
 ## References
 
 - [Conventional Commits specification][conventional-commits]
+- [nixpkgs commit conventions][nixpkgs-commit-conventions]
 - [Markdown reference-style links][markdown-reference-links]
 
 [conventional-commits]: https://www.conventionalcommits.org/
+[nixpkgs-commit-conventions]: https://github.com/NixOS/nixpkgs/blob/master/CONTRIBUTING.md#commit-conventions
 [markdown-reference-links]: https://www.markdownguide.org/basic-syntax/#reference-style-links
