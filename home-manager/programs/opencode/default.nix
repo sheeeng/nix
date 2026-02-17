@@ -6,10 +6,12 @@
     package = pkgs.opencode; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.opencode.package
     agents = {
       # https://opencode.ai/docs/agents/#markdown
-      build = ./agents/build.md;
+      build = ./agents/builder.md;
+      builder = ./agents/builder.md;
       code-reviewer = ./agents/code-reviewer.md;
       explorer = ./agents/explorer.md;
-      plan = ./agents/plan.md;
+      plan = ./agents/planner.md;
+      planner = ./agents/planner.md;
       security-auditor = ./agents/security-auditor.md;
       technical-writer = ./agents/technical-writer.md;
     }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.opencode.agents
@@ -21,6 +23,7 @@
     }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.opencode.commands
     rules = ""; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.opencode.rules
     settings = {
+      default_agent = "planner"; # https://opencode.ai/docs/config/#default-agent
       theme = "opencode";
       model = "github-copilot/claude-sonnet-4.5"; # opencode models
       small_model = "github-copilot/claude-haiku-4.5"; # opencode models
