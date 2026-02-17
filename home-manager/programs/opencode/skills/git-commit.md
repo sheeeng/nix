@@ -126,6 +126,10 @@ When working in nixpkgs or its forks:
 ### Footer
 
 - Add `BREAKING CHANGE:` footer for breaking changes.
+- When referencing issues, pull requests, or URLs, use the format:
+  `Fix <url>.` (with period at the end).
+- Example: `Fix https://github.com/org/repo/actions/runs/12345.`
+- Do NOT use `Fixes:` or `Closes:` prefixes without periods.
 
 ## Examples
 
@@ -162,6 +166,32 @@ violations.
 
 Rate limiting applies to all `/api/*` endpoints except health checks.
 ```
+
+**Good commit with footer (referencing external resources):**
+
+```markdown
+fix(auth): resolve token expiration edge case
+
+Update token refresh logic to handle race conditions when multiple
+requests attempt to refresh an expired token simultaneously. Add
+mutex lock to ensure only one refresh operation occurs at a time.
+
+Fix https://github.com/org/repo/issues/456.
+```
+
+**Bad commit footers:**
+
+```text
+Fix https://github.com/org/repo/issues/123
+```
+
+Incorrect: missing period at the end.
+
+```text
+Fixes: https://github.com/org/repo/issues/123
+```
+
+Incorrect: uses `Fixes:` prefix instead of `Fix` without colon.
 
 ### nixpkgs Commit Examples
 
