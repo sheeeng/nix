@@ -470,7 +470,7 @@ in
         # Configure GitHub access tokens for Determinate Nix
         # Since nix.enable = false, nix.extraOptions won't write to /etc/nix/nix.conf
         # Determinate Nix reads /etc/nix/nix.custom.conf for user modifications
-        echo ":: Configuring GitHub access tokens for Determinate Nix..."
+        echo ":: ♻ Configuring GitHub access tokens for Determinate Nix..."
 
         # Path to the sops-nix template containing the access token
         TOKEN_FILE="${config.sops.templates.nix-access-token.path}"
@@ -494,7 +494,7 @@ in
           mv /tmp/nix.custom.conf.tmp /etc/nix/nix.custom.conf
           chmod 644 /etc/nix/nix.custom.conf
 
-          echo ":: ✓ GitHub access token configured in /etc/nix/nix.custom.conf"
+          echo ":: ✓ GitHub access token configured in /etc/nix/nix.custom.conf file."
         else
           echo ":: ⚠ Warning: Access token file not found at $TOKEN_FILE"
           echo "::   This is expected on first activation. Token will be available after sops-nix processes secrets."
