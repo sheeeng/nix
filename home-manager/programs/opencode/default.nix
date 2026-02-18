@@ -6,11 +6,11 @@
     package = pkgs.opencode; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.opencode.package
     agents = {
       # https://opencode.ai/docs/agents/#markdown
-      build = null; # Explicitly disable default build agent.
-      plan = null; # Explicitly disable default plan agent.
+      build = ./agents/builder.md; # @upstream-issue https://github.com/anomalyco/opencode/issues/14094
       builder = ./agents/builder.md;
       code-reviewer = ./agents/code-reviewer.md;
       explorer = ./agents/explorer.md;
+      plan = ./agents/planner.md; # @upstream-issue https://github.com/anomalyco/opencode/issues/14094
       planner = ./agents/planner.md;
       security-auditor = ./agents/security-auditor.md;
       technical-writer = ./agents/technical-writer.md;
