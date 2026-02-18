@@ -12,13 +12,16 @@
     dos2unix # https://search.nixos.org/packages?channel=unstable&type=packages&show=dos2unix
     fd # https://search.nixos.org/packages?channel=unstable&type=packages&show=fd
     findutils # https://search.nixos.org/packages?channel=unstable&type=packages&show=findutils
+    fzf # https://search.nixos.org/packages?channel=unstable&type=packages&show=fzf
     gzip # https://search.nixos.org/packages?channel=unstable&type=packages&show=gzip
     jq # https://search.nixos.org/packages?channel=unstable&type=packages&show=jq
     less # https://search.nixos.org/packages?channel=unstable&type=packages&show=less
     ripgrep # https://search.nixos.org/packages?channel=unstable&type=packages&show=ripgrep
+    starship # https://search.nixos.org/packages?channel=unstable&type=packages&show=starship
     unzip # https://search.nixos.org/packages?channel=unstable&type=packages&show=unzip
     vim # https://search.nixos.org/packages?channel=unstable&type=packages&show=vim
     wget # https://search.nixos.org/packages?channel=unstable&type=packages&show=wget
+    zoxide # https://search.nixos.org/packages?channel=unstable&type=packages&show=zoxide
     zip # https://search.nixos.org/packages?channel=unstable&type=packages&show=zip
     # keep-sorted end
 
