@@ -79,7 +79,8 @@ nixpkgs does **NOT** use Conventional Commits. Follow these conventions instead:
 - Keep the description entirely lowercase, including product names.
 - Do not capitalize any words in the description.
 - Do not end the description with a period.
-- Limit the description to 50 characters maximum.
+- Limit the git commit title to 50 characters maximum.
+- Wrap lines at 72 characters maximum per line for git commit description.
 
 ### nixpkgs-Specific Rules
 
