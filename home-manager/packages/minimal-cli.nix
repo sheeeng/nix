@@ -6,8 +6,8 @@
   home.packages = with pkgs; [
     # Basic utilities
     # keep-sorted start block=no newline_separated=no
+    (lib.hiPrio uutils-coreutils-noprefix) # https://search.nixos.org/packages?channel=unstable&type=packages&show=uutils-coreutils-noprefixd
     bc # https://search.nixos.org/packages?channel=unstable&type=packages&show=bc
-    coreutils # https://search.nixos.org/packages?channel=unstable&type=packages&show=coreutils
     curl # https://search.nixos.org/packages?channel=unstable&type=packages&show=curl
     dos2unix # https://search.nixos.org/packages?channel=unstable&type=packages&show=dos2unix
     fd # https://search.nixos.org/packages?channel=unstable&type=packages&show=fd
