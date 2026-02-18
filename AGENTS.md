@@ -16,10 +16,16 @@
     - Lowercase prepositions such as at, by, for, from, in, into, of, on, to, with, between, through.
     - Lowercase "to" in infinitives such as to run, to see, to build.
     - Exception: Capitalize prepositions when used adverbially or adjectivally ("Look Up," "Turn Down") or in verb phrases.
+    - Don't use normal dashes or proper em dashes (—).
+    - Don't use parenthesis `()` to phrase terms.
 
 ## Commands
 
-- Use GNU-style explicit arguments over abbreviated ones. Example: Use `date --universal +"%Y-%m-%dT%H:%M:%SZ"` over `date -u +"%Y-%m-%dT%H:%M:%SZ"`. Use `set -o errexit` over `set -e` in shell scripts.
+- Use GNU-style explicit long options over abbreviated ones. Examples:
+    - Use `date --universal +"%Y-%m-%dT%H:%M:%SZ"` over `date -u +"%Y-%m-%dT%H:%M:%SZ"`.
+    - Use `ls --all --list --numeric-uid-gid` over `ls -sln`.
+    - Use `set --option errexit` over `set -e` in shell scripts.
+    - Use `git commit --message` over `git commit -m`.
 - Save suggested commands in [docs/commands.md](./docs/commands.md).
 
 ## Journals
