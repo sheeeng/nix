@@ -38,7 +38,7 @@ in
     ../darwin/sops.nix
     inputs.agenix.darwinModules.age
     inputs.home-manager.darwinModules.home-manager
-    inputs.nixvim.nixDarwinModules.nixvim
+    # inputs.nixvim.nixDarwinModules.nixvim
   ];
 
   documentation = {
@@ -56,27 +56,27 @@ in
       # $ nix search nixpkgs wget
       # TODO: https://github.com/nix-community/home-manager/issues/1341 # The `home-manager` has issues adding applications to `~/Applications` directory.
       # keep-sorted start block=yes newline_separated=no
-      clang # https://search.nixos.org/packages?channel=unstable&type=packages&show=clang
+      # clang # https://search.nixos.org/packages?channel=unstable&type=packages&show=clang
       coreutils # https://search.nixos.org/packages?channel=unstable&type=packages&show=coreutils
-      dix # https://search.nixos.org/packages?channel=unstable&type=packages&show=dix
+      # dix # https://search.nixos.org/packages?channel=unstable&type=packages&show=dix
       findutils # https://search.nixos.org/packages?channel=unstable&type=packages&show=findutils
       # inputs.flox.packages.${pkgs.system}.default
-      nh # https://search.nixos.org/packages?channel=unstable&type=packages&show=nh
-      nil # https://search.nixos.org/packages?channel=unstable&type=packages&show=nil
+      # nh # https://search.nixos.org/packages?channel=unstable&type=packages&show=nh
+      # nil # https://search.nixos.org/packages?channel=unstable&type=packages&show=nil
       nix # https://search.nixos.org/packages?channel=unstable&type=packages&show=nix
-      nix-output-monitor # https://search.nixos.org/packages?channel=unstable&type=packages&show=nix-output-monitor
-      nixd # https://search.nixos.org/packages?channel=unstable&type=packages&show=nixd
-      nixfmt # https://search.nixos.org/packages?channel=unstable&type=packages&show=nixfmt
-      nvd # https://search.nixos.org/packages?channel=unstable&type=packages&show=nvd
-      tmux # https://search.nixos.org/packages?channel=unstable&type=packages&show=tmux
-      unixtools.watch # https://search.nixos.org/packages?channel=unstable&type=packages&show=unixtools.watch
-      vim # https://search.nixos.org/packages?channel=unstable&type=packages&show=vim
+      # nix-output-monitor # https://search.nixos.org/packages?channel=unstable&type=packages&show=nix-output-monitor
+      # nixd # https://search.nixos.org/packages?channel=unstable&type=packages&show=nixd
+      # nixfmt # https://search.nixos.org/packages?channel=unstable&type=packages&show=nixfmt
+      # nvd # https://search.nixos.org/packages?channel=unstable&type=packages&show=nvd
+      # tmux # https://search.nixos.org/packages?channel=unstable&type=packages&show=tmux
+      # unixtools.watch # https://search.nixos.org/packages?channel=unstable&type=packages&show=unixtools.watch
+      # vim # https://search.nixos.org/packages?channel=unstable&type=packages&show=vim
       # keep-sorted end
     ]; # https://nix-darwin.github.io/nix-darwin/manual/#opt-environment.systemPackages
     shellAliases = {
-      show-system = "nix derivation show /run/current-system";
-      switch-system = "darwin-rebuild switch --flake .";
-      list-generations = "nix-env --list-generations";
+      # show-system = "nix derivation show /run/current-system";
+      # switch-system = "darwin-rebuild switch --flake .";
+      # list-generations = "nix-env --list-generations";
     }; # https://nix-darwin.github.io/nix-darwin/manual/#opt-environment.shellAliases
     variables = {
       EDITOR = "hx";
@@ -294,11 +294,11 @@ in
     "${hostConfiguration.primaryUser}" = {
       home.stateVersion = "25.11";
       imports = [
-        ../../home-manager/home.nix
+        ../../home-manager/minimal/home.nix
         inputs.agenix.homeManagerModules.age
-        inputs.catppuccin.homeModules.catppuccin
-        inputs.nix-index-database.homeModules.nix-index
-        inputs.nixvim.homeModules.nixvim
+        # inputs.catppuccin.homeModules.catppuccin
+        # inputs.nix-index-database.homeModules.nix-index
+        # inputs.nixvim.homeModules.nixvim
       ];
     };
   }; # https://nix-community.github.io/home-manager/nixos-options.xhtml#nixos-opt-home-manager.users
