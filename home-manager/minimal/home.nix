@@ -8,6 +8,7 @@ _: {
     ../programs/starship.nix
     ../programs/zoxide.nix
     ../programs/zsh
+    ../programs/opencode
   ];
 
   fonts.fontconfig = {
