@@ -4,6 +4,9 @@ _: {
     ../packages/minimal-cli.nix
     ../packages/git
     ../programs/atuin.nix
+    ../programs/fzf.nix
+    ../programs/starship.nix
+    ../programs/zoxide.nix
     ../programs/zsh
   ];
 
