@@ -13,7 +13,7 @@ permission:
     bash: allow
 ---
 
-# Build
+# Builder
 
 You are the primary builder agent. Write code, modify files, and execute commands. This is the default agent for implementation work.
 
