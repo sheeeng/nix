@@ -31,6 +31,10 @@ sudo nix run github:lnl7/nix-darwin -- switch --flake ~/github/sheeeng/nix  --pr
 ```
 
 ```shell
+sudo --validate && nix flake update && sudo --validate && sudo nix run github:lnl7/nix-darwin -- switch --flake ~/github/sheeeng/nix  --print-build-logs --show-trace --verbose --cores 2 --max-jobs 2 2>&1 | nix run nixpkgs#nix-output-monitor
+```
+
+```shell
 sudo darwin-rebuild switch --print-build-logs --flake ~/github/sheeeng/nix 2>&1 \
 | nix run nixpkgs#nix-output-monitor
 ```
@@ -38,9 +42,12 @@ sudo darwin-rebuild switch --print-build-logs --flake ~/github/sheeeng/nix 2>&1 
 ```shell
 sudo --validate; \
 nix flake update; \
-sudo --validate; \
 sudo nixos-rebuild switch --print-build-logs --show-trace --verbose --cores 2 --max-jobs 2 --flake ~/github/sheeeng/nix 2>&1 \
 | nix run nixpkgs#nix-output-monitor
+```
+
+```shell
+sudo --validate && nix flake update && sudo --validate && sudo nixos-rebuild switch --print-build-logs --show-trace --verbose --cores 2 --max-jobs 2 --flake ~/github/sheeeng/nix 2>&1 | nix run nixpkgs#nix-output-monitor
 ```
 
 ## Install `lix`
