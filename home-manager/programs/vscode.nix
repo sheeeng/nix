@@ -468,6 +468,12 @@ in
               "source" = "PowerShell";
             };
           };
+          "terminal.integrated.env.linux" = {
+            "PATH" = "/etc/profiles/per-user/\${env:USER}/bin:\${env:PATH}";
+          };
+          "terminal.integrated.env.osx" = {
+            "PATH" = "/etc/profiles/per-user/\${env:USER}/bin:\${env:PATH}";
+          };
           "terminal.integrated.shellIntegration.enabled" = false;
           "terminal.integrated.smoothScrolling" = false;
           "terminal.integrated.suggest.cdPath" = "off";
@@ -575,10 +581,12 @@ in
               "underline" = false;
             }
           ];
+          "direnv.path.executable" = "direnv";
           "direnv.restart.automatic" = true;
           # "gitlens.plusFeatures.enabled" = false; # TODO: Enable after https://github.com/NixOS/nixpkgs/issues/462082 is fixed upstream.
           "geminicodeassist.displayInlineContextHint" = false;
           "geminicodeassist.project" = "cloud-nine-265718"; # "gen-lang-client-0457835357";
+          "hadolint.hadolintPath" = "hadolint";
           "json.schemas" = [
             {
               "fileMatch" = [
@@ -595,6 +603,10 @@ in
               "url" = "https://opencode.ai/theme.json";
             }
           ];
+          "nix.formatterPath" = "nixfmt";
+          "nix.serverPath" = "nil";
+          "shellcheck.executablePath" = "shellcheck";
+          "vscode-kubernetes.kubectl-path" = "kubectl";
         }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.vscode.profiles._name_.userSettings
 
         userTasks = { }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.vscode.profiles._name_.userTasks
