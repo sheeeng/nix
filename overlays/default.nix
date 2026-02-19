@@ -75,8 +75,7 @@
     # Pin Microsoft Edge to last working build on Linux.
     # @upstream-issue https://github.com/NixOS/nixpkgs/pull/490349
     # @upstream-issue https://github.com/NixOS/nixpkgs/issues/492012
-    # The newer versions may have compatibility issues on some Linux systems.
-    # This overrides the package to use the stable 144.0.3719.115 version.
+    # Overrides the package to use the previous stable 144.0.3719.115 version.
     microsoft-edge =
       let
         version = "144.0.3719.115";
