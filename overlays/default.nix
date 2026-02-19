@@ -72,6 +72,23 @@
     #   vendorHash = "sha256-YU+bRLVlWtHzJ1QPzcKJ70f+ynp8lMoIeFlm+29BNPE=";
     # });
 
+    # Pin Microsoft Edge to last working build on Linux.
+    # @upstream-issue https://github.com/NixOS/nixpkgs/pull/490349
+    # @upstream-issue https://github.com/NixOS/nixpkgs/issues/492012
+    # The newer versions may have compatibility issues on some Linux systems.
+    # This overrides the package to use the stable 144.0.3719.115 version.
+    microsoft-edge =
+      let
+        version = "144.0.3719.115";
+      in
+      prev.microsoft-edge.overrideAttrs (_old: {
+        inherit version;
+        src = final.fetchurl {
+          url = "https://packages.microsoft.com/repos/edge/pool/main/m/microsoft-edge-stable/microsoft-edge-stable_${version}-1_amd64.deb";
+          hash = "sha256-HoV2D51zxewFwwu92efEDgohu1yJf1UyjekO3YWZqPc=";
+        };
+      });
+
     # Add kubelogin to AKS MCP server PATH for Azure AD authentication.
     # This allows kubectl to authenticate to AKS clusters using Azure AD.
     # @upstream-issue https://github.com/Azure/aks-mcp/issues/TBD
