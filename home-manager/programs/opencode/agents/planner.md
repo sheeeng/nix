@@ -1,16 +1,46 @@
 ---
 name: planner
-description: Plans and analyzes code without modifications
+description: Plans and analyzes code without modifying files.
 mode: primary
 model: github-copilot/claude-haiku-4.5
 temperature: 0.1
 tools:
     write: false
     edit: false
-    bash: false
+    bash: true
 permission:
     edit: ask
-    bash: ask
+    read:
+        "*": allow
+    external_directory: ask
+    bash:
+        # Allow read-only git operations everywhere.
+        "git diff*": allow
+        "git log*": allow
+        "git show*": allow
+        "git status*": allow
+        "git branch*": allow
+        "git remote*": allow
+        "git tag*": allow
+        # Allow read-only filesystem operations within the working directory.
+        "ls*": allow
+        "find*": allow
+        "grep*": allow
+        "rg*": allow
+        "cat*": allow
+        "head*": allow
+        "tail*": allow
+        "wc*": allow
+        "file*": allow
+        "stat*": allow
+        "pwd": allow
+        # Allow read-only Nix operations.
+        "nix eval*": allow
+        "nix search*": allow
+        "nix flake show*": allow
+        "nix show-config*": allow
+        # Require permission for all other bash operations.
+        "*": ask
 ---
 
 # Plan
