@@ -8,6 +8,7 @@
       # https://opencode.ai/docs/agents/#markdown
       build = ./agents/builder.md; # @upstream-issue https://github.com/anomalyco/opencode/issues/14094
       builder = ./agents/builder.md;
+      chicken = ./agents/chicken.md;
       code-reviewer = ./agents/code-reviewer.md;
       explorer = ./agents/explorer.md;
       plan = ./agents/planner.md; # @upstream-issue https://github.com/anomalyco/opencode/issues/14094
