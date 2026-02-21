@@ -469,10 +469,12 @@ in
             };
           };
           "terminal.integrated.env.linux" = {
-            "PATH" = "/etc/profiles/per-user/\${env:USER}/bin:/usr/local/bin:\${env:PATH}";
+            "PATH" =
+              "/etc/profiles/per-user/\${env:USER}/bin:/run/current-system/sw/bin:/nix/var/nix/profiles/default/bin:/usr/local/bin:\${env:PATH}";
           };
           "terminal.integrated.env.osx" = {
-            "PATH" = "/etc/profiles/per-user/\${env:USER}/bin:/usr/local/bin:\${env:PATH}";
+            "PATH" =
+              "/etc/profiles/per-user/\${env:USER}/bin:/run/current-system/sw/bin:/nix/var/nix/profiles/default/bin:/usr/local/bin:\${env:PATH}";
           };
           "terminal.integrated.shellIntegration.enabled" = false;
           "terminal.integrated.smoothScrolling" = false;
