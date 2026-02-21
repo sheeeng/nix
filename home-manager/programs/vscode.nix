@@ -469,12 +469,17 @@ in
             };
           };
           "terminal.integrated.env.linux" = {
+            # /etc/profiles/per-user/${USER}/bin contains home-manager managed binaries.
+            # /nix/var/nix/profiles/default/bin contains user-level nix installation.
+            # /run/current-system/sw/bin contains system-level tools from darwin-rebuild.
+            # /usr/local/bin contains local or homebrew binaries.
+            # ${env:PATH} provides fallback to original PATH.
             "PATH" =
-              "/etc/profiles/per-user/\${env:USER}/bin:/run/current-system/sw/bin:/nix/var/nix/profiles/default/bin:/usr/local/bin:\${env:PATH}";
+              "/etc/profiles/per-user/\${env:USER}/bin:/nix/var/nix/profiles/default/bin:/run/current-system/sw/bin:/usr/local/bin:\${env:PATH}";
           };
           "terminal.integrated.env.osx" = {
             "PATH" =
-              "/etc/profiles/per-user/\${env:USER}/bin:/run/current-system/sw/bin:/nix/var/nix/profiles/default/bin:/usr/local/bin:\${env:PATH}";
+              "/etc/profiles/per-user/\${env:USER}/bin:/nix/var/nix/profiles/default/bin:/run/current-system/sw/bin:/usr/local/bin:\${env:PATH}";
           };
           "terminal.integrated.shellIntegration.enabled" = false;
           "terminal.integrated.smoothScrolling" = false;
