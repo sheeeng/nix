@@ -220,6 +220,9 @@ nix flake check --no-build 2>&1
 nix run '.#formatter' -- --check .
 
 nix develop --print-build-logs --show-trace --verbose
+nix run nixpkgs#nix-output-monitor -- develop --print-build-logs --show-trace --verbose
+nix build --log-format internal-json --verbose ... |& nix run nixpkgs#nix-output-monitor -- --json
+nix run nixpkgs#nix-output-monitor -- develop --print-build-logs --show-trace --verbose --command bash -lc 'opencode --version'
 ```
 
 ```shell
