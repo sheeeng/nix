@@ -218,6 +218,8 @@ nix build '.#checks.aarch64-darwin.formatting' --no-link --print-build-logs
 nix flake check --no-build 2>&1
 
 nix run '.#formatter' -- --check .
+
+nix develop --print-build-logs --show-trace --verbose
 ```
 
 ```shell
