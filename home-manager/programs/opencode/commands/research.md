@@ -4,7 +4,7 @@ Perform a deep-read investigation of a codebase area and write findings to a per
 
 Usage: /research [target folder, system, or topic]
 
-## What I Do
+## What This Command Does
 
 - Read the specified area of the codebase thoroughly, not at a surface level.
 - Understand how the system works deeply, including all specificities and intricacies.
