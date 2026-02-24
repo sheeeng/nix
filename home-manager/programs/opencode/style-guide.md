@@ -242,13 +242,13 @@ Follow Conventional Commits specification for all commit messages.
 
 **Commit Title Rules**:
 
-- Maximum length: 49 characters (must be under 50 characters).
+- Maximum length: 50 characters, must be under 50 characters.
 - Format: `type(scope): description`
 - Use imperative mood: "add" not "added".
 - Keep description entirely lowercase, including product names.
 - Do not capitalize any words in the description.
 - Do not end the description with a period.
-- Verify character count before committing: `echo --no-newline "title" | wc --chars`
+- Verify character count before committing with `echo --no-newline "title" | wc --chars` command.
 
 **Commit Body Rules**:
 
