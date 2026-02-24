@@ -3,19 +3,20 @@
   programs.mcp = {
     enable = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.mcp.enable
     servers = {
-      aks = {
-        # @upstream-issue https://github.com/NixOS/nixpkgs/issues/485105
-        # nix eval --raw nixpkgs#aks-mcp-server.meta.mainProgram
-        # nix eval --impure --raw --expr 'with import <nixpkgs> {}; lib.getExe aks-mcp-server'
-        # $(nix eval --raw nixpkgs#aks-mcp-server.outPath)/bin/aks-mcp --version
-        command = lib.getExe pkgs.aks-mcp-server;
-        args = [
-          "--log-level"
-          "error"
-          "--enabled-components"
-          "az_cli,monitor,fleet,network,compute,detectors,advisor,inspektorgadget,kubectl,helm,cilium,hubble"
-        ];
-      };
+      # FIXME: Temporarily disabled due to Azure CLI build failure (missing azure.mgmt.web.v2024_11_01 module).
+      # aks = {
+      #   # @upstream-issue https://github.com/NixOS/nixpkgs/issues/485105
+      #   # nix eval --raw nixpkgs#aks-mcp-server.meta.mainProgram
+      #   # nix eval --impure --raw --expr 'with import <nixpkgs> {}; lib.getExe aks-mcp-server'
+      #   # $(nix eval --raw nixpkgs#aks-mcp-server.outPath)/bin/aks-mcp --version
+      #   command = lib.getExe pkgs.aks-mcp-server;
+      #   args = [
+      #     "--log-level"
+      #     "error"
+      #     "--enabled-components"
+      #     "az_cli,monitor,fleet,network,compute,detectors,advisor,inspektorgadget,kubectl,helm,cilium,hubble"
+      #   ];
+      # };
       beads = {
         # https://github.com/steveyegge/beads/blob/main/docs/PLUGIN.md
         # Note: beads-mcp is a Python MCP server that wraps the bd Go CLI.
