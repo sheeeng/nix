@@ -4,7 +4,7 @@ Analyze and fix a GitHub issue in the current repository.
 
 Usage: /fix-issue [issue-number]
 
-## What I Do
+## What This Command Does
 
 - Fetch the issue details from GitHub.
 - Analyze the issue description and any linked code.
