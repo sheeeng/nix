@@ -4,7 +4,7 @@ Create a detailed implementation plan in a persistent markdown file. Do not impl
 
 Usage: /plan [feature description or change request]
 
-## What I Do
+## What This Command Does
 
 - Read relevant source files before suggesting changes.
 - Write a detailed `plan.md` document outlining how to implement the requested change.
