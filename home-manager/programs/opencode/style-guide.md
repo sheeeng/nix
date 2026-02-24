@@ -44,7 +44,7 @@ that would be helpful, and then perhaps write it somewhere.
 
 **Structure**:
 
-```
+```markdown
 ---
 name: [agent-name]
 mode: [primary|subagent]
@@ -109,7 +109,7 @@ with too many comments, so perhaps be gentle?
 
 **Structure**:
 
-```
+```markdown
 ---
 name: [agent-name]
 mode: [subagent]
@@ -180,7 +180,7 @@ Just refactor it.
 
 **Structure**:
 
-```
+```markdown
 ---
 name: [agent-name]
 mode: [subagent]

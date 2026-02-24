@@ -16,7 +16,7 @@ Your agents now follow these principles:
 
 All new documentation uses **lowercase-with-dash**:
 
-```
+```text
 ✓ agent-model-optimization.md
 ✓ style-guide.md
 ✓ agent-updates-summary.md
@@ -202,10 +202,12 @@ From the original article. Your agents already implement this:
 
 1. **Choose the tier**: Haiku (execution), Sonnet (synthesis), or Opus (reasoning)
 2. **Set appropriate config**:
+
     ```yaml
     model: github-copilot/claude-haiku-4.5 # or sonnet/opus
     temperature: 0.1 # or 0.2/0.3
     ```
+
 3. **Follow the pattern** from `style-guide.md`
 4. **Use lowercase-dash naming**: `new-agent-name.md`
 5. **Include sections**:
