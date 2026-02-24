@@ -10,7 +10,7 @@ metadata:
 
 # Git Commit
 
-## What I Do
+## What This Skill Does
 
 - Analyze staged changes to generate commit messages.
 - Follow the [Conventional Commits specification][conventional-commits] for most repositories.
@@ -320,7 +320,7 @@ Changes:
 
 Incorrect: list items are not complete sentences and lack periods.
 
-## When to Use Me
+## When to Use This Skill
 
 Use this when you need help writing a commit message. Run `git diff --staged`
 first to see what will be committed.

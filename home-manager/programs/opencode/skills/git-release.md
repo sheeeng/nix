@@ -4,19 +4,19 @@ description: Create consistent releases and changelogs.
 license: MIT
 compatibility: opencode
 metadata:
-  audience: maintainers
-  workflow: github
+    audience: maintainers
+    workflow: github
 ---
 
 # Git Release
 
-## What I Do
+## What This Skill Does
 
 - Draft release notes from merged PRs.
 - Propose a version bump.
 - Provide a copy-pasteable `gh release create` command.
 
-## When to Use Me
+## When to Use This Skill
 
 Use this when you are preparing a tagged release.
 Ask clarifying questions if the target versioning scheme is unclear.

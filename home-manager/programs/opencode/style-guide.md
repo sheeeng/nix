@@ -490,9 +490,34 @@ This applies to:
 
 ## Related
 
-- `AGENTS.md` — General agent development principles
+- `AGENTS.md` — General agent development principles and mandatory writing style rules
 - `docs/commands.md` — Custom commands using agents
 - `docs/agent-model-optimization.md` — Model tier strategy
 - Original article: [Why I Switched My AI Agent from Opus to Haiku][article]
+
+## Writing Style Enforcement
+
+All documentation in this directory **MUST** follow the writing style rules defined in the root `AGENTS.md` file. Key requirements include:
+
+### Chicago Manual of Style Compliance
+
+- **Title case for headings**: Capitalize first and last words, nouns, pronouns, verbs, adjectives, and adverbs. Lowercase articles, coordinating conjunctions, and prepositions.
+- **Sentence case for body text**: Start sentences with capital letters and use proper punctuation.
+- **Proper nouns**: Always capitalize proper nouns like Nix, GitHub, NixOS, Claude, Anthropic, etc.
+- **No parentheses** to phrase terms. Rewrite sentences instead.
+- **Use "configuration" not "config"** and avoid slang shorthand words.
+
+### Markdown Requirements
+
+- Use reference-style links, not inline links.
+- Discard all empty trailing whitespace.
+- Apply correct grammar and proper punctuation throughout.
+
+### Command Documentation
+
+- Use GNU-style explicit long options over abbreviated ones.
+- Example: Use `git commit --message` over `git commit -m`.
+
+These rules ensure consistency across all agent documentation and align with the project-wide standards defined in `AGENTS.md`.
 
 [article]: https://thoughts.jock.pl/p/claude-model-optimization-opus-haiku-ai-agent-costs-2026
