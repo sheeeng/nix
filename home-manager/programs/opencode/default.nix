@@ -21,9 +21,26 @@
       changelog = ./commands/changelog.md;
       commit = ./commands/commit.md;
       fix-issue = ./commands/fix-issue.md;
+      implement = ./commands/implement.md;
+      plan = ./commands/plan.md;
+      research = ./commands/research.md;
     }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.opencode.commands
     rules = ""; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.opencode.rules
     settings = {
+      agent = {
+        build = {
+          disable = true;
+        };
+        explore = {
+          disable = true;
+        };
+        general = {
+          disable = true;
+        };
+        plan = {
+          disable = true;
+        };
+      }; # https://opencode.ai/docs/config/#agent
       default_agent = "planner"; # https://opencode.ai/docs/config/#default-agent
       theme = "opencode";
       model = "github-copilot/claude-sonnet-4.5"; # opencode models
