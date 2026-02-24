@@ -102,7 +102,7 @@ Summary of changes made to align with the article:
 
 ### Three-Tier System
 
-```
+```text
 Tier 1: HAIKU (95% of work)
 ├─ Use for: Execution, automation, file operations
 ├─ Model: github-copilot/claude-haiku-4.5
@@ -192,7 +192,7 @@ Tier 3: OPUS (1% of work) [Reserved]
 
 ## File Organization
 
-```
+```text
 home-manager/programs/opencode/
 ├── agents/
 │   ├── planner.md ..................... Primary: Planning & analysis
@@ -287,7 +287,7 @@ opencode --agent code-reviewer "Review code"
 
 Commands defined in `docs/commands.md` can chain multiple agents:
 
-```
+```text
 1. planner: create plan
 2. builder: implement
 3. code-reviewer: review
