@@ -73,14 +73,30 @@ nixpkgs does **NOT** use Conventional Commits. Follow these conventions instead:
 
 ## Guidelines
 
-### General Rules (All Repositories)
+### General Rules for All Repositories
+
+**Critical 50/72 Rule:**
+
+- Title must be 50 characters or fewer, including type, scope, colon, and space.
+- Body lines must wrap at 72 characters maximum per line.
+- Always verify character count before committing using `echo --no-newline "title" | wc --chars`.
+
+**Title Formatting:**
 
 - Use imperative mood in the description ("add" not "added").
 - Keep the description entirely lowercase, including product names.
 - Do not capitalize any words in the description.
 - Do not end the description with a period.
-- Limit the git commit title to 50 characters maximum.
-- Wrap lines at 72 characters maximum per line for git commit description.
+- The entire title including `type(scope): ` prefix counts toward the 50 character limit.
+
+**Body Formatting:**
+
+- Wrap every line at 72 characters maximum.
+- Leave one blank line between title and body.
+- Use proper grammar and punctuation following Chicago Manual of Style.
+- Start sentences with capital letters.
+- End sentences with proper punctuation.
+- Each line in the body must not exceed 72 characters.
 
 ### nixpkgs-Specific Rules
 
