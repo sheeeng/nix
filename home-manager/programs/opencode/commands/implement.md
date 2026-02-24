@@ -4,7 +4,7 @@ Execute an approved plan from `plan.md`, marking tasks complete as you go.
 
 Usage: /implement
 
-## What I Do
+## What This Command Does
 
 - Read the `plan.md` document and execute every task in it.
 - Mark each task or phase as completed in the plan document as I finish it.
