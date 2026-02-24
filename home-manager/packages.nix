@@ -322,9 +322,9 @@
       # Graphics
       # keep-sorted start block=no newline_separated=no sticky_comments=no
       # aseprite # @upstream-issue https://github.com/NixOS/nixpkgs/issues/445447 # https://search.nixos.org/packages?channel=unstable&type=packages&show=aseprite
+      # krita # @upstream-issue https://github.com/NixOS/nixpkgs/issues/493431 # https://search.nixos.org/packages?channel=unstable&type=packages&show=krita
       emulsion-palette # TODO: Missing "aarch64-apple-darwin" platform. # https://search.nixos.org/packages?channel=unstable&type=packages&show=emulsion-palette
       eyedropper # TODO: Missing "aarch64-apple-darwin" platform. # https://search.nixos.org/packages?channel=unstable&type=packages&show=eyedropper
-      # krita # @upstream-issue https://github.com/NixOS/nixpkgs/issues/493431 # https://search.nixos.org/packages?channel=unstable&type=packages&show=krita
       pureref # TODO: Missing "aarch64-apple-darwin" platform. # https://search.nixos.org/packages?channel=unstable&type=packages&show=pureref
       # keep-sorted end
 
