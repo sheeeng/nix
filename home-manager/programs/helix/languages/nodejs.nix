@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
   home.packages = with pkgs; [
-    node2nix
+    # node2nix # FIXME: Temporarily disabled due to build failure on macOS (npm command not found during build).
     nodejs
     nodePackages_latest.npm-check-updates
     prefetch-npm-deps
