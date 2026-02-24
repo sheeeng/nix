@@ -309,7 +309,7 @@
     ++ (pkgs.lib.optionals pkgs.stdenv.isLinux [
       # Audio
       # keep-sorted start block=no newline_separated=no sticky_comments=no
-      sonic-pi # TODO: Missing "aarch64-apple-darwin" platform. # https://search.nixos.org/packages?channel=unstable&type=packages&show=sonic-pi
+      # sonic-pi # @upstream-issue https://github.com/NixOS/nixpkgs/issues/445447 # https://search.nixos.org/packages?channel=unstable&type=packages&show=sonic-pi
       supercollider-with-plugins # TODO: Missing "aarch64-apple-darwin" platform. # https://search.nixos.org/packages?channel=unstable&type=packages&show=supercollider-with-plugins
       # keep-sorted end
 
@@ -321,10 +321,10 @@
 
       # Graphics
       # keep-sorted start block=no newline_separated=no sticky_comments=no
-      aseprite # TODO: Missing "aarch64-apple-darwin" platform. # https://search.nixos.org/packages?channel=unstable&type=packages&show=aseprite
+      # aseprite # @upstream-issue https://github.com/NixOS/nixpkgs/issues/445447 # https://search.nixos.org/packages?channel=unstable&type=packages&show=aseprite
       emulsion-palette # TODO: Missing "aarch64-apple-darwin" platform. # https://search.nixos.org/packages?channel=unstable&type=packages&show=emulsion-palette
       eyedropper # TODO: Missing "aarch64-apple-darwin" platform. # https://search.nixos.org/packages?channel=unstable&type=packages&show=eyedropper
-      krita # TODO: Missing "aarch64-apple-darwin" platform. # https://search.nixos.org/packages?channel=unstable&type=packages&show=krita
+      # krita # @upstream-issue https://github.com/NixOS/nixpkgs/issues/493431 # https://search.nixos.org/packages?channel=unstable&type=packages&show=krita
       pureref # TODO: Missing "aarch64-apple-darwin" platform. # https://search.nixos.org/packages?channel=unstable&type=packages&show=pureref
       # keep-sorted end
 
