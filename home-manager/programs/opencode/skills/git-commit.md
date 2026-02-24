@@ -79,7 +79,7 @@ nixpkgs does **NOT** use Conventional Commits. Follow these conventions instead:
 
 - Title must be 50 characters or fewer, including type, scope, colon, and space.
 - Body lines must wrap at 72 characters maximum per line.
-- Always verify character count before committing using `echo --no-newline "title" | wc --chars`.
+- Always verify character count before committing with `echo --no-newline "title" | wc --chars` command.
 
 **Title Formatting:**
 
