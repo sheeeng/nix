@@ -10,7 +10,7 @@ Based on the updated agent style, here are practical examples of how each agent 
 
 **Example prompt**:
 
-```
+```text
 Analyze the authentication module in src/auth.
 Create a plan to add OAuth2 support.
 ```
@@ -36,7 +36,7 @@ Create a plan to add OAuth2 support.
 
 **Example prompts**:
 
-```
+```text
 Find all files importing the 'auth' module.
 Where is the WebSocket connection established?
 Search for all error handling of type ValidationError.
@@ -64,7 +64,7 @@ Search for all error handling of type ValidationError.
 
 **Example prompts**:
 
-```
+```text
 Add OAuth2 authentication following the plan from planner.
 Debug why the WebSocket connection times out after 5 minutes.
 Refactor the payment module to use the new cache layer.
@@ -95,7 +95,7 @@ Refactor the payment module to use the new cache layer.
 
 **Example prompts**:
 
-```
+```text
 Review this pull request for bugs and security issues.
 Check the new authentication code for common vulnerabilities.
 Is this error handling approach reasonable?
@@ -103,7 +103,7 @@ Is this error handling approach reasonable?
 
 **Expected response**:
 
-```
+```text
 Security Issues (flag immediately):
 - ❌ Password stored in plain text in log file (line 42)
 
@@ -126,7 +126,7 @@ Verdict: Good to merge once you fix the security issue.
 
 **Example prompts**:
 
-```
+```text
 Write a README for the new OAuth2 authentication module.
 Create API documentation for the WebSocket endpoints.
 Write a troubleshooting guide for common errors.
@@ -155,7 +155,7 @@ Write a troubleshooting guide for common errors.
 
 **Example prompts**:
 
-```
+```text
 Audit the authentication module for vulnerabilities.
 Review our dependency list for known CVEs.
 Check if user input is properly sanitized.
@@ -163,7 +163,7 @@ Check if user input is properly sanitized.
 
 **Expected response**:
 
-```
+```text
 🔴 Critical: SQL injection vulnerability in query builder (line 87)
   → Impact: Attacker can read entire database
   → Fix: Use parameterized queries
@@ -183,7 +183,7 @@ Check if user input is properly sanitized.
 
 ## Decision Flow: Which Agent to Use?
 
-```
+```text
 Do you need to understand code first?
 ├─ YES → planner (Haiku)
 │        "Analyze this module and create a plan"
@@ -214,7 +214,7 @@ Do you need to understand code first?
 
 **Step 1: Understanding** (planner)
 
-```
+```text
 Invoke: planner
 Prompt: "Create implementation plan for email notifications
          to replace the current webhook system"
@@ -224,7 +224,7 @@ Response: Numbered steps, file locations, dependencies
 
 **Step 2: Implementation** (builder)
 
-```
+```text
 Invoke: builder
 Prompt: "Implement email notifications following the plan.
          Use SendGrid for delivery, add to job queue."
@@ -234,7 +234,7 @@ Response: Code written, tests passing, ready to review
 
 **Step 3: Code Review** (code-reviewer)
 
-```
+```text
 Invoke: code-reviewer
 Prompt: "Review the new email notification code for bugs
          and best practices"
@@ -244,7 +244,7 @@ Response: Found 1 real bug, 2 style suggestions, approved
 
 **Step 4: Security Audit** (security-auditor)
 
-```
+```text
 Invoke: security-auditor
 Prompt: "Audit email notification code for security issues"
 
@@ -253,7 +253,7 @@ Response: No critical issues, flagged API key handling for review
 
 **Step 5: Documentation** (technical-writer)
 
-```
+```text
 Invoke: technical-writer
 Prompt: "Write documentation for the email notification feature,
          including setup instructions and configuration"
@@ -263,7 +263,7 @@ Response: Complete markdown documentation, ready to merge
 
 **Step 6: Finding references** (explorer)
 
-```
+```text
 Invoke: explorer
 Prompt: "Find all places that currently use webhooks
          so we can migrate to the new system"
@@ -305,7 +305,7 @@ Response: File locations with line numbers
 
 From the article's approach, keep token usage efficient:
 
-### Use Haiku (Cheap) for:
+### Use Haiku (Cheap) For
 
 - ✅ Searching files by pattern
 - ✅ Extracting data
@@ -313,7 +313,7 @@ From the article's approach, keep token usage efficient:
 - ✅ File operations
 - ✅ Basic transformations
 
-### Use Sonnet (Medium) for:
+### Use Sonnet (Medium) For
 
 - ✅ Review and feedback
 - ✅ Content creation
@@ -321,7 +321,7 @@ From the article's approach, keep token usage efficient:
 - ✅ Security analysis
 - ✅ Architecture decisions
 
-### Avoid Wasting Money:
+### Avoid Wasting Money
 
 - ❌ Don't use Sonnet for simple file reads (use Haiku/Explorer)
 - ❌ Don't use Haiku for complex reasoning (use Sonnet/Opus)
