@@ -87,7 +87,7 @@ nixpkgs does **NOT** use Conventional Commits. Follow these conventions instead:
 - Keep the description entirely lowercase, including product names.
 - Do not capitalize any words in the description.
 - Do not end the description with a period.
-- The entire title including `type(scope): ` prefix counts toward the 50 character limit.
+- The entire title including `type(scope):` prefix counts toward the 50 character limit.
 
 **Body Formatting:**
 
