@@ -129,6 +129,8 @@ Model names follow the `provider/model-id` format. For example, `anthropic/claud
 
 - **MANDATORY**: Every commit message MUST follow the Conventional Commits format: `<type>(<scope>): <description>`.
 - **MANDATORY**: Load the `git-commit` skill before creating any commit.
+- **CRITICAL 50/72 Rule**: Title must be 50 characters or fewer. Body lines must wrap at 72 characters maximum.
+- Always verify character count before committing with `echo --no-newline "title" | wc --chars` command.
 - Use imperative mood in the description ("add" not "added").
 - Keep the description entirely lowercase, including product names.
 - Do not capitalize any words in the description.
