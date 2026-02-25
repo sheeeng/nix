@@ -1,8 +1,8 @@
 ---
 name: technical-writer
-description: Writes and maintains documentation
+description: Write and maintain documentation.
 mode: subagent
-model: github-copilot/claude-sonnet-4.5
+model: github-copilot/claude-sonnet-4.6 # https://models.dev/?search=github-copilot
 temperature: 0.2
 tools:
     write: true
