@@ -9,6 +9,15 @@ let
     hash = "sha256-/3T9haaI5x7wVLAy+z8NzaH5hI1qvIa2nTKq91jNNXA=";
   };
 
+  # anthropics/skills: Skills for Claude.
+  # https://github.com/anthropics/skills
+  anthropicSkillsSrc = pkgs.fetchFromGitHub {
+    owner = "anthropics";
+    repo = "skills";
+    rev = "3d59511518591fa82e6cfcf0438d68dd5dad3e76";
+    hash = "sha256-mZZ0rlj/kju7we1h+MvUjgFAVjcZ/qKkMbNZfhfCSvk=";
+  };
+
   # vercel-labs/skills: Open agent skills ecosystem.
   # https://github.com/vercel-labs/skills
   vercelSkillsSrc = pkgs.fetchFromGitHub {
@@ -73,8 +82,8 @@ in
       }; # https://opencode.ai/docs/config/#agent
       default_agent = "planner"; # https://opencode.ai/docs/config/#default-agent
       theme = "opencode";
-      model = "github-copilot/claude-sonnet-4.5"; # opencode models
-      small_model = "github-copilot/claude-haiku-4.5"; # opencode models
+      model = "github-copilot/claude-opus-4.6"; # https://models.dev/?search=github-copilot
+      small_model = "github-copilot/claude-haiku-4.5"; # https://models.dev/?search=github-copilot
       autoshare = false;
       autoupdate = true;
       permission = {
@@ -273,6 +282,7 @@ in
       # https://opencode.ai/docs/skills/
       beads = "${pkgs.beads.src}/claude-plugin/skills/beads"; # A skill can also be a subdirectory within a Nix package source store path.
       find-skills = "${vercelSkillsSrc}/skills/find-skills";
+      frontend-design = "${anthropicSkillsSrc}/skills/frontend-design";
       git-commit = ./skills/git-commit.md;
       git-release = ./skills/git-release.md;
       superpowers-brainstorming = "${superpowersSrc}/skills/brainstorming";
