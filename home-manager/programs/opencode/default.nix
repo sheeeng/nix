@@ -55,7 +55,7 @@ in
       research = ./commands/research.md;
       write-plan = "${superpowersSrc}/commands/write-plan.md";
     }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.opencode.commands
-    rules = ""; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.opencode.rules
+    rules = "./rules.md"; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.opencode.rules
     settings = {
       agent = {
         build = {
