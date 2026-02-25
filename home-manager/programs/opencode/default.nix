@@ -8,6 +8,15 @@ let
     rev = "v4.3.1"; # 151ac79ccac12d769356da93e6e0513ae736fa13
     hash = "sha256-/3T9haaI5x7wVLAy+z8NzaH5hI1qvIa2nTKq91jNNXA=";
   };
+
+  # vercel-labs/skills: Open agent skills ecosystem.
+  # https://github.com/vercel-labs/skills
+  vercelSkillsSrc = pkgs.fetchFromGitHub {
+    owner = "vercel-labs";
+    repo = "skills";
+    rev = "v1.4.1"; # e00ad19cd60863bebbbd944a7035b42cfebd8bae
+    hash = "sha256-6r9qCk96/1Ygrg2QuXUpZy5bPiCAO23GhPRqcg4hUQg=";
+  };
 in
 {
   # Place superpowers plugin so OpenCode discovers it at startup.
@@ -263,6 +272,7 @@ in
     skills = {
       # https://opencode.ai/docs/skills/
       beads = "${pkgs.beads.src}/claude-plugin/skills/beads"; # A skill can also be a subdirectory within a Nix package source store path.
+      find-skills = "${vercelSkillsSrc}/skills/find-skills";
       git-commit = ./skills/git-commit.md;
       git-release = ./skills/git-release.md;
       superpowers-brainstorming = "${superpowersSrc}/skills/brainstorming";
