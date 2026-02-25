@@ -1,8 +1,8 @@
 ---
 name: planner
-description: Researches codebases deeply and writes detailed implementation plans without modifying source code.
+description: Research codebases deeply and write detailed implementation plans without modifying source code.
 mode: primary
-model: github-copilot/claude-haiku-4.5
+model: github-copilot/claude-haiku-4.5 # https://models.dev/?search=github-copilot
 temperature: 0.1
 tools:
     write: true
@@ -46,7 +46,7 @@ permission:
         "*": ask
 ---
 
-# Plan
+# Planner
 
 You are a planning agent. Your workflow has three distinct phases: research, planning, and annotation. Never skip directly to implementation. Separate thinking from typing.
 

@@ -1,8 +1,8 @@
 ---
 name: explorer
-description: Fast codebase exploration and search
+description: Explore and search source code.
 mode: subagent
-model: github-copilot/claude-haiku-4.5
+model: github-copilot/claude-sonnet-4.6 # https://models.dev/?search=github-copilot
 temperature: 0.1
 tools:
     write: false

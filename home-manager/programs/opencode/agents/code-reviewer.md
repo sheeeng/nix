@@ -1,8 +1,8 @@
 ---
 name: code-reviewer
-description: Reviews code for best practices and potential issues
+description: Review code for best practices and find potential issues.
 mode: subagent
-model: github-copilot/claude-sonnet-4.5
+model: github-copilot/claude-opus-4.6 # https://models.dev/?search=github-copilot
 temperature: 0.2
 tools:
     write: false
