@@ -41,12 +41,12 @@ in
     package = pkgs.opencode; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.opencode.package
     agents = {
       # https://opencode.ai/docs/agents/#markdown
-      build = null; # ./agents/builder.md; # @upstream-issue https://github.com/anomalyco/opencode/issues/14094
+      # build = null; # ./agents/builder.md; # @upstream-issue https://github.com/anomalyco/opencode/issues/14094
       builder = ./agents/builder.md;
       chicken = ./agents/chicken.md;
       code-reviewer = ./agents/code-reviewer.md;
       explorer = ./agents/explorer.md;
-      plan = null; # ./agents/planner.md; # @upstream-issue https://github.com/anomalyco/opencode/issues/14094
+      # plan = null; # ./agents/planner.md; # @upstream-issue https://github.com/anomalyco/opencode/issues/14094
       planner = ./agents/planner.md;
       security-auditor = ./agents/security-auditor.md;
       superpowers-code-reviewer = "${superpowersSrc}/agents/code-reviewer.md";
