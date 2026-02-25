@@ -1,8 +1,8 @@
 ---
 name: builder
-description: Executes approved plans and implements code changes with full capabilities
+description: Execute approved plans and implement code changes with full capabilities.
 mode: primary
-model: github-copilot/claude-sonnet-4.5
+model: github-copilot/claude-opus-4.6 # https://models.dev/?search=github-copilot
 temperature: 0.2
 tools:
     write: true
