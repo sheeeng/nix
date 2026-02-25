@@ -1,5 +1,22 @@
 { pkgs, ... }:
+let
+  # obra/superpowers: A complete software development workflow for coding agents.
+  # https://github.com/obra/superpowers
+  superpowersSrc = pkgs.fetchFromGitHub {
+    owner = "obra";
+    repo = "superpowers";
+    rev = "v4.3.1"; # 151ac79ccac12d769356da93e6e0513ae736fa13
+    hash = "sha256-/3T9haaI5x7wVLAy+z8NzaH5hI1qvIa2nTKq91jNNXA=";
+  };
+in
 {
+  # Place superpowers plugin so OpenCode discovers it at startup.
+  # The plugin injects the using-superpowers skill into the system prompt
+  # via the experimental.chat.system.transform hook.
+  xdg.configFile."opencode/plugins/superpowers.js" = {
+    source = "${superpowersSrc}/.opencode/plugins/superpowers.js";
+  };
+
   programs.opencode = {
     enable = true; # pkgs.stdenv.system != "x86_64-darwin"; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.opencode.enable # Disabled on x86_64-darwin.
     enableMcpIntegration = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.opencode.enableMcpIntegration
@@ -14,16 +31,20 @@
       plan = ./agents/planner.md; # @upstream-issue https://github.com/anomalyco/opencode/issues/14094
       planner = ./agents/planner.md;
       security-auditor = ./agents/security-auditor.md;
+      superpowers-code-reviewer = "${superpowersSrc}/agents/code-reviewer.md";
       technical-writer = ./agents/technical-writer.md;
     }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.opencode.agents
     commands = {
       # https://opencode.ai/docs/commands/#markdown
+      brainstorm = "${superpowersSrc}/commands/brainstorm.md";
       changelog = ./commands/changelog.md;
       commit = ./commands/commit.md;
+      execute-plan = "${superpowersSrc}/commands/execute-plan.md";
       fix-issue = ./commands/fix-issue.md;
       implement = ./commands/implement.md;
       plan = ./commands/plan.md;
       research = ./commands/research.md;
+      write-plan = "${superpowersSrc}/commands/write-plan.md";
     }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.opencode.commands
     rules = ""; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.opencode.rules
     settings = {
@@ -244,6 +265,20 @@
       beads = "${pkgs.beads.src}/claude-plugin/skills/beads"; # A skill can also be a subdirectory within a Nix package source store path.
       git-commit = ./skills/git-commit.md;
       git-release = ./skills/git-release.md;
+      superpowers-brainstorming = "${superpowersSrc}/skills/brainstorming";
+      superpowers-dispatching-parallel-agents = "${superpowersSrc}/skills/dispatching-parallel-agents";
+      superpowers-executing-plans = "${superpowersSrc}/skills/executing-plans";
+      superpowers-finishing-a-development-branch = "${superpowersSrc}/skills/finishing-a-development-branch";
+      superpowers-receiving-code-review = "${superpowersSrc}/skills/receiving-code-review";
+      superpowers-requesting-code-review = "${superpowersSrc}/skills/requesting-code-review";
+      superpowers-subagent-driven-development = "${superpowersSrc}/skills/subagent-driven-development";
+      superpowers-systematic-debugging = "${superpowersSrc}/skills/systematic-debugging";
+      superpowers-test-driven-development = "${superpowersSrc}/skills/test-driven-development";
+      superpowers-using-git-worktrees = "${superpowersSrc}/skills/using-git-worktrees";
+      superpowers-using-superpowers = "${superpowersSrc}/skills/using-superpowers";
+      superpowers-verification-before-completion = "${superpowersSrc}/skills/verification-before-completion";
+      superpowers-writing-plans = "${superpowersSrc}/skills/writing-plans";
+      superpowers-writing-skills = "${superpowersSrc}/skills/writing-skills";
     }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.opencode.skills
     themes = { }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.opencode.themes
     tools = { }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.opencode.tools # Enables or disables specific tools globally.
