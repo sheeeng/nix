@@ -1,8 +1,8 @@
 ---
 name: chicken
-description: An agent who is easily frightened or avoids any risk.
+description: Exercise caution and care when taking action; avoid all risks.
 mode: primary
-model: github-copilot/claude-haiku-4.5
+model: github-copilot/claude-sonnet-4.6 # https://models.dev/?search=github-copilot
 temperature: 0.2
 permission:
     bash:
