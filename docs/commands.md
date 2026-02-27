@@ -330,6 +330,14 @@ readlink ./result
 /nix/store/<path that the readlink shows>/bin/switch-to-configuration switch
 ```
 
+## GitHub
+
+- [Purge all notifications](https://github.com/orgs/community/discussions/174310#discussioncomment-14514685).
+
+```shell
+gh api notifications | jq -r '.[] | select(.unread == true) | .id' | nix-shell -p findutils --run 'xargs --replace={} gh api -X DELETE "notifications/threads/{}"'
+```
+
 ---
 
 [determinate-nix-docs]: https://docs.determinate.systems/determinate-nix/
