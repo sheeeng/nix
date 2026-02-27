@@ -390,6 +390,9 @@ in
             "editor.defaultFormatter" = "redhat.vscode-yaml";
           };
           "[github-actions-workflow]"."editor.defaultFormatter" = "redhat.vscode-yaml";
+          "[json]" = {
+            "editor.defaultFormatter" = "vscode.json-language-features";
+          };
           "[dockerfile]"."editor.defaultFormatter" = "ms-azuretools.vscode-containers";
           "[dockerfile]"."editor.tabSize" = 4;
           "[markdown]"."editor.defaultFormatter" = "esbenp.prettier-vscode";
