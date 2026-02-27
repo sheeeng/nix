@@ -158,9 +158,9 @@
       markdownlint-cli2 # https://search.nixos.org/packages?channel=unstable&type=packages&show=markdownlint-cli2
       marp-cli # https://search.nixos.org/packages?channel=unstable&type=packages&show=marp-cli
       nh # https://search.nixos.org/packages?channel=unstable&type=packages&show=nh
-      pinact # https://search.nixos.org/packages?channel=unstable&type=packages&show=pinact
       nixfmt # https://search.nixos.org/packages?channel=unstable&type=packages&show=nixfmt
       nixos-option # https://search.nixos.org/packages?channel=unstable&type=packages&show=nixos-option
+      pinact # https://search.nixos.org/packages?channel=unstable&type=packages&show=pinact
       shfmt # https://search.nixos.org/packages?channel=unstable&type=packages&show=shfmt
       texlab # https://search.nixos.org/packages?channel=unstable&type=packages&show=texlab
       tflint # https://search.nixos.org/packages?channel=unstable&type=packages&show=tflint
