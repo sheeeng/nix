@@ -11,6 +11,11 @@
   home.packages =
     with pkgs;
     [
+      # nix search nixpkgs pinact
+      # nix eval nixpkgs#pinact.name
+      # nix search nixpkgs#pinact '^' 2>&1 | head --lines 20
+      # The '^' notation is a regular expression that matches the start of a string. Every package name has a start, so it matches all names and acts as “no filtering.”
+
       # Audio
       # keep-sorted start block=no newline_separated=no sticky_comments=no
       # mpc-cli # @upstream-issue https://github.com/NixOS/nixpkgs/issues/355495 # https://search.nixos.org/packages?channel=unstable&type=packages&show=mpc-cli
@@ -92,7 +97,6 @@
 
       # Development Tools
       # keep-sorted start block=no newline_separated=no sticky_comments=no
-
       # (lib.hiPrio go-task) # TODO: Collision error with `taskwarrior-3` package. # https://search.nixos.org/packages?channel=unstable&type=packages&show=go-task
       # (lib.hiPrio parallel) # TODO: https://haseebmajid.dev/posts/2023-10-02-til-how-to-fix-package-binary-collisions-on-nix/ # https://search.nixos.org/packages?channel=unstable&type=packages&show=parallel
       # devenv # https://search.nixos.org/packages?channel=unstable&type=packages&show=devenv
@@ -154,6 +158,7 @@
       markdownlint-cli2 # https://search.nixos.org/packages?channel=unstable&type=packages&show=markdownlint-cli2
       marp-cli # https://search.nixos.org/packages?channel=unstable&type=packages&show=marp-cli
       nh # https://search.nixos.org/packages?channel=unstable&type=packages&show=nh
+      pinact # https://search.nixos.org/packages?channel=unstable&type=packages&show=pinact
       nixfmt # https://search.nixos.org/packages?channel=unstable&type=packages&show=nixfmt
       nixos-option # https://search.nixos.org/packages?channel=unstable&type=packages&show=nixos-option
       shfmt # https://search.nixos.org/packages?channel=unstable&type=packages&show=shfmt
