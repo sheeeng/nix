@@ -203,7 +203,7 @@
 
       # Cloud And Infrastructure
       # keep-sorted start block=no newline_separated=no sticky_comments=no
-      # azure-cli # FIXME: Build failure due to missing azure.mgmt.web.v2024_11_01 module. # https://search.nixos.org/packages?channel=unstable&type=packages&show=azure-cli
+      azure-cli # https://search.nixos.org/packages?channel=unstable&type=packages&show=azure-cli
       lego # https://search.nixos.org/packages?channel=unstable&type=packages&show=lego
       rclone # TODO: See `nixpkgs.overlays` in other file. # https://search.nixos.org/packages?channel=unstable&type=packages&show=rclone
       # keep-sorted end
