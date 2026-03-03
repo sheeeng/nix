@@ -43,12 +43,7 @@
       };
       # https://github.com/excalidraw/excalidraw-mcp
       excalidraw = {
-        command = "${pkgs.nodejs}/bin/npx";
-        args = [
-          "--yes"
-          "github:excalidraw/excalidraw-mcp"
-          "--stdio"
-        ];
+        url = "https://mcp.excalidraw.com/mcp";
       };
       github = {
         command = lib.getExe pkgs.github-mcp-server;
