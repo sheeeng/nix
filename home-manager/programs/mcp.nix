@@ -41,6 +41,15 @@
           CONTEXT7_API_KEY = "{env:CONTEXT7_API_KEY}";
         };
       };
+      # https://github.com/excalidraw/excalidraw-mcp
+      excalidraw = {
+        command = "${pkgs.nodejs}/bin/npx";
+        args = [
+          "--yes"
+          "github:excalidraw/excalidraw-mcp"
+          "--stdio"
+        ];
+      };
       github = {
         command = lib.getExe pkgs.github-mcp-server;
         # https://github.com/github/github-mcp-server?tab=readme-ov-file#specifying-toolsets
