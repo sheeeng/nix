@@ -27,20 +27,20 @@ jobs:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
       - name: Scan
-        uses: aquasecurity/trivy-action@c1824fd6edce30d7ab345a9989de00bbd46ef284 # v0.34.0
+        uses: aquasecurity/trivy-action@57a97c7e7821a5776cebc9bb87c984fa69cba8f1 # v0.35.0
         with:
           scan-type: "fs"
           scan-ref: "."
           trivy-config: trivy.yaml
 
       - name: Upload Results to GitHub Security
-        uses: github/codeql-action/upload-sarif@9e907b5e64f6b83e7804b09294d44122997950d6 # v4.32.3
+        uses: github/codeql-action/upload-sarif@0d579ffd059c29b07949a3cce3983f0780820c98 # v4.32.6
         if: always()
         with:
           sarif_file: "trivy-results.sarif"
 
       - name: Generate Summary Report
-        uses: aquasecurity/trivy-action@c1824fd6edce30d7ab345a9989de00bbd46ef284 # v0.34.0
+        uses: aquasecurity/trivy-action@57a97c7e7821a5776cebc9bb87c984fa69cba8f1 # v0.35.0
         with:
           scan-type: "fs"
           scan-ref: "."
