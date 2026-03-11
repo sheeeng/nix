@@ -5,6 +5,7 @@ _: {
     ../packages/git
     ../programs/atuin.nix
     ../programs/fzf.nix
+    ../programs/ssh.nix
     ../programs/starship.nix
     ../programs/zoxide.nix
     ../programs/zsh
