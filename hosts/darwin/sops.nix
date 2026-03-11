@@ -1,6 +1,5 @@
-# hosts level sops. see home/[user]/common/optional/sops.nix for home/user level
-# This module is for macOS (nix-darwin) only.
-# For NixOS, configure sops directly in hosts/nixos/default.nix
+# Host-level SOPS configuration for macOS with nix-darwin.
+# For NixOS, see hosts/linux/sops.nix instead.
 
 {
   inputs,
@@ -65,18 +64,18 @@ in
     ];
   };
 
-  # Activation scripts to ensure proper directory structure and permissions
+  # Activation scripts to ensure proper directory structure and permissions.
   system.activationScripts = {
-    # 1. Create HOST-LEVEL age key directory at /etc/sops/age/
-    # This will store the age key derived from the host's SSH key
+    # Create the host-level age key directory at /etc/sops/age/.
+    # This stores the age key derived from the host SSH key.
     sopsCreateSystemAgeDirectory = ''
       mkdir --parents /etc/sops/age || true
       chmod 755 /etc/sops
       chmod 700 /etc/sops/age
     '';
 
-    # 2. Create USER-LEVEL age key directory at ~/.config/sops/age/
-    # This will store the user's age key (extracted from secrets)
+    # Create the user-level age key directory at ~/.config/sops/age/.
+    # This stores the user age key extracted from host-level secrets.
     sopsSetAgeKeyOwnership =
       let
         ageFolder = "${homeDirectory}/.config/sops/age";
@@ -87,5 +86,44 @@ in
         mkdir --parents ${ageFolder} || true
         chown --recursive ${user}:${group} ${homeDirectory}/.config || true
       '';
+
+    # Ensure /etc/nix/nix.conf includes /etc/nix/nix.custom.conf and
+    # configure GitHub access tokens so the Nix daemon can authenticate.
+    postActivation.text = lib.mkAfter ''
+      # Ensure /etc/nix/nix.conf includes /etc/nix/nix.custom.conf.
+      # Lix and non-Determinate installers do not add this directive,
+      # so the custom configuration file is never read by the daemon.
+      if [[ -f /etc/nix/nix.conf ]] && ! grep --quiet --fixed-strings '!include /etc/nix/nix.custom.conf' /etc/nix/nix.conf; then
+        echo "" >> /etc/nix/nix.conf
+        echo "!include /etc/nix/nix.custom.conf" >> /etc/nix/nix.conf
+        echo ":: ✓ Added !include directive for nix.custom.conf to /etc/nix/nix.conf file."
+      fi
+
+      # Configure GitHub access tokens for Nix.
+      # Since nix.enable is false, nix.extraOptions will not write to /etc/nix/nix.conf.
+      # Nix reads /etc/nix/nix.custom.conf for user modifications.
+      echo ":: ♻ Configuring GitHub access tokens for Nix..."
+
+      TOKEN_FILE="${config.sops.templates.nix-access-token.path}"
+
+      if [[ -r "$TOKEN_FILE" ]]; then
+        # Remove any existing access-token lines to avoid duplicates.
+        if [[ -f /etc/nix/nix.custom.conf ]]; then
+          grep --invert-match --extended-regexp '^(access-tokens|!include.*nix-access-token)' /etc/nix/nix.custom.conf > /tmp/nix.custom.conf.tmp || true
+        else
+          echo "# Custom Nix configuration managed by nix-darwin activation." > /tmp/nix.custom.conf.tmp
+          echo "" >> /tmp/nix.custom.conf.tmp
+        fi
+
+        echo "!include $TOKEN_FILE" >> /tmp/nix.custom.conf.tmp
+        mv /tmp/nix.custom.conf.tmp /etc/nix/nix.custom.conf
+        chmod 644 /etc/nix/nix.custom.conf
+
+        echo ":: ✓ GitHub access token configured in /etc/nix/nix.custom.conf file."
+      else
+        echo ":: ⚠ Warning: Access token file not found at $TOKEN_FILE."
+        echo "::   This is expected on first activation. The token will be available after sops-nix processes secrets."
+      fi
+    '';
   };
 }
