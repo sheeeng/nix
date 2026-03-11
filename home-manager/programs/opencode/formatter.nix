@@ -169,6 +169,8 @@
       "run"
       "nixpkgs#yamlfmt"
       "--"
+      "-formatter"
+      "retain_line_breaks=false" # https://github.com/google/yamlfmt/issues/228#issuecomment-2538987870
       "$FILE"
     ];
     extensions = [
