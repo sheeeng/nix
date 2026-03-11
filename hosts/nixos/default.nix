@@ -388,44 +388,9 @@ in
         fi
       '';
     };
-    postActivation = {
-      text = ''
-        echo ":: Running system.activationScripts.postActivation..."
-
-        # Ensure /etc/nix/nix.conf includes /etc/nix/nix.custom.conf.
-        # Some Nix installers do not add this directive by default,
-        # so the custom configuration file is never read by the daemon.
-        if [[ -f /etc/nix/nix.conf ]] && ! grep --quiet --fixed-strings '!include /etc/nix/nix.custom.conf' /etc/nix/nix.conf; then
-          echo "" >> /etc/nix/nix.conf
-          echo "!include /etc/nix/nix.custom.conf" >> /etc/nix/nix.conf
-          echo ":: ✓ Added !include directive for nix.custom.conf to /etc/nix/nix.conf file."
-        fi
-
-        # Configure GitHub access tokens for Nix.
-        # Nix reads /etc/nix/nix.custom.conf for user modifications.
-        echo ":: ♻ Configuring GitHub access tokens for Nix..."
-
-        TOKEN_FILE="${config.sops.templates.nix-access-token.path}"
-
-        if [[ -r "$TOKEN_FILE" ]]; then
-          # Remove any existing access-token lines to avoid duplicates.
-          if [[ -f /etc/nix/nix.custom.conf ]]; then
-            grep --invert-match --extended-regexp '^(access-tokens|!include.*nix-access-token)' /etc/nix/nix.custom.conf > /tmp/nix.custom.conf.tmp || true
-          else
-            echo "# Custom Nix configuration managed by NixOS activation." > /tmp/nix.custom.conf.tmp
-            echo "" >> /tmp/nix.custom.conf.tmp
-          fi
-
-          echo "!include $TOKEN_FILE" >> /tmp/nix.custom.conf.tmp
-          mv /tmp/nix.custom.conf.tmp /etc/nix/nix.custom.conf
-          chmod 644 /etc/nix/nix.custom.conf
-
-          echo ":: ✓ GitHub access token configured in /etc/nix/nix.custom.conf file."
-        else
-          echo ":: ⚠ Warning: Access token file not found at $TOKEN_FILE."
-          echo "::   This is expected on first activation. The token will be available after sops-nix processes secrets."
-        fi
-      '';
-    };
+    # GitHub access tokens are included declaratively via nix.extraOptions
+    # using !include with the sops template path. No imperative postActivation
+    # script is needed because NixOS generates /etc/nix/nix.conf as a read-only
+    # store symlink from nix.settings and nix.extraOptions.
   };
 }
