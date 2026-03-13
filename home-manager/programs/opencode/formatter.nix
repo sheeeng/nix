@@ -174,8 +174,8 @@
       "run"
       "nixpkgs#yamlfmt"
       "--"
-      "-formatter"
-      "indent=2,retain_line_breaks=false,retain_line_breaks_single=false"
+      "--formatter"
+      "array_indent=2,disable_alias_key_correction=false,disallow_anchors=false,drop_merge_tag=false,eof_newline=false,include_document_start=false,indent=2,indent_root_array=false,indentless_arrays=false,max_line_length=0,pad_line_comments=1,retain_line_breaks=false,retain_line_breaks_single=false,scan_folded_as_literal=false,strip_directives=false,trim_trailing_whitespace=false"
       "$FILE"
     ];
     extensions = [
