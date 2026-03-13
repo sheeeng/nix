@@ -77,6 +77,8 @@
       "run"
       "nixpkgs#nixfmt"
       "--"
+      "--indent"
+      "2"
       "$FILE"
     ];
     extensions = [ ".nix" ];
