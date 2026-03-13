@@ -26,7 +26,10 @@
         command = "${lib.getExe pkgs.nixfmt}";
         includes = [ "*.nix" ];
         excludes = [ ];
-        options = [ ];
+        options = [
+          "--indent"
+          "2"
+        ];
         settings = { };
       };
       prettier = {
