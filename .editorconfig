@@ -11,9 +11,15 @@ indent_style = space
 insert_final_newline = true
 trim_trailing_whitespace = true
 
-[{.,}*.{js{,*},y{a,}ml}]
+[{.,}*.{js{,*}}]
 indent_style = space
 indent_size = 2
+
+[*.{yaml,yml}]
+indent_style = space
+indent_size = 2
+insert_final_newline = false
+trim_trailing_whitespace = false
 
 [*.{md,txt}]
 indent_style = space
