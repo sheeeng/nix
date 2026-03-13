@@ -164,13 +164,16 @@
     ];
   };
   yaml = {
+    # @upstream-issue https://github.com/google/yamlfmt/issues/228#issuecomment-2538987870
+    # @upstream-pull-request https://github.com/google/yamlfmt/pull/159
+    # @upstream-pull-request https://github.com/google/yamlfmt/pull/98/changes
     command = [
       "nix"
       "run"
       "nixpkgs#yamlfmt"
       "--"
       "-formatter"
-      "retain_line_breaks=false" # https://github.com/google/yamlfmt/issues/228#issuecomment-2538987870
+      "indent=2,retain_line_breaks=false,retain_line_breaks_single=false"
       "$FILE"
     ];
     extensions = [
