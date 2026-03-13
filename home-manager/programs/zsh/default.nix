@@ -149,7 +149,6 @@
     setOptions = [ ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.setOptions
 
     shellAliases = {
-      # Do not alias core commands such as ls or cat without explicit user approval.
       # ZSH globbing interferes with flake notation for all nix commands
       nix = "noglob nix";
       nom = "noglob nom";

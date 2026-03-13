@@ -205,7 +205,6 @@ let
     profileExtra = ""; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.bash.profileExtra
     sessionVariables = { }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.bash.sessionVariables
     shellAliases = {
-      # Do not alias core commands such as ls or cat without explicit user approval.
       sudo = "sudo "; # @note Expand aliases after sudo command.
       # ls = "exa ";
       # ll = "exa -l --color=always";
