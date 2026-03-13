@@ -539,6 +539,24 @@ in
             {
               "backgroundColor" = "transparent";
               "bold" = false;
+              "color" = "#80D7AB";
+              "italic" = false;
+              "strikethrough" = false;
+              "tag" = "@upstream-pull-request";
+              "underline" = false;
+            }
+            {
+              "backgroundColor" = "transparent";
+              "bold" = false;
+              "color" = "#6FC896";
+              "italic" = false;
+              "strikethrough" = false;
+              "tag" = "@upstream-review";
+              "underline" = false;
+            }
+            {
+              "backgroundColor" = "transparent";
+              "bold" = false;
               "color" = "#C792EA";
               "italic" = false;
               "strikethrough" = false;
