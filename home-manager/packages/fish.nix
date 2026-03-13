@@ -212,7 +212,6 @@ _: { }
 #         m = "sudo micro";
 #         reboot = "sudo reboot";
 #         x = "chmod a+x";
-#         #ls = "exa -l --icons";
 #         matrix = "cmatrix -abfs";
 #         nixswitch = "sudo nixos-rebuild switch";
 #         nixboot = "sudo nixos-rebuild boot";
@@ -232,14 +231,8 @@ _: { }
 #         vim = "nvim";
 
 #         ".." = "cd ..";
-#         l = "${pkgs.eza}/bin/eza -lahG";
-#         ls = "${pkgs.eza}/bin/eza";
-#         lst = "${pkgs.eza}/bin/eza -T";
-#         la = "${pkgs.eza}/bin/eza -lah";
-#         ll = "${pkgs.eza}/bin/eza -l -g --icons";
 #         md = "mkdir --parents";
 #         cx = "chmod +x";
-#         # cat = "${pkgs.bat}/bin/bat"; # Use `lib.mkForce value` or `lib.mkDefault value` to change the priority on any of these definitions.
 
 #         root = "cd (${pkgs.gitAndTools.git}/bin/git rev-parse --show-cdup)";
 #         gpom = "${pkgs.gitAndTools.git}/bin/git push origin master";

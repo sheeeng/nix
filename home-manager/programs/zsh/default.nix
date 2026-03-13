@@ -149,6 +149,7 @@
     setOptions = [ ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.setOptions
 
     shellAliases = {
+      # Do not alias core commands such as ls or cat without explicit user approval.
       # ZSH globbing interferes with flake notation for all nix commands
       nix = "noglob nix";
       nom = "noglob nom";
@@ -164,13 +165,6 @@
       # kds = ''${pkgs.kubectl}/bin/kubectl get secrets -o go-template='{{range $k,$v := .data}}{{$k}}="{{($v | base64decode)}}"{{"\n"}}{{end}}' ''; # kube decode secrets (mind the space in the end to separate ' from '' :facepalm.nix:)
       # kgpi = ''${pkgs.kubectl}/bin/kubectl get pods --all-namespaces -o jsonpath="{.items[*].spec.containers[*].image}" | tr -s '[[:space:]]' '\n' | sort | uniq -c''; # kube get pods' images
       # ks = "${pkgs.kubectl}/bin/kubectl -n kube-system";
-      # l = "${pkgs.eza}/bin/eza --long --all --header --classify=always --group-directories-first --time-style=long-iso --git";
-      # ls = "${pkgs.eza}/bin/eza --group-directories-first --time-style=long-iso --git";
-      # lsd = "${pkgs.eza}/bin/eza --long --header --git --only-dirs";
-      # lse = "${pkgs.eza}/bin/eza --long --header --git --sort ext";
-      # lsm = "${pkgs.eza}/bin/eza --long --header --git --sort mod";
-      # lsn = "${pkgs.eza}/bin/eza --long --header --git --sort name";
-      # lss = "${pkgs.eza}/bin/eza --long --header --git --sort size";
       reset-dock = "defaults delete com.apple.dock; killall Dock";
       terraform = "${lib.getExe' pkgs.opentofu "tofu"}"; # Alias terraform command to OpenTofu's tofu binary
       # tf = "${pkgs.terraform}/bin/terraform";
