@@ -2,10 +2,19 @@
 {
   programs.eza = {
     enable = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.eza.enable
-    package = pkgs.eza; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.eza.package
     enableBashIntegration = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.eza.enableBashIntegration
     enableFishIntegration = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.eza.enableFishIntegration
+    enableIonIntegration = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.eza.enableIonIntegration
     enableNushellIntegration = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.eza.enableNushellIntegration
     enableZshIntegration = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.eza.enableZshIntegration
+    package = pkgs.eza; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.eza.package
+    colors = null; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.eza.colors
+    extraOptions = [
+      "--group-directories-first"
+      "--header"
+    ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.eza.extraOptions
+    git = false; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.eza.git
+    icons = null; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.eza.icons
+    theme = { }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.eza.theme
   };
 }
