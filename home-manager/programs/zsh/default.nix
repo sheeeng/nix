@@ -148,37 +148,9 @@
     }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.sessionVariables
     setOptions = [ ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.setOptions
 
-    shellAliases = {
-      # ZSH globbing interferes with flake notation for all nix commands
-      nix = "noglob nix";
-      nom = "noglob nom";
-      nixos-remote = "noglob nixos-remote";
-      nixos-rebuild = "noglob nixos-rebuild";
-      nh = "noglob nh";
+    shellAliases = { }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.shellAliases
 
-      # Append HISTFILE before running autin import to make it work properly
-      atuin-import = lib.mkIf config.programs.atuin.enable "export HISTFILE && atuin import auto && unset HISTFILE";
-
-      # gtl = "cd $(${pkgs.git}/bin/git rev-parse --show-toplevel)";
-      # k = "${pkgs.kubectl}/bin/kubectl";
-      # kds = ''${pkgs.kubectl}/bin/kubectl get secrets -o go-template='{{range $k,$v := .data}}{{$k}}="{{($v | base64decode)}}"{{"\n"}}{{end}}' ''; # kube decode secrets (mind the space in the end to separate ' from '' :facepalm.nix:)
-      # kgpi = ''${pkgs.kubectl}/bin/kubectl get pods --all-namespaces -o jsonpath="{.items[*].spec.containers[*].image}" | tr -s '[[:space:]]' '\n' | sort | uniq -c''; # kube get pods' images
-      # ks = "${pkgs.kubectl}/bin/kubectl -n kube-system";
-      reset-dock = "defaults delete com.apple.dock; killall Dock";
-      terraform = "${lib.getExe' pkgs.opentofu "tofu"}"; # Alias terraform command to OpenTofu's tofu binary
-      # tf = "${pkgs.terraform}/bin/terraform";
-      # mt = "cd $(mktemp --directory ${"TMPDIR:-/tmp"}/zombie.XXXXXXXXX)";
-      # tg = "${pkgs.terragrunt}/bin/terragrunt";
-      # tree = "${pkgs.eza}/bin/eza --tree";
-      # vi = "${pkgs.helix}/bin/hx";
-      wttr = "${pkgs.curl}/bin/curl 'wttr.in/Oslo?format=3'"; # TODO: https://www.reddit.com/r/macapps/comments/1gg4k6o/comment/lupspio/
-      wttr-all = "${pkgs.curl}/bin/curl 'wttr.in/{Helsfyr,Kuching,Kamakura,Lørenskog,Oslo,Tokyo}?format=3'";
-    }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.shellAliases
-
-    shellGlobalAliases = {
-      generate-uuid = "$(${lib.getExe' pkgs.util-linux "uuidgen"} | tr -d \\n)";
-      # G = "| grep";
-    }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.shellGlobalAliases
+    shellGlobalAliases = { }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.shellGlobalAliases
 
     siteFunctions = { }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.siteFunctions
 
