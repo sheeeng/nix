@@ -11,12 +11,6 @@
     extraEnv = ""; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.nushell.extraEnv
     extraLogin = ""; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.nushell.extraLogin
     loginFile = null; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.nushell.loginFile
-    shellAliases = {
-      la = "${lib.getExe' pkgs.uutils-coreutils-noprefix "ls"} --all";
-      ll = "${lib.getExe' pkgs.uutils-coreutils-noprefix "ls"} --long";
-      lla = "${lib.getExe' pkgs.uutils-coreutils-noprefix "ls"} --long --all";
-      ls = "${lib.getExe' pkgs.uutils-coreutils-noprefix "ls"}";
-      lt = "${lib.getExe pkgs.eza} --tree";
-    }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.nushell.shellAliases
+    shellAliases = { }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.nushell.shellAliases
   };
 }
