@@ -10,7 +10,9 @@
     package = pkgs.eza; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.eza.package
     colors = null; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.eza.colors
     extraOptions = [
+      "--all"
       "--group-directories-first"
+      "--long"
       "--header"
     ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.eza.extraOptions
     git = false; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.eza.git
