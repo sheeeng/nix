@@ -204,35 +204,7 @@ let
     logoutExtra = ""; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.bash.logoutExtra
     profileExtra = ""; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.bash.profileExtra
     sessionVariables = { }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.bash.sessionVariables
-    shellAliases = {
-      sudo = "sudo "; # @note Expand aliases after sudo command.
-      # ls = "exa ";
-      # ll = "exa -l --color=always";
-      # la = "exa -a --color=always";
-      # lla = "exa -al --color=always";
-      ".." = "cd ..";
-      "..." = "cd ../..";
-      "...." = "cd ../../..";
-      ".2" = "cd ../..";
-      ".3" = "cd ../../..";
-      ".4" = "cd ../../../..";
-      ".5" = "cd ../../../../..";
-      ".6" = "cd ../../../../../..";
-      bro = "bitte rebuild --only";
-      g = "git";
-      grbc = "git rebase --continue";
-      gco = "git checkout";
-      gst = "git status";
-      nfl = "nix flake lock";
-      nflu = "nix flake lock --update-input";
-      vimdiff = "nvim -d";
-      vim = "nvim";
-      vi = "nvim";
-      opt = ''manix "" | grep '^# ' | sed 's/^# \(.*\) (.*/\1/;s/ (.*//;s/^# //' | fzf --ansi --preview="manix '{}' | sed 's/type: /> type: /g' | bat -l Markdown --color=always --plain"'';
-      to32 = "nix-hash --to-base32 --type sha256";
-
-      suspend = "systemctl suspend";
-    }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.bash.shellAliases
+    shellAliases = { }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.bash.shellAliases
     shellOptions = [
       "histappend"
       "extglob"

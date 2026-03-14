@@ -1,4 +1,4 @@
-_:
+{ lib, pkgs, ... }:
 let
   folderFiles = dir: (map (fname: dir + "/${fname}") (builtins.attrNames (builtins.readDir dir)));
   # Filter out files that are package derivations, not modules
@@ -57,6 +57,33 @@ in
     };
     shellAliases = {
       z = "zoxide";
+      ez = "${lib.getExe pkgs.eza}";
+      eza = "${lib.getExe pkgs.eza} --all";
+      ezl = "${lib.getExe pkgs.eza} --long";
+      ezla = "${lib.getExe pkgs.eza} --long --all";
+      ezt = "${lib.getExe pkgs.eza} --tree";
+      la = "${lib.getExe' pkgs.uutils-coreutils-noprefix "ls"} --all";
+      ll = "${lib.getExe' pkgs.uutils-coreutils-noprefix "ls"} --long";
+      lla = "${lib.getExe' pkgs.uutils-coreutils-noprefix "ls"} --long --all";
+      ls = "${lib.getExe' pkgs.uutils-coreutils-noprefix "ls"}";
+      sudo = "sudo "; # @note Expand aliases after sudo command.
+      suspend = if pkgs.stdenv.hostPlatform.isDarwin then "pmset sleepnow" else "systemctl suspend";
+
+      # Prevent Zsh glob expansion from altering flake references in Nix commands.
+      # @upstream-issue https://github.com/NixOS/nix/issues/4686#issuecomment-3187134220
+      nix = "noglob nix";
+      nom = "noglob nom";
+      nixos-rebuild = lib.mkIf pkgs.stdenv.hostPlatform.isLinux "noglob nixos-rebuild";
+      nh = "noglob nh";
+
+      # Export HISTFILE only for this command so atuin import can read shell history.
+      atuin-import = lib.mkIf config.programs.atuin.enable "export HISTFILE && atuin import auto && unset HISTFILE";
+
+      generate-uuid = "$(${lib.getExe' pkgs.util-linux "uuidgen"} | tr -d \\n)";
+      reset-dock = lib.mkIf pkgs.stdenv.hostPlatform.isDarwin "defaults delete com.apple.dock; killall Dock";
+      terraform = "${lib.getExe' pkgs.opentofu "tofu"}"; # Map terraform to the OpenTofu tofu binary for command compatibility.
+      wttr = "${pkgs.curl}/bin/curl 'wttr.in/Oslo?format=3'"; # TODO: https://www.reddit.com/r/macapps/comments/1gg4k6o/comment/lupspio/
+      wttr-all = "${pkgs.curl}/bin/curl 'wttr.in/{Helsfyr,Kuching,Kamakura,Lørenskog,Oslo,Tokyo}?format=3'";
     }; # https://nix-community.github.io/home-manager/options.xhtml#opt-home.shellAliases
     stateVersion = "25.11"; # https://nix-community.github.io/home-manager/options.xhtml#opt-home.stateVersion
   };
