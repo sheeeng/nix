@@ -12,7 +12,6 @@
     extraLogin = ""; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.nushell.extraLogin
     loginFile = null; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.nushell.loginFile
     shellAliases = {
-      # Do not alias core commands such as ls or cat without explicit user approval.
       ll = "ls -l";
     }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.nushell.shellAliases
   };
