@@ -61,9 +61,7 @@ in
       enableZshIntegration = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-home.shell.enableZshIntegration
     };
     shellAliases = {
-      z = "zoxide";
       ez = "${lib.getExe pkgs.eza}";
-      eza = "${lib.getExe pkgs.eza} --all";
       ezl = "${lib.getExe pkgs.eza} --long";
       ezla = "${lib.getExe pkgs.eza} --long --all";
       ezt = "${lib.getExe pkgs.eza} --tree";
@@ -73,13 +71,14 @@ in
       ls = "${lib.getExe' pkgs.uutils-coreutils-noprefix "ls"}";
       sudo = "sudo "; # @note Expand aliases after sudo command.
       suspend = if pkgs.stdenv.hostPlatform.isDarwin then "pmset sleepnow" else "systemctl suspend";
+      z = "zoxide";
 
       # Prevent Zsh glob expansion from altering flake references in Nix commands.
       # @upstream-issue https://github.com/NixOS/nix/issues/4686#issuecomment-3187134220
-      nix = "noglob nix";
-      nom = "noglob nom";
-      nixos-rebuild = lib.mkIf pkgs.stdenv.hostPlatform.isLinux "noglob nixos-rebuild";
       nh = "noglob nh";
+      nix = "noglob nix";
+      nixos-rebuild = lib.mkIf pkgs.stdenv.hostPlatform.isLinux "noglob nixos-rebuild";
+      nom = "noglob nom";
 
       # Export HISTFILE only for this command so atuin import can read shell history.
       atuin-import = lib.mkIf config.programs.atuin.enable "export HISTFILE && atuin import auto && unset HISTFILE";
