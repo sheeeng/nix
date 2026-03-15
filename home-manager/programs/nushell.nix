@@ -1,4 +1,4 @@
-{ lib, pkgs, ... }:
+{ pkgs, ... }:
 {
   programs.nushell = {
     # @upstream-issue https://github.com/NixOS/nixpkgs/issues/485915
