@@ -69,7 +69,8 @@ in
       ll = "${lib.getExe' pkgs.uutils-coreutils-noprefix "ls"} --long";
       lla = "${lib.getExe' pkgs.uutils-coreutils-noprefix "ls"} --long --all";
       ls = "${lib.getExe' pkgs.uutils-coreutils-noprefix "ls"}";
-      sudo = "sudo "; # @note Expand aliases after sudo command.
+      # @note The sudo function lives in programs/zsh/init-content.nix to avoid
+      # alias chain-expansion with noglob aliases.
       suspend = if pkgs.stdenv.hostPlatform.isDarwin then "pmset sleepnow" else "systemctl suspend";
       z = "zoxide";
 

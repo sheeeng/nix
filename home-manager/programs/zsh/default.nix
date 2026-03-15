@@ -148,11 +148,18 @@
     }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.sessionVariables
     setOptions = [ ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.setOptions
 
-    # @note Noglob wrappers for nix, nh, nom, and nixos-rebuild live in
-    # init-content.nix as functions. Zsh's sudo trailing-space alias expands
-    # subsequent aliases, so using aliases here would turn `sudo nix ...` into
-    # `sudo noglob nix ...`, and sudo cannot execute the noglob builtin.
-    shellAliases = { }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.shellAliases
+    # Noglob aliases prevent Zsh glob expansion from altering flake references
+    # in Nix commands. The sudo function in init-content.nix avoids alias
+    # chain-expansion that would turn `sudo nix ...` into `sudo noglob nix ...`.
+    # @upstream-issue https://github.com/NixOS/nix/issues/4686#issuecomment-3187134220
+    shellAliases = {
+      nh = "noglob nh";
+      nix = "noglob nix";
+      nom = "noglob nom";
+    }
+    // lib.optionalAttrs pkgs.stdenv.hostPlatform.isLinux {
+      nixos-rebuild = "noglob nixos-rebuild";
+    }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.shellAliases
 
     shellGlobalAliases = { }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.shellGlobalAliases
 
