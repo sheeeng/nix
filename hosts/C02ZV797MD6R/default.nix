@@ -61,6 +61,7 @@ in
       # dix # https://search.nixos.org/packages?channel=unstable&type=packages&show=dix
       findutils # https://search.nixos.org/packages?channel=unstable&type=packages&show=findutils
       # inputs.flox.packages.${pkgs.system}.default
+      manix # https://search.nixos.org/packages?channel=unstable&type=packages&show=manix
       # nh # https://search.nixos.org/packages?channel=unstable&type=packages&show=nh
       # nil # https://search.nixos.org/packages?channel=unstable&type=packages&show=nil
       nix # https://search.nixos.org/packages?channel=unstable&type=packages&show=nix
