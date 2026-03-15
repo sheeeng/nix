@@ -73,13 +73,6 @@ in
       suspend = if pkgs.stdenv.hostPlatform.isDarwin then "pmset sleepnow" else "systemctl suspend";
       z = "zoxide";
 
-      # Prevent Zsh glob expansion from altering flake references in Nix commands.
-      # @upstream-issue https://github.com/NixOS/nix/issues/4686#issuecomment-3187134220
-      nh = "noglob nh";
-      nix = "noglob nix";
-      nixos-rebuild = lib.mkIf pkgs.stdenv.hostPlatform.isLinux "noglob nixos-rebuild";
-      nom = "noglob nom";
-
       # Export HISTFILE only for this command so atuin import can read shell history.
       atuin-import = lib.mkIf config.programs.atuin.enable "export HISTFILE && atuin import auto && unset HISTFILE";
 
