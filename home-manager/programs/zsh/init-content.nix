@@ -37,17 +37,11 @@
           bindkey -M vicmd '^B' sudo-command-line
         fi
 
-        # Prevent Zsh glob expansion from altering flake references in Nix commands.
-        # Defined as functions instead of aliases so the sudo trailing-space alias
-        # does not chain-expand into the noglob builtin.
+        # Wrap sudo as a function instead of a trailing-space alias to prevent
+        # alias chain-expansion that turns `sudo nix ...` into `sudo noglob nix ...`.
         # @upstream-issue https://github.com/NixOS/nix/issues/4686#issuecomment-3187134220
-        nix() { noglob command nix "$@" }
-        nh() { noglob command nh "$@" }
-        nom() { noglob command nom "$@" }
+        sudo() { command sudo "$@" }
       ''
-      + (lib.optionalString pkgs.stdenv.hostPlatform.isLinux ''
-        nixos-rebuild() { noglob command nixos-rebuild "$@" }
-      '')
       + (lib.optionalString config.programs.pyenv.enable ''
         ### Pyenv command
         # if command -v pyenv 1>/dev/null 2>&1; then
