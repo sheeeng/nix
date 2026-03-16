@@ -66,6 +66,7 @@ in
       gnupg
       helix
       htop
+      manix # https://search.nixos.org/packages?channel=unstable&type=packages&show=manix
       neovim
       nh # https://search.nixos.org/packages?channel=unstable&type=packages&show=nh
       nil # https://search.nixos.org/packages?channel=unstable&type=packages&show=nil
