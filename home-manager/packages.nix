@@ -131,7 +131,6 @@
       asdf-vm # https://search.nixos.org/packages?channel=unstable&type=packages&show=asdf-vm
       autoconf # https://search.nixos.org/packages?channel=unstable&type=packages&show=autoconf
       cilium-cli # https://search.nixos.org/packages?channel=unstable&type=packages&show=cilium-cli
-      codium # https://search.nixos.org/packages?channel=unstable&type=packages&show=codium
       conform # https://search.nixos.org/packages?channel=unstable&type=packages&show=conform
       delta # https://search.nixos.org/packages?channel=unstable&type=packages&show=delta
       dependabot-cli # https://search.nixos.org/packages?channel=unstable&type=packages&show=dependabot-cli
