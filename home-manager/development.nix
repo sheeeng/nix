@@ -10,9 +10,10 @@
     with pkgs;
     [
       code-cursor # https://search.nixos.org/packages?channel=unstable&type=packages&show=code-cursor
-      vscodium # https://search.nixos.org/packages?channel=unstable&type=packages&show=vscodium
     ]
     ++ (pkgs.lib.optionals pkgs.stdenv.isLinux [ ])
-    ++ (pkgs.lib.optionals pkgs.stdenv.isDarwin [ ])
+    ++ (pkgs.lib.optionals pkgs.stdenv.isDarwin [
+      vscodium # https://search.nixos.org/packages?channel=unstable&type=packages&show=vscodium
+    ])
     ++ (pkgs.lib.optionals (pkgs.stdenv.isDarwin && pkgs.stdenv.hostPlatform.isAarch64) [ ]);
 }
