@@ -51,7 +51,7 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
       - name: Install Nix
-        uses: determinatesystems/determinate-nix-action@131015bad844610e5e6300f8a143bf625d3e74f4 # v3.17.0
+        uses: determinatesystems/determinate-nix-action@a18f73c54ca8525de051e73c31512a67f44df919 # v3.17.1
       - name: Create Update Branch
         run: |
           git branch -D "$pr_branch" 2>/dev/null || echo "Branch does not exist locally"
