@@ -16,16 +16,14 @@ let
 
   lspBinPath =
     lang:
-    with pkgs.nodePackages;
-
     if lang == "typescript" then
-      "${typescript-language-server}/bin/typescript-language-server"
+      "${pkgs.typescript-language-server}/bin/typescript-language-server"
     else
-      "${vscode-langservers-extracted}/bin/vscode-${lang}-language-server";
+      "${pkgs.vscode-langservers-extracted}/bin/vscode-${lang}-language-server";
 in
 
 {
-  home.packages = with pkgs.nodePackages; [
+  home.packages = with pkgs; [
     typescript-language-server
     vscode-langservers-extracted
   ];
