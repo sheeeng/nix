@@ -118,10 +118,10 @@
         ]
       },
       "locked": {
-        "lastModified": 1773626774,
-        "narHash": "sha256-3V0FrqJ/ajDlMyquAZo1jUmYXF4TneBoh3VTsjvwyq0=",
+        "lastModified": 1775619690,
+        "narHash": "sha256-O1GuogEtQ3Zq5tc9j7YQ+VKT/ik/tvSZJv36FxrmZGg=",
         "ref": "main",
-        "rev": "3ac028bff3088dc395b5fd5ebc6cf32353f84ba0",
+        "rev": "afbfcbe81da47ca391bf0f1d641136a096562106",
         "shallow": true,
         "type": "git",
         "url": "ssh://git@github.com/steveyegge/beads.git"
@@ -550,6 +550,24 @@
         "owner": "SenchoPens",
         "repo": "fromYaml",
         "type": "github"
+      }
+    },
+    "gascity": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1775626914,
+        "narHash": "sha256-Y50z4da5vpHT8lfz6+HSao2HAvYuiSt219t13hXa9rs=",
+        "ref": "main",
+        "rev": "00a8c4239f531cd111fcfa6b5490e15305504e02",
+        "shallow": true,
+        "type": "git",
+        "url": "ssh://git@github.com/gastownhall/gascity.git"
+      },
+      "original": {
+        "ref": "main",
+        "shallow": true,
+        "type": "git",
+        "url": "ssh://git@github.com/gastownhall/gascity.git"
       }
     },
     "gitignore": {
@@ -1005,11 +1023,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1775717360,
-        "narHash": "sha256-EMOy15PPM2X5Hoz5kUBtcRtd+7sh1bj3I5o6HPZCa7o=",
+        "lastModified": 1775720550,
+        "narHash": "sha256-kKKwC/LrtU+sJb42UqPyV0rw4ItNcdr53lbAlPKBxX0=",
         "owner": "nix-community",
         "repo": "nur",
-        "rev": "4b22de075887985d445668c4634ae148618c6a41",
+        "rev": "2a7b28ecbab41224e27a5d491b01cd42c226af1d",
         "type": "github"
       },
       "original": {
@@ -1137,6 +1155,29 @@
         "ref": "nightly",
         "repo": "rust-analyzer",
         "type": "github"
+      }
+    },
+    "rust-overlay": {
+      "inputs": {
+        "nixpkgs": [
+          "wrapix",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1775617983,
+        "narHash": "sha256-2NWGA/I4j/qlx6qbg86QvJiK1/GyH9gnf0hFiARWVwE=",
+        "ref": "master",
+        "rev": "d98b91b1feae7ef07fa2ccb3aa3f83f11abfae54",
+        "shallow": true,
+        "type": "git",
+        "url": "ssh://git@github.com/oxalica/rust-overlay.git"
+      },
+      "original": {
+        "ref": "master",
+        "shallow": true,
+        "type": "git",
+        "url": "ssh://git@github.com/oxalica/rust-overlay.git"
       }
     },
     "sops-nix": {
@@ -1450,11 +1491,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1773297127,
-        "narHash": "sha256-6E/yhXP7Oy/NbXtf1ktzmU8SdVqJQ09HC/48ebEGBpk=",
+        "lastModified": 1775636079,
+        "narHash": "sha256-pc20NRoMdiar8oPQceQT47UUZMBTiMdUuWrYu2obUP0=",
         "owner": "numtide",
         "repo": "treefmt-nix",
-        "rev": "71b125cd05fbfd78cab3e070b73544abe24c5016",
+        "rev": "790751ff7fd3801feeaf96d7dc416a8d581265ba",
         "type": "github"
       },
       "original": {
@@ -1463,14 +1504,37 @@
         "type": "github"
       }
     },
+    "treefmt-nix_4": {
+      "inputs": {
+        "nixpkgs": [
+          "wrapix",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1775636079,
+        "narHash": "sha256-pc20NRoMdiar8oPQceQT47UUZMBTiMdUuWrYu2obUP0=",
+        "ref": "main",
+        "rev": "790751ff7fd3801feeaf96d7dc416a8d581265ba",
+        "shallow": true,
+        "type": "git",
+        "url": "https://github.com/numtide/treefmt-nix.git"
+      },
+      "original": {
+        "ref": "main",
+        "shallow": true,
+        "type": "git",
+        "url": "https://github.com/numtide/treefmt-nix.git"
+      }
+    },
     "wcurl": {
       "flake": false,
       "locked": {
-        "lastModified": 1767756321,
-        "narHash": "sha256-aA9BvN+ANi6zFYjl4oQCOLdrFQZtJNVwJ/kXJBnL8u8=",
+        "lastModified": 1774531654,
+        "narHash": "sha256-e2v6boZs4nnIX5iYXJTXXCSa/jhxZFq6gg19sGCFfMw=",
         "owner": "curl",
         "repo": "wcurl",
-        "rev": "9b988ae9377909d86173936c63f4306b7ae1ae35",
+        "rev": "7f016cc75497f9d9f823f704e9d587cc1d635ca1",
         "type": "github"
       },
       "original": {
@@ -1486,16 +1550,19 @@
         "flake-parts": [
           "flake-parts"
         ],
+        "gascity": "gascity",
         "nixpkgs": [
           "nixpkgs"
-        ]
+        ],
+        "rust-overlay": "rust-overlay",
+        "treefmt-nix": "treefmt-nix_4"
       },
       "locked": {
-        "lastModified": 1773701417,
-        "narHash": "sha256-7MlouoE5c3aqHJx82ZVwjfCtMk9DZoG/odF7MJ3fanA=",
+        "lastModified": 1775694847,
+        "narHash": "sha256-HDJ/HRe0DwP4xVlTmXS+Mpqk4KgclGu1mrVUbJd+czc=",
         "owner": "taheris",
         "repo": "wrapix",
-        "rev": "cfa69783f60d0f235d620d900b0121de2b984f1d",
+        "rev": "4eaf486a70db095580172852d1147b8a409fcf61",
         "type": "github"
       },
       "original": {
