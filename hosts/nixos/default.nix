@@ -295,8 +295,8 @@ in
     pulse.enable = true;
   };
 
-  # Disable yubikey-agent as gpg-agent with SSH support is used instead.
-  # The gpg-agent (configured via home-manager) handles both GPG and SSH keys.
+  # Disable yubikey-agent; ssh-agent handles SSH keys on Linux.
+  # The gpg-agent handles GPG operations only on Linux.
   services.yubikey-agent.enable = false; # https://search.nixos.org/options?channel=unstable&show=services.yubikey-agent.enable
 
   # Enable pcscd for smart card (YubiKey) support with gpg-agent.
