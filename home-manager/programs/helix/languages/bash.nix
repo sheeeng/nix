@@ -35,7 +35,7 @@
       language-server = {
         bash-language-server = {
           args = [ "start" ];
-          command = lib.getExe pkgs.bash-language-server; # "${pkgs.nodePackages.bash-language-server}/bin/bash-language-server";
+          command = lib.getExe pkgs.bash-language-server; # "${pkgs.bash-language-server}/bin/bash-language-server";
         };
       };
     };
