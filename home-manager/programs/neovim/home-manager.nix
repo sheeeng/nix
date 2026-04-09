@@ -5,7 +5,7 @@
     fd # For nvim-telescope
     nixd # For nvim-lspconfig
     nodejs # Required for nvim-copilot
-    nodePackages.typescript-language-server # For nvim-lspconfig
+    typescript-language-server # For nvim-lspconfig
     ripgrep # For nvim-telescope and nvim-spectre
     terraform-ls # For nvim-lspconfig
     tree-sitter # For nvim-treesitter

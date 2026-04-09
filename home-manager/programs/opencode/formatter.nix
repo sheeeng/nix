@@ -4,7 +4,7 @@
     command = [
       "nix"
       "run"
-      "nixpkgs#nodePackages.prettier"
+      "nixpkgs#prettier"
       "--"
       "--parser"
       "css"
@@ -17,7 +17,7 @@
     command = [
       "nix"
       "run"
-      "nixpkgs#nodePackages.prettier"
+      "nixpkgs#prettier"
       "--"
       "--parser"
       "html"
@@ -30,7 +30,7 @@
     command = [
       "nix"
       "run"
-      "nixpkgs#nodePackages.prettier"
+      "nixpkgs#prettier"
       "--"
       "--parser"
       "babel"
@@ -46,7 +46,7 @@
     command = [
       "nix"
       "run"
-      "nixpkgs#nodePackages.prettier"
+      "nixpkgs#prettier"
       "--"
       "--parser"
       "json"
@@ -62,7 +62,7 @@
     command = [
       "nix"
       "run"
-      "nixpkgs#nodePackages.prettier"
+      "nixpkgs#prettier"
       "--"
       "--parser"
       "markdown"
@@ -153,7 +153,7 @@
     command = [
       "nix"
       "run"
-      "nixpkgs#nodePackages.prettier"
+      "nixpkgs#prettier"
       "--"
       "--parser"
       "typescript"
