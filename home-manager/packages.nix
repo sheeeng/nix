@@ -255,6 +255,7 @@
       mkdocs # https://search.nixos.org/packages?channel=unstable&type=packages&show=mkdocs
       pandoc # https://search.nixos.org/packages?channel=unstable&type=packages&show=pandoc
       vhs # https://search.nixos.org/packages?channel=unstable&type=packages&show=vhs
+      zensical # https://search.nixos.org/packages?channel=unstable&type=packages&show=zensical
       # keep-sorted end
 
       # File Managers And Disk Tools
