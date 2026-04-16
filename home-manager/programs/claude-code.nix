@@ -1,64 +1,40 @@
 { pkgs, ... }:
+let
+  # obra/superpowers: A complete software development workflow for coding agents.
+  # https://github.com/obra/superpowers
+  superpowersSrc = pkgs.fetchFromGitHub {
+    owner = "obra";
+    repo = "superpowers";
+    rev = "v4.3.1"; # 151ac79ccac12d769356da93e6e0513ae736fa13
+    hash = "sha256-/3T9haaI5x7wVLAy+z8NzaH5hI1qvIa2nTKq91jNNXA=";
+  };
+in
 {
   programs.claude-code = {
     enable = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.claude-code.enable
+    enableMcpIntegration = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.claude-code.enableMcpIntegration
     package = pkgs.claude-code; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.claude-code.package
     agents = {
-      code-reviewer = ''
-        ---
-        name: code-reviewer
-        description: Specialized code review agent
-        tools: Read, Edit, Grep
-        ---
-
-        You are a senior software engineer specializing in code reviews.
-        Focus on code quality, security, and maintainability.
-      '';
-      documentation = ''
-        ---
-        name: documentation
-        description: Documentation writing assistant
-        model: claude-3-5-sonnet-20241022
-        tools: Read, Write, Edit
-        ---
-
-        You are a technical writer who creates clear, comprehensive documentation.
-        Focus on user-friendly explanations and examples.
-      '';
+      builder = ./opencode/agents/builder.md;
+      chicken = ./opencode/agents/chicken.md;
+      code-reviewer = ./opencode/agents/code-reviewer.md;
+      explorer = ./opencode/agents/explorer.md;
+      planner = ./opencode/agents/planner.md;
+      security-auditor = ./opencode/agents/security-auditor.md;
+      superpowers-code-reviewer = "${superpowersSrc}/agents/code-reviewer.md";
+      technical-writer = ./opencode/agents/technical-writer.md;
     }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.claude-code.agents
+    agentsDir = null; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.claude-code.agentsDir
     commands = {
-      changelog = ''
-        ---
-        allowed-tools: Bash(git log:*), Bash(git diff:*)
-        argument-hint: [version] [change-type] [message]
-        description: Update CHANGELOG.md with new entry
-        ---
-        Parse the version, change type, and message from the input
-        and update the CHANGELOG.md file accordingly.
-      '';
-      commit = ''
-        ---
-        allowed-tools: Bash(git add:*), Bash(git status:*), Bash(git commit:*)
-        description: Create a git commit with proper message
-        ---
-        ## Context
-
-        - Current git status: !`git status`
-        - Current git diff: !`git diff HEAD`
-        - Recent commits: !`git log --oneline -5`
-
-        ## Task
-
-        Based on the changes above, create a single atomic git commit with a descriptive message.
-      '';
-      fix-issue = ''
-        ---
-        allowed-tools: Bash(git status:*), Read
-        argument-hint: [issue-number]
-        description: Fix GitHub issue following coding standards
-        ---
-        Fix issue #$ARGUMENTS following our coding standards and best practices.
-      '';
+      brainstorm = "${superpowersSrc}/commands/brainstorm.md";
+      changelog = ./opencode/commands/changelog.md;
+      commit = ./opencode/commands/commit.md;
+      execute-plan = "${superpowersSrc}/commands/execute-plan.md";
+      fix-issue = ./opencode/commands/fix-issue.md;
+      implement = ./opencode/commands/implement.md;
+      plan = ./opencode/commands/plan.md;
+      research = ./opencode/commands/research.md;
+      write-plan = "${superpowersSrc}/commands/write-plan.md";
     }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.claude-code.commands
     mcpServers = {
       customTransport = {
