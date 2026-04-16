@@ -75,3 +75,9 @@ Invoke this agent to:
 - Security review needed: escalate to security-auditor.
 - Need documentation: coordinate with technical-writer.
 - Complex architecture decisions: consult planner first.
+
+## Constraint: Forbids Nested Subagents
+
+You are already a subagent. Do NOT use the any tool to dispatch your own subagents.
+If you need help, report back with NEEDS_CONTEXT or BLOCKED and let the
+controller handle it. All subagent dispatch is done by the controller only.
