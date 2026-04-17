@@ -251,6 +251,8 @@
       # keep-sorted start block=no newline_separated=no sticky_comments=no
       glow # https://search.nixos.org/packages?channel=unstable&type=packages&show=glow
       graphviz # https://search.nixos.org/packages?channel=unstable&type=packages&show=graphviz
+      markdownlint-cli # https://search.nixos.org/packages?channel=unstable&type=packages&show=markdownlint-cli
+      markdownlint-cli2 # https://search.nixos.org/packages?channel=unstable&type=packages&show=markdownlint-cli2
       mdformat # @upstream-issue https://github.com/NixOS/nixpkgs/issues/483613 # https://search.nixos.org/packages?channel=unstable&type=packages&show=mdformat
       mkdocs # https://search.nixos.org/packages?channel=unstable&type=packages&show=mkdocs
       pandoc # https://search.nixos.org/packages?channel=unstable&type=packages&show=pandoc
