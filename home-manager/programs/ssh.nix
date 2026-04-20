@@ -42,8 +42,8 @@
     }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.ssh.matchBlocks
   };
 
-  # SSH_AUTH_SOCK is set automatically by ssh-agent.service on Linux.
-  # No manual override needed since we're using ssh-agent (not gpg-agent) for SSH.
+  # SSH_AUTH_SOCK is set automatically by GNOME Keyring's gcr-ssh-agent on Linux.
+  # GNOME Keyring stores SSH passphrases persistently, encrypted by the login password.
 
   # Set GPG_TTY for pinentry to work correctly in terminal sessions.
   home.sessionVariablesExtra = lib.mkIf pkgs.stdenv.isLinux ''
