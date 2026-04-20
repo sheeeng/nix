@@ -274,12 +274,12 @@ in
   services.displayManager.gdm.enable = true;
   services.desktopManager.gnome.enable = true;
 
-  # Disable system SSH agent - home-manager's ssh-agent.service is used instead.
+  # Disable system SSH agent; GNOME Keyring's gcr-ssh-agent handles SSH keys.
   programs.ssh.startAgent = false;
 
-  # Disable GNOME's gcr-ssh-agent socket to prevent it from overriding SSH_AUTH_SOCK.
-  # Home-manager's ssh-agent.service provides the SSH agent.
-  systemd.user.sockets.gcr-ssh-agent.enable = false;
+  # Enable GNOME's gcr-ssh-agent to auto-unlock SSH passphrases at login.
+  # GNOME Keyring stores passphrases persistently, encrypted by the login password.
+  systemd.user.sockets.gcr-ssh-agent.enable = true;
 
   # Enable CUPS to print documents
   services.printing.enable = true;
@@ -295,7 +295,7 @@ in
     pulse.enable = true;
   };
 
-  # Disable yubikey-agent; ssh-agent handles SSH keys on Linux.
+  # Disable yubikey-agent; GNOME Keyring's gcr-ssh-agent handles SSH keys on Linux.
   # The gpg-agent handles GPG operations only on Linux.
   services.yubikey-agent.enable = false; # https://search.nixos.org/options?channel=unstable&show=services.yubikey-agent.enable
 
