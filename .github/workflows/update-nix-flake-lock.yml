@@ -28,10 +28,10 @@ jobs:
 
       - uses: determinatesystems/determinate-nix-action@32cb6a5ae30bb0dfc996fa7baf8bf1ed28442fa4 # v3.17.3
 
-      - name: Use HTTPS with token for GitHub SSH URLs
+      - name: Configure Nix with GitHub Token
         run: |
-          git config --global url."https://x-access-token:${{ steps.create-token.outputs.token }}@github.com/".insteadOf "ssh://git@github.com/"
-          git config --global url."https://x-access-token:${{ steps.create-token.outputs.token }}@github.com/".insteadOf "git@github.com:"
+          mkdir --parents ~/.config/nix
+          echo "access-tokens = github.com=${{ steps.create-token.outputs.token }}" >> ~/.config/nix/nix.conf
 
       # References:
       # dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
