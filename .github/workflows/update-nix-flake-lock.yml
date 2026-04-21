@@ -28,6 +28,11 @@ jobs:
 
       - uses: determinatesystems/determinate-nix-action@32cb6a5ae30bb0dfc996fa7baf8bf1ed28442fa4 # v3.17.3
 
+      - name: Use HTTPS with token for GitHub SSH URLs
+        run: |
+          git config --global url."https://x-access-token:${{ steps.create-token.outputs.token }}@github.com/".insteadOf "ssh://git@github.com/"
+          git config --global url."https://x-access-token:${{ steps.create-token.outputs.token }}@github.com/".insteadOf "git@github.com:"
+
       # References:
       # dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
       # https://api.github.com/users/dependabot%5Bbot%5D
