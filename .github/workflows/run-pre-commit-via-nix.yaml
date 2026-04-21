@@ -44,7 +44,19 @@ jobs:
             experimental-features = flakes nix-command
             keep-env-derivations = true
             keep-outputs = true
-            access-tokens = github.com=${{ steps.create-token.outputs.token }}
+
+      - name: Configure Nix Access to Private Repositories
+        run: |
+          # Append to the system nix.conf that nix-quick-install-action created.
+          echo "access-tokens = github.com=${{ steps.create-token.outputs.token }}" | sudo tee --append /etc/nix/nix.conf
+          # Set in user directory as fallback.
+          mkdir --parents ~/.config/nix
+          echo "access-tokens = github.com=${{ steps.create-token.outputs.token }}" >> ~/.config/nix/nix.conf
+          # Verify token.
+          echo "--- /etc/nix/nix.conf ---"
+          cat /etc/nix/nix.conf
+          # Restart nix-daemon if running.
+          sudo systemctl restart nix-daemon.service 2>/dev/null || true
 
       - uses: nix-community/cache-nix-action@7df957e333c1e5da7721f60227dbba6d06080569 # v7.0.2
         with:
