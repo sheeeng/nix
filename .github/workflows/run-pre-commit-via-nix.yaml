@@ -27,6 +27,11 @@ jobs:
           persist-credentials: false
           fetch-depth: 0
 
+      - name: Configure Nix with GitHub Token
+        run: |
+          mkdir --parents ~/.config/nix
+          echo "access-tokens = github.com=${{ steps.create-token.outputs.token }}" >> ~/.config/nix/nix.conf
+
       - uses: nixbuild/nix-quick-install-action@2c9db80fb984ceb1bcaa77cdda3fdf8cfba92035 # v34
         with:
           nix_conf: |
