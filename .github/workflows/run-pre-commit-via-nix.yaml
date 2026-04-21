@@ -48,6 +48,7 @@ jobs:
       - name: Configure Nix Access to Private Repositories
         run: |
           # Append to the system nix.conf that nix-quick-install-action created.
+          sudo mkdir --parents /etc/nix/
           sudo touch /etc/nix/nix.conf
           echo "access-tokens = github.com=${{ steps.create-token.outputs.token }}" | sudo tee --append /etc/nix/nix.conf
           # Set in user directory as fallback.
