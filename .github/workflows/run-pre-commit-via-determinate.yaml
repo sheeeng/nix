@@ -38,14 +38,14 @@ jobs:
           persist-credentials: false
           fetch-depth: 0
 
+      - uses: determinatesystems/nix-installer-action@ef8a148080ab6020fd15196c2084a2eea5ff2d25 # v22
+      - uses: determinatesystems/magic-nix-cache-action@565684385bcd71bad329742eefe8d12f2e765b39 # v13
+      - uses: determinatesystems/flake-checker-action@3164002371bc90729c68af0e24d5aacf20d7c9f6 # v12
+
       - name: Configure Nix with GitHub Token
         run: |
           mkdir --parents ~/.config/nix
           echo "access-tokens = github.com=${{ steps.create-token.outputs.token }}" >> ~/.config/nix/nix.conf
-
-      - uses: determinatesystems/nix-installer-action@ef8a148080ab6020fd15196c2084a2eea5ff2d25 # v22
-      - uses: determinatesystems/magic-nix-cache-action@565684385bcd71bad329742eefe8d12f2e765b39 # v13
-      - uses: determinatesystems/flake-checker-action@3164002371bc90729c68af0e24d5aacf20d7c9f6 # v12
 
       - name: Show Pre-Commit Version
         timeout-minutes: 15 # Allow sufficient buffer time for Nix to rebuild Nix store.
