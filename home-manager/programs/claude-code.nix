@@ -10,6 +10,17 @@ let
   };
 in
 {
+  home.packages =
+    with pkgs;
+    [
+      claude-code-bin # https://search.nixos.org/packages?channel=unstable&type=packages&show=claude-code-bin
+      claude-mergetool # https://search.nixos.org/packages?channel=unstable&type=packages&show=claude-mergetool
+      claude-monitor # https://search.nixos.org/packages?channel=unstable&type=packages&show=claude-monitor
+    ]
+    ++ (pkgs.lib.optionals (pkgs.stdenv.isDarwin && pkgs.stdenv.hostPlatform.isAarch64) [
+      claude-usage-tracker # Native macOS menu bar app; only available on aarch64-darwin. https://search.nixos.org/packages?channel=unstable&type=packages&show=claude-usage-tracker
+    ]);
+
   programs.claude-code = {
     enable = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.claude-code.enable
     enableMcpIntegration = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.claude-code.enableMcpIntegration
@@ -36,6 +47,10 @@ in
       research = ./opencode/commands/research.md;
       write-plan = "${superpowersSrc}/commands/write-plan.md";
     }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.claude-code.commands
+    skills = {
+      git-commit = ./opencode/skills/git-commit.md;
+      git-release = ./opencode/skills/git-release.md;
+    }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.claude-code.skills
     mcpServers = {
       customTransport = {
         customOption = "value";
