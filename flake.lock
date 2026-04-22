@@ -118,19 +118,19 @@
         ]
       },
       "locked": {
-        "lastModified": 1776769805,
-        "narHash": "sha256-KhD5ZaVdJPdLTUE0VoKEUmqLhBLOYMqyJM8sOMotv2c=",
-        "ref": "feat/unix-socket-support",
-        "rev": "4ba085775edb2cce76ed20acc81cb3d233eea703",
+        "lastModified": 1776834735,
+        "narHash": "sha256-AH9e3+6fxnPPqLJPcjSNFsUt01IcR+FUm0dH6lEHv7k=",
+        "ref": "main",
+        "rev": "a78e58388f5ec82a568de94eedb8a449a7f486e7",
         "shallow": true,
         "type": "git",
-        "url": "ssh://git@github.com/taheris/beads.git"
+        "url": "ssh://git@github.com/gastownhall/beads.git"
       },
       "original": {
-        "ref": "feat/unix-socket-support",
+        "ref": "main",
         "shallow": true,
         "type": "git",
-        "url": "ssh://git@github.com/taheris/beads.git"
+        "url": "ssh://git@github.com/gastownhall/beads.git"
       }
     },
     "beads-flake": {
@@ -267,10 +267,10 @@
         "rust-analyzer-src": "rust-analyzer-src_2"
       },
       "locked": {
-        "lastModified": 1776758770,
-        "narHash": "sha256-l2MswgsG69v+NYADWcNUOJUBSmuOImz62NZeW5pYkkg=",
+        "lastModified": 1776845169,
+        "narHash": "sha256-Ya6Ba5oC0+PK1TSU4Rkjpoca73mUp6FoHQV5QGnqbx0=",
         "ref": "main",
-        "rev": "76b4f0657f3bfbfd1cb14deb4d4a1482e0fa7159",
+        "rev": "f0b5be1fa2891221ba8b48784f8fded5ef15301f",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/nix-community/fenix.git"
@@ -579,10 +579,10 @@
     "gascity": {
       "flake": false,
       "locked": {
-        "lastModified": 1776798504,
-        "narHash": "sha256-SLUyUV9a7LF1zL8I+bPqzNdMSdkrlD1rqTltSLeEC8A=",
+        "lastModified": 1776818539,
+        "narHash": "sha256-o88ZgiD7XVefaTlqCQQRNOBjP0NDE/YD+JJ5CoFDuc4=",
         "ref": "main",
-        "rev": "b86a4b0934e6cf4b2eebae11a81849361fd9843d",
+        "rev": "bc6058d352fc2a46e6d43ff32e90d4a42f2b4bac",
         "shallow": true,
         "type": "git",
         "url": "ssh://git@github.com/gastownhall/gascity.git"
@@ -1045,11 +1045,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1776839963,
-        "narHash": "sha256-gDDYO6hUyrIKSITgDP07UdQVAypRQg9vWKRfjN3PrFI=",
+        "lastModified": 1776850496,
+        "narHash": "sha256-p0KRhWQoOp9h3BMzEo1Qem6r/jYM75HjgP/srn4zPiY=",
         "owner": "nix-community",
         "repo": "nur",
-        "rev": "403318582e512d3a8b24e54c36697688acf727bc",
+        "rev": "a501d7e1537575c08b34d48d995fb09c8d756a23",
         "type": "github"
       },
       "original": {
@@ -1182,11 +1182,11 @@
     "rust-analyzer-src_2": {
       "flake": false,
       "locked": {
-        "lastModified": 1776702210,
-        "narHash": "sha256-SX0+HYv/rEcU6G42nUdXP30GYLcBaP8qx8HvKCIrw9c=",
+        "lastModified": 1776800521,
+        "narHash": "sha256-f8YJfwAOsLFpIoqZuX3yF69UvMLrkx7iVzMH1pJU7cM=",
         "owner": "rust-lang",
         "repo": "rust-analyzer",
-        "rev": "f381976fa67d9b87ca6c2ae35f8277b13013abf8",
+        "rev": "8954b66d43225e62c92e8bbcc8500191b5cceb1e",
         "type": "github"
       },
       "original": {
@@ -1574,11 +1574,11 @@
         "treefmt-nix": "treefmt-nix_4"
       },
       "locked": {
-        "lastModified": 1776821061,
-        "narHash": "sha256-UPKn0q/4oqFx4Sg1kygZRnRtS2GfBSqzdiscuMRMYoU=",
+        "lastModified": 1776861880,
+        "narHash": "sha256-+WaPLub45RaeeE1mm0BnBr061yj2L8IVxZ9cLR0w570=",
         "owner": "taheris",
         "repo": "wrapix",
-        "rev": "b2216c6ad1890e39e9849084027377cd659d42b5",
+        "rev": "f8436d8de39c911a72d7e5d8c45cc144b87370ed",
         "type": "github"
       },
       "original": {
