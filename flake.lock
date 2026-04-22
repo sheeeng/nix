@@ -787,34 +787,32 @@
       "locked": {
         "lastModified": 1771435397,
         "narHash": "sha256-u4OUaQvnoBSWheYP/mGtap4iFX42padwuRm9vbLGNQo=",
-        "ref": "main",
+        "owner": "sheeeng",
+        "repo": "nix-secrets",
         "rev": "da9e00288272ec4e37291ad396e457a88a393c9e",
-        "shallow": true,
-        "type": "git",
-        "url": "ssh://git@github.com/sheeeng/nix-secrets.git"
+        "type": "github"
       },
       "original": {
+        "owner": "sheeeng",
         "ref": "main",
-        "shallow": true,
-        "type": "git",
-        "url": "ssh://git@github.com/sheeeng/nix-secrets.git"
+        "repo": "nix-secrets",
+        "type": "github"
       }
     },
     "nix-secrets-example": {
       "locked": {
         "lastModified": 1765971672,
         "narHash": "sha256-V4ZDMX20JYOfPIsGdQDxnZA/8moENMOfii7J7peC+yk=",
-        "ref": "main",
+        "owner": "sheeeng",
+        "repo": "nix-secrets-example",
         "rev": "2915ab5f750ade146c1167d050d5713d62b508d5",
-        "shallow": true,
-        "type": "git",
-        "url": "ssh://git@github.com/sheeeng/nix-secrets-example.git"
+        "type": "github"
       },
       "original": {
+        "owner": "sheeeng",
         "ref": "main",
-        "shallow": true,
-        "type": "git",
-        "url": "ssh://git@github.com/sheeeng/nix-secrets-example.git"
+        "repo": "nix-secrets-example",
+        "type": "github"
       }
     },
     "nix-systems": {
