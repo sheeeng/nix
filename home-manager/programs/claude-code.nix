@@ -13,7 +13,6 @@ in
   home.packages =
     with pkgs;
     [
-      claude-code-bin # https://search.nixos.org/packages?channel=unstable&type=packages&show=claude-code-bin
       claude-mergetool # https://search.nixos.org/packages?channel=unstable&type=packages&show=claude-mergetool
       claude-monitor # https://search.nixos.org/packages?channel=unstable&type=packages&show=claude-monitor
     ]
