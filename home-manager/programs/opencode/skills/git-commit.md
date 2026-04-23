@@ -12,11 +12,11 @@ metadata:
 
 ## What This Skill Does
 
-- Analyze staged changes to generate commit messages.
+- Analyze existing changes to generate commit messages.
+- Separate existing changes in separate logical commits.
 - Follow the [Conventional Commits specification][conventional-commits] for most repositories.
 - For nixpkgs or its forks, follow the [nixpkgs commit conventions][nixpkgs-commit-conventions].
 - Suggest appropriate commit type and scope.
-- Separate staged changes in separate logical commits.
 
 ## Repository Detection
 
