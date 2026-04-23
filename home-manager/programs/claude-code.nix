@@ -86,7 +86,7 @@ in
       };
     }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.claude-code.mcpServers
     settings = {
-      effortLevel = "high";
+      effortLevel = "high"; # https://platform.claude.com/docs/en/build-with-claude/effort#effort-levels
       env = {
         # https://x.com/kunchenguid/status/2043511416448307378
         CLAUDE_CODE_DISABLE_1M_CONTEXT = "1"; # Prevent bloated context window from degrading model performance and consuming token limits.
@@ -119,7 +119,7 @@ in
         ];
       };
       includeCoAuthoredBy = false;
-      model = "claude-3-5-sonnet-20241022";
+      model = "claude-sonnet-4-6";
       permissions = {
         additionalDirectories = [ "../docs/" ];
         allow = [
