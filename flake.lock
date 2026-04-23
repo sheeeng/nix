@@ -305,11 +305,11 @@
       },
       "locked": {
         "dir": "pkgs/firefox-addons",
-        "lastModified": 1776830588,
-        "narHash": "sha256-1X4L6+F7DgYTUDah+PDs7IYJiQrb7MwYfateq2fBxGY=",
+        "lastModified": 1776916994,
+        "narHash": "sha256-FgqUwRZ2bwbE5w1bCUv9MB3gvwqZ4oEyCgZ6z/6jdTY=",
         "owner": "rycee",
         "repo": "nur-expressions",
-        "rev": "f3db83bc13aee22474fab41fa838e50a691dfbc5",
+        "rev": "a2236006e5c70e2fc06e9acb016b1ac9c0fd5935",
         "type": "gitlab"
       },
       "original": {
@@ -660,11 +660,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1776889563,
-        "narHash": "sha256-NiSQJ2n2El/oY+3Yu++5+v7pcwMF0wgYD7pDhmAhPmk=",
+        "lastModified": 1776904464,
+        "narHash": "sha256-sBUCj7/4d3Hoevpu3oQp8ccJNA1EDeVmFi1F8O6VJro=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "83b3ecce2eafc9082af7375b1a295070e199960a",
+        "rev": "667b3c47325441e6a444faaf405bba76ec70338a",
         "type": "github"
       },
       "original": {
@@ -1045,11 +1045,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1776889035,
-        "narHash": "sha256-H/yxVaYWXYzPx68yV/NkQCJf5v8Atd9jrLuU6Lj6Ahg=",
+        "lastModified": 1776925631,
+        "narHash": "sha256-8Zm13EJYQIEQ/KTMghNKMLdDUEgXT+xZ83Egs43XVjA=",
         "owner": "nix-community",
         "repo": "nur",
-        "rev": "becb053735a8e328d0dbd2353ac80aad77abe0a2",
+        "rev": "7e1319d6088d002c861c6e1c32f8208d39300d26",
         "type": "github"
       },
       "original": {
@@ -1252,11 +1252,11 @@
         "tinted-zed": "tinted-zed"
       },
       "locked": {
-        "lastModified": 1776170745,
-        "narHash": "sha256-Tl1aZVP5EIlT+k0+iAKH018GLHJpLz3hhJ0LNQOWxCc=",
+        "lastModified": 1776893932,
+        "narHash": "sha256-AFD5cf9eNqXq1brHS63xeZy2xKZMgG9J86XJ9I2eLn8=",
         "owner": "nix-community",
         "repo": "stylix",
-        "rev": "e3861617645a43c9bbefde1aa6ac54dd0a44bfa9",
+        "rev": "84971726c7ef0bb3669a5443e151cc226e65c518",
         "type": "github"
       },
       "original": {
@@ -1574,11 +1574,11 @@
         "treefmt-nix": "treefmt-nix_4"
       },
       "locked": {
-        "lastModified": 1776887656,
-        "narHash": "sha256-j53G2lKU5nvnar5koijIGjJJZZcBHIUvrnkUYcBEqSw=",
+        "lastModified": 1776908697,
+        "narHash": "sha256-oSomQQ/WsB1AkjY6UECMSvNbv8zXe27jhfXGj4ZxNiE=",
         "owner": "taheris",
         "repo": "wrapix",
-        "rev": "3410bdc42f667caace1fed9fd53b9b44f6e18e74",
+        "rev": "ea5c89ad037fc4c01e79966df222bb04f590863c",
         "type": "github"
       },
       "original": {
