@@ -107,6 +107,7 @@ in
       frontend-design = "${anthropicSkillsSrc}/skills/frontend-design";
       git-commit = ./skills/git-commit.md;
       git-release = ./skills/git-release.md;
+      owasp-security = ./skills/owasp-security.md;
       superpowers-brainstorming = "${superpowersSrc}/skills/brainstorming";
       superpowers-dispatching-parallel-agents = "${superpowersSrc}/skills/dispatching-parallel-agents";
       superpowers-executing-plans = "${superpowersSrc}/skills/executing-plans";
