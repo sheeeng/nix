@@ -49,6 +49,7 @@ in
     skills = {
       git-commit = ./opencode/skills/git-commit.md;
       git-release = ./opencode/skills/git-release.md;
+      owasp-security = ./opencode/skills/owasp-security.md;
     }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.claude-code.skills
     mcpServers = {
       customTransport = {
