@@ -8,7 +8,6 @@
     prefetch-yarn-deps
     yarn
     yarn-bash-completion
-    yarn2nix
     zsh-better-npm-completion
   ];
 
