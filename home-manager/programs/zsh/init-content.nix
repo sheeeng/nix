@@ -105,6 +105,15 @@
       select-word-style bash
     '')
 
+    # Set iTerm2 tab title to current directory name on each prompt
+    (lib.mkOrder 1100 ''
+      if [[ "$TERM_PROGRAM" == "iTerm.app" ]]; then
+        autoload -Uz add-zsh-hook
+        _set_iterm2_tab_title() { echo -ne "\e]1;''${PWD##*/}\a" }
+        add-zsh-hook precmd _set_iterm2_tab_title
+      fi
+    '')
+
     # 1500 (mkAfter): Last to run configuration
     # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.initContent
     (lib.mkOrder 1500 "")
