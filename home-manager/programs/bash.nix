@@ -220,7 +220,7 @@ in
     packages = with pkgs; [
       # keep-sorted start
       coreutils-full
-      dateutils
+      # dateutils # @upstream-issue https://github.com/NixOS/nixpkgs/issues/511329
       diffutils
       gnugrep
       gnumake
