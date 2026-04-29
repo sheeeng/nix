@@ -9,14 +9,23 @@
       pname = "sandbox-runtime";
       version = "0.0.32";
 
+      # nix-prefetch-github anthropic-experimental sandbox-runtime --rev v0.0.49
+      # {
+      #     "owner": "anthropic-experimental",
+      #     "repo": "sandbox-runtime",
+      #     "rev": "7a725a314f8ce0a6404f275292d8eec557ba949a",
+      #     "hash": "sha256-1QwUOtgOYcVm61nLCeQL46O/+G/LyXSv+ZnC3la2Ajc="
+      # }
       src = final.fetchFromGitHub {
         owner = "anthropic-experimental";
         repo = "sandbox-runtime";
-        rev = "ec0c24c41d1f2f341f30b17909e2d27a5d8ae01f"; # v0.0.32
-        hash = "sha256-M1eFZJ3dScI61xaHMRnRr5jnXD4fmSRiSwsUph24OyQ=";
+        rev = "7a725a314f8ce0a6404f275292d8eec557ba949a"; # v0.0.49
+        hash = "sha256-1QwUOtgOYcVm61nLCeQL46O/+G/LyXSv+ZnC3la2Ajc=";
       };
 
-      npmDepsHash = "sha256-7ohrHpsDNHgt/VraqyTLzmz84JLhRcKOZdk2M8Rul5E=";
+      # Use `lib.fakeHash` as the npmDepsHash value.
+      # specified: sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=
+      npmDepsHash = "sha256-YAzekNE9lOEMRaaGqLdpXMXgqh4kfGp4CF54ShS3xwA=";
 
       # The package needs to be built from TypeScript.
       npmBuildScript = "build";
