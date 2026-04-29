@@ -53,6 +53,16 @@
       installPhase = "whoami\n" + old.installPhase;
     });
 
+    # @upstream-issue https://github.com/NixOS/nixpkgs/issues/513543
+    zsh = prev.zsh.overrideAttrs (
+      old:
+      prev.lib.optionalAttrs prev.stdenv.isDarwin {
+        preConfigure = (old.preConfigure or "") + ''
+          export zsh_cv_sys_sigsuspend=yes
+        '';
+      }
+    );
+
     # nix eval nixpkgs#beads --json 2>&1 | head -20
     # nix eval .#darwinConfigurations.$(hostname).pkgs.beads.version --raw 2>&1
     # nix build .#darwinConfigurations.$(hostname).pkgs.beads --print-build-logs 2>&1
