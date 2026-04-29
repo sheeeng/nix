@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
   programs.qutebrowser = {
-    enable = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.qutebrowser.enable
+    enable = pkgs.stdenv.isLinux; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.qutebrowser.enable
     package = pkgs.qutebrowser; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.qutebrowser.package
     enableDefaultBindings = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.qutebrowser.enableDefaultBindings
     # aliases = {
