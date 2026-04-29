@@ -17,6 +17,7 @@
     [
       # Audio
       # keep-sorted start block=no newline_separated=no sticky_comments=no
+      # ffmpeg-full # @upstream-issue https://github.com/NixOS/nixpkgs/issues/511265 # https://search.nixos.org/packages?channel=unstable&type=packages&show=ffmpeg-full
       # mpc-cli # @upstream-issue https://github.com/NixOS/nixpkgs/issues/355495 # https://search.nixos.org/packages?channel=unstable&type=packages&show=mpc-cli
       # mpd # https://search.nixos.org/packages?channel=unstable&type=packages&show=mpd
       # musescore # @upstream-issue https://github.com/NixOS/nixpkgs/pull/450512#issuecomment-3390505837 # https://search.nixos.org/packages?channel=unstable&type=packages&show=musescore
@@ -25,7 +26,6 @@
       # supercollider-with-plugins # TODO: Missing "aarch64-apple-darwin" platform. # https://search.nixos.org/packages?channel=unstable&type=packages&show=supercollider-with-plugins
       # zrythm # TODO: Marked as broken. # https://search.nixos.org/packages?channel=unstable&type=packages&show=zrythm
       audacity # https://search.nixos.org/packages?channel=unstable&type=packages&show=audacity
-      ffmpeg-full # https://search.nixos.org/packages?channel=unstable&type=packages&show=ffmpeg-full
       # keep-sorted end
 
       # Fonts
