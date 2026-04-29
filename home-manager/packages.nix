@@ -243,8 +243,8 @@
 
       # Desktop Utilities
       # keep-sorted start block=no newline_separated=no sticky_comments=no
+      # zenity # @upstream-issue https://github.com/NixOS/nixpkgs/issues/514566 # https://search.nixos.org/packages?channel=unstable&type=packages&show=zenity
       tenki # https://search.nixos.org/packages?channel=unstable&type=packages&show=tenki
-      zenity # https://search.nixos.org/packages?channel=unstable&type=packages&show=zenity
       # keep-sorted end
 
       # Documentation And Publishing
