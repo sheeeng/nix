@@ -64,7 +64,10 @@ in
       research = ./commands/research.md;
       write-plan = "${superpowersSrc}/commands/write-plan.md";
     }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.opencode.commands
-    rules = "./rules.md"; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.opencode.rules
+    context = ./context.md; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.opencode.context
+    tui = {
+      theme = "opencode";
+    }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.opencode.tui
     settings = {
       agent = {
         build = {
@@ -81,7 +84,6 @@ in
         };
       }; # https://opencode.ai/docs/config/#agent
       default_agent = "planner"; # https://opencode.ai/docs/config/#default-agent
-      theme = "opencode";
       model = "github-copilot/claude-opus-4.6"; # https://models.dev/?search=github-copilot
       small_model = "github-copilot/claude-haiku-4.5"; # https://models.dev/?search=github-copilot
       autoshare = false;
