@@ -86,6 +86,7 @@ in
       };
     }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.claude-code.mcpServers
     settings = {
+      # https://code.claude.com/docs/en/settings#available-settings
       effortLevel = "high"; # https://platform.claude.com/docs/en/build-with-claude/effort#effort-levels
       env = {
         # https://x.com/kunchenguid/status/2043511416448307378
@@ -121,20 +122,111 @@ in
       includeCoAuthoredBy = false;
       model = "claude-sonnet-4-6";
       permissions = {
+        # https://code.claude.com/docs/en/permissions#wildcard-patterns
         additionalDirectories = [ "../docs/" ];
         allow = [
-          "Bash(git diff:*)"
-          "Edit"
+          "Bash(black *)"
+          "Bash(cargo build *)"
+          "Bash(cargo check *)"
+          "Bash(cargo init *)"
+          "Bash(cargo test *)"
+          "Bash(cat *)"
+          "Bash(docker images *)"
+          "Bash(docker inspect *)"
+          "Bash(docker logs *)"
+          "Bash(docker ps *)"
+          "Bash(docker version)"
+          "Bash(eslint *)"
+          "Bash(find *)"
+          "Bash(gh issue list *)"
+          "Bash(gh issue view *)"
+          "Bash(gh pr checks *)"
+          "Bash(gh pr diff *)"
+          "Bash(gh pr list *)"
+          "Bash(gh pr status)"
+          "Bash(gh pr view *)"
+          "Bash(gh release list *)"
+          "Bash(gh repo view *)"
+          "Bash(git branch *)"
+          "Bash(git describe *)"
+          "Bash(git diff *)"
+          "Bash(git fetch *)"
+          "Bash(git grep *)"
+          "Bash(git log *)"
+          "Bash(git ls-files *)"
+          "Bash(git remote *)"
+          "Bash(git rev-parse *)"
+          "Bash(git shortlog *)"
+          "Bash(git show *)"
+          "Bash(git show-ref *)"
+          "Bash(git status *)"
+          "Bash(git tag *)"
+          "Bash(git worktree list *)"
+          "Bash(head *)"
+          "Bash(isort *)"
+          "Bash(kubectl config *)"
+          "Bash(kubectl describe *)"
+          "Bash(kubectl get *)"
+          "Bash(kubectl logs *)"
+          "Bash(kubectl version)"
+          "Bash(node --version)"
+          "Bash(npm --version)"
+          "Bash(openspec instructions *)"
+          "Bash(openspec new *)"
+          "Bash(openspec status *)"
+          "Bash(pip --version)"
+          "Bash(pip list)"
+          "Bash(pip show *)"
+          "Bash(pre-commit run *)"
+          "Bash(prettier *)"
+          "Bash(python --version)"
+          "Bash(python3 --version)"
+          "Bash(ruff *)"
+          "Bash(rustup default *)"
+          "Bash(rustup show *)"
+          "Bash(rustup target *)"
+          "Bash(rustup toolchain *)"
+          "Bash(tail *)"
+          "Bash(terraform fmt *)"
+          "Bash(terraform init *)"
+          "Bash(terraform plan *)"
+          "Bash(terraform show *)"
+          "Bash(terraform validate *)"
+          "Bash(terraform version)"
+          "Bash(uv --version)"
+          "Bash(uv pip list)"
+          "Bash(vswhere *)"
+          "PowerShell(cargo build *)"
+          "Read(//c/Program Files \\(x86\\)/**)"
+          "Read(//c/Program Files/**)"
+          "WebFetch(domain:github.com)"
+          "WebFetch(domain:raw.githubusercontent.com)"
+          "WebFetch(domain:sheeeng.github.io)"
         ];
-        ask = [ "Bash(git push:*)" ];
+        ask = [
+          "Bash(curl *)"
+          "Bash(git add *)"
+          "Bash(git commit *)"
+          "Bash(git push *)"
+          "Bash(wget *)"
+        ];
         defaultMode = "acceptEdits";
         deny = [
-          "WebFetch"
-          "Bash(curl:*)"
+          "Bash(curl *)"
           "Read(./.env)"
           "Read(./secrets/**)"
+          "WebFetch"
         ];
         disableBypassPermissionsMode = "disable";
+      };
+      spinnerVerbs = {
+        mode = "replace";
+        verbs = [
+          "Thinking"
+          "思考中"
+          "考える"
+          "諗緊嘢"
+        ];
       };
       statusLine = {
         command = "input=$(cat); echo \"[$(echo \"$input\" | jq -r '.model.display_name')] 📁 $(basename \"$(echo \"$input\" | jq -r '.workspace.current_dir')\")\"";
