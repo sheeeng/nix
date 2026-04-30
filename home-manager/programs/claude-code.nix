@@ -195,8 +195,6 @@ in
           "Bash(terraform version)"
           "Bash(uv --version)"
           "Bash(uv pip list)"
-          "Bash(vswhere *)"
-          "PowerShell(cargo build *)"
           "Read(//c/Program Files \\(x86\\)/**)"
           "Read(//c/Program Files/**)"
           "WebFetch(domain:github.com)"
