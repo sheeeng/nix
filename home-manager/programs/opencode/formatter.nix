@@ -165,17 +165,9 @@
       ".tsx"
     ];
   };
-  yaml = {
-    # @upstream-issue https://github.com/google/yamlfmt/issues/228#issuecomment-2538987870
-    # @upstream-pull-request https://github.com/google/yamlfmt/pull/159
-    # @upstream-pull-request https://github.com/google/yamlfmt/pull/98/changes
-    command = [
-      "nix"
-      "run"
-      "nixpkgs#yamlfmt"
-      "--"
-      "--formatter"
-      (builtins.concatStringsSep "," [
+  yamlfmt =
+    let
+      yamlfmtConfiguration = builtins.concatStringsSep "," [
         "disallow_anchors=false"
         "drop_merge_tag=false"
         "eof_newline=true"
@@ -189,12 +181,59 @@
         "retain_line_breaks_single=true"
         "scan_folded_as_literal=true"
         "trim_trailing_whitespace=true"
-      ])
-      "$FILE"
-    ];
-    extensions = [
-      ".yaml"
-      ".yml"
-    ];
-  };
+      ];
+    in
+    {
+      # @upstream-issue https://github.com/google/yamlfmt/issues/228#issuecomment-2538987870
+      # @upstream-pull-request https://github.com/google/yamlfmt/pull/159
+      # @upstream-pull-request https://github.com/google/yamlfmt/pull/98/changes
+      # Run lint separately when needed:
+      # nix run nixpkgs#yamllint -- --strict --format parsable "$FILE"
+      command = [
+        "nix"
+        "run"
+        "nixpkgs#yamlfmt"
+        "--"
+        "--formatter"
+        yamlfmtConfiguration
+        "$FILE"
+      ];
+      extensions = [
+        ".yaml"
+        ".yml"
+      ];
+    };
+  yamllint =
+    let
+      yamllintConfiguration = builtins.concatStringsSep "\n" [
+        "extends: default"
+        "rules:"
+        "  anchors: enable"
+        "  comments:"
+        "    min-spaces-from-content: 1"
+        "  document-end: disable"
+        "  document-start: disable"
+        "  line-length: disable"
+        "  truthy:"
+        "    ignore: .github/workflows/*.y*ml"
+      ];
+    in
+    {
+      command = [
+        "nix"
+        "run"
+        "nixpkgs#yamllint"
+        "--"
+        "--strict"
+        "--format"
+        "parsable"
+        "--config-data"
+        yamllintConfiguration
+        "$FILE"
+      ];
+      extensions = [
+        ".yaml"
+        ".yml"
+      ];
+    };
 }

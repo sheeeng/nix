@@ -1,0 +1,28 @@
+# Yamlfmt Configuration File
+# https://github.com/google/yamlfmt/blob/main/docs/config-file.md
+formatter:
+  # Allow YAML anchors and aliases.
+  disallow_anchors: false
+  # Drop merge tags.
+  drop_merge_tag: false
+  # Ensure newline at end of file to match yamllint configuration.
+  eof_newline: true
+  # Include document start marker where present.
+  include_document_start: false
+  # Use 2 spaces for indentation to match current style.
+  indent: 2
+  # Indent array items to match current style.
+  indentless_arrays: false
+  # Use LF line endings.
+  line_ending: lf
+  # Disable maximum line length to match yamllint configuration.
+  max_line_length: 0
+  # Pad line comments with 1 space.
+  pad_line_comments: 1
+  # Preserve single blank lines between sections.
+  retain_line_breaks: true
+  retain_line_breaks_single: true
+  # Treat folded block scalars as literal to preserve multiline formatting.
+  scan_folded_as_literal: true
+  # Trim trailing whitespace to match yamllint configuration.
+  trim_trailing_whitespace: true
