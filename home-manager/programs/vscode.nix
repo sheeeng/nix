@@ -491,7 +491,11 @@ in
           "terminal.integrated.suggest.enabled" = false;
           "terminal.integrated.suggest.inlineSuggestion" = "off";
           "terminal.integrated.suggest.insertTrailingSpace" = false;
-          "terminal.integrated.suggest.quickSuggestions" = false;
+          "terminal.integrated.suggest.quickSuggestions" = {
+            "arguments" = "off";
+            "commands" = "off";
+            "unknown" = "off";
+          };
           "terminal.integrated.suggest.runOnEnter" = "never";
           "terminal.integrated.suggest.selectionMode" = "never";
           "terminal.integrated.suggest.showStatusBar" = false;
