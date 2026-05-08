@@ -14,8 +14,8 @@
         src = pkgs.fetchFromGitHub {
           owner = "jethrokuan";
           repo = "z";
-          rev = "d2f502f5575b18a32e1bee2f2b3f869a5053c159";
-          sha256 = "08gwkdgjv3b45bq7zi45mywdx8m2gyxfr4fn03v9drsz0mqm5kz1";
+          rev = "26a50962bc68f5cb60fc488ee008b3d4d5be75f4";
+          sha256 = "1q8vdjxnxn9b9dz7rqis9qirknsj95lmmsk34a3rvwsznsqprvp3";
           # nix run nixpkgs#nix-prefetch-git -- --url https://github.com/jethrokuan/z --rev 067e867debee59aee231e789fc4631f80fa5788e | jq --raw-output ".hash"
         }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.fish.plugins._.src
       }
