@@ -33,7 +33,7 @@ jobs:
         with:
           token: ${{ steps.create-token.outputs.token }}
 
-      - uses: determinatesystems/determinate-nix-action@7c4cc317e802185875512bfcb68259257279d767 # v3.19.1
+      - uses: determinatesystems/determinate-nix-action@bafaa638b9d5ec0e7e3ac1a7fc80453ef1fd265f # v3.20.0
 
       - name: Configure Nix with GitHub Token
         run: |
