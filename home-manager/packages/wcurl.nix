@@ -1,5 +1,3 @@
-# @upstream-issue https://github.com/NixOS/nixpkgs/pull/325779/files
-
 {
   pkgs,
   lib,
