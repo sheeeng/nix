@@ -47,65 +47,10 @@
     unstable = inputs.nixpkgs.legacyPackages.${final.stdenv.hostPlatform.system};
 
     # Workaround for VSCode "Operation not permitted" issue.
-    # @upstream-issue https://github.com/NixOS/nixpkgs/issues/476838
     # @upstream-issue https://github.com/nix-darwin/nix-darwin/issues/1315#issuecomment-2629517646
     vscode = prev.vscode.overrideAttrs (old: {
       installPhase = "whoami\n" + old.installPhase;
     });
-
-    # @upstream-issue https://github.com/NixOS/nixpkgs/issues/513543
-    zsh = prev.zsh.overrideAttrs (
-      old:
-      prev.lib.optionalAttrs prev.stdenv.isDarwin {
-        preConfigure = (old.preConfigure or "") + ''
-          export zsh_cv_sys_sigsuspend=yes
-        '';
-      }
-    );
-
-    # nix eval nixpkgs#beads --json 2>&1 | head -20
-    # nix eval .#darwinConfigurations.$(hostname).pkgs.beads.version --raw 2>&1
-    # nix build .#darwinConfigurations.$(hostname).pkgs.beads --print-build-logs 2>&1
-    # nix path-info .#darwinConfigurations.TP95V9LWWL.pkgs.beads
-    # To update source hash:
-    # nix-prefetch-git \
-    #   https://github.com/steveyegge/beads \
-    #   0d99d15370030b953a8df0ea67cd3d1b845bb07b \
-    #   | jq --raw-output '.hash'
-    # To update vendorHash (recommended):
-    # 1. Set: vendorHash = final.lib.fakeHash;
-    # 2. Run: nix build .#darwinConfigurations.$(hostname).pkgs.beads
-    # 3. Copy hash from error message
-    # Alternative vendorHash method (may not work):
-    # nix --extra-experimental-features 'nix-command flakes' run nixpkgs#nix-prefetch -- \
-    #   '{ sha256 }: (builtins.getFlake "git+file://'$(pwd)'").darwinConfigurations.'$(hostname)'.pkgs.beads.goModules.overrideAttrs (_: { outputHash = sha256; })'
-    # @upstream-issue https://github.com/NixOS/nixpkgs/pull/483469
-    # beads = prev.beads.overrideAttrs (_old: rec {
-    #   version = "0d99d15370030b953a8df0ea67cd3d1b845bb07b"; # v0.49.1
-    #   src = prev.fetchFromGitHub {
-    #     owner = "steveyegge";
-    #     repo = "beads";
-    #     rev = version;
-    #     hash = "sha256-roOyTMy9nKxH2Bk8MnP4h2CDjStwK6z0ThQhFcM64QI=";
-    #   };
-    #   vendorHash = "sha256-YU+bRLVlWtHzJ1QPzcKJ70f+ynp8lMoIeFlm+29BNPE=";
-    # });
-
-    # Pin Microsoft Edge to last working build on Linux.
-    # @upstream-issue https://github.com/NixOS/nixpkgs/pull/490349
-    # @upstream-issue https://github.com/NixOS/nixpkgs/issues/492012
-    # Overrides the package to use the previous stable 144.0.3719.115 version.
-    microsoft-edge =
-      let
-        version = "144.0.3719.115";
-      in
-      prev.microsoft-edge.overrideAttrs (_old: {
-        inherit version;
-        src = final.fetchurl {
-          url = "https://packages.microsoft.com/repos/edge/pool/main/m/microsoft-edge-stable/microsoft-edge-stable_${version}-1_amd64.deb";
-          hash = "sha256-HoV2D51zxewFwwu92efEDgohu1yJf1UyjekO3YWZqPc=";
-        };
-      });
 
     # Add kubelogin to AKS MCP server PATH for Azure AD authentication.
     # This allows kubectl to authenticate to AKS clusters using Azure AD.
