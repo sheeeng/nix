@@ -41,12 +41,10 @@ in
     package = pkgs.opencode; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.opencode.package
     agents = {
       # https://opencode.ai/docs/agents/#markdown
-      # build = null; # ./agents/builder.md; # @upstream-issue https://github.com/anomalyco/opencode/issues/14094
       builder = ./agents/builder.md;
       chicken = ./agents/chicken.md;
       code-reviewer = ./agents/code-reviewer.md;
       explorer = ./agents/explorer.md;
-      # plan = null; # ./agents/planner.md; # @upstream-issue https://github.com/anomalyco/opencode/issues/14094
       planner = ./agents/planner.md;
       security-auditor = ./agents/security-auditor.md;
       superpowers-code-reviewer = "${superpowersSrc}/agents/code-reviewer.md";
@@ -57,6 +55,7 @@ in
       brainstorm = "${superpowersSrc}/commands/brainstorm.md";
       changelog = ./commands/changelog.md;
       commit = ./commands/commit.md;
+      pull-request = ./commands/pull-request.md;
       execute-plan = "${superpowersSrc}/commands/execute-plan.md";
       fix-issue = ./commands/fix-issue.md;
       implement = ./commands/implement.md;
@@ -71,16 +70,16 @@ in
     settings = {
       agent = {
         build = {
-          disable = true; # @upstream-issue https://github.com/anomalyco/opencode/issues/9822
+          disable = true;
         };
         explore = {
-          disable = true; # @upstream-issue https://github.com/anomalyco/opencode/issues/9822
+          disable = true;
         };
         general = {
-          disable = true; # @upstream-issue https://github.com/anomalyco/opencode/issues/9822
+          disable = true;
         };
         plan = {
-          disable = true; # @upstream-issue https://github.com/anomalyco/opencode/issues/9822
+          disable = true;
         };
       }; # https://opencode.ai/docs/config/#agent
       default_agent = "planner"; # https://opencode.ai/docs/config/#default-agent
