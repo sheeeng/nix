@@ -44,7 +44,6 @@
         git-credential-oauth # https://search.nixos.org/packages?channel=unstable&type=packages&show=git-credential-oauth
         git-crypt # https://search.nixos.org/packages?channel=unstable&type=packages&show=git-crypt
 
-        # @upstream-issue https://github.com/nixos/nixpkgs/issues/483584
         pre-commit # https://search.nixos.org/packages?channel=unstable&type=packages&show=pre-commit
         pre-commit-hook-ensure-sops # https://search.nixos.org/packages?channel=unstable&type=packages&show=pre-commit-hook-ensure-sops
 
@@ -81,7 +80,7 @@
       gnupg # https://search.nixos.org/packages?channel=unstable&type=packages&show=gnupg
       nix # https://search.nixos.org/packages?channel=unstable&type=packages&show=nix
       nixfmt # https://search.nixos.org/packages?channel=unstable&type=packages&show=nixfmt
-      pre-commit # @upstream-issue https://github.com/nixos/nixpkgs/issues/483584
+      pre-commit # https://search.nixos.org/packages?channel=unstable&type=packages&show=pre-commit
       vim # https://search.nixos.org/packages?channel=unstable&type=packages&show=vim
       # keep-sorted end
     ];
