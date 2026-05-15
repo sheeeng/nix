@@ -108,6 +108,7 @@ in
       find-skills = "${vercelSkillsSrc}/skills/find-skills";
       frontend-design = "${anthropicSkillsSrc}/skills/frontend-design";
       git-commit = ./skills/git-commit.md;
+      git-pull-request = ./skills/git-pull-request.md;
       git-release = ./skills/git-release.md;
       owasp-security = ./skills/owasp-security.md;
       superpowers-brainstorming = "${superpowersSrc}/skills/brainstorming";
