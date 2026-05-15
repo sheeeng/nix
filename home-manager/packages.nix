@@ -18,7 +18,7 @@
       # Audio
       # keep-sorted start block=no newline_separated=no sticky_comments=no
       # ffmpeg-full # @upstream-issue https://github.com/NixOS/nixpkgs/issues/511265 # https://search.nixos.org/packages?channel=unstable&type=packages&show=ffmpeg-full
-      # mpc-cli # @upstream-issue https://github.com/NixOS/nixpkgs/issues/355495 # https://search.nixos.org/packages?channel=unstable&type=packages&show=mpc-cli
+      mpc # https://search.nixos.org/packages?channel=unstable&type=packages&show=mpc
       # mpd # https://search.nixos.org/packages?channel=unstable&type=packages&show=mpd
       # musescore # @upstream-issue https://github.com/NixOS/nixpkgs/pull/450512#issuecomment-3390505837 # https://search.nixos.org/packages?channel=unstable&type=packages&show=musescore
       # ncmpcpp # https://search.nixos.org/packages?channel=unstable&type=packages&show=ncmpcpp
@@ -119,7 +119,7 @@
       # gh-skyline # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-skyline
       # gh-webhook # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-webhook
       # kubelogin # https://search.nixos.org/packages?channel=unstable&type=packages&show=kubelogin
-      # marksman # @upstream-issue https://github.com/NixOS/nixpkgs/issues/483584 # https://search.nixos.org/packages?channel=unstable&type=packages&show=marksman
+      marksman # https://search.nixos.org/packages?channel=unstable&type=packages&show=marksman
       # nixfmt-tree # https://search.nixos.org/packages?channel=unstable&type=packages&show=nixfmt-tree
       # taskctl # TODO: https://github.com/taskctl/taskctl # https://search.nixos.org/packages?channel=unstable&type=packages&show=taskctl
       # x-cmd # TODO: https://github.com/x-cmd/x-cmd # https://search.nixos.org/packages?channel=unstable&type=packages&show=x-cmd
@@ -253,7 +253,7 @@
       graphviz # https://search.nixos.org/packages?channel=unstable&type=packages&show=graphviz
       markdownlint-cli # https://search.nixos.org/packages?channel=unstable&type=packages&show=markdownlint-cli
       markdownlint-cli2 # https://search.nixos.org/packages?channel=unstable&type=packages&show=markdownlint-cli2
-      mdformat # @upstream-issue https://github.com/NixOS/nixpkgs/issues/483613 # https://search.nixos.org/packages?channel=unstable&type=packages&show=mdformat
+      mdformat # https://search.nixos.org/packages?channel=unstable&type=packages&show=mdformat
       mkdocs # https://search.nixos.org/packages?channel=unstable&type=packages&show=mkdocs
       pandoc # https://search.nixos.org/packages?channel=unstable&type=packages&show=pandoc
       vhs # https://search.nixos.org/packages?channel=unstable&type=packages&show=vhs
@@ -266,7 +266,7 @@
       f3 # https://search.nixos.org/packages?channel=unstable&type=packages&show=f3
       gomtree # https://search.nixos.org/packages?channel=unstable&type=packages&show=gomtree
       mc # https://search.nixos.org/packages?channel=unstable&type=packages&show=mc
-      ncdu # @upstream-issue https://github.com/NixOS/nixpkgs/issues/290512 # https://search.nixos.org/packages?channel=unstable&type=packages&show=ncdu
+      ncdu # https://search.nixos.org/packages?channel=unstable&type=packages&show=ncdu
       nnn # https://search.nixos.org/packages?channel=unstable&type=packages&show=nnn
       ranger # https://search.nixos.org/packages?channel=unstable&type=packages&show=ranger
       superfile # https://search.nixos.org/packages?channel=unstable&type=packages&show=superfile
@@ -323,14 +323,14 @@
 
       # Development
       # keep-sorted start block=no newline_separated=no sticky_comments=no
-      pre-commit # @upstream-issue https://github.com/nixos/nixpkgs/issues/483584
+      pre-commit # https://search.nixos.org/packages?channel=unstable&type=packages&show=pre-commit
       terraform # https://search.nixos.org/packages?channel=unstable&type=packages&show=terraform
       # keep-sorted end
 
       # Graphics
       # keep-sorted start block=no newline_separated=no sticky_comments=no
       # aseprite # @upstream-issue https://github.com/NixOS/nixpkgs/issues/445447 # https://search.nixos.org/packages?channel=unstable&type=packages&show=aseprite
-      # krita # @upstream-issue https://github.com/NixOS/nixpkgs/issues/493431 # https://search.nixos.org/packages?channel=unstable&type=packages&show=krita
+      krita # https://search.nixos.org/packages?channel=unstable&type=packages&show=krita
       emulsion-palette # TODO: Missing "aarch64-apple-darwin" platform. # https://search.nixos.org/packages?channel=unstable&type=packages&show=emulsion-palette
       eyedropper # TODO: Missing "aarch64-apple-darwin" platform. # https://search.nixos.org/packages?channel=unstable&type=packages&show=eyedropper
       pureref # TODO: Missing "aarch64-apple-darwin" platform. # https://search.nixos.org/packages?channel=unstable&type=packages&show=pureref
