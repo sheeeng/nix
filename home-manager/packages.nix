@@ -140,7 +140,7 @@
       golangci-lint # https://search.nixos.org/packages?channel=unstable&type=packages&show=golangci-lint
       hadolint # https://search.nixos.org/packages?channel=unstable&type=packages&show=hadolint
       hubble # https://search.nixos.org/packages?channel=unstable&type=packages&show=hubble
-      inputs.beads-flake.packages.${pkgs.system}.default # TODO: Undo when https://github.com/steveyegge/beads/issues/1373#issuecomment-3815509770 is fixed.
+      beads # https://search.nixos.org/packages?channel=unstable&type=packages&show=beads
       jujutsu # https://search.nixos.org/packages?channel=unstable&type=packages&show=jujutsu
       just # https://search.nixos.org/packages?channel=unstable&type=packages&show=just
       just-lsp # https://search.nixos.org/packages?channel=unstable&type=packages&show=just-lsp
