@@ -219,6 +219,7 @@ in
   home = {
     packages = with pkgs; [
       # keep-sorted start
+      bash # https://search.nixos.org/packages?channel=unstable&type=packages&show=bash
       coreutils-full
       # dateutils # @upstream-issue https://github.com/NixOS/nixpkgs/issues/511329
       diffutils
