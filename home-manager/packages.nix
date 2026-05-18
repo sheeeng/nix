@@ -18,7 +18,6 @@
       # Audio
       # keep-sorted start block=no newline_separated=no sticky_comments=no
       # ffmpeg-full # @upstream-issue https://github.com/NixOS/nixpkgs/issues/511265 # https://search.nixos.org/packages?channel=unstable&type=packages&show=ffmpeg-full
-      mpc # https://search.nixos.org/packages?channel=unstable&type=packages&show=mpc
       # mpd # https://search.nixos.org/packages?channel=unstable&type=packages&show=mpd
       # musescore # @upstream-issue https://github.com/NixOS/nixpkgs/pull/450512#issuecomment-3390505837 # https://search.nixos.org/packages?channel=unstable&type=packages&show=musescore
       # ncmpcpp # https://search.nixos.org/packages?channel=unstable&type=packages&show=ncmpcpp
@@ -26,6 +25,7 @@
       # supercollider-with-plugins # TODO: Missing "aarch64-apple-darwin" platform. # https://search.nixos.org/packages?channel=unstable&type=packages&show=supercollider-with-plugins
       # zrythm # TODO: Marked as broken. # https://search.nixos.org/packages?channel=unstable&type=packages&show=zrythm
       audacity # https://search.nixos.org/packages?channel=unstable&type=packages&show=audacity
+      mpc # https://search.nixos.org/packages?channel=unstable&type=packages&show=mpc
       # keep-sorted end
 
       # Fonts
@@ -119,7 +119,6 @@
       # gh-skyline # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-skyline
       # gh-webhook # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-webhook
       # kubelogin # https://search.nixos.org/packages?channel=unstable&type=packages&show=kubelogin
-      marksman # https://search.nixos.org/packages?channel=unstable&type=packages&show=marksman
       # nixfmt-tree # https://search.nixos.org/packages?channel=unstable&type=packages&show=nixfmt-tree
       # taskctl # TODO: https://github.com/taskctl/taskctl # https://search.nixos.org/packages?channel=unstable&type=packages&show=taskctl
       # x-cmd # TODO: https://github.com/x-cmd/x-cmd # https://search.nixos.org/packages?channel=unstable&type=packages&show=x-cmd
@@ -130,6 +129,7 @@
       alejandra # https://search.nixos.org/packages?channel=unstable&type=packages&show=alejandra
       asdf-vm # https://search.nixos.org/packages?channel=unstable&type=packages&show=asdf-vm
       autoconf # https://search.nixos.org/packages?channel=unstable&type=packages&show=autoconf
+      beads # https://search.nixos.org/packages?channel=unstable&type=packages&show=beads
       cilium-cli # https://search.nixos.org/packages?channel=unstable&type=packages&show=cilium-cli
       conform # https://search.nixos.org/packages?channel=unstable&type=packages&show=conform
       delta # https://search.nixos.org/packages?channel=unstable&type=packages&show=delta
@@ -140,7 +140,6 @@
       golangci-lint # https://search.nixos.org/packages?channel=unstable&type=packages&show=golangci-lint
       hadolint # https://search.nixos.org/packages?channel=unstable&type=packages&show=hadolint
       hubble # https://search.nixos.org/packages?channel=unstable&type=packages&show=hubble
-      beads # https://search.nixos.org/packages?channel=unstable&type=packages&show=beads
       jujutsu # https://search.nixos.org/packages?channel=unstable&type=packages&show=jujutsu
       just # https://search.nixos.org/packages?channel=unstable&type=packages&show=just
       just-lsp # https://search.nixos.org/packages?channel=unstable&type=packages&show=just-lsp
@@ -156,6 +155,7 @@
       markdown-oxide # https://search.nixos.org/packages?channel=unstable&type=packages&show=markdown-oxide
       markdownlint-cli # https://search.nixos.org/packages?channel=unstable&type=packages&show=markdownlint-cli
       markdownlint-cli2 # https://search.nixos.org/packages?channel=unstable&type=packages&show=markdownlint-cli2
+      marksman # https://search.nixos.org/packages?channel=unstable&type=packages&show=marksman
       marp-cli # https://search.nixos.org/packages?channel=unstable&type=packages&show=marp-cli
       nh # https://search.nixos.org/packages?channel=unstable&type=packages&show=nh
       nixfmt # https://search.nixos.org/packages?channel=unstable&type=packages&show=nixfmt
@@ -332,9 +332,9 @@
       # Graphics
       # keep-sorted start block=no newline_separated=no sticky_comments=no
       # aseprite # @upstream-issue https://github.com/NixOS/nixpkgs/issues/445447 # https://search.nixos.org/packages?channel=unstable&type=packages&show=aseprite
-      krita # https://search.nixos.org/packages?channel=unstable&type=packages&show=krita
       emulsion-palette # TODO: Missing "aarch64-apple-darwin" platform. # https://search.nixos.org/packages?channel=unstable&type=packages&show=emulsion-palette
       eyedropper # TODO: Missing "aarch64-apple-darwin" platform. # https://search.nixos.org/packages?channel=unstable&type=packages&show=eyedropper
+      krita # https://search.nixos.org/packages?channel=unstable&type=packages&show=krita
       pureref # TODO: Missing "aarch64-apple-darwin" platform. # https://search.nixos.org/packages?channel=unstable&type=packages&show=pureref
       # keep-sorted end
 

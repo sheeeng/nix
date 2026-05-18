@@ -22,7 +22,7 @@ metadata:
 Read the context and activate the relevant section(s). Multiple sections may apply.
 
 | Context | Apply |
-|---------|-------|
+| --------- | ------- |
 | Web app routes, templates, forms, sessions, auth | [OWASP Top 10 (2021)](#owasp-top-10-2021) |
 | REST, GraphQL, gRPC, WebSocket endpoints | [OWASP API Security Top 10 (2023)](#owasp-api-security-top-10-2023) |
 | Any implementation task (crypto, input, logging) | [OWASP Proactive Controls (2024)](#owasp-proactive-controls-2024) |
@@ -38,7 +38,7 @@ Read the context and activate the relevant section(s). Multiple sections may app
 ### Reference Index
 
 | ID | Name | One-line summary |
-|----|------|-----------------|
+| ---- | ------ | ----------------- |
 | A01 | Broken Access Control | Users act outside intended permissions; IDOR, missing authz checks |
 | A02 | Cryptographic Failures | Sensitive data exposed due to weak or absent encryption |
 | A03 | Injection | Untrusted data interpreted as code or commands (SQL, OS, LDAP, XSS) |
@@ -52,7 +52,7 @@ Read the context and activate the relevant section(s). Multiple sections may app
 
 ### Verification Checklist
 
-**A01 — Broken Access Control**
+#### A01 — Broken Access Control
 
 - Every route/handler enforces authorization before processing.
 - Object access by ID validates caller ownership (no IDOR).
@@ -62,7 +62,7 @@ Read the context and activate the relevant section(s). Multiple sections may app
 - Privilege escalation paths do not exist (user cannot self-promote).
 - Directory listing is disabled; sensitive files are not web-accessible.
 
-**A02 — Cryptographic Failures**
+#### A02 — Cryptographic Failures
 
 - Sensitive data is encrypted at rest and in transit.
 - Passwords use `Argon2id`, `bcrypt` (factor ≥12), or `scrypt` — never `MD5`/`SHA-1`.
@@ -71,7 +71,7 @@ Read the context and activate the relevant section(s). Multiple sections may app
 - Keys and secrets stored in env vars or a secrets manager — not in source.
 - Security-sensitive random values use a CSPRNG.
 
-**A03 — Injection**
+#### A03 — Injection
 
 - All database queries use parameterized queries or prepared statements.
 - No user input concatenated into SQL, shell commands, LDAP, or XPath.
@@ -79,7 +79,7 @@ Read the context and activate the relevant section(s). Multiple sections may app
 - Template engines do not render untrusted input as raw HTML.
 - XML parsing disables external entities (`DOCTYPE`, `SYSTEM`, `PUBLIC`).
 
-**A04 — Insecure Design**
+#### A04 — Insecure Design
 
 - Threat modelling performed for sensitive flows.
 - Business logic enforces rate limits, quantity caps, and workflow ordering server-side.
@@ -87,7 +87,7 @@ Read the context and activate the relevant section(s). Multiple sections may app
 - Account enumeration is not possible via timing or distinct error messages.
 - Multi-step processes cannot be bypassed by skipping steps.
 
-**A05 — Security Misconfiguration**
+#### A05 — Security Misconfiguration
 
 - Security headers set: `Content-Security-Policy`, `X-Frame-Options`, `X-Content-Type-Options`, `Referrer-Policy`.
 - Debug modes and stack traces disabled in production.
@@ -96,7 +96,7 @@ Read the context and activate the relevant section(s). Multiple sections may app
 - Cloud storage not publicly writable or listable.
 - Dependencies pinned with lockfiles committed.
 
-**A06 — Vulnerable and Outdated Components**
+#### A06 — Vulnerable and Outdated Components
 
 - All dependencies up to date; no packages with known CVEs.
 - `npm audit`, `pip audit`, `cargo audit`, or equivalent runs in CI.
@@ -104,7 +104,7 @@ Read the context and activate the relevant section(s). Multiple sections may app
 - Container base images pinned to specific digests (not `latest`).
 - Abandoned packages (no releases in 2+ years with open security issues) replaced.
 
-**A07 — Identification and Authentication Failures**
+#### A07 — Identification and Authentication Failures
 
 - Password minimum length ≥12; checked against known-breached lists.
 - MFA available and enforced for privileged accounts.
@@ -113,7 +113,7 @@ Read the context and activate the relevant section(s). Multiple sections may app
 - Account lockout or exponential backoff on repeated failed logins.
 - Password reset tokens are single-use, time-limited, sent to verified addresses only.
 
-**A08 — Software and Data Integrity Failures**
+#### A08 — Software and Data Integrity Failures
 
 - CI/CD does not use unverified or unpinned external actions/scripts.
 - Package lockfiles and integrity hashes used.
@@ -121,7 +121,7 @@ Read the context and activate the relevant section(s). Multiple sections may app
 - Subresource Integrity (`SRI`) on externally loaded scripts and stylesheets.
 - Auto-update mechanisms verify signed packages before installing.
 
-**A09 — Security Logging and Monitoring Failures**
+#### A09 — Security Logging and Monitoring Failures
 
 - Authentication events (success, failure, lockout) logged with timestamp, user, IP.
 - Logs do not contain passwords, tokens, full PAN/PII.
@@ -129,7 +129,7 @@ Read the context and activate the relevant section(s). Multiple sections may app
 - Logs stored separately from the application; tamper-evident.
 - Alerts exist for repeated failures and anomalous access patterns.
 
-**A10 — Server-Side Request Forgery (SSRF)**
+#### A10 — Server-Side Request Forgery (SSRF)
 
 - Server-side URL fetching validated against an allowlist of permitted hosts.
 - Internal metadata endpoints (`169.254.169.254`, `fd00:ec2::254`) blocked.
@@ -146,7 +146,7 @@ Read the context and activate the relevant section(s). Multiple sections may app
 ### Reference Index
 
 | ID | Name | One-line summary |
-|----|------|-----------------|
+| ---- | ------ | ----------------- |
 | API1 | Broken Object Level Authorization | Missing per-object authz check; attacker reads/writes other users' data |
 | API2 | Broken Authentication | Weak token validation; tokens in URLs; missing expiry checks |
 | API3 | Broken Object Property Level Authorization | Response over-exposes fields; mass assignment writes unauthorized properties |
@@ -160,14 +160,14 @@ Read the context and activate the relevant section(s). Multiple sections may app
 
 ### Verification Checklist
 
-**API1 — Broken Object Level Authorization (BOLA)**
+#### API1 — Broken Object Level Authorization (BOLA)
 
 - Every endpoint accessing an object by ID validates caller ownership.
 - Bulk/list endpoints filter to caller's permitted objects only.
 - Nested resources (e.g., `/users/{id}/orders/{orderId}`) validate ownership at every level.
 - Authorization re-checked on update and delete, not just read.
 
-**API2 — Broken Authentication**
+#### API2 — Broken Authentication
 
 - Tokens validated on every request: signature, expiry, issuer, audience.
 - Tokens transmitted over HTTPS only; never in URL query parameters.
@@ -175,54 +175,54 @@ Read the context and activate the relevant section(s). Multiple sections may app
 - `JWT` algorithms explicitly allowlisted; `alg: none` rejected.
 - API keys not logged, exposed in errors, or leaked in headers.
 
-**API3 — Broken Object Property Level Authorization (BOPLA)**
+#### API3 — Broken Object Property Level Authorization (BOPLA)
 
 - Responses expose only fields the caller is authorized to see.
 - Mass assignment prevented: only allowlisted fields bound from request body.
 - Write endpoints reject fields the caller cannot modify (`role`, `isAdmin`, `balance`).
 - GraphQL resolvers enforce field-level authorization.
 
-**API4 — Unrestricted Resource Consumption**
+#### API4 — Unrestricted Resource Consumption
 
 - Rate limiting applied to all public and authenticated endpoints.
 - Pagination enforced with a maximum page size on all list endpoints.
 - File upload endpoints enforce size and type restrictions.
 - GraphQL depth and complexity limits configured.
 
-**API5 — Broken Function Level Authorization**
+#### API5 — Broken Function Level Authorization
 
 - Admin and privileged functions accessible only to authorized roles.
 - HTTP methods restricted per endpoint; unauthorized methods return 405.
 - Internal endpoints not accessible from external networks.
 - Action endpoints (e.g., `/promote`, `/refund`) enforce role checks.
 
-**API6 — Unrestricted Access to Sensitive Business Flows**
+#### API6 — Unrestricted Access to Sensitive Business Flows
 
 - Rate limiting on high-value flows: checkout, account creation, password reset.
 - Bot-detection applied to abuse-prone flows.
 - Quantity and frequency limits exist for business operations.
 - Multi-step flows enforce state machine ordering server-side.
 
-**API7 — Server Side Request Forgery**
+#### API7 — Server Side Request Forgery
 
 - Same checks as A10 above, applied to API fetch and webhook patterns.
 - Webhook/callback URL registration validates target before first request.
 
-**API8 — Security Misconfiguration**
+#### API8 — Security Misconfiguration
 
 - CORS not `*` for credentialed requests; explicit origin allowlist used.
 - Error responses do not expose stack traces or dependency versions.
 - API documentation endpoints (Swagger UI, GraphQL Playground) disabled or access-controlled in production.
 - Unused API versions, methods, and endpoints disabled.
 
-**API9 — Improper Inventory Management**
+#### API9 — Improper Inventory Management
 
 - All deployed API versions documented, monitored, and sunset on schedule.
 - Staging/test endpoints not accessible with production credentials.
 - Third-party integrations inventoried and reviewed.
 - Shadow APIs exposed by frameworks audited.
 
-**API10 — Unsafe Consumption of APIs**
+#### API10 — Unsafe Consumption of APIs
 
 - Data from third-party APIs validated and sanitized before internal use.
 - Third-party responses not trusted to inject SQL, HTML, or commands.
@@ -238,7 +238,7 @@ Read the context and activate the relevant section(s). Multiple sections may app
 ### Reference Index
 
 | ID | Name | One-line summary |
-|----|------|-----------------|
+| ---- | ------ | ----------------- |
 | C1 | Implement Access Control | Centralized, deny-by-default, server-side authorization |
 | C2 | Use Cryptography the Right Way | Vetted libraries, authenticated encryption, CSPRNG, adaptive password hashing |
 | C3 | Validate All Input | Allowlist validation at every trust boundary; context-specific output encoding |
@@ -252,14 +252,14 @@ Read the context and activate the relevant section(s). Multiple sections may app
 
 ### Verification Checklist
 
-**C1 — Access Control**
+#### C1 — Access Control
 
 - Policy defined centrally, not scattered; default deny.
 - Authorization re-validated on every state-changing operation.
 - All access control failures logged.
 - Enforcement is server-side only.
 
-**C2 — Cryptography**
+#### C2 — Cryptography
 
 - No custom crypto; use `libsodium`, `Bouncy Castle`, `cryptography.io`, or equivalent.
 - Authenticated encryption (`AES-GCM`, `ChaCha20-Poly1305`) for confidentiality + integrity.
@@ -267,46 +267,46 @@ Read the context and activate the relevant section(s). Multiple sections may app
 - Passwords hashed with `Argon2id` (preferred), `bcrypt` (factor ≥12), or `scrypt`.
 - Key rotation strategy defined and implemented.
 
-**C3 — Input Validation**
+#### C3 — Input Validation
 
 - Allowlist (expected characters/formats) not denylist.
 - Validate type, length, format, range at the trust boundary.
 - Reject and log malformed input; do not silently coerce.
 - Output encoded for context: HTML, URL, SQL parameterization.
 
-**C4 — Security from the Start**
+#### C4 — Security from the Start
 
 - Threat model exists for new features handling sensitive data.
 - Trust boundaries identified and documented.
 - Principle of least privilege applied.
 
-**C5 — Secure Defaults**
+#### C5 — Secure Defaults
 
 - Debug/verbose modes disabled in production.
 - Required security config validated at startup; fail fast on missing values.
 - Secrets in env vars or secrets manager (`Vault`, `AWS SSM`, `SOPS`).
 - Framework security features (CSRF, XSS filtering) not overridden.
 
-**C6 — Simplicity**
+#### C6 — Simplicity
 
 - Standard library/framework primitives used (prepared statements, ORM parameterization).
 - Security-critical code isolated; failures contained.
 
-**C7 — Find and Fix Issues**
+#### C7 — Find and Fix Issues
 
 - SAST (`Semgrep`, `CodeQL`, `Bandit`, `Brakeman`) runs in CI.
 - Dependency scanning (`npm audit`, `pip-audit`, `Trivy`, `Grype`) runs in CI.
 - Critical and High findings block merges.
 - Fixes verified with a test that reproduces the original issue.
 
-**C8 — Digital Identity**
+#### C8 — Digital Identity
 
 - Proven identity library/provider used; no hand-rolled authentication.
 - Session IDs cryptographically random (≥128 bits); regenerated after login; expire on inactivity.
 - MFA enforced for privileged and sensitive-data accounts.
 - Account recovery flows use time-limited, single-use, verified-channel tokens.
 
-**C9 — Logging and Monitoring**
+#### C9 — Logging and Monitoring
 
 - Security events logged (auth attempts, authz failures, input rejections, privilege changes).
 - Structured logs (JSON) with UTC timestamp, user/session ID, IP, action, outcome.
@@ -314,7 +314,7 @@ Read the context and activate the relevant section(s). Multiple sections may app
 - Append-only log storage separate from app data.
 - Alerting thresholds defined for brute force, mass access, and privilege escalation.
 
-**C10 — External Systems**
+#### C10 — External Systems
 
 - All external data treated as untrusted input; validated and sanitized.
 - Least privilege for service accounts and database users.
@@ -332,7 +332,7 @@ ASVS defines three assurance levels (L1 = minimum, L2 = standard, L3 = advanced)
 ### Chapter Index
 
 | Chapter | Name | One-line summary |
-|---------|------|-----------------|
+| --------- | ------ | ----------------- |
 | V1 | Architecture, Design and Threat Modelling | Secure design principles, threat modelling, and security architecture |
 | V2 | Authentication | Password policies, credential storage, MFA, lookup secrets |
 | V3 | Session Management | Session token generation, renewal, expiry, and binding |
@@ -495,7 +495,7 @@ For each finding, include:
 ## References
 
 | Standard | URL |
-|----------|-----|
+| ---------- | ----- |
 | OWASP Top 10 (2021) | <https://owasp.org/Top10/> |
 | OWASP API Security Top 10 (2023) | <https://owasp.org/www-project-api-security/> |
 | OWASP Proactive Controls (2024) | <https://owasp.org/www-project-proactive-controls/> |
