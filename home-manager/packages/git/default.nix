@@ -3,6 +3,7 @@
 {
   config,
   inputs,
+  lib,
   pkgs,
   ...
 }:
@@ -215,12 +216,6 @@ in
           };
         };
         filter = {
-          lfs = {
-            process = "git-lfs filter-process";
-            clean = "git-lfs clean -- %f";
-            smudge = "git-lfs smudge -- %f";
-            required = true;
-          };
           spabs = {
             clean = "expand --initial -t 2"; # https://gist.github.com/eevee/6721177; https://eev.ee/blog/2016/06/04/converting-a-git-repo-from-tabs-to-spaces/
             smudge = "expand --initial -t 2"; # https://gist.github.com/eevee/6721177; https://eev.ee/blog/2016/06/04/converting-a-git-repo-from-tabs-to-spaces/
