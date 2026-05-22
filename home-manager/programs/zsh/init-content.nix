@@ -105,6 +105,26 @@
       select-word-style bash
     '')
 
+    # Override _auto_notify_format to display elapsed time as Xh:XXm:XXs.
+    # https://github.com/MichaelAquilina/zsh-auto-notify/blob/b51c934d88868e56c1d55d0a2a36d559f21cb2ee/auto-notify.plugin.zsh#L36-L44
+    (lib.mkOrder 1050 ''
+      function _auto_notify_format() {
+        local message="$1"
+        local command="$2"
+        local elapsed="$3"
+        local exit_code="$4"
+        local hours=$(( elapsed / 3600 ))
+        local minutes=$(( (elapsed % 3600) / 60 ))
+        local seconds=$(( elapsed % 60 ))
+        local formatted_elapsed
+        printf -v formatted_elapsed '%dh:%02dm:%02ds' "$hours" "$minutes" "$seconds"
+        message="''${message//\%command/$command}"
+        message="''${message//\%elapsed/$formatted_elapsed}"
+        message="''${message//\%exit_code/$exit_code}"
+        printf '%s' "$message"
+      }
+    '')
+
     # Set iTerm2 tab title to current directory name on each prompt
     (lib.mkOrder 1100 ''
       if [[ "$TERM_PROGRAM" == "iTerm.app" ]]; then
