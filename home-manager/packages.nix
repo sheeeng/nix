@@ -186,6 +186,7 @@
       ssss # https://search.nixos.org/packages?channel=unstable&type=packages&show=ssss
       yubikey-manager # https://search.nixos.org/packages?channel=unstable&type=packages&show=yubikey-manager
       yubikey-personalization # https://search.nixos.org/packages?channel=unstable&type=packages&show=yubikey-personalization
+      yubiswitch # https://search.nixos.org/packages?channel=unstable&type=packages&show=yubiswitch
       # keep-sorted end
 
       # Productivity
