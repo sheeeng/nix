@@ -151,10 +151,10 @@
     },
     "crane": {
       "locked": {
-        "lastModified": 1779130139,
-        "narHash": "sha256-BLrtr42azquO7MdGFU5a7KiMl3YpFlTeIXqy1fT5GlQ=",
+        "lastModified": 1780029330,
+        "narHash": "sha256-fWFKEKB5CP+NO8/3uOaEZIVbd03mvDJ//VsnKkXty08=",
         "ref": "master",
-        "rev": "edb38893982a3338972bb4a2ec7ce7c29ba10fd9",
+        "rev": "6823b493a0bc2142082075576efa6633b537197e",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/ipetkov/crane.git"
@@ -195,11 +195,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1779942106,
-        "narHash": "sha256-81sATQ+hMCcsqFCN5UyhCoXXf62yQfKtzKzuiFXtdxA=",
+        "lastModified": 1780048612,
+        "narHash": "sha256-Md/eOK5OjmvvHc2H52pLZe4zpP4XyfiS5vHqfRCz2HU=",
         "owner": "nix-community",
         "repo": "disko",
-        "rev": "36c1d04e85fc70f7b94f7434b1ea0a1a13bda4cd",
+        "rev": "caa775cf67bfdc47f940edd96c975b5016df9059",
         "type": "github"
       },
       "original": {
@@ -239,10 +239,10 @@
         "rust-analyzer-src": "rust-analyzer-src_2"
       },
       "locked": {
-        "lastModified": 1779612045,
-        "narHash": "sha256-+7lfNVnmXJDkiRYHd5NoNwYoyUcc0LcXPaIJqjO7VWM=",
+        "lastModified": 1779963685,
+        "narHash": "sha256-tUa/5UJCc3eaUqlCU8U/9dXefsgdq3sGQR4PKYrRHUw=",
         "ref": "main",
-        "rev": "d7be747f0a65af378de515fc3cee131bf99a008f",
+        "rev": "e8a633e2794e74b3354cc8199ae53af649340036",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/nix-community/fenix.git"
@@ -277,11 +277,11 @@
       },
       "locked": {
         "dir": "pkgs/firefox-addons",
-        "lastModified": 1779940971,
-        "narHash": "sha256-bmmLVGqgohXF8Lb447TDAD2a1r9siFE8e//lAKosmyY=",
+        "lastModified": 1780027372,
+        "narHash": "sha256-LQ3CUdVZoKQqWzS2eEpY0rp9bJuzqydNFJUiJ6De9r8=",
         "owner": "rycee",
         "repo": "nur-expressions",
-        "rev": "96bf7ce4c4420a800986309413dbc08cc27c36c1",
+        "rev": "ef18b76eabdf4f9b2ce8e99e78ce698923693300",
         "type": "gitlab"
       },
       "original": {
@@ -596,11 +596,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1779726696,
-        "narHash": "sha256-/p37CB5n6Wpw250b0Lq0CYwNq2D8uGKzDoBulyLcQqA=",
+        "lastModified": 1779969295,
+        "narHash": "sha256-HwIJ3tOcwSMiV75L7KqJXciXR9UfT+d7rwOZMX7cTnA=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "1a95e2efb477959b70b4a14c51035975c0481df6",
+        "rev": "61e2c9659324181e0f0ed911958c536333b1d4f6",
         "type": "github"
       },
       "original": {
@@ -667,6 +667,124 @@
         "wrapix": "wrapix_2"
       },
       "locked": {
+        "lastModified": 1780023854,
+        "narHash": "sha256-hUAAAKSwd5Unt+Tu656Vzs7FNnu2lYU3RMx4cyn6efI=",
+        "ref": "main",
+        "rev": "41fc9a7047936473513b8a3b32cf1971afc2b0fa",
+        "shallow": true,
+        "type": "git",
+        "url": "ssh://git@github.com/taheris/loom.git"
+      },
+      "original": {
+        "ref": "main",
+        "shallow": true,
+        "type": "git",
+        "url": "ssh://git@github.com/taheris/loom.git"
+      }
+    },
+    "loom_2": {
+      "inputs": {
+        "crane": [
+          "wrapix",
+          "loom",
+          "wrapix",
+          "loom",
+          "wrapix",
+          "crane"
+        ],
+        "fenix": [
+          "wrapix",
+          "loom",
+          "wrapix",
+          "loom",
+          "wrapix",
+          "fenix"
+        ],
+        "flake-parts": [
+          "wrapix",
+          "loom",
+          "wrapix",
+          "flake-parts"
+        ],
+        "nixpkgs": [
+          "wrapix",
+          "loom",
+          "wrapix",
+          "nixpkgs"
+        ],
+        "treefmt-nix": [
+          "wrapix",
+          "loom",
+          "wrapix",
+          "treefmt-nix"
+        ],
+        "wrapix": "wrapix_3"
+      },
+      "locked": {
+        "lastModified": 1779969049,
+        "narHash": "sha256-iZwIA0a/8Ko+cAx4Oko5X3OXWR5aGkqaG64x/LnZ3Ow=",
+        "ref": "main",
+        "rev": "ffbd0c968aa919d8489935134a4851f86d5b9d90",
+        "shallow": true,
+        "type": "git",
+        "url": "ssh://git@github.com/taheris/loom.git"
+      },
+      "original": {
+        "ref": "main",
+        "shallow": true,
+        "type": "git",
+        "url": "ssh://git@github.com/taheris/loom.git"
+      }
+    },
+    "loom_3": {
+      "inputs": {
+        "crane": [
+          "wrapix",
+          "loom",
+          "wrapix",
+          "loom",
+          "wrapix",
+          "loom",
+          "wrapix",
+          "crane"
+        ],
+        "fenix": [
+          "wrapix",
+          "loom",
+          "wrapix",
+          "loom",
+          "wrapix",
+          "loom",
+          "wrapix",
+          "fenix"
+        ],
+        "flake-parts": [
+          "wrapix",
+          "loom",
+          "wrapix",
+          "loom",
+          "wrapix",
+          "flake-parts"
+        ],
+        "nixpkgs": [
+          "wrapix",
+          "loom",
+          "wrapix",
+          "loom",
+          "wrapix",
+          "nixpkgs"
+        ],
+        "treefmt-nix": [
+          "wrapix",
+          "loom",
+          "wrapix",
+          "loom",
+          "wrapix",
+          "treefmt-nix"
+        ],
+        "wrapix": "wrapix_4"
+      },
+      "locked": {
         "lastModified": 1779757891,
         "narHash": "sha256-byPdAmHtolUtinnylx3rIhfp5S+Bfc0gh/nNCnAcTio=",
         "ref": "main",
@@ -713,11 +831,11 @@
         "spectrum": "spectrum"
       },
       "locked": {
-        "lastModified": 1779641751,
-        "narHash": "sha256-xSEiY1kZoCHX7bzeDe6fzwnaG9Mjd/WrJ4MEWJghI/Q=",
+        "lastModified": 1779970379,
+        "narHash": "sha256-ZHsxoYXXnfJtMVh1/yY+1Eh9hHcPBhE28Qvinauh+BQ=",
         "owner": "astro",
         "repo": "microvm.nix",
-        "rev": "4fe5ab55ef830e4b2d82d37ef7a5aca6e7b0e5f8",
+        "rev": "0d49083ba2d7419b22908ac392777c16df9a032e",
         "type": "github"
       },
       "original": {
@@ -1022,11 +1140,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1779949061,
-        "narHash": "sha256-JtcNvjeppJA8lpa5k6hTkEx8zscuGlTz8kON0f0L7kg=",
+        "lastModified": 1780051618,
+        "narHash": "sha256-bK4IohnwB6V2q8GD9Ffa5LyCq+fp/HImJYfPNpeTJAo=",
         "owner": "nix-community",
         "repo": "nur",
-        "rev": "5c5afbc73e9420c94793ddf74929186e18a2dc13",
+        "rev": "26a10c5c8a4ab2a6e4a77f9eaf6fb9d005299cce",
         "type": "github"
       },
       "original": {
@@ -1158,11 +1276,11 @@
     "rust-analyzer-src_2": {
       "flake": false,
       "locked": {
-        "lastModified": 1779569060,
-        "narHash": "sha256-NSnk5D+3KEfRdbgPijs33N2RAKSG6A74SwfnynLcouo=",
+        "lastModified": 1779856973,
+        "narHash": "sha256-WqFXLOmYxYfQgdCnz3oNhKqyLJ2G0Y4/Wc+AEn6PTZw=",
         "owner": "rust-lang",
         "repo": "rust-analyzer",
-        "rev": "987ea33645ab1c709b1df6823038abcb2fe8973e",
+        "rev": "b48cc1083d4fd7264d968ba613553400a30a90a8",
         "type": "github"
       },
       "original": {
@@ -1535,11 +1653,11 @@
         "treefmt-nix": "treefmt-nix_4"
       },
       "locked": {
-        "lastModified": 1779929424,
-        "narHash": "sha256-zvQnZHDtBH2e9rmwuXJA0YyTGdCi8niZpAr2E9dbv8g=",
+        "lastModified": 1780041097,
+        "narHash": "sha256-iH5TQXVL/6RSv/QlmrakwktBEpq5DxSw+j3dla1zWNM=",
         "owner": "taheris",
         "repo": "wrapix",
-        "rev": "3c27ee427f13ab741410aca560abc9d32a96f856",
+        "rev": "0e0c50566c86629027a59300ad0fe234c0acc79d",
         "type": "github"
       },
       "original": {
@@ -1563,11 +1681,121 @@
           "wrapix",
           "flake-parts"
         ],
+        "loom": "loom_2",
         "nixpkgs": [
           "wrapix",
           "nixpkgs"
         ],
         "treefmt-nix": [
+          "wrapix",
+          "treefmt-nix"
+        ]
+      },
+      "locked": {
+        "lastModified": 1780008955,
+        "narHash": "sha256-chB2EnbNCVZwY8SdAlL/VWij1BDgeZeD3DR6DXQcE0I=",
+        "ref": "main",
+        "rev": "32b11f5a5b905f966cec16cfb355a9585e31ca7f",
+        "shallow": true,
+        "type": "git",
+        "url": "https://github.com/taheris/wrapix.git"
+      },
+      "original": {
+        "ref": "main",
+        "shallow": true,
+        "type": "git",
+        "url": "https://github.com/taheris/wrapix.git"
+      }
+    },
+    "wrapix_3": {
+      "inputs": {
+        "crane": [
+          "wrapix",
+          "loom",
+          "wrapix",
+          "crane"
+        ],
+        "fenix": [
+          "wrapix",
+          "loom",
+          "wrapix",
+          "fenix"
+        ],
+        "flake-parts": [
+          "wrapix",
+          "loom",
+          "wrapix",
+          "flake-parts"
+        ],
+        "loom": "loom_3",
+        "nixpkgs": [
+          "wrapix",
+          "loom",
+          "wrapix",
+          "nixpkgs"
+        ],
+        "treefmt-nix": [
+          "wrapix",
+          "loom",
+          "wrapix",
+          "treefmt-nix"
+        ]
+      },
+      "locked": {
+        "lastModified": 1779929424,
+        "narHash": "sha256-zvQnZHDtBH2e9rmwuXJA0YyTGdCi8niZpAr2E9dbv8g=",
+        "ref": "main",
+        "rev": "3c27ee427f13ab741410aca560abc9d32a96f856",
+        "shallow": true,
+        "type": "git",
+        "url": "https://github.com/taheris/wrapix.git"
+      },
+      "original": {
+        "ref": "main",
+        "shallow": true,
+        "type": "git",
+        "url": "https://github.com/taheris/wrapix.git"
+      }
+    },
+    "wrapix_4": {
+      "inputs": {
+        "crane": [
+          "wrapix",
+          "loom",
+          "wrapix",
+          "loom",
+          "wrapix",
+          "crane"
+        ],
+        "fenix": [
+          "wrapix",
+          "loom",
+          "wrapix",
+          "loom",
+          "wrapix",
+          "fenix"
+        ],
+        "flake-parts": [
+          "wrapix",
+          "loom",
+          "wrapix",
+          "loom",
+          "wrapix",
+          "flake-parts"
+        ],
+        "nixpkgs": [
+          "wrapix",
+          "loom",
+          "wrapix",
+          "loom",
+          "wrapix",
+          "nixpkgs"
+        ],
+        "treefmt-nix": [
+          "wrapix",
+          "loom",
+          "wrapix",
+          "loom",
           "wrapix",
           "treefmt-nix"
         ]
