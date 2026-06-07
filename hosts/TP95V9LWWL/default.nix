@@ -259,6 +259,20 @@ in
     };
   };
 
+  launchd.daemons.limit-maxfiles = {
+    serviceConfig = {
+      Label = "limit.maxfiles";
+      ProgramArguments = [
+        "launchctl"
+        "limit"
+        "maxfiles"
+        "1024"
+        "1024"
+      ];
+      RunAtLoad = true;
+    };
+  };
+
   system.stateVersion = 5;
 
   # The option definition `services.nix-daemon.enable' no longer has any effect; please remove it.
