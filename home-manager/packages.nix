@@ -8,7 +8,6 @@
 
 {
   pkgs,
-  inputs,
   ...
 }:
 {

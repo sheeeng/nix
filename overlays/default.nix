@@ -66,7 +66,7 @@
     # Disable flaky performance test in jsonpath-python that fails in the Nix sandbox.
     # The test_cache_hit_rate test compares timing which is unreliable in sandboxed builds.
     python313Packages = prev.python313Packages.overrideScope (
-      pyFinal: pyPrev: {
+      _pyFinal: pyPrev: {
         jsonpath-python = pyPrev.jsonpath-python.overridePythonAttrs (old: {
           disabledTestPaths = (old.disabledTestPaths or [ ]) ++ [
             "tests/test_performance.py"
