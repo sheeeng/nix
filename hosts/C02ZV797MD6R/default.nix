@@ -58,7 +58,7 @@ in
       # keep-sorted start block=yes newline_separated=no
       # clang # https://search.nixos.org/packages?channel=unstable&type=packages&show=clang
       coreutils # https://search.nixos.org/packages?channel=unstable&type=packages&show=coreutils
-      dix # https://search.nixos.org/packages?channel=unstable&type=packages&show=dix
+      # dix # https://search.nixos.org/packages?channel=unstable&type=packages&show=dix
       findutils # https://search.nixos.org/packages?channel=unstable&type=packages&show=findutils
       # inputs.flox.packages.${pkgs.system}.default
       manix # https://search.nixos.org/packages?channel=unstable&type=packages&show=manix

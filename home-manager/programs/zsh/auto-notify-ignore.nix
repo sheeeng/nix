@@ -2,18 +2,18 @@ _:
 let
   default = [
     # keep-sorted start
-    "vim"
-    "nvim"
-    "less"
-    "more"
-    "man"
-    "tig"
-    "watch"
     "git commit"
-    "top"
     "htop"
-    "ssh"
+    "less"
+    "man"
+    "more"
     "nano"
+    "nvim"
+    "ssh"
+    "tig"
+    "top"
+    "vim"
+    "watch"
     # keep-sorted end
   ]; # https://github.com/MichaelAquilina/zsh-auto-notify/blob/b51c934d88868e56c1d55d0a2a36d559f21cb2ee/auto-notify.plugin.zsh#L23-L34
 in
@@ -30,8 +30,8 @@ in
       "emacs"
       "hx"
       "nix develop"
-      "nix-shell"
       "nix"
+      "nix-shell"
       "time"
       "yadm"
       # keep-sorted end
