@@ -85,13 +85,13 @@
 
       # Communication
       # keep-sorted start block=no newline_separated=no sticky_comments=no
+      # aerc # https://search.nixos.org/packages?channel=unstable&type=packages&show=aerc
       # alpine # TODO: Unavailable on aarch64-apple-darwin platform. # https://search.nixos.org/packages?channel=unstable&type=packages&show=alpine
       # gomuks # https://search.nixos.org/packages?channel=unstable&type=packages&show=gomuks
       # ii # https://search.nixos.org/packages?channel=unstable&type=packages&show=ii
       # mutt # https://search.nixos.org/packages?channel=unstable&type=packages&show=mutt
       # neomutt # https://search.nixos.org/packages?channel=unstable&type=packages&show=neomutt
       # weechat # https://search.nixos.org/packages?channel=unstable&type=packages&show=weechat
-      # aerc # https://search.nixos.org/packages?channel=unstable&type=packages&show=aerc
       # keep-sorted end
 
       # Development Tools
