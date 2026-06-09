@@ -91,7 +91,7 @@
       # mutt # https://search.nixos.org/packages?channel=unstable&type=packages&show=mutt
       # neomutt # https://search.nixos.org/packages?channel=unstable&type=packages&show=neomutt
       # weechat # https://search.nixos.org/packages?channel=unstable&type=packages&show=weechat
-      aerc # https://search.nixos.org/packages?channel=unstable&type=packages&show=aerc
+      # aerc # https://search.nixos.org/packages?channel=unstable&type=packages&show=aerc
       # keep-sorted end
 
       # Development Tools
@@ -180,6 +180,7 @@
       age # https://search.nixos.org/packages?channel=unstable&type=packages&show=age
       age-plugin-1p # https://search.nixos.org/packages?channel=unstable&type=packages&show=age-plugin-1p
       age-plugin-yubikey # https://search.nixos.org/packages?channel=unstable&type=packages&show=age-plugin-yubikey
+      nono # https://search.nixos.org/packages?channel=unstable&type=packages&show=nono
       pass # https://search.nixos.org/packages?channel=unstable&type=packages&show=pass
       pass-git-helper # https://search.nixos.org/packages?channel=unstable&type=packages&show=pass-git-helper
       passage # https://search.nixos.org/packages?channel=unstable&type=packages&show=passage
