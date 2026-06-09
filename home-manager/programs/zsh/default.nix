@@ -71,7 +71,7 @@
     envExtra = ''
       export LESSHISTFILE="${config.xdg.dataHome}/.lesshst";
       export CARGO_HOME="${config.xdg.cacheHome}/.cargo"
-      export PATH="$HOME/bin:$PATH:/etc/profiles/per-user/${config.home.username}/bin"
+      export PATH="$HOME/bin:/etc/profiles/per-user/${config.home.username}/bin:$PATH"
       export PATH="$PATH:${config.xdg.dataHome}/.local/bin"
     ''; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.envExtra
     history = {
