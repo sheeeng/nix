@@ -38,18 +38,20 @@ in
     commands = {
       brainstorm = "${superpowersSrc}/commands/brainstorm.md";
       changelog = ./opencode/commands/changelog.md;
-      commit = ./opencode/commands/commit.md;
+      commit = ./opencode/commands/upsert-git-commit.md;
       execute-plan = "${superpowersSrc}/commands/execute-plan.md";
-      fix-issue = ./opencode/commands/fix-issue.md;
+      fix-issue = ./opencode/commands/fix-github-issue.md;
       implement = ./opencode/commands/implement.md;
+      upsert-github-pull-request = ./opencode/commands/upsert-github-pull-request.md;
       plan = ./opencode/commands/plan.md;
       research = ./opencode/commands/research.md;
       write-plan = "${superpowersSrc}/commands/write-plan.md";
     }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.claude-code.commands
     skills = {
-      git-commit = ./opencode/skills/git-commit.md;
-      git-release = ./opencode/skills/git-release.md;
-      owasp-security = ./opencode/skills/owasp-security.md;
+      git-commit = ./opencode/skills/upsert-git-commit.md;
+      git-release = ./opencode/skills/upsert-github-release.md;
+      upsert-github-pull-request = ./opencode/skills/upsert-github-pull-request.md;
+      owasp-security = ./opencode/skills/apply-owasp-security.md;
     }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.claude-code.skills
     mcpServers = {
       customTransport = {
