@@ -1,68 +1,26 @@
 { pkgs, ... }:
 let
-  # obra/superpowers: A complete software development workflow for coding agents.
-  # https://github.com/obra/superpowers
-  superpowersSrc = pkgs.fetchFromGitHub {
-    owner = "obra";
-    repo = "superpowers";
-    rev = "v4.3.1"; # 151ac79ccac12d769356da93e6e0513ae736fa13
-    hash = "sha256-/3T9haaI5x7wVLAy+z8NzaH5hI1qvIa2nTKq91jNNXA=";
+  commonLlmSettings = import ../../llm/default.nix {
+    inherit pkgs;
+    basePath = ../../llm;
   };
 
-  # anthropics/skills: Skills for Claude.
-  # https://github.com/anthropics/skills
-  anthropicSkillsSrc = pkgs.fetchFromGitHub {
-    owner = "anthropics";
-    repo = "skills";
-    rev = "3d59511518591fa82e6cfcf0438d68dd5dad3e76";
-    hash = "sha256-mZZ0rlj/kju7we1h+MvUjgFAVjcZ/qKkMbNZfhfCSvk=";
-  };
-
-  # vercel-labs/skills: Open agent skills ecosystem.
-  # https://github.com/vercel-labs/skills
-  vercelSkillsSrc = pkgs.fetchFromGitHub {
-    owner = "vercel-labs";
-    repo = "skills";
-    rev = "v1.4.1"; # e00ad19cd60863bebbbd944a7035b42cfebd8bae
-    hash = "sha256-6r9qCk96/1Ygrg2QuXUpZy5bPiCAO23GhPRqcg4hUQg=";
-  };
+  opencodeSuperpowersPlugin = "${commonLlmSettings.superpowersSrc}/.opencode/plugins/superpowers.js";
 in
 {
   # Place superpowers plugin so OpenCode discovers it at startup.
   # The plugin injects the using-superpowers skill into the system prompt
   # via the experimental.chat.system.transform hook.
   xdg.configFile."opencode/plugins/superpowers.js" = {
-    source = "${superpowersSrc}/.opencode/plugins/superpowers.js";
+    source = opencodeSuperpowersPlugin;
   };
 
   programs.opencode = {
     enable = pkgs.stdenv.system != "x86_64-darwin"; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.opencode.enable # Disabled on x86_64-darwin.
     enableMcpIntegration = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.opencode.enableMcpIntegration
     package = pkgs.opencode; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.opencode.package
-    agents = {
-      # https://opencode.ai/docs/agents/#markdown
-      builder = ./agents/builder.md;
-      chicken = ./agents/chicken.md;
-      code-reviewer = ./agents/code-reviewer.md;
-      explorer = ./agents/explorer.md;
-      planner = ./agents/planner.md;
-      security-auditor = ./agents/security-auditor.md;
-      superpowers-code-reviewer = "${superpowersSrc}/agents/code-reviewer.md";
-      technical-writer = ./agents/technical-writer.md;
-    }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.opencode.agents
-    commands = {
-      # https://opencode.ai/docs/commands/#markdown
-      brainstorm = "${superpowersSrc}/commands/brainstorm.md";
-      changelog = ./commands/changelog.md;
-      commit = ./commands/commit.md;
-      pull-request = ./commands/pull-request.md;
-      execute-plan = "${superpowersSrc}/commands/execute-plan.md";
-      fix-issue = ./commands/fix-issue.md;
-      implement = ./commands/implement.md;
-      plan = ./commands/plan.md;
-      research = ./commands/research.md;
-      write-plan = "${superpowersSrc}/commands/write-plan.md";
-    }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.opencode.commands
+    agents = commonLlmSettings.agents; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.opencode.agents # https://opencode.ai/docs/agents/#markdown
+    commands = commonLlmSettings.commands; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.opencode.commands # https://opencode.ai/docs/commands/#markdown
     context = ./context.md; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.opencode.context
     tui = {
       theme = "opencode";
@@ -104,26 +62,26 @@ in
     skills = {
       # https://opencode.ai/docs/skills/
       beads = "${pkgs.beads.src}/claude-plugin/skills/beads"; # A skill can also be a subdirectory within a Nix package source store path.
-      find-skills = "${vercelSkillsSrc}/skills/find-skills";
-      frontend-design = "${anthropicSkillsSrc}/skills/frontend-design";
-      git-commit = ./skills/git-commit.md;
-      git-pull-request = ./skills/git-pull-request.md;
-      git-release = ./skills/git-release.md;
-      owasp-security = ./skills/owasp-security.md;
-      superpowers-brainstorming = "${superpowersSrc}/skills/brainstorming";
-      superpowers-dispatching-parallel-agents = "${superpowersSrc}/skills/dispatching-parallel-agents";
-      superpowers-executing-plans = "${superpowersSrc}/skills/executing-plans";
-      superpowers-finishing-a-development-branch = "${superpowersSrc}/skills/finishing-a-development-branch";
-      superpowers-receiving-code-review = "${superpowersSrc}/skills/receiving-code-review";
-      superpowers-requesting-code-review = "${superpowersSrc}/skills/requesting-code-review";
-      superpowers-subagent-driven-development = "${superpowersSrc}/skills/subagent-driven-development";
-      superpowers-systematic-debugging = "${superpowersSrc}/skills/systematic-debugging";
-      superpowers-test-driven-development = "${superpowersSrc}/skills/test-driven-development";
-      superpowers-using-git-worktrees = "${superpowersSrc}/skills/using-git-worktrees";
-      superpowers-using-superpowers = "${superpowersSrc}/skills/using-superpowers";
-      superpowers-verification-before-completion = "${superpowersSrc}/skills/verification-before-completion";
-      superpowers-writing-plans = "${superpowersSrc}/skills/writing-plans";
-      superpowers-writing-skills = "${superpowersSrc}/skills/writing-skills";
+      find-skills = "${commonLlmSettings.vercelSkillsSrc}/skills/find-skills";
+      frontend-design = "${commonLlmSettings.anthropicSkillsSrc}/skills/frontend-design";
+      apply-owasp-security = commonLlmSettings.skills.apply-owasp-security;
+      upsert-git-commit = commonLlmSettings.skills.upsert-git-commit;
+      upsert-github-pull-request = commonLlmSettings.skills.upsert-github-pull-request;
+      upsert-github-release = commonLlmSettings.skills.upsert-github-release;
+      superpowers-brainstorming = "${commonLlmSettings.superpowersSrc}/skills/brainstorming";
+      superpowers-dispatching-parallel-agents = "${commonLlmSettings.superpowersSrc}/skills/dispatching-parallel-agents";
+      superpowers-executing-plans = "${commonLlmSettings.superpowersSrc}/skills/executing-plans";
+      superpowers-finishing-a-development-branch = "${commonLlmSettings.superpowersSrc}/skills/finishing-a-development-branch";
+      superpowers-receiving-code-review = "${commonLlmSettings.superpowersSrc}/skills/receiving-code-review";
+      superpowers-requesting-code-review = "${commonLlmSettings.superpowersSrc}/skills/requesting-code-review";
+      superpowers-subagent-driven-development = "${commonLlmSettings.superpowersSrc}/skills/subagent-driven-development";
+      superpowers-systematic-debugging = "${commonLlmSettings.superpowersSrc}/skills/systematic-debugging";
+      superpowers-test-driven-development = "${commonLlmSettings.superpowersSrc}/skills/test-driven-development";
+      superpowers-using-git-worktrees = "${commonLlmSettings.superpowersSrc}/skills/using-git-worktrees";
+      superpowers-using-superpowers = "${commonLlmSettings.superpowersSrc}/skills/using-superpowers";
+      superpowers-verification-before-completion = "${commonLlmSettings.superpowersSrc}/skills/verification-before-completion";
+      superpowers-writing-plans = "${commonLlmSettings.superpowersSrc}/skills/writing-plans";
+      superpowers-writing-skills = "${commonLlmSettings.superpowersSrc}/skills/writing-skills";
     }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.opencode.skills
     themes = { }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.opencode.themes
     tools = { }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.opencode.tools # Enables or disables specific tools globally.
