@@ -1,5 +1,5 @@
 ---
-name: git-pull-request
+name: upsert-github-pull-request
 description: Create/modify standard pull request titles and descriptions.
 license: MIT
 compatibility: opencode
