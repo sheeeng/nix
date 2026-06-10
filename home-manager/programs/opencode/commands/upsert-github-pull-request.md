@@ -1,20 +1,20 @@
 ---
-name: pull-request
+name: upsert-github-pull-request
 description: Create or update pull request with proper message.
 agent: builder
 ---
 
 # Create or Update Pull Request
 
-Load the `git-pull-request` skill first, then create a pull request title and description.
+Load the `upsert-github-pull-request` skill first, then create a pull request title and description.
 
 ## Usage
 
-/pull-request
+/upsert-github-pull-request
 
 ## What This Command Does
 
-- Loads the `git-pull-request` skill for pull request conventions.
+- Loads the `upsert-github-pull-request` skill for pull request conventions.
 - Skips execution if the current branch is the default branch.
 - Analyzes all existing commits in the feature branch.
 - Detects repository type for nixpkgs versus other repositories.
