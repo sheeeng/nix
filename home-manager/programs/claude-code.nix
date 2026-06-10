@@ -1,12 +1,8 @@
 { pkgs, ... }:
 let
-  # obra/superpowers: A complete software development workflow for coding agents.
-  # https://github.com/obra/superpowers
-  superpowersSrc = pkgs.fetchFromGitHub {
-    owner = "obra";
-    repo = "superpowers";
-    rev = "v4.3.1"; # 151ac79ccac12d769356da93e6e0513ae736fa13
-    hash = "sha256-/3T9haaI5x7wVLAy+z8NzaH5hI1qvIa2nTKq91jNNXA=";
+  commonLlmSettings = import ../llm/default.nix {
+    inherit pkgs;
+    basePath = ../llm;
   };
 in
 {
@@ -24,35 +20,10 @@ in
     enable = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.claude-code.enable
     enableMcpIntegration = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.claude-code.enableMcpIntegration
     package = pkgs.claude-code; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.claude-code.package
-    agents = {
-      builder = ./opencode/agents/builder.md;
-      chicken = ./opencode/agents/chicken.md;
-      code-reviewer = ./opencode/agents/code-reviewer.md;
-      explorer = ./opencode/agents/explorer.md;
-      planner = ./opencode/agents/planner.md;
-      security-auditor = ./opencode/agents/security-auditor.md;
-      superpowers-code-reviewer = "${superpowersSrc}/agents/code-reviewer.md";
-      technical-writer = ./opencode/agents/technical-writer.md;
-    }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.claude-code.agents
+    agents = commonLlmSettings.agents; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.claude-code.agents
     agentsDir = null; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.claude-code.agentsDir
-    commands = {
-      brainstorm = "${superpowersSrc}/commands/brainstorm.md";
-      changelog = ./opencode/commands/changelog.md;
-      execute-plan = "${superpowersSrc}/commands/execute-plan.md";
-      fix-issue = ./opencode/commands/fix-github-issue.md;
-      implement = ./opencode/commands/implement.md;
-      plan = ./opencode/commands/plan.md;
-      research = ./opencode/commands/research.md;
-      upsert-git-commit = ./opencode/commands/upsert-git-commit.md;
-      upsert-github-pull-request = ./opencode/commands/upsert-github-pull-request.md;
-      write-plan = "${superpowersSrc}/commands/write-plan.md";
-    }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.claude-code.commands
-    skills = {
-      apply-owasp-security = ./opencode/skills/apply-owasp-security.md;
-      upsert-git-commit = ./opencode/skills/upsert-git-commit.md;
-      upsert-github-pull-request = ./opencode/skills/upsert-github-pull-request.md;
-      upsert-github-release = ./opencode/skills/upsert-github-release.md;
-    }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.claude-code.skills
+    commands = commonLlmSettings.commands; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.claude-code.commands
+    skills = commonLlmSettings.skills; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.claude-code.skills
     mcpServers = {
       customTransport = {
         customOption = "value";
