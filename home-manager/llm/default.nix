@@ -49,13 +49,13 @@ in
     # keep-sorted start
     brainstorm = "${superpowersSrc}/commands/brainstorm.md";
     changelog = basePath + "/commands/changelog.md";
+    commit = basePath + "/commands/commit.md";
     execute-plan = "${superpowersSrc}/commands/execute-plan.md";
-    fix-github-issue = basePath + "/commands/fix-github-issue.md";
+    fix-issue = basePath + "/commands/fix-issue.md";
     implement = basePath + "/commands/implement.md";
     plan = basePath + "/commands/plan.md";
+    pull-request = basePath + "/commands/pull-request.md";
     research = basePath + "/commands/research.md";
-    upsert-git-commit = basePath + "/commands/upsert-git-commit.md";
-    upsert-github-pull-request = basePath + "/commands/upsert-github-pull-request.md";
     write-plan = "${superpowersSrc}/commands/write-plan.md";
     # keep-sorted end
   };
@@ -63,6 +63,7 @@ in
   skills = {
     # keep-sorted start
     apply-owasp-security = basePath + "/skills/apply-owasp-security.md";
+    fix-github-issue = basePath + "/skills/fix-github-issue.md";
     upsert-git-commit = basePath + "/skills/upsert-git-commit.md";
     upsert-github-pull-request = basePath + "/skills/upsert-github-pull-request.md";
     upsert-github-release = basePath + "/skills/upsert-github-release.md";
