@@ -27,12 +27,17 @@ in
     AUTO_NOTIFY_IGNORE = default ++ [
       # keep-sorted start
       "atuin"
+      "claude"
       "emacs"
       "hx"
       "nix develop"
       "nix"
       "nix-shell"
+      "opencode"
       "time"
+      "vi"
+      "vim"
+      "watch"
       "yadm"
       # keep-sorted end
     ]; # https://github.com/MichaelAquilina/zsh-auto-notify/blob/b51c934d88868e56c1d55d0a2a36d559f21cb2ee/auto-notify.plugin.zsh#L22
