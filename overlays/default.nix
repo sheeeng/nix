@@ -63,6 +63,13 @@
       '';
     });
 
+    # TODO: Remove after https://github.com/NixOS/nixpkgs/issues/TBD is resolved upstream.
+    # kubernetes-helm-4.2.0 checkPhase calls substitute() on
+    # cmd/helm/dependency_build_test.go which no longer exists in the source.
+    kubernetes-helm = prev.kubernetes-helm.overrideAttrs (_old: {
+      doCheck = false;
+    });
+
     # Disable flaky performance test in jsonpath-python that fails in the Nix sandbox.
     # The test_cache_hit_rate test compares timing which is unreliable in sandboxed builds.
     python313Packages = prev.python313Packages.overrideScope (
