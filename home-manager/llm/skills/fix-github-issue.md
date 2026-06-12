@@ -1,12 +1,19 @@
-# Fix Issue
+---
+name: fix-github-issue
+description: Analyze and fix a GitHub issue in the current repository.
+license: MIT
+compatibility: opencode
+metadata:
+    audience: developers
+    workflow: github
+---
 
-Analyze and fix a GitHub issue in the current repository.
+# Fix GitHub Issue
 
-Usage: /fix-issue [issue-number]
+## What This Skill Does
 
-## What This Command Does
-
-- Fetch the issue details from GitHub.
+- Skip execution if the given issue is not a GitHub issue.
+- Fetch the issue details from GitHub using `gh issue view`.
 - Analyze the issue description and any linked code.
 - Propose a fix based on the issue context.
 - Create or modify files to implement the fix.
