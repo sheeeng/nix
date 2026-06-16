@@ -43,8 +43,8 @@ in
       default_agent = "planner"; # https://opencode.ai/docs/config/#default-agent
       model = "github-copilot/claude-opus-4.6"; # https://models.dev/?search=github-copilot
       small_model = "github-copilot/claude-haiku-4.5"; # https://models.dev/?search=github-copilot
-      autoshare = false;
-      autoupdate = true;
+      autoshare = false; # https://opencode.ai/docs/share/#auto-share
+      autoupdate = true; # https://opencode.ai/docs/config/#autoupdate
       disabled_providers = [
         "deepseek"
         "xai"
