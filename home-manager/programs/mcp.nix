@@ -57,6 +57,35 @@
           GITHUB_TOOLSETS = "context,repos,issues,pull_requests,users,stargazers,actions,code_security";
         };
       };
+      headroom = {
+        # https://github.com/chopratejas/headroom
+        # Context compression layer: 60–95% fewer tokens, same answers.
+        # Compresses tool outputs, logs, files, and RAG chunks before they reach the LLM.
+        #
+        # MCP tools exposed:
+        #   headroom_compress  — compress content on demand
+        #   headroom_retrieve  — retrieve original (requires proxy; see below)
+        #   headroom_stats     — show token savings stats
+        #
+        # Full CCR (Compress-Cache-Retrieve) requires the proxy running in a separate terminal:
+        #   uvx --from headroom-ai headroom proxy --port 8787
+        #
+        # To wrap claude-code so all traffic is compressed automatically:
+        #   uvx --from headroom-ai headroom wrap claude
+        #
+        # First-run install (downloads model + deps via uv, cached after):
+        #   uvx --from "headroom-ai[mcp]" headroom mcp status
+        command = lib.getExe pkgs.uv;
+        args = [
+          "tool"
+          "run"
+          "--from"
+          "headroom-ai[mcp]"
+          "headroom"
+          "mcp"
+          "serve"
+        ];
+      };
       nixos = {
         # https://github.com/utensils/mcp-nixos
         # Using uvx for fast startup (no nix build delay).
