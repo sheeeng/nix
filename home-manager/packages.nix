@@ -152,6 +152,7 @@
       kustomize # https://search.nixos.org/packages?channel=unstable&type=packages&show=kustomize
       lazygit # https://search.nixos.org/packages?channel=unstable&type=packages&show=lazygit
       lazysql # https://search.nixos.org/packages?channel=unstable&type=packages&show=lazysql
+      lmstudio # https://search.nixos.org/packages?channel=unstable&type=packages&show=lmstudio
       ltex-ls # https://search.nixos.org/packages?channel=unstable&type=packages&show=ltex-ls
       markdown-oxide # https://search.nixos.org/packages?channel=unstable&type=packages&show=markdown-oxide
       markdownlint-cli # https://search.nixos.org/packages?channel=unstable&type=packages&show=markdownlint-cli
