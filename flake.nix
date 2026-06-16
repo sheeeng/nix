@@ -167,12 +167,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    wrapix = {
-      url = "github:taheris/wrapix/main";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-parts.follows = "flake-parts";
-    };
-
     # errata-ai-alex.flake = false;
     # errata-ai-alex.url = "github:errata-ai/alex";
     # errata-ai-google.flake = false;
