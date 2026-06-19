@@ -73,18 +73,27 @@ nix config show | nix run nixpkgs#ripgrep -- '^access-tokens'
 - Update and fetch dependencies.
 
 ```shell
-fd .nix --exclude flake.nix --exec update-nix-fetchgit
+# Local binary mode: simplest per-file update using installed tooling.
+fd --extension nix --exclude flake.nix --exec update-nix-fetchgit
 
-fd .nix --exclude flake.nix --exec sh -x "echo {}; update-nix-fetchgit {}"
+# Local debug mode: trace each shell step while processing files.
+fd --extension nix --exclude flake.nix \
+  -x sh -xc 'echo "$1"; update-nix-fetchgit "$1"' _ {}
 
+# Local normal mode: print the current file, then run one update per file.
 fd --extension nix --exclude flake.nix \
   -x sh -c 'echo "$1"; update-nix-fetchgit "$1"' _ {}
 
-nix run nixpkgs#fd -- .nix --exclude flake.nix --exec \
-    nix run nixpkgs#update-nix-fetchgit --
+# Nix-run batch mode: most reproducible and usually fastest for many files.
+nix run nixpkgs#fd -- \
+  --extension nix \
+  --exclude flake.nix \
+  --exec-batch \
+  nix run nixpkgs#update-nix-fetchgit -- --verbose
 
-nix run nixpkgs#fd -- .nix --exclude flake.nix --exec \
-    sh -c 'echo {}; nix run nixpkgs#update-nix-fetchgit -- {}'
+# Nix-run per-file mode: sequential per-file output using pinned nixpkgs tools.
+nix run nixpkgs#fd -- --extension nix --exclude flake.nix --threads 1 --exec \
+  sh -c 'echo "$1"; nix run nixpkgs#update-nix-fetchgit -- "$1"' _ {}
 ```
 
 - Format files.
