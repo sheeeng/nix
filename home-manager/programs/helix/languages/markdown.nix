@@ -51,7 +51,7 @@
           language-servers = [
             "ltex-ls"
             "markdown-oxide"
-            "marksman"
+            # "marksman"
           ];
         }
       ];
@@ -73,10 +73,10 @@
         markdown-oxide = {
           command = lib.getExe pkgs.markdown-oxide; # https://search.nixos.org/packages?channel=unstable&type=packages&show=markdown-oxide
         };
-        marksman = {
-          command = lib.getExe pkgs.marksman; # https://search.nixos.org/packages?channel=unstable&type=packages&show=marksman
-          args = [ "server" ];
-        };
+        # marksman = {
+        #   command = lib.getExe pkgs.marksman; # https://search.nixos.org/packages?channel=unstable&type=packages&show=marksman
+        #   args = [ "server" ];
+        # };
         # mdpls = {
         #   command = lib.getExe pkgs.mdpls; # TODO FIXME: https://search.nixos.org/packages?channel=unstable&type=packages&show=mdpls
         #   config.markdown.preview = {
