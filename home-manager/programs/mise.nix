@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
   programs.mise = {
-    enable = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.mise.enable
+    enable = false; # @upstream-issue https://github.com/jdx/mise/discussions/10617 # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.mise.enable
     enableBashIntegration = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.mise.enableBashIntegration
     enableFishIntegration = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.mise.enableFishIntegration
     enableNushellIntegration = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.mise.enableNushellIntegration
