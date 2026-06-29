@@ -118,6 +118,7 @@
       # gh-skyline # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-skyline
       # gh-webhook # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-webhook
       # kubelogin # https://search.nixos.org/packages?channel=unstable&type=packages&show=kubelogin
+      # marksman # https://search.nixos.org/packages?channel=unstable&type=packages&show=marksman
       # nixfmt-tree # https://search.nixos.org/packages?channel=unstable&type=packages&show=nixfmt-tree
       # taskctl # TODO: https://github.com/taskctl/taskctl # https://search.nixos.org/packages?channel=unstable&type=packages&show=taskctl
       # x-cmd # TODO: https://github.com/x-cmd/x-cmd # https://search.nixos.org/packages?channel=unstable&type=packages&show=x-cmd
@@ -157,7 +158,6 @@
       markdown-oxide # https://search.nixos.org/packages?channel=unstable&type=packages&show=markdown-oxide
       markdownlint-cli # https://search.nixos.org/packages?channel=unstable&type=packages&show=markdownlint-cli
       markdownlint-cli2 # https://search.nixos.org/packages?channel=unstable&type=packages&show=markdownlint-cli2
-      marksman # https://search.nixos.org/packages?channel=unstable&type=packages&show=marksman
       marp-cli # https://search.nixos.org/packages?channel=unstable&type=packages&show=marp-cli
       nh # https://search.nixos.org/packages?channel=unstable&type=packages&show=nh
       nixfmt # https://search.nixos.org/packages?channel=unstable&type=packages&show=nixfmt
