@@ -4,6 +4,7 @@ let
     inherit pkgs;
     basePath = ../llm;
   };
+  claudeCodeModel = "claude-sonnet-4-6";
 in
 {
   home.packages =
@@ -92,8 +93,7 @@ in
           }
         ];
       };
-      includeCoAuthoredBy = false;
-      model = "claude-sonnet-4-6";
+      model = claudeCodeModel;
       permissions = {
         # https://code.claude.com/docs/en/permissions#wildcard-patterns
         additionalDirectories = [ "../docs/" ];
@@ -200,7 +200,15 @@ in
         ];
       };
       statusLine = {
-        command = "input=$(cat); echo \"[$(echo \"$input\" | jq -r '.model.display_name')] 📁 $(basename \"$(echo \"$input\" | jq -r '.workspace.current_dir')\")\"";
+        # Write current model to ~/.cache/claude-code-current-model on every render
+        # so the prepare-commit-msg git hook can read the live model for Co-Authored-By.
+        command = ''
+          input=$(cat)
+          model=$(echo "$input" | jq -r '.model.display_name')
+          mkdir -p "$HOME/.cache"
+          printf '%s' "$model" > "$HOME/.cache/claude-code-current-model"
+          echo "[$model] 📁 $(basename "$(echo "$input" | jq -r '.workspace.current_dir')")"
+        '';
         padding = 0;
         type = "command";
       };
