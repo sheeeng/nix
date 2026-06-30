@@ -95,7 +95,9 @@
     # FAIL (libimagequant Cargo.lock git object missing at nixos-unstable rev 9ae611a455b90cf061d8f332b977e387bda8e1ca)
     # nixpkgs-darwin.url = "github:nixos/nixpkgs/nixos-unstable";
     # OK
-    nixpkgs-darwin.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    nixpkgs-darwin.url = "github:nixos/nixpkgs?branch=nixpkgs-unstable&rev=3e41b24abd260e8f71dbe2f5737d24122f972158"; # @upstream-issue https://github.com/anomalyco/opencode/issues/8029
+    # FAIL (opencode 1.17.9 node_modules 7zip-bin/win/ia32/7za.exe Operation not permitted on Darwin 25.5.0 / macOS 16) # @upstream-issue https://github.com/anomalyco/opencode/issues/8029
+    # nixpkgs-darwin.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     nix-darwin = {
       url = "github:lnl7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs-darwin";
