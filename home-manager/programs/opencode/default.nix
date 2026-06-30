@@ -6,6 +6,9 @@ let
   };
 
   opencodeSuperpowersPlugin = "${commonLlmSettings.superpowersSrc}/.opencode/plugins/superpowers.js";
+
+  opencodeModel = "github-copilot/claude-opus-4.6";
+  opencodeSmallModel = "github-copilot/claude-haiku-4.5";
 in
 {
   # Place superpowers plugin so OpenCode discovers it at startup.
@@ -14,6 +17,10 @@ in
   xdg.configFile."opencode/plugins/superpowers.js" = {
     source = opencodeSuperpowersPlugin;
   };
+
+  # Sets LLM_COAUTHOR so the prepare-commit-msg git hook injects the correct
+  # Co-Authored-By trailer reflecting the active opencode model.
+  home.shellAliases.opencode = "LLM_COAUTHOR=\"opencode (${opencodeModel}) <noreply@anthropic.com>\" ${pkgs.opencode}/bin/opencode";
 
   programs.opencode = {
     enable = pkgs.stdenv.system != "x86_64-darwin"; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.opencode.enable # Disabled on x86_64-darwin.
@@ -41,8 +48,8 @@ in
         };
       }; # https://opencode.ai/docs/config/#agent
       default_agent = "planner"; # https://opencode.ai/docs/config/#default-agent
-      model = "github-copilot/claude-opus-4.6"; # https://models.dev/?search=github-copilot
-      small_model = "github-copilot/claude-haiku-4.5"; # https://models.dev/?search=github-copilot
+      model = opencodeModel; # https://models.dev/?search=github-copilot
+      small_model = opencodeSmallModel; # https://models.dev/?search=github-copilot
       autoshare = false; # https://opencode.ai/docs/share/#auto-share
       autoupdate = true; # https://opencode.ai/docs/config/#autoupdate
       disabled_providers = [
