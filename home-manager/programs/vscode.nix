@@ -517,7 +517,7 @@ in
           "workbench.list.smoothScrolling" = true;
           "workbench.preferredLightColorTheme" = "Dracula Theme";
 
-          "extensions.autoUpdate" = "onlyEnabledExtensions";
+          "extensions.autoUpdate" = "on";
           # Putting some conveniences.
           "files.autoSave" = "afterDelay";
           "files.autoSaveDelay" = 2000;
