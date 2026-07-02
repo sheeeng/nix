@@ -368,9 +368,14 @@ in
       inputs.nixvim.homeModules.nixvim
     ];
 
-    # Add any laptop-specific home-manager overrides here
-    # For example:
-    # programs.kitty.settings.font_size = 11;
+    # Enable GNOME Shell extensions via dconf.
+    dconf.settings = {
+      "org/gnome/shell" = {
+        enabled-extensions = [
+          "clipboard-history@alexsaveau.dev"
+        ];
+      };
+    };
   };
 
   home-manager.verbose = false;
