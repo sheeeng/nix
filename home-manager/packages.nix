@@ -358,7 +358,9 @@
 
       # Shell Utilities
       # keep-sorted start block=no newline_separated=no sticky_comments=no
+      gnomeExtensions.clipboard-history # https://search.nixos.org/packages?channel=unstable&type=packages&show=gnomeExtensions.clipboard-history
       libnotify # https://search.nixos.org/packages?channel=unstable&type=packages&show=libnotify
+      wl-clipboard # https://search.nixos.org/packages?channel=unstable&type=packages&show=wl-clipboard
       # keep-sorted end
     ])
     ++ (pkgs.lib.optionals pkgs.stdenv.isDarwin [
