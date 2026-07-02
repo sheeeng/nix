@@ -176,6 +176,7 @@
 
       # Security And Privacy
       # keep-sorted start block=no newline_separated=no sticky_comments=no
+      # yubiswitch # TODO: macOS-only package. # https://search.nixos.org/packages?channel=unstable&type=packages&show=yubiswitch
       _1password-cli # https://search.nixos.org/packages?channel=unstable&type=packages&show=1password-cli
       age # https://search.nixos.org/packages?channel=unstable&type=packages&show=age
       age-plugin-1p # https://search.nixos.org/packages?channel=unstable&type=packages&show=age-plugin-1p
@@ -189,7 +190,6 @@
       ssss # https://search.nixos.org/packages?channel=unstable&type=packages&show=ssss
       yubikey-manager # https://search.nixos.org/packages?channel=unstable&type=packages&show=yubikey-manager
       yubikey-personalization # https://search.nixos.org/packages?channel=unstable&type=packages&show=yubikey-personalization
-      # yubiswitch # TODO: macOS-only package. # https://search.nixos.org/packages?channel=unstable&type=packages&show=yubiswitch
       # keep-sorted end
 
       # Productivity
