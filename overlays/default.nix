@@ -63,6 +63,15 @@
       '';
     });
 
+    # TODO: Remove after updating nixpkgs input past commit from PR #537754.
+    # @upstream-issue https://github.com/NixOS/nixpkgs/pull/537754
+    # GitHub regenerated the v10.4.5 source tarball with a different hash.
+    croc = prev.croc.overrideAttrs (old: {
+      src = old.src.overrideAttrs {
+        outputHash = "sha256-u262LwHUL6+rPE7nzIda7W5dAXaikQ/cKwtUEIbcbH0=";
+      };
+    });
+
     # TODO: Remove after https://github.com/NixOS/nixpkgs/issues/TBD is resolved upstream.
     # kubernetes-helm-4.2.0 checkPhase calls substitute() on
     # cmd/helm/dependency_build_test.go which no longer exists in the source.
