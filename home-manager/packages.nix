@@ -189,7 +189,7 @@
       ssss # https://search.nixos.org/packages?channel=unstable&type=packages&show=ssss
       yubikey-manager # https://search.nixos.org/packages?channel=unstable&type=packages&show=yubikey-manager
       yubikey-personalization # https://search.nixos.org/packages?channel=unstable&type=packages&show=yubikey-personalization
-      yubiswitch # https://search.nixos.org/packages?channel=unstable&type=packages&show=yubiswitch
+      # yubiswitch # TODO: macOS-only package. # https://search.nixos.org/packages?channel=unstable&type=packages&show=yubiswitch
       # keep-sorted end
 
       # Productivity
@@ -369,7 +369,10 @@
       # darwin.apple_sdk.frameworks.CoreServices
       # darwin.apple_sdk.frameworks.CoreFoundation
       # darwin.apple_sdk.frameworks.Foundation
+      # keep-sorted start block=no newline_separated=no sticky_comments=no
       raycast # https://search.nixos.org/packages?channel=unstable&type=packages&show=raycast
+      yubiswitch # https://search.nixos.org/packages?channel=unstable&type=packages&show=yubiswitch
+      # keep-sorted end
     ])
     ++ (pkgs.lib.optionals (pkgs.stdenv.isDarwin && pkgs.stdenv.hostPlatform.isAarch64) [
       # keep-sorted start block=no newline_separated=no sticky_comments=no
