@@ -375,6 +375,10 @@ in
           "clipboard-history@alexsaveau.dev"
         ];
       };
+      "org/gnome/shell/extensions/clipboard-history" = {
+        display-mode = 0;
+        toggle-menu = [ "<Super>v" ];
+      };
     };
   };
 
