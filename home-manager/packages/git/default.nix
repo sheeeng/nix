@@ -25,10 +25,6 @@ in
   home.packages = with pkgs; [
     # keep-sorted start
     codeberg-cli # https://search.nixos.org/packages?channel=unstable&type=packages&show=codeberg-cli
-    gh # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh
-    gh-f # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-f
-    gh-i # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-i
-    gh-s # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-s
     ghq # https://search.nixos.org/packages?channel=unstable&type=packages&show=ghq
     git-credential-oauth-wrapper # https://search.nixos.org/packages?channel=unstable&type=packages&show=git-credential-oauth
     git-filter-repo # https://search.nixos.org/packages?channel=unstable&type=packages&show=git-filter-repo
@@ -451,78 +447,6 @@ in
     # Claude Opus 4.5 is only available through GitHub Copilot (api.githubcopilot.com), which is a separate service.
     # That's why opencode was using the github-copilot provider, not github-models.
 
-    gh = {
-      enable = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.gh.enable
-      package = pkgs.gh; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.gh.package
-      extensions = with pkgs; [
-        # keep-sorted start
-        gh-actions-cache # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-actions-cache
-        gh-cal # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-cal
-        gh-classroom # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-classroom
-        gh-contribs # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-contribs
-        gh-dash # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-dash
-        gh-eco # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-eco
-        gh-f # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-f
-        gh-gei # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-gei
-        gh-i # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-i
-        gh-markdown-preview # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-markdown-preview
-        gh-notify # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-notify
-        gh-ost # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-ost
-        gh-poi # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-poi
-        gh-s # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-s
-        gh-screensaver # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-screensaver
-        gh-signoff # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-signoff
-        gh-skyline # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-skyline
-        gh-webhook # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-webhook
-        github-copilot-cli # https://search.nixos.org/packages?channel=unstable&type=packages&show=github-copilot-cli
-        # keep-sorted end
-      ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.gh.extensions
-      gitCredentialHelper = {
-        enable = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.gh.gitCredentialHelper.enable
-        hosts = [
-          "https://github.com"
-          "https://gist.github.com"
-        ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.gh.gitCredentialHelper.hosts
-      };
-      hosts = { }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.gh.hosts
-      settings = {
-        editor = ""; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.gh.settings.editor
-        git_protocol = "ssh"; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.gh.settings.git_protocol
-      }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.gh.settings
-      # settings = {
-      #   # https://cli.github.com/manual/gh_config
-      #   # keep-sorted start block=yes newline_separated=no sticky_comments=yes
-      #   aliases = {
-      #     # https://github.com/kpritam/nixpkgs/blob/dbc2a1538b2c6dfd1d11fb97c08203643c723ff0/home/gh-aliases.nix
-      #     icl = "issue close";
-      #     icr = "issue create";
-      #     il = "issue list";
-      #     ire = "issue reopen";
-      #     iv = "issue view";
-      #     ivw = "issue view --web";
-      #     pck = "pr checks";
-      #     pcl = "pr close";
-      #     pco = "pr checkout";
-      #     pcr = "pr create";
-      #     pd = "pr diff";
-      #     pl = "pr list";
-      #     pm = "pr merge";
-      #     pre = "pr reopen";
-      #     pv = "pr view";
-      #     pvw = "pr view --web";
-      #     rcl = "repo clone";
-      #     rcr = "repo create";
-      #     rfk = "repo fork --clone --remote";
-      #     rv = "repo view";
-      #     rvw = "repo view --web";
-      #   }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.gh.settings.aliases
-      #   editor = ""; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.gh.settings.editor
-      #   git_protocol = "ssh"; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.gh.settings.git_protocol
-      #   pager = "cat";
-      #   prompt = "enabled";
-      #   spinner = "enabled";
-      #   # keep-sorted end
-      # }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.gh.settings
-    };
+    # gh = {}; # See home-manager/programs/gh.nix file.
   };
 }
