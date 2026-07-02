@@ -5,7 +5,7 @@
     package = pkgs.gh; # https://nix-community.github.io/home-manager/options/home-manager/programs/gh.html#opt-programs.gh.package
     extensions = with pkgs; [
       # keep-sorted start
-      gh-aw # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-aw
+      # gh-aw # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-aw
       gh-actions-cache # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-actions-cache
       gh-cal # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-cal
       gh-classroom # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-classroom
