@@ -48,8 +48,6 @@
   programs.keychain = lib.mkIf pkgs.stdenv.isLinux {
     enable = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.keychain.enable
     keys = [ "id_ed25519" ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.keychain.keys
-    agents = [ "ssh" ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.keychain.agents
-    inheritType = "any"; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.keychain.inheritType
     extraFlags = [
       # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.keychain.extraFlags
       "--quiet"
