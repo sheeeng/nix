@@ -387,7 +387,7 @@ in
           ])
           (lib.hm.gvariant.mkTuple [
             "ibus"
-            "libpinyin"
+            "pinyin"
           ]) # Chinese Pinyin (Simplified + Traditional toggle)
           (lib.hm.gvariant.mkTuple [
             "ibus"
