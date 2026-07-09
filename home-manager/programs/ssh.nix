@@ -43,7 +43,19 @@
   };
 
   # SSH_AUTH_SOCK is set automatically by GNOME Keyring's gcr-ssh-agent on Linux.
-  # GNOME Keyring stores SSH passphrases persistently, encrypted by the login password.
+  # gcr-ssh-agent only holds keys in memory (session-scoped); keychain below
+  # adds id_ed25519 to it at first terminal open after reboot, prompting once.
+  programs.keychain = lib.mkIf pkgs.stdenv.isLinux {
+    enable = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.keychain.enable
+    keys = [ "id_ed25519" ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.keychain.keys
+    agents = [ "ssh" ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.keychain.agents
+    inheritType = "any"; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.keychain.inheritType
+    extraFlags = [
+      # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.keychain.extraFlags
+      "--quiet"
+      "--nocolor"
+    ];
+  };
 
   # Set GPG_TTY for pinentry to work correctly in terminal sessions.
   home.sessionVariablesExtra = lib.mkIf pkgs.stdenv.isLinux ''
