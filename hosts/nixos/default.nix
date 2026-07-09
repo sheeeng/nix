@@ -247,9 +247,9 @@ in
       enable = true;
       type = "ibus";
       ibus.engines = with pkgs.ibus-engines; [
+        mozc # https://search.nixos.org/packages?channel=unstable&type=packages&show=ibus-engine-mozc (Japanese)
+        pinyin # https://search.nixos.org/packages?channel=unstable&type=packages&show=ibus-engine-pinyin (Simplified + Traditional Chinese Pinyin)
         uniemoji # https://search.nixos.org/packages?channel=unstable&type=packages&show=ibus-engine-uniemoji
-        pinyin # https://search.nixos.org/packages?channel=unstable&type=packages&show=ibus-engine-pinyin
-        mozc # https://search.nixos.org/packages?channel=unstable&type=packages&show=ibus-engine-mozc
       ];
     };
   };
@@ -358,7 +358,7 @@ in
     }
   ];
 
-  home-manager.users."${hostConfiguration.primaryUser}" = {
+  home-manager.users."${hostConfiguration.primaryUser}" = { lib, ... }: {
     home.stateVersion = "25.11";
     imports = [
       ../../home-manager/home.nix
@@ -378,6 +378,22 @@ in
       "org/gnome/shell/extensions/clipboard-history" = {
         display-mode = 0;
         toggle-menu = [ "<Super>v" ];
+      };
+      "org/gnome/desktop/input-sources" = {
+        sources = [
+          (lib.hm.gvariant.mkTuple [
+            "xkb"
+            "us"
+          ])
+          (lib.hm.gvariant.mkTuple [
+            "ibus"
+            "libpinyin"
+          ]) # Chinese Pinyin (Simplified + Traditional toggle)
+          (lib.hm.gvariant.mkTuple [
+            "ibus"
+            "mozc-jp"
+          ]) # Japanese
+        ];
       };
     };
   };
