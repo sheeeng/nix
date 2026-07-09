@@ -388,12 +388,15 @@ in
           (lib.hm.gvariant.mkTuple [
             "ibus"
             "pinyin"
-          ]) # Chinese Pinyin (Simplified + Traditional toggle)
+          ]) # Chinese Pinyin (Traditional)
           (lib.hm.gvariant.mkTuple [
             "ibus"
             "mozc-jp"
           ]) # Japanese
         ];
+      };
+      "com/github/libpinyin/ibus-libpinyin/libpinyin" = {
+        input-traditional = true; # Output Traditional Chinese characters
       };
     };
   };
