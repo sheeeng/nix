@@ -6,7 +6,7 @@
     extensions = with pkgs; [
       # keep-sorted start
       # gh-aw # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-aw
-      gh-actions-cache # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-actions-cache
+      # gh-actions-cache # Dropped from nixpkgs; use 'gh cache' instead. https://github.com/NixOS/nixpkgs/pull/539569
       gh-cal # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-cal
       gh-classroom # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-classroom
       gh-contribs # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-contribs
