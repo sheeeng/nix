@@ -23,7 +23,6 @@
       # sonic-pi # TODO: Missing "aarch64-apple-darwin" platform. # https://search.nixos.org/packages?channel=unstable&type=packages&show=sonic-pi
       # supercollider-with-plugins # TODO: Missing "aarch64-apple-darwin" platform. # https://search.nixos.org/packages?channel=unstable&type=packages&show=supercollider-with-plugins
       # zrythm # TODO: Marked as broken. # https://search.nixos.org/packages?channel=unstable&type=packages&show=zrythm
-      audacity # https://search.nixos.org/packages?channel=unstable&type=packages&show=audacity
       mpc # https://search.nixos.org/packages?channel=unstable&type=packages&show=mpc
       # keep-sorted end
 
@@ -321,6 +320,7 @@
       # Audio
       # keep-sorted start block=no newline_separated=no sticky_comments=no
       # sonic-pi # @upstream-issue https://github.com/NixOS/nixpkgs/issues/445447 # https://search.nixos.org/packages?channel=unstable&type=packages&show=sonic-pi
+      audacity # https://search.nixos.org/packages?channel=unstable&type=packages&show=audacity
       supercollider-with-plugins # TODO: Missing "aarch64-apple-darwin" platform. # https://search.nixos.org/packages?channel=unstable&type=packages&show=supercollider-with-plugins
       # keep-sorted end
 
