@@ -94,8 +94,10 @@
     # nixpkgs-darwin.url = "github:nixos/nixpkgs?branch=staging-next&rev=dace194d4791e7dec990c0671795f1e73ff4d196"; # https://github.com/nixos/nixpkgs/issues/449970
     # FAIL (libimagequant Cargo.lock git object missing at nixos-unstable rev 9ae611a455b90cf061d8f332b977e387bda8e1ca)
     # nixpkgs-darwin.url = "github:nixos/nixpkgs/nixos-unstable";
-    # OK (nixpkgs master; opencode 1.17.15 -> 1.17.18) # https://github.com/NixOS/nixpkgs/pull/540311
-    nixpkgs-darwin.url = "github:nixos/nixpkgs/dc5eccaaeada7995d3b817e7d7c3bf3ab30b9b20"; # https://github.com/NixOS/nixpkgs/pull/540311
+    # OK (nixpkgs master; starship Darwin linker fix) # https://github.com/NixOS/nixpkgs/pull/540463
+    nixpkgs-darwin.url = "github:nixos/nixpkgs/d5d379aa5ecf81e217d0a3d52fcba39ae6e4547d"; # https://github.com/NixOS/nixpkgs/pull/540463
+    # FAIL (starship cctools ld64 linker crash on aarch64-darwin) # @upstream-issue https://github.com/NixOS/nixpkgs/issues/540450 # https://github.com/NixOS/nixpkgs/pull/540463
+    # nixpkgs-darwin.url = "github:nixos/nixpkgs/dc5eccaaeada7995d3b817e7d7c3bf3ab30b9b20"; # https://github.com/NixOS/nixpkgs/pull/540311
     # FAIL (opencode 1.17.15 node_modules CA hash mismatch) # https://github.com/NixOS/nixpkgs/pull/540311
     # nixpkgs-darwin.url = "github:nixos/nixpkgs?branch=nixpkgs-unstable&rev=96753b919b7befb34f0cb7dd212e6c26a4753e65"; # @upstream-issue https://github.com/anomalyco/opencode/issues/8029
     # FAIL (opencode 1.17.9 node_modules 7zip-bin/win/ia32/7za.exe Operation not permitted on Darwin 25.5.0 / macOS 16) # @upstream-issue https://github.com/anomalyco/opencode/issues/8029
