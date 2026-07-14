@@ -136,6 +136,7 @@
       delta # https://search.nixos.org/packages?channel=unstable&type=packages&show=delta
       dependabot-cli # https://search.nixos.org/packages?channel=unstable&type=packages&show=dependabot-cli
       editorconfig-checker # https://search.nixos.org/packages?channel=unstable&type=packages&show=editorconfig-checker
+      firebase-tools # https://search.nixos.org/packages?channel=unstable&type=packages&show=firebase-tools
       gcc # https://search.nixos.org/packages?channel=unstable&type=packages&show=gcc
       gh # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh
       golangci-lint # https://search.nixos.org/packages?channel=unstable&type=packages&show=golangci-lint
