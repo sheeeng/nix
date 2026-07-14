@@ -358,48 +358,50 @@ in
     }
   ];
 
-  home-manager.users."${hostConfiguration.primaryUser}" = { lib, ... }: {
-    home.stateVersion = "25.11";
-    imports = [
-      ../../home-manager/home.nix
-      inputs.agenix.homeManagerModules.age
-      inputs.catppuccin.homeModules.catppuccin
-      inputs.nix-index-database.homeModules.nix-index
-      inputs.nixvim.homeModules.nixvim
-    ];
+  home-manager.users."${hostConfiguration.primaryUser}" =
+    { lib, ... }:
+    {
+      home.stateVersion = "25.11";
+      imports = [
+        ../../home-manager/home.nix
+        inputs.agenix.homeManagerModules.age
+        inputs.catppuccin.homeModules.catppuccin
+        inputs.nix-index-database.homeModules.nix-index
+        inputs.nixvim.homeModules.nixvim
+      ];
 
-    # Enable GNOME Shell extensions via dconf.
-    dconf.settings = {
-      "org/gnome/shell" = {
-        enabled-extensions = [
-          "clipboard-history@alexsaveau.dev"
-        ];
-      };
-      "org/gnome/shell/extensions/clipboard-history" = {
-        display-mode = 0;
-        toggle-menu = [ "<Super>v" ];
-      };
-      "org/gnome/desktop/input-sources" = {
-        sources = [
-          (lib.hm.gvariant.mkTuple [
-            "xkb"
-            "us"
-          ])
-          (lib.hm.gvariant.mkTuple [
-            "ibus"
-            "pinyin"
-          ]) # Chinese Pinyin (Traditional)
-          (lib.hm.gvariant.mkTuple [
-            "ibus"
-            "mozc-jp"
-          ]) # Japanese
-        ];
-      };
-      "com/github/libpinyin/ibus-libpinyin/libpinyin" = {
-        input-traditional = true; # Output Traditional Chinese characters
+      # Enable GNOME Shell extensions via dconf.
+      dconf.settings = {
+        "org/gnome/shell" = {
+          enabled-extensions = [
+            "clipboard-history@alexsaveau.dev"
+          ];
+        };
+        "org/gnome/shell/extensions/clipboard-history" = {
+          display-mode = 0;
+          toggle-menu = [ "<Super>v" ];
+        };
+        "org/gnome/desktop/input-sources" = {
+          sources = [
+            (lib.hm.gvariant.mkTuple [
+              "xkb"
+              "us"
+            ])
+            (lib.hm.gvariant.mkTuple [
+              "ibus"
+              "pinyin"
+            ]) # Chinese Pinyin (Traditional)
+            (lib.hm.gvariant.mkTuple [
+              "ibus"
+              "mozc-jp"
+            ]) # Japanese
+          ];
+        };
+        "com/github/libpinyin/ibus-libpinyin/libpinyin" = {
+          input-traditional = true; # Output Traditional Chinese characters
+        };
       };
     };
-  };
 
   home-manager.verbose = false;
 
