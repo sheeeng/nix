@@ -172,32 +172,6 @@
       # "* filter=spacify"
     ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.git.attributes
 
-    hooks = {
-      # Inject Co-Authored-By trailer on fresh commits from LLM agents.
-      # Priority 1: $LLM_COAUTHOR env var (set by opencode shell alias).
-      # Priority 2: ~/.cache/claude-code-current-model written by Claude Code statusLine
-      #             (tracks live model switches; expires after 5 minutes to avoid
-      #             attributing manual commits outside a Claude Code session).
-      prepare-commit-msg = pkgs.writeShellScript "prepare-commit-msg" ''
-        COMMIT_MSG_FILE="$1"
-        COMMIT_SOURCE="$2"
-        MODEL_FILE="$HOME/.cache/claude-code-current-model"
-
-        if [ -z "$COMMIT_SOURCE" ]; then
-          if [ -n "$LLM_COAUTHOR" ]; then
-            printf '\nCo-Authored-By: %s\n' "$LLM_COAUTHOR" >> "$COMMIT_MSG_FILE"
-          elif [ -f "$MODEL_FILE" ]; then
-            file_mtime=$(stat -f %m "$MODEL_FILE" 2>/dev/null || stat -c %Y "$MODEL_FILE" 2>/dev/null)
-            now=$(date +%s)
-            if [ -n "$file_mtime" ] && [ $((now - file_mtime)) -lt 300 ]; then
-              model=$(cat "$MODEL_FILE")
-              printf '\nCo-Authored-By: Claude Code (%s) <noreply@anthropic.com>\n' "$model" >> "$COMMIT_MSG_FILE"
-            fi
-          fi
-        fi
-      '';
-    }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.git.hooks
-
     ignores = [
       # https://github.com/quentinmit/isz/blob/1e2cc2af0b5b10529768bbd003e6bc07209448c0/nix/home/base.nix#L44
       ''\#*#''
