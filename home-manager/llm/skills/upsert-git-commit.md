@@ -19,6 +19,18 @@ metadata:
 - For nixpkgs or its forks, follow the [nixpkgs commit conventions][nixpkgs-commit-conventions].
 - Suggest appropriate commit type and scope.
 
+## Attribution
+
+Do not add `Co-Authored-By` or any LLM attribution trailer by default.
+
+Only add attribution when the user explicitly asks (e.g. "add attribution",
+"include co-authored-by", "credit the LLM"). When asked, append this
+trailer after `Signed-off-by:`, substituting the actual tool name and
+model currently in use:
+
+- Claude Code: `Co-Authored-By: Claude Code (<model>) <noreply@anthropic.com>`
+- OpenCode: Use the value of `$LLM_COAUTHOR` environment variable.
+
 ## Repository Detection
 
 **CRITICAL**: Always detect the repository type before creating commits:
