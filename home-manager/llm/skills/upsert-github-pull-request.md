@@ -22,6 +22,18 @@ metadata:
 - For nixpkgs or its forks, follow the [nixpkgs commit conventions][nixpkgs-commit-conventions].
 - Suggest an appropriate title type and scope.
 
+## Attribution
+
+Do **NOT** add any AI attribution to the pull request description by default.
+
+Only add attribution when the user explicitly asks (e.g. "add attribution",
+"include generated-by footer", "credit the AI"). When asked, append the
+appropriate line at the end of the pull request description based on the
+tool in use:
+
+- Claude Code: `🤖 Generated with [Claude Code](https://code.claude.com).`
+- OpenCode: `🤖 Generated with [OpenCode](https://opencode.ai).`
+
 ## Pull Request Update Workflow
 
 1. Detect whether the current branch is a feature branch.
