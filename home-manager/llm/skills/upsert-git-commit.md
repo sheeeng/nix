@@ -12,6 +12,7 @@ metadata:
 
 ## What This Skill Does
 
+- Always use `git commit --signoff` to include a `Signed-off-by:` trailer.
 - Analyze existing changes to generate commit messages.
 - Separate existing changes in separate logical commits.
 - Follow the [Conventional Commits specification][conventional-commits] for most repositories.
