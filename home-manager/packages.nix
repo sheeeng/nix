@@ -169,6 +169,7 @@
       tfsort # https://search.nixos.org/packages?channel=unstable&type=packages&show=tfsort
       tig # https://search.nixos.org/packages?channel=unstable&type=packages&show=tig
       treefmt # https://search.nixos.org/packages?channel=unstable&type=packages&show=treefmt
+      typescript-language-server # https://search.nixos.org/packages?channel=unstable&type=packages&show=typescript-language-server
       update-nix-fetchgit # https://search.nixos.org/packages?channel=unstable&type=packages&show=update-nix-fetchgit
       yamlfmt # https://search.nixos.org/packages?channel=unstable&type=packages&show=yamlfmt
       yamllint # https://search.nixos.org/packages?channel=unstable&type=packages&show=yamllint
