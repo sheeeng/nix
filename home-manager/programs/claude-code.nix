@@ -62,6 +62,15 @@ in
     settings = {
       # https://code.claude.com/docs/en/settings#available-settings
       effortLevel = "high"; # https://platform.claude.com/docs/en/build-with-claude/effort#effort-levels
+      # The attribution setting takes precedence over the deprecated includeCoAuthoredBy setting.
+      # To hide all attribution, set commit and pr to empty strings and sessionUrl to false.
+      # https://code.claude.com/docs/en/settings#attribution-settings
+      attribution = {
+        commit = "";
+        pr = "";
+        sessionUrl = false;
+      }; # https://code.claude.com/docs/en/settings#attribution-settings
+      includeCoAuthoredBy = false; # https://code.claude.com/docs/en/settings#attribution-settings (Deprecated)
       env = {
         # https://x.com/kunchenguid/status/2043511416448307378
         CLAUDE_CODE_DISABLE_1M_CONTEXT = "1"; # Prevent bloated context window from degrading model performance and consuming token limits.
@@ -198,19 +207,6 @@ in
           "考える"
           "諗緊嘢"
         ];
-      };
-      statusLine = {
-        # Write current model to ~/.cache/claude-code-current-model on every render
-        # so the prepare-commit-msg git hook can read the live model for Co-Authored-By.
-        command = ''
-          input=$(cat)
-          model=$(echo "$input" | jq -r '.model.display_name')
-          mkdir -p "$HOME/.cache"
-          printf '%s' "$model" > "$HOME/.cache/claude-code-current-model"
-          echo "[$model] 📁 $(basename "$(echo "$input" | jq -r '.workspace.current_dir')")"
-        '';
-        padding = 0;
-        type = "command";
       };
       theme = "dark";
     }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.claude-code.settings
