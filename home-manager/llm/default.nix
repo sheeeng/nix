@@ -32,6 +32,10 @@ in
   inherit superpowersSrc;
   inherit vercelSkillsSrc;
 
+  packages = with pkgs; [
+    pi-coding-agent # https://search.nixos.org/packages?channel=unstable&type=packages&show=pi-coding-agent
+  ];
+
   agents = {
     # keep-sorted start
     builder = basePath + "/agents/builder.md";
