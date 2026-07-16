@@ -404,6 +404,7 @@ in
           "[terraform]"."editor.tabSize" = 2;
           "files.associations" = {
             ".tflint.hcl" = "terraform";
+            "LICENSE-*" = "plaintext";
             "LICENSE" = "plaintext";
           };
           "files.exclude" = {
