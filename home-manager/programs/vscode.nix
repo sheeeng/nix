@@ -642,12 +642,12 @@ in
           "shellcheck.executablePath" = "shellcheck";
           "vscode-kubernetes.kubectl-path" = "kubectl";
           "yaml.disableSchemaDetection" = [
-            "**/.forgejo/workflows/*.yml"
-            "**/.forgejo/workflows/*.yaml"
-            "**/.gitea/workflows/*.yml"
-            "**/.gitea/workflows/*.yaml"
             "**/.github/workflows/*.yml"
             "**/.github/workflows/*.yaml"
+            "**/.gitea/workflows/*.yml"
+            "**/.gitea/workflows/*.yaml"
+            "**/.forgejo/workflows/*.yml"
+            "**/.forgejo/workflows/*.yaml"
           ];
         }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.vscode.profiles._name_.userSettings
 
