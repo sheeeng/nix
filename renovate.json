@@ -6,6 +6,9 @@
   ],
   "lockFileMaintenance": {
     "enabled": true,
+    "schedule": [
+      "at any time"
+    ],
     "description": "https://docs.renovatebot.com/configuration-options/#lockfilemaintenance"
   },
   "nix": {
@@ -20,10 +23,7 @@
     {
       "customType": "regex",
       "managerFilePatterns": [
-        "/\\.nix$/",
-        "/flake\\.nix$/",
-        "/default\\.nix$/",
-        "/shell\\.nix$/"
+        "/\\.nix$/"
       ],
       "matchStrings": [
         "fetchFromGitHub\\s*\\{[^}]*owner\\s*=\\s*\"(?<depName>[^\"]+)\"[^}]*repo\\s*=\\s*\"(?<packageName>[^\"]+)\"[^}]*rev\\s*=\\s*\"(?<currentValue>[^\"]+)\"",
@@ -36,10 +36,7 @@
     {
       "customType": "regex",
       "managerFilePatterns": [
-        "/\\.nix$/",
-        "/flake\\.nix$/",
-        "/default\\.nix$/",
-        "/shell\\.nix$/"
+        "/\\.nix$/"
       ],
       "matchStrings": [
         "fetchFromGitHub\\s*\\{[^}]*owner\\s*=\\s*\"(?<depName>[^\"]+)\"[^}]*repo\\s*=\\s*\"(?<packageName>[^\"]+)\"[^}]*rev\\s*=\\s*\"(?<currentValue>[a-f0-9]{40})\"",
@@ -61,6 +58,20 @@
       ],
       "description": "Update Nix fetchFromGitHub revisions.",
       "enabled": true
+    },
+    {
+      "matchManagers": [
+        "nix"
+      ],
+      "description": "Group nix flake input updates together.",
+      "groupName": "nix flake inputs",
+      "schedule": [
+        "at any time"
+      ],
+      "labels": [
+        "dependencies",
+        "nix"
+      ]
     },
     {
       "matchManagers": [

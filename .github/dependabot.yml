@@ -8,11 +8,16 @@ updates:
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
-      interval: "daily"
+      interval: "weekly"
+      day: "monday"
+      time: "03:00"
+    commit-message:
+      prefix: "chore(deps)"
     groups:
       github-actions:
         patterns:
           - "*"
     labels:
       - "dependencies"
+      - "github-actions"
     open-pull-requests-limit: 5
