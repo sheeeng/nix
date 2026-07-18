@@ -132,7 +132,7 @@ in
         # Strategy: Default to ask, then allow safe read-only development operations.
         # SRT wrappers are temporarily disabled. Permissions here are the primary control.
         # SRT-wrapped variants are kept for when sandboxing is re-enabled.
-        # sandbox-runtime package: https://search.nixos.org/packages?channel=unstable&show=sandbox-runtime
+        # sandbox-runtime package: https://search.nixos.org/packages?channel=unstable&type=packages&show=sandbox-runtime
         # Rule order matters: OpenCode uses "last wins" semantics.
         # Put general rules first, specific exceptions after, dangerous denials last.
         bash = {
