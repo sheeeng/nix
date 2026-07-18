@@ -202,6 +202,7 @@
       atuin # https://search.nixos.org/packages?channel=unstable&type=packages&show=atuin
       calcurse # https://search.nixos.org/packages?channel=unstable&type=packages&show=calcurse
       fasd # https://search.nixos.org/packages?channel=unstable&type=packages&show=fasd
+      openlogi # https://search.nixos.org/packages?channel=unstable&type=packages&show=openlogi
       sc-im # https://search.nixos.org/packages?channel=unstable&type=packages&show=sc-im
       stow # https://search.nixos.org/packages?channel=unstable&type=packages&show=stow
       wyrd # https://search.nixos.org/packages?channel=unstable&type=packages&show=wyrd
