@@ -10,6 +10,7 @@ vim.lsp.config('dartls', {
   root_markers = { 'pubspec.yaml', '.git' },
   filetypes = { 'dart' }
 })
+vim.lsp.enable('dartls')
 
 -- Terraform Language Server
 vim.lsp.config('terraformls', {
@@ -17,6 +18,7 @@ vim.lsp.config('terraformls', {
   root_markers = { '.terraform', '*.tf', '.git' },
   filetypes = { 'terraform', 'tf' }
 })
+vim.lsp.enable('terraformls')
 
 -- TypeScript Language Server
 vim.lsp.config('ts_ls', {
@@ -24,6 +26,7 @@ vim.lsp.config('ts_ls', {
   root_markers = { 'tsconfig.json', 'package.json', 'jsconfig.json', '.git' },
   filetypes = { 'typescript', 'typescriptreact', 'javascript', 'javascriptreact' }
 })
+vim.lsp.enable('ts_ls')
 
 -- YAML Language Server
 vim.lsp.config('yamlls', {
@@ -40,6 +43,7 @@ vim.lsp.config('yamlls', {
     }
   }
 })
+vim.lsp.enable('yamlls')
 
 -- Nix Language Server (nixd)
 vim.lsp.config('nixd', {
@@ -47,37 +51,4 @@ vim.lsp.config('nixd', {
   root_markers = { 'flake.nix', 'default.nix', 'shell.nix', '.git' },
   filetypes = { 'nix' }
 })
-
--- Auto-start LSP clients for configured servers
-local function start_lsp_for_filetype(filetype)
-  local server_map = {
-    dart = 'dartls',
-    terraform = 'terraformls',
-    tf = 'terraformls',
-    typescript = 'ts_ls',
-    typescriptreact = 'ts_ls',
-    javascript = 'ts_ls',
-    javascriptreact = 'ts_ls',
-    yaml = 'yamlls',
-    yml = 'yamlls',
-    nix = 'nixd'
-  }
-
-  local server_name = server_map[filetype]
-  if server_name then
-    vim.lsp.start({ name = server_name })
-  end
-end
-
-vim.api.nvim_create_autocmd('FileType', {
-  callback = function(args)
-    local bufnr = args.buf
-    local filetype = vim.bo[bufnr].filetype
-
-    -- Only start LSP if no client is already attached to this buffer
-    local clients = vim.lsp.get_clients({ bufnr = bufnr })
-    if #clients == 0 then
-      start_lsp_for_filetype(filetype)
-    end
-  end
-})
+vim.lsp.enable('nixd')
