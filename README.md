@@ -106,3 +106,7 @@ nix fmt
 
 nix-shell --packages nixfmt-tree --run "treefmt ."
 ```
+
+```shell
+find . -name "*.nix" -print0 | xargs -0 nix run github:swarsel/pedantix -- --check
+```
