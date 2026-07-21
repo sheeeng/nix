@@ -96,6 +96,7 @@ nixpkgs does **NOT** use Conventional Commits. Follow these conventions instead:
 - Body lines must wrap at 72 characters maximum per line.
 - Always verify character count before committing with `echo --no-newline "title" | wc --chars` command.
 - Do not use em dash (—) strictly.
+- If the commit title or messages contains backticks, use heredoc to preserve backticks. The <<'EOF' (quoted delimiter) suppresses all shell expansion inside the heredoc. Use this pattern for all commits.
 - Do not include the link in the 50/72 rule as it is not visible.
 
 Bad ✗ Example:
