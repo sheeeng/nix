@@ -12,6 +12,7 @@ metadata:
 
 ## What This Skill Does
 
+- Load the `apply-writing-style` skill for writing style guidelines before continuing.
 - Draft release notes from merged PRs.
 - Propose a version bump.
 - Provide a copy-pasteable `gh release create` command.
