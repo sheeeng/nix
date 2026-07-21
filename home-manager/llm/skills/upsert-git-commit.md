@@ -12,6 +12,7 @@ metadata:
 
 ## What This Skill Does
 
+- Load the `apply-writing-style` skill for writing style guidelines before continuing.
 - Always use `git commit --signoff` to include a `Signed-off-by:` trailer.
 - Analyze existing changes to generate commit messages.
 - Separate existing changes in separate logical commits.
@@ -94,6 +95,23 @@ nixpkgs does **NOT** use Conventional Commits. Follow these conventions instead:
 - Title must be 50 characters or fewer, including type, scope, colon, and space.
 - Body lines must wrap at 72 characters maximum per line.
 - Always verify character count before committing with `echo --no-newline "title" | wc --chars` command.
+- Do not use em dash (—) strictly.
+- Do not include the link in the 50/72 rule as it is not visible.
+
+Bad ✗ Example:
+
+```text
+Introduce [actionlint](https://github.com/rhysd/actionlint) as a Nix
+flake check to statically lint all GitHub Actions workflow files on
+every `nix flake check` run.
+```
+
+Correct ✓ Example:
+
+```text
+Introduce [actionlint](https://github.com/rhysd/actionlint) as a Nix flake check to statically lint all GitHub
+Actions workflow files on every `nix flake check` run.
+```
 
 **Title Formatting:**
 
