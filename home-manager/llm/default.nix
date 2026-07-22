@@ -36,41 +36,47 @@ in
     pi-coding-agent # https://search.nixos.org/packages?channel=unstable&type=packages&show=pi-coding-agent
   ];
 
-  agents = {
-    # keep-sorted start
-    builder = basePath + "/agents/builder.md";
-    chicken = basePath + "/agents/chicken.md";
-    code-reviewer = basePath + "/agents/code-reviewer.md";
-    explorer = basePath + "/agents/explorer.md";
-    planner = basePath + "/agents/planner.md";
-    security-auditor = basePath + "/agents/security-auditor.md";
-    superpowers-code-reviewer = "${superpowersSrc}/agents/code-reviewer.md";
-    technical-writer = basePath + "/agents/technical-writer.md";
-    # keep-sorted end
-  };
+  agents =
+    let
+      agentsDir = basePath + "/agents";
+    in
+    pkgs.lib.mapAttrs'
+      (name: _: pkgs.lib.nameValuePair (pkgs.lib.removeSuffix ".md" name) (agentsDir + "/${name}"))
+      (
+        pkgs.lib.filterAttrs (name: type: type == "regular" && pkgs.lib.hasSuffix ".md" name) (
+          builtins.readDir agentsDir
+        )
+      )
+    // {
+      superpowers-code-reviewer = "${superpowersSrc}/agents/code-reviewer.md";
+    };
 
-  commands = {
-    # keep-sorted start
-    brainstorm = "${superpowersSrc}/commands/brainstorm.md";
-    changelog = basePath + "/commands/changelog.md";
-    commit = basePath + "/commands/commit.md";
-    execute-plan = "${superpowersSrc}/commands/execute-plan.md";
-    fix-issue = basePath + "/commands/fix-issue.md";
-    implement = basePath + "/commands/implement.md";
-    plan = basePath + "/commands/plan.md";
-    pull-request = basePath + "/commands/pull-request.md";
-    research = basePath + "/commands/research.md";
-    write-plan = "${superpowersSrc}/commands/write-plan.md";
-    # keep-sorted end
-  };
+  commands =
+    let
+      commandsDir = basePath + "/commands";
+    in
+    pkgs.lib.mapAttrs'
+      (name: _: pkgs.lib.nameValuePair (pkgs.lib.removeSuffix ".md" name) (commandsDir + "/${name}"))
+      (
+        pkgs.lib.filterAttrs (name: type: type == "regular" && pkgs.lib.hasSuffix ".md" name) (
+          builtins.readDir commandsDir
+        )
+      )
+    // {
+      brainstorm = "${superpowersSrc}/commands/brainstorm.md";
+      execute-plan = "${superpowersSrc}/commands/execute-plan.md";
+      write-plan = "${superpowersSrc}/commands/write-plan.md";
+    };
 
-  skills = {
-    # keep-sorted start
-    apply-owasp-security = basePath + "/skills/apply-owasp-security.md";
-    fix-github-issue = basePath + "/skills/fix-github-issue.md";
-    upsert-git-commit = basePath + "/skills/upsert-git-commit.md";
-    upsert-github-pull-request = basePath + "/skills/upsert-github-pull-request.md";
-    upsert-github-release = basePath + "/skills/upsert-github-release.md";
-    # keep-sorted end
-  };
+  skills =
+    let
+      skillsDir = basePath + "/skills";
+    in
+    pkgs.lib.mapAttrs'
+      (name: _: pkgs.lib.nameValuePair (pkgs.lib.removeSuffix ".md" name) (skillsDir + "/${name}"))
+      (
+        pkgs.lib.filterAttrs (name: type: type == "regular" && pkgs.lib.hasSuffix ".md" name) (
+          builtins.readDir skillsDir
+        )
+      );
 }
