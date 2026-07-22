@@ -1,8 +1,10 @@
-name: Nix Flake Check
+name: Check Nix Flake
 
 on:
   push:
-    branches: [unstable, main]
+    branches:
+      - "main"
+      - "unstable"
   pull_request:
   workflow_dispatch:
 
@@ -13,8 +15,8 @@ concurrency:
 permissions: {}
 
 jobs:
-  nix-flake-check:
-    name: nix-flake-check
+  check-nix-flake:
+    name: check-nix-flake
     runs-on: ubuntu-latest
     permissions:
       contents: read
