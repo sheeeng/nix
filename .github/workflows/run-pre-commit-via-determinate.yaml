@@ -18,6 +18,7 @@ jobs:
   run-pre-commit:
     name: Run Pre-Commit
     runs-on: ubuntu-latest
+    environment: update-nix-flake-lock
     permissions:
       actions: write
       contents: read
