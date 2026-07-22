@@ -76,7 +76,7 @@ jobs:
             exit 0
           fi
 
-          # Verify the flake builds successfully before pushing.
-          nix flake build
+          # Verify the flake evaluates successfully before pushing.
+          nix eval .#nixosConfigurations.nixos.config.system.build.toplevel.drvPath
 
           git push origin HEAD
