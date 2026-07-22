@@ -14,7 +14,6 @@ git remote set-url origin git@github.com:sheeeng/nix.git \
 git push git@git.sr.ht:~sheeeng/nix
 git push git@gitea.com:sheeeng/nix.git
 git push git@github.com:sheeeng/nix.git
-git push git@github.com:sheeeng/nix.git
 git push git@gitlab.com:sheeeng/nix.git
 git push ssh://git@codeberg.org/sheeeng/nix.git
 ```
