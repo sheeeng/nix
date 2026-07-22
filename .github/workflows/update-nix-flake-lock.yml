@@ -36,7 +36,7 @@ jobs:
       - uses: determinatesystems/determinate-nix-action@2a0be2498974c2b6327e19780488744384637d88 # v3.21.7
 
       - name: Configure Nix with GitHub Token
-        run: |
+        run: |-
           mkdir --parents ~/.config/nix
           echo "access-tokens = github.com=${{ steps.create-token.outputs.token }}" >> ~/.config/nix/nix.conf
 
@@ -51,7 +51,11 @@ jobs:
       # https://github.com/actions/checkout/blob/8e8c483db84b4bee98b60c0593521ed34d9990e8/README.md#L358
 
       - name: Update Nix Flake Lock
-        run: |
+        run: |-
+          set -o pipefail
+          set -o errexit
+          set -o nounset
+
           # Configure git identity.
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -71,5 +75,8 @@ jobs:
             echo "No changes to flake.lock file, skipping push."
             exit 0
           fi
+
+          # Verify the flake builds successfully before pushing.
+          nix flake build
 
           git push origin HEAD
