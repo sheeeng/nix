@@ -76,7 +76,16 @@ jobs:
             exit 0
           fi
 
-          # Verify the flake evaluates successfully before pushing.
-          nix eval .#nixosConfigurations.nixos.config.system.build.toplevel.drvPath
+          # Verify all configurations evaluate successfully before pushing.
+          nix eval --json .#nixosConfigurations --apply builtins.attrNames \
+            | jq --raw-output '.[]' \
+            | while read -r host; do
+                nix eval ".#nixosConfigurations.${host}.config.system.build.toplevel.drvPath"
+              done
+          nix eval --json .#darwinConfigurations --apply builtins.attrNames \
+            | jq --raw-output '.[]' \
+            | while read -r host; do
+                nix eval ".#darwinConfigurations.${host}.system.drvPath"
+              done
 
           git push origin HEAD
