@@ -1,5 +1,104 @@
 # Commands
 
+## Getting Started
+
+```shell
+export NIX_CONFIG="experimental-features = nix-command flakes"; # nix --extra-experimental-features 'nix-command flakes'
+
+nix flake update; \
+darwin-rebuild build --flake ~/github/sheeeng/nix 2>&1 \
+| nix -run nixpkgs#nix-output-monitor
+
+sudo darwin-rebuild switch --flake ~/github/sheeeng/nix 2>&1 \
+| nix run nixpkgs#nix-output-monitor
+```
+
+```shell
+sudo --validate; \
+nix flake update; \
+sudo --validate; \
+sudo nix run github:lnl7/nix-darwin -- switch --flake ~/github/sheeeng/nix  --print-build-logs --show-trace --verbose --cores 2 --max-jobs 2 2>&1 \
+| nix run nixpkgs#nix-output-monitor
+```
+
+```shell
+sudo --validate && nix flake update && sudo --validate && sudo nix run github:lnl7/nix-darwin -- switch --flake ~/github/sheeeng/nix  --print-build-logs --show-trace --verbose --cores 2 --max-jobs 2 2>&1 | nix run nixpkgs#nix-output-monitor
+```
+
+```shell
+sudo darwin-rebuild switch --print-build-logs --flake ~/github/sheeeng/nix 2>&1 \
+| nix run nixpkgs#nix-output-monitor
+```
+
+```shell
+sudo --validate; \
+nix flake update; \
+sudo nixos-rebuild switch --print-build-logs --show-trace --verbose --cores 2 --max-jobs 2 --flake ~/github/sheeeng/nix 2>&1 \
+| nix run nixpkgs#nix-output-monitor
+```
+
+```shell
+sudo --validate && nix flake update && sudo --validate && sudo nixos-rebuild switch --print-build-logs --show-trace --verbose --cores 2 --max-jobs 2 --flake ~/github/sheeeng/nix 2>&1 | nix run nixpkgs#nix-output-monitor
+```
+
+## Install `lix`
+
+```shell
+curl --silent --show-error --fail --location https://install.lix.systems/lix | sh -s -- install
+```
+
+## Miscellaneous
+
+- Restart Nix daemon.
+
+```shell
+sudo launchctl kickstart -k -p system/systems.determinate.nix-daemon
+```
+
+- Verify access token.
+
+```shell
+nix config show | nix run nixpkgs#ripgrep -- '^access-tokens'
+```
+
+- Update and fetch dependencies.
+
+```shell
+# Local binary mode: simplest per-file update using installed tooling.
+fd --extension nix --exclude flake.nix --exec update-nix-fetchgit
+
+# Local debug mode: trace each shell step while processing files.
+fd --extension nix --exclude flake.nix \
+  -x sh -xc 'echo "$1"; update-nix-fetchgit "$1"' _ {}
+
+# Local normal mode: print the current file, then run one update per file.
+fd --extension nix --exclude flake.nix \
+  -x sh -c 'echo "$1"; update-nix-fetchgit "$1"' _ {}
+
+# Nix-run batch mode: most reproducible and usually fastest for many files.
+nix run nixpkgs#fd -- \
+  --extension nix \
+  --exclude flake.nix \
+  --exec-batch \
+  nix run nixpkgs#update-nix-fetchgit -- --verbose
+
+# Nix-run per-file mode: sequential per-file output using pinned nixpkgs tools.
+nix run nixpkgs#fd -- --extension nix --exclude flake.nix --threads 1 --exec \
+  sh -c 'echo "$1"; nix run nixpkgs#update-nix-fetchgit -- "$1"' _ {}
+```
+
+- Format files.
+
+```shell
+nix fmt
+
+nix-shell --packages nixfmt-tree --run "treefmt ."
+```
+
+```shell
+find . -name "*.nix" -print0 | xargs -0 nix run github:swarsel/pedantix -- --check
+```
+
 ## GitHub Token Configuration
 
 The Nix configuration uses sops-nix to securely manage GitHub access tokens for private repository access. The token is stored in encrypted secrets and injected into `nix.conf` at build time.
