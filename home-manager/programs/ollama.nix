@@ -21,7 +21,8 @@
   services.ollama = {
     enable = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-services.ollama.enable
     package = pkgs.ollama; # https://nix-community.github.io/home-manager/options.xhtml#opt-services.ollama.package
-    # acceleration = null; # macOS: Metal (Apple GPU) is used automatically by the ollama binary
+    acceleration = null; # https://nix-community.github.io/home-manager/options.xhtml#opt-services.ollama.acceleration
+    environmentVariables = {}; # https://nix-community.github.io/home-manager/options.xhtml#opt-services.ollama.environmentVariables
     host = "127.0.0.1"; # https://nix-community.github.io/home-manager/options.xhtml#opt-services.ollama.host
     port = 11434; # https://nix-community.github.io/home-manager/options.xhtml#opt-services.ollama.port
   };
