@@ -18,7 +18,9 @@ jobs:
   run-pre-commit:
     name: Run Pre-Commit
     runs-on: ubuntu-latest
-    environment: update-nix-flake-lock
+    environment:
+      name: update-nix-flake-lock
+      deployment: false
     permissions:
       actions: write
       contents: read
