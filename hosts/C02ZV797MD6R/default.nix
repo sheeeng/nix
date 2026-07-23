@@ -238,7 +238,7 @@ in
     };
   };
 
-  system.stateVersion = 5;
+  system.stateVersion = config.system.nixos.release;
 
   # The option definition `services.nix-daemon.enable' no longer has any effect; please remove it.
   # nix-darwin now manages nix-daemon unconditionally when `nix.enable` is on.
