@@ -82,10 +82,20 @@ jobs:
             | while read -r host; do
                 nix eval ".#nixosConfigurations.${host}.config.system.build.toplevel.drvPath"
               done
-          nix eval --json .#darwinConfigurations --apply builtins.attrNames \
-            | jq --raw-output '.[]' \
-            | while read -r host; do
-                nix eval ".#darwinConfigurations.${host}.system.drvPath"
-              done
+          readarray -t darwin_hosts < <(
+            nix eval --json .#darwinConfigurations --apply builtins.attrNames \
+              | jq --raw-output '.[]'
+          )
+          for host in "${darwin_hosts[@]}"; do
+            output=$(nix eval ".#darwinConfigurations.${host}.system.drvPath" 2>&1) \
+              || {
+                if echo "$output" | grep --quiet "dropped support for x86_64-darwin"; then
+                  echo "Skipping ${host} (x86_64-darwin is no longer supported by nixpkgs)."
+                else
+                  echo "$output" >&2
+                  exit 1
+                fi
+              }
+          done
 
           git push origin HEAD
