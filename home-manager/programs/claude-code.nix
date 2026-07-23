@@ -4,7 +4,7 @@ let
     inherit pkgs;
     basePath = ../llm;
   };
-  claudeCodeModel = "claude-sonnet-4-6";
+  claudeCodeModel = "claude-opus-4-8"; # https://models.dev/models/anthropic/claude-opus-4-8/
 in
 {
   home.packages =
@@ -76,7 +76,7 @@ in
         CLAUDE_CODE_DISABLE_1M_CONTEXT = "1"; # Prevent bloated context window from degrading model performance and consuming token limits.
         CLAUDE_CODE_DISABLE_ADAPTIVE_THINKING = "1"; # Prevent Claude Code from dynamically overriding chosen thinking effort level.
         CLAUDE_CODE_DISABLE_AUTO_MEMORY = "1"; # Prevent automatically managed memory from retaining outdated information or inefficient processes.
-        CLAUDE_CODE_SUBAGENT_MODEL = "sonnet"; # Set to sonnet to ensure default subagents such as Explore perform adequately.
+        CLAUDE_CODE_SUBAGENT_MODEL = "opus"; # Set to opus to ensure default subagents such as Explore perform adequately.
       };
       hooks = {
         PostToolUse = [
