@@ -176,7 +176,7 @@ in
     permittedInsecurePackages = [ ];
   };
 
-  system.stateVersion = config.system.nixos.release;
+  system.stateVersion = "25.11"; # Keep pinned to the initial install; do not float with the current release. https://search.nixos.org/options?show=system.stateVersion
 
   nix = {
     optimise.automatic = true;
