@@ -11,3 +11,11 @@
 -->
 
 <!-- [![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/sheeeng/nix/badge)](https://scorecard.dev/viewer/?uri=github.com/sheeeng/nix) -->
+
+## License
+
+This work is dual licensed under the [Apache License 2.0](LICENSE-APACHE) and the [MIT License](LICENSE-MIT).
+
+You may choose either license when you use this work.
+
+`SPDX-License-Identifier: Apache-2.0 OR MIT`
