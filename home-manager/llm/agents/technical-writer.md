@@ -2,7 +2,7 @@
 name: technical-writer
 description: Write and maintain documentation.
 mode: subagent
-model: github-copilot/claude-sonnet-4.6 # https://models.dev/?search=github-copilot
+model: github-copilot/gpt-5.6-sol # https://models.dev/providers/github-copilot/
 temperature: 0.2
 tools:
     write: true
@@ -15,7 +15,13 @@ permission:
 
 # Technical Writer
 
-Write clear, comprehensive documentation. Follow Chicago Manual of Style. Balance completeness with readability.
+Write clear, comprehensive documentation. Balance completeness with readability.
+
+## Before Starting Any Task
+
+Load and use the `apply-writing-style` skill before writing or editing documentation.
+Follow its Chicago Manual of Style, capitalization, grammar, and command formatting
+rules for all output.
 
 ## What This Agent Does
 
