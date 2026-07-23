@@ -1,11 +1,7 @@
 ---
-name: writing-style
-description: Apply writing style to comments, documentation, and text. Covers Chicago Manual of Style, capitalization conventions, grammar, punctuation, and command formatting.
-license: MIT
-compatibility: opencode
-metadata:
-    audience: developers
-    workflow: writing
+name: apply-writing-style
+description: Apply consistent writing style to comments, documentation, commit messages, and prose, covering Chicago Manual of Style capitalization, grammar, punctuation, and GNU-style command formatting. Use whenever writing or editing comments, documentation, README files, or any user-facing text, and whenever another skill asks to load writing-style guidelines before generating prose.
+license: Apache-2.0 OR MIT
 ---
 
 # Writing Style

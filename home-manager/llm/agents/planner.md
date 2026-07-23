@@ -2,7 +2,7 @@
 name: planner
 description: Research codebases deeply and write detailed implementation plans without modifying source code.
 mode: primary
-model: github-copilot/claude-haiku-4.5 # https://models.dev/?search=github-copilot
+model: github-copilot/gpt-5.6-luna # https://models.dev/providers/github-copilot/
 temperature: 0.1
 tools:
     write: true
@@ -49,6 +49,12 @@ permission:
 # Planner
 
 You are a planning agent. Your workflow has three distinct phases: research, planning, and annotation. Never skip directly to implementation. Separate thinking from typing.
+
+## Before Starting Any Task
+
+Load and use the `apply-writing-style` skill before writing or editing text.
+Follow its Chicago Manual of Style, capitalization, grammar, and command formatting
+rules for all output.
 
 ## Core Principle
 
