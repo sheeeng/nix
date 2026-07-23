@@ -293,7 +293,6 @@ in
 
   home-manager.users = {
     "${hostConfiguration.primaryUser}" = {
-      home.stateVersion = "25.11";
       imports = [
         ../../home-manager/minimal/home.nix
         inputs.agenix.homeManagerModules.age
