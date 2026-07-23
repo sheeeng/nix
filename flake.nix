@@ -72,7 +72,7 @@
     # FAIL (libimagequant Cargo.lock git object missing at nixos-unstable rev 9ae611a455b90cf061d8f332b977e387bda8e1ca)
     # nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     # OK
-    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    # nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 
     # The next two are for pinning to stable vs unstable regardless of what the above is set to
     # This is particularly useful when an upcoming stable release is in beta because you can effectively
@@ -82,7 +82,7 @@
     # nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
     # nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 
-    nixos-hardware.url = "github:nixos/nixos-hardware/master";
+    # nixos-hardware.url = "github:nixos/nixos-hardware/master";
 
     # nixpkgs-helix.url = "github:nixos/nixpkgs/bc947f541ae55e999ffdb4013441347d83b00feb"; # Hack for Helix to be able to build tree-sitter. # https://github.com/llakala/nixos/blob/5dae1c83df4835fd23d433adc76f66bca44962ba/flake.nix#L104
 
@@ -95,7 +95,7 @@
     # FAIL (libimagequant Cargo.lock git object missing at nixos-unstable rev 9ae611a455b90cf061d8f332b977e387bda8e1ca)
     # nixpkgs-darwin.url = "github:nixos/nixpkgs/nixos-unstable";
     # OK (starship Darwin linker fix #540463 merged 2026-07-11 into nixpkgs-unstable; opencode 1.18.3 node_modules hash mismatch in 6bfaf02 avoided)
-    nixpkgs-darwin.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    # nixpkgs-darwin.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     # FAIL (opencode 1.18.3 node_modules hash mismatch on nixpkgs master 6bfaf02) # @upstream-issue TODO
     # nixpkgs-darwin.url = "github:nixos/nixpkgs/6bfaf02a46540dad5b083e46e80d9ac133260cd3"; # https://github.com/NixOS/nixpkgs/pull/540463
     # FAIL (starship cctools ld64 linker crash on aarch64-darwin) # @upstream-issue https://github.com/NixOS/nixpkgs/issues/540450 # https://github.com/NixOS/nixpkgs/pull/540463
@@ -104,9 +104,17 @@
     # nixpkgs-darwin.url = "github:nixos/nixpkgs?branch=nixpkgs-unstable&rev=96753b919b7befb34f0cb7dd212e6c26a4753e65"; # @upstream-issue https://github.com/anomalyco/opencode/issues/8029
     # FAIL (opencode 1.17.9 node_modules 7zip-bin/win/ia32/7za.exe Operation not permitted on Darwin 25.5.0 / macOS 16) # @upstream-issue https://github.com/anomalyco/opencode/issues/8029
     # nixpkgs-darwin.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+
+    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+
+    home-manager = {
+      url = "github:nix-community/home-manager/master";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nix-darwin = {
       url = "github:lnl7/nix-darwin";
-      inputs.nixpkgs.follows = "nixpkgs-darwin";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     disko = {
@@ -134,12 +142,6 @@
     #   url = "github:helix-editor/helix"; # Compile Helix from source to support macro keybinds
     #   inputs.nixpkgs.follows = "nixpkgs-helix"; # So we don't have two instances of `nixpkgs` in flake.lock. We use the same rev from helix's flake.lock so we don't have to recompile
     # }; # https://github.com/llakala/nixos/tree/5dae1c83df4835fd23d433adc76f66bca44962ba/apps/programs/firefox
-
-    home-manager = {
-      url = "github:nix-community/home-manager/master";
-      inputs.nixpkgs.follows = "nixpkgs";
-      # url = "github:nix-community/home-manager/release-24.11";
-    };
 
     # nh-plus = {
     #   url = "github:toyvo/nh_plus";
