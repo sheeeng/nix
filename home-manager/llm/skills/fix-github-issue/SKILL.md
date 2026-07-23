@@ -1,11 +1,7 @@
 ---
 name: fix-github-issue
-description: Analyze and fix a GitHub issue in the current repository.
-license: MIT
-compatibility: opencode
-metadata:
-    audience: developers
-    workflow: github
+description: Analyze and fix a GitHub issue in the current repository. Use whenever the user references a GitHub issue to resolve, including phrases like "fix issue #123", "work on this issue", or pasting an issue URL or number, to fetch the issue, analyze it, implement a fix, and suggest a conventional commit message.
+license: Apache-2.0 OR MIT
 ---
 
 # Fix GitHub Issue
