@@ -1,4 +1,4 @@
-_: {
+{ lib, ... }: {
   imports = [
     ../fonts.nix
     ../packages/minimal-cli.nix
@@ -40,7 +40,7 @@ _: {
     shellAliases = {
       z = "zoxide";
     }; # https://nix-community.github.io/home-manager/options.xhtml#opt-home.shellAliases
-    stateVersion = "25.11"; # https://nix-community.github.io/home-manager/options.xhtml#opt-home.stateVersion
+    stateVersion = lib.trivial.release; # Track the nixpkgs release automatically; works on all supported systems. https://nix-community.github.io/home-manager/options.xhtml#opt-home.stateVersion
   };
 
   programs.home-manager.enable = true;
