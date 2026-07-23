@@ -43,8 +43,6 @@ in
     subpixelRendering = null; # https://nix-community.github.io/home-manager/options.xhtml#opt-fonts.fontconfig.subpixelRendering
   };
 
-  # home.stateVersion = "25.11"; # Please read the comment before changing.
-
   # You have set either `nixpkgs.config` or `nixpkgs.overlays` while using `home-manager.useGlobalPkgs`.
   # This will soon not be possible. Please remove all `nixpkgs` options when using `home-manager.useGlobalPkgs`.
   nixpkgs.config.allowUnfree = true;
@@ -83,6 +81,6 @@ in
       wttr = "${pkgs.curl}/bin/curl 'wttr.in/Oslo?format=3'"; # TODO: https://www.reddit.com/r/macapps/comments/1gg4k6o/comment/lupspio/
       wttr-all = "${pkgs.curl}/bin/curl 'wttr.in/{Helsfyr,Kuching,Kamakura,Lørenskog,Oslo,Tokyo}?format=3'";
     }; # https://nix-community.github.io/home-manager/options.xhtml#opt-home.shellAliases
-    stateVersion = "25.11"; # https://nix-community.github.io/home-manager/options.xhtml#opt-home.stateVersion
+    stateVersion = lib.trivial.release; # Track the nixpkgs release automatically; works on all supported systems. https://nix-community.github.io/home-manager/options.xhtml#opt-home.stateVersion
   };
 }
