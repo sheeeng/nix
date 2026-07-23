@@ -74,7 +74,10 @@ in
       suspend = if pkgs.stdenv.hostPlatform.isDarwin then "pmset sleepnow" else "systemctl suspend";
       z = "zoxide";
 
-      generate-uuid = "$(${lib.getExe' pkgs.util-linux "uuidgen"} | tr -d \\n)";
+      # @note generate-uuid is a real command (see scripts.nix), not an alias.
+      # A shellAlias whose value is a $(...) command substitution is invalid in
+      # nushell, and it is also broken in bash and zsh, because the substitution
+      # runs and the shell then tries to execute the resulting UUID as a command.
       reset-dock = lib.mkIf pkgs.stdenv.hostPlatform.isDarwin "defaults delete com.apple.dock; killall Dock";
       terraform = "${lib.getExe' pkgs.opentofu "tofu"}"; # Map terraform to the OpenTofu tofu binary for command compatibility.
       wttr = "${pkgs.curl}/bin/curl 'wttr.in/Oslo?format=3'"; # TODO: https://www.reddit.com/r/macapps/comments/1gg4k6o/comment/lupspio/
