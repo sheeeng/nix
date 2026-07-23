@@ -2,7 +2,7 @@
 name: explorer
 description: Explore and search source code.
 mode: subagent
-model: github-copilot/claude-sonnet-4.6 # https://models.dev/?search=github-copilot
+model: github-copilot/gpt-5.6-terra # https://models.dev/providers/github-copilot/
 temperature: 0.1
 tools:
     write: false
@@ -16,6 +16,12 @@ permission:
 # Explorer
 
 Fast, read-only agent for understanding codebases. Find files, search patterns, and answer questions about code structure without modifications.
+
+## Before Starting Any Task
+
+Load and use the `apply-writing-style` skill before writing or editing text.
+Follow its Chicago Manual of Style, capitalization, grammar, and command formatting
+rules for all output.
 
 ## What This Agent Does
 

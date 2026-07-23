@@ -72,11 +72,23 @@ in
     let
       skillsDir = basePath + "/skills";
     in
+    # Auto-discover both flat single-file skills (`<name>.md`) and directory
+    # skills (`<name>/SKILL.md` plus optional `references/` for progressive
+    # disclosure). The home-manager module renders a file to `<name>/SKILL.md`
+    # and copies a directory recursively.
     pkgs.lib.mapAttrs'
-      (name: _: pkgs.lib.nameValuePair (pkgs.lib.removeSuffix ".md" name) (skillsDir + "/${name}"))
       (
-        pkgs.lib.filterAttrs (name: type: type == "regular" && pkgs.lib.hasSuffix ".md" name) (
-          builtins.readDir skillsDir
-        )
+        name: type:
+        if type == "directory" then
+          pkgs.lib.nameValuePair name (skillsDir + "/${name}")
+        else
+          pkgs.lib.nameValuePair (pkgs.lib.removeSuffix ".md" name) (skillsDir + "/${name}")
+      )
+      (
+        pkgs.lib.filterAttrs (
+          name: type:
+          (type == "regular" && pkgs.lib.hasSuffix ".md" name)
+          || (type == "directory" && builtins.pathExists (skillsDir + "/${name}/SKILL.md"))
+        ) (builtins.readDir skillsDir)
       );
 }

@@ -1,11 +1,7 @@
 ---
-name: git-commit
-description: Create conventional commit messages.
-license: MIT
-compatibility: opencode
-metadata:
-    audience: developers
-    workflow: github
+name: upsert-git-commit
+description: Create conventional commit messages from staged changes, with automatic nixpkgs-convention detection. Use whenever the user wants to commit, stage, or write a commit message, including phrases like "commit this", "write a commit message", or after finishing a logical change, to generate correctly formatted, signed-off commits following Conventional Commits or nixpkgs conventions.
+license: Apache-2.0 OR MIT
 ---
 
 # Git Commit
@@ -13,6 +9,7 @@ metadata:
 ## What This Skill Does
 
 - Load the `apply-writing-style` skill for writing style guidelines before continuing.
+- Run `git diff --staged` first to inspect what will be committed.
 - Always use `git commit --signoff` to include a `Signed-off-by:` trailer.
 - Analyze existing changes to generate commit messages.
 - Separate existing changes in separate logical commits.
@@ -366,11 +363,6 @@ Changes:
 ```
 
 Incorrect: list items are not complete sentences and lack periods.
-
-## When to Use This Skill
-
-Use this when you need help writing a commit message. Run `git diff --staged`
-first to see what will be committed.
 
 ## References
 

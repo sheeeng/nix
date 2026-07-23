@@ -1,11 +1,7 @@
 ---
 name: upsert-github-pull-request
-description: Create/modify standard pull request titles and descriptions.
-license: MIT
-compatibility: opencode
-metadata:
-    audience: developers
-    workflow: github
+description: Create or update pull request titles and descriptions from feature-branch commits, with automatic nixpkgs-convention detection. Use whenever the user wants to open, create, or update a pull request, or asks to "make a PR", "update the PR description", or prepare a branch for review, especially after new local modifications. Previews the title and description and requires explicit confirmation before running gh pr create or gh pr edit.
+license: Apache-2.0 OR MIT
 ---
 
 # Git Pull Request
@@ -369,11 +365,6 @@ Changes:
 ```
 
 Incorrect: list items are not complete sentences and lack periods.
-
-## When to Use This Skill
-
-Use this when you need help creating or updating a pull request from
-feature-branch commits, especially after new local modifications.
 
 ## References
 
