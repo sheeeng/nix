@@ -47,7 +47,7 @@ _: { }
 
 #   nixpkgs.config.allowUnfree = true;
 
-#   system.stateVersion = "24.11";
+#   system.stateVersion = config.system.nixos.release;
 #   nix = {
 #     optimise.automatic = true; # https://daiderd.com/nix-darwin/manual/index.html#opt-nix.optimise.automatic # https://github.com/NixOS/nix/issues/7273#issuecomment-2295429401
 #     settings = {
