@@ -204,7 +204,7 @@ let
     logoutExtra = ""; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.bash.logoutExtra
     profileExtra = ""; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.bash.profileExtra
     sessionVariables = { }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.bash.sessionVariables
-    shellAliases = { }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.bash.shellAliases
+    shellAliases.atuin-import = "export HISTFILE && atuin import auto && unset HISTFILE"; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.bash.shellAliases
     shellOptions = [
       "histappend"
       "extglob"
