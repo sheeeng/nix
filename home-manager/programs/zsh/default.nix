@@ -153,6 +153,7 @@
     # chain-expansion that would turn `sudo nix ...` into `sudo noglob nix ...`.
     # @upstream-issue https://github.com/NixOS/nix/issues/4686#issuecomment-3187134220
     shellAliases = {
+      atuin-import = "export HISTFILE && atuin import auto && unset HISTFILE";
       nh = "noglob nh";
       nix = "noglob nix";
       nom = "noglob nom";
