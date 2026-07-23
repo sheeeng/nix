@@ -7,8 +7,8 @@ let
 
   opencodeSuperpowersPlugin = "${commonLlmSettings.superpowersSrc}/.opencode/plugins/superpowers.js";
 
-  opencodeModel = "github-copilot/claude-opus-4.6";
-  opencodeSmallModel = "github-copilot/claude-haiku-4.5";
+  opencodeModel = "github-copilot/gpt-5.6-sol"; # https://models.dev/models/openai/gpt-5.6-sol/
+  opencodeSmallModel = "github-copilot/gpt-5.6-terra"; # https://models.dev/models/openai/gpt-5.6-terra/
 in
 {
   # Place superpowers plugin so OpenCode discovers it at startup.
