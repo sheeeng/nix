@@ -140,7 +140,8 @@ Examples:
 - Use proper grammar and punctuation following Chicago Manual of Style.
 - Start sentences with capital letters.
 - End sentences with proper punctuation.
-- Each line in the body must not exceed 72 characters.
+- Each line in the commit body must not exceed 72 characters.
+- All trailer lines, like Co-authored-by and Signed-off-by, are not limited to 72 characters.
 
 ### nixpkgs-Specific Rules
 
