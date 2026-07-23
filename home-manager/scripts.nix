@@ -140,12 +140,24 @@ in
       ''
     ))
 
+    # Generate a random UUID v4 and print it without a trailing newline, which
+    # makes it convenient to capture (for example, `generate-uuid | pbcopy`).
+    # This replaces the old `generate-uuid` shellAlias, whose value was a $(...)
+    # command substitution. That form is invalid in nushell, and it is also
+    # broken in bash and zsh, because the substitution runs and the shell then
+    # tries to execute the resulting UUID as a command.
+    (pkgs.writeShellScriptBin "generate-uuid" ''
+      #!${pkgs.stdenv.shell}
+      set -o errexit -o nounset -o pipefail
+      ${lib.getExe' pkgs.util-linux "uuidgen"} | ${lib.getExe' pkgs.coreutils "tr"} -d '\n'
+    '')
+
     # Generate a UUID v5 (SHA-1 based) from a string argument.
-    (pkgs.writeShellScriptBin "run-my-uuidgen" (
+    (pkgs.writeShellScriptBin "get-uuidgen-oid" (
       "${shellScriptHeader}"
       + ''
         if [ -z "''${1:-}" ]; then
-          echo "Usage: run-my-uuidgen <string>"
+          echo "Usage: get-uuidgen-oid <string>"
           echo "Generates a UUID v5 (SHA-1 based) from the input string using OID namespace."
           exit 1
         fi
