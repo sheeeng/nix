@@ -4,7 +4,7 @@ description: Create or update pull request titles and descriptions from feature-
 license: Apache-2.0 OR MIT
 ---
 
-# Git Pull Request
+# Upsert GitHub Pull Request
 
 ## What This Skill Does
 
