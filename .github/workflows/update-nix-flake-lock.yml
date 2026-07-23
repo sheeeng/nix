@@ -14,7 +14,9 @@ permissions: {}
 jobs:
   update-nix-flake-lock:
     runs-on: ubuntu-latest
-    environment: update-nix-flake-lock
+    environment:
+      name: ${{ github.ref_name != 'unstable' && 'update-nix-flake-lock' || '' }}
+      deployment: false
     permissions:
       contents: write
     steps:
