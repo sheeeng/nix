@@ -238,7 +238,7 @@ in
     };
   };
 
-  system.stateVersion = config.system.nixos.release;
+  system.stateVersion = 5; # nix-darwin uses an integer here; keep it pinned to the initial install. https://nix-darwin.github.io/nix-darwin/manual/#opt-system.stateVersion
 
   # The option definition `services.nix-daemon.enable' no longer has any effect; please remove it.
   # nix-darwin now manages nix-daemon unconditionally when `nix.enable` is on.
