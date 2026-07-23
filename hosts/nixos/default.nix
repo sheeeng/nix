@@ -176,7 +176,7 @@ in
     permittedInsecurePackages = [ ];
   };
 
-  system.stateVersion = "25.11";
+  system.stateVersion = config.system.nixos.release;
 
   nix = {
     optimise.automatic = true;
