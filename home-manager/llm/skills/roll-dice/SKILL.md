@@ -1,0 +1,28 @@
+---
+name: roll-dice
+description: Roll dice using a random number generator. Use when asked to roll a die (d6, d20, etc.), roll dice, or generate a random dice roll.
+---
+
+Use 6 sides when the request does not specify the number of sides.
+
+To roll a die, use the following command that generates a random number from 1
+to the given number of sides:
+
+```bash
+nix shell nixpkgs#uutils-coreutils-noprefix --command shuf --input-range=1-<sides> --head-count=1
+```
+
+```bash
+echo $((RANDOM % <sides> + 1))
+```
+
+```powershell
+Get-Random -Minimum 1 -Maximum (<sides> + 1)
+```
+
+```nu
+random int 1..<(<sides> + 1)
+```
+
+Replace `<sides>` with the number of sides on the die (e.g., 6 for a standard
+die, 20 for a d20).
