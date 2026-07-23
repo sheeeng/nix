@@ -4,7 +4,7 @@ description: Create conventional commit messages from staged changes, with autom
 license: Apache-2.0 OR MIT
 ---
 
-# Git Commit
+# Upsert Git Commit
 
 ## What This Skill Does
 

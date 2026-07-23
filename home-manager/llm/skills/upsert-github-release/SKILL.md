@@ -4,7 +4,7 @@ description: Draft tagged releases and changelogs from merged pull requests and 
 license: Apache-2.0 OR MIT
 ---
 
-# Git Release
+# Upsert GitHub Release
 
 ## What This Skill Does
 
