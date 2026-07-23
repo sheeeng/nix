@@ -135,7 +135,7 @@ Examples:
 
 **Body Formatting:**
 
-- Wrap every line at 72 characters maximum.
+- Explain what changed and why, wrapped to 72 characters.
 - Leave one blank line between title and body.
 - Use proper grammar and punctuation following Chicago Manual of Style.
 - Start sentences with capital letters.
