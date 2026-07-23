@@ -10,6 +10,6 @@
     extraEnv = ""; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.nushell.extraEnv
     extraLogin = ""; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.nushell.extraLogin
     loginFile = null; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.nushell.loginFile
-    shellAliases = { }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.nushell.shellAliases
+    shellAliases.atuin-import = "with-env { HISTFILE: ($env.HISTFILE? | default '') } { atuin import auto }"; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.nushell.shellAliases
   };
 }
