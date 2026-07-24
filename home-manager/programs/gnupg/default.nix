@@ -133,16 +133,26 @@
     verbose = lib.mkDefault false; # https://nix-community.github.io/home-manager/options.xhtml#opt-services.gpg-agent.verbose
   };
 
-  # The keyboxd and gpg-agent daemons are killed with SIGKILL on shutdown, so
-  # they leave dotlock files behind under the GnuPG home directory, namely the
-  # files that match ".#lk*" and "*.lock". Because the home directory is
-  # persistent, those files survive the reboot. GnuPG breaks a stale lock only
-  # when the process identifier recorded in the lock file is dead. After a
-  # reboot, however, that process identifier is usually recycled to a live and
-  # unrelated process, so GnuPG assumes the lock is still held and waits on it
-  # forever. Signing then fails with "keydb_search failed: Connection timed
-  # out". Remove any leftover lock files at session start, before any GnuPG
-  # daemon runs, so that signing works reliably after every reboot.
+  # Disable keyboxd on Linux. The keyboxd daemon introduced in GnuPG version 2.4
+  # deadlocks on its own database under this configuration, so signing fails
+  # intermittently with "keydb_search failed: Connection timed out", even within
+  # a single session and after a reboot. An empty common.conf keeps the
+  # use-keyboxd option absent, so GnuPG reads the classic pubring.kbx keybox
+  # directly and no lock daemon can hang. The existing public keys were migrated
+  # from the keyboxd database with "gpg --export" followed by "gpg --import".
+  home.file.".gnupg/common.conf" = lib.mkIf pkgs.stdenv.isLinux {
+    text = "";
+  };
+
+  # The gpg-agent daemon is killed with SIGKILL on shutdown, so it leaves dotlock
+  # files behind under the GnuPG home directory, namely the files that match
+  # ".#lk*" and "*.lock". Because the home directory is persistent, those files
+  # survive the reboot. GnuPG breaks a stale lock only when the process
+  # identifier recorded in the lock file is dead. After a reboot, however, that
+  # process identifier is usually recycled to a live and unrelated process, so
+  # GnuPG assumes the lock is still held and waits on it forever. Remove any
+  # leftover lock files at session start, before any GnuPG daemon runs, so that
+  # signing works reliably after every reboot.
   systemd.user.services.gpg-clean-stale-locks = lib.mkIf pkgs.stdenv.isLinux {
     Unit = {
       Description = "Remove stale GnuPG lock files left by an unclean shutdown.";
