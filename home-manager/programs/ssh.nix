@@ -42,18 +42,50 @@
     }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.ssh.matchBlocks
   };
 
-  # SSH_AUTH_SOCK is set automatically by GNOME Keyring's gcr-ssh-agent on Linux.
-  # gcr-ssh-agent only holds keys in memory (session-scoped); keychain below
-  # adds id_ed25519 to it at first terminal open after reboot, prompting once.
-  programs.keychain = lib.mkIf pkgs.stdenv.isLinux {
-    enable = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.keychain.enable
-    keys = [ "id_ed25519" ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.keychain.keys
-    extraFlags = [
-      # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.keychain.extraFlags
-      "--quiet"
-      "--nocolor"
-    ];
+  # Automatically unlock the SSH key at login. This reproduces the behavior of
+  # the old GNOME Keyring option labeled "Automatically unlock this key whenever
+  # I am logged in."
+  #
+  # The gcr-ssh-agent shipped with gcr version 4 holds keys only in memory.
+  # Unlike the SSH component that used to live inside GNOME Keyring, it does not
+  # store passphrases in the keyring, so keys are forgotten on every reboot. PAM
+  # unlocks the login keyring at GDM login, so this service runs at session
+  # start, reads the key passphrase from the login keyring with the secret-tool
+  # command, and loads the key into gcr-ssh-agent without a prompt.
+  #
+  # Complete the setup once. This stores the passphrase in the login keyring:
+  #
+  #   secret-tool store --label='ssh id_ed25519' ssh id_ed25519
+  #
+  # After that, logging in at GDM loads the key automatically for good, shared
+  # by both terminal sessions and graphical applications such as Visual Studio
+  # Code and web browsers.
+  systemd.user.services.ssh-add-keys = lib.mkIf pkgs.stdenv.isLinux {
+    Unit = {
+      Description = "Load SSH keys into gcr-ssh-agent using the passphrase from the GNOME login keyring.";
+      After = [ "gcr-ssh-agent.socket" ];
+      Requires = [ "gcr-ssh-agent.socket" ];
+      PartOf = [ "graphical-session.target" ];
+    };
+    Service = {
+      Type = "oneshot";
+      Environment = [
+        "SSH_AUTH_SOCK=%t/gcr/ssh"
+        "SSH_ASKPASS=${pkgs.writeShellScript "ssh-askpass-secret" ''
+          exec ${pkgs.libsecret}/bin/secret-tool lookup ssh id_ed25519
+        ''}"
+        "SSH_ASKPASS_REQUIRE=force"
+      ];
+      ExecStart = "${pkgs.openssh}/bin/ssh-add %h/.ssh/id_ed25519";
+    };
+    Install.WantedBy = [ "graphical-session.target" ];
   };
+
+  # The secret-tool command from libsecret is required to store the passphrase
+  # in the login keyring:
+  #
+  #   secret-tool store --label='ssh id_ed25519' ssh id_ed25519
+  home.packages = lib.mkIf pkgs.stdenv.isLinux [ pkgs.libsecret ];
 
   # Set GPG_TTY for pinentry to work correctly in terminal sessions.
   home.sessionVariablesExtra = lib.mkIf pkgs.stdenv.isLinux ''
