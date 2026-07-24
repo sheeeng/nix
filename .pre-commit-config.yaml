@@ -96,11 +96,11 @@ repos:
         # keep-sorted end
   # keep-sorted start
   - repo: https://github.com/DavidAnson/markdownlint-cli2
-    rev: v0.22.0
+    rev: v0.23.1
     hooks:
       - id: markdownlint-cli2
   - repo: https://github.com/charliermarsh/ruff-pre-commit
-    rev: v0.14.14
+    rev: v0.16.0
     hooks:
       - id: ruff
         name: ruff
@@ -122,7 +122,7 @@ repos:
       - id: gitleaks
         name: gitleaks
   - repo: https://github.com/google/keep-sorted
-    rev: v0.7.1
+    rev: v0.9.1
     hooks:
       - id: keep-sorted
         name: keep-sorted
@@ -140,13 +140,13 @@ repos:
           - --formatter
           - array_indent=2,disable_alias_key_correction=false,disallow_anchors=false,drop_merge_tag=false,eof_newline=false,include_document_start=false,indent=2,indent_root_array=false,indentless_arrays=false,max_line_length=0,pad_line_comments=1,retain_line_breaks=false,retain_line_breaks_single=true,scan_folded_as_literal=false,strip_directives=false,trim_trailing_whitespace=false
   - repo: https://github.com/igorshubovych/markdownlint-cli
-    rev: v0.48.0
+    rev: v0.49.1
     hooks:
       - id: markdownlint
         name: markdownlint
         args: [--fix]
   - repo: https://github.com/nixos/nixfmt
-    rev: v1.2.0
+    rev: v1.4.0
     hooks:
       - id: nixfmt
         name: nixfmt
@@ -154,12 +154,12 @@ repos:
         args:
           - --indent=2
   - repo: https://github.com/renovatebot/pre-commit-hooks
-    rev: 42.84.0
+    rev: 43.280.0
     hooks:
       - id: renovate-config-validator
         args: [--strict]
   - repo: https://github.com/rhysd/actionlint
-    rev: v1.7.10
+    rev: v1.7.12
     hooks:
       - id: actionlint
         name: actionlint
