@@ -9,11 +9,17 @@
   home.packages =
     with pkgs;
     [
-      code-cursor # https://search.nixos.org/packages?channel=unstable&type=packages&show=code-cursor
+      oneko # https://search.nixos.org/packages?channel=unstable&type=packages&show=oneko
     ]
-    ++ (pkgs.lib.optionals pkgs.stdenv.isLinux [ ])
+    ++ (pkgs.lib.optionals pkgs.stdenv.isLinux [
+      apple-cursor # https://search.nixos.org/packages?channel=unstable&type=packages&show=apple-cursor
+      banana-cursor # https://search.nixos.org/packages?channel=unstable&type=packages&show=banana-cursor
+      pokemon-cursor # https://search.nixos.org/packages?channel=unstable&type=packages&show=pokemon-cursor
+    ])
     ++ (pkgs.lib.optionals pkgs.stdenv.isDarwin [
       vscodium # https://search.nixos.org/packages?channel=unstable&type=packages&show=vscodium
     ])
-    ++ (pkgs.lib.optionals (pkgs.stdenv.isDarwin && pkgs.stdenv.hostPlatform.isAarch64) [ ]);
+    ++ (pkgs.lib.optionals (pkgs.stdenv.isDarwin && pkgs.stdenv.hostPlatform.isAarch64) [
+      hidden-bar # https://search.nixos.org/packages?channel=unstable&type=packages&show=hidden-bar
+    ]);
 }
