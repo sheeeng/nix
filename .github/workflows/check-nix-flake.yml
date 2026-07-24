@@ -37,3 +37,21 @@ jobs:
           nix --experimental-features "nix-command flakes" flake check \
           --print-build-logs \
           | tee --append "${GITHUB_STEP_SUMMARY}"
+
+  # Keep Nixpkgs current: fail CI when the flake.lock Nixpkgs input drifts more
+  # than 30 days behind (the Flake Checker default), per the FlakeHub best
+  # practice. https://docs.determinate.systems/flakehub/best-practices/#update-inputs
+  check-nixpkgs-currency:
+    name: check-nixpkgs-currency
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+      - uses: determinatesystems/flake-checker-action@de924abd783455e8429c858962b9e43062d19da1 # v13
+        with:
+          fail-mode: true
