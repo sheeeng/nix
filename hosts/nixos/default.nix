@@ -277,8 +277,12 @@ in
   # Disable system SSH agent; GNOME Keyring's gcr-ssh-agent handles SSH keys.
   programs.ssh.startAgent = false;
 
-  # Enable GNOME's gcr-ssh-agent to auto-unlock SSH passphrases at login.
-  # GNOME Keyring stores passphrases persistently, encrypted by the login password.
+  # Enable the gcr-ssh-agent from GNOME as the single SSH agent for the session.
+  # Note that the gcr-ssh-agent shipped with gcr version 4 holds keys only in
+  # memory. Unlike the older GNOME Keyring SSH component, it does not persist
+  # passphrases in the keyring. Keys are loaded at login by the Home Manager
+  # user service named ssh-add-keys, which reads the passphrase from the login
+  # keyring that PAM unlocks. See home-manager/programs/ssh.nix.
   systemd.user.sockets.gcr-ssh-agent.enable = true;
 
   # Enable CUPS to print documents
