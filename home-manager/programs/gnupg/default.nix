@@ -132,4 +132,41 @@
     ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-services.gpg-agent.sshKeys
     verbose = lib.mkDefault false; # https://nix-community.github.io/home-manager/options.xhtml#opt-services.gpg-agent.verbose
   };
+
+  # The keyboxd and gpg-agent daemons are killed with SIGKILL on shutdown, so
+  # they leave dotlock files behind under the GnuPG home directory, namely the
+  # files that match ".#lk*" and "*.lock". Because the home directory is
+  # persistent, those files survive the reboot. GnuPG breaks a stale lock only
+  # when the process identifier recorded in the lock file is dead. After a
+  # reboot, however, that process identifier is usually recycled to a live and
+  # unrelated process, so GnuPG assumes the lock is still held and waits on it
+  # forever. Signing then fails with "keydb_search failed: Connection timed
+  # out". Remove any leftover lock files at session start, before any GnuPG
+  # daemon runs, so that signing works reliably after every reboot.
+  systemd.user.services.gpg-clean-stale-locks = lib.mkIf pkgs.stdenv.isLinux {
+    Unit = {
+      Description = "Remove stale GnuPG lock files left by an unclean shutdown.";
+      Before = [
+        "gpg-agent.service"
+        "gpg-agent.socket"
+        "keyboxd.socket"
+      ];
+    };
+    Service = {
+      Type = "oneshot";
+      # Clean only when no GnuPG daemon is running, that is, genuinely at session
+      # start, so that an activation restart during a session can never delete a
+      # live lock.
+      ExecStart = pkgs.writeShellScript "gpg-clean-stale-locks" ''
+        if ${pkgs.procps}/bin/pgrep --exact keyboxd >/dev/null \
+          || ${pkgs.procps}/bin/pgrep --exact gpg-agent >/dev/null; then
+          echo "The GnuPG daemons are already running. Leaving lock files untouched."
+          exit 0
+        fi
+        ${pkgs.findutils}/bin/find "${config.home.homeDirectory}/.gnupg" \
+          -type f \( -name '.#lk*' -o -name '*.lock' \) -print -delete 2>/dev/null || true
+      '';
+    };
+    Install.WantedBy = [ "default.target" ];
+  };
 }
