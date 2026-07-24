@@ -64,7 +64,7 @@ in
       manix # https://search.nixos.org/packages?channel=unstable&type=packages&show=manix
       nh # https://search.nixos.org/packages?channel=unstable&type=packages&show=nh
       nil # https://search.nixos.org/packages?channel=unstable&type=packages&show=nil
-      nix # https://search.nixos.org/packages?channel=unstable&type=packages&show=nix
+      # nix # Provided by Determinate Nix; installing upstream nix here shadows it on PATH and triggers "unknown setting 'eval-cores'/'lazy-trees'" warnings. https://search.nixos.org/packages?channel=unstable&type=packages&show=nix
       nix-output-monitor # https://search.nixos.org/packages?channel=unstable&type=packages&show=nix-output-monitor
       nix-prefetch-git # https://search.nixos.org/packages?channel=unstable&type=packages&show=nix-prefetch-git
       nix-prefetch-github # https://search.nixos.org/packages?channel=unstable&type=packages&show=nix-prefetch-github
