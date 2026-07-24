@@ -3,6 +3,8 @@ name: roll-dice
 description: Roll dice using a random number generator. Use when asked to roll a die (d6, d20, etc.), roll dice, or generate a random dice roll.
 ---
 
+# Roll Dice
+
 Use 6 sides when the request does not specify the number of sides.
 
 To roll a die, use the following command that generates a random number from 1
