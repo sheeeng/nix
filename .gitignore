@@ -7,3 +7,4 @@ result*
 result/
 
 # !.beads/issues.jsonl # Keep track of https://github.com/steveyegge/beads issues.
+.playwright-mcp/
