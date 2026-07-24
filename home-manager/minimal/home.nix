@@ -1,4 +1,5 @@
-{ lib, ... }: {
+{ lib, ... }:
+{
   imports = [
     ../fonts.nix
     ../packages/minimal-cli.nix
