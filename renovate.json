@@ -83,7 +83,7 @@
       "automergeType": "pr",
       "platformAutomerge": true,
       "schedule": [
-        "before 3am on Monday"
+        "at any time"
       ],
       "labels": [
         "dependencies",
