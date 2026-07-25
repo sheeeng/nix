@@ -1,9 +1,11 @@
 name: Switch Nix
 
 on:
-  push:
-    branches: [unstable, main]
-  pull_request:
+  # push:
+  #   branches:
+  #     - unstable
+  #     - main
+  # pull_request:
   workflow_dispatch:
 
 concurrency:
