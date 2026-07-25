@@ -7,7 +7,7 @@ on:
       - "unstable"
   workflow_dispatch:
   schedule:
-    - cron: "0 03 * * 1-5" # “At 03:00 UTC on every day-of-week from Monday through Friday.” # https://crontab.guru/#0_3_*_*_1-5
+    - cron: "3 4 * * *" # “At 04:03.”
 
 permissions: {}
 

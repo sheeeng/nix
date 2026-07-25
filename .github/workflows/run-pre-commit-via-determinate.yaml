@@ -1,11 +1,11 @@
 name: Run Pre-Commit via Determinate
 
 on:
-  push:
-    branches:
-      - "main"
-      - "unstable"
-  pull_request:
+  # push:
+  #   branches:
+  #     - "main"
+  #     - "unstable"
+  # pull_request:
   workflow_dispatch:
 
 concurrency:
