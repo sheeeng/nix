@@ -89,6 +89,31 @@
       }
     );
 
+    # opencode's node_modules fixed-output derivation bundles the `7zip-bin`
+    # npm package, which ships Windows binaries win/{x64,ia32}/7za.exe.
+    # macOS (Darwin 25.5.0) refuses to read those .exe files
+    # ("cp: ... Operation not permitted"), so the FOD's installPhase silently
+    # omits them and the tree hashes to a different value than the hash
+    # nixpkgs declares (which was produced on Linux, where the files ARE
+    # readable). Result: both cache substitution and source build fail on this
+    # Mac with the same ca-hash mismatch. Override outputHash to the value this
+    # machine deterministically produces (verified twice: cache import + a
+    # from-source build both yield sha256-DJrj...). The two dropped files are
+    # Windows executables that are never used on macOS.
+    # Darwin-only: Linux keeps the stock hash and its binary-cache hit.
+    # NOTE: no cache exists for the custom hash, so node_modules builds from
+    # source once (~18 min) per opencode version bump, then stays in the store.
+    # @upstream-issue https://github.com/anomalyco/opencode/issues/8029
+    opencode =
+      if prev.stdenv.hostPlatform.isDarwin then
+        prev.opencode.overrideAttrs (old: {
+          node_modules = old.node_modules.overrideAttrs (_: {
+            outputHash = "sha256-DJrjIT1fYb6yGR6oNHN/DnkJKRXvEeU2Z7EwJPoPBhw=";
+          });
+        })
+      else
+        prev.opencode;
+
     stable-packages = final: _prev: {
       stable = import inputs.nixpkgs-stable {
         system = final.stdenv.hostPlatform.system;
