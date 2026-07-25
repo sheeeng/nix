@@ -311,11 +311,12 @@
             inputs.agenix.darwinModules.default
             inputs.sops-nix.darwinModules.sops
             {
-              # Let Determinate manage the Nix installation declaratively.
-              # Hosts keep `nix.enable = false` so nix-darwin does not also try to
-              # manage Nix. We intentionally do NOT set `determinateNix.customSettings`
-              # here: /etc/nix/nix.custom.conf is owned by the sops postActivation
-              # script (hosts/darwin/sops.nix) which injects the GitHub access token.
+              # Let Determinate manage the Nix installation declaratively. The
+              # module force-sets `nix.enable = false`, so nix-darwin does not
+              # also try to manage Nix. Determinate owns /etc/nix/nix.custom.conf
+              # (generated from `determinateNix.customSettings`); the GitHub
+              # access token is pulled in from that file via an `!include`
+              # configured in hosts/darwin/sops.nix (Darwin-only).
               determinateNix.enable = true;
               nixpkgs.overlays = [
                 (import ./overlays { inherit inputs; }).additions
