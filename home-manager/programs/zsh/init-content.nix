@@ -65,6 +65,33 @@
         git switch --create "$1"
       }
 
+      # Update flake inputs and rebuild the nix-darwin system, scaled to this host.
+      # - Flake dir is resolved from the current git repo (falls back to the default checkout).
+      # - Host config is auto-selected by nix-darwin from the hostname (no #hostname needed).
+      # - --max-jobs is sized to half the logical CPUs; --cores 0 lets each job use all cores.
+      # - Output is piped through nix-output-monitor (nom).
+      # Pass --no-update to skip `nix flake update` (avoids re-bumping the pinned
+      # nixpkgs, which would require refreshing the Darwin opencode node_modules
+      # hash override in overlays/default.nix on every opencode version bump).
+      darwin-rebuild-update() {
+        local flake ncpu jobs do_update=1
+        [[ "$1" == "--no-update" ]] && do_update=0
+        flake=$(git -C "$PWD" rev-parse --show-toplevel 2>/dev/null || echo "$HOME/github/sheeeng/nix")
+        ncpu=$(sysctl -n hw.ncpu 2>/dev/null || nproc)
+        jobs=$(( ncpu / 2 > 0 ? ncpu / 2 : 1 ))
+
+        sudo --validate || return 1
+        if (( do_update )); then
+          nix flake update --flake "$flake" || return 1
+          sudo --validate || return 1
+        fi
+        sudo nix run github:lnl7/nix-darwin -- switch \
+          --flake "$flake" \
+          --print-build-logs --show-trace --verbose \
+          --max-jobs "$jobs" --cores 0 \
+          2>&1 | nix run nixpkgs#nix-output-monitor
+      }
+
       # https://github.com/malev/dotfiles/blob/fbaa079eaaad4b5bf304c133fd05929f90c412d4/config/zsh.nix#L15-L16
       # bindkey '^p' history-search-backward
       # bindkey '^n' history-search-forward
