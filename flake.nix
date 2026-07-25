@@ -117,6 +117,14 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Determinate Nix distribution. Provides the nix-darwin module used to manage
+    # the Determinate Nix installation declaratively (see darwinModules.default and
+    # `determinateNix.enable`). Upgrade Determinate by bumping this input:
+    #   nix flake update determinate && darwin-rebuild switch --flake .#<host>
+    # Do NOT make this follow `nixpkgs`; Determinate is a pinned distribution.
+    # https://docs.determinate.systems/guides/nix-darwin/
+    determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/3";
+
     disko = {
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -296,12 +304,19 @@
         inputs.nix-darwin.lib.darwinSystem {
           modules = [
             ./hosts/${hostname}
+            inputs.determinate.darwinModules.default
             inputs.home-manager.darwinModules.home-manager
             inputs.mac-app-util.darwinModules.default
             inputs.nix-index-database.darwinModules.nix-index
             inputs.agenix.darwinModules.default
             inputs.sops-nix.darwinModules.sops
             {
+              # Let Determinate manage the Nix installation declaratively.
+              # Hosts keep `nix.enable = false` so nix-darwin does not also try to
+              # manage Nix. We intentionally do NOT set `determinateNix.customSettings`
+              # here: /etc/nix/nix.custom.conf is owned by the sops postActivation
+              # script (hosts/darwin/sops.nix) which injects the GitHub access token.
+              determinateNix.enable = true;
               nixpkgs.overlays = [
                 (import ./overlays { inherit inputs; }).additions
                 (import ./overlays { inherit inputs; }).modifications
