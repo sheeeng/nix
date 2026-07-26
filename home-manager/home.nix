@@ -83,4 +83,28 @@ in
     }; # https://nix-community.github.io/home-manager/options.xhtml#opt-home.shellAliases
     stateVersion = lib.trivial.release; # Track the nixpkgs release automatically; works on all supported systems. https://nix-community.github.io/home-manager/options.xhtml#opt-home.stateVersion
   };
+
+  # macOS application installation strategy (Darwin only).
+  #
+  # For `home.stateVersion >= 25.11` home-manager defaults to
+  # `targets.darwin.copyApps`, which rsyncs every `.app` bundle from
+  # `home.packages` into `~/Applications/Home Manager Apps` on every
+  # activation. Because nix store mtimes are all standardized to the epoch,
+  # rsync is forced to run with `--checksum`, re-hashing every byte of every
+  # bundle each switch. With several GB of GUI apps this makes the
+  # "setting up ~/Applications/Home Manager Apps..." step take many minutes.
+  #
+  # Instead we use `targets.darwin.linkApps`, which just symlinks the app
+  # bundles from the nix store (instant, no copy). A bare symlinked `.app`
+  # is not indexed by Spotlight or reliably launchable on modern macOS, so
+  # mac-app-util (already enabled via its home-manager module) turns the
+  # symlinked directory into Spotlight-friendly trampolines under
+  # `~/Applications/Home Manager Trampolines`. mac-app-util's trampoline
+  # generator only fires when the source directory is a symlink, so
+  # `copyApps` must be disabled for it to run at all.
+  # https://github.com/nix-community/home-manager/issues/1341
+  targets.darwin = lib.mkIf pkgs.stdenv.hostPlatform.isDarwin {
+    copyApps.enable = false; # https://nix-community.github.io/home-manager/options.xhtml#opt-targets.darwin.copyApps.enable
+    linkApps.enable = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-targets.darwin.linkApps.enable
+  };
 }
