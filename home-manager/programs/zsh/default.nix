@@ -65,7 +65,10 @@
     };
     cdpath = [ "~" ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.cdpath
     completionInit = "autoload -U compinit && compinit -i"; # https://discourse.nixos.org/t/zsh-compinit-warning-on-every-shell-session/22735/6 # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.completionInit
-    defaultKeymap = "viins"; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.defaultKeymap
+    # Leave unset: the jeffreytse/zsh-vi-mode plugin owns the vi keymaps. Setting
+    # "viins" here only emits a redundant `bindkey -v` that the plugin re-does on
+    # load, so keeping it null makes the plugin the single source of truth.
+    defaultKeymap = null; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.defaultKeymap
     dirHashes = { }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.dirHashes
     dotDir = "${config.xdg.configHome}/zsh"; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.dotDir
     envExtra = ''
@@ -98,8 +101,16 @@
 
     localVariables = {
       ABBR_SET_EXPANSION_CURSOR = 1;
+      # Initialize zsh-vi-mode while the plugin is sourced (not lazily on the
+      # first prompt) so its keymaps exist before later plugins and our own
+      # bindkeys run. Keep custom bindkeys after the plugin list (init-content.nix
+      # mkOrder 1000) or zvm_init will wipe them.
       ZVM_INIT_MODE = "sourcing";
       ZVM_CURSOR_STYLE_ENABLED = false;
+      # Start every new prompt in INSERT mode instead of inheriting the previous
+      # line's mode (the plugin default, $ZVM_MODE_LAST). Inheriting is what left
+      # prompts stuck in NORMAL mode showing starship's `❮`. "i" == $ZVM_MODE_INSERT.
+      ZVM_LINE_INIT_MODE = "i";
       SPROMPT = "Correct $fg[red]%R$reset_color to $fg[green]%r$reset_color? [ny] ";
       ZSH_AUTOSUGGEST_STRATEGY = [
         "abbreviations"
