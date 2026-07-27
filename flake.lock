@@ -903,6 +903,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-darwin-x86_64": {
+      "locked": {
+        "lastModified": 1785067121,
+        "narHash": "sha256-rdJdWxAcg5fnntU4DjPivPdVEN4F+VJavw+UWpEMeUI=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "329c3d2af6d1b618705150ea39f72c15eb4e613e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixpkgs-26.05-darwin",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs-lib": {
       "locked": {
         "lastModified": 1765674936,
@@ -1191,6 +1207,7 @@
         "nix-secrets-example": "nix-secrets-example",
         "nix-systems": "nix-systems",
         "nixpkgs": "nixpkgs_9",
+        "nixpkgs-darwin-x86_64": "nixpkgs-darwin-x86_64",
         "nixvim": "nixvim",
         "nur": "nur",
         "pre-commit-hooks": "pre-commit-hooks",
