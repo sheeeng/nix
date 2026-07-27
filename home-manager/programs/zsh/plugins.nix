@@ -18,7 +18,7 @@
       [
         # Useful utilitizes
         {
-          completions = [ ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.plugins._.completions
+          functions = [ ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.plugins._.functions
           name = "you-should-use"; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.plugins._.name
           #file = "you-should-use.plugin.zsh";
           src = pkgs.fetchFromGitHub {
