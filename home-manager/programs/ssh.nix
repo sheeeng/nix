@@ -7,39 +7,40 @@
     extraConfig = ""; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.ssh.extraConfig
     extraOptionOverrides = { }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.ssh.extraOptionOverrides
     includes = [ ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.ssh.includes
-    matchBlocks = {
+    # Home Manager deprecated programs.ssh.matchBlocks in favor of
+    # programs.ssh.settings. The attribute name is the Host pattern, and each
+    # block uses upstream OpenSSH directive names. The previous extraOptions
+    # attribute is no longer supported, so UseKeychain is set as a direct
+    # directive, still guarded to macOS with lib.optionalAttrs. checkHostIP is
+    # dropped because its previous value of true produced no directive.
+    settings = {
       "*" = {
-        forwardAgent = false; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.ssh.matchBlocks._name_.forwardAgent
-        addKeysToAgent = "yes"; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.ssh.matchBlocks._name_.addKeysToAgent
-        compression = false; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.ssh.matchBlocks._name_.compression;
-        serverAliveInterval = 0; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.ssh.matchBlocks._name_.serverAliveInterval
-        serverAliveCountMax = 3; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.ssh.matchBlocks._name_.serverAliveCountMax
-        hashKnownHosts = false; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.ssh.matchBlocks._name_.hashKnownHosts
-        userKnownHostsFile = "~/.ssh/known_hosts"; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.ssh.matchBlocks._name_.userKnownHostsFile
-        controlMaster = "no"; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.ssh.matchBlocks._name_.controlMaster
-        controlPath = "~/.ssh/master-%r@%n:%p"; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.ssh.matchBlocks._name_.controlPath
-        controlPersist = "no"; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.ssh.matchBlocks._name_.controlPersist
-        extraOptions = lib.mkIf pkgs.stdenv.isDarwin { UseKeychain = "yes"; }; # macOS keychain support
-      }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.ssh.enableDefaultConfig
-      "GitHub" = {
-        addKeysToAgent = "yes"; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.ssh.matchBlocks._name_.addKeysToAgent
-        checkHostIP = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.ssh.matchBlocks._name_.checkHostIP
-        compression = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.ssh.matchBlocks._name_.compression
-        host = "github.com"; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.ssh.matchBlocks._name_.host
-        hostname = "github.com"; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.ssh.matchBlocks._name_.hostname
-        identityFile = [ "~/.ssh/id_ed25519" ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.ssh.matchBlocks._name_.identityFile
-        extraOptions = lib.mkIf pkgs.stdenv.isDarwin { UseKeychain = "yes"; }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.ssh.matchBlocks._name_.extraOptions
+        AddKeysToAgent = "yes"; # https://man.openbsd.org/ssh_config#AddKeysToAgent
+        Compression = false; # https://man.openbsd.org/ssh_config#Compression
+        ControlMaster = "no"; # https://man.openbsd.org/ssh_config#ControlMaster
+        ControlPath = "~/.ssh/master-%r@%n:%p"; # https://man.openbsd.org/ssh_config#ControlPath
+        ControlPersist = "no"; # https://man.openbsd.org/ssh_config#ControlPersist
+        ForwardAgent = false; # https://man.openbsd.org/ssh_config#ForwardAgent
+        HashKnownHosts = false; # https://man.openbsd.org/ssh_config#HashKnownHosts
+        ServerAliveCountMax = 3; # https://man.openbsd.org/ssh_config#ServerAliveCountMax
+        ServerAliveInterval = 0; # https://man.openbsd.org/ssh_config#ServerAliveInterval
+        UserKnownHostsFile = "~/.ssh/known_hosts"; # https://man.openbsd.org/ssh_config#UserKnownHostsFile
+      }
+      // lib.optionalAttrs pkgs.stdenv.isDarwin { UseKeychain = "yes"; }; # macOS keychain support
+      "github.com" = {
+        AddKeysToAgent = "yes"; # https://man.openbsd.org/ssh_config#AddKeysToAgent
+        Compression = true; # https://man.openbsd.org/ssh_config#Compression
+        HostName = "github.com"; # https://man.openbsd.org/ssh_config#HostName
+        IdentityFile = [ "~/.ssh/id_ed25519" ]; # https://man.openbsd.org/ssh_config#IdentityFile
+      }
+      // lib.optionalAttrs pkgs.stdenv.isDarwin { UseKeychain = "yes"; }; # macOS keychain support
+      "git.sr.ht" = {
+        AddKeysToAgent = "yes"; # https://man.openbsd.org/ssh_config#AddKeysToAgent
+        Compression = true; # https://man.openbsd.org/ssh_config#Compression
+        HostName = "git.sr.ht"; # https://man.openbsd.org/ssh_config#HostName
+        IdentitiesOnly = true; # https://man.openbsd.org/ssh_config#IdentitiesOnly
       };
-      "SourceHut" = {
-        addKeysToAgent = "yes"; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.ssh.matchBlocks._name_.addKeysToAgent
-        checkHostIP = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.ssh.matchBlocks._name_.checkHostIP
-        compression = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.ssh.matchBlocks._name_.compression
-        host = "git.sr.ht"; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.ssh.matchBlocks._name_.host
-        hostname = "git.sr.ht"; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.ssh.matchBlocks._name_.hostname
-        identitiesOnly = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.ssh.matchBlocks._name_.identitiesOnly
-        identityFile = [ ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.ssh.matchBlocks._name_.identityFile
-      };
-    }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.ssh.matchBlocks
+    }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.ssh.settings
   };
 
   # Automatically unlock the SSH key at login. This reproduces the behavior of
