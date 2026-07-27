@@ -107,6 +107,14 @@
 
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 
+    # Nixpkgs 26.11, the nixpkgs-unstable branch above, dropped support for
+    # x86_64-darwin. Pin that platform to the 26.05 stable Darwin branch, the
+    # last release that still supports it. Only the x86_64-darwin host uses
+    # this input; see hosts/C02ZV797MD6R/default.nix. Do not make it follow
+    # nixpkgs, because it is an independent pin to a different release.
+    # https://github.com/NixOS/nixpkgs/blob/nixpkgs-26.05-darwin
+    nixpkgs-darwin-x86_64.url = "github:nixos/nixpkgs/nixpkgs-26.05-darwin";
+
     home-manager = {
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -300,55 +308,65 @@
       # see: https://github.com/nix-community/home-manager/pull/3454 # https://github.com/EmergentMind/nix-config/blob/f9168993316e8ff99381ff5dd3c7398273439618/flake.nix#L24
 
       darwinConfiguration =
-        hostname: _system:
-        inputs.nix-darwin.lib.darwinSystem {
-          modules = [
-            ./hosts/${hostname}
-            inputs.determinate.darwinModules.default
-            inputs.home-manager.darwinModules.home-manager
-            inputs.mac-app-util.darwinModules.default
-            inputs.nix-index-database.darwinModules.nix-index
-            inputs.agenix.darwinModules.default
-            inputs.sops-nix.darwinModules.sops
-            {
-              # Let Determinate manage the Nix installation declaratively. The
-              # module force-sets `nix.enable = false`, so nix-darwin does not
-              # also try to manage Nix. Determinate owns /etc/nix/nix.custom.conf
-              # (generated from `determinateNix.customSettings`); the GitHub
-              # access token is pulled in from that file via an `!include`
-              # configured in hosts/darwin/sops.nix (Darwin-only).
-              determinateNix.enable = true;
-              nixpkgs.overlays = [
-                (import ./overlays { inherit inputs; }).additions
-                (import ./overlays { inherit inputs; }).modifications
-                inputs.morlana.overlays.default
-                # inputs.nh-plus.overlays.default
-                inputs.fenix.overlays.default
-                # TODO: Remove below anonymous/lambda function block after https://github.com/NixOS/nixpkgs/pull/461779 is resolved upstream.
-                # https://github.com/NixOS/nixpkgs/pull/461779#issuecomment-3540524291
-                # $ PAGER=cat nix why-depends --derivation github:NixOS/nixpkgs#direnv github:NixOS/nixpkgs#fish
-                # /nix/store/jw5h4ds90v9kkbazby807qzwvgg0562h-direnv-2.37.1.drv
-                # └───/nix/store/3kinxxz53hwmzw22l4cvpkxidiwh4w80-fish-4.2.1.drv
-                # (_self: super: {
-                #   fish = super.fish.overrideAttrs (oldAttrs: {
-                #     # TODO: Remove after https://github.com/NixOS/nixpkgs/pull/462090 is resolved upstream.
-                #     doCheck = false;
-                #     doInstallCheck = false;
-                #     checkPhase = ":";
-                #     installCheckPhase = ":";
-                #   }); # TODO: Remove anonymous/lambda function after https://github.com/NixOS/nixpkgs/pull/462589 is resolved upstream.
-                # }) # TODO: Remove above anonymous/lambda function after https://github.com/NixOS/nixpkgs/issues/461406 is resolved upstream.
-              ];
+        hostname: system:
+        inputs.nix-darwin.lib.darwinSystem (
+          {
+            modules = [
+              ./hosts/${hostname}
+              inputs.determinate.darwinModules.default
+              inputs.home-manager.darwinModules.home-manager
+              inputs.mac-app-util.darwinModules.default
+              inputs.nix-index-database.darwinModules.nix-index
+              inputs.agenix.darwinModules.default
+              inputs.sops-nix.darwinModules.sops
+              {
+                # Let Determinate manage the Nix installation declaratively. The
+                # module force-sets `nix.enable = false`, so nix-darwin does not
+                # also try to manage Nix. Determinate owns /etc/nix/nix.custom.conf
+                # (generated from `determinateNix.customSettings`); the GitHub
+                # access token is pulled in from that file via an `!include`
+                # configured in hosts/darwin/sops.nix (Darwin-only).
+                determinateNix.enable = true;
+                nixpkgs.overlays = [
+                  (import ./overlays { inherit inputs; }).additions
+                  (import ./overlays { inherit inputs; }).modifications
+                  inputs.morlana.overlays.default
+                  # inputs.nh-plus.overlays.default
+                  inputs.fenix.overlays.default
+                  # TODO: Remove below anonymous/lambda function block after https://github.com/NixOS/nixpkgs/pull/461779 is resolved upstream.
+                  # https://github.com/NixOS/nixpkgs/pull/461779#issuecomment-3540524291
+                  # $ PAGER=cat nix why-depends --derivation github:NixOS/nixpkgs#direnv github:NixOS/nixpkgs#fish
+                  # /nix/store/jw5h4ds90v9kkbazby807qzwvgg0562h-direnv-2.37.1.drv
+                  # └───/nix/store/3kinxxz53hwmzw22l4cvpkxidiwh4w80-fish-4.2.1.drv
+                  # (_self: super: {
+                  #   fish = super.fish.overrideAttrs (oldAttrs: {
+                  #     # TODO: Remove after https://github.com/NixOS/nixpkgs/pull/462090 is resolved upstream.
+                  #     doCheck = false;
+                  #     doInstallCheck = false;
+                  #     checkPhase = ":";
+                  #     installCheckPhase = ":";
+                  #   }); # TODO: Remove anonymous/lambda function after https://github.com/NixOS/nixpkgs/pull/462589 is resolved upstream.
+                  # }) # TODO: Remove above anonymous/lambda function after https://github.com/NixOS/nixpkgs/issues/461406 is resolved upstream.
+                ];
 
-              nixpkgs.config = {
-                allowUnfree = true;
-              };
+                nixpkgs.config = {
+                  allowUnfree = true;
+                };
 
-              environment.variables = { };
-            }
-          ];
-          specialArgs = { inherit inputs; };
-        };
+                environment.variables = { };
+              }
+            ];
+            specialArgs = { inherit inputs; };
+          }
+          # Nixpkgs 26.11 dropped x86_64-darwin, so that host pins Nixpkgs to the
+          # 26.05 stable Darwin branch while nix-darwin itself stays on 26.11.
+          # nix-darwin asserts that its own release matches the Nixpkgs release
+          # and otherwise throws, so disable that check for this host, where the
+          # version mismatch is deliberate. See hosts/C02ZV797MD6R/default.nix.
+          // nixpkgs.lib.optionalAttrs (system == "x86_64-darwin") {
+            enableNixpkgsReleaseCheck = false;
+          }
+        );
 
       nixosConfiguration =
         hostname: system:
