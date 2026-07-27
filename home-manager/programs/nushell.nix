@@ -6,7 +6,11 @@
     configFile = null; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.nushell.configFile
     envFile = null; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.nushell.envFile
     environmentVariables = { }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.nushell.environmentVariables
-    extraConfig = ""; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.nushell.extraConfig
+    extraConfig = pkgs.lib.optionalString pkgs.stdenv.isDarwin ''
+      # https://www.nushell.sh/book/configuration.html#macos-keeping-usr-bin-open-as-open
+      alias nu-open = open
+      alias open = ^open
+    ''; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.nushell.extraConfig
     extraEnv = ""; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.nushell.extraEnv
     extraLogin = ""; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.nushell.extraLogin
     loginFile = null; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.nushell.loginFile
