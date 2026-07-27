@@ -6,14 +6,20 @@
     enableFishIntegration = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.fzf.enableFishIntegration
     enableZshIntegration = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.fzf.enableZshIntegration
     package = pkgs.fzf; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.fzf.package
-    changeDirWidgetCommand = null; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.fzf.changeDirWidgetCommand
-    changeDirWidgetOptions = [ ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.fzf.changeDirWidgetOptions
+    changeDirWidget = {
+      command = null; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.fzf.changeDirWidget.command
+      options = [ ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.fzf.changeDirWidget.options
+    };
     colors = { }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.fzf.colors
     defaultCommand = null; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.fzf.defaultCommand
     defaultOptions = [ ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.fzf.defaultOptions
-    fileWidgetCommand = null; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.fzf.fileWidgetCommand
-    fileWidgetOptions = [ ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.fzf.fileWidgetOptions
-    historyWidgetOptions = [ ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.fzf.historyWidgetOptions
+    fileWidget = {
+      command = null; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.fzf.fileWidget.command
+      options = [ ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.fzf.fileWidget.options
+    };
+    historyWidget = {
+      options = [ ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.fzf.historyWidget.options
+    };
     tmux = {
       enableShellIntegration = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.fzf.tmux.enableShellIntegration
       shellIntegrationOptions = [ ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.fzf.tmux.shellIntegrationOptions
