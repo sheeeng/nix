@@ -69,6 +69,17 @@
           pure_msg = "[pure shell](bold green)";
           format = "via [☃️ $state( ($name))](bold blue) ";
         };
+        shell = {
+          disabled = false; # shows the active shell (bash/zsh/fish/nu/…)
+          bash_indicator = "bash";
+          zsh_indicator = "zsh";
+          fish_indicator = "fish";
+          nu_indicator = "nu";
+          ion_indicator = "ion";
+          unknown_indicator = "shell";
+          format = "[$indicator]($style) ";
+          style = "bold cyan";
+        };
         terraform = {
           format = "[🏎💨 $version$workspace]($style) ";
         };
