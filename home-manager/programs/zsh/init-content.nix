@@ -30,13 +30,6 @@
         setopt CORRECT # Enable autocorrect
         autoload -U colors && colors # Enable colors
 
-        # Check if sudo-command-line function is available
-        if typeset -f sudo-command-line > /dev/null; then
-          zle -N sudo-command-line
-          bindkey "^B" sudo-command-line
-          bindkey -M vicmd '^B' sudo-command-line
-        fi
-
         # Wrap sudo as a function instead of a trailing-space alias to prevent
         # alias chain-expansion that turns `sudo nix ...` into `sudo noglob nix ...`.
         # @upstream-issue https://github.com/NixOS/nix/issues/4686#issuecomment-3187134220
@@ -100,6 +93,20 @@
       # https://stackoverflow.com/a/70596338
       # bindkey "^[[5~" beginning-of-buffer-or-history  # ⇞ Key Page Up
       # bindkey "^[[6~" end-of-buffer-or-history # ⇟ Key Page Down
+
+      # NOTE: every key binding below must run *after* the plugin list is sourced.
+      # zsh-vi-mode (ZVM_INIT_MODE="sourcing") rebuilds the viins/vicmd keymaps
+      # when it loads, wiping any bindkey set earlier in this file. Binding here
+      # (mkOrder 1000, after the plugin loop) is what makes them stick.
+
+      # sudo-command-line (from the omz-sudo plugin): press ^B to prepend `sudo`.
+      # Lives here rather than earlier because omz-sudo is sourced *after*
+      # zsh-vi-mode, so the widget does not exist during the plugin's own init.
+      if typeset -f sudo-command-line > /dev/null; then
+        zle -N sudo-command-line
+        bindkey "^B" sudo-command-line
+        bindkey -M vicmd '^B' sudo-command-line
+      fi
 
       # https://github.com/lovesegfault/nix-config/blob/838045d938c6ecfd90df27430337e3870c36727a/users/bemeurer/core/zsh.nix#L36-L39
       bindkey "''${terminfo[kcuu1]}" history-substring-search-up # ↑
