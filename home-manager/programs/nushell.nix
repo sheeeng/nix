@@ -3,6 +3,7 @@
   programs.nushell = {
     enable = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.nushell.enable
     package = pkgs.nushell; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.nushell.package
+    # configDir = null; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.nushell.configDir
     configFile = null; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.nushell.configFile
     envFile = null; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.nushell.envFile
     environmentVariables = { }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.nushell.environmentVariables
