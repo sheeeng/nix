@@ -18,6 +18,9 @@
       options = [ ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.fzf.fileWidget.options
     };
     historyWidget = {
+      # Atuin is sourced after fzf and owns Ctrl-R. Set the command to an empty
+      # string to disable fzf's Ctrl-R binding so the two no longer conflict.
+      command = ""; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.fzf.historyWidget.command
       options = [ ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.fzf.historyWidget.options
     };
     tmux = {
