@@ -11,13 +11,6 @@ let
     networking = {
       hostName = "C02ZV797MD6R"; # https://nix-darwin.github.io/nix-darwin/manual/#opt-networking.hostName
     };
-    nixpkgs = {
-      config = {
-        allowUnfree = true; # https://nixos.org/manual/nixpkgs/unstable/#sec-allow-unfree
-      }; # https://nix-darwin.github.io/nix-darwin/manual/#opt-nixpkgs.config
-      buildPlatform = systemPlatform; # https://nix-darwin.github.io/nix-darwin/manual/#opt-nixpkgs.buildPlatform
-      hostPlatform = systemPlatform; # https://nix-darwin.github.io/nix-darwin/manual/#opt-nixpkgs.hostPlatform
-    };
     primaryUser = user.name; # https://nix-darwin.github.io/nix-darwin/manual/#opt-system.primaryUser
     systemPlatform = "x86_64-darwin"; # https://nix-darwin.github.io/nix-darwin/manual/#opt-nixpkgs.system
     user = {
@@ -28,7 +21,11 @@ let
     # keep-sorted end
   };
 
-  pkgs-unstable = inputs.nixpkgs.legacyPackages.${hostConfiguration.systemPlatform};
+  # Nixpkgs 26.11 dropped x86_64-darwin, so this host pins nixpkgs to the 26.05
+  # stable Darwin branch through the nixpkgs-darwin-x86_64 input. Read the
+  # package set from that pinned input, because inputs.nixpkgs no longer
+  # provides legacyPackages.x86_64-darwin.
+  pkgs-unstable = inputs.nixpkgs-darwin-x86_64.legacyPackages.${hostConfiguration.systemPlatform};
 in
 {
   imports = [
@@ -215,8 +212,23 @@ in
   };
 
   nixpkgs = {
-    inherit (hostConfiguration.nixpkgs) buildPlatform; # https://nix-darwin.github.io/nix-darwin/manual/#opt-nixpkgs.buildPlatform
-    inherit (hostConfiguration.nixpkgs) hostPlatform; # https://nix-darwin.github.io/nix-darwin/manual/#opt-nixpkgs.hostPlatform
+    # Import the system package set from the 26.05 stable Darwin branch, the
+    # last release that still supports x86_64-darwin, rather than from the
+    # default nixpkgs input, which tracks 26.11 and dropped this platform.
+    # Home Manager re-imports Nixpkgs from this same source through pkgs.path,
+    # because home-manager.useGlobalPkgs is false, so both the system and the
+    # user environment resolve against 26.05.
+    source = inputs.nixpkgs-darwin-x86_64; # https://nix-darwin.github.io/nix-darwin/manual/#opt-nixpkgs.source
+
+    # Set the legacy string platform option rather than hostPlatform or
+    # buildPlatform. nix-darwin elaborates hostPlatform with its own lib, which
+    # follows the 26.11 flake input, and then imports the 26.05 source with that
+    # 26.11 shaped platform attribute set. The cross version mismatch breaks
+    # Nixpkgs splicing and triggers infinite recursion in the stdenv bootstrap.
+    # Setting nixpkgs.system makes nix-darwin pass a plain system string to the
+    # import, so the 26.05 source elaborates the platform with its own lib.
+    # https://nix-darwin.github.io/nix-darwin/manual/#opt-nixpkgs.system
+    system = hostConfiguration.systemPlatform;
     config = {
       enableParallelBuildingByDefault = false; # https://nixos.org/manual/nixpkgs/unstable/#opt-enableParallelBuildingByDefault
       showAliases = true; # https://nixos.org/manual/nixpkgs/unstable/#opt-allowAliases
@@ -232,13 +244,38 @@ in
       ]; # https://nixos.org/manual/nixpkgs/unstable/#sec-allow-insecure
     }; # https://nix-darwin.github.io/nix-darwin/manual/#opt-nixpkgs.config
     flake = {
+      # Point the flake registry and NIX_PATH pin at the same 26.05 source, so
+      # ad hoc commands such as `nix run nixpkgs#...` resolve against the branch
+      # that supports x86_64-darwin.
+      source = inputs.nixpkgs-darwin-x86_64.outPath; # https://nix-darwin.github.io/nix-darwin/manual/#opt-nixpkgs.flake.source
       setFlakeRegistry = config.nix.enable && config.nixpkgs.flake.source != null; # https://nix-darwin.github.io/nix-darwin/manual/#opt-nixpkgs.flake.setFlakeRegistry
       # setNixPath = config.nix.enable && config.nixpkgs.flake.source != null; # https://nix-darwin.github.io/nix-darwin/manual/#opt-nixpkgs.flake.setNixPath
-      # source = null; # https://nix-darwin.github.io/nix-darwin/manual/#opt-nixpkgs.flake.source
     };
   };
 
   system.stateVersion = 5; # nix-darwin uses an integer here; keep it pinned to the initial install. https://nix-darwin.github.io/nix-darwin/manual/#opt-system.stateVersion
+
+  # Do not build the darwin-uninstaller convenience script on this host. The
+  # package re-imports nix-darwin's eval-config.nix with the 26.05 package set
+  # lib but without the release-check escape hatch, so its own assertion throws
+  # on the deliberate nix-darwin 26.11 and Nixpkgs 26.05 version mismatch.
+  # Excluding the tool avoids that nested evaluation; nix-darwin can still be
+  # removed manually. https://nix-darwin.github.io/nix-darwin/manual/#opt-system.tools.darwin-uninstaller.enable
+  system.tools.darwin-uninstaller.enable = false;
+
+  # Use the upstream nix-index package rather than the prebuilt database variant
+  # from nix-index-database. That project publishes prebuilt index hashes only
+  # for x86_64-linux, aarch64-linux, and aarch64-darwin, so evaluating its
+  # nix-index-with-db derivation on x86_64-darwin fails with a missing hash
+  # attribute. The command remains available here; build its index locally by
+  # running nix-index. https://search.nixos.org/packages?channel=unstable&show=nix-index
+  programs.nix-index.package = pkgs.nix-index;
+
+  # Disable the mac-app-util activation script on this host. The tool is a
+  # Common Lisp script, so building it depends on sbcl, which Nixpkgs marks as
+  # broken on x86_64-darwin. The nix-darwin module enables the service by
+  # default and would force that broken build during evaluation.
+  services.mac-app-util.enable = false;
 
   # The option definition `services.nix-daemon.enable' no longer has any effect; please remove it.
   # nix-darwin now manages nix-daemon unconditionally when `nix.enable` is on.
@@ -288,6 +325,31 @@ in
         (import ../../overlays { inherit inputs; }).additions
         (import ../../overlays { inherit inputs; }).modifications
       ];
+
+      # Disable the Home Manager targets.darwin.copyApps module on this host.
+      # The module defaults to enabled on Darwin at stateVersion 25.11 or
+      # later, then asserts that the platform is in lib.platforms.darwin. Home
+      # Manager evaluates that list with its own module-system lib, which
+      # follows the 26.11 flake input, where lib.platforms.darwin no longer
+      # includes x86_64-darwin. The assertion therefore fails even though the
+      # package set itself comes from 26.05, which still supports the platform.
+      # The companion targets.darwin.linkApps module carries the same platform
+      # assertion, so neither is available here. This host therefore performs no
+      # automatic linking of Home Manager applications into ~/Applications; link
+      # them manually if needed. https://nix-community.github.io/home-manager/options.xhtml#opt-targets.darwin.copyApps.enable
+      targets.darwin.copyApps.enable = false;
+
+      # Disable the mac-app-util Home Manager integration on this host. The tool
+      # is a Common Lisp script, so building it depends on sbcl, which Nixpkgs
+      # marks as broken on x86_64-darwin. The module would otherwise enable
+      # itself by default and force that broken build during evaluation.
+      targets.darwin.mac-app-util.enable = false;
+
+      # Home Manager 26.11 evaluates against a 26.05 package set on this host,
+      # because Nixpkgs 26.11 dropped x86_64-darwin. That mismatch is deliberate,
+      # so silence the release-check warning that would otherwise print on every
+      # activation. https://nix-community.github.io/home-manager/options.xhtml#opt-home.enableNixpkgsReleaseCheck
+      home.enableNixpkgsReleaseCheck = false;
     }
   ]; # https://nix-community.github.io/home-manager/nixos-options.xhtml#nixos-opt-home-manager.sharedModules
 
