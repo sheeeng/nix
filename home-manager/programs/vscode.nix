@@ -208,6 +208,7 @@ in
             streetsidesoftware.code-spell-checker
             sumneko.lua
             tamasfe.even-better-toml
+            thenuprojectcontributors.vscode-nushell-lang # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.thenuprojectcontributors.vscode-nushell-lang
             timonwong.shellcheck
             tomoki1207.pdf
             vscjava.vscode-gradle
