@@ -2,7 +2,7 @@
 {
   programs.difftastic = {
     enable = false; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.git.difftastic.enable
-    git.diffToolMode = false; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.difftastic.git.diffToolMode
+    git.mode = "external"; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.difftastic.git.mode
     package = [ pkgs.difftastic ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.git.difftastic.package
     options = {
       background = "light";
