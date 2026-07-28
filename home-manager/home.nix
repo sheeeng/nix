@@ -47,6 +47,17 @@ in
   # This will soon not be possible. Please remove all `nixpkgs` options when using `home-manager.useGlobalPkgs`.
   nixpkgs.config.allowUnfree = true;
 
+  # Silence the Determinate Nix warning:
+  #   Using 'builtins.derivation'/'builtins.toFile' to create ... 'options.json'
+  #   that references the store path '<nixpkgs>-source' without a proper context.
+  # home-manager's manpages build pulls in the NixOS `meta.maintainers` module,
+  # whose "Declared by" declaration hard-codes a context-stripped nixpkgs store
+  # path. The warning is benign and only surfaces under Determinate Nix; the
+  # accepted workaround is to skip the manpages build (we lose
+  # `man home-configuration.nix`).
+  # @upstream-issue https://github.com/nix-community/home-manager/issues/7935
+  manual.manpages.enable = false; # https://nix-community.github.io/home-manager/options.xhtml#opt-manual.manpages.enable
+
   home = {
     file = { }; # https://nix-community.github.io/home-manager/options.xhtml#opt-home.file
     shell = {
