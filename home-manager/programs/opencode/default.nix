@@ -642,7 +642,7 @@ in
       ]; # https://opencode.ai/docs/config/#instructions
       formatter = import ./formatter.nix; # # https://opencode.ai/docs/config/#formatters
     }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.opencode.settings
-    skills = {
+    skills = commonLlmSettings.mattPocockSkills // {
       # https://opencode.ai/docs/skills/
       beads = "${pkgs.beads.src}/claude-plugin/skills/beads"; # A skill can also be a subdirectory within a Nix package source store path.
       find-skills = "${commonLlmSettings.vercelSkillsSrc}/skills/find-skills";
