@@ -13,12 +13,17 @@
       }; # https://alacritty.org/config-alacritty.html#general
 
       terminal = {
-        # shell.program = "${pkgs.fish}/bin/fish";
-        shell.args = [
-          # "-l"
-          # "-c"
-          # "zellij"
-        ];
+        # Keep zsh as the login shell so nix-darwin's PATH/env setup runs, then
+        # hand off to nushell. `exec` replaces zsh, so exiting nu closes the
+        # window and no stray zsh process lingers.
+        shell = {
+          program = "${pkgs.lib.getExe pkgs.zsh}";
+          args = [
+            "--login"
+            "-c"
+            "exec ${pkgs.lib.getExe pkgs.nushell}"
+          ];
+        };
       };
 
       env = {
@@ -75,8 +80,6 @@
       }; # https://alacritty.org/config-alacritty.html#selection
 
       cursor = { }; # https://alacritty.org/config-alacritty.html#cursor
-
-      terminal = { }; # https://alacritty.org/config-alacritty.html#terminal
 
       mouse = { }; # https://alacritty.org/config-alacritty.html#mouse
 
