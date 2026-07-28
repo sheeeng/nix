@@ -126,8 +126,8 @@
       (lib.hiPrio uutils-findutils) # https://search.nixos.org/packages?channel=unstable&type=packages&show=uutils-findutils
       (pkgs.callPackage ./packages/download-nixos-iso.nix { })
       alejandra # https://search.nixos.org/packages?channel=unstable&type=packages&show=alejandra
-      antigravity # https://search.nixos.org/packages?channel=unstable&type=packages&show=antigravity
       antigravity-cli # https://search.nixos.org/packages?channel=unstable&type=packages&show=antigravity-cli
+      antigravity-ide # renamed from `antigravity`. https://search.nixos.org/packages?channel=unstable&type=packages&show=antigravity-ide
       asdf-vm # https://search.nixos.org/packages?channel=unstable&type=packages&show=asdf-vm
       autoconf # https://search.nixos.org/packages?channel=unstable&type=packages&show=autoconf
       beads # https://search.nixos.org/packages?channel=unstable&type=packages&show=beads
