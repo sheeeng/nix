@@ -1,13 +1,13 @@
 name: "Update Nix Flake Lock"
 
 on:
-  push:
-    branches:
-      - "main"
-      - "unstable"
+  # push:
+  #   branches:
+  #     - "main"
+  #     - "unstable"
+  # schedule:
+  #   - cron: "1 2 * * 3" # “At 02:01 on Wednesday.”
   workflow_dispatch:
-  schedule:
-    - cron: "3 4 * * *" # “At 04:03.”
 
 permissions: {}
 
