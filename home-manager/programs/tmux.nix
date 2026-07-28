@@ -32,6 +32,12 @@
     extraConfig = ''
       set -s default-terminal 'screen-256color'
 
+      # Run nushell in new panes while keeping zsh as the login shell. The tmux
+      # server inherits PATH/env from the login zsh that started it (e.g.
+      # wezterm's `zsh -l -c 'tmux ...'`), so nu resolves and is fully set up.
+      # `exec` avoids leaving a parent shell behind the nushell process.
+      set-option -g default-command 'exec ${pkgs.lib.getExe pkgs.nushell}'
+
       unbind-key C-b
       set-option -g prefix C-x
       bind-key C-x send-prefix
