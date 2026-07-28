@@ -109,6 +109,11 @@
     # };
 
     settings = {
+      # Keep zsh as the login shell so nix-darwin's PATH/env setup runs, then
+      # `exec` into nushell. kitty splits this string shell-style, so the quoted
+      # `-c` argument stays a single command. https://sw.kovidgoyal.net/kitty/conf/#opt-kitty.shell
+      shell = "${pkgs.lib.getExe pkgs.zsh} --login -c 'exec ${pkgs.lib.getExe pkgs.nushell}'";
+
       disable_ligatures = "never";
       background = "#262626";
 
