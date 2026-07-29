@@ -71,6 +71,10 @@ in
   inherit superpowersSrc;
   inherit vercelSkillsSrc;
 
+  # Shared global instructions rendered to each agent's user level rules file.
+  # opencode renders this to AGENTS.md and claude-code renders it to CLAUDE.md.
+  context = basePath + "/context.md";
+
   packages = with pkgs; [
     pi-coding-agent # https://search.nixos.org/packages?channel=unstable&type=packages&show=pi-coding-agent
   ];
