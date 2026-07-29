@@ -1,5 +1,17 @@
-{ pkgs, basePath }:
+{
+  pkgs,
+  basePath,
+  mattPocockSkillsSource,
+}:
 let
+  discoverDirectorySkills =
+    skillsDir:
+    pkgs.lib.mapAttrs' (name: _: pkgs.lib.nameValuePair name (skillsDir + "/${name}")) (
+      pkgs.lib.filterAttrs (
+        name: type: type == "directory" && builtins.pathExists (skillsDir + "/${name}/SKILL.md")
+      ) (builtins.readDir skillsDir)
+    );
+
   # obra/superpowers: A complete software development workflow for coding agents.
   # https://github.com/obra/superpowers
   superpowersSrc = pkgs.fetchFromGitHub {
@@ -20,40 +32,9 @@ let
 
   # mattpocock/skills: Skills for real software engineering.
   # https://github.com/mattpocock/skills
-  mattPocockSkillsSrc = pkgs.fetchFromGitHub {
-    owner = "mattpocock";
-    repo = "skills";
-    rev = "2ab958093e83e0ec752e6c1c5932da465bf23e0c";
-    hash = "sha256-dQtG6usJWlg/FqTajrjcs8GSdymH92WsgLiUaCfvKPA=";
-  };
-
-  mattPocockSkills = {
-    # Engineering skills.
-    ask-matt = "${mattPocockSkillsSrc}/skills/engineering/ask-matt";
-    code-review = "${mattPocockSkillsSrc}/skills/engineering/code-review";
-    codebase-design = "${mattPocockSkillsSrc}/skills/engineering/codebase-design";
-    diagnosing-bugs = "${mattPocockSkillsSrc}/skills/engineering/diagnosing-bugs";
-    domain-modeling = "${mattPocockSkillsSrc}/skills/engineering/domain-modeling";
-    grill-with-docs = "${mattPocockSkillsSrc}/skills/engineering/grill-with-docs";
-    implement = "${mattPocockSkillsSrc}/skills/engineering/implement";
-    improve-codebase-architecture = "${mattPocockSkillsSrc}/skills/engineering/improve-codebase-architecture";
-    prototype = "${mattPocockSkillsSrc}/skills/engineering/prototype";
-    research = "${mattPocockSkillsSrc}/skills/engineering/research";
-    resolving-merge-conflicts = "${mattPocockSkillsSrc}/skills/engineering/resolving-merge-conflicts";
-    setup-matt-pocock-skills = "${mattPocockSkillsSrc}/skills/engineering/setup-matt-pocock-skills";
-    tdd = "${mattPocockSkillsSrc}/skills/engineering/tdd";
-    to-spec = "${mattPocockSkillsSrc}/skills/engineering/to-spec";
-    to-tickets = "${mattPocockSkillsSrc}/skills/engineering/to-tickets";
-    triage = "${mattPocockSkillsSrc}/skills/engineering/triage";
-    wayfinder = "${mattPocockSkillsSrc}/skills/engineering/wayfinder";
-
-    # Related productivity skills.
-    grill-me = "${mattPocockSkillsSrc}/skills/productivity/grill-me";
-    grilling = "${mattPocockSkillsSrc}/skills/productivity/grilling";
-    handoff = "${mattPocockSkillsSrc}/skills/productivity/handoff";
-    teach = "${mattPocockSkillsSrc}/skills/productivity/teach";
-    writing-great-skills = "${mattPocockSkillsSrc}/skills/productivity/writing-great-skills";
-  };
+  mattPocockSkills =
+    discoverDirectorySkills (mattPocockSkillsSource + "/skills/engineering")
+    // discoverDirectorySkills (mattPocockSkillsSource + "/skills/productivity");
 
   # vercel-labs/skills: Open agent skills ecosystem.
   # https://github.com/vercel-labs/skills
@@ -67,7 +48,6 @@ in
 {
   inherit anthropicSkillsSrc;
   inherit mattPocockSkills;
-  inherit mattPocockSkillsSrc;
   inherit superpowersSrc;
   inherit vercelSkillsSrc;
 
@@ -114,25 +94,26 @@ in
   skills =
     let
       skillsDir = basePath + "/skills";
+      localSkills =
+        # Auto-discover both flat single-file skills (`<name>.md`) and directory
+        # skills (`<name>/SKILL.md` plus optional `references/` for progressive
+        # disclosure). The home-manager module renders a file to `<name>/SKILL.md`
+        # and copies a directory recursively.
+        pkgs.lib.mapAttrs'
+          (
+            name: type:
+            if type == "directory" then
+              pkgs.lib.nameValuePair name (skillsDir + "/${name}")
+            else
+              pkgs.lib.nameValuePair (pkgs.lib.removeSuffix ".md" name) (skillsDir + "/${name}")
+          )
+          (
+            pkgs.lib.filterAttrs (
+              name: type:
+              (type == "regular" && pkgs.lib.hasSuffix ".md" name)
+              || (type == "directory" && builtins.pathExists (skillsDir + "/${name}/SKILL.md"))
+            ) (builtins.readDir skillsDir)
+          );
     in
-    # Auto-discover both flat single-file skills (`<name>.md`) and directory
-    # skills (`<name>/SKILL.md` plus optional `references/` for progressive
-    # disclosure). The home-manager module renders a file to `<name>/SKILL.md`
-    # and copies a directory recursively.
-    pkgs.lib.mapAttrs'
-      (
-        name: type:
-        if type == "directory" then
-          pkgs.lib.nameValuePair name (skillsDir + "/${name}")
-        else
-          pkgs.lib.nameValuePair (pkgs.lib.removeSuffix ".md" name) (skillsDir + "/${name}")
-      )
-      (
-        pkgs.lib.filterAttrs (
-          name: type:
-          (type == "regular" && pkgs.lib.hasSuffix ".md" name)
-          || (type == "directory" && builtins.pathExists (skillsDir + "/${name}/SKILL.md"))
-        ) (builtins.readDir skillsDir)
-      )
-    // mattPocockSkills;
+    mattPocockSkills // localSkills;
 }
