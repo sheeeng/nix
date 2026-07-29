@@ -48,7 +48,9 @@
         def "flake check" [...args: string] {
           nix flake check ...''$args
         }
+
       ''
+      + builtins.readFile ./show-github-copilot-usage.nu
       + pkgs.lib.optionalString pkgs.stdenv.isDarwin ''
         # https://www.nushell.sh/book/configuration.html#macos-keeping-usr-bin-open-as-open
         alias open = ^open
