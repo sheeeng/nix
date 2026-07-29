@@ -25,6 +25,7 @@ def show-github-copilot-usage [--color] {
   let usage_percentage = 100 - $premium_usage.percent_remaining | into string --decimals 1
   let remaining_allowance = $premium_usage.remaining | into string --group-digits
   let total_allowance = $premium_usage.entitlement | into string --group-digits
+  let copilot_plan = $copilot_usage.copilot_plan | str capitalize
   let usage_meter = $"[($remaining_meter)($used_meter)]"
   let displayed_usage_meter = if $color {
     let meter_color = match $premium_usage.percent_remaining {
@@ -40,6 +41,7 @@ def show-github-copilot-usage [--color] {
   }
 
   [
+    $"GitHub · Copilot ($copilot_plan) · Usage"
     $displayed_usage_meter
     $"Allowance: ($allowance_percentage)% \(($remaining_allowance) / ($total_allowance)\)"
     $"Usage:     ($usage_percentage)% \(($used_ai_credits) ≈ $($used_ai_credit_cost_usd)\)"
@@ -71,9 +73,11 @@ def show-github-copilot-usage-without-color [] {
   let usage_percentage = 100 - $premium_usage.percent_remaining | into string --decimals 1
   let remaining_allowance = $premium_usage.remaining | into string --group-digits
   let total_allowance = $premium_usage.entitlement | into string --group-digits
+  let copilot_plan = $copilot_usage.copilot_plan | str capitalize
   let usage_meter = $"[($remaining_meter)($used_meter)]"
 
   [
+    $"GitHub · Copilot ($copilot_plan) · Usage"
     $usage_meter
     $"Allowance: ($allowance_percentage)% \(($remaining_allowance) / ($total_allowance)\)"
     $"Usage:     ($usage_percentage)% \(($used_ai_credits) ≈ $($used_ai_credit_cost_usd)\)"
@@ -105,6 +109,7 @@ def show-github-copilot-usage-with-color [] {
   let usage_percentage = 100 - $premium_usage.percent_remaining | into string --decimals 1
   let remaining_allowance = $premium_usage.remaining | into string --group-digits
   let total_allowance = $premium_usage.entitlement | into string --group-digits
+  let copilot_plan = $copilot_usage.copilot_plan | str capitalize
   let usage_meter = $"[($remaining_meter)($used_meter)]"
   let meter_color = match $premium_usage.percent_remaining {
     $remaining_quota if $remaining_quota <= 25 => (ansi red)
@@ -115,6 +120,7 @@ def show-github-copilot-usage-with-color [] {
   let displayed_usage_meter = $"($meter_color)($usage_meter)(ansi reset)"
 
   [
+    $"GitHub · Copilot ($copilot_plan) · Usage"
     $displayed_usage_meter
     $"Allowance: ($allowance_percentage)% \(($remaining_allowance) / ($total_allowance)\)"
     $"Usage:     ($usage_percentage)% \(($used_ai_credits) ≈ $($used_ai_credit_cost_usd)\)"
