@@ -20,10 +20,11 @@ MANDATORY: Adhere to Chicago Manual of Style in all tasks.
     - Exception: Capitalize prepositions when used adverbially or adjectivally ("Look Up," "Turn Down") or in verb phrases.
     - Don't use parenthesis `()` to phrase terms.
     - Don't use config term, use configuration.
+    - Don't use em dashes (—), en dashes (–) , and hyphens (-) anywhere, except standard hyphenated words, etc.
 
-### Dashes and Hyphens
+### Dashes and hyphens
 
-- Never use em dashes `—` or en dashes `–` anywhere, in any output.
+- Never use em dashes (—), en dashes (–) , and hyphens (-) anywhere, in any output.
 - Do not use a hyphen as a decorative connector to set off a phrase or clause the way a dash would. For example, do not write "it works fine - most of the time".
 - Do not invent ad hoc hyphenated compounds. Prefer separate words or a rephrase. For example, write "module level logger" over "module-level logger", and write "control flow" over "control-flow".
 - Allow hyphens only in these two cases.
