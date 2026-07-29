@@ -18,9 +18,19 @@ MANDATORY: Adhere to Chicago Manual of Style in all tasks.
     - Lowercase prepositions such as at, by, for, from, in, into, of, on, to, with, between, through.
     - Lowercase "to" in infinitives such as to run, to see, to build.
     - Exception: Capitalize prepositions when used adverbially or adjectivally ("Look Up," "Turn Down") or in verb phrases.
-    - Don't use normal dashes or proper em dashes (—).
     - Don't use parenthesis `()` to phrase terms.
     - Don't use config term, use configuration.
+
+### Dashes and Hyphens
+
+- Never use em dashes `—` or en dashes `–` anywhere, in any output.
+- Do not use a hyphen as a decorative connector to set off a phrase or clause the way a dash would. For example, do not write "it works fine - most of the time".
+- Do not invent ad hoc hyphenated compounds. Prefer separate words or a rephrase. For example, write "module level logger" over "module-level logger", and write "control flow" over "control-flow".
+- Allow hyphens only in these two cases.
+    - Use standard hyphenated words as they appear in a dictionary, such as well-being, e-commerce, self-esteem, and long-term.
+    - Use proper names, identifiers, and technical tokens that are literally spelled with a hyphen, such as open source project or package names, command line flags, and file names. Examples include scikit-learn, create-react-app, styled-components, ruff-pre-commit, and --output-format.
+- To replace a dash used for emphasis or an aside, use a comma, a colon, or a separate sentence instead.
+- Apply this rule to everything: prose, code comments, commit messages, pull request titles and descriptions, and documentation.
 
 ## Commands
 
