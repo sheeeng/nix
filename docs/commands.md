@@ -64,6 +64,9 @@ nix config show | nix run nixpkgs#ripgrep -- '^access-tokens'
 - Update and fetch dependencies.
 
 ```shell
+# Update only Matt Pocock's skills.
+nix flake update matt-pocock-skills
+
 # Local binary mode: simplest per-file update using installed tooling.
 fd --extension nix --exclude flake.nix --exec update-nix-fetchgit
 

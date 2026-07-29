@@ -1,8 +1,13 @@
-{ pkgs, ... }:
+{
+  inputs,
+  pkgs,
+  ...
+}:
 let
   commonLlmSettings = import ../llm/default.nix {
     inherit pkgs;
     basePath = ../llm;
+    mattPocockSkillsSource = inputs.matt-pocock-skills;
   };
   claudeCodeModel = "claude-opus-4-8"; # https://models.dev/models/anthropic/claude-opus-4-8/
 in

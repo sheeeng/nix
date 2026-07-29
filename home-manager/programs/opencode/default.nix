@@ -1,8 +1,13 @@
-{ pkgs, ... }:
+{
+  inputs,
+  pkgs,
+  ...
+}:
 let
   commonLlmSettings = import ../../llm/default.nix {
     inherit pkgs;
     basePath = ../../llm;
+    mattPocockSkillsSource = inputs.matt-pocock-skills;
   };
 
   opencodeSuperpowersPlugin = "${commonLlmSettings.superpowersSrc}/.opencode/plugins/superpowers.js";
@@ -644,6 +649,7 @@ in
     }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.opencode.settings
     skills = commonLlmSettings.mattPocockSkills // {
       # https://opencode.ai/docs/skills/
+      # Existing OpenCode skills override complementary Matt Pocock skills.
       beads = "${pkgs.beads.src}/claude-plugin/skills/beads"; # A skill can also be a subdirectory within a Nix package source store path.
       find-skills = "${commonLlmSettings.vercelSkillsSrc}/skills/find-skills";
       frontend-design = "${commonLlmSettings.anthropicSkillsSrc}/skills/frontend-design";

@@ -173,6 +173,11 @@
       # inputs.nixpkgs.follows = "nixpkgs"; # @upstream-issue https://github.com/hraban/mac-app-util/issues/42
     };
 
+    matt-pocock-skills = {
+      url = "github:mattpocock/skills";
+      flake = false;
+    };
+
     microvm = {
       url = "github:astro/microvm.nix";
       inputs.nixpkgs.follows = "nixpkgs";
