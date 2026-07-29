@@ -721,6 +721,22 @@
         "type": "github"
       }
     },
+    "matt-pocock-skills": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1785230297,
+        "narHash": "sha256-dQtG6usJWlg/FqTajrjcs8GSdymH92WsgLiUaCfvKPA=",
+        "owner": "mattpocock",
+        "repo": "skills",
+        "rev": "2ab958093e83e0ec752e6c1c5932da465bf23e0c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "mattpocock",
+        "repo": "skills",
+        "type": "github"
+      }
+    },
     "microvm": {
       "inputs": {
         "nixpkgs": [
@@ -1103,11 +1119,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1785345989,
-        "narHash": "sha256-Gt7us48iPYPW9kf3W3oOrlcMDVBgRxqCgIwXtSDCa6U=",
+        "lastModified": 1785348587,
+        "narHash": "sha256-uAhFXOmpBbKVeDAUkPYQTHFaclUg44HleNdODJ1Swx8=",
         "owner": "nix-community",
         "repo": "nur",
-        "rev": "672834e75706853e3fc94545e9dfb3436ae5de92",
+        "rev": "dea3d157b8eb20d1654279b9c132c3f78aa3ff4b",
         "type": "github"
       },
       "original": {
@@ -1199,6 +1215,7 @@
         "flake-utils": "flake-utils",
         "home-manager": "home-manager_2",
         "mac-app-util": "mac-app-util",
+        "matt-pocock-skills": "matt-pocock-skills",
         "microvm": "microvm",
         "morlana": "morlana",
         "nix-darwin": "nix-darwin",
