@@ -28,7 +28,7 @@ in
     package = pkgs.opencode; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.opencode.package
     agents = commonLlmSettings.agents; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.opencode.agents # https://opencode.ai/docs/agents/#markdown
     commands = commonLlmSettings.commands; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.opencode.commands # https://opencode.ai/docs/commands/#markdown
-    context = ./context.md; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.opencode.context
+    context = commonLlmSettings.context; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.opencode.context
     tui = {
       theme = "opencode";
     }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.opencode.tui
