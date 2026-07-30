@@ -349,6 +349,7 @@
       brave # https://search.nixos.org/packages?channel=unstable&type=packages&show=brave
       epiphany # https://search.nixos.org/packages?channel=unstable&type=packages&show=epiphany
       microsoft-edge # https://search.nixos.org/packages?channel=unstable&type=packages&show=microsoft-edge
+      qbittorrent # https://search.nixos.org/packages?channel=unstable&type=packages&show=qbittorrent
       tor-browser # https://search.nixos.org/packages?channel=unstable&type=packages&show=tor-browser
       vivaldi # https://search.nixos.org/packages?channel=unstable&type=packages&show=vivaldi
       # keep-sorted end
