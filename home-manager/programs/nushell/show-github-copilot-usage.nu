@@ -3,7 +3,7 @@
 def show-github-copilot-usage [--color] {
   let copilot_usage = (^gh api /copilot_internal/user | from json)
   let premium_usage = $copilot_usage.quota_snapshots.premium_interactions
-  let usage_meter_width = 40
+  let usage_meter_width = 20
   let remaining_meter_cell_count = (
     $premium_usage.percent_remaining * $usage_meter_width / 100
     | math round
@@ -11,10 +11,10 @@ def show-github-copilot-usage [--color] {
   )
   let used_meter_cell_count = $usage_meter_width - $remaining_meter_cell_count
   let remaining_meter = (
-    "" | fill --character "█" --width $remaining_meter_cell_count
+    "" | fill --character ">" --width $remaining_meter_cell_count
   )
   let used_meter = (
-    "" | fill --character "░" --width $used_meter_cell_count
+    "" | fill --character "-" --width $used_meter_cell_count
   )
   let used_ai_credit_cost_usd = (
     $premium_usage.credits_used * 0.01
@@ -42,8 +42,7 @@ def show-github-copilot-usage [--color] {
 
   [
     $"GitHub · Copilot ($copilot_plan) · Usage"
-    $displayed_usage_meter
-    $"Allowance: ($allowance_percentage)% \(($remaining_allowance) / ($total_allowance)\)"
+    $"[($remaining_allowance)/($total_allowance)] ($allowance_percentage)% ($displayed_usage_meter)"
     $"Usage:     ($usage_percentage)% \(($used_ai_credits) ≈ $($used_ai_credit_cost_usd)\)"
   ] | str join (char newline)
 }
@@ -51,7 +50,7 @@ def show-github-copilot-usage [--color] {
 def show-github-copilot-usage-without-color [] {
   let copilot_usage = (^gh api /copilot_internal/user | from json)
   let premium_usage = $copilot_usage.quota_snapshots.premium_interactions
-  let usage_meter_width = 40
+  let usage_meter_width = 20
   let remaining_meter_cell_count = (
     $premium_usage.percent_remaining * $usage_meter_width / 100
     | math round
@@ -59,10 +58,10 @@ def show-github-copilot-usage-without-color [] {
   )
   let used_meter_cell_count = $usage_meter_width - $remaining_meter_cell_count
   let remaining_meter = (
-    "" | fill --character "█" --width $remaining_meter_cell_count
+    "" | fill --character ">" --width $remaining_meter_cell_count
   )
   let used_meter = (
-    "" | fill --character "░" --width $used_meter_cell_count
+    "" | fill --character "-" --width $used_meter_cell_count
   )
   let used_ai_credit_cost_usd = (
     $premium_usage.credits_used * 0.01
@@ -78,8 +77,7 @@ def show-github-copilot-usage-without-color [] {
 
   [
     $"GitHub · Copilot ($copilot_plan) · Usage"
-    $usage_meter
-    $"Allowance: ($allowance_percentage)% \(($remaining_allowance) / ($total_allowance)\)"
+    $"[($remaining_allowance)/($total_allowance)] ($allowance_percentage)% ($usage_meter)"
     $"Usage:     ($usage_percentage)% \(($used_ai_credits) ≈ $($used_ai_credit_cost_usd)\)"
   ] | str join (char newline)
 }
@@ -87,7 +85,7 @@ def show-github-copilot-usage-without-color [] {
 def show-github-copilot-usage-with-color [] {
   let copilot_usage = (^gh api /copilot_internal/user | from json)
   let premium_usage = $copilot_usage.quota_snapshots.premium_interactions
-  let usage_meter_width = 40
+  let usage_meter_width = 20
   let remaining_meter_cell_count = (
     $premium_usage.percent_remaining * $usage_meter_width / 100
     | math round
@@ -95,10 +93,10 @@ def show-github-copilot-usage-with-color [] {
   )
   let used_meter_cell_count = $usage_meter_width - $remaining_meter_cell_count
   let remaining_meter = (
-    "" | fill --character "█" --width $remaining_meter_cell_count
+    "" | fill --character ">" --width $remaining_meter_cell_count
   )
   let used_meter = (
-    "" | fill --character "░" --width $used_meter_cell_count
+    "" | fill --character "-" --width $used_meter_cell_count
   )
   let used_ai_credit_cost_usd = (
     $premium_usage.credits_used * 0.01
@@ -121,8 +119,7 @@ def show-github-copilot-usage-with-color [] {
 
   [
     $"GitHub · Copilot ($copilot_plan) · Usage"
-    $displayed_usage_meter
-    $"Allowance: ($allowance_percentage)% \(($remaining_allowance) / ($total_allowance)\)"
+    $"[($remaining_allowance)/($total_allowance)] ($allowance_percentage)% ($displayed_usage_meter)"
     $"Usage:     ($usage_percentage)% \(($used_ai_credits) ≈ $($used_ai_credit_cost_usd)\)"
   ] | str join (char newline)
 }
