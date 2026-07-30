@@ -4,31 +4,32 @@ def show-github-copilot-usage [--color] {
   let copilot_usage = (^gh api /copilot_internal/user | from json)
   let premium_usage = $copilot_usage.quota_snapshots.premium_interactions
   let usage_meter_width = 20
+  let allowance_percentage_value = $premium_usage.quota_remaining / $premium_usage.entitlement * 100
   let remaining_meter_cell_count = (
-    $premium_usage.percent_remaining * $usage_meter_width / 100
+    $allowance_percentage_value * $usage_meter_width / 100
     | math round
     | into int
   )
-  let used_meter_cell_count = $usage_meter_width - $remaining_meter_cell_count
+  let consumed_meter_cell_count = $usage_meter_width - $remaining_meter_cell_count
   let remaining_meter = (
     "" | fill --character ">" --width $remaining_meter_cell_count
   )
-  let used_meter = (
-    "" | fill --character "-" --width $used_meter_cell_count
+  let consumed_meter = (
+    "" | fill --character "-" --width $consumed_meter_cell_count
   )
+  let allowance_percentage = $allowance_percentage_value | into string --decimals 1
+  let remaining_allowance_parts = $premium_usage.quota_remaining | into string --decimals 1 | split row "."
+  let remaining_allowance = $"($remaining_allowance_parts.0 | into int | into string --group-digits).($remaining_allowance_parts.1)"
+  let total_allowance = $premium_usage.entitlement | into string --group-digits
+  let used_ai_credits = $premium_usage.credits_used | into string --group-digits
   let used_ai_credit_cost_usd = (
     $premium_usage.credits_used * 0.01
     | into string --decimals 2
   )
-  let used_ai_credits = $premium_usage.credits_used | into string --group-digits
-  let allowance_percentage = $premium_usage.percent_remaining | into string --decimals 1
-  let usage_percentage = 100 - $premium_usage.percent_remaining | into string --decimals 1
-  let remaining_allowance = $premium_usage.remaining | into string --group-digits
-  let total_allowance = $premium_usage.entitlement | into string --group-digits
   let copilot_plan = $copilot_usage.copilot_plan | str capitalize
-  let usage_meter = $"[($remaining_meter)($used_meter)]"
+  let usage_meter = $"[($remaining_meter)($consumed_meter)]"
   let displayed_usage_meter = if $color {
-    let meter_color = match $premium_usage.percent_remaining {
+    let meter_color = match $allowance_percentage_value {
       $remaining_quota if $remaining_quota <= 25 => (ansi red)
       $remaining_quota if $remaining_quota <= 50 => (ansi yellow)
       $remaining_quota if $remaining_quota <= 75 => (ansi cyan)
@@ -42,84 +43,104 @@ def show-github-copilot-usage [--color] {
 
   [
     $"GitHub · Copilot ($copilot_plan) · Usage"
-    $"[($remaining_allowance)/($total_allowance)] ($allowance_percentage)% ($displayed_usage_meter)"
-    $"Usage:     ($usage_percentage)% \(($used_ai_credits) ≈ $($used_ai_credit_cost_usd)\)"
+    $"Allowance: [($remaining_allowance)/($total_allowance)] ($allowance_percentage)% ($displayed_usage_meter)"
+    $"Credits Used: ($used_ai_credits) ≈ $($used_ai_credit_cost_usd)"
   ] | str join (char newline)
 }
 
-def show-github-copilot-usage-without-color [] {
+def show-github-copilot-usage-compact [] {
   let copilot_usage = (^gh api /copilot_internal/user | from json)
   let premium_usage = $copilot_usage.quota_snapshots.premium_interactions
   let usage_meter_width = 20
+  let allowance_percentage_value = $premium_usage.quota_remaining / $premium_usage.entitlement * 100
   let remaining_meter_cell_count = (
-    $premium_usage.percent_remaining * $usage_meter_width / 100
+    $allowance_percentage_value * $usage_meter_width / 100
     | math round
     | into int
   )
-  let used_meter_cell_count = $usage_meter_width - $remaining_meter_cell_count
+  let consumed_meter_cell_count = $usage_meter_width - $remaining_meter_cell_count
   let remaining_meter = (
     "" | fill --character ">" --width $remaining_meter_cell_count
   )
-  let used_meter = (
-    "" | fill --character "-" --width $used_meter_cell_count
+  let consumed_meter = (
+    "" | fill --character "-" --width $consumed_meter_cell_count
   )
+  let allowance_percentage = $allowance_percentage_value | into string --decimals 1
+  let used_ai_credits = $premium_usage.credits_used | into string --group-digits
   let used_ai_credit_cost_usd = (
     $premium_usage.credits_used * 0.01
     | into string --decimals 2
   )
-  let used_ai_credits = $premium_usage.credits_used | into string --group-digits
-  let allowance_percentage = $premium_usage.percent_remaining | into string --decimals 1
-  let usage_percentage = 100 - $premium_usage.percent_remaining | into string --decimals 1
-  let remaining_allowance = $premium_usage.remaining | into string --group-digits
-  let total_allowance = $premium_usage.entitlement | into string --group-digits
   let copilot_plan = $copilot_usage.copilot_plan | str capitalize
-  let usage_meter = $"[($remaining_meter)($used_meter)]"
+  let usage_meter = $"[($remaining_meter)($consumed_meter)]"
 
   [
-    $"GitHub · Copilot ($copilot_plan) · Usage"
-    $"[($remaining_allowance)/($total_allowance)] ($allowance_percentage)% ($usage_meter)"
-    $"Usage:     ($usage_percentage)% \(($used_ai_credits) ≈ $($used_ai_credit_cost_usd)\)"
+    $"Copilot ($copilot_plan)"
+    $"Allowance: ($allowance_percentage)% ($usage_meter)"
+    $"Credits Used: ($used_ai_credits) ≈ $($used_ai_credit_cost_usd)"
   ] | str join (char newline)
 }
 
-def show-github-copilot-usage-with-color [] {
+def show-github-copilot-usage-detailed [] {
   let copilot_usage = (^gh api /copilot_internal/user | from json)
   let premium_usage = $copilot_usage.quota_snapshots.premium_interactions
   let usage_meter_width = 20
+  let allowance_percentage_value = $premium_usage.quota_remaining / $premium_usage.entitlement * 100
   let remaining_meter_cell_count = (
-    $premium_usage.percent_remaining * $usage_meter_width / 100
+    $allowance_percentage_value * $usage_meter_width / 100
     | math round
     | into int
   )
-  let used_meter_cell_count = $usage_meter_width - $remaining_meter_cell_count
+  let consumed_meter_cell_count = $usage_meter_width - $remaining_meter_cell_count
   let remaining_meter = (
     "" | fill --character ">" --width $remaining_meter_cell_count
   )
-  let used_meter = (
-    "" | fill --character "-" --width $used_meter_cell_count
+  let consumed_meter = (
+    "" | fill --character "-" --width $consumed_meter_cell_count
   )
+  let allowance_percentage = $allowance_percentage_value | into string --decimals 1
+  let remaining_allowance_parts = $premium_usage.quota_remaining | into string --decimals 1 | split row "."
+  let remaining_allowance = $"($remaining_allowance_parts.0 | into int | into string --group-digits).($remaining_allowance_parts.1)"
+  let total_allowance = $premium_usage.entitlement | into string --group-digits
+  let used_ai_credits = $premium_usage.credits_used | into string --group-digits
   let used_ai_credit_cost_usd = (
     $premium_usage.credits_used * 0.01
     | into string --decimals 2
   )
-  let used_ai_credits = $premium_usage.credits_used | into string --group-digits
-  let allowance_percentage = $premium_usage.percent_remaining | into string --decimals 1
-  let usage_percentage = 100 - $premium_usage.percent_remaining | into string --decimals 1
-  let remaining_allowance = $premium_usage.remaining | into string --group-digits
-  let total_allowance = $premium_usage.entitlement | into string --group-digits
   let copilot_plan = $copilot_usage.copilot_plan | str capitalize
-  let usage_meter = $"[($remaining_meter)($used_meter)]"
-  let meter_color = match $premium_usage.percent_remaining {
-    $remaining_quota if $remaining_quota <= 25 => (ansi red)
-    $remaining_quota if $remaining_quota <= 50 => (ansi yellow)
-    $remaining_quota if $remaining_quota <= 75 => (ansi cyan)
-    _ => (ansi green)
-  }
-  let displayed_usage_meter = $"($meter_color)($usage_meter)(ansi reset)"
+  let usage_meter = $"[($remaining_meter)($consumed_meter)]"
 
   [
     $"GitHub · Copilot ($copilot_plan) · Usage"
-    $"[($remaining_allowance)/($total_allowance)] ($allowance_percentage)% ($displayed_usage_meter)"
-    $"Usage:     ($usage_percentage)% \(($used_ai_credits) ≈ $($used_ai_credit_cost_usd)\)"
+    $"Remaining Allowance: ($remaining_allowance) of ($total_allowance)"
+    $"Allowance Remaining: ($allowance_percentage)% ($usage_meter)"
+    $"Credits Used: ($used_ai_credits)"
+    $"Equivalent Value: $($used_ai_credit_cost_usd)"
+  ] | str join (char newline)
+}
+
+def show-github-copilot-usage-counters [] {
+  let copilot_usage = (^gh api /copilot_internal/user | from json)
+  let premium_usage = $copilot_usage.quota_snapshots.premium_interactions
+  let allowance_percentage_value = $premium_usage.quota_remaining / $premium_usage.entitlement * 100
+  let consumed_allowance_value = $premium_usage.entitlement - $premium_usage.quota_remaining
+  let allowance_percentage = $allowance_percentage_value | into string --decimals 1
+  let remaining_allowance_parts = $premium_usage.quota_remaining | into string --decimals 1 | split row "."
+  let remaining_allowance = $"($remaining_allowance_parts.0 | into int | into string --group-digits).($remaining_allowance_parts.1)"
+  let consumed_allowance_parts = $consumed_allowance_value | into string --decimals 1 | split row "."
+  let consumed_allowance = $"($consumed_allowance_parts.0 | into int | into string --group-digits).($consumed_allowance_parts.1)"
+  let total_allowance = $premium_usage.entitlement | into string --group-digits
+  let used_ai_credits = $premium_usage.credits_used | into string --group-digits
+  let used_ai_credit_cost_usd = (
+    $premium_usage.credits_used * 0.01
+    | into string --decimals 2
+  )
+  let copilot_plan = $copilot_usage.copilot_plan | str capitalize
+
+  [
+    $"GitHub · Copilot ($copilot_plan) · Usage"
+    $"Quota Remaining: ($allowance_percentage)% [($remaining_allowance)/($total_allowance)]"
+    $"Quota Consumed: ($consumed_allowance)"
+    $"Credits Used: ($used_ai_credits) ≈ $($used_ai_credit_cost_usd)"
   ] | str join (char newline)
 }
