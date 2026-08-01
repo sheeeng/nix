@@ -275,6 +275,41 @@ commit:
     # Equivalent to: nix --experimental-features 'nix-command flakes' flake update --commit-lock-file |& nom
     just _nix-flake "update --commit-lock-file" ""
 
+[doc('Rebuild opencode node_modules and update the Darwin outputHash in overlays/default.nix')]
+bump-opencode-hash: _check-non-root _check-nix
+    #!/usr/bin/env bash
+    set -o errexit -o nounset -o pipefail
+
+    OVERLAY_FILE="overlays/default.nix"
+    ATTRIBUTE=".#darwinConfigurations.{{ HOSTNAME }}.pkgs.opencode.node_modules"
+
+    echo "🔨 Building opencode node_modules to learn its content hash..."
+    echo "   This builds from source and can take around twenty minutes."
+
+    if BUILD_OUTPUT="$(nix {{ NIX_FLAGS }} build "$ATTRIBUTE" --no-link --print-build-logs 2>&1)"; then
+      echo "✅ Hash is already correct. No change needed."
+      exit 0
+    fi
+
+    GOT_HASH="$(printf '%s\n' "$BUILD_OUTPUT" \
+      | grep --extended-regexp --only-matching 'got:[[:space:]]+sha256-[A-Za-z0-9+/=]+' \
+      | grep --extended-regexp --only-matching 'sha256-[A-Za-z0-9+/=]+' \
+      | head --lines 1)"
+
+    if [ -z "$GOT_HASH" ]; then
+      echo "❌ Build failed for a reason other than a hash mismatch."
+      printf '%s\n' "$BUILD_OUTPUT" | tail --lines 30
+      exit 1
+    fi
+
+    echo "🔧 Updating outputHash to: $GOT_HASH"
+    nix-shell --packages gnused --run \
+      "sed --in-place --regexp-extended 's|outputHash = \"sha256-[^\"]*\";|outputHash = \"$GOT_HASH\";|' '$OVERLAY_FILE'"
+
+    echo "✅ Rebuilding to verify..."
+    nix {{ NIX_FLAGS }} build "$ATTRIBUTE" --no-link --print-build-logs
+    echo "✅ opencode node_modules hash bumped and verified."
+
 [doc('Check flake for errors')]
 check:
     just _nix-flake "check"
