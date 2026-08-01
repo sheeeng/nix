@@ -108,7 +108,7 @@
       if prev.stdenv.hostPlatform.isDarwin then
         prev.opencode.overrideAttrs (old: {
           node_modules = old.node_modules.overrideAttrs (_: {
-            outputHash = "sha256-DJrjIT1fYb6yGR6oNHN/DnkJKRXvEeU2Z7EwJPoPBhw=";
+            outputHash = "sha256-ogNJ2vB5qodYKTz+qZ/nKFtsVa3MzrJHwwGpCECIHEo=";
           });
         })
       else
