@@ -55,9 +55,15 @@ in
   # opencode renders this to AGENTS.md and claude-code renders it to CLAUDE.md.
   context = basePath + "/context.md";
 
-  packages = with pkgs; [
-    pi-coding-agent # https://search.nixos.org/packages?channel=unstable&type=packages&show=pi-coding-agent
-  ];
+  packages =
+    with pkgs;
+    [
+      chatgpt-cli # https://search.nixos.org/packages?channel=unstable&type=packages&show=chatgpt-cli
+      pi-coding-agent # https://search.nixos.org/packages?channel=unstable&type=packages&show=pi-coding-agent
+    ]
+    ++ pkgs.lib.optionals (pkgs.stdenv.isDarwin && pkgs.stdenv.hostPlatform.isAarch64) [
+      chatgpt-desktop # https://search.nixos.org/packages?channel=unstable&type=packages&show=chatgpt-desktop
+    ];
 
   agents =
     let
