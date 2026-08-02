@@ -47,6 +47,7 @@
           vimPlugins.cmp-nvim-lsp
           vimPlugins.cmp-path
           vimPlugins.cmp-vsnip
+          vimPlugins.codex-nvim
           vimPlugins.nvim-cmp
           vimPlugins.vim-vsnip
         ];
