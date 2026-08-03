@@ -23,10 +23,6 @@ in
     source = opencodeSuperpowersPlugin;
   };
 
-  # Sets LLM_COAUTHOR so the prepare-commit-msg git hook injects the correct
-  # Co-Authored-By trailer reflecting the active opencode model.
-  home.shellAliases.opencode = "LLM_COAUTHOR=\"opencode (${opencodeModel}) <noreply@anthropic.com>\" ${pkgs.opencode}/bin/opencode";
-
   programs.opencode = {
     enable = pkgs.stdenv.system != "x86_64-darwin"; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.opencode.enable # Disabled on x86_64-darwin.
     enableMcpIntegration = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.opencode.enableMcpIntegration

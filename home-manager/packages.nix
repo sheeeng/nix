@@ -182,6 +182,8 @@
       age # https://search.nixos.org/packages?channel=unstable&type=packages&show=age
       age-plugin-1p # https://search.nixos.org/packages?channel=unstable&type=packages&show=age-plugin-1p
       age-plugin-yubikey # https://search.nixos.org/packages?channel=unstable&type=packages&show=age-plugin-yubikey
+      bitwarden-cli # https://search.nixos.org/packages?channel=unstable&type=packages&show=bitwarden-cli
+      bitwarden-desktop # https://search.nixos.org/packages?channel=unstable&type=packages&show=bitwarden-desktop
       nono # https://search.nixos.org/packages?channel=unstable&type=packages&show=nono
       pass # https://search.nixos.org/packages?channel=unstable&type=packages&show=pass
       pass-git-helper # https://search.nixos.org/packages?channel=unstable&type=packages&show=pass-git-helper
