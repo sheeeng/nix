@@ -89,26 +89,39 @@
       }
     );
 
-    # opencode's node_modules fixed-output derivation bundles the `7zip-bin`
-    # npm package, which ships Windows binaries win/{x64,ia32}/7za.exe.
-    # macOS (Darwin 25.5.0) refuses to read those .exe files
-    # ("cp: ... Operation not permitted"), so the FOD's installPhase silently
-    # omits them and the tree hashes to a different value than the hash
-    # nixpkgs declares (which was produced on Linux, where the files ARE
-    # readable). Result: both cache substitution and source build fail on this
-    # Mac with the same ca-hash mismatch. Override outputHash to the value this
-    # machine deterministically produces (verified twice: cache import + a
-    # from-source build both yield sha256-DJrj...). The two dropped files are
-    # Windows executables that are never used on macOS.
-    # Darwin-only: Linux keeps the stock hash and its binary-cache hit.
+    # opencode's node_modules fixed-output derivation bundles many packages that
+    # ship prebuilt Windows binaries, including the 7zip-bin package's
+    # win/{x64,ia32,arm64}/7za.exe. On this managed Mac, Microsoft Defender for
+    # Endpoint blocks reading those .exe files during the installPhase copy
+    # ("cp: ... Operation not permitted"), so the copy omits whichever file
+    # Defender happens to hold at that instant. Because Defender's timing is not
+    # deterministic, the set of omitted files varies between builds, the output
+    # hashes to a different value each time, and the fixed-output hash check
+    # fails. Defender's Threat and Vulnerability Management also quarantines the
+    # vulnerable 7za.exe (EUS:Win32/TvmWarn) once it lands in the store path,
+    # which invalidates the cached output and forces another nondeterministic
+    # rebuild.
+    #
+    # Fix: delete every bundled Windows executable in postInstall so the output
+    # no longer depends on Defender. Only 7za.exe has been flagged so far, but
+    # every .exe is a Windows portable executable that cannot run on macOS, so
+    # removing all of them leaves nothing for Defender to quarantine and makes
+    # the result reproducible regardless of which files Defender flags next.
+    # find -delete unlinks each entry without reading it, so Defender's read
+    # block does not stop it. Darwin-only: Linux keeps the stock hash and its
+    # binary-cache hit.
     # NOTE: no cache exists for the custom hash, so node_modules builds from
-    # source once (~18 min) per opencode version bump, then stays in the store.
+    # source once (~30 min on this device) per opencode version bump, then
+    # stays in the store.
     # @upstream-issue https://github.com/anomalyco/opencode/issues/8029
     opencode =
       if prev.stdenv.hostPlatform.isDarwin then
         prev.opencode.overrideAttrs (old: {
-          node_modules = old.node_modules.overrideAttrs (_: {
-            outputHash = "sha256-ogNJ2vB5qodYKTz+qZ/nKFtsVa3MzrJHwwGpCECIHEo=";
+          node_modules = old.node_modules.overrideAttrs (previousAttributes: {
+            postInstall = (previousAttributes.postInstall or "") + ''
+              find "$out" -type f -name '*.exe' -delete
+            '';
+            outputHash = "sha256-G3f1E8bhTJUSAS9+tmpIbsJJtjFmUSI7aoHw3H1tge8=";
           });
         })
       else
