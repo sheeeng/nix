@@ -65,6 +65,28 @@ in
     ];
   };
 
+  # Pin the SSH host key declarations so nix-darwin manages the ed25519 key at
+  # the nonstandard path this host already uses, /etc/ssh/ssh_host_ed25519,
+  # instead of the default /etc/ssh/ssh_host_ed25519_key. sops-nix derives the
+  # host age identity from this same private key, so keeping the path stable
+  # stops every activation from regenerating the standard key and changing the
+  # derived age recipient. The rsa and ecdsa entries match the nix-darwin
+  # defaults that macOS also generates.
+  services.openssh.hostKeys = [
+    {
+      type = "rsa";
+      path = "/etc/ssh/ssh_host_rsa_key";
+    }
+    {
+      type = "ecdsa";
+      path = "/etc/ssh/ssh_host_ecdsa_key";
+    }
+    {
+      type = "ed25519";
+      path = "/etc/ssh/ssh_host_ed25519";
+    }
+  ];
+
   # Activation scripts to ensure proper directory structure and permissions.
   system.activationScripts = {
     # Create the host-level age key directory at /etc/sops/age/.
