@@ -61,11 +61,13 @@ in
       btop
       coreutils
       enpass
+      enpass-cli
       findutils
       git
       gnupg
       helix
       htop
+      kdePackages.kate
       manix # https://search.nixos.org/packages?channel=unstable&type=packages&show=manix
       neovim
       nh # https://search.nixos.org/packages?channel=unstable&type=packages&show=nh
@@ -79,6 +81,7 @@ in
       nixfmt # https://search.nixos.org/packages?channel=unstable&type=packages&show=nixfmt
       nvd # https://search.nixos.org/packages?channel=unstable&type=packages&show=nvd
       openssh
+      tailscale-systray
       vim
       wget
       xclip
@@ -176,7 +179,7 @@ in
     permittedInsecurePackages = [ ];
   };
 
-  system.stateVersion = "25.11"; # Keep pinned to the initial install; do not float with the current release. https://search.nixos.org/options?show=system.stateVersion
+  system.stateVersion = "26.05"; # Keep pinned to the initial install; do not float with the current release. https://search.nixos.org/options?show=system.stateVersion
 
   nix = {
     optimise.automatic = true;
@@ -273,6 +276,8 @@ in
 
   services.displayManager.sddm.enable = true;
   services.desktopManager.plasma6.enable = true;
+  services.fprintd.enable = true;
+  services.tailscale.enable = true;
 
   programs.ssh.startAgent = true;
 
