@@ -266,7 +266,7 @@
     nix-systems.url = "github:nix-systems/default"; # https://github.com/nix-systems/nix-systems
 
     nix-secrets = {
-      url = "github:sheeeng/nix-secrets/main?shallow=1";
+      url = "git+ssh://git@github.com/sheeeng/nix-secrets.git?ref=main&shallow=1";
 
       # url = "git+ssh://git@github.com/sheeeng/nix-secrets.git?ref=main&shallow=1";
       # url = "git+file://absolute/path/to/nix-secrets";
