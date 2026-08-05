@@ -277,7 +277,7 @@
     };
 
     nix-secrets-example = {
-      url = "github:sheeeng/nix-secrets-example/main?shallow=1";
+      url = "git+ssh://git@github.com/sheeeng/nix-secrets-example.git?ref=main&shallow=1";
 
       # url = "git+ssh://git@github.com/sheeeng/nix-secrets-example.git?ref=main&shallow=1";
       # url = "git+file://absolute/path/to/nix-secrets-example";
