@@ -8,7 +8,7 @@ let
   hostConfiguration = rec {
     # keep-sorted start block=yes newline_separated=no sticky_comments=no
     networking = {
-      hostName = "nixos";
+      hostName = "fw13";
     };
     nixpkgs = {
       config = {
