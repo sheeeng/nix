@@ -32,7 +32,7 @@ in
     # ../../modules/yabai
     # catppuccin.darwinModules.catppuccin # TODO: https://github.com/catppuccin/nix/issues/162
     # inputs.home-manager.darwinModules.defaults
-    ../darwin/sops.nix
+    ../darwin
     inputs.agenix.darwinModules.age
     inputs.home-manager.darwinModules.home-manager
     # inputs.nixvim.nixDarwinModules.nixvim
@@ -53,19 +53,16 @@ in
       # $ nix search nixpkgs wget
       # TODO: https://github.com/nix-community/home-manager/issues/1341 # The `home-manager` has issues adding applications to `~/Applications` directory.
       # keep-sorted start block=yes newline_separated=no
+      bitwarden-cli # https://search.nixos.org/packages?channel=unstable&type=packages&show=bitwarden-cli
+      bitwarden-desktop # https://search.nixos.org/packages?channel=unstable&type=packages&show=bitwarden-desktop
       # clang # https://search.nixos.org/packages?channel=unstable&type=packages&show=clang
       coreutils # https://search.nixos.org/packages?channel=unstable&type=packages&show=coreutils
       # dix # https://search.nixos.org/packages?channel=unstable&type=packages&show=dix
       findutils # https://search.nixos.org/packages?channel=unstable&type=packages&show=findutils
       # inputs.flox.packages.${pkgs.system}.default
-      manix # https://search.nixos.org/packages?channel=unstable&type=packages&show=manix
-      # nh # https://search.nixos.org/packages?channel=unstable&type=packages&show=nh
-      # nil # https://search.nixos.org/packages?channel=unstable&type=packages&show=nil
-      nix # https://search.nixos.org/packages?channel=unstable&type=packages&show=nix
-      # nix-output-monitor # https://search.nixos.org/packages?channel=unstable&type=packages&show=nix-output-monitor
-      # nixd # https://search.nixos.org/packages?channel=unstable&type=packages&show=nixd
-      # nixfmt # https://search.nixos.org/packages?channel=unstable&type=packages&show=nixfmt
-      # nvd # https://search.nixos.org/packages?channel=unstable&type=packages&show=nvd
+      keepass # https://search.nixos.org/packages?channel=unstable&type=packages&show=keepass
+      nushell # https://search.nixos.org/packages?channel=unstable&type=packages&show=nushell
+      pass # https://search.nixos.org/packages?channel=unstable&type=packages&show=pass
       # tmux # https://search.nixos.org/packages?channel=unstable&type=packages&show=tmux
       # unixtools.watch # https://search.nixos.org/packages?channel=unstable&type=packages&show=unixtools.watch
       # vim # https://search.nixos.org/packages?channel=unstable&type=packages&show=vim

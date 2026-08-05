@@ -40,7 +40,7 @@ in
     # inputs.nixos-hardware.nixosModules.common-cpu-intel
 
     ./hardware-configuration.nix
-    ../linux/sops.nix
+    ../linux
     inputs.home-manager.nixosModules.home-manager
     inputs.agenix.nixosModules.age
     inputs.nixvim.nixosModules.nixvim
@@ -58,6 +58,8 @@ in
   environment = {
     systemPackages = with pkgs; [
       # keep-sorted start block=yes newline_separated=no
+      bitwarden-cli # https://search.nixos.org/packages?channel=unstable&type=packages&show=bitwarden-cli
+      bitwarden-desktop # https://search.nixos.org/packages?channel=unstable&type=packages&show=bitwarden-desktop
       btop
       coreutils
       enpass
@@ -68,19 +70,12 @@ in
       helix
       htop
       kdePackages.kate
-      manix # https://search.nixos.org/packages?channel=unstable&type=packages&show=manix
+      keepass # https://search.nixos.org/packages?channel=unstable&type=packages&show=keepass
       neovim
-      nh # https://search.nixos.org/packages?channel=unstable&type=packages&show=nh
-      nil # https://search.nixos.org/packages?channel=unstable&type=packages&show=nil
-      nix # https://search.nixos.org/packages?channel=unstable&type=packages&show=nix
-      nix-output-monitor # https://search.nixos.org/packages?channel=unstable&type=packages&show=nix-output-monitor
-      nix-prefetch-git # https://search.nixos.org/packages?channel=unstable&type=packages&show=nix-prefetch-git
-      nix-prefetch-github # https://search.nixos.org/packages?channel=unstable&type=packages&show=nix-prefetch-github
-      nix-prefetch-scripts # https://search.nixos.org/packages?channel=unstable&type=packages&show=nix-prefetch-scripts
-      nixd # https://search.nixos.org/packages?channel=unstable&type=packages&show=nixd
-      nixfmt # https://search.nixos.org/packages?channel=unstable&type=packages&show=nixfmt
-      nvd # https://search.nixos.org/packages?channel=unstable&type=packages&show=nvd
+      nushell # https://search.nixos.org/packages?channel=unstable&type=packages&show=nushell
       openssh
+      pass # https://search.nixos.org/packages?channel=unstable&type=packages&show=pass
+      tailscale # https://search.nixos.org/packages?channel=unstable&type=packages&show=tailscale
       tailscale-systray
       vim
       wget
