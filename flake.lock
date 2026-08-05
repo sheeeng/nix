@@ -293,11 +293,11 @@
       },
       "locked": {
         "dir": "pkgs/firefox-addons",
-        "lastModified": 1785816168,
-        "narHash": "sha256-RQ94B/IO+mJxEDxRnPjGhu4PjKrEUX64gTW0IGFRg0o=",
+        "lastModified": 1785902574,
+        "narHash": "sha256-HwlI13eiRLqxFCvk76ZVWdpkWb9kw2AZCoy0DnGeCZI=",
         "owner": "rycee",
         "repo": "nur-expressions",
-        "rev": "66f538cbd80fe70790a85a351560761c3fdfa56a",
+        "rev": "b856b4a1d1e3ffd7f917387bc7d2eda9b9dad3a7",
         "type": "gitlab"
       },
       "original": {
@@ -724,11 +724,11 @@
     "matt-pocock-skills": {
       "flake": false,
       "locked": {
-        "lastModified": 1785230297,
-        "narHash": "sha256-dQtG6usJWlg/FqTajrjcs8GSdymH92WsgLiUaCfvKPA=",
+        "lastModified": 1785914991,
+        "narHash": "sha256-BnGzLCtp4F+ggiz/MnBqkRUnnKnu6M97KJOUYCNKryU=",
         "owner": "mattpocock",
         "repo": "skills",
-        "rev": "2ab958093e83e0ec752e6c1c5932da465bf23e0c",
+        "rev": "a621cc4f755d1da9c35dc3bb3abbd1d2a3208670",
         "type": "github"
       },
       "original": {
@@ -1119,11 +1119,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1785884903,
-        "narHash": "sha256-6fuMSgKsfFwuVr7Yopy/miQTzLLlBIgS5rNCISz5e0o=",
+        "lastModified": 1785916909,
+        "narHash": "sha256-8Q6/aZuDm+dtQjwsyAFX2luElux9CjWaddUq5+Un+BE=",
         "owner": "nix-community",
         "repo": "nur",
-        "rev": "1c2968e3d75fd70f94be909b5b1882983643098e",
+        "rev": "e63426a69061aa7e703bc4cb037e03abab6f3acd",
         "type": "github"
       },
       "original": {
