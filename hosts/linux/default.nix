@@ -1,6 +1,9 @@
 { pkgs, ... }:
 {
-  imports = [ ./sops.nix ];
+  imports = [
+    ./sops.nix
+    ../../modules/home-manager.nix
+  ];
 
   environment.systemPackages = with pkgs; [
     # keep-sorted start

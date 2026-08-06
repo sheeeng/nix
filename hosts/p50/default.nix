@@ -58,23 +58,16 @@ in
   environment = {
     systemPackages = with pkgs; [
       # keep-sorted start block=yes newline_separated=no
-      bitwarden-cli # https://search.nixos.org/packages?channel=unstable&type=packages&show=bitwarden-cli
-      bitwarden-desktop # https://search.nixos.org/packages?channel=unstable&type=packages&show=bitwarden-desktop
       btop
-      coreutils
       enpass
       enpass-cli
-      findutils
       git
       gnupg
       helix
       htop
       kdePackages.kate
-      keepass # https://search.nixos.org/packages?channel=unstable&type=packages&show=keepass
       neovim
-      nushell # https://search.nixos.org/packages?channel=unstable&type=packages&show=nushell
       openssh
-      pass # https://search.nixos.org/packages?channel=unstable&type=packages&show=pass
       tailscale # https://search.nixos.org/packages?channel=unstable&type=packages&show=tailscale
       tailscale-systray
       vim
