@@ -46,23 +46,16 @@ in
   };
 
   environment = {
-    systemPackages = with pkgs; [
+    systemPackages = [
       # List packages installed in system profile.
       # To search by name, run:
       # $ nix-env --query --available --prebuilt-only | grep wget # nix.channel.enable = true; # TODO: Use traditional channels.
       # $ nix search nixpkgs wget
       # TODO: https://github.com/nix-community/home-manager/issues/1341 # The `home-manager` has issues adding applications to `~/Applications` directory.
       # keep-sorted start block=yes newline_separated=no
-      bitwarden-cli # https://search.nixos.org/packages?channel=unstable&type=packages&show=bitwarden-cli
-      bitwarden-desktop # https://search.nixos.org/packages?channel=unstable&type=packages&show=bitwarden-desktop
       # clang # https://search.nixos.org/packages?channel=unstable&type=packages&show=clang
-      coreutils # https://search.nixos.org/packages?channel=unstable&type=packages&show=coreutils
       # dix # https://search.nixos.org/packages?channel=unstable&type=packages&show=dix
-      findutils # https://search.nixos.org/packages?channel=unstable&type=packages&show=findutils
       # inputs.flox.packages.${pkgs.system}.default
-      keepass # https://search.nixos.org/packages?channel=unstable&type=packages&show=keepass
-      nushell # https://search.nixos.org/packages?channel=unstable&type=packages&show=nushell
-      pass # https://search.nixos.org/packages?channel=unstable&type=packages&show=pass
       # tmux # https://search.nixos.org/packages?channel=unstable&type=packages&show=tmux
       # unixtools.watch # https://search.nixos.org/packages?channel=unstable&type=packages&show=unixtools.watch
       # vim # https://search.nixos.org/packages?channel=unstable&type=packages&show=vim
