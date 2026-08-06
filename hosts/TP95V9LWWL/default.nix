@@ -56,16 +56,9 @@ in
       # $ nix search nixpkgs wget
       # TODO: https://github.com/nix-community/home-manager/issues/1341 # The `home-manager` has issues adding applications to `~/Applications` directory.
       # keep-sorted start block=yes newline_separated=no
-      bitwarden-cli # https://search.nixos.org/packages?channel=unstable&type=packages&show=bitwarden-cli
-      bitwarden-desktop # https://search.nixos.org/packages?channel=unstable&type=packages&show=bitwarden-desktop
       clang # https://search.nixos.org/packages?channel=unstable&type=packages&show=clang
-      coreutils # https://search.nixos.org/packages?channel=unstable&type=packages&show=coreutils
       # dix # https://search.nixos.org/packages?channel=unstable&type=packages&show=dix
-      findutils # https://search.nixos.org/packages?channel=unstable&type=packages&show=findutils
       # inputs.flox.packages.${pkgs.system}.default
-      keepass # https://search.nixos.org/packages?channel=unstable&type=packages&show=keepass
-      nushell # https://search.nixos.org/packages?channel=unstable&type=packages&show=nushell
-      pass # https://search.nixos.org/packages?channel=unstable&type=packages&show=pass
       tmux # https://search.nixos.org/packages?channel=unstable&type=packages&show=tmux
       unixtools.watch # https://search.nixos.org/packages?channel=unstable&type=packages&show=unixtools.watch
       vim # https://search.nixos.org/packages?channel=unstable&type=packages&show=vim
@@ -302,25 +295,6 @@ in
   # You have set either `nixpkgs.config` or `nixpkgs.overlays` while using `home-manager.useGlobalPkgs`.
   # This will soon not be possible. Please remove all `nixpkgs` options when using `home-manager.useGlobalPkgs`.
   home-manager.useGlobalPkgs = false;
-
-  # Use one of the following commands with the same options to always produce the same UUID.
-  #
-  # ```shell
-  # nix shell nixpkgs#util-linux \
-  # --command uuidgen \
-  # --sha1 \
-  # --namespace @oid \
-  # --name "$(hostname)"
-  # ```
-  #
-  # ```shell
-  # podman run \
-  #   --rm library/alpine:latest \
-  #   sh -c "apk add util-linux \
-  #   && uuidgen \
-  #     --sha1 --namespace @oid --name --name $(hostname)"
-  # ```
-  home-manager.backupFileExtension = "4e317e17-b370-59e5-bec9-9b73efa0a6c5"; # https://nix-community.github.io/home-manager/nixos-options.xhtml#nixos-opt-home-manager.backupFileExtension
 
   home-manager.useUserPackages = true; # https://nix-community.github.io/home-manager/nixos-options.xhtml#nixos-opt-home-manager.useUserPackages
   home-manager.extraSpecialArgs = {
