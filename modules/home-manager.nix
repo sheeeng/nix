@@ -12,8 +12,6 @@
             # keep-sorted start block=no newline_separated=no
             bitwarden-cli # https://search.nixos.org/packages?channel=unstable&type=packages&show=bitwarden-cli
             bitwarden-desktop # https://search.nixos.org/packages?channel=unstable&type=packages&show=bitwarden-desktop
-            coreutils # https://search.nixos.org/packages?channel=unstable&type=packages&show=coreutils
-            findutils # https://search.nixos.org/packages?channel=unstable&type=packages&show=findutils
             keepass # https://search.nixos.org/packages?channel=unstable&type=packages&show=keepass
             nushell # https://search.nixos.org/packages?channel=unstable&type=packages&show=nushell
             pass # https://search.nixos.org/packages?channel=unstable&type=packages&show=pass
