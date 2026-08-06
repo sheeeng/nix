@@ -154,7 +154,16 @@ in
   networking = {
     inherit (hostConfiguration.networking) hostName;
     networkmanager.enable = true;
-    firewall.enable = true;
+    nftables.enable = true; # https://search.nixos.org/options?channel=unstable&show=networking.nftables.enable
+    firewall = {
+      enable = true; # https://search.nixos.org/options?channel=unstable&show=networking.firewall.enable
+      # Allow SSH on port 2222 only from RFC 1918 private ranges, that is, hosts on the same local
+      # subnet. The port is intentionally left out of allowedTCPPorts so it is never exposed globally.
+      # https://search.nixos.org/options?channel=unstable&show=networking.firewall.extraInputRules
+      extraInputRules = ''
+        ip saddr { 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16 } tcp dport 2222 accept
+      '';
+    };
   };
 
   # Nix configuration - reused from darwin with adjustments
@@ -267,6 +276,24 @@ in
   services.fprintd.enable = true;
   services.tailscale.enable = true;
 
+  # OpenSSH server, reachable only from the same subnet through the firewall rule above.
+  services.openssh = {
+    enable = true; # https://search.nixos.org/options?channel=unstable&show=services.openssh.enable
+    ports = [ 2222 ]; # https://search.nixos.org/options?channel=unstable&show=services.openssh.ports
+    # Do not open the firewall globally. Access is scoped to the LAN subnet via
+    # networking.firewall.extraInputRules instead.
+    openFirewall = false; # https://search.nixos.org/options?channel=unstable&show=services.openssh.openFirewall
+    # Trust the Ed25519 public key that home-manager/sops.nix decrypts to the user's home directory
+    # at activation. "%h" expands to the home directory, so sshd reads it at connection time.
+    # https://search.nixos.org/options?channel=unstable&show=services.openssh.authorizedKeysFiles
+    authorizedKeysFiles = [ "%h/.ssh/id_ed25519.pub" ];
+    settings = {
+      PasswordAuthentication = false; # https://search.nixos.org/options?channel=unstable&show=services.openssh.settings.PasswordAuthentication
+      KbdInteractiveAuthentication = false; # https://search.nixos.org/options?channel=unstable&show=services.openssh.settings.KbdInteractiveAuthentication
+      PermitRootLogin = "no"; # https://search.nixos.org/options?channel=unstable&show=services.openssh.settings.PermitRootLogin
+    };
+  };
+
   programs.ssh.startAgent = true;
 
   # Enable CUPS to print documents
@@ -306,6 +333,8 @@ in
       "audio"
     ];
     shell = pkgs.zsh;
+    # Authorized keys are sourced at connection time from the sops-decrypted public key via
+    # services.openssh.authorizedKeysFiles below, so this static list stays empty.
     openssh.authorizedKeys.keys = [ ];
   }; # https://search.nixos.org/options?channel=unstable&show=users.users
 
