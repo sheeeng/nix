@@ -79,23 +79,14 @@
         args = [
           "tool"
           "run"
+          "--python"
+          "3.12"
           "--from"
-          "headroom-ai[all]"
-          # @upstream-issue https://github.com/headroomlabs-ai/headroom/issues/930
-          "--with"
-          "fastapi"
-          "--with"
-          "mcp"
-          "--with"
-          "uvicorn"
+          "headroom-ai[mcp]"
           "headroom"
           "mcp"
           "serve"
         ];
-        env = lib.optionalAttrs pkgs.stdenv.isDarwin {
-          CARGO_TARGET_AARCH64_APPLE_DARWIN_LINKER = "/usr/bin/clang";
-          CC_aarch64_apple_darwin = "/usr/bin/clang";
-        };
       };
       nixos = {
         # https://github.com/utensils/mcp-nixos
