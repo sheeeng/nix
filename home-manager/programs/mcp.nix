@@ -92,6 +92,10 @@
           "mcp"
           "serve"
         ];
+        env = lib.optionalAttrs pkgs.stdenv.isDarwin {
+          CARGO_TARGET_AARCH64_APPLE_DARWIN_LINKER = "/usr/bin/clang";
+          CC_aarch64_apple_darwin = "/usr/bin/clang";
+        };
       };
       nixos = {
         # https://github.com/utensils/mcp-nixos
