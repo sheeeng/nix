@@ -164,6 +164,7 @@
       nixfmt # https://search.nixos.org/packages?channel=unstable&type=packages&show=nixfmt
       nixos-option # https://search.nixos.org/packages?channel=unstable&type=packages&show=nixos-option
       pinact # https://search.nixos.org/packages?channel=unstable&type=packages&show=pinact
+      poppler-utils # https://search.nixos.org/packages?channel=unstable&type=packages&show=poppler-utils
       shfmt # https://search.nixos.org/packages?channel=unstable&type=packages&show=shfmt
       texlab # https://search.nixos.org/packages?channel=unstable&type=packages&show=texlab
       tflint # https://search.nixos.org/packages?channel=unstable&type=packages&show=tflint
