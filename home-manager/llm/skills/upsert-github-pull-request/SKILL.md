@@ -8,7 +8,7 @@ license: Apache-2.0 OR MIT
 
 ## What This Skill Does
 
-- Load the `apply-writing-style` skill for writing style guidelines before continuing.
+- Load the `enforce-writing-style` skill for writing style guidelines before continuing.
 - Analyze all existing commit messages in the feature branch.
 - If the current branch is the main default branch, skip this skill.
 - Create a standard pull request title and description that combine logical commits in the feature branch.

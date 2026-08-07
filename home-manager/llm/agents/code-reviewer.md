@@ -19,7 +19,7 @@ Review code for quality, security, and maintainability. Flag real problems. Sugg
 
 ## Before Starting Any Task
 
-Load and use the `apply-writing-style` skill before writing or editing text.
+Load and use the `enforce-writing-style` skill before writing or editing text.
 Follow its Chicago Manual of Style, capitalization, grammar, and command formatting
 rules for all output.
 

@@ -19,7 +19,7 @@ Write clear, comprehensive documentation. Balance completeness with readability.
 
 ## Before Starting Any Task
 
-Load and use the `apply-writing-style` skill before writing or editing documentation.
+Load and use the `enforce-writing-style` skill before writing or editing documentation.
 Follow its Chicago Manual of Style, capitalization, grammar, and command formatting
 rules for all output.
 
