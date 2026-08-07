@@ -12,6 +12,18 @@ let
       ) (builtins.readDir skillsDir)
     );
 
+  renameSkill =
+    {
+      name,
+      source,
+    }:
+    pkgs.runCommand name { } ''
+      cp --recursive ${source} $out
+      chmod --recursive u+w $out
+      substituteInPlace $out/SKILL.md \
+        --replace-fail "name: ${builtins.baseNameOf source}" "name: ${name}"
+    '';
+
   # obra/superpowers: A complete software development workflow for coding agents.
   # https://github.com/obra/superpowers
   superpowersSrc = pkgs.fetchFromGitHub {
@@ -30,11 +42,39 @@ let
     hash = "sha256-mZZ0rlj/kju7we1h+MvUjgFAVjcZ/qKkMbNZfhfCSvk=";
   };
 
+  # cathrynlavery/diagram-design: Technical and product diagram skill.
+  # https://github.com/cathrynlavery/diagram-design
+  diagramDesignSrc = pkgs.fetchFromGitHub {
+    owner = "cathrynlavery";
+    repo = "diagram-design";
+    rev = "a157f7616473d966d6f433cf0b4d4f1880603504";
+    hash = "sha256-tJVDM9Ujeu4mXLB6SHk62zxIJ0m+VqJu6xX7fJ8IwAo=";
+  };
+
+  designDiagramSkill = renameSkill {
+    name = "design-diagram";
+    source = diagramDesignSrc + "/skills/diagram-design";
+  };
+
   # mattpocock/skills: Skills for real software engineering.
   # https://github.com/mattpocock/skills
   mattPocockSkills =
     discoverDirectorySkills (mattPocockSkillsSource + "/skills/engineering")
     // discoverDirectorySkills (mattPocockSkillsSource + "/skills/productivity");
+
+  # petergyang/no-ai-slop: Human writing editor and detector skill.
+  # https://github.com/petergyang/no-ai-slop
+  noAiSlopSrc = pkgs.fetchFromGitHub {
+    owner = "petergyang";
+    repo = "no-ai-slop";
+    rev = "d30eddb9e04562234f2070b5ee63ca4649d9a05e";
+    hash = "sha256-qpxftQLQAKDnyzPVtidgKACGyCaX2HEW4I/NQuZFOIE=";
+  };
+
+  forbidLlmSlopSkill = renameSkill {
+    name = "forbid-llm-slop";
+    source = noAiSlopSrc + "/skills/no-ai-slop";
+  };
 
   # vercel-labs/skills: Open agent skills ecosystem.
   # https://github.com/vercel-labs/skills
@@ -63,8 +103,8 @@ in
       pi-coding-agent # https://search.nixos.org/packages?channel=unstable&type=packages&show=pi-coding-agent
     ]
     ++ pkgs.lib.optionals (pkgs.stdenv.isDarwin && pkgs.stdenv.hostPlatform.isAarch64) [
-      chatgpt-desktop # https://search.nixos.org/packages?channel=unstable&type=packages&show=chatgpt-desktop
-      codex-bar # https://search.nixos.org/packages?channel=unstable&type=packages&show=codex-bar
+      chatgpt # https://search.nixos.org/packages?channel=unstable&type=packages&show=chatgpt
+      codexbar # https://search.nixos.org/packages?channel=unstable&type=packages&show=codexbar
     ];
 
   agents =
@@ -123,5 +163,10 @@ in
             ) (builtins.readDir skillsDir)
           );
     in
-    mattPocockSkills // localSkills;
+    mattPocockSkills
+    // localSkills
+    // {
+      design-diagram = designDiagramSkill;
+      forbid-llm-slop = forbidLlmSlopSkill;
+    };
 }
