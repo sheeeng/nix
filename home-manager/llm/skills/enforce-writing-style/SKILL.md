@@ -8,7 +8,7 @@ license: Apache-2.0 OR MIT
 
 ## Required Skill Chain
 
-Load `enforce-asd-ste100` and `forbid-llm-slop` before continuing. Apply `enforce-asd-ste100` only to technical documentation and instructions. Do not reload a skill that is already active. Neither skill may load itself or reload `enforce-writing-style`.
+Load `enforce-asd-ste100` and `forbid-llm-slop` before continuing. Apply `enforce-asd-ste100` only to technical documentation and instructions. Load `enforce-chinese-writing-style` for Chinese writing and review tasks. Do not reload a skill that is already active. These enforcement skills must not load themselves or reload `enforce-writing-style`.
 
 ## What This Skill Does
 
