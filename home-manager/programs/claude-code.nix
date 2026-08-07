@@ -13,13 +13,13 @@ let
 in
 {
   home.packages =
-    with pkgs;
-    [
+    commonLlmSettings.packages
+    ++ (with pkgs; [
       claude-mergetool # https://search.nixos.org/packages?channel=unstable&type=packages&show=claude-mergetool
       claude-monitor # https://search.nixos.org/packages?channel=unstable&type=packages&show=claude-monitor
-    ]
+    ])
     ++ (pkgs.lib.optionals (pkgs.stdenv.isDarwin && pkgs.stdenv.hostPlatform.isAarch64) [
-      claude-usage-tracker # Native macOS menu bar app; only available on aarch64-darwin. https://search.nixos.org/packages?channel=unstable&type=packages&show=claude-usage-tracker
+      pkgs.claude-usage-tracker # Native macOS menu bar app; only available on aarch64-darwin. https://search.nixos.org/packages?channel=unstable&type=packages&show=claude-usage-tracker
     ]);
 
   programs.claude-code = {

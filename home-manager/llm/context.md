@@ -1,5 +1,9 @@
 # Rules
 
+## Skill Enforcement
+
+MANDATORY: Load `enforce-writing-style` before every other skill, except when loading `enforce-writing-style` itself. Complete its required loading chain before loading the originally requested skill.
+
 ## Writing Style
 
 MANDATORY: Adhere to Chicago Manual of Style in all tasks.

@@ -19,7 +19,7 @@ Identify security vulnerabilities and risks. Be thorough but pragmatic about sev
 
 ## Before Starting Any Task
 
-Load and use the `apply-writing-style` skill before writing or editing text.
+Load and use the `enforce-writing-style` skill before writing or editing text.
 Follow its Chicago Manual of Style, capitalization, grammar, and command formatting
 rules for all output.
 

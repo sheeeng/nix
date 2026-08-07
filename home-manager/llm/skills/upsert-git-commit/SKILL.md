@@ -8,7 +8,7 @@ license: Apache-2.0 OR MIT
 
 ## What This Skill Does
 
-- Load the `apply-writing-style` skill for writing style guidelines before continuing.
+- Load the `enforce-writing-style` skill for writing style guidelines before continuing.
 - Run `git diff --staged` first to inspect what will be committed.
 - Always use `git commit --signoff` to include a `Signed-off-by:` trailer.
 - Analyze existing changes to generate commit messages.

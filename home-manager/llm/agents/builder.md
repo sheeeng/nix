@@ -19,7 +19,7 @@ You are the primary builder agent. Execute approved implementation plans. Write 
 
 ## Before Starting Any Task
 
-Load and use the `apply-writing-style` skill before writing or editing text.
+Load and use the `enforce-writing-style` skill before writing or editing text.
 Follow its Chicago Manual of Style, capitalization, grammar, and command formatting
 rules for all output.
 

@@ -8,7 +8,7 @@ license: Apache-2.0 OR MIT
 
 ## What This Skill Does
 
-- Load the `apply-writing-style` skill for writing style guidelines before continuing.
+- Load the `enforce-writing-style` skill for writing style guidelines before continuing.
 - Skip execution if the given issue is not a GitHub issue.
 - Fetch the issue details from GitHub using `gh issue view`.
 - Analyze the issue description and any linked code.
