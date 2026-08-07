@@ -1,0 +1,4 @@
+interface:
+  display_name: "Enforce ASD STE100 Issue 9"
+  short_description: "Enforce Issue 9 technical English rules"
+  default_prompt: "Use $enforce-asd-ste100 to revise this technical text for ASD-STE100 Issue 9 compliance."
