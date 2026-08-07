@@ -1,10 +1,14 @@
 ---
-name: apply-writing-style
-description: Apply consistent writing style to comments, documentation, commit messages, and prose, covering Chicago Manual of Style capitalization, grammar, punctuation, and GNU-style command formatting. Use whenever writing or editing comments, documentation, README files, or any user-facing text, and whenever another skill asks to load writing-style guidelines before generating prose.
+name: enforce-writing-style
+description: Enforce consistent writing style for comments, documentation, commit messages, and prose, covering Chicago Manual of Style capitalization, grammar, punctuation, GNU-style command formatting, and avoidance of LLM slop. Load before every other skill.
 license: Apache-2.0 OR MIT
 ---
 
 # Writing Style
+
+## Required Skill Chain
+
+Load `enforce-asd-ste100` and `forbid-llm-slop` before continuing. Apply `enforce-asd-ste100` only to technical documentation and instructions. Do not reload a skill that is already active. Neither skill may load itself or reload `enforce-writing-style`.
 
 ## What This Skill Does
 
