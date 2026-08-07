@@ -382,7 +382,6 @@ packageOverrides = pkgs: {
 substituters = [
   # ... existing caches ...
   "https://numtide.cachix.org"
-  "https://cache.garnix.io"
 ];
 ```
 
@@ -392,7 +391,6 @@ substituters = [
 trusted-public-keys = [
   # ... existing keys ...
   "numtide.cachix.org-1:2ps1kLBUWjxIneOy1Ber+6DVwQ5REeEhfBc3HIM2+8s="
-  "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
 ];
 ```
 
@@ -472,7 +470,6 @@ curl -sL "https://channels.nixos.org/nixos-unstable/git-revision"
 | `nix-citizen.cachix.org`     | Star Citizen         | default          |
 | `cache.nixos-cuda.org`       | CUDA packages        | default          |
 | `numtide.cachix.org`         | Numtide packages     | default          |
-| `cache.garnix.io`            | Garnix CI builds     | default          |
 
 ### How Nix Cache Lookup Works
 
