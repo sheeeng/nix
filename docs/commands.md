@@ -2,6 +2,22 @@
 
 ## Getting Started
 
+### Darwin
+
+```shell
+nix flake update && nix run github:lnl7/nix-darwin -- build --flake ~/github/sheeeng/nix  --print-build-logs --show-trace --verbose --cores 0 --max-jobs 10 2>&1 | nix run nixpkgs#nix-output-monitor
+
+sudo --validate && sudo nix run github:lnl7/nix-darwin -- switch --flake ~/github/sheeeng/nix  --print-build-logs --show-trace --verbose --cores 0 --max-jobs 10 2>&1 | nix run nixpkgs#nix-output-monitor
+```
+
+### Linux
+
+```shell
+sudo --validate && sudo nixos-rebuild switch --print-build-logs --show-trace --verbose --cores 0 --max-jobs 8 --flake ~/github/sheeeng/nix 2>&1 | nix run nixpkgs#nix-output-monitor
+```
+
+### Miscellenous
+
 ```shell
 export NIX_CONFIG="experimental-features = nix-command flakes"; # nix --extra-experimental-features 'nix-command flakes'
 
