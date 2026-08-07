@@ -650,6 +650,7 @@ in
       beads = "${pkgs.beads.src}/claude-plugin/skills/beads"; # A skill can also be a subdirectory within a Nix package source store path.
       design-diagram = commonLlmSettings.skills.design-diagram;
       enforce-asd-ste100 = commonLlmSettings.skills.enforce-asd-ste100;
+      enforce-chinese-writing-style = commonLlmSettings.skills.enforce-chinese-writing-style;
       enforce-writing-style = commonLlmSettings.skills.enforce-writing-style;
       find-skills = "${commonLlmSettings.vercelSkillsSrc}/skills/find-skills";
       fix-github-issue = commonLlmSettings.skills.fix-github-issue;

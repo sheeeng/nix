@@ -56,6 +56,26 @@ let
     source = diagramDesignSrc + "/skills/diagram-design";
   };
 
+  # Fenng/Tech-Doc-Style-Chinese: Chinese technical writing style skill.
+  # https://github.com/Fenng/Tech-Doc-Style-Chinese
+  chineseWritingStyleSrc = pkgs.fetchFromGitHub {
+    owner = "Fenng";
+    repo = "Tech-Doc-Style-Chinese";
+    rev = "a6f5b6064b92cac113e1277e5fbd266042e20577";
+    hash = "sha256-4DFY9B5UERlwv883bjRbABYNdyZ12BWyDtGKanFQsEw=";
+  };
+
+  enforceChineseWritingStyleSkill = pkgs.runCommand "enforce-chinese-writing-style" { } ''
+    mkdir $out
+    cp ${chineseWritingStyleSrc}/LICENSE $out/LICENSE
+    cp ${chineseWritingStyleSrc}/SKILL.md $out/SKILL.md
+    cp --recursive ${chineseWritingStyleSrc}/agents $out/agents
+    cp --recursive ${chineseWritingStyleSrc}/references $out/references
+    chmod --recursive u+w $out
+    substituteInPlace $out/SKILL.md \
+      --replace-fail "name: tech-doc-style-chinese" "name: enforce-chinese-writing-style"
+  '';
+
   # mattpocock/skills: Skills for real software engineering.
   # https://github.com/mattpocock/skills
   mattPocockSkills =
@@ -167,6 +187,7 @@ in
     // localSkills
     // {
       design-diagram = designDiagramSkill;
+      enforce-chinese-writing-style = enforceChineseWritingStyleSkill;
       forbid-llm-slop = forbidLlmSlopSkill;
     };
 }
