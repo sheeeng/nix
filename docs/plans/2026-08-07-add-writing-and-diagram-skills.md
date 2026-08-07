@@ -79,7 +79,7 @@ Expected: the instructions define a finite loading chain with no recursion.
 
 Expected: all evaluations and quality gates succeed.
 
-## Task 5: Commit and Push
+## Task 5: Commit and Push, Completed
 
 ### Files
 
