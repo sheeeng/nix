@@ -143,24 +143,24 @@ in
             aaron-bond.better-comments # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.aaron-bond.better-comments
             adpyke.codesnap # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.adpyke.codesnap
             arrterian.nix-env-selector # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.arrterian.nix-env-selector
-            bbenoist.nix
-            bierner.github-markdown-preview
-            bierner.markdown-checkbox
-            bierner.markdown-emoji
-            bierner.markdown-footnotes
-            bierner.markdown-mermaid
-            bierner.markdown-preview-github-styles
-            brettm12345.nixfmt-vscode
-            christian-kohler.path-intellisense
-            dart-code.dart-code
-            davidanson.vscode-markdownlint
-            dbaeumer.vscode-eslint
+            bbenoist.nix # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.bbenoist.nix
+            bierner.github-markdown-preview # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.bierner.github-markdown-preview
+            bierner.markdown-checkbox # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.bierner.markdown-checkbox
+            bierner.markdown-emoji # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.bierner.markdown-emoji
+            bierner.markdown-footnotes # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.bierner.markdown-footnotes
+            bierner.markdown-mermaid # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.bierner.markdown-mermaid
+            bierner.markdown-preview-github-styles # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.bierner.markdown-preview-github-styles
+            brettm12345.nixfmt-vscode # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.brettm12345.nixfmt-vscode
+            christian-kohler.path-intellisense # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.christian-kohler.path-intellisense
+            dart-code.dart-code # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.dart-code.dart-code
+            davidanson.vscode-markdownlint # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.davidanson.vscode-markdownlint
+            dbaeumer.vscode-eslint # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.dbaeumer.vscode-eslint
             dracula-theme.theme-dracula # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.dracula-theme.theme-dracula
-            ecmel.vscode-html-css
-            editorconfig.editorconfig
-            esbenp.prettier-vscode
-            formulahendry.auto-close-tag
-            foxundermoon.shell-format
+            ecmel.vscode-html-css # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.ecmel.vscode-html-css
+            editorconfig.editorconfig # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.editorconfig.editorconfig
+            esbenp.prettier-vscode # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.esbenp.prettier-vscode
+            formulahendry.auto-close-tag # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.formulahendry.auto-close-tag
+            foxundermoon.shell-format # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.foxundermoon.shell-format
             github.codespaces # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.github.codespaces
             github.copilot # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.github.copilot
             github.copilot-chat # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.github.copilot-chat
@@ -176,46 +176,46 @@ in
             jebbs.plantuml # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.jebbs.plantuml
             jnoortheen.nix-ide # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.jnoortheen.nix-ide
             justusadam.language-haskell # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.justusadam.language-haskell
-            kamikillerto.vscode-colorize
-            marp-team.marp-vscode
-            mechatroner.rainbow-csv
-            mikestead.dotenv
-            mkhl.direnv
-            ms-azuretools.vscode-docker
-            ms-dotnettools.vscode-dotnet-runtime
+            kamikillerto.vscode-colorize # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.kamikillerto.vscode-colorize
+            marp-team.marp-vscode # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.marp-team.marp-vscode
+            mechatroner.rainbow-csv # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.mechatroner.rainbow-csv
+            mikestead.dotenv # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.mikestead.dotenv
+            mkhl.direnv # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.mkhl.direnv
+            ms-azuretools.vscode-docker # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.ms-azuretools.vscode-docker
+            ms-dotnettools.vscode-dotnet-runtime # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.ms-dotnettools.vscode-dotnet-runtime
             ms-kubernetes-tools.vscode-kubernetes-tools # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.ms-kubernetes-tools.vscode-kubernetes-tools
-            ms-python.debugpy
+            ms-python.debugpy # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.ms-python.debugpy
             ms-python.flake8 # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.ms-python.flake8
             ms-python.isort # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.ms-python.isort
-            ms-python.vscode-pylance
-            ms-vscode-remote.remote-containers
-            ms-vscode-remote.remote-ssh
-            ms-vscode-remote.remote-ssh-edit
-            ms-vscode-remote.vscode-remote-extensionpack
-            ms-vscode.live-server
-            ms-vscode.makefile-tools
+            ms-python.vscode-pylance # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.ms-python.vscode-pylance
+            ms-vscode-remote.remote-containers # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.ms-vscode-remote.remote-containers
+            ms-vscode-remote.remote-ssh # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.ms-vscode-remote.remote-ssh
+            ms-vscode-remote.remote-ssh-edit # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.ms-vscode-remote.remote-ssh-edit
+            ms-vscode-remote.vscode-remote-extensionpack # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.ms-vscode-remote.vscode-remote-extensionpack
+            ms-vscode.live-server # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.ms-vscode.live-server
+            ms-vscode.makefile-tools # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.ms-vscode.makefile-tools
             ms-vscode.powershell # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.ms-vscode.powershell
-            ms-vsliveshare.vsliveshare
-            oderwat.indent-rainbow
-            pkief.material-icon-theme
-            redhat.java
-            redhat.vscode-xml
-            redhat.vscode-yaml
-            sdras.night-owl
-            shardulm94.trailing-spaces
-            shopify.ruby-lsp
+            ms-vsliveshare.vsliveshare # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.ms-vsliveshare.vsliveshare
+            oderwat.indent-rainbow # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.oderwat.indent-rainbow
+            pkief.material-icon-theme # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.pkief.material-icon-theme
+            redhat.java # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.redhat.java
+            redhat.vscode-xml # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.redhat.vscode-xml
+            redhat.vscode-yaml # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.redhat.vscode-yaml
+            sdras.night-owl # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.sdras.night-owl
+            shardulm94.trailing-spaces # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.shardulm94.trailing-spaces
+            shopify.ruby-lsp # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.shopify.ruby-lsp
             skellock.just # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.skellock.just
-            streetsidesoftware.code-spell-checker
-            sumneko.lua
-            tamasfe.even-better-toml
+            streetsidesoftware.code-spell-checker # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.streetsidesoftware.code-spell-checker
+            sumneko.lua # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.sumneko.lua
+            tamasfe.even-better-toml # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.tamasfe.even-better-toml
             thenuprojectcontributors.vscode-nushell-lang # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.thenuprojectcontributors.vscode-nushell-lang
-            timonwong.shellcheck
-            tomoki1207.pdf
-            vscjava.vscode-gradle
-            vscjava.vscode-java-debug
-            vscjava.vscode-java-dependency
-            vscjava.vscode-java-pack
-            vscjava.vscode-java-test
+            timonwong.shellcheck # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.timonwong.shellcheck
+            tomoki1207.pdf # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.tomoki1207.pdf
+            vscjava.vscode-gradle # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.vscjava.vscode-gradle
+            vscjava.vscode-java-debug # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.vscjava.vscode-java-debug
+            vscjava.vscode-java-dependency # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.vscjava.vscode-java-dependency
+            vscjava.vscode-java-pack # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.vscjava.vscode-java-pack
+            vscjava.vscode-java-test # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.vscjava.vscode-java-test
             vscjava.vscode-maven # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.vscjava.vscode-maven
             xadillax.viml # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.xadillax.viml
             yzhang.markdown-all-in-one # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.yzhang.markdown-all-in-one
@@ -245,15 +245,34 @@ in
               })
             )
 
-            # ms-kubernetes-tools.vscode-aks-tools
+            # https://marketplace.visualstudio.com/items?itemname=robbowen.synthwave-vscode
+            # https://github.com/robb0wen/synthwave-vscode
+            (pkgs.vscode-utils.buildVscodeExtension {
+              name = "synthwave-vscode";
+              pname = "synthwave-vscode";
+              src = pkgs.fetchFromGitHub {
+                owner = "robb0wen";
+                repo = "synthwave-vscode";
+                rev = "ecfa2fe1279f7233663fa3f98a96e6756000567b"; # 0.1.20
+                hash = "sha256-c+ANBRI2RnnjNt/13vMLCNzsyif8CPp4T3jz+uk+ILU=";
+              };
+              version = "unstable-2025-08-26";
+              vscodeExtName = "synthwave-vscode";
+              vscodeExtPublisher = "robb0wen";
+              vscodeExtUniqueId = "robb0wen.synthwave-vscode";
+              sourceRoot = ".";
+            })
+
+            # https://marketplace.visualstudio.com/items?itemname=ms-kubernetes-tools.vscode-aks-tools
+            # https://github.com/azure/vscode-aks-tools
             (pkgs.vscode-utils.buildVscodeExtension {
               name = "vscode-aks-tools";
               pname = "vscode-aks-tools";
               src = pkgs.fetchFromGitHub {
-                owner = "Azure";
+                owner = "azure";
                 repo = "vscode-aks-tools";
-                rev = "4de0348be590ab1bdbe88641208fd3a7ea4b3b38"; # 1.6.13
-                sha256 = "14bmw98v3jng3va8xgan77xvsw6wgqcvhl09pj7dglfmjyjrkyix";
+                rev = "cad0d90765af2919a4f7d987d3e33b2f6189c8c0"; # 2.4.0
+                hash = "sha256-UlmvRSj8bhcZDGKgVzcpBcrYUyK7/1egFG2CC2/d0ME=";
               };
               version = "unstable-2025-08-26";
               vscodeExtName = "vscode-aks-tools";
