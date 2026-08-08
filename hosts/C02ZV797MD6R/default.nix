@@ -25,7 +25,17 @@ let
   # stable Darwin branch through the nixpkgs-darwin-x86_64 input. Read the
   # package set from that pinned input, because inputs.nixpkgs no longer
   # provides legacyPackages.x86_64-darwin.
-  pkgs-unstable = inputs.nixpkgs-darwin-x86_64.legacyPackages.${hostConfiguration.systemPlatform};
+  #
+  # Import the pinned Nixpkgs directly rather than reading legacyPackages,
+  # because 26.05 is the last release to support x86_64-darwin and warns on
+  # every evaluation for this platform. Setting allowDeprecatedx86_64Darwin
+  # silences that warning. The release notes recommend this import form as the
+  # flakes replacement for nixpkgs.legacyPackages.x86_64-darwin.
+  # https://github.com/NixOS/nixpkgs/blob/nixpkgs-26.05-darwin
+  pkgs-unstable = import inputs.nixpkgs-darwin-x86_64 {
+    system = hostConfiguration.systemPlatform;
+    config.allowDeprecatedx86_64Darwin = true;
+  };
 in
 {
   imports = [
@@ -223,6 +233,10 @@ in
       enableParallelBuildingByDefault = false; # https://nixos.org/manual/nixpkgs/unstable/#opt-enableParallelBuildingByDefault
       showAliases = true; # https://nixos.org/manual/nixpkgs/unstable/#opt-allowAliases
       allowBroken = false; # https://nixos.org/manual/nixpkgs/unstable/#opt-allowBroken
+      # Nixpkgs 26.05 is the last release to support x86_64-darwin and warns on
+      # every evaluation for this platform. Silence that warning here.
+      # https://github.com/NixOS/nixpkgs/blob/nixpkgs-26.05-darwin
+      allowDeprecatedx86_64Darwin = true;
       allowUnfree = true; # https://nixos.org/manual/nixpkgs/unstable/#opt-allowUnfree
       allowUnsupportedSystem = false; # https://nixos.org/manual/nixpkgs/unstable/#opt-allowUnsupportedSystem
 
@@ -315,6 +329,12 @@ in
         (import ../../overlays { inherit inputs; }).additions
         (import ../../overlays { inherit inputs; }).modifications
       ];
+
+      # Home Manager re-imports Nixpkgs from the 26.05 source on this host,
+      # because home-manager.useGlobalPkgs is false. Silence the same
+      # x86_64-darwin deprecation warning for that import.
+      # https://github.com/NixOS/nixpkgs/blob/nixpkgs-26.05-darwin
+      nixpkgs.config.allowDeprecatedx86_64Darwin = true;
 
       # Disable the Home Manager targets.darwin.copyApps module on this host.
       # The module defaults to enabled on Darwin at stateVersion 25.11 or
