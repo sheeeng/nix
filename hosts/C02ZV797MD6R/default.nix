@@ -49,10 +49,10 @@ in
   ];
 
   documentation = {
-    enable = true; # https://nix-darwin.github.io/nix-darwin/manual/#opt-documentation.enable
-    doc.enable = true; # https://nix-darwin.github.io/nix-darwin/manual/#opt-documentation.doc.enable
-    info.enable = true; # https://nix-darwin.github.io/nix-darwin/manual/#opt-documentation.info.enable
-    man.enable = true; # https://nix-darwin.github.io/nix-darwin/manual/#opt-documentation.man.enable
+    enable = false; # https://nix-darwin.github.io/nix-darwin/manual/#opt-documentation.enable
+    doc.enable = false; # https://nix-darwin.github.io/nix-darwin/manual/#opt-documentation.doc.enable
+    info.enable = false; # https://nix-darwin.github.io/nix-darwin/manual/#opt-documentation.info.enable
+    man.enable = false; # https://nix-darwin.github.io/nix-darwin/manual/#opt-documentation.man.enable
   };
 
   environment = {
