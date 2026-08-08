@@ -5,6 +5,7 @@
     ../packages/minimal-cli.nix
     ../packages/git
     ../programs/atuin.nix
+    ../programs/codex.nix
     ../programs/fzf.nix
     ../programs/ssh.nix
     ../programs/starship.nix
