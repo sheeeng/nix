@@ -1,5 +1,6 @@
 {
   inputs,
+  lib,
   pkgs,
   ...
 }:
@@ -19,9 +20,15 @@ in
   # Place superpowers plugin so OpenCode discovers it at startup.
   # The plugin injects the using-superpowers skill into the system prompt
   # via the experimental.chat.system.transform hook.
-  xdg.configFile."opencode/plugins/superpowers.js" = {
-    source = opencodeSuperpowersPlugin;
-  };
+  #
+  # Nixpkgs dropped x86_64-darwin support, so OpenCode is disabled on Intel
+  # Macs through the enable option below. Guard the plugin file with the same
+  # condition, so activation writes no OpenCode artifacts there either.
+  xdg.configFile."opencode/plugins/superpowers.js" =
+    lib.mkIf (pkgs.stdenv.system != "x86_64-darwin")
+      {
+        source = opencodeSuperpowersPlugin;
+      };
 
   programs.opencode = {
     enable = pkgs.stdenv.system != "x86_64-darwin"; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.opencode.enable # Disabled on x86_64-darwin.
