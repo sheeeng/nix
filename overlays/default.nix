@@ -121,7 +121,7 @@
             postInstall = (previousAttributes.postInstall or "") + ''
               find "$out" -type f -name '*.exe' -delete
             '';
-            outputHash = "sha256-G3f1E8bhTJUSAS9+tmpIbsJJtjFmUSI7aoHw3H1tge8=";
+            outputHash = "sha256-gb1vgLGiK56A9Xtg71d2J9ct8TJAjDg1A7cOUx0v3cA=";
           });
         })
       else
