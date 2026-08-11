@@ -19,7 +19,6 @@ in
   imports = [
     ./development.nix
     ./fonts.nix
-    ./klipper.nix
     ./packages.nix
     ./programs.nix
     ./scripts.nix
