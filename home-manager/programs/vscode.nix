@@ -102,7 +102,6 @@ let
   #        Output paths:
   #          /nix/store/z3010bcdflwfljji7phjagsrl0dfmadx-darwin-system-26.05.c31afa6
   llvmDependentExtensions = with pkgs.vscode-extensions; [
-    Google.gemini-cli-vscode-ide-companion # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.Google.gemini-cli-vscode-ide-companion
     rust-lang.rust-analyzer # https://search.nixos.org/packages?channel=unstable&type=packages&query=vscode-extensions.rust-lang.rust-analyzer
   ];
 in
