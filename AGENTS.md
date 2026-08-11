@@ -34,7 +34,7 @@
 - Use GNU-style explicit long options over abbreviated ones. Examples:
     - Use `date --universal +"%Y-%m-%dT%H:%M:%SZ"` over `date -u +"%Y-%m-%dT%H:%M:%SZ"`.
     - Use `ls --all --list --numeric-uid-gid` over `ls -sln`.
-    - Use `set --option errexit` over `set -e` in shell scripts.
+    - Use `set -o errexit` over `set -e` in shell scripts.
     - Use `git commit --message` over `git commit -m`.
 - Save suggested commands in [docs/commands.md](./docs/commands.md).
 
