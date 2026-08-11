@@ -27,44 +27,4 @@
     # keep-sorted end
   ]; # https://search.nixos.org/options?channel=unstable&query=environment.systemPackages&type=options#show=option%253Aenvironment.systemPackages
 
-  services.displayManager = {
-    defaultSession = "gnome";
-    gdm.enable = true;
-  };
-  services.desktopManager.gnome.enable = true;
-
-  # Use GCR so that the GNOME login keyring can unlock and load SSH keys.
-  # Disable the OpenSSH agent because NixOS permits only one SSH agent.
-  programs.ssh.startAgent = false;
-  services.gnome.gcr-ssh-agent.enable = true;
-
-  home-manager.sharedModules = [
-    ({ lib, ... }: {
-      dconf.settings = {
-        "com/github/libpinyin/ibus-libpinyin/libpinyin" = {
-          input-traditional = true;
-        };
-        "org/gnome/desktop/interface" = {
-          cursor-size = 24;
-          cursor-theme = "Adwaita";
-        };
-        "org/gnome/desktop/input-sources" = {
-          sources = [
-            (lib.hm.gvariant.mkTuple [
-              "xkb"
-              "us"
-            ])
-            (lib.hm.gvariant.mkTuple [
-              "ibus"
-              "mozc-jp"
-            ])
-            (lib.hm.gvariant.mkTuple [
-              "ibus"
-              "pinyin"
-            ])
-          ];
-        };
-      };
-    })
-  ];
 }
