@@ -43,7 +43,7 @@ MANDATORY: Use GNU-style explicit long options over abbreviated ones in all comm
 
 - Use `date --universal +"%Y-%m-%dT%H:%M:%SZ"` over `date -u +"%Y-%m-%dT%H:%M:%SZ"`.
 - Use `ls --all --list --numeric-uid-gid` over `ls -sln`.
-- Use `set --option errexit` over `set -e` in shell scripts.
+- Use `set -o errexit` over `set -e` in shell scripts.
 - Use `git commit --message` over `git commit -m`.
 - Use `echo --no-newline` over `echo -n`.
 - Use `wc --chars` over `wc -c`.
