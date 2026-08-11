@@ -260,6 +260,17 @@ in
     };
   };
 
+  services.displayManager = {
+    defaultSession = "gnome";
+    gdm.enable = true;
+  };
+  services.desktopManager.gnome.enable = true;
+
+  # Use GCR so that the GNOME login keyring can unlock and load SSH keys.
+  # Disable the OpenSSH agent because NixOS permits only one SSH agent.
+  programs.ssh.startAgent = false;
+  services.gnome.gcr-ssh-agent.enable = true;
+
   programs.hyprland = {
     enable = true;
     withUWSM = true;
@@ -334,6 +345,43 @@ in
 
   home-manager.sharedModules = [
     inputs.nix-index-database.homeModules.nix-index
+    ({ lib, ... }: {
+      dconf.settings = {
+        "com/github/libpinyin/ibus-libpinyin/libpinyin" = {
+          input-traditional = true;
+        };
+        "org/gnome/Console" = {
+          custom-font = "";
+          use-system-font = true;
+        };
+        "org/gnome/desktop/interface" = {
+          color-scheme = "default";
+          cursor-size = 24;
+          cursor-theme = "Adwaita";
+          document-font-name = "Adwaita Sans 12";
+          font-name = "Adwaita Sans 11";
+          gtk-theme = "Adwaita";
+          icon-theme = "Adwaita";
+          monospace-font-name = "Adwaita Mono 11";
+        };
+        "org/gnome/desktop/input-sources" = {
+          sources = [
+            (lib.hm.gvariant.mkTuple [
+              "xkb"
+              "us"
+            ])
+            (lib.hm.gvariant.mkTuple [
+              "ibus"
+              "mozc-jp"
+            ])
+            (lib.hm.gvariant.mkTuple [
+              "ibus"
+              "pinyin"
+            ])
+          ];
+        };
+      };
+    })
     # Apply overlays to home-manager's pkgs. It is required when useGlobalPkgs = false.
     {
       nixpkgs.overlays = [

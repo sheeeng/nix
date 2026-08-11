@@ -65,6 +65,7 @@ in
       gnupg
       helix
       htop
+      kdePackages.kate
       neovim
       openssh
       tailscale # https://search.nixos.org/packages?channel=unstable&type=packages&show=tailscale
@@ -268,6 +269,11 @@ in
     };
   };
 
+  services.displayManager = {
+    defaultSession = "plasma";
+    sddm.enable = true;
+  };
+  services.desktopManager.plasma6.enable = true;
   services.fprintd.enable = true;
   services.tailscale.enable = true;
 
@@ -289,6 +295,8 @@ in
     };
   };
 
+  programs.ssh.startAgent = true;
+
   # Enable CUPS to print documents
   services.printing.enable = true;
 
@@ -303,7 +311,7 @@ in
     pulse.enable = true;
   };
 
-  # Disable yubikey-agent because gcr-ssh-agent handles SSH keys on this host.
+  # Disable yubikey-agent because OpenSSH handles SSH keys on this host.
   # The gpg-agent handles GPG operations only on Linux.
   services.yubikey-agent.enable = false; # https://search.nixos.org/options?channel=unstable&show=services.yubikey-agent.enable
 
@@ -369,7 +377,7 @@ in
   ];
 
   home-manager.users."${hostConfiguration.primaryUser}" =
-    { ... }:
+    { lib, pkgs, ... }:
     {
       imports = [
         ../../home-manager/home.nix
@@ -378,6 +386,16 @@ in
         inputs.nix-index-database.homeModules.nix-index
         inputs.nixvim.homeModules.nixvim
       ];
+
+      home.packages = with pkgs; [
+        apple-cursor
+        banana-cursor
+        kdePackages.konsole
+        krita
+        pokemon-cursor
+      ];
+
+      systemd.user.services.ssh-add-keys = lib.mkForce { };
     };
 
   home-manager.verbose = false;
