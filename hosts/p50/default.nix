@@ -65,7 +65,6 @@ in
       gnupg
       helix
       htop
-      kdePackages.kate
       neovim
       openssh
       tailscale # https://search.nixos.org/packages?channel=unstable&type=packages&show=tailscale

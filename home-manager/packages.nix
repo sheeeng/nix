@@ -348,7 +348,6 @@
       # aseprite # @upstream-issue https://github.com/NixOS/nixpkgs/issues/445447 # https://search.nixos.org/packages?channel=unstable&type=packages&show=aseprite
       emulsion-palette # TODO: Missing "aarch64-apple-darwin" platform. # https://search.nixos.org/packages?channel=unstable&type=packages&show=emulsion-palette
       eyedropper # TODO: Missing "aarch64-apple-darwin" platform. # https://search.nixos.org/packages?channel=unstable&type=packages&show=eyedropper
-      krita # https://search.nixos.org/packages?channel=unstable&type=packages&show=krita
       pureref # TODO: Missing "aarch64-apple-darwin" platform. # https://search.nixos.org/packages?channel=unstable&type=packages&show=pureref
       # keep-sorted end
 
@@ -371,7 +370,6 @@
       # Terminal Emulators
       # keep-sorted start block=no newline_separated=no sticky_comments=no
       ghostty # https://search.nixos.org/packages?channel=unstable&type=packages&show=ghostty
-      kdePackages.konsole # https://search.nixos.org/packages?channel=unstable&type=packages&show=konsole
       # keep-sorted end
 
       # Shell Utilities
