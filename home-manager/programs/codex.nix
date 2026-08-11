@@ -19,6 +19,10 @@ let
       pkgs.lib.nameValuePair ".codex/skills/${name}/SKILL.md" { inherit source; }
   ) commonLlmSettings.skills;
 
+  codexPromptFiles = pkgs.lib.mapAttrs' (
+    name: source: pkgs.lib.nameValuePair ".codex/prompts/${name}.md" { inherit source; }
+  ) commonLlmSettings.commands;
+
   # Nixpkgs dropped x86_64-darwin support, so the LLM tooling below no longer
   # evaluates on Intel Macs.
   codexEnabled = pkgs.stdenv.hostPlatform.system != "x86_64-darwin";
@@ -35,6 +39,7 @@ in
   home = {
     file = pkgs.lib.mkIf codexEnabled (
       codexSkillFiles
+      // codexPromptFiles
       // {
         ".codex/AGENTS.md".source = commonLlmSettings.context;
       }
