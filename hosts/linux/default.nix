@@ -31,13 +31,12 @@
     defaultSession = "gnome";
     gdm.enable = true;
   };
-  services.desktopManager = {
-    gnome.enable = true;
-    plasma6.enable = true;
-  };
+  services.desktopManager.gnome.enable = true;
 
+  # Use GCR so that the GNOME login keyring can unlock and load SSH keys.
+  # Disable the OpenSSH agent because NixOS permits only one SSH agent.
   programs.ssh.startAgent = false;
-  systemd.user.sockets.gcr-ssh-agent.enable = true;
+  services.gnome.gcr-ssh-agent.enable = true;
 
   home-manager.sharedModules = [
     ({ lib, ... }: {
