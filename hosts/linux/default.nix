@@ -26,4 +26,42 @@
     uutils-tar # https://search.nixos.org/packages?channel=unstable&type=packages&show=uutils-tar
     # keep-sorted end
   ]; # https://search.nixos.org/options?channel=unstable&query=environment.systemPackages&type=options#show=option%253Aenvironment.systemPackages
+
+  services.displayManager = {
+    defaultSession = "gnome";
+    gdm.enable = true;
+  };
+  services.desktopManager = {
+    gnome.enable = true;
+    plasma6.enable = true;
+  };
+
+  programs.ssh.startAgent = false;
+  systemd.user.sockets.gcr-ssh-agent.enable = true;
+
+  home-manager.sharedModules = [
+    ({ lib, ... }: {
+      dconf.settings = {
+        "com/github/libpinyin/ibus-libpinyin/libpinyin" = {
+          input-traditional = true;
+        };
+        "org/gnome/desktop/input-sources" = {
+          sources = [
+            (lib.hm.gvariant.mkTuple [
+              "xkb"
+              "us"
+            ])
+            (lib.hm.gvariant.mkTuple [
+              "ibus"
+              "mozc-jp"
+            ])
+            (lib.hm.gvariant.mkTuple [
+              "ibus"
+              "pinyin"
+            ])
+          ];
+        };
+      };
+    })
+  ];
 }
