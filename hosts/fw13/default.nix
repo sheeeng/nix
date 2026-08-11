@@ -260,16 +260,11 @@ in
     };
   };
 
-  services.displayManager.sddm.enable = true;
-  services.desktopManager.plasma6.enable = true;
-
   programs.hyprland = {
     enable = true;
     withUWSM = true;
   };
   programs.sway.enable = true;
-
-  programs.ssh.startAgent = true;
 
   # Enable CUPS to print documents
   services.printing.enable = true;
@@ -285,7 +280,7 @@ in
     pulse.enable = true;
   };
 
-  # Disable yubikey-agent because OpenSSH handles SSH keys on this host.
+  # Disable yubikey-agent because gcr-ssh-agent handles SSH keys on this host.
   # The gpg-agent handles GPG operations only on Linux.
   services.yubikey-agent.enable = false; # https://search.nixos.org/options?channel=unstable&show=services.yubikey-agent.enable
 
@@ -349,7 +344,7 @@ in
   ];
 
   home-manager.users."${hostConfiguration.primaryUser}" =
-    { lib, ... }:
+    { ... }:
     {
       imports = [
         ../../home-manager/home.nix
@@ -358,8 +353,6 @@ in
         inputs.nix-index-database.homeModules.nix-index
         inputs.nixvim.homeModules.nixvim
       ];
-
-      systemd.user.services.ssh-add-keys = lib.mkForce { };
     };
 
   home-manager.verbose = false;
