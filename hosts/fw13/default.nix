@@ -260,19 +260,16 @@ in
     };
   };
 
-  services.displayManager.gdm.enable = true;
-  services.desktopManager.gnome.enable = true;
+  services.displayManager.sddm.enable = true;
+  services.desktopManager.plasma6.enable = true;
 
-  # Disable system SSH agent; GNOME Keyring's gcr-ssh-agent handles SSH keys.
-  programs.ssh.startAgent = false;
+  programs.hyprland = {
+    enable = true;
+    withUWSM = true;
+  };
+  programs.sway.enable = true;
 
-  # Enable the gcr-ssh-agent from GNOME as the single SSH agent for the session.
-  # Note that the gcr-ssh-agent shipped with gcr version 4 holds keys only in
-  # memory. Unlike the older GNOME Keyring SSH component, it does not persist
-  # passphrases in the keyring. Keys are loaded at login by the Home Manager
-  # user service named ssh-add-keys, which reads the passphrase from the login
-  # keyring that PAM unlocks. See home-manager/programs/ssh.nix.
-  systemd.user.sockets.gcr-ssh-agent.enable = true;
+  programs.ssh.startAgent = true;
 
   # Enable CUPS to print documents
   services.printing.enable = true;
@@ -288,7 +285,7 @@ in
     pulse.enable = true;
   };
 
-  # Disable yubikey-agent; GNOME Keyring's gcr-ssh-agent handles SSH keys on Linux.
+  # Disable yubikey-agent because OpenSSH handles SSH keys on this host.
   # The gpg-agent handles GPG operations only on Linux.
   services.yubikey-agent.enable = false; # https://search.nixos.org/options?channel=unstable&show=services.yubikey-agent.enable
 
@@ -362,37 +359,7 @@ in
         inputs.nixvim.homeModules.nixvim
       ];
 
-      # Enable GNOME Shell extensions via dconf.
-      dconf.settings = {
-        "org/gnome/shell" = {
-          enabled-extensions = [
-            "clipboard-history@alexsaveau.dev"
-          ];
-        };
-        "org/gnome/shell/extensions/clipboard-history" = {
-          display-mode = 0;
-          toggle-menu = [ "<Super>v" ];
-        };
-        "org/gnome/desktop/input-sources" = {
-          sources = [
-            (lib.hm.gvariant.mkTuple [
-              "xkb"
-              "us"
-            ])
-            (lib.hm.gvariant.mkTuple [
-              "ibus"
-              "pinyin"
-            ]) # Chinese Pinyin (Traditional)
-            (lib.hm.gvariant.mkTuple [
-              "ibus"
-              "mozc-jp"
-            ]) # Japanese
-          ];
-        };
-        "com/github/libpinyin/ibus-libpinyin/libpinyin" = {
-          input-traditional = true; # Output Traditional Chinese characters
-        };
-      };
+      systemd.user.services.ssh-add-keys = lib.mkForce { };
     };
 
   home-manager.verbose = false;
