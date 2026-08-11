@@ -5,6 +5,7 @@
 }:
 let
   escape = builtins.fromJSON ''"\u001b"'';
+  systemNameFieldWidth = 10;
   logo = pkgs.fetchurl {
     url = "https://i.imgur.com/6qFClA1.png";
     hash = "sha256-XgWT+5hZiRRLpc44fYLNPucdT/oA9abgyboDWoSuKB8=";
@@ -43,7 +44,7 @@ in
         }
         {
           type = "os";
-          key = "│  {icon}  ${escape}[s{sysname}${escape}[u${escape}[4C│{$3}│{$2}";
+          key = "│  {icon}  ${escape}[s{sysname}${escape}[u${escape}[${toString systemNameFieldWidth}C│{$3}│{$2}";
         }
         {
           type = "datetime";
