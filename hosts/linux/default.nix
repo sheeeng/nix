@@ -44,6 +44,10 @@
         "com/github/libpinyin/ibus-libpinyin/libpinyin" = {
           input-traditional = true;
         };
+        "org/gnome/desktop/interface" = {
+          cursor-size = 24;
+          cursor-theme = "Adwaita";
+        };
         "org/gnome/desktop/input-sources" = {
           sources = [
             (lib.hm.gvariant.mkTuple [
