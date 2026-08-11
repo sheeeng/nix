@@ -255,6 +255,11 @@
       tenki # https://search.nixos.org/packages?channel=unstable&type=packages&show=tenki
       # keep-sorted end
 
+      # Terminal Emulators
+      # keep-sorted start block=no newline_separated=no sticky_comments=no
+      warp-terminal # https://search.nixos.org/packages?channel=unstable&type=packages&show=warp-terminal
+      # keep-sorted end
+
       # Documentation And Publishing
       # keep-sorted start block=no newline_separated=no sticky_comments=no
       glow # https://search.nixos.org/packages?channel=unstable&type=packages&show=glow
@@ -363,9 +368,14 @@
       _1password-gui # TODO: Missing "aarch64-apple-darwin" platform. # https://search.nixos.org/packages?channel=unstable&type=packages&show=_1password-gui
       # keep-sorted end
 
+      # Terminal Emulators
+      # keep-sorted start block=no newline_separated=no sticky_comments=no
+      ghostty # https://search.nixos.org/packages?channel=unstable&type=packages&show=ghostty
+      kdePackages.konsole # https://search.nixos.org/packages?channel=unstable&type=packages&show=konsole
+      # keep-sorted end
+
       # Shell Utilities
       # keep-sorted start block=no newline_separated=no sticky_comments=no
-      gnomeExtensions.clipboard-history # https://search.nixos.org/packages?channel=unstable&type=packages&show=gnomeExtensions.clipboard-history
       libnotify # https://search.nixos.org/packages?channel=unstable&type=packages&show=libnotify
       wl-clipboard # https://search.nixos.org/packages?channel=unstable&type=packages&show=wl-clipboard
       # keep-sorted end
