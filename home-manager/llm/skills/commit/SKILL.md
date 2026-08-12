@@ -1,14 +1,21 @@
 ---
-name: upsert-git-commit
+name: commit
 description: Create conventional commit messages from staged changes, with automatic nixpkgs-convention detection. Use whenever the user wants to commit, stage, or write a commit message, including phrases like "commit this", "write a commit message", or after finishing a logical change, to generate correctly formatted, signed-off commits following Conventional Commits or nixpkgs conventions.
 license: Apache-2.0 OR MIT
 ---
 
-# Upsert Git Commit
+# Commit
+
+## Repository Validation
+
+1. Run `git rev-parse --is-inside-work-tree` before all other Git commands.
+2. Continue only when the command returns `true`.
+3. If the check fails, stop and tell the user that the current directory is not in a Git repository.
 
 ## What This Skill Does
 
 - Load the `enforce-writing-style` skill for writing style guidelines before continuing.
+- Confirm that the current directory is in a Git work tree.
 - Run `git diff --staged` first to inspect what will be committed.
 - Always use `git commit --signoff` to include a `Signed-off-by:` trailer.
 - Analyze existing changes to generate commit messages.

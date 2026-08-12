@@ -52,7 +52,7 @@
 ### Steps
 
 1. Inspect the status, staged diff, and recent commits.
-2. Load `upsert-git-commit`.
+2. Load `commit`.
 3. Create a signed Conventional Commit.
 4. Push to every configured destination.
 5. Confirm that the branch is current with `origin/unstable`.
