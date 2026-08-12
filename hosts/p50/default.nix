@@ -46,14 +46,6 @@ in
     inputs.nixvim.nixosModules.nixvim
   ];
 
-  home.packages = with pkgs; [
-    apple-cursor
-    banana-cursor
-    kdePackages.konsole
-    krita
-    pokemon-cursor
-  ];
-
   system.primaryUser = hostConfiguration.primaryUser;
 
   documentation = {
@@ -390,6 +382,14 @@ in
         inputs.catppuccin.homeModules.catppuccin
         inputs.nix-index-database.homeModules.nix-index
         inputs.nixvim.homeModules.nixvim
+      ];
+
+      home.packages = with pkgs; [
+        apple-cursor
+        banana-cursor
+        kdePackages.konsole
+        krita
+        pokemon-cursor
       ];
 
       systemd.user.services.ssh-add-keys = lib.mkForce { };
