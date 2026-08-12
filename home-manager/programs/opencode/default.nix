@@ -655,6 +655,7 @@ in
       # Existing OpenCode skills override complementary Matt Pocock skills.
       apply-owasp-security = commonLlmSettings.skills.apply-owasp-security;
       beads = "${pkgs.beads.src}/claude-plugin/skills/beads"; # A skill can also be a subdirectory within a Nix package source store path.
+      commit = commonLlmSettings.skills.commit;
       design-diagram = commonLlmSettings.skills.design-diagram;
       enforce-asd-ste100 = commonLlmSettings.skills.enforce-asd-ste100;
       enforce-chinese-writing-style = commonLlmSettings.skills.enforce-chinese-writing-style;
@@ -663,6 +664,8 @@ in
       fix-github-issue = commonLlmSettings.skills.fix-github-issue;
       forbid-llm-slop = commonLlmSettings.skills.forbid-llm-slop;
       frontend-design = "${commonLlmSettings.anthropicSkillsSrc}/skills/frontend-design";
+      pull-request = commonLlmSettings.skills.pull-request;
+      release = commonLlmSettings.skills.release;
       superpowers-brainstorming = "${commonLlmSettings.superpowersSrc}/skills/brainstorming";
       superpowers-dispatching-parallel-agents = "${commonLlmSettings.superpowersSrc}/skills/dispatching-parallel-agents";
       superpowers-executing-plans = "${commonLlmSettings.superpowersSrc}/skills/executing-plans";
@@ -677,9 +680,6 @@ in
       superpowers-verification-before-completion = "${commonLlmSettings.superpowersSrc}/skills/verification-before-completion";
       superpowers-writing-plans = "${commonLlmSettings.superpowersSrc}/skills/writing-plans";
       superpowers-writing-skills = "${commonLlmSettings.superpowersSrc}/skills/writing-skills";
-      upsert-git-commit = commonLlmSettings.skills.upsert-git-commit;
-      upsert-github-pull-request = commonLlmSettings.skills.upsert-github-pull-request;
-      upsert-github-release = commonLlmSettings.skills.upsert-github-release;
     }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.opencode.skills
     themes = { }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.opencode.themes
     tools = { }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.opencode.tools # Enables or disables specific tools globally.

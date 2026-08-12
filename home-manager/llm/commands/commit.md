@@ -6,9 +6,9 @@ agent: builder
 
 # Commit
 
-Load the `upsert-git-commit` skill first, then create a git commit with proper message formatting.
+Load the `commit` skill first. Then, create a Git commit with the correct message format.
 
-Use the `upsert-git-commit` skill to analyze staged changes and generate proper commit messages following Conventional Commits or nixpkgs conventions as appropriate.
+Use the `commit` skill to analyze staged changes. Generate a commit message that follows the applicable repository conventions.
 
 ## Usage
 
@@ -16,7 +16,7 @@ Use the `upsert-git-commit` skill to analyze staged changes and generate proper 
 
 ## What This Command Does
 
-- Loads the `upsert-git-commit` skill for commit message conventions.
+- Loads the `commit` skill for commit message conventions.
 - Analyzes staged changes in the git repository.
 - Detects repository type for nixpkgs versus other repositories.
 - Follows Conventional Commits for most repositories.

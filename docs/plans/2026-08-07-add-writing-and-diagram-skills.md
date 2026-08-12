@@ -88,7 +88,7 @@ Expected: all evaluations and quality gates succeed.
 ### Steps
 
 1. Inspect `git status`, `git diff`, and recent commits.
-2. Load the `upsert-git-commit` skill.
+2. Load the `commit` skill.
 3. Create a signed Conventional Commit.
 4. Push to every configured destination.
 5. Confirm `git status` reports that `unstable` is current with `origin/unstable`.
