@@ -89,44 +89,6 @@
       }
     );
 
-    # opencode's node_modules fixed-output derivation bundles many packages that
-    # ship prebuilt Windows binaries, including the 7zip-bin package's
-    # win/{x64,ia32,arm64}/7za.exe. On this managed Mac, Microsoft Defender for
-    # Endpoint blocks reading those .exe files during the installPhase copy
-    # ("cp: ... Operation not permitted"), so the copy omits whichever file
-    # Defender happens to hold at that instant. Because Defender's timing is not
-    # deterministic, the set of omitted files varies between builds, the output
-    # hashes to a different value each time, and the fixed-output hash check
-    # fails. Defender's Threat and Vulnerability Management also quarantines the
-    # vulnerable 7za.exe (EUS:Win32/TvmWarn) once it lands in the store path,
-    # which invalidates the cached output and forces another nondeterministic
-    # rebuild.
-    #
-    # Fix: delete every bundled Windows executable in postInstall so the output
-    # no longer depends on Defender. Only 7za.exe has been flagged so far, but
-    # every .exe is a Windows portable executable that cannot run on macOS, so
-    # removing all of them leaves nothing for Defender to quarantine and makes
-    # the result reproducible regardless of which files Defender flags next.
-    # find -delete unlinks each entry without reading it, so Defender's read
-    # block does not stop it. Darwin-only: Linux keeps the stock hash and its
-    # binary-cache hit.
-    # NOTE: no cache exists for the custom hash, so node_modules builds from
-    # source once (~30 min on this device) per opencode version bump, then
-    # stays in the store.
-    # @upstream-issue https://github.com/anomalyco/opencode/issues/8029
-    opencode =
-      if prev.stdenv.hostPlatform.isDarwin then
-        prev.opencode.overrideAttrs (old: {
-          node_modules = old.node_modules.overrideAttrs (previousAttributes: {
-            postInstall = (previousAttributes.postInstall or "") + ''
-              find "$out" -type f -name '*.exe' -delete
-            '';
-            outputHash = "sha256-gb1vgLGiK56A9Xtg71d2J9ct8TJAjDg1A7cOUx0v3cA=";
-          });
-        })
-      else
-        prev.opencode;
-
     stable-packages = final: _prev: {
       stable = import inputs.nixpkgs-stable {
         system = final.stdenv.hostPlatform.system;
