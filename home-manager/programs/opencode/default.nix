@@ -653,6 +653,8 @@ in
     skills = commonLlmSettings.mattPocockSkills // {
       # https://opencode.ai/docs/skills/
       # Existing OpenCode skills override complementary Matt Pocock skills.
+      animate-kinetics = commonLlmSettings.skills.animate-kinetics;
+      animate-text = commonLlmSettings.skills.animate-text;
       apply-owasp-security = commonLlmSettings.skills.apply-owasp-security;
       beads = "${pkgs.beads.src}/claude-plugin/skills/beads"; # A skill can also be a subdirectory within a Nix package source store path.
       commit = commonLlmSettings.skills.commit;

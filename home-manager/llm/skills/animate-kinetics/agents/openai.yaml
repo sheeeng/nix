@@ -1,0 +1,4 @@
+interface:
+  display_name: "Animate Kinetics"
+  short_description: "Apply spring motion patterns to web interfaces"
+  default_prompt: "Use $animate-kinetics to choose and implement a spring motion pattern for this interface."
