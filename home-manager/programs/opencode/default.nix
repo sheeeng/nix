@@ -661,6 +661,7 @@ in
       design-diagram = commonLlmSettings.skills.design-diagram;
       enforce-asd-ste100 = commonLlmSettings.skills.enforce-asd-ste100;
       enforce-chinese-writing-style = commonLlmSettings.skills.enforce-chinese-writing-style;
+      enforce-owasp-llm-security = commonLlmSettings.skills.enforce-owasp-llm-security;
       enforce-writing-style = commonLlmSettings.skills.enforce-writing-style;
       find-skills = "${commonLlmSettings.vercelSkillsSrc}/skills/find-skills";
       fix-github-issue = commonLlmSettings.skills.fix-github-issue;
