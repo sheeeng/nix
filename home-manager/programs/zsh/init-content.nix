@@ -63,9 +63,7 @@
       # - Host config is auto-selected by nix-darwin from the hostname (no #hostname needed).
       # - --max-jobs is sized to half the logical CPUs; --cores 0 lets each job use all cores.
       # - Output is piped through nix-output-monitor (nom).
-      # Pass --no-update to skip `nix flake update` (avoids re-bumping the pinned
-      # nixpkgs, which would require refreshing the Darwin opencode node_modules
-      # hash override in overlays/default.nix on every opencode version bump).
+      # Pass --no-update to skip `nix flake update`.
       darwin-rebuild-update() {
         local flake ncpu jobs do_update=1
         [[ "$1" == "--no-update" ]] && do_update=0
