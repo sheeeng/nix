@@ -7,10 +7,10 @@ runtime, using that environment's optional dependencies (numpy, opencv,
 scipy, PyWavelets, scikit-learn, Pillow).
 
 Exit codes:
-        0  scored successfully
-        1  scorer runtime error
-        2  bad input (missing/unreadable image, bad args)
-        3  scorer unavailable (not configured / missing deps / missing codebook)
+                                0  scored successfully
+                                1  scorer runtime error
+                                2  bad input (missing/unreadable image, bad args)
+                                3  scorer unavailable (not configured / missing deps / missing codebook)
 """
 
 from __future__ import annotations
