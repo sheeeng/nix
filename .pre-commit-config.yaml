@@ -99,6 +99,7 @@ repos:
     rev: v0.23.2
     hooks:
       - id: markdownlint-cli2
+        exclude: ^home-manager/llm/skills/create-abstract-editorial-image/(LICENSE\.md|README\.md|references/)
   - repo: https://github.com/charliermarsh/ruff-pre-commit
     rev: v0.16.2
     hooks:
@@ -146,6 +147,7 @@ repos:
       - id: markdownlint
         name: markdownlint
         args: [--fix]
+        exclude: ^home-manager/llm/skills/create-abstract-editorial-image/(LICENSE\.md|README\.md|references/)
   - repo: https://github.com/nixos/nixfmt
     rev: v1.4.0
     hooks:
