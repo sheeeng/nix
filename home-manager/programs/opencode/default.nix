@@ -666,6 +666,7 @@ in
       find-skills = "${commonLlmSettings.vercelSkillsSrc}/skills/find-skills";
       fix-github-issue = commonLlmSettings.skills.fix-github-issue;
       forbid-llm-slop = commonLlmSettings.skills.forbid-llm-slop;
+      forbid-llm-watermarks = commonLlmSettings.skills.forbid-llm-watermarks;
       frontend-design = "${commonLlmSettings.anthropicSkillsSrc}/skills/frontend-design";
       pull-request = commonLlmSettings.skills.pull-request;
       release = commonLlmSettings.skills.release;

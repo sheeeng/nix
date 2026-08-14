@@ -1,0 +1,18 @@
+accelerate==0.27.2
+color-matcher==0.6.0
+controlnet-aux==0.0.9
+# Dependencies for the optional CtrlRegen pixel-removal backend
+# (mertizci/noai-watermark). The backend is cloned at a pinned commit by
+# setup_ctrlregen.sh and imported at runtime; it is never bundled.
+#
+# torch is installed separately in setup_ctrlregen.sh with the correct
+# platform index (CUDA or CPU), so it is intentionally not listed here.
+#
+# ML libs are pinned to versions the upstream CtrlRegen research code
+# (yepengliu/CtrlRegen) was built against. Validate against the pinned
+# noai-watermark commit before bumping.
+diffusers==0.27.2
+piexif==1.1.3
+Pillow==12.3.0
+safetensors==0.4.3
+transformers==4.37.2
