@@ -658,6 +658,7 @@ in
       enforce-owasp-security = commonLlmSettings.skills.enforce-owasp-security;
       beads = "${pkgs.beads.src}/claude-plugin/skills/beads"; # A skill can also be a subdirectory within a Nix package source store path.
       commit = commonLlmSettings.skills.commit;
+      create-abstract-editorial-image = commonLlmSettings.skills.create-abstract-editorial-image;
       design-diagram = commonLlmSettings.skills.design-diagram;
       enforce-asd-ste100 = commonLlmSettings.skills.enforce-asd-ste100;
       enforce-chinese-writing-style = commonLlmSettings.skills.enforce-chinese-writing-style;
