@@ -2,22 +2,22 @@
 """Layer B optional rewrite hook for statistical (token-sampling) watermarks.
 
 Backends:
-        print-prompt       — emit prompt only (default; CI-safe, no model)
-        ollama             — POST to Ollama /api/chat
-        openai-compatible  — POST to OpenAI-style /v1/chat/completions
+                                print-prompt       — emit prompt only (default; CI-safe, no model)
+                                ollama             — POST to Ollama /api/chat
+                                openai-compatible  — POST to OpenAI-style /v1/chat/completions
 
 Env (optional):
-        WATERMARKS_REWRITE_BACKEND
-        WATERMARKS_REWRITE_BASE_URL
-        WATERMARKS_REWRITE_MODEL
-        WATERMARKS_REWRITE_API_KEY      (env-only; never pass keys on argv)
-        WATERMARKS_REWRITE_ALLOW_REMOTE (set to 1 to allow non-loopback endpoints)
+                                WATERMARKS_REWRITE_BACKEND
+                                WATERMARKS_REWRITE_BASE_URL
+                                WATERMARKS_REWRITE_MODEL
+                                WATERMARKS_REWRITE_API_KEY      (env-only; never pass keys on argv)
+                                WATERMARKS_REWRITE_ALLOW_REMOTE (set to 1 to allow non-loopback endpoints)
 
 Security notes:
-        - Only http(s) endpoints are accepted; redirects are refused outright so an
-                Authorization header (API key) can never be re-sent to an unvalidated host.
-        - Non-loopback endpoints are denied unless WATERMARKS_REWRITE_ALLOW_REMOTE=1
-                (or --allow-remote) is set explicitly.
+                                - Only http(s) endpoints are accepted; redirects are refused outright so an
+                                                                Authorization header (API key) can never be re-sent to an unvalidated host.
+                                - Non-loopback endpoints are denied unless WATERMARKS_REWRITE_ALLOW_REMOTE=1
+                                                                (or --allow-remote) is set explicitly.
 """
 
 from __future__ import annotations

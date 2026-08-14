@@ -6,10 +6,10 @@ a user-provided checkout of ``mertizci/noai-watermark`` at runtime, using that
 environment's optional dependencies (torch, diffusers, transformers, etc.).
 
 Exit codes:
-        0  removed successfully
-        1  remover runtime error
-        2  bad input (missing/unreadable image, bad args)
-        3  remover unavailable (not configured / missing checkout / missing deps)
+                                0  removed successfully
+                                1  remover runtime error
+                                2  bad input (missing/unreadable image, bad args)
+                                3  remover unavailable (not configured / missing checkout / missing deps)
 """
 
 from __future__ import annotations

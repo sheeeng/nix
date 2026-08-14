@@ -335,13 +335,13 @@ def classify_finding_confidence(finding: str) -> str:
     The four buckets are a heuristic mapping of *how strong* a finding is:
 
     - confirmed: a recognized provenance structure (C2PA/JUMBF manifest, or a
-            parsed field such as digitalSourceType / trainedAlgorithmicMedia).
+                                    parsed field such as digitalSourceType / trainedAlgorithmicMedia).
     - probable: an AI/vendor marker found inside a recognized metadata
-            structure, but not a fully parsed provenance claim.
+                                    structure, but not a fully parsed provenance claim.
     - informational: context-only notes (CMS generators, presence of an XMP
-            packet or customXml parts, unsupported/partial inspection).
+                                    packet or customXml parts, unsupported/partial inspection).
     - likely_false_positive: raw whole-file byte scans that can collide with
-            compressed image/stream data.
+                                    compressed image/stream data.
 
     The mapping is intentionally conservative; a scanner finding is a signal,
     not a verdict.
