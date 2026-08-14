@@ -392,7 +392,24 @@ in
         pokemon-cursor
       ];
 
-      systemd.user.services.ssh-add-keys = lib.mkForce { };
+      systemd.user.services.ssh-add-keys = lib.mkForce {
+        Unit = {
+          Description = "Load SSH keys into the OpenSSH agent through KWallet.";
+          After = [ "ssh-agent.service" ];
+          Requires = [ "ssh-agent.service" ];
+          PartOf = [ "graphical-session.target" ];
+        };
+        Service = {
+          Type = "oneshot";
+          Environment = [
+            "SSH_ASKPASS=${pkgs.kdePackages.ksshaskpass}/bin/ksshaskpass"
+            "SSH_ASKPASS_REQUIRE=force"
+            "SSH_AUTH_SOCK=%t/ssh-agent"
+          ];
+          ExecStart = "${pkgs.openssh}/bin/ssh-add %h/.ssh/id_ed25519";
+        };
+        Install.WantedBy = [ "graphical-session.target" ];
+      };
     };
 
   home-manager.verbose = false;
