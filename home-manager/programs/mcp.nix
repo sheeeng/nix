@@ -3,7 +3,8 @@
   programs.mcp = {
     enable = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.mcp.enable
     servers = {
-      aks = {
+      # @upstream-issue https://github.com/NixOS/nixpkgs/pull/552659
+      aks = lib.mkIf (!pkgs.stdenv.hostPlatform.isDarwin) {
         # nix eval --raw nixpkgs#aks-mcp-server.meta.mainProgram
         # nix eval --impure --raw --expr 'with import <nixpkgs> {}; lib.getExe aks-mcp-server'
         # $(nix eval --raw nixpkgs#aks-mcp-server.outPath)/bin/aks-mcp --version
