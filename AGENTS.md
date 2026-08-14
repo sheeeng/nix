@@ -161,7 +161,7 @@ Linux-specific package list to satisfy this dependency.
 
 ## Tracking Tasks
 
-Use [bd](https://github.com/steveyegge/beads) for tracking tasks.
+Use [bd][beads] for tracking tasks.
 
 ## Landing the Plane (Session Completion)
 
@@ -180,11 +180,14 @@ When ending a work session, you must complete all the following mandatory steps.
 - Mandatory push to remote repository.
 
     ```shell
+    bd dolt pull
     git pull --rebase
-    bd sync
+    bd dolt push
     git push
     git status  # Must show "up to date with origin".
     ```
+
+    The `bd sync` command was removed after Beads changed to the Dolt backend. Use the native Dolt commands as described in [Beads issue 2442][beads-issue-2442] and [Beads pull request 2461][beads-pull-request-2461].
 
 - Clean up by clearing stashes, prune remote branches.
 - Verify that all changes committed and pushed.
@@ -200,6 +203,9 @@ Ensure the following non-negotiable critical steps are done successfully.
 ---
 
 [azure-security-best-practices]: https://learn.microsoft.com/en-us/azure/security/fundamentals/best-practices-and-patterns
+[beads]: https://github.com/gastownhall/beads
+[beads-issue-2442]: https://github.com/gastownhall/beads/issues/2442
+[beads-pull-request-2461]: https://github.com/gastownhall/beads/pull/2461
 [cis-benchmarks]: https://www.cisecurity.org/cis-benchmarks/
 [github-actions-secure-use-reference]: https://docs.github.com/en/actions/reference/security/secure-use
 [home-manager-options]: https://nix-community.github.io/home-manager/options.xhtml
