@@ -106,6 +106,7 @@ repos:
         name: ruff
         types_or: [python, pyi]
         args: [--fix]
+        exclude: ^home-manager/llm/skills/forbid-llm-watermarks/
       - id: ruff-format
         name: ruff-format
         types_or: [python, pyi]
