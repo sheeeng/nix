@@ -58,5 +58,5 @@ Use the [Securing Agentic Applications Guide][securing-agentic-applications] for
 
 [agentic-threats]: https://genai.owasp.org/resource/agentic-ai-threats-and-mitigations/
 [owasp-genai-project]: https://genai.owasp.org/
-[owasp-red-teaming]: https://genai.owasp.org/initiatives/genai-red-teaming-initiative/
+[owasp-red-teaming]: https://genai.owasp.org/initiatives/ai-red-teaming-initiative/
 [securing-agentic-applications]: https://genai.owasp.org/resource/securing-agentic-applications-guide-1-0/
