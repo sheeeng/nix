@@ -1,6 +1,7 @@
 { pkgs, ... }:
 {
   home.packages = with pkgs; [
+    carapace # https://search.nixos.org/packages?channel=unstable&show=carapace
     nufmt # https://search.nixos.org/packages?channel=unstable&show=nufmt
   ];
 
@@ -17,6 +18,16 @@
       # harmless on Linux.
       ''
         alias nu-open = open
+
+        let carapace_completer = {|spans: list<string>|
+          CARAPACE_LENIENT=1 carapace ''$spans.0 nushell ...''$spans | from json
+        }
+
+        $env.config.completions.external = {
+          enable: true
+          max_results: 100
+          completer: $carapace_completer
+        }
 
         # `flake` command family. Parent shows the available subcommands.
         def flake [] { help flake }
