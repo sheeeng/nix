@@ -1,5 +1,9 @@
 { pkgs, ... }:
 {
+  home.packages = with pkgs; [
+    nufmt # https://search.nixos.org/packages?channel=unstable&show=nufmt
+  ];
+
   programs.nushell = {
     enable = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.nushell.enable
     package = pkgs.nushell; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.nushell.package
