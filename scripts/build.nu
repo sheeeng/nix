@@ -8,8 +8,18 @@ def main [--update-flake] {
     nix flake update
   }
 
+  let rebuild_source = match $nu.os-info.name {
+    "linux" => "nixpkgs#nixos-rebuild"
+    "macos" => "github:lnl7/nix-darwin"
+    $operating_system => {
+      error make {
+        msg: $"Unsupported operating system: ($operating_system)"
+      }
+    }
+  }
+
   (
-    nix run github:lnl7/nix-darwin -- build
+    nix run $rebuild_source -- build
       --print-build-logs
       --show-trace
       --verbose
