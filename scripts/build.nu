@@ -13,7 +13,7 @@ def main [--update-flake] {
     "macos" => "github:lnl7/nix-darwin"
     $operating_system => {
       error make {
-        msg: $"Unsupported operating system: ($operating_system)"
+        msg: $"Unsupported ($operating_system) operating system."
       }
     }
   }
