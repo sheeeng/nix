@@ -65,7 +65,6 @@ in
       gnupg
       helix
       htop
-      kdePackages.kate
       neovim
       openssh
       tailscale # https://search.nixos.org/packages?channel=unstable&type=packages&show=tailscale
@@ -269,8 +268,11 @@ in
     };
   };
 
-  services.displayManager.sddm.enable = true;
-  services.desktopManager.plasma6.enable = true;
+  services.displayManager = {
+    defaultSession = "gnome";
+    gdm.enable = true;
+  };
+  services.desktopManager.gnome.enable = true;
   services.fprintd.enable = true;
   services.tailscale.enable = true;
 
@@ -292,7 +294,10 @@ in
     };
   };
 
-  programs.ssh.startAgent = true;
+  # Use GCR so that the GNOME login keyring can unlock and load SSH keys.
+  # Disable the OpenSSH agent because NixOS permits only one SSH agent.
+  programs.ssh.startAgent = false;
+  services.gnome.gcr-ssh-agent.enable = true;
 
   # Enable CUPS to print documents
   services.printing.enable = true;
@@ -374,7 +379,7 @@ in
   ];
 
   home-manager.users."${hostConfiguration.primaryUser}" =
-    { lib, ... }:
+    { ... }:
     {
       imports = [
         ../../home-manager/home.nix
@@ -387,29 +392,9 @@ in
       home.packages = with pkgs; [
         apple-cursor
         banana-cursor
-        kdePackages.konsole
         krita
         pokemon-cursor
       ];
-
-      systemd.user.services.ssh-add-keys = lib.mkForce {
-        Unit = {
-          Description = "Load SSH keys into the OpenSSH agent through KWallet.";
-          After = [ "ssh-agent.service" ];
-          Requires = [ "ssh-agent.service" ];
-          PartOf = [ "graphical-session.target" ];
-        };
-        Service = {
-          Type = "oneshot";
-          Environment = [
-            "SSH_ASKPASS=${pkgs.kdePackages.ksshaskpass}/bin/ksshaskpass"
-            "SSH_ASKPASS_REQUIRE=force"
-            "SSH_AUTH_SOCK=%t/ssh-agent"
-          ];
-          ExecStart = "${pkgs.openssh}/bin/ssh-add %h/.ssh/id_ed25519";
-        };
-        Install.WantedBy = [ "graphical-session.target" ];
-      };
     };
 
   home-manager.verbose = false;
