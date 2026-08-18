@@ -349,7 +349,8 @@ in
   # System-level configuration is disabled to avoid conflicts.
   # The home-manager gpg-agent handles SSH support and pinentry.
   programs.gnupg.agent = {
-    enable = false; # https://search.nixos.org/options?channel=unstable&show=programs.gnupg.agent.enable
+    enable = true; # https://search.nixos.org/options?channel=unstable&show=programs.gnupg.agent.enable
+    pinentryPackage = pkgs.pinentry-curses; # https://search.nixos.org/options?channel=unstable&show=programs.gnupg.agent.pinentryPackage
     # SSH support is configured in home-manager's services.gpg-agent.enableSshSupport
   }; # https://search.nixos.org/options?channel=unstable&show=programs.gnupg.agent
 
