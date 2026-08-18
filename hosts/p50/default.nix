@@ -369,6 +369,18 @@ in
 
   home-manager.sharedModules = [
     inputs.nix-index-database.homeModules.nix-index
+    {
+      dconf.settings."org/gnome/desktop/interface" = {
+        color-scheme = "default";
+        cursor-size = 24;
+        cursor-theme = "Adwaita";
+        document-font-name = "Adwaita Sans 12";
+        font-name = "Adwaita Sans 11";
+        gtk-theme = "Adwaita";
+        icon-theme = "Adwaita";
+        monospace-font-name = "Adwaita Mono 11";
+      };
+    }
     # Apply overlays to home-manager's pkgs. It is required when useGlobalPkgs = false.
     {
       nixpkgs.overlays = [
