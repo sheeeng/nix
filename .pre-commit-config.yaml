@@ -157,7 +157,7 @@ repos:
         args:
           - --indent=2
   - repo: https://github.com/renovatebot/pre-commit-hooks
-    rev: 44.30.4
+    rev: 44.32.2
     hooks:
       - id: renovate-config-validator
         args: [--strict]
