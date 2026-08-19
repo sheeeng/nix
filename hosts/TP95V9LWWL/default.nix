@@ -41,6 +41,10 @@ in
     inputs.nixvim.nixDarwinModules.nixvim
   ];
 
+  # Home Manager manages the user Z shell configuration. Keep nix Darwin from
+  # replacing the existing system Z shell configuration in /etc.
+  programs.zsh.enable = false; # https://nix-darwin.github.io/nix-darwin/manual/#opt-programs.zsh.enable
+
   documentation = {
     enable = true; # https://nix-darwin.github.io/nix-darwin/manual/#opt-documentation.enable
     doc.enable = true; # https://nix-darwin.github.io/nix-darwin/manual/#opt-documentation.doc.enable
