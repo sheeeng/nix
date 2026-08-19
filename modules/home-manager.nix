@@ -2,7 +2,7 @@
 {
   home-manager = {
     backupCommand = ''
-      mv "$1" "$1.before-nix-switch-$(date --universal +%Y-%m-%dT%H:%M:%SZ)"
+      mv "$1" "$1.before-nix-switch-$(date --universal +"%Y%m%dT%H%M%SZ")"
     ''; # https://nix-community.github.io/home-manager/nixos-options.xhtml#nixos-opt-home-manager.backupCommand
     overwriteBackup = false; # https://nix-community.github.io/home-manager/nixos-options.xhtml#nixos-opt-home-manager.overwriteBackup
     sharedModules = [
