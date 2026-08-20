@@ -170,6 +170,11 @@
     # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.initContent
     (lib.mkOrder 1500 "")
 
+    # Restore the Home Manager path after macOS path setup.
+    (lib.mkOrder 1600 ''
+      export PATH="/etc/profiles/per-user/${config.home.username}/bin:$HOME/bin:$PATH"
+    '')
+
     # Z Style Customizations
     # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.initContent
     (lib.mkOrder 2000 (
