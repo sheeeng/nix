@@ -1,11 +1,11 @@
 name: Show Nix Info
 
 on:
-  # push:
-  #   branches:
-  #     - "unstable"
-  #     - "main"
-  # pull_request:
+  push:
+    branches:
+      - "unstable"
+      - "main"
+  pull_request:
   workflow_dispatch:
 
 concurrency:
