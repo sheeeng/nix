@@ -62,8 +62,8 @@ in
       enpass
       enpass-cli
       git
-      gnupg
       gnome-tweaks
+      gnupg
       helix
       htop
       neovim
@@ -275,7 +275,20 @@ in
   };
   services.desktopManager.gnome.enable = true;
   services.fprintd.enable = true;
+  services.logind.settings.Login = {
+    HandleLidSwitch = "ignore";
+    HandleLidSwitchDocked = "ignore";
+    HandleLidSwitchExternalPower = "ignore";
+    IdleAction = "ignore";
+  };
   services.tailscale.enable = true;
+
+  systemd.sleep.settings.Sleep = {
+    AllowHibernation = false;
+    AllowHybridSleep = false;
+    AllowSuspend = false;
+    AllowSuspendThenHibernate = false;
+  };
 
   # OpenSSH server, reachable only from the same subnet through the firewall rule above.
   services.openssh = {
