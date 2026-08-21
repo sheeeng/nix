@@ -9,10 +9,8 @@
     includes = [ ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.ssh.includes
     # Home Manager deprecated programs.ssh.matchBlocks in favor of
     # programs.ssh.settings. The attribute name is the Host pattern, and each
-    # block uses upstream OpenSSH directive names. The previous extraOptions
-    # attribute is no longer supported, so UseKeychain is set as a direct
-    # directive, still guarded to macOS with lib.optionalAttrs. checkHostIP is
-    # dropped because its previous value of true produced no directive.
+    # block uses upstream OpenSSH directive names. checkHostIP is dropped
+    # because its previous value of true produced no directive.
     settings = {
       "*" = {
         AddKeysToAgent = "yes"; # https://man.openbsd.org/ssh_config#AddKeysToAgent
@@ -25,15 +23,13 @@
         ServerAliveCountMax = 3; # https://man.openbsd.org/ssh_config#ServerAliveCountMax
         ServerAliveInterval = 0; # https://man.openbsd.org/ssh_config#ServerAliveInterval
         UserKnownHostsFile = "~/.ssh/known_hosts"; # https://man.openbsd.org/ssh_config#UserKnownHostsFile
-      }
-      // lib.optionalAttrs pkgs.stdenv.isDarwin { UseKeychain = "yes"; }; # macOS keychain support
+      };
       "github.com" = {
         AddKeysToAgent = "yes"; # https://man.openbsd.org/ssh_config#AddKeysToAgent
         Compression = true; # https://man.openbsd.org/ssh_config#Compression
         HostName = "github.com"; # https://man.openbsd.org/ssh_config#HostName
         IdentityFile = [ "~/.ssh/id_ed25519" ]; # https://man.openbsd.org/ssh_config#IdentityFile
-      }
-      // lib.optionalAttrs pkgs.stdenv.isDarwin { UseKeychain = "yes"; }; # macOS keychain support
+      };
       "git.sr.ht" = {
         AddKeysToAgent = "yes"; # https://man.openbsd.org/ssh_config#AddKeysToAgent
         Compression = true; # https://man.openbsd.org/ssh_config#Compression
