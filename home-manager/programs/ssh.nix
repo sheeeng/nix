@@ -20,9 +20,14 @@
         ControlPersist = "no"; # https://man.openbsd.org/ssh_config#ControlPersist
         ForwardAgent = false; # https://man.openbsd.org/ssh_config#ForwardAgent
         HashKnownHosts = false; # https://man.openbsd.org/ssh_config#HashKnownHosts
+        IgnoreUnknown = [ "UseKeychain" ]; # https://man.openbsd.org/ssh_config#IgnoreUnknown
         ServerAliveCountMax = 3; # https://man.openbsd.org/ssh_config#ServerAliveCountMax
         ServerAliveInterval = 0; # https://man.openbsd.org/ssh_config#ServerAliveInterval
         UserKnownHostsFile = "~/.ssh/known_hosts"; # https://man.openbsd.org/ssh_config#UserKnownHostsFile
+      }
+      // lib.optionalAttrs pkgs.stdenv.isDarwin {
+        # Store the passphrase in the macOS login keychain after the first prompt.
+        UseKeychain = true; # https://man.openbsd.org/ssh_config#UseKeychain
       };
       "github.com" = {
         AddKeysToAgent = "yes"; # https://man.openbsd.org/ssh_config#AddKeysToAgent
