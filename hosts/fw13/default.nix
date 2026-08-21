@@ -61,8 +61,8 @@ in
       btop
       enpass
       git
-      gnupg
       gnome-tweaks
+      gnupg
       helix
       htop
       neovim
