@@ -9,9 +9,11 @@ let
     basePath = ../llm;
     mattPocockSkillsSource = inputs.matt-pocock-skills;
   };
-  claudeCodeModel = "claude-opus-4-8"; # https://models.dev/models/anthropic/claude-opus-4-8/
+  claudeCodeModel = "claude-sonnet-4-6"; # https://models.dev/models/anthropic/claude-sonnet-4-6/
 in
 {
+  home.file.".claude/output-styles/Concise.md".source = ../llm/output-styles/Concise.md;
+
   home.packages =
     commonLlmSettings.packages
     ++ (with pkgs; [
@@ -68,6 +70,7 @@ in
     settings = {
       # https://code.claude.com/docs/en/settings#available-settings
       effortLevel = "high"; # https://platform.claude.com/docs/en/build-with-claude/effort#effort-levels
+      outputStyle = "Concise"; # https://code.claude.com/docs/en/output-styles
       # The attribution setting takes precedence over the deprecated includeCoAuthoredBy setting.
       # To hide all attribution, set commit and pr to empty strings and sessionUrl to false.
       # https://code.claude.com/docs/en/settings#attribution-settings
@@ -78,11 +81,12 @@ in
       }; # https://code.claude.com/docs/en/settings#attribution-settings
       includeCoAuthoredBy = false; # https://code.claude.com/docs/en/settings#attribution-settings (Deprecated)
       env = {
-        # https://x.com/kunchenguid/status/2043511416448307378
-        CLAUDE_CODE_DISABLE_1M_CONTEXT = "1"; # Prevent bloated context window from degrading model performance and consuming token limits.
+        # Compact sessions before they approach the context limit.
+        # https://code.claude.com/docs/en/claude-code-on-the-web#manage-context
+        CLAUDE_AUTOCOMPACT_PCT_OVERRIDE = "70";
         CLAUDE_CODE_DISABLE_ADAPTIVE_THINKING = "1"; # Prevent Claude Code from dynamically overriding chosen thinking effort level.
         CLAUDE_CODE_DISABLE_AUTO_MEMORY = "1"; # Prevent automatically managed memory from retaining outdated information or inefficient processes.
-        CLAUDE_CODE_SUBAGENT_MODEL = "opus"; # Set to opus to ensure default subagents such as Explore perform adequately.
+        CLAUDE_CODE_SUBAGENT_MODEL = "sonnet"; # Use the efficient model for default subagents such as Explore.
       };
       hooks = {
         PostToolUse = [
