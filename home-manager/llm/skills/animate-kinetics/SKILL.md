@@ -1,6 +1,7 @@
 ---
 name: animate-kinetics
 description: Select and implement spring physics motion patterns from the Kinetics library for web interfaces. Use for animated inputs, feedback, state changes, navigation, loading states, text, data displays, gestures, hover effects, CSS transitions, React interactions, or requests that reference kinetics.colorion.co.
+license: Apache-2.0 OR MIT
 ---
 
 # Animate Kinetics

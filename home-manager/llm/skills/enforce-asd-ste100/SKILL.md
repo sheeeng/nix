@@ -1,6 +1,7 @@
 ---
 name: enforce-asd-ste100
 description: Enforce ASD STE100 Simplified Technical English Issue 9 in technical documentation. Use when writing, rewriting, editing, translating, or reviewing procedures, descriptions, safety instructions, maintenance information, operational information, and other technical text that must comply with ASD STE100 Issue 9.
+license: Apache-2.0 OR MIT
 ---
 
 # Enforce ASD STE100 Simplified Technical English Issue 9
