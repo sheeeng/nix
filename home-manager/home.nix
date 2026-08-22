@@ -88,7 +88,7 @@ in
       # nushell, and it is also broken in bash and zsh, because the substitution
       # runs and the shell then tries to execute the resulting UUID as a command.
       reset-dock = lib.mkIf pkgs.stdenv.hostPlatform.isDarwin "defaults delete com.apple.dock; killall Dock";
-      terraform = "${lib.getExe' pkgs.terraform "terraform"}";
+      terraform = lib.mkIf pkgs.stdenv.hostPlatform.isLinux "terraform";
       wttr = "${pkgs.curl}/bin/curl 'wttr.in/Oslo?format=3'"; # TODO: https://www.reddit.com/r/macapps/comments/1gg4k6o/comment/lupspio/
       wttr-all = "${pkgs.curl}/bin/curl 'wttr.in/{Helsfyr,Kuching,Kamakura,Lørenskog,Oslo,Tokyo}?format=3'";
     }; # https://nix-community.github.io/home-manager/options.xhtml#opt-home.shellAliases
