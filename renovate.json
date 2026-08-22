@@ -50,6 +50,13 @@
   ],
   "packageRules": [
     {
+      "matchManagers": [
+        "terraform-version"
+      ],
+      "description": "Update Terraform through the scheduled binary updater.",
+      "enabled": false
+    },
+    {
       "matchFileNames": [
         "**/*.nix"
       ],
