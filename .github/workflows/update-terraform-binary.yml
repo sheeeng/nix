@@ -43,7 +43,7 @@ jobs:
           for target in darwin_arm64 linux_arm64 linux_amd64; do
             binary_url="https://releases.hashicorp.com/terraform/${latest_version}/terraform_${latest_version}_${target}.zip"
             binary_hash="$(
-              nix store prefetch-file --json "${binary_url}" \
+              nix store prefetch-file --unpack --json "${binary_url}" \
                 | jq --raw-output '.hash'
             )"
             target_hashes["${target}"]="${binary_hash}"

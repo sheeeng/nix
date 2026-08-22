@@ -7,9 +7,9 @@ let
     "x86_64-linux" = "linux_amd64";
   };
   terraformHashes = {
-    "aarch64-darwin" = "sha256-8hARDFaYuU2AOnpjzbAlG1RVwVCEFHiAjiu7ND+V7Wg=";
-    "aarch64-linux" = "sha256-iJHp3O3J47iVC8avnU2K8fTPreMGL1O53EA6ifbOjJw=";
-    "x86_64-linux" = "sha256-0lzntpAgE62QXbPS6rC+TNkFiH/oi4GmFxuNVQPDHz0=";
+    "aarch64-darwin" = "sha256-G8qlMDO0mmCWGFwzo6r6yIwH+banVvOcw8mvhsXA6Vw=";
+    "aarch64-linux" = "sha256-q16b2gw1FmsRayl0Gw6XTLIo2wPuz2jAydkqWvIcVBI=";
+    "x86_64-linux" = "sha256-kVLGoEaoEyMljOfNSRTXP2Hn2sGd4uQOoXsM37wfarE=";
   };
   terraformSystem = pkgs.stdenv.hostPlatform.system;
   terraformBinary = pkgs.stdenvNoCC.mkDerivation {
@@ -27,8 +27,8 @@ let
     sourceRoot = ".";
 
     installPhase = ''
-      install --directory "$out/bin"
-      install --mode 0755 terraform "$out/bin/terraform"
+      ${lib.getExe' pkgs.coreutils "install"} --directory "$out/bin"
+      ${lib.getExe' pkgs.coreutils "install"} --mode 0755 "$src/terraform" "$out/bin/terraform"
     '';
 
     meta = {
