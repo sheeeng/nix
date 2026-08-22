@@ -12,6 +12,7 @@
       oneko # https://search.nixos.org/packages?channel=unstable&type=packages&show=oneko
     ]
     ++ (pkgs.lib.optionals pkgs.stdenv.isDarwin [
+      ghostty-bin # https://search.nixos.org/packages?channel=unstable&query=ghostty#show=ghostty-bin
       vscodium # https://search.nixos.org/packages?channel=unstable&type=packages&show=vscodium
     ])
     ++ (pkgs.lib.optionals (pkgs.stdenv.isDarwin && pkgs.stdenv.hostPlatform.isAarch64) [
