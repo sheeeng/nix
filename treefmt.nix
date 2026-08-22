@@ -103,8 +103,8 @@
         options = [ "format" ];
         settings = { };
       };
-      # Using opentofu as the formatter for Terraform files, as official terraform binaries are not pre-built due to restrictive license.
-      # Building terraform from source is not time-efficient for CI runs.
+      # Use OpenTofu as the formatter for Terraform files. The official Terraform
+      # binary is installed separately from the HashiCorp release endpoint.
       terraform = {
         command = "${lib.getExe pkgs.opentofu}"; # https://search.nixos.org/packages?channel=unstable&type=packages&show=opentofu
         includes = [

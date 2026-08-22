@@ -339,7 +339,6 @@
       # esptool # https://search.nixos.org/packages?channel=unstable&type=packages&show=esptool
       # platformio # https://search.nixos.org/packages?channel=unstable&type=packages&show=platformio
       pre-commit # https://search.nixos.org/packages?channel=unstable&type=packages&show=pre-commit
-      terraform # https://search.nixos.org/packages?channel=unstable&type=packages&show=terraform
       # keep-sorted end
 
       # Graphics
