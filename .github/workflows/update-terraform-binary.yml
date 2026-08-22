@@ -1,0 +1,64 @@
+name: Update Terraform Binary
+
+on:
+  schedule:
+    - cron: "17 2 * * 3"
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  update-terraform-binary:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - uses: determinatesystems/determinate-nix-action@61cbfe2efc2d4e7a8a6d56967c3c1058e846c858 # v3.21.9
+
+      - name: Update Terraform Binary
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |-
+          set -o errexit
+          set -o nounset
+          set -o pipefail
+
+          current_version="$(< .terraform-version)"
+          latest_version="$(
+            curl --fail --location --silent --show-error \
+              --header "Accept: application/vnd.github+json" \
+              --header "X-GitHub-Api-Version: 2022-11-28" \
+              https://api.github.com/repos/hashicorp/terraform/releases/latest \
+              | jq --raw-output '.tag_name | ltrimstr("v")'
+          )"
+
+          if [[ "${current_version}" == "${latest_version}" ]]; then
+            echo "Terraform is already current at ${current_version}."
+            exit 0
+          fi
+
+          declare -A target_hashes=()
+          for target in darwin_arm64 linux_arm64 linux_amd64; do
+            binary_url="https://releases.hashicorp.com/terraform/${latest_version}/terraform_${latest_version}_${target}.zip"
+            binary_hash="$(
+              nix store prefetch-file --json "${binary_url}" \
+                | jq --raw-output '.hash'
+            )"
+            target_hashes["${target}"]="${binary_hash}"
+          done
+
+          printf '%s\n' "${latest_version}" > .terraform-version
+          sed --in-place \
+            -e "s#^    \"aarch64-darwin\" = \".*\";#    \"aarch64-darwin\" = \"${target_hashes[darwin_arm64]}\";#" \
+            -e "s#^    \"aarch64-linux\" = \".*\";#    \"aarch64-linux\" = \"${target_hashes[linux_arm64]}\";#" \
+            -e "s#^    \"x86_64-linux\" = \".*\";#    \"x86_64-linux\" = \"${target_hashes[linux_amd64]}\";#" \
+            home-manager/packages/terraform.nix
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- .terraform-version home-manager/packages/terraform.nix
+          git commit --signoff \
+            --message "chore(deps): update terraform to ${latest_version}"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
