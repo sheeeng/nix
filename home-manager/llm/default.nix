@@ -82,19 +82,29 @@ let
     discoverDirectorySkills (mattPocockSkillsSource + "/skills/engineering")
     // discoverDirectorySkills (mattPocockSkillsSource + "/skills/productivity");
 
-  # petergyang/no-ai-slop: Human writing editor and detector skill.
-  # https://github.com/petergyang/no-ai-slop
-  noAiSlopSrc = pkgs.fetchFromGitHub {
-    owner = "petergyang";
-    repo = "no-ai-slop";
-    rev = "d30eddb9e04562234f2070b5ee63ca4649d9a05e";
-    hash = "sha256-qpxftQLQAKDnyzPVtidgKACGyCaX2HEW4I/NQuZFOIE=";
-  };
-
-  forbidLlmSlopSkill = renameSkill {
-    name = "forbid-llm-slop";
-    source = noAiSlopSrc + "/skills/no-ai-slop";
-  };
+  # Combined human writing editor and detector skill.
+  # Sources:
+  # * https://www.skills.sh/hardikpandya/stop-slop/stop-slop
+  # * https://www.skills.sh/petergyang/no-ai-slop/no-ai-slop
+  # * https://www.skills.sh/blader/humanizer
+  # * https://www.skills.sh/cursor/plugins/unslop
+  # * https://www.skills.sh/ehmo/slopkit/slopbeth
+  # * https://www.skills.sh/aboudjem/humanizer-skill/humanizer
+  # * https://www.skills.sh/stephenturner/skills/deslop
+  # * https://www.skills.sh/elithrar/dotfiles/anti-slop
+  # * https://www.skills.sh/aashaexo/soundshuman/humanize
+  # * https://www.skills.sh/jalaalrd/anti-ai-slop-writing/anti-ai-slop-writing
+  # Repository references:
+  # * https://github.com/hardikpandya/stop-slop
+  # * https://github.com/petergyang/no-ai-slop
+  # * https://github.com/blader/humanizer
+  # * https://github.com/ehmo/slopkit
+  # * https://github.com/aboudjem/humanizer-skill
+  # * https://github.com/stephenturner/skills
+  # * https://github.com/elithrar/dotfiles/tree/main/.agents/skills/anti-slop
+  # * https://github.com/aashaexo/soundshuman
+  # * https://github.com/jalaalrd/anti-ai-slop-writing
+  forbidLlmSlopSkill = basePath + "/skills/forbid-llm-slop";
 
   # vercel-labs/skills: Open agent skills ecosystem.
   # https://github.com/vercel-labs/skills
