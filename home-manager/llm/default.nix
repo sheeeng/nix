@@ -94,7 +94,7 @@ let
   # * https://www.skills.sh/elithrar/dotfiles/anti-slop
   # * https://www.skills.sh/aashaexo/soundshuman/humanize
   # * https://www.skills.sh/jalaalrd/anti-ai-slop-writing/anti-ai-slop-writing
-  # Repository references:
+  # Repository References:
   # * https://github.com/hardikpandya/stop-slop
   # * https://github.com/petergyang/no-ai-slop
   # * https://github.com/blader/humanizer
