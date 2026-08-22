@@ -1,6 +1,7 @@
 ---
 name: animate-text
 description: Curated text animation catalog with exact JSON specs for headings, labels, counters, and text swaps. Use when an agent needs to pick or translate named effects like soft blur in, typewriter, shared axis, line reveal, stagger, crossfade, or kinetic builds into WAAPI, Motion, Framer Motion, GSAP, CSS, Lottie, Rive, or similar stacks.
+license: Apache-2.0 OR MIT
 ---
 
 # Animate Text
@@ -24,12 +25,12 @@ Use this skill when the request involves:
 ## Workflow
 
 1. Determine whether the user wants:
-   - the exact site version of a visible effect
-   - a portable translation of the motion contract
+    - the exact site version of a visible effect
+    - a portable translation of the motion contract
 2. If the user names an effect id, read `assets/specs/<id>.json` or run `node scripts/get-spec.mjs <id>`.
 3. Otherwise use `references/catalog.md` or optionally run:
-   - `node scripts/list-specs.mjs`
-   - `node scripts/find-spec.mjs "<query>"`
+    - `node scripts/list-specs.mjs`
+    - `node scripts/find-spec.mjs "<query>"`
 4. Use `assets/specs/<id>.json` when the user wants a portable translation of the motion intent.
 5. Use `assets/effects/<id>.json` or `node scripts/get-effect.mjs <id>` when the user wants the exact generated animation behavior.
 6. If the user names a target animation library, treat that as binding. Follow `showcase.library_selection` and use only the matching `showcase.library_adapters.<library>` block for that effect.
