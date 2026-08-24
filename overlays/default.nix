@@ -89,6 +89,18 @@
       }
     );
 
+    # @upstream-issue https://github.com/NixOS/nixpkgs/pull/555604
+    # Backport the Darwin tmux build fix from nixpkgs pull request 555604.
+    # Remove this overlay after the change reaches nixos-unstable.
+    tmux = prev.tmux.overrideAttrs (old: {
+      buildInputs =
+        (old.buildInputs or [ ])
+        ++ final.lib.optionals final.stdenv.hostPlatform.isDarwin [ final.jemalloc ];
+      configureFlags =
+        (old.configureFlags or [ ])
+        ++ final.lib.optionals final.stdenv.hostPlatform.isDarwin [ "--enable-jemalloc" ];
+    });
+
     stable-packages = final: _prev: {
       stable = import inputs.nixpkgs-stable {
         system = final.stdenv.hostPlatform.system;
