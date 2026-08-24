@@ -114,10 +114,20 @@ let
     rev = "v1.4.1"; # e00ad19cd60863bebbbd944a7035b42cfebd8bae
     hash = "sha256-6r9qCk96/1Ygrg2QuXUpZy5bPiCAO23GhPRqcg4hUQg=";
   };
+
+  # DietrichGebert/ponytail: Minimal coding solutions.
+  # https://github.com/DietrichGebert/ponytail
+  ponytailSrc = pkgs.fetchFromGitHub {
+    owner = "DietrichGebert";
+    repo = "ponytail";
+    rev = "0a4dd63ad4541f4f655c4108a295916f3c1d8fda";
+    hash = "sha256-8cYggVltBAlZ/Zj4pl1bOu7mQdZFXCmDGW4RSpvRA+w=";
+  };
 in
 {
   inherit anthropicSkillsSrc;
   inherit mattPocockSkills;
+  inherit ponytailSrc;
   inherit superpowersSrc;
   inherit vercelSkillsSrc;
 
@@ -194,6 +204,7 @@ in
           );
     in
     mattPocockSkills
+    // discoverDirectorySkills (ponytailSrc + "/skills")
     // localSkills
     // {
       design-diagram = designDiagramSkill;
