@@ -34,34 +34,6 @@ in
     context = commonLlmSettings.context; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.claude-code.context # Rendered to CLAUDE.md.
     skills = commonLlmSettings.skills; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.claude-code.skills
     mcpServers = {
-      customTransport = {
-        customOption = "value";
-        timeout = 5000;
-        type = "websocket";
-        url = "wss://example.com/mcp";
-      };
-      database = {
-        args = [
-          "-y"
-          "@bytebase/dbhub"
-          "--dsn"
-          "postgresql://user:pass@localhost:5432/db"
-        ];
-        command = "npx";
-        env = {
-          DATABASE_URL = "postgresql://user:pass@localhost:5432/db";
-        };
-        type = "stdio";
-      };
-      filesystem = {
-        args = [
-          "-y"
-          "@modelcontextprotocol/server-filesystem"
-          "/tmp"
-        ];
-        command = "npx";
-        type = "stdio";
-      };
       github = {
         type = "http";
         url = "https://api.githubcopilot.com/mcp/";
@@ -69,7 +41,7 @@ in
     }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.claude-code.mcpServers
     settings = {
       # https://code.claude.com/docs/en/settings#available-settings
-      effortLevel = "high"; # https://platform.claude.com/docs/en/build-with-claude/effort#effort-levels
+      effortLevel = "medium"; # https://platform.claude.com/docs/en/build-with-claude/effort#effort-levels
       outputStyle = "Concise"; # https://code.claude.com/docs/en/output-styles
       # The attribution setting takes precedence over the deprecated includeCoAuthoredBy setting.
       # To hide all attribution, set commit and pr to empty strings and sessionUrl to false.
