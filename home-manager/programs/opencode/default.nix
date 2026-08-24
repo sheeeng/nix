@@ -670,6 +670,12 @@ in
       forbid-llm-watermarks = commonLlmSettings.skills.forbid-llm-watermarks;
       frontend-design = "${commonLlmSettings.anthropicSkillsSrc}/skills/frontend-design";
       pull-request = commonLlmSettings.skills.pull-request;
+      ponytail = commonLlmSettings.skills.ponytail;
+      ponytail-audit = commonLlmSettings.skills.ponytail-audit;
+      ponytail-debt = commonLlmSettings.skills.ponytail-debt;
+      ponytail-gain = commonLlmSettings.skills.ponytail-gain;
+      ponytail-help = commonLlmSettings.skills.ponytail-help;
+      ponytail-review = commonLlmSettings.skills.ponytail-review;
       release = commonLlmSettings.skills.release;
       superpowers-brainstorming = "${commonLlmSettings.superpowersSrc}/skills/brainstorming";
       superpowers-dispatching-parallel-agents = "${commonLlmSettings.superpowersSrc}/skills/dispatching-parallel-agents";
