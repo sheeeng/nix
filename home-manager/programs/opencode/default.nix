@@ -13,17 +13,11 @@ let
 
   opencodeSuperpowersPlugin = "${commonLlmSettings.superpowersSrc}/.opencode/plugins/superpowers.js";
 
-  opencodeModel = "github-copilot/gpt-5.6-sol"; # https://models.dev/models/openai/gpt-5.6-sol/
-  opencodeSmallModel = "github-copilot/gpt-5.6-terra"; # https://models.dev/models/openai/gpt-5.6-terra/
+  opencodeModel = "github-copilot/gpt-5.6-terra"; # https://models.dev/models/openai/gpt-5.6-terra/
+  opencodeSmallModel = "github-copilot/gpt-5.6-luna"; # https://models.dev/models/openai/gpt-5.6-luna/
 in
 {
-  # Place superpowers plugin so OpenCode discovers it at startup.
-  # The plugin injects the using-superpowers skill into the system prompt
-  # via the experimental.chat.system.transform hook.
-  #
-  # Nixpkgs dropped x86_64-darwin support, so OpenCode is disabled on Intel
-  # Macs through the enable option below. Guard the plugin file with the same
-  # condition, so activation writes no OpenCode artifacts there either.
+  # Inject the Superpowers workflow into each OpenCode session.
   xdg.configFile."opencode/plugins/superpowers.js" =
     lib.mkIf (pkgs.stdenv.system != "x86_64-darwin")
       {

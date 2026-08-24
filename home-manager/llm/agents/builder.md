@@ -2,7 +2,7 @@
 name: builder
 description: Execute approved plans and implement code changes with full capabilities.
 mode: primary
-model: github-copilot/gpt-5.6-sol # https://models.dev/providers/github-copilot/
+model: github-copilot/gpt-5.6-terra # https://models.dev/providers/github-copilot/
 temperature: 0.2
 tools:
     write: true
