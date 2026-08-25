@@ -4,6 +4,7 @@
     "config:best-practices",
     ":disableDependencyDashboard"
   ],
+  "rebaseWhen": "behind-base-branch",
   "lockFileMaintenance": {
     "enabled": true,
     "schedule": [
