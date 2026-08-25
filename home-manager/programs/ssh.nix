@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ config, pkgs, lib, ... }:
 {
   programs.ssh = {
     enable = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.ssh.enable
@@ -33,7 +33,8 @@
         AddKeysToAgent = "yes"; # https://man.openbsd.org/ssh_config#AddKeysToAgent
         Compression = true; # https://man.openbsd.org/ssh_config#Compression
         HostName = "github.com"; # https://man.openbsd.org/ssh_config#HostName
-        IdentityFile = [ "~/.ssh/id_ed25519" ]; # https://man.openbsd.org/ssh_config#IdentityFile
+        IdentityFile = [ "${config.home.homeDirectory}/.ssh/id_ed25519" ]; # https://man.openbsd.org/ssh_config#IdentityFile
+        UseKeychain = lib.mkIf pkgs.stdenv.isDarwin true; # https://man.openbsd.org/ssh_config#UseKeychain
       };
       "git.sr.ht" = {
         AddKeysToAgent = "yes"; # https://man.openbsd.org/ssh_config#AddKeysToAgent
