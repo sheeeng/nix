@@ -71,13 +71,15 @@ jobs:
               --jq '.[0].number // empty'
           )"
 
+          git fetch origin "${GITHUB_REF_NAME}"
           git fetch origin "${update_branch}" || true
           if git show-ref --verify --quiet "refs/remotes/origin/${update_branch}"; then
             git switch --create "${update_branch}" \
               --track "origin/${update_branch}"
           else
-            git switch --create "${update_branch}"
+            git switch --create "${update_branch}" "origin/${GITHUB_REF_NAME}"
           fi
+          git rebase "origin/${GITHUB_REF_NAME}"
 
           declare -A target_hashes=()
           for target in darwin_arm64 linux_arm64 linux_amd64; do
