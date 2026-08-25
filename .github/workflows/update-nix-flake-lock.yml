@@ -1,10 +1,6 @@
 name: "Update Nix Flake Lock"
 
 on:
-  push:
-    branches:
-      - "main"
-      - "unstable"
   schedule:
     - cron: "1 2 * * 3" # “At 02:01 on Wednesday.”
   workflow_dispatch:
@@ -15,7 +11,7 @@ jobs:
   update-nix-flake-lock:
     runs-on: ubuntu-latest
     environment:
-      name: ${{ github.ref_name != 'unstable' && 'update-nix-flake-lock' || '' }}
+      name: ${{ github.ref_name == 'unstable' && 'unstable' || '' }}
       deployment: false
     permissions:
       contents: write
