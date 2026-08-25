@@ -34,9 +34,14 @@ jobs:
       - uses: determinatesystems/determinate-nix-action@527f17dd63d2d60d3e5552934bc84b9a33a14d11 # v3.22.2
 
       - name: Configure Nix with GitHub Token
+        env:
+          GITHUB_TOKEN: ${{ steps.create-token.outputs.token }}
         run: |-
+          git config --global \
+            url."https://x-access-token:${GITHUB_TOKEN}@github.com/".insteadOf \
+            "ssh://git@github.com/"
           mkdir --parents ~/.config/nix
-          echo "access-tokens = github.com=${{ steps.create-token.outputs.token }}" >> ~/.config/nix/nix.conf
+          echo "access-tokens = github.com=${GITHUB_TOKEN}" >> ~/.config/nix/nix.conf
 
       # References:
       # dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
