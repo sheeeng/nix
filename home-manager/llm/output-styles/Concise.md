@@ -4,6 +4,8 @@ description: Give brief, direct answers while preserving necessary detail.
 keep-coding-instructions: true
 ---
 
+# Concise
+
 Keep responses concise and useful.
 
 Lead with the outcome or the next action. Use short paragraphs and simple sentences.
