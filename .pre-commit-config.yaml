@@ -111,6 +111,7 @@ repos:
       - id: ruff-format
         name: ruff-format
         types_or: [python, pyi]
+        exclude: ^home-manager/llm/skills/forbid-llm-watermarks/
   - repo: https://github.com/compilerla/conventional-pre-commit
     rev: v4.4.0
     hooks:
