@@ -39,7 +39,6 @@ jobs:
           set -o nounset
           set -o pipefail
 
-          current_version="$(< .terraform-version)"
           latest_version="$(
             curl --fail --location --silent --show-error \
               --header "Accept: application/vnd.github+json" \
@@ -48,18 +47,11 @@ jobs:
               | jq --raw-output '.tag_name | ltrimstr("v")'
           )"
 
-          if [[ "${current_version}" == "${latest_version}" ]]; then
-            echo "Terraform is already current at ${current_version}."
-            exit 0
-          fi
-
           update_branch="automation/terraform-${latest_version}"
           if [[ "$(gh pr list --base "${GITHUB_REF_NAME}" --head "${update_branch}" --state open --json number --jq 'length')" != 0 ]]; then
             echo "A Terraform update pull request already exists for ${latest_version}."
             exit 0
           fi
-
-          git switch --create "${update_branch}"
 
           declare -A target_hashes=()
           for target in darwin_arm64 linux_arm64 linux_amd64; do
@@ -71,12 +63,18 @@ jobs:
             target_hashes["${target}"]="${binary_hash}"
           done
 
+          git switch --create "${update_branch}"
           printf '%s\n' "${latest_version}" > .terraform-version
           sed --in-place \
             -e "/^  terraformHashes = {/,/^  };/ s#^    \"aarch64-darwin\" = \".*\";#    \"aarch64-darwin\" = \"${target_hashes[darwin_arm64]}\";#" \
             -e "/^  terraformHashes = {/,/^  };/ s#^    \"aarch64-linux\" = \".*\";#    \"aarch64-linux\" = \"${target_hashes[linux_arm64]}\";#" \
             -e "/^  terraformHashes = {/,/^  };/ s#^    \"x86_64-linux\" = \".*\";#    \"x86_64-linux\" = \"${target_hashes[linux_amd64]}\";#" \
             home-manager/packages/terraform.nix
+
+          if git diff --quiet -- .terraform-version home-manager/packages/terraform.nix; then
+            echo "Terraform ${latest_version} and its hashes are already current."
+            exit 0
+          fi
 
           git diff --check
 
