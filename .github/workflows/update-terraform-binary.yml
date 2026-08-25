@@ -47,10 +47,36 @@ jobs:
               | jq --raw-output '.tag_name | ltrimstr("v")'
           )"
 
-          update_branch="automation/terraform-${latest_version}"
-          if [[ "$(gh pr list --base "${GITHUB_REF_NAME}" --head "${update_branch}" --state open --json number --jq 'length')" != 0 ]]; then
-            echo "A Terraform update pull request already exists for ${latest_version}."
-            exit 0
+          update_branch="chore/update-terraform-binary"
+
+          while IFS=$'\t' read -r pull_request_number branch_name; do
+            [[ -z "${pull_request_number}" ]] && continue
+            gh pr close "${pull_request_number}" \
+              --comment "Superseded by Terraform ${latest_version}."
+            git push origin --delete "${branch_name}" || true
+          done < <(
+            gh pr list \
+              --base "${GITHUB_REF_NAME}" \
+              --state open \
+              --json headRefName,number \
+              --jq '.[] | select(.headRefName == "automation/terraform" or (.headRefName | startswith("automation/terraform-"))) | "\(.number)\t\(.headRefName)"'
+          )
+
+          existing_pr_number="$(
+            gh pr list \
+              --base "${GITHUB_REF_NAME}" \
+              --head "${update_branch}" \
+              --state open \
+              --json number \
+              --jq '.[0].number // empty'
+          )"
+
+          git fetch origin "${update_branch}" || true
+          if git show-ref --verify --quiet "refs/remotes/origin/${update_branch}"; then
+            git switch --create "${update_branch}" \
+              --track "origin/${update_branch}"
+          else
+            git switch --create "${update_branch}"
           fi
 
           declare -A target_hashes=()
@@ -63,7 +89,6 @@ jobs:
             target_hashes["${target}"]="${binary_hash}"
           done
 
-          git switch --create "${update_branch}"
           printf '%s\n' "${latest_version}" > .terraform-version
           sed --in-place \
             -e "/^  terraformHashes = {/,/^  };/ s#^    \"aarch64-darwin\" = \".*\";#    \"aarch64-darwin\" = \"${target_hashes[darwin_arm64]}\";#" \
@@ -86,8 +111,14 @@ jobs:
           git fetch origin "${update_branch}" || true
           git push --force-with-lease origin "HEAD:${update_branch}"
 
-          gh pr create \
-            --base "${GITHUB_REF_NAME}" \
-            --head "${update_branch}" \
-            --title "chore(terraform): update to ${latest_version}" \
-            --body "Update Terraform to ${latest_version} and refresh the binary checksums."
+          if [[ -n "${existing_pr_number}" ]]; then
+            gh pr edit "${existing_pr_number}" \
+              --title "chore(terraform): update to ${latest_version}" \
+              --body "Update Terraform to ${latest_version} and refresh the binary checksums."
+          else
+            gh pr create \
+              --base "${GITHUB_REF_NAME}" \
+              --head "${update_branch}" \
+              --title "chore(terraform): update to ${latest_version}" \
+              --body "Update Terraform to ${latest_version} and refresh the binary checksums."
+          fi

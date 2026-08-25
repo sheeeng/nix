@@ -66,14 +66,38 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          update_branch="automation/flake-lock"
-          if [[ "$(gh pr list --base "${GITHUB_REF_NAME}" --head "${update_branch}" --state open --json number --jq 'length')" != 0 ]]; then
-            echo "A flake lock update pull request already exists."
-            exit 0
-          fi
+          update_branch="chore/update-nix-flake-lock"
+
+          while IFS=$'\t' read -r pull_request_number branch_name; do
+            [[ -z "${pull_request_number}" ]] && continue
+            gh pr close "${pull_request_number}" \
+              --comment "Superseded by the current Nix flake lock update."
+            git push origin --delete "${branch_name}" || true
+          done < <(
+            gh pr list \
+              --base "${GITHUB_REF_NAME}" \
+              --head "automation/flake-lock" \
+              --state open \
+              --json headRefName,number \
+              --jq '.[] | "\(.number)\t\(.headRefName)"'
+          )
+
+          existing_pr_number="$(
+            gh pr list \
+              --base "${GITHUB_REF_NAME}" \
+              --head "${update_branch}" \
+              --state open \
+              --json number \
+              --jq '.[0].number // empty'
+          )"
 
           git fetch origin "${update_branch}" || true
-          git switch --create "${update_branch}"
+          if git show-ref --verify --quiet "refs/remotes/origin/${update_branch}"; then
+            git switch --create "${update_branch}" \
+              --track "origin/${update_branch}"
+          else
+            git switch --create "${update_branch}"
+          fi
 
           # Record current HEAD before updating, so we can detect whether
           # --commit-lock-file made a new commit with flake.lock changes.
@@ -115,8 +139,12 @@ jobs:
 
           git push --force-with-lease origin "HEAD:${update_branch}"
 
-          gh pr create \
-            --base "${GITHUB_REF_NAME}" \
-            --head "${update_branch}" \
-            --title "chore(deps): update flake.lock" \
-            --body "Update flake.lock and verify all configurations."
+          if [[ -n "${existing_pr_number}" ]]; then
+            echo "Updated flake lock pull request #${existing_pr_number}."
+          else
+            gh pr create \
+              --base "${GITHUB_REF_NAME}" \
+              --head "${update_branch}" \
+              --title "chore(deps): update flake.lock" \
+              --body "Update flake.lock and verify all configurations."
+          fi
