@@ -12,6 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      pull-requests: write
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
@@ -39,6 +40,14 @@ jobs:
             exit 0
           fi
 
+          update_branch="automation/terraform-${latest_version}"
+          if [[ "$(gh pr list --base "${GITHUB_REF_NAME}" --head "${update_branch}" --state open --json number --jq 'length')" != 0 ]]; then
+            echo "A Terraform update pull request already exists for ${latest_version}."
+            exit 0
+          fi
+
+          git switch --create "${update_branch}"
+
           declare -A target_hashes=()
           for target in darwin_arm64 linux_arm64 linux_amd64; do
             binary_url="https://releases.hashicorp.com/terraform/${latest_version}/terraform_${latest_version}_${target}.zip"
@@ -63,4 +72,17 @@ jobs:
           git add -- .terraform-version home-manager/packages/terraform.nix
           git commit --signoff \
             --message "chore(deps): update terraform to ${latest_version}"
-          git push origin "HEAD:${GITHUB_REF_NAME}"
+          git push origin "HEAD:${update_branch}"
+
+          # Direct commits to the base branch are disabled. Keep the old flow
+          # as a reference if the workflow design changes in the future.
+          # git add -- .terraform-version home-manager/packages/terraform.nix
+          # git commit --signoff \
+          #   --message "chore(deps): update terraform to ${latest_version}"
+          # git push origin "HEAD:${GITHUB_REF_NAME}"
+
+          gh pr create \
+            --base "${GITHUB_REF_NAME}" \
+            --head "${update_branch}" \
+            --title "chore(terraform): update to ${latest_version}" \
+            --body "Update Terraform to ${latest_version} and refresh the binary checksums."
