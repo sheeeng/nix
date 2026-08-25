@@ -26,6 +26,14 @@
 
     home.packages = [ pkgs.libsecret ];
 
+    programs.nushell.extraEnv = ''
+      $env.SSH_AUTH_SOCK = $"($env.XDG_RUNTIME_DIR)/gcr/ssh"
+    '';
+
+    programs.zsh.envExtra = ''
+      export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/gcr/ssh"
+    '';
+
     home.sessionVariablesExtra = ''
       export GPG_TTY="$(tty)"
     '';
