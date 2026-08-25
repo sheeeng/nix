@@ -19,7 +19,7 @@ jobs:
     name: Run Pre-Commit
     runs-on: ubuntu-latest
     environment:
-      name: update-nix-flake-lock
+      name: ${{ github.ref_name == 'unstable' && 'unstable' || '' }}
       deployment: false
     permissions:
       actions: write
