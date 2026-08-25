@@ -15,6 +15,7 @@ jobs:
       deployment: false
     permissions:
       contents: write
+      pull-requests: write
     steps:
       - uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
         id: create-token
@@ -54,6 +55,8 @@ jobs:
       # https://github.com/actions/checkout/blob/8e8c483db84b4bee98b60c0593521ed34d9990e8/README.md#L358
 
       - name: Update Nix Flake Lock
+        env:
+          GH_TOKEN: ${{ steps.create-token.outputs.token }}
         run: |-
           set -o pipefail
           set -o errexit
@@ -62,6 +65,15 @@ jobs:
           # Configure git identity.
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          update_branch="automation/flake-lock"
+          if [[ "$(gh pr list --base "${GITHUB_REF_NAME}" --head "${update_branch}" --state open --json number --jq 'length')" != 0 ]]; then
+            echo "A flake lock update pull request already exists."
+            exit 0
+          fi
+
+          git fetch origin "${update_branch}" || true
+          git switch --create "${update_branch}"
 
           # Record current HEAD before updating, so we can detect whether
           # --commit-lock-file made a new commit with flake.lock changes.
@@ -73,9 +85,9 @@ jobs:
             flake update \
             --commit-lock-file
 
-          # Push only if flake.lock was actually updated.
+          # Stop if flake.lock was not updated.
           if git diff --quiet "$CHECKOUT_COMMIT_HASH" HEAD -- flake.lock; then
-            echo "No changes to flake.lock file, skipping push."
+            echo "No changes to flake.lock file, skipping pull request."
             exit 0
           fi
 
@@ -101,4 +113,10 @@ jobs:
               }
           done
 
-          git push origin HEAD
+          git push --force-with-lease origin "HEAD:${update_branch}"
+
+          gh pr create \
+            --base "${GITHUB_REF_NAME}" \
+            --head "${update_branch}" \
+            --title "chore(deps): update flake.lock" \
+            --body "Update flake.lock and verify all configurations."
