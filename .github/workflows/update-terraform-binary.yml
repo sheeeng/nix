@@ -83,14 +83,8 @@ jobs:
           git add -- .terraform-version home-manager/packages/terraform.nix
           git commit --signoff \
             --message "chore(deps): update terraform to ${latest_version}"
-          git push origin "HEAD:${update_branch}"
-
-          # Direct commits to the base branch are disabled. Keep the old flow
-          # as a reference if the workflow design changes in the future.
-          # git add -- .terraform-version home-manager/packages/terraform.nix
-          # git commit --signoff \
-          #   --message "chore(deps): update terraform to ${latest_version}"
-          # git push origin "HEAD:${GITHUB_REF_NAME}"
+          git fetch origin "${update_branch}" || true
+          git push --force-with-lease origin "HEAD:${update_branch}"
 
           gh pr create \
             --base "${GITHUB_REF_NAME}" \
