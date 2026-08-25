@@ -12,9 +12,14 @@
 - Use active voice and imperative instructions. Use clear nouns and pronouns.
 - Use standard English punctuation. Do not use decorative dashes or
   parenthetical asides in prose.
+
+## Markdown
+
 - Remove trailing whitespace. End every Markdown file with one newline.
-- Keep link definitions when they support a link. Use reference-style links in
-  Markdown files.
+- Write links as `[Title Case Text][kebab-case-label]`.
+- Define each label once as `[kebab-case-label]: target` after the document
+  body.
+- Follow Markdown linting rules.
 
 ## Required Skills
 
@@ -32,42 +37,37 @@ that chain. Load `writing-for-agents` when editing `AGENTS.md` or `CLAUDE.md`.
 - Use `nixpkgs-unstable`.
 - Use `nix-prefetch-git` to obtain source hashes. Use `lib.fakeSha256` only as
   a temporary placeholder.
-- Save reusable command instructions in [docs/commands.md].
+- Save reusable command instructions in [Commands Document][docs-commands].
 - Run read-only inspection commands without approval. Request approval before
   commands that modify files, commit, push, or contact external services.
 
-## Nix Configuration
-
-Use Home Manager for user configuration when an option exists. Consult the
-[Home Manager options], [Nix manual], and [Noogle] references when needed.
-
-Always allow read queries from these documentation sources:
-
-- [Home Manager options]
-- [Nix manual]
-- [NixOS manual]
-- [NixOS Wiki, community]
-- [NixOS Wiki, official]
-
 ## Journals
 
-- Read all files in [docs/journals] for historical context before changing
+- Read all files in [Journals Directory][docs-journals] for historical context before changing
   related configuration.
-- Save task summaries in [docs/journals]. Name files with a UTC timestamp in
+- Save task summaries in [Journals Directory][docs-journals]. Name files with a UTC timestamp in
   `YYYYMMDDTHHMMSSZ.md` format.
 - Use ISO 8601 timestamps in journal content.
 - Use `~` or `${HOME}` instead of fully qualified paths.
 - Do not record personally identifiable information or secrets.
-- Follow Markdown linting rules.
 
 ## Security
 
 - Do not hardcode API keys, passwords, tokens, or other secrets. Use
   environment variables or a secure vault.
 - Keep dependencies current enough to receive security fixes.
-- Use official guidance from [Azure security best practices], [CIS
-  Benchmarks], [GitHub Actions secure use], [OWASP Cheat Sheet Series], and
-  [OWASP Top Ten].
+- Use official guidance from [Azure Security Best Practices][azure-security-best-practices],
+  [CIS Benchmarks][cis-benchmarks], [GitHub Actions Secure Use][github-actions-secure-use],
+  [OWASP Cheat Sheet Series][owasp-cheat-sheet-series], and [OWASP Top Ten][owasp-top-ten].
+
+## GitHub Actions
+
+- Use a GitHub App token for repository automation that needs write access.
+- Use empty top-level workflow permissions. Declare explicit permissions in
+  each job.
+- Push generated changes to an automation branch with lease protection.
+- Create or update a pull request against `${GITHUB_REF_NAME}`.
+- Keep generated commits out of the default or protected branch.
 
 ## Agent Models
 
@@ -107,7 +107,7 @@ Use the `commit` skill before creating a commit. Use Conventional Commits:
 
 ## Task Tracking and Delivery
 
-Use [Beads] to track tasks. Before delivery, update the relevant task status
+Use [Beads][beads] to track tasks. Before delivery, update the relevant task status
 and create follow-up issues for unfinished work.
 
 When the user authorizes synchronization and delivery, use this sequence:
@@ -124,17 +124,31 @@ git status
 Confirm that the work tree is clean and the branch is up to date with its
 remote. Do not commit, push, or create pull requests without user approval.
 
-[Azure security best practices]: https://learn.microsoft.com/en-us/azure/security/fundamentals/best-practices-and-patterns
-[Beads]: https://github.com/gastownhall/beads
-[CIS Benchmarks]: https://www.cisecurity.org/cis-benchmarks/
-[docs/commands.md]: ./docs/commands.md
-[docs/journals]: ./docs/journals
-[GitHub Actions secure use]: https://docs.github.com/en/actions/reference/security/secure-use
-[Home Manager options]: https://nix-community.github.io/home-manager/options.xhtml
-[Nix manual]: https://nix.dev/manual/nix/latest
-[NixOS manual]: https://nixos.org/manual/nixos/unstable/
-[NixOS Wiki, community]: https://nixos.wiki/
-[NixOS Wiki, official]: https://wiki.nixos.org/
-[Noogle]: https://noogle.dev/
-[OWASP Cheat Sheet Series]: https://cheatsheetseries.owasp.org/
-[OWASP Top Ten]: https://owasp.org/www-project-top-ten/
+## Nix Configuration
+
+Use Home Manager for user configuration when an option exists. Consult the
+[Home Manager Options][home-manager-options], [Nix Manual][nix-manual], and
+[Noogle][noogle] references when needed.
+
+Always allow read queries from these documentation sources:
+
+- [Home Manager Options][home-manager-options]
+- [Nix Manual][nix-manual]
+- [NixOS Manual][nixos-manual]
+- [NixOS Wiki, Community][nixos-wiki-community]
+- [NixOS Wiki, Official][nixos-wiki-official]
+
+[azure-security-best-practices]: https://learn.microsoft.com/en-us/azure/security/fundamentals/best-practices-and-patterns
+[beads]: https://github.com/gastownhall/beads
+[cis-benchmarks]: https://www.cisecurity.org/cis-benchmarks/
+[docs-commands]: ./docs/commands.md
+[docs-journals]: ./docs/journals
+[github-actions-secure-use]: https://docs.github.com/en/actions/reference/security/secure-use
+[home-manager-options]: https://nix-community.github.io/home-manager/options.xhtml
+[nix-manual]: https://nix.dev/manual/nix/latest
+[nixos-manual]: https://nixos.org/manual/nixos/unstable/
+[nixos-wiki-community]: https://nixos.wiki/
+[nixos-wiki-official]: https://wiki.nixos.org/
+[noogle]: https://noogle.dev/
+[owasp-cheat-sheet-series]: https://cheatsheetseries.owasp.org/
+[owasp-top-ten]: https://owasp.org/www-project-top-ten/
