@@ -19,7 +19,7 @@ jobs:
     name: Run Pre-Commit
     runs-on: ubuntu-latest
     environment:
-      name: ${{ github.ref_name == 'unstable' && 'unstable' || '' }}
+      name: ${{ (github.ref_name == 'unstable' || (github.base_ref == 'unstable' && github.event.pull_request.head.repo.full_name == github.repository)) && 'unstable' || '' }}
       deployment: false
     permissions:
       actions: write
