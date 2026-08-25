@@ -7,7 +7,7 @@ let
     "x86_64-linux" = "linux_amd64";
   };
   terraformHashes = {
-    "aarch64-darwin" = "sha256-jUxnkadEMyvHyjlixhqy7Y5dJacpnxdvXt/7nLUl6F8=";
+    "aarch64-darwin" = "sha256-XQgXZ54O5V8wIsRqbyotSTswv7WP9bKEF+5XNnU19Cc=";
     "aarch64-linux" = "sha256-QEyc+kNyjTEAX256hIuKfMcBMgBn2dh9iFADGlvrN7A=";
     "x86_64-linux" = "sha256-qNrH4MbLvtlCWt0eAM2DNwvNFRo1jgaXaqTrly+gexs=";
   };
