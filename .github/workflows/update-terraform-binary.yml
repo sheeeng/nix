@@ -51,10 +51,12 @@ jobs:
 
           printf '%s\n' "${latest_version}" > .terraform-version
           sed --in-place \
-            -e "s#^    \"aarch64-darwin\" = \".*\";#    \"aarch64-darwin\" = \"${target_hashes[darwin_arm64]}\";#" \
-            -e "s#^    \"aarch64-linux\" = \".*\";#    \"aarch64-linux\" = \"${target_hashes[linux_arm64]}\";#" \
-            -e "s#^    \"x86_64-linux\" = \".*\";#    \"x86_64-linux\" = \"${target_hashes[linux_amd64]}\";#" \
+            -e "/^  terraformHashes = {/,/^  };/ s#^    \"aarch64-darwin\" = \".*\";#    \"aarch64-darwin\" = \"${target_hashes[darwin_arm64]}\";#" \
+            -e "/^  terraformHashes = {/,/^  };/ s#^    \"aarch64-linux\" = \".*\";#    \"aarch64-linux\" = \"${target_hashes[linux_arm64]}\";#" \
+            -e "/^  terraformHashes = {/,/^  };/ s#^    \"x86_64-linux\" = \".*\";#    \"x86_64-linux\" = \"${target_hashes[linux_amd64]}\";#" \
             home-manager/packages/terraform.nix
+
+          git diff --check
 
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
