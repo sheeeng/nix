@@ -112,6 +112,7 @@ jobs:
           git push --force-with-lease origin "HEAD:${update_branch}"
 
           if [[ -n "${existing_pr_number}" ]]; then
+            gh pr ready "${existing_pr_number}" --undo
             gh pr edit "${existing_pr_number}" \
               --title "chore(terraform): update to ${latest_version}" \
               --body "Update Terraform to ${latest_version} and refresh the binary checksums."
@@ -119,6 +120,7 @@ jobs:
             gh pr create \
               --base "${GITHUB_REF_NAME}" \
               --head "${update_branch}" \
+              --draft \
               --title "chore(terraform): update to ${latest_version}" \
               --body "Update Terraform to ${latest_version} and refresh the binary checksums."
           fi
