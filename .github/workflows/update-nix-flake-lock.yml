@@ -140,11 +140,13 @@ jobs:
           git push --force-with-lease origin "HEAD:${update_branch}"
 
           if [[ -n "${existing_pr_number}" ]]; then
+            gh pr ready "${existing_pr_number}" --undo
             echo "Updated flake lock pull request #${existing_pr_number}."
           else
             gh pr create \
               --base "${GITHUB_REF_NAME}" \
               --head "${update_branch}" \
+              --draft \
               --title "chore(deps): update flake.lock" \
               --body "Update flake.lock and verify all configurations."
           fi
