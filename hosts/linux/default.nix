@@ -8,6 +8,7 @@
   environment.systemPackages = with pkgs; [
     # keep-sorted start
     dix # https://search.nixos.org/packages?channel=unstable&type=packages&show=dix
+    firefox-beta # https://search.nixos.org/packages?channel=unstable&type=packages&show=manix
     manix # https://search.nixos.org/packages?channel=unstable&type=packages&show=manix
     nh # https://search.nixos.org/packages?channel=unstable&type=packages&show=nh
     nil # https://search.nixos.org/packages?channel=unstable&type=packages&show=nil
