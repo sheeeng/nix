@@ -91,13 +91,15 @@ jobs:
               --jq '.[0].number // empty'
           )"
 
+          git fetch origin "${GITHUB_REF_NAME}"
           git fetch origin "${update_branch}" || true
           if git show-ref --verify --quiet "refs/remotes/origin/${update_branch}"; then
             git switch --create "${update_branch}" \
               --track "origin/${update_branch}"
           else
-            git switch --create "${update_branch}"
+            git switch --create "${update_branch}" "origin/${GITHUB_REF_NAME}"
           fi
+          git rebase "origin/${GITHUB_REF_NAME}"
 
           # Record current HEAD before updating, so we can detect whether
           # --commit-lock-file made a new commit with flake.lock changes.
