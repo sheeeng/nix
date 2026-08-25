@@ -14,13 +14,23 @@ jobs:
       contents: write
       pull-requests: write
     steps:
+      - uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+        id: create-token
+        with:
+          client-id: ${{ vars.APP_CLIENT_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+          owner: sheeeng
+          repositories: nix
+
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          token: ${{ steps.create-token.outputs.token }}
 
       - uses: determinatesystems/determinate-nix-action@527f17dd63d2d60d3e5552934bc84b9a33a14d11 # v3.22.2
 
       - name: Update Terraform Binary
         env:
-          GH_TOKEN: ${{ github.token }}
+          GH_TOKEN: ${{ steps.create-token.outputs.token }}
         run: |-
           set -o errexit
           set -o nounset
