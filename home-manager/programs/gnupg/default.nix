@@ -104,7 +104,7 @@
     enableFishIntegration = lib.mkDefault true; # https://nix-community.github.io/home-manager/options.xhtml#opt-services.gpg-agent.enableFishIntegration
     enableNushellIntegration = lib.mkDefault true; # https://nix-community.github.io/home-manager/options.xhtml#opt-services.gpg-agent.enableNushellIntegration
     enableScDaemon = lib.mkDefault true; # https://nix-community.github.io/home-manager/options.xhtml#opt-services.gpg-agent.enableScDaemon
-    enableSshSupport = lib.mkDefault (!pkgs.stdenv.isDarwin); # https://nix-community.github.io/home-manager/options.xhtml#opt-services.gpg-agent.enableSshSupport
+    enableSshSupport = lib.mkDefault false; # https://nix-community.github.io/home-manager/options.xhtml#opt-services.gpg-agent.enableSshSupport
     enableZshIntegration = lib.mkDefault true; # https://nix-community.github.io/home-manager/options.xhtml#opt-services.gpg-agent.enableZshIntegration
     defaultCacheTtl = 28800; # 8 hours - https://nix-community.github.io/home-manager/options.xhtml#opt-services.gpg-agent.defaultCacheTtl
     defaultCacheTtlSsh = 28800; # 8 hours - https://nix-community.github.io/home-manager/options.xhtml#opt-services.gpg-agent.defaultCacheTtlSsh
