@@ -2,7 +2,7 @@ name: Update Terraform Binary
 
 on:
   schedule:
-    - cron: "17 2 * * 3"
+    - cron: "2 3 * * 4" # “At 03:02 on Thursday.”
   workflow_dispatch:
 
 permissions: {}
@@ -10,6 +10,9 @@ permissions: {}
 jobs:
   update-terraform-binary:
     runs-on: ubuntu-latest
+    environment:
+      name: ${{ github.ref_name == 'unstable' && 'unstable' || '' }}
+      deployment: false
     permissions:
       contents: write
       pull-requests: write
