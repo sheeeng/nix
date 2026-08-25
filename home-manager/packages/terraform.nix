@@ -9,7 +9,7 @@ let
   terraformHashes = {
     "aarch64-darwin" = "sha256-jUxnkadEMyvHyjlixhqy7Y5dJacpnxdvXt/7nLUl6F8=";
     "aarch64-linux" = "sha256-QEyc+kNyjTEAX256hIuKfMcBMgBn2dh9iFADGlvrN7A=";
-    "x86_64-linux" = "sha256-pxUNOw4bXEZq1C6MSZlUo8VGRfi1azhfoCXTT36I+qk=";
+    "x86_64-linux" = "sha256-qNrH4MbLvtlCWt0eAM2DNwvNFRo1jgaXaqTrly+gexs=";
   };
   terraformSystem = pkgs.stdenv.hostPlatform.system;
   terraformBinary = pkgs.stdenvNoCC.mkDerivation {
