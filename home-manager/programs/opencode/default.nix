@@ -13,6 +13,10 @@ let
 
   opencodeSuperpowersPlugin = "${commonLlmSettings.superpowersSrc}/.opencode/plugins/superpowers.js";
 
+  opencodePlatformSkills = pkgs.lib.optionalAttrs pkgs.stdenv.hostPlatform.isDarwin {
+    design-diagram = commonLlmSettings.skills."design-diagram";
+  };
+
   opencodeModel = "github-copilot/gpt-5.6-terra"; # https://models.dev/models/openai/gpt-5.6-terra/
   opencodeSmallModel = "github-copilot/gpt-5.6-luna"; # https://models.dev/models/openai/gpt-5.6-luna/
 in
@@ -644,48 +648,50 @@ in
       ]; # https://opencode.ai/docs/config/#instructions
       formatter = import ./formatter.nix; # # https://opencode.ai/docs/config/#formatters
     }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.opencode.settings
-    skills = commonLlmSettings.mattPocockSkills // {
-      # https://opencode.ai/docs/skills/
-      # Existing OpenCode skills override complementary Matt Pocock skills.
-      animate-kinetics = commonLlmSettings.skills.animate-kinetics;
-      animate-text = commonLlmSettings.skills.animate-text;
-      enforce-owasp-security = commonLlmSettings.skills.enforce-owasp-security;
-      beads = "${pkgs.beads.src}/claude-plugin/skills/beads"; # A skill can also be a subdirectory within a Nix package source store path.
-      commit = commonLlmSettings.skills.commit;
-      create-abstract-editorial-image = commonLlmSettings.skills.create-abstract-editorial-image;
-      design-diagram = commonLlmSettings.skills.design-diagram;
-      enforce-asd-ste100 = commonLlmSettings.skills.enforce-asd-ste100;
-      enforce-chinese-writing-style = commonLlmSettings.skills.enforce-chinese-writing-style;
-      enforce-owasp-llm-security = commonLlmSettings.skills.enforce-owasp-llm-security;
-      enforce-writing-style = commonLlmSettings.skills.enforce-writing-style;
-      find-skills = "${commonLlmSettings.vercelSkillsSrc}/skills/find-skills";
-      fix-github-issue = commonLlmSettings.skills.fix-github-issue;
-      forbid-llm-slop = commonLlmSettings.skills.forbid-llm-slop;
-      forbid-llm-watermarks = commonLlmSettings.skills.forbid-llm-watermarks;
-      frontend-design = "${commonLlmSettings.anthropicSkillsSrc}/skills/frontend-design";
-      pull-request = commonLlmSettings.skills.pull-request;
-      ponytail = commonLlmSettings.skills.ponytail;
-      ponytail-audit = commonLlmSettings.skills.ponytail-audit;
-      ponytail-debt = commonLlmSettings.skills.ponytail-debt;
-      ponytail-gain = commonLlmSettings.skills.ponytail-gain;
-      ponytail-help = commonLlmSettings.skills.ponytail-help;
-      ponytail-review = commonLlmSettings.skills.ponytail-review;
-      release = commonLlmSettings.skills.release;
-      superpowers-brainstorming = "${commonLlmSettings.superpowersSrc}/skills/brainstorming";
-      superpowers-dispatching-parallel-agents = "${commonLlmSettings.superpowersSrc}/skills/dispatching-parallel-agents";
-      superpowers-executing-plans = "${commonLlmSettings.superpowersSrc}/skills/executing-plans";
-      superpowers-finishing-a-development-branch = "${commonLlmSettings.superpowersSrc}/skills/finishing-a-development-branch";
-      superpowers-receiving-code-review = "${commonLlmSettings.superpowersSrc}/skills/receiving-code-review";
-      superpowers-requesting-code-review = "${commonLlmSettings.superpowersSrc}/skills/requesting-code-review";
-      superpowers-subagent-driven-development = "${commonLlmSettings.superpowersSrc}/skills/subagent-driven-development";
-      superpowers-systematic-debugging = "${commonLlmSettings.superpowersSrc}/skills/systematic-debugging";
-      superpowers-test-driven-development = "${commonLlmSettings.superpowersSrc}/skills/test-driven-development";
-      superpowers-using-git-worktrees = "${commonLlmSettings.superpowersSrc}/skills/using-git-worktrees";
-      superpowers-using-superpowers = "${commonLlmSettings.superpowersSrc}/skills/using-superpowers";
-      superpowers-verification-before-completion = "${commonLlmSettings.superpowersSrc}/skills/verification-before-completion";
-      superpowers-writing-plans = "${commonLlmSettings.superpowersSrc}/skills/writing-plans";
-      superpowers-writing-skills = "${commonLlmSettings.superpowersSrc}/skills/writing-skills";
-    }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.opencode.skills
+    skills =
+      commonLlmSettings.mattPocockSkills
+      // {
+        # https://opencode.ai/docs/skills/
+        # Existing OpenCode skills override complementary Matt Pocock skills.
+        animate-kinetics = commonLlmSettings.skills.animate-kinetics;
+        animate-text = commonLlmSettings.skills.animate-text;
+        enforce-owasp-security = commonLlmSettings.skills.enforce-owasp-security;
+        beads = "${pkgs.beads.src}/claude-plugin/skills/beads"; # A skill can also be a subdirectory within a Nix package source store path.
+        commit = commonLlmSettings.skills.commit;
+        create-abstract-editorial-image = commonLlmSettings.skills.create-abstract-editorial-image;
+        enforce-asd-ste100 = commonLlmSettings.skills.enforce-asd-ste100;
+        enforce-chinese-writing-style = commonLlmSettings.skills.enforce-chinese-writing-style;
+        enforce-owasp-llm-security = commonLlmSettings.skills.enforce-owasp-llm-security;
+        enforce-writing-style = commonLlmSettings.skills.enforce-writing-style;
+        find-skills = "${commonLlmSettings.vercelSkillsSrc}/skills/find-skills";
+        fix-github-issue = commonLlmSettings.skills.fix-github-issue;
+        forbid-llm-slop = commonLlmSettings.skills.forbid-llm-slop;
+        forbid-llm-watermarks = commonLlmSettings.skills.forbid-llm-watermarks;
+        frontend-design = "${commonLlmSettings.anthropicSkillsSrc}/skills/frontend-design";
+        pull-request = commonLlmSettings.skills.pull-request;
+        ponytail = commonLlmSettings.skills.ponytail;
+        ponytail-audit = commonLlmSettings.skills.ponytail-audit;
+        ponytail-debt = commonLlmSettings.skills.ponytail-debt;
+        ponytail-gain = commonLlmSettings.skills.ponytail-gain;
+        ponytail-help = commonLlmSettings.skills.ponytail-help;
+        ponytail-review = commonLlmSettings.skills.ponytail-review;
+        release = commonLlmSettings.skills.release;
+        superpowers-brainstorming = "${commonLlmSettings.superpowersSrc}/skills/brainstorming";
+        superpowers-dispatching-parallel-agents = "${commonLlmSettings.superpowersSrc}/skills/dispatching-parallel-agents";
+        superpowers-executing-plans = "${commonLlmSettings.superpowersSrc}/skills/executing-plans";
+        superpowers-finishing-a-development-branch = "${commonLlmSettings.superpowersSrc}/skills/finishing-a-development-branch";
+        superpowers-receiving-code-review = "${commonLlmSettings.superpowersSrc}/skills/receiving-code-review";
+        superpowers-requesting-code-review = "${commonLlmSettings.superpowersSrc}/skills/requesting-code-review";
+        superpowers-subagent-driven-development = "${commonLlmSettings.superpowersSrc}/skills/subagent-driven-development";
+        superpowers-systematic-debugging = "${commonLlmSettings.superpowersSrc}/skills/systematic-debugging";
+        superpowers-test-driven-development = "${commonLlmSettings.superpowersSrc}/skills/test-driven-development";
+        superpowers-using-git-worktrees = "${commonLlmSettings.superpowersSrc}/skills/using-git-worktrees";
+        superpowers-using-superpowers = "${commonLlmSettings.superpowersSrc}/skills/using-superpowers";
+        superpowers-verification-before-completion = "${commonLlmSettings.superpowersSrc}/skills/verification-before-completion";
+        superpowers-writing-plans = "${commonLlmSettings.superpowersSrc}/skills/writing-plans";
+        superpowers-writing-skills = "${commonLlmSettings.superpowersSrc}/skills/writing-skills";
+      }
+      // opencodePlatformSkills; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.opencode.skills
     themes = { }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.opencode.themes
     tools = { }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.opencode.tools # Enables or disables specific tools globally.
   };

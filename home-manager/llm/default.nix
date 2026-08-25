@@ -65,16 +65,7 @@ let
     hash = "sha256-4DFY9B5UERlwv883bjRbABYNdyZ12BWyDtGKanFQsEw=";
   };
 
-  enforceChineseWritingStyleSkill = pkgs.runCommand "enforce-chinese-writing-style" { } ''
-    mkdir $out
-    cp ${chineseWritingStyleSrc}/LICENSE $out/LICENSE
-    cp ${chineseWritingStyleSrc}/SKILL.md $out/SKILL.md
-    cp --recursive ${chineseWritingStyleSrc}/agents $out/agents
-    cp --recursive ${chineseWritingStyleSrc}/references $out/references
-    chmod --recursive u+w $out
-    substituteInPlace $out/SKILL.md \
-      --replace-fail "name: tech-doc-style-chinese" "name: enforce-chinese-writing-style"
-  '';
+  enforceChineseWritingStyleSkill = chineseWritingStyleSrc;
 
   # mattpocock/skills: Skills for real software engineering.
   # https://github.com/mattpocock/skills
@@ -206,8 +197,10 @@ in
     mattPocockSkills
     // discoverDirectorySkills (ponytailSrc + "/skills")
     // localSkills
-    // {
+    // pkgs.lib.optionalAttrs pkgs.stdenv.hostPlatform.isDarwin {
       design-diagram = designDiagramSkill;
+    }
+    // {
       enforce-chinese-writing-style = enforceChineseWritingStyleSkill;
       forbid-llm-slop = forbidLlmSlopSkill;
     };
