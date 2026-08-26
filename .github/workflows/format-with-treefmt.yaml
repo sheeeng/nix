@@ -4,6 +4,7 @@ on:
   pull_request: &triggers
     branches:
       - main
+      - unstable
     paths:
       - "**"
       - "!**/*.lock"
@@ -46,7 +47,7 @@ jobs:
           system="$(nix eval --impure --raw --expr 'builtins.currentSystem')"
           nix build --no-link --print-build-logs --show-trace ".#checks.${system}.formatting"
       - name: Explain the Formatting Failure
-        if: steps.check-formatting.outcome == 'failure'
+        if: failure() && steps.check-formatting.outcome == 'failure'
         run: |-
           system="$(nix eval --impure --raw --expr 'builtins.currentSystem')"
           log="$(nix log ".#checks.${system}.formatting" 2>/dev/null | sed -E 's/\x1b\[[0-9;]*[a-zA-Z]//g' | tr -d '\r' || true)"
