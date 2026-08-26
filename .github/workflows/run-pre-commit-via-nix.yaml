@@ -26,7 +26,8 @@ jobs:
       contents: read
     timeout-minutes: 20
     steps:
-      - uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+      - name: Create GitHub App Token
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
         id: create-token
         with:
           client-id: ${{ vars.APP_CLIENT_ID }}
@@ -37,12 +38,14 @@ jobs:
             nix-secrets
             nix-secrets-example
 
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
           fetch-depth: 0
 
-      - uses: nixbuild/nix-quick-install-action@9f63be77f412a248c9d9a65a4c82cf066cdf8f0c # v35
+      - name: Setup Nix
+        uses: nixbuild/nix-quick-install-action@9f63be77f412a248c9d9a65a4c82cf066cdf8f0c # v35
         with:
           nix_conf: |
             experimental-features = flakes nix-command
@@ -50,7 +53,8 @@ jobs:
             keep-outputs = true
           github_access_token: ${{ steps.create-token.outputs.token }}
 
-      - uses: nix-community/cache-nix-action@7df957e333c1e5da7721f60227dbba6d06080569 # v7.0.2
+      - name: Setup Nix Cache
+        uses: nix-community/cache-nix-action@7df957e333c1e5da7721f60227dbba6d06080569 # v7.0.2
         with:
           # Restore and save a cache using this key.
           # Focus on flake.lock and flake.nix as they determine actual dependencies.

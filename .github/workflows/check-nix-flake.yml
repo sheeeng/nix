@@ -22,18 +22,27 @@ jobs:
       contents: read
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
           fetch-depth: 0
-      - uses: determinatesystems/nix-installer-action@ef8a148080ab6020fd15196c2084a2eea5ff2d25 # v22
-      - run: |-
+      - name: Setup Nix
+        uses: determinatesystems/determinate-nix-action@527f17dd63d2d60d3e5552934bc84b9a33a14d11 # v3.22.2
+        with:
+          github-token: ${{ github.token }}
+          trust-runner-user: true
+          summarize: true
+      - name: Show Nix Version
+        run: |-
           echo "Version: \`$(nix --version)\`" \
           | tee --append "${GITHUB_STEP_SUMMARY}"
-      - run: |-
+      - name: Show Nix Information
+        run: |-
           nix-shell --packages nix-info --run 'nix-info --markdown --sandbox --host-os' \
           | tee --append "${GITHUB_STEP_SUMMARY}"
-      - run: |-
+      - name: Check Nix Flake
+        run: |-
           nix --experimental-features "nix-command flakes" flake check \
           --print-build-logs \
           | tee --append "${GITHUB_STEP_SUMMARY}"
@@ -48,10 +57,12 @@ jobs:
       contents: read
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
           fetch-depth: 0
-      - uses: determinatesystems/flake-checker-action@de924abd783455e8429c858962b9e43062d19da1 # v13
+      - name: Check Flake Currency
+        uses: determinatesystems/flake-checker-action@de924abd783455e8429c858962b9e43062d19da1 # v13
         with:
           fail-mode: true

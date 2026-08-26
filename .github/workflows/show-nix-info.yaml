@@ -22,33 +22,40 @@ jobs:
       contents: read
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
-      - name: Install Nix
-        uses: DeterminateSystems/nix-installer-action@ef8a148080ab6020fd15196c2084a2eea5ff2d25 # v22
+      - name: Setup Nix
+        uses: determinatesystems/determinate-nix-action@527f17dd63d2d60d3e5552934bc84b9a33a14d11 # v3.22.2
         with:
-          summarize: false
-      - name: Setup GitHub Actions Cache
+          github-token: ${{ github.token }}
+          trust-runner-user: true
+          summarize: true
+      - name: Setup Nix Cache
         uses: DeterminateSystems/magic-nix-cache-action@908b263ff629f4cc17666315b7fd3ec127c6244d # v14
         with:
           use-gha-cache: "enabled"
           use-flakehub: "disabled"
-      - run: |
+      - name: Show Nix Version
+        run: |
           echo "Version: (\`nix --version\`): $(nix --version)" \
           | tee --append "${GITHUB_STEP_SUMMARY}"
-      - run: |
+      - name: Show Nix Information
+        run: |
           printf "\n<details open><summary>Nix-Info: (<code>nix-shell --packages nix-info --run 'nix-info --markdown --sandbox --host-os'</code>)</summary>\n<p>\n\n" | tee --append "${GITHUB_STEP_SUMMARY}"
           printf '```\n' | tee --append "${GITHUB_STEP_SUMMARY}"
           nix-shell --packages nix-info --run 'nix-info --markdown --sandbox --host-os' | tee --append "${GITHUB_STEP_SUMMARY}"
           printf '```\n' | tee --append "${GITHUB_STEP_SUMMARY}"
           printf '</p></details>\n' | tee --append "${GITHUB_STEP_SUMMARY}"
-      - run: |
+      - name: Show Nix Configuration
+        run: |
           printf "\n<details open><summary>Nix-Configuration: (<code>sudo cat /etc/nix/nix.conf</code>)</summary>\n<p>\n\n" | tee --append "${GITHUB_STEP_SUMMARY}"
           printf '```\n' | tee --append "${GITHUB_STEP_SUMMARY}"
           sudo cat /etc/nix/nix.conf | tee --append "${GITHUB_STEP_SUMMARY}"
           printf '```\n' | tee --append "${GITHUB_STEP_SUMMARY}"
           printf '</p></details>\n' | tee --append "${GITHUB_STEP_SUMMARY}"
-      - run: |-
+      - name: Show Nix Installer Version
+        run: |-
           echo "Nix-Installer-Version: (\`/nix/nix-installer --version\`): $(/nix/nix-installer --version)" \
           | tee --append "${GITHUB_STEP_SUMMARY}"

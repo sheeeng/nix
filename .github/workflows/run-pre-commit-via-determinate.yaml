@@ -26,7 +26,8 @@ jobs:
       contents: read
     timeout-minutes: 20
     steps:
-      - uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+      - name: Create GitHub App Token
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
         id: create-token
         with:
           client-id: ${{ vars.APP_CLIENT_ID }}
@@ -37,18 +38,20 @@ jobs:
             nix-secrets
             nix-secrets-example
 
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
           fetch-depth: 0
 
-      - name: Install Nix
-        uses: DeterminateSystems/nix-installer-action@ef8a148080ab6020fd15196c2084a2eea5ff2d25 # v22
+      - name: Setup Nix
+        uses: determinatesystems/determinate-nix-action@527f17dd63d2d60d3e5552934bc84b9a33a14d11 # v3.22.2
         with:
           github-token: ${{ steps.create-token.outputs.token }}
-          summarize: false
+          trust-runner-user: true
+          summarize: true
 
-      - name: Setup GitHub Actions Cache
+      - name: Setup Nix Cache
         uses: DeterminateSystems/magic-nix-cache-action@908b263ff629f4cc17666315b7fd3ec127c6244d # v14
         with:
           use-gha-cache: "enabled"
