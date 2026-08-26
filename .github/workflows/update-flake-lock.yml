@@ -2,10 +2,20 @@ name: "Update Flake Lock"
 
 on:
   schedule:
-    - cron: "1 2 * * 3,6" # “At 02:01 on Wednesday and Saturday.”
+    - cron: "1 2 * * 3,6" # At 02:01 UTC on Wednesday and Saturday.
   workflow_dispatch:
 
 permissions: {}
+
+# References:
+# dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
+# https://api.github.com/users/dependabot%5Bbot%5D
+#
+# github-actions[bot] <github-actions[bot]@users.noreply.github.com>
+# https://api.github.com/users/github-actions%5Bbot%5D
+#
+# https://github.com/orgs/community/discussions/26560#discussioncomment-12555758
+# https://github.com/actions/checkout/blob/8e8c483db84b4bee98b60c0593521ed34d9990e8/README.md#L358
 
 jobs:
   update-nix-flake-lock:
@@ -33,26 +43,21 @@ jobs:
           token: ${{ steps.create-github-app-token.outputs.token }}
 
       - uses: determinatesystems/determinate-nix-action@527f17dd63d2d60d3e5552934bc84b9a33a14d11 # v3.22.2
+        with:
+          github-token: ${{ steps.create-github-app-token.outputs.token }}
+          trust-runner-user: true
+          summarize: true
 
-      - name: Configure Nix with GitHub Token
-        env:
-          GITHUB_TOKEN: ${{ steps.create-github-app-token.outputs.token }}
-        run: |-
-          git config --global \
-            url."https://x-access-token:${GITHUB_TOKEN}@github.com/".insteadOf \
-            "ssh://git@github.com/"
-          mkdir --parents ~/.config/nix
-          echo "access-tokens = github.com=${GITHUB_TOKEN}" >> ~/.config/nix/nix.conf
-
-      # References:
-      # dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
-      # https://api.github.com/users/dependabot%5Bbot%5D
-      #
-      # github-actions[bot] <github-actions[bot]@users.noreply.github.com>
-      # https://api.github.com/users/github-actions%5Bbot%5D
-      #
-      # https://github.com/orgs/community/discussions/26560#discussioncomment-12555758
-      # https://github.com/actions/checkout/blob/8e8c483db84b4bee98b60c0593521ed34d9990e8/README.md#L358
+      - uses: determinatesystems/flake-checker-action@de924abd783455e8429c858962b9e43062d19da1 # v13
+        with:
+          flake-lock-path: "flake.lock"
+          check-outdated: true
+          check-owner: true
+          check-supported: true
+          nixpkgs-keys: "nixpkgs,nixpkgs-unstable"
+          ignore-missing-flake-lock: true
+          fail-mode: false
+          send-statistics: false
 
       - name: Update Flake Lock
         id: update-flake-lock
@@ -68,7 +73,7 @@ jobs:
           pr-assignees: sheeeng
           pr-reviewers: sheeeng
 
-      - name: Show Pull Request Number
+      - name: Display Pull Request Link
         run: |-
-          echo "Created ${{ steps.update-flake-lock.outputs.pull-request-number }} pull request."
-          echo "Created [#${{ steps.update-flake-lock.outputs.pull-request-number }}](https://github.com/${{ github.repository }}/pull/${{ steps.update-flake-lock.outputs.pull-request-number }}) pull request." >> "${GITHUB_STEP_SUMMARY}"
+          echo "Upsert ${{ steps.update-flake-lock.outputs.pull-request-number }} pull request."
+          echo "Upsert [#${{ steps.update-flake-lock.outputs.pull-request-number }}](https://github.com/${{ github.repository }}/pull/${{ steps.update-flake-lock.outputs.pull-request-number }}) pull request." >> "${GITHUB_STEP_SUMMARY}"

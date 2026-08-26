@@ -2,10 +2,20 @@ name: "Update Nix Flake Lock"
 
 on:
   schedule:
-    - cron: "2 3 * * 4" # “At 03:02 on Thursday.”
+    - cron: "2 3 * * 4" # At 03:02 UTC on Thursday.
   workflow_dispatch:
 
 permissions: {}
+
+# References:
+# dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
+# https://api.github.com/users/dependabot%5Bbot%5D
+#
+# github-actions[bot] <github-actions[bot]@users.noreply.github.com>
+# https://api.github.com/users/github-actions%5Bbot%5D
+#
+# https://github.com/orgs/community/discussions/26560#discussioncomment-12555758
+# https://github.com/actions/checkout/blob/8e8c483db84b4bee98b60c0593521ed34d9990e8/README.md#L358
 
 jobs:
   update-nix-flake-lock:
@@ -18,7 +28,7 @@ jobs:
       pull-requests: write
     steps:
       - uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
-        id: create-token
+        id: create-github-app-token
         with:
           client-id: ${{ vars.APP_CLIENT_ID }}
           private-key: ${{ secrets.APP_PRIVATE_KEY }}
@@ -30,125 +40,73 @@ jobs:
 
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          token: ${{ steps.create-token.outputs.token }}
+          token: ${{ steps.create-github-app-token.outputs.token }}
 
       - uses: determinatesystems/determinate-nix-action@527f17dd63d2d60d3e5552934bc84b9a33a14d11 # v3.22.2
+        with:
+          github-token: ${{ steps.create-github-app-token.outputs.token }}
+          trust-runner-user: true
+          summarize: true
 
-      - name: Configure Nix with GitHub Token
-        env:
-          GITHUB_TOKEN: ${{ steps.create-token.outputs.token }}
-        run: |-
-          git config --global \
-            url."https://x-access-token:${GITHUB_TOKEN}@github.com/".insteadOf \
-            "ssh://git@github.com/"
-          mkdir --parents ~/.config/nix
-          echo "access-tokens = github.com=${GITHUB_TOKEN}" >> ~/.config/nix/nix.conf
-
-      # References:
-      # dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
-      # https://api.github.com/users/dependabot%5Bbot%5D
-      #
-      # github-actions[bot] <github-actions[bot]@users.noreply.github.com>
-      # https://api.github.com/users/github-actions%5Bbot%5D
-      #
-      # https://github.com/orgs/community/discussions/26560#discussioncomment-12555758
-      # https://github.com/actions/checkout/blob/8e8c483db84b4bee98b60c0593521ed34d9990e8/README.md#L358
+      - uses: determinatesystems/flake-checker-action@de924abd783455e8429c858962b9e43062d19da1 # v13
+        with:
+          flake-lock-path: "flake.lock"
+          check-outdated: true
+          check-owner: true
+          check-supported: true
+          nixpkgs-keys: "nixpkgs,nixpkgs-unstable"
+          ignore-missing-flake-lock: true
+          fail-mode: false
+          send-statistics: false
 
       - name: Update Nix Flake Lock
+        id: update-nix-flake-lock
         env:
-          GH_TOKEN: ${{ steps.create-token.outputs.token }}
+          GH_TOKEN: ${{ steps.create-github-app-token.outputs.token }}
         run: |-
-          set -o pipefail
           set -o errexit
           set -o nounset
+          set -o pipefail
 
-          # Configure git identity.
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          nix flake update
 
-          update_branch="chore/update-nix-flake-lock"
-
-          while IFS=$'\t' read -r pull_request_number branch_name; do
-            [[ -z "${pull_request_number}" ]] && continue
-            gh pr close "${pull_request_number}" \
-              --comment "Superseded by the current Nix flake lock update."
-            git push origin --delete "${branch_name}" || true
-          done < <(
-            gh pr list \
-              --base "${GITHUB_REF_NAME}" \
-              --head "automation/flake-lock" \
-              --state open \
-              --json headRefName,number \
-              --jq '.[] | "\(.number)\t\(.headRefName)"'
-          )
-
-          existing_pr_number="$(
-            gh pr list \
-              --base "${GITHUB_REF_NAME}" \
-              --head "${update_branch}" \
-              --state open \
-              --json number \
-              --jq '.[0].number // empty'
-          )"
-
-          git fetch origin "${GITHUB_REF_NAME}"
-          git fetch origin "${update_branch}" || true
-          if git show-ref --verify --quiet "refs/remotes/origin/${update_branch}"; then
-            git switch --create "${update_branch}" \
-              --track "origin/${update_branch}"
-          else
-            git switch --create "${update_branch}" "origin/${GITHUB_REF_NAME}"
-          fi
-          git rebase "origin/${GITHUB_REF_NAME}"
-
-          # Record current HEAD before updating, so we can detect whether
-          # --commit-lock-file made a new commit with flake.lock changes.
-          CHECKOUT_COMMIT_HASH=$(git rev-parse HEAD)
-
-          # Update flake.lock file.
-          nix --debug --log-format raw \
-            --option commit-lockfile-summary "chore(deps): update flake.lock" \
-            flake update \
-            --commit-lock-file
-
-          # Stop if flake.lock was not updated.
-          if git diff --quiet "$CHECKOUT_COMMIT_HASH" HEAD -- flake.lock; then
-            echo "No changes to flake.lock file, skipping pull request."
+          if git diff --quiet -- flake.lock; then
+            echo "All flake inputs are already current."
             exit 0
           fi
 
-          # Verify all configurations evaluate successfully before pushing.
-          nix eval --json .#nixosConfigurations --apply builtins.attrNames \
-            | jq --raw-output '.[]' \
-            | while read -r host; do
-                nix eval ".#nixosConfigurations.${host}.config.system.build.toplevel.drvPath"
-              done
-          readarray -t darwin_hosts < <(
-            nix eval --json .#darwinConfigurations --apply builtins.attrNames \
-              | jq --raw-output '.[]'
-          )
-          for host in "${darwin_hosts[@]}"; do
-            output=$(nix eval ".#darwinConfigurations.${host}.system.drvPath" 2>&1) \
-              || {
-                if echo "$output" | grep --quiet "dropped support for x86_64-darwin"; then
-                  echo "Skipping ${host} (x86_64-darwin is no longer supported by nixpkgs)."
-                else
-                  echo "$output" >&2
-                  exit 1
-                fi
-              }
-          done
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          git push --force-with-lease origin "HEAD:${update_branch}"
+          branch="chore/update-nix-flake-lock"
+          git switch --create "${branch}"
+          git add -- flake.lock
+          git commit --message "chore(deps): update flake.lock"
+          git push --force origin "${branch}"
 
-          if [[ -n "${existing_pr_number}" ]]; then
-            gh pr ready "${existing_pr_number}" --undo
-            echo "Updated flake lock pull request #${existing_pr_number}."
-          else
-            gh pr create \
-              --base "${GITHUB_REF_NAME}" \
-              --head "${update_branch}" \
-              --draft \
-              --title "chore(deps): update flake.lock" \
-              --body "Update flake.lock and verify all configurations."
+          existing_pull_request="$(
+            gh pr list --head "${branch}" --state open --json number \
+              --jq '.[].number'
+          )"
+
+          if [[ -n "${existing_pull_request}" ]]; then
+            echo "Updated existing pull request #${existing_pull_request}."
+            echo "pull-request-number=${existing_pull_request}" >> "${GITHUB_OUTPUT}"
+            exit 0
           fi
+
+          pull_request_url="$(
+            gh pr create \
+              --title "chore(deps): update flake.lock" \
+              --body "Refreshes every flake input with \`nix flake update\`." \
+              --base main \
+              --head "${branch}"
+          )"
+
+          pull_request_number="${pull_request_url##*/}"
+          echo "pull-request-number=${pull_request_number}" >> "${GITHUB_OUTPUT}"
+
+      - name: Display Pull Request Link
+        run: |-
+          echo "Upsert ${{ steps.update-nix-flake-lock.outputs.pull-request-number }} pull request."
+          echo "Upsert [#${{ steps.update-nix-flake-lock.outputs.pull-request-number }}](https://github.com/${{ github.repository }}/pull/${{ steps.update-flake-lock.outputs.pull-request-number }}) pull request." >> "${GITHUB_STEP_SUMMARY}"
