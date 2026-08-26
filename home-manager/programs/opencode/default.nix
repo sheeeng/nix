@@ -649,7 +649,7 @@ in
       formatter = import ./formatter.nix; # # https://opencode.ai/docs/config/#formatters
     }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.opencode.settings
     skills =
-      commonLlmSettings.mattPocockSkills
+      commonLlmSettings.skills
       // {
         # https://opencode.ai/docs/skills/
         # Existing OpenCode skills override complementary Matt Pocock skills.
@@ -669,27 +669,7 @@ in
         forbid-llm-watermarks = commonLlmSettings.skills.forbid-llm-watermarks;
         frontend-design = "${commonLlmSettings.anthropicSkillsSrc}/skills/frontend-design";
         pull-request = commonLlmSettings.skills.pull-request;
-        ponytail = commonLlmSettings.skills.ponytail;
-        ponytail-audit = commonLlmSettings.skills.ponytail-audit;
-        ponytail-debt = commonLlmSettings.skills.ponytail-debt;
-        ponytail-gain = commonLlmSettings.skills.ponytail-gain;
-        ponytail-help = commonLlmSettings.skills.ponytail-help;
-        ponytail-review = commonLlmSettings.skills.ponytail-review;
         release = commonLlmSettings.skills.release;
-        superpowers-brainstorming = "${commonLlmSettings.superpowersSrc}/skills/brainstorming";
-        superpowers-dispatching-parallel-agents = "${commonLlmSettings.superpowersSrc}/skills/dispatching-parallel-agents";
-        superpowers-executing-plans = "${commonLlmSettings.superpowersSrc}/skills/executing-plans";
-        superpowers-finishing-a-development-branch = "${commonLlmSettings.superpowersSrc}/skills/finishing-a-development-branch";
-        superpowers-receiving-code-review = "${commonLlmSettings.superpowersSrc}/skills/receiving-code-review";
-        superpowers-requesting-code-review = "${commonLlmSettings.superpowersSrc}/skills/requesting-code-review";
-        superpowers-subagent-driven-development = "${commonLlmSettings.superpowersSrc}/skills/subagent-driven-development";
-        superpowers-systematic-debugging = "${commonLlmSettings.superpowersSrc}/skills/systematic-debugging";
-        superpowers-test-driven-development = "${commonLlmSettings.superpowersSrc}/skills/test-driven-development";
-        superpowers-using-git-worktrees = "${commonLlmSettings.superpowersSrc}/skills/using-git-worktrees";
-        superpowers-using-superpowers = "${commonLlmSettings.superpowersSrc}/skills/using-superpowers";
-        superpowers-verification-before-completion = "${commonLlmSettings.superpowersSrc}/skills/verification-before-completion";
-        superpowers-writing-plans = "${commonLlmSettings.superpowersSrc}/skills/writing-plans";
-        superpowers-writing-skills = "${commonLlmSettings.superpowersSrc}/skills/writing-skills";
       }
       // opencodePlatformSkills; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.opencode.skills
     themes = { }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.opencode.themes
