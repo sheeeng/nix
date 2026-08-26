@@ -73,6 +73,8 @@ let
     discoverDirectorySkills (mattPocockSkillsSource + "/skills/engineering")
     // discoverDirectorySkills (mattPocockSkillsSource + "/skills/productivity");
 
+  superpowersSkills = discoverDirectorySkills (superpowersSrc + "/skills");
+
   # Combined human writing editor and detector skill.
   # Sources:
   # * https://www.skills.sh/hardikpandya/stop-slop/stop-slop
@@ -196,6 +198,7 @@ in
     in
     mattPocockSkills
     // discoverDirectorySkills (ponytailSrc + "/skills")
+    // superpowersSkills
     // localSkills
     // pkgs.lib.optionalAttrs pkgs.stdenv.hostPlatform.isDarwin {
       design-diagram = designDiagramSkill;
