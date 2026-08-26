@@ -31,7 +31,8 @@ jobs:
       contents: write
       pull-requests: write
     steps:
-      - uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+      - name: Create GitHub App Token
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
         id: create-github-app-token
         with:
           client-id: ${{ vars.APP_CLIENT_ID }}
@@ -42,20 +43,23 @@ jobs:
             nix-secrets
             nix-secrets-example
 
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           token: ${{ steps.create-github-app-token.outputs.token }}
           persist-credentials: false
           fetch-depth: 0
           ref: unstable
 
-      - uses: determinatesystems/determinate-nix-action@527f17dd63d2d60d3e5552934bc84b9a33a14d11 # v3.22.2
+      - name: Setup Nix
+        uses: determinatesystems/determinate-nix-action@527f17dd63d2d60d3e5552934bc84b9a33a14d11 # v3.22.2
         with:
           github-token: ${{ github.token }}
           trust-runner-user: true
           summarize: true
 
-      - uses: determinatesystems/flake-checker-action@de924abd783455e8429c858962b9e43062d19da1 # v13
+      - name: Check Flake Currency
+        uses: determinatesystems/flake-checker-action@de924abd783455e8429c858962b9e43062d19da1 # v13
         env:
           # At flake-checker-action v13 commit de924abd, send-statistics: false maps to NIX_FLAKE_CHECKER_NO_TELEMETRY=false.
           # The environment variable override is required to disable telemetry.
