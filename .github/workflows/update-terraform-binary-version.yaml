@@ -1,4 +1,4 @@
-name: Update Terraform Binary
+name: Update Terraform Binary Version
 
 on:
   schedule:
