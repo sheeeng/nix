@@ -21,7 +21,7 @@ jobs:
   update-nix-flake-lock:
     runs-on: ubuntu-latest
     environment:
-      name: ${{ github.ref_name == 'unstable' && 'unstable' || '' }}
+      name: unstable
       deployment: false
     permissions:
       contents: write
@@ -41,6 +41,8 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           token: ${{ steps.create-github-app-token.outputs.token }}
+          persist-credentials: false
+          fetch-depth: 0
 
       - uses: determinatesystems/determinate-nix-action@527f17dd63d2d60d3e5552934bc84b9a33a14d11 # v3.22.2
         with:
@@ -49,12 +51,14 @@ jobs:
           summarize: true
 
       - uses: determinatesystems/flake-checker-action@de924abd783455e8429c858962b9e43062d19da1 # v13
+        env:
+          NIX_FLAKE_CHECKER_NO_TELEMETRY: "true"
         with:
           flake-lock-path: "flake.lock"
           check-outdated: true
           check-owner: true
           check-supported: true
-          nixpkgs-keys: "nixpkgs,nixpkgs-unstable"
+          nixpkgs-keys: "nixpkgs"
           ignore-missing-flake-lock: true
           fail-mode: false
           send-statistics: false

@@ -11,7 +11,7 @@ jobs:
   update-terraform-binary-version:
     name: Update Terraform Binary Version
     environment:
-      name: ${{ github.ref_name == 'unstable' && 'unstable' || '' }}
+      name: unstable
       deployment: false
     runs-on: ubuntu-latest
     permissions:
@@ -19,7 +19,7 @@ jobs:
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          persist-credentials: true
+          persist-credentials: false
           fetch-depth: 0
 
       - name: Get App Token to Create Pull Request
@@ -36,12 +36,14 @@ jobs:
           summarize: true
 
       - uses: determinatesystems/flake-checker-action@de924abd783455e8429c858962b9e43062d19da1 # v13
+        env:
+          NIX_FLAKE_CHECKER_NO_TELEMETRY: "true"
         with:
           flake-lock-path: "flake.lock"
           check-outdated: true
           check-owner: true
           check-supported: true
-          nixpkgs-keys: "nixpkgs,nixpkgs-unstable"
+          nixpkgs-keys: "nixpkgs"
           ignore-missing-flake-lock: true
           fail-mode: false
           send-statistics: false
@@ -95,7 +97,9 @@ jobs:
           git add -- .terraform-version pkgs/terraform.nix
           git commit \
             --message "chore(deps): update terraform to ${latest_version}"
-          git push --force origin "${branch}"
+          git push --force \
+            "https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git" \
+            "${branch}"
 
           existing_pull_request="$(
             gh pr list --head "${branch}" --state open --json number \
@@ -111,15 +115,15 @@ jobs:
             exit 0
           fi
 
-          pull_request_url="$(
+          pull_request_number="$(
             gh pr create \
               --title "chore(deps): update terraform to ${latest_version}" \
               --body "Updates the Terraform binary from \`${current_version}\` to \`${latest_version}\`." \
-              --base main \
-              --head "${branch}"
+              --base unstable \
+              --head "${branch}" \
+              --json number \
+              --jq '.number'
           )"
-
-          pull_request_number="${pull_request_url##*/}"
           echo "pull-request-number=${pull_request_number}" >> "${GITHUB_OUTPUT}"
 
       - name: Display Pull Request Link
