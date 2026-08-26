@@ -5,19 +5,11 @@ on:
     branches:
       - main
     paths:
-      - .editorconfig
-      - .github/workflows/format-with-treefmt.y*ml
-      - .markdownlint.y*ml
-      - .pre-commit-config.y*ml
-      - .yamlfmt.y*ml
-      - .yamllint.y*ml
-      - "*.nix"
-      - "**/*.[mM][dD]"
-      - "**/*.nu"
-      - "**/*.yaml"
-      - "**/*.yml"
+      - "**"
+      - "!**/*.lock"
       - "!**/*.lock.yaml"
       - "!**/*.lock.yml"
+      - "!**/*.patch"
   push: *triggers
   workflow_dispatch:
 
@@ -49,11 +41,12 @@ jobs:
           use-gha-cache: "enabled"
           use-flakehub: "disabled"
       - name: Check Formatting with Treefmt
+        id: check-formatting
         run: |-
           system="$(nix eval --impure --raw --expr 'builtins.currentSystem')"
           nix build --no-link --print-build-logs --show-trace ".#checks.${system}.formatting"
       - name: Explain the Formatting Failure
-        if: failure()
+        if: steps.check-formatting.outcome == 'failure'
         run: |-
           system="$(nix eval --impure --raw --expr 'builtins.currentSystem')"
           log="$(nix log ".#checks.${system}.formatting" 2>/dev/null | sed -E 's/\x1b\[[0-9;]*[a-zA-Z]//g' | tr -d '\r' || true)"
