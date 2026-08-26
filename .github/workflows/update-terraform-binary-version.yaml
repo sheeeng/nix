@@ -105,9 +105,9 @@ jobs:
           git add -- .terraform-version pkgs/terraform.nix
           git commit \
             --message "chore(deps): update terraform to ${latest_version}"
-          git push --force-with-lease \
-            "https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git" \
-            "${branch}"
+          git remote set-url --push origin \
+            "https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git"
+          git push --force-with-lease origin "${branch}"
 
           existing_pull_request="$(
             gh pr list --head "${branch}" --state open --json number \
