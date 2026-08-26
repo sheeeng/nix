@@ -117,7 +117,8 @@ jobs:
           if [[ -n "${existing_pull_request}" ]]; then
             gh pr edit "${existing_pull_request}" \
               --title "chore(deps): update terraform to ${latest_version}" \
-              --body "Updates the Terraform binary from \`${current_version}\` to \`${latest_version}\`."
+              --body "Updates the Terraform binary from \`${current_version}\` to \`${latest_version}\`." \
+              --base unstable
             echo "Updated existing pull request #${existing_pull_request}."
             echo "pull-request-number=${existing_pull_request}" >> "${GITHUB_OUTPUT}"
             exit 0
