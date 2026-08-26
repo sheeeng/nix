@@ -15,4 +15,4 @@ diffusers==0.40.0
 piexif==1.1.3
 Pillow==12.3.0
 safetensors==0.8.0
-transformers==5.15.1
+transformers==5.16.0
