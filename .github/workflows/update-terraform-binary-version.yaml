@@ -1,0 +1,128 @@
+name: Update Terraform Binary
+
+on:
+  schedule:
+    - cron: "1 2 * * 3" # At 02:01 UTC on Wednesday.
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  update-terraform-binary-version:
+    name: Update Terraform Binary Version
+    environment:
+      name: ${{ github.ref_name == 'unstable' && 'unstable' || '' }}
+      deployment: false
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: true
+          fetch-depth: 0
+
+      - name: Get App Token to Create Pull Request
+        id: create-github-app-token
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+        with:
+          client-id: ${{ vars.CREATE_PULL_REQUESTS_APP_CLIENT_ID }}
+          private-key: ${{ secrets.CREATE_PULL_REQUESTS_PRIVATE_KEY }}
+
+      - uses: determinatesystems/determinate-nix-action@527f17dd63d2d60d3e5552934bc84b9a33a14d11 # v3.22.2
+        with:
+          github-token: ${{ steps.create-github-app-token.outputs.token }}
+          trust-runner-user: true
+          summarize: true
+
+      - uses: determinatesystems/flake-checker-action@de924abd783455e8429c858962b9e43062d19da1 # v13
+        with:
+          flake-lock-path: "flake.lock"
+          check-outdated: true
+          check-owner: true
+          check-supported: true
+          nixpkgs-keys: "nixpkgs,nixpkgs-unstable"
+          ignore-missing-flake-lock: true
+          fail-mode: false
+          send-statistics: false
+
+      - name: Update Terraform Binary Version
+        id: update-terraform-binary-version
+        env:
+          GH_TOKEN: ${{ steps.create-github-app-token.outputs.token }}
+        run: |-
+          set -o errexit
+          set -o nounset
+          set -o pipefail
+
+          current_version="$(< .terraform-version)"
+          latest_version="$(
+            curl --fail --location --silent --show-error \
+              --header "Accept: application/vnd.github+json" \
+              --header "X-GitHub-Api-Version: 2022-11-28" \
+              https://api.github.com/repos/hashicorp/terraform/releases/latest \
+              | jq --raw-output '.tag_name | ltrimstr("v")'
+          )"
+
+          if [[ "${current_version}" == "${latest_version}" ]]; then
+            echo "Terraform is already current at ${current_version}."
+            exit 0
+          fi
+
+          declare -A target_hashes=()
+          for target in darwin_amd64 darwin_arm64 linux_arm64 linux_amd64; do
+            binary_url="https://releases.hashicorp.com/terraform/${latest_version}/terraform_${latest_version}_${target}.zip"
+            binary_hash="$(
+              nix store prefetch-file --unpack --json "${binary_url}" \
+                | jq --raw-output '.hash'
+            )"
+            target_hashes["${target}"]="${binary_hash}"
+          done
+
+          printf '%s\n' "${latest_version}" > .terraform-version
+          sed --in-place \
+            -e "s#^    \"aarch64-darwin\" = \".*\";#    \"aarch64-darwin\" = \"${target_hashes[darwin_arm64]}\";#" \
+            -e "s#^    \"aarch64-linux\" = \".*\";#    \"aarch64-linux\" = \"${target_hashes[linux_arm64]}\";#" \
+            -e "s#^    \"x86_64-darwin\" = \".*\";#    \"x86_64-darwin\" = \"${target_hashes[darwin_amd64]}\";#" \
+            -e "s#^    \"x86_64-linux\" = \".*\";#    \"x86_64-linux\" = \"${target_hashes[linux_amd64]}\";#" \
+            pkgs/terraform.nix
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          branch="chore/update-terraform"
+          git switch --force-create "${branch}"
+          git add -- .terraform-version pkgs/terraform.nix
+          git commit \
+            --message "chore(deps): update terraform to ${latest_version}"
+          git push --force origin "${branch}"
+
+          existing_pull_request="$(
+            gh pr list --head "${branch}" --state open --json number \
+              --jq '.[].number'
+          )"
+
+          if [[ -n "${existing_pull_request}" ]]; then
+            gh pr edit "${existing_pull_request}" \
+              --title "chore(deps): update terraform to ${latest_version}" \
+              --body "Updates the Terraform binary from \`${current_version}\` to \`${latest_version}\`."
+            echo "Updated existing pull request #${existing_pull_request}."
+            echo "pull-request-number=${existing_pull_request}" >> "${GITHUB_OUTPUT}"
+            exit 0
+          fi
+
+          pull_request_url="$(
+            gh pr create \
+              --title "chore(deps): update terraform to ${latest_version}" \
+              --body "Updates the Terraform binary from \`${current_version}\` to \`${latest_version}\`." \
+              --base main \
+              --head "${branch}"
+          )"
+
+          pull_request_number="${pull_request_url##*/}"
+          echo "pull-request-number=${pull_request_number}" >> "${GITHUB_OUTPUT}"
+
+      - name: Display Pull Request Link
+        run: |-
+          echo "Upsert ${{ steps.update-terraform-binary-version.outputs.pull-request-number }} pull request."
+          echo "Upsert [#${{ steps.update-terraform-binary-version.outputs.pull-request-number }}](https://github.com/${{ github.repository }}/pull/${{ steps.update-terraform-binary-version.outputs.pull-request-number }}) pull request." >> "${GITHUB_STEP_SUMMARY}"
