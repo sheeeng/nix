@@ -1,0 +1,74 @@
+name: "Update Flake Lock"
+
+on:
+  schedule:
+    - cron: "1 2 * * 3,6" # “At 02:01 on Wednesday and Saturday.”
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  update-nix-flake-lock:
+    runs-on: ubuntu-latest
+    environment:
+      name: ${{ github.ref_name == 'unstable' && 'unstable' || '' }}
+      deployment: false
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+        id: create-token
+        with:
+          client-id: ${{ vars.APP_CLIENT_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+          owner: sheeeng
+          repositories: |-
+            nix
+            nix-secrets
+            nix-secrets-example
+
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          token: ${{ steps.create-token.outputs.token }}
+
+      - uses: determinatesystems/determinate-nix-action@527f17dd63d2d60d3e5552934bc84b9a33a14d11 # v3.22.2
+
+      - name: Configure Nix with GitHub Token
+        env:
+          GITHUB_TOKEN: ${{ steps.create-token.outputs.token }}
+        run: |-
+          git config --global \
+            url."https://x-access-token:${GITHUB_TOKEN}@github.com/".insteadOf \
+            "ssh://git@github.com/"
+          mkdir --parents ~/.config/nix
+          echo "access-tokens = github.com=${GITHUB_TOKEN}" >> ~/.config/nix/nix.conf
+
+      # References:
+      # dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
+      # https://api.github.com/users/dependabot%5Bbot%5D
+      #
+      # github-actions[bot] <github-actions[bot]@users.noreply.github.com>
+      # https://api.github.com/users/github-actions%5Bbot%5D
+      #
+      # https://github.com/orgs/community/discussions/26560#discussioncomment-12555758
+      # https://github.com/actions/checkout/blob/8e8c483db84b4bee98b60c0593521ed34d9990e8/README.md#L358
+
+      - name: Update Flake Lock
+        id: update-flake-lock
+        uses: determinatesystems/update-flake-lock@834c491b2ece4de0bbd00d85214bb5e83b4da5c6 # v28
+        env:
+          GH_TOKEN: ${{ steps.create-token.outputs.token }}
+        with:
+          git-author-name: "github-actions[bot]"
+          git-author-email: "41898282+github-actions[bot]@users.noreply.github.com"
+          git-committer-name: "github-actions[bot]"
+          git-committer-email: "41898282+github-actions[bot]@users.noreply.github.com"
+          nix-options: --debug --print-build-logs --log-format raw --verbose
+          pr-assignees: sheeeng
+          pr-reviewers: sheeeng
+
+      - name: Show Pull Request Number
+        run: |-
+          echo "Created ${{ steps.update-flake-lock.outputs.pull-request-number }} pull request."
+          echo "Created [#${{ steps.update-flake-lock.outputs.pull-request-number }}](https://github.com/${{ github.repository }}/pull/${{ steps.update-flake-lock.outputs.pull-request-number }}) pull request." >> "${GITHUB_STEP_SUMMARY}"
