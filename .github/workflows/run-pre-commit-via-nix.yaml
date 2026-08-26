@@ -98,7 +98,7 @@ jobs:
               echo 'Missing pre-commit tool.'
               exit 1
             fi
-            echo 'Found pre-commit \$(pre-commit --version | cut --delimiter=\" \" --fields=2) in Nix environment.'
+            echo \"Found pre-commit \$(pre-commit --version | cut --delimiter=\" \" --fields=2) in Nix environment.\"
           "
 
       - name: Install Pre-Commit
@@ -112,7 +112,7 @@ jobs:
         timeout-minutes: 5 # Nix store should already be built and cached. But, run hooks on all files may take time.
         run: |-
           nix develop .#minimal-shell --command bash -c "
-            echo 'Pre-Commit Version: \$(pre-commit --version)'
+            echo \"Pre-Commit Version: \$(pre-commit --version)\"
             echo 'Installing pre-commit hooks...'
             pre-commit install-hooks
             # Run pre-commit on all files for push to main branch, otherwise only on changed files.
