@@ -16,7 +16,7 @@ permissions: {}
 
 jobs:
   check-nix-flake:
-    name: check-nix-flake
+    name: Check Nix Flake
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -51,7 +51,7 @@ jobs:
   # than 30 days behind (the Flake Checker default), per the FlakeHub best
   # practice. https://docs.determinate.systems/flakehub/best-practices/#update-inputs
   check-nixpkgs-currency:
-    name: check-nixpkgs-currency
+    name: Check Nixpkgs Currency
     runs-on: ubuntu-latest
     permissions:
       contents: read

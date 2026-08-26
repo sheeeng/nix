@@ -16,7 +16,7 @@ permissions: {}
 
 jobs:
   show-nix-info:
-    name: show-nix-info
+    name: Show Nix Info
     runs-on: ubuntu-latest
     permissions:
       contents: read
