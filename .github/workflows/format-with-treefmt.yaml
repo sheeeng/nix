@@ -54,7 +54,7 @@ jobs:
         if: failure() && steps.check-formatting.outcome == 'failure'
         run: |-
           system="$(nix eval --impure --raw --expr 'builtins.currentSystem')"
-          log="$(nix log ".#checks.${system}.formatting" 2>/dev/null | sed -E 's/\x1b\[[0-9;]*[a-zA-Z]//g' | tr -d '\r' || true)"
+          log="$(nix log ".#checks.${system}.formatting" 2>/dev/null | sed --regexp-extended 's/\x1b\[[0-9;]*[a-zA-Z]//g' | tr --delete '\r' || true)"
           echo "::error title=Treefmt::Treefmt found files that are not correctly formatted.%0ARun 'nix fmt' to format the files.%0AThen commit the result."
           {
             echo "## Format with Treefmt Summary"
