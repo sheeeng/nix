@@ -18,7 +18,7 @@ jobs:
       pull-requests: write
     steps:
       - uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
-        id: create-token
+        id: create-github-app-token
         with:
           client-id: ${{ vars.APP_CLIENT_ID }}
           private-key: ${{ secrets.APP_PRIVATE_KEY }}
@@ -30,13 +30,13 @@ jobs:
 
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          token: ${{ steps.create-token.outputs.token }}
+          token: ${{ steps.create-github-app-token.outputs.token }}
 
       - uses: determinatesystems/determinate-nix-action@527f17dd63d2d60d3e5552934bc84b9a33a14d11 # v3.22.2
 
       - name: Configure Nix with GitHub Token
         env:
-          GITHUB_TOKEN: ${{ steps.create-token.outputs.token }}
+          GITHUB_TOKEN: ${{ steps.create-github-app-token.outputs.token }}
         run: |-
           git config --global \
             url."https://x-access-token:${GITHUB_TOKEN}@github.com/".insteadOf \
@@ -58,7 +58,7 @@ jobs:
         id: update-flake-lock
         uses: determinatesystems/update-flake-lock@834c491b2ece4de0bbd00d85214bb5e83b4da5c6 # v28
         env:
-          GH_TOKEN: ${{ steps.create-token.outputs.token }}
+          GH_TOKEN: ${{ steps.create-github-app-token.outputs.token }}
         with:
           git-author-name: "github-actions[bot]"
           git-author-email: "41898282+github-actions[bot]@users.noreply.github.com"
