@@ -120,14 +120,13 @@ jobs:
             exit 0
           fi
 
+          gh pr create \
+            --title "chore(deps): update terraform to ${latest_version}" \
+            --body "Updates the Terraform binary from \`${current_version}\` to \`${latest_version}\`." \
+            --base unstable \
+            --head "${branch}"
           pull_request_number="$(
-            gh pr create \
-              --title "chore(deps): update terraform to ${latest_version}" \
-              --body "Updates the Terraform binary from \`${current_version}\` to \`${latest_version}\`." \
-              --base unstable \
-              --head "${branch}" \
-              --json number \
-              --jq '.number'
+            gh pr view "${branch}" --json number --jq '.number'
           )"
           echo "pull-request-number=${pull_request_number}" >> "${GITHUB_OUTPUT}"
 
