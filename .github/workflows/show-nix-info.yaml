@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
 
 concurrency:
-  group: "${{ github.workflow }}-${{ github.head_ref || github.sha }}"
+  group: "${{ github.workflow }}-${{ github.head_ref || github.ref_name }}"
   cancel-in-progress: true
 
 permissions: {}
@@ -50,9 +50,10 @@ jobs:
           printf '</p></details>\n' | tee --append "${GITHUB_STEP_SUMMARY}"
       - name: Show Nix Configuration
         run: |
+          echo "::add-mask::${{ github.token }}"
           printf "\n<details open><summary>Nix-Configuration: (<code>sudo cat /etc/nix/nix.conf</code>)</summary>\n<p>\n\n" | tee --append "${GITHUB_STEP_SUMMARY}"
           printf '```\n' | tee --append "${GITHUB_STEP_SUMMARY}"
-          sudo cat /etc/nix/nix.conf | tee --append "${GITHUB_STEP_SUMMARY}"
+          sudo cat /etc/nix/nix.conf | grep --invert-match "access-tokens" | tee --append "${GITHUB_STEP_SUMMARY}"
           printf '```\n' | tee --append "${GITHUB_STEP_SUMMARY}"
           printf '</p></details>\n' | tee --append "${GITHUB_STEP_SUMMARY}"
       - name: Show Nix Installer Version
