@@ -1,4 +1,24 @@
 { lib, pkgs, ... }:
+let
+  sshPassphraseStore = pkgs.writeShellApplication {
+    name = "ssh-passphrase-store";
+    runtimeInputs = [
+      pkgs.libsecret
+      pkgs.systemd
+    ];
+    text = ''
+      if [ ! -f "$HOME/.ssh/id_ed25519" ]; then
+        echo "SSH key not found: ~/.ssh/id_ed25519" >&2
+        exit 1
+      fi
+
+      secret-tool store \
+        --label="SSH passphrase for ~/.ssh/id_ed25519" \
+        ssh id_ed25519
+      systemctl --user restart ssh-add-keys.service
+    '';
+  };
+in
 {
   config = lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
     # Automatically unlock the SSH key at login. This stores the passphrase in
@@ -24,15 +44,21 @@
       Install.WantedBy = [ "graphical-session.target" ];
     };
 
-    home.packages = [ pkgs.libsecret ];
+    home.packages = [
+      pkgs.libsecret
+      sshPassphraseStore
+    ];
 
-    programs.nushell.extraEnv = ''
-      $env.SSH_AUTH_SOCK = $"($env.XDG_RUNTIME_DIR)/gcr/ssh"
-    '';
-
-    programs.zsh.envExtra = ''
-      export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/gcr/ssh"
-    '';
+    sshAuthSock = {
+      enable = true;
+      initialization = {
+        bash = ''export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/gcr/ssh"'';
+        fish = ''set --export SSH_AUTH_SOCK "$XDG_RUNTIME_DIR/gcr/ssh"'';
+        nushell = ''$env.SSH_AUTH_SOCK = $"($env.XDG_RUNTIME_DIR)/gcr/ssh"'';
+        zsh = ''export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/gcr/ssh"'';
+      };
+      systemd.socketProviderUnit = "gcr-ssh-agent.socket";
+    };
 
     home.sessionVariablesExtra = ''
       export GPG_TTY="$(tty)"
