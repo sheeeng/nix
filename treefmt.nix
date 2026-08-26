@@ -44,6 +44,7 @@
         excludes = [
           "*.json"
           "*.json5"
+          "*.lock"
           "*.lock.yaml"
           "*.lock.yml"
           "*.md"
