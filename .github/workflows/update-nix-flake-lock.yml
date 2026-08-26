@@ -2,7 +2,7 @@ name: "Update Nix Flake Lock"
 
 on:
   schedule:
-    - cron: "1 2 * * 3" # “At 02:01 on Wednesday.”
+    - cron: "2 3 * * 4" # “At 03:02 on Thursday.”
   workflow_dispatch:
 
 permissions: {}
