@@ -59,7 +59,7 @@
         ))
       ];
 
-    shellHook = null;
+    shellHook = "";
   };
 
   minimal-shell = pkgs.mkShell {
