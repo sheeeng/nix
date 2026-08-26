@@ -44,12 +44,8 @@
         excludes = [
           "*.json"
           "*.json5"
-          "*.lock"
-          "*.lock.yaml"
-          "*.lock.yml"
           "*.md"
           "*.mdx"
-          "flake.lock"
         ];
         options = [
           "--write"
@@ -123,6 +119,8 @@
     };
     global.excludes = [
       "*.lock"
+      "*.lock.yaml"
+      "*.lock.yml"
       "*.patch"
       "LICENSE*"
     ];
