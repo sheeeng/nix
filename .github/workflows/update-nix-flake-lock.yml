@@ -51,7 +51,7 @@ jobs:
 
       - uses: determinatesystems/determinate-nix-action@527f17dd63d2d60d3e5552934bc84b9a33a14d11 # v3.22.2
         with:
-          github-token: ${{ steps.create-github-app-token.outputs.token }}
+          github-token: ${{ github.token }}
           trust-runner-user: true
           summarize: true
 
@@ -122,6 +122,7 @@ jobs:
           echo "pull-request-number=${pull_request_number}" >> "${GITHUB_OUTPUT}"
 
       - name: Display Pull Request Link
+        if: steps.update-nix-flake-lock.outputs.pull-request-number != ''
         run: |-
           echo "Upsert ${{ steps.update-nix-flake-lock.outputs.pull-request-number }} pull request."
           echo "Upsert [#${{ steps.update-nix-flake-lock.outputs.pull-request-number }}](https://github.com/${{ github.repository }}/pull/${{ steps.update-nix-flake-lock.outputs.pull-request-number }}) pull request." >> "${GITHUB_STEP_SUMMARY}"
