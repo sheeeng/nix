@@ -59,12 +59,7 @@
         ))
       ];
 
-    shellHook = ''
-      echo ""
-      echo "🚀 Shell loaded!"
-      echo ""
-      export EDITOR=vim
-    '';
+    shellHook = null;
   };
 
   minimal-shell = pkgs.mkShell {
