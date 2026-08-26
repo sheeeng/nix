@@ -25,6 +25,7 @@ jobs:
         with:
           persist-credentials: false
           fetch-depth: 0
+          ref: unstable
 
       - name: Get App Token to Create Pull Request
         id: create-github-app-token
@@ -101,7 +102,7 @@ jobs:
           git add -- .terraform-version pkgs/terraform.nix
           git commit \
             --message "chore(deps): update terraform to ${latest_version}"
-          git push --force \
+          git push --force-with-lease \
             "https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git" \
             "${branch}"
 
