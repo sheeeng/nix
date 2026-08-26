@@ -45,6 +45,7 @@ jobs:
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@ef8a148080ab6020fd15196c2084a2eea5ff2d25 # v22
         with:
+          github-token: ${{ steps.create-token.outputs.token }}
           summarize: false
 
       - name: Setup GitHub Actions Cache
@@ -52,11 +53,6 @@ jobs:
         with:
           use-gha-cache: "enabled"
           use-flakehub: "disabled"
-
-      - name: Configure Nix with GitHub Token
-        run: |
-          mkdir --parents ~/.config/nix
-          echo "access-tokens = github.com=${{ steps.create-token.outputs.token }}" >> ~/.config/nix/nix.conf
 
       - name: Show Pre-Commit Version
         timeout-minutes: 15 # Allow sufficient buffer time for Nix to rebuild Nix store.

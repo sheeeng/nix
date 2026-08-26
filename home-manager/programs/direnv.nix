@@ -16,7 +16,8 @@
       enable = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.direnv.nix-direnv.enable
       package = pkgs.nix-direnv; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.direnv.nix-direnv.package
     };
-    silent = false; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.direnv.silent
+    # https://github.com/direnv/direnv/issues/68#issuecomment-162639262
+    silent = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.direnv.silent
     stdlib = ""; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.direnv.stdlib
   };
 }
