@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
 
 concurrency:
-  group: "${{ github.workflow }}-${{ github.head_ref || github.sha }}"
+  group: "${{ github.workflow }}-${{ github.ref }}"
   cancel-in-progress: true
 
 permissions: {}
@@ -26,7 +26,8 @@ jobs:
       contents: read
     timeout-minutes: 20
     steps:
-      - uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+      - name: Create GitHub App Token
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
         id: create-token
         with:
           client-id: ${{ vars.APP_CLIENT_ID }}
@@ -37,12 +38,14 @@ jobs:
             nix-secrets
             nix-secrets-example
 
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
           fetch-depth: 0
 
-      - uses: nixbuild/nix-quick-install-action@9f63be77f412a248c9d9a65a4c82cf066cdf8f0c # v35
+      - name: Setup Nix
+        uses: nixbuild/nix-quick-install-action@9f63be77f412a248c9d9a65a4c82cf066cdf8f0c # v35
         with:
           nix_conf: |
             experimental-features = flakes nix-command
@@ -50,7 +53,8 @@ jobs:
             keep-outputs = true
           github_access_token: ${{ steps.create-token.outputs.token }}
 
-      - uses: nix-community/cache-nix-action@7df957e333c1e5da7721f60227dbba6d06080569 # v7.0.2
+      - name: Setup Nix Cache
+        uses: nix-community/cache-nix-action@7df957e333c1e5da7721f60227dbba6d06080569 # v7.0.2
         with:
           # Restore and save a cache using this key.
           # Focus on flake.lock and flake.nix as they determine actual dependencies.
@@ -78,6 +82,14 @@ jobs:
           # Except any version with the key that is the same as the `primary-key`.
           purge-primary-key: never
 
+      - name: Cache Pre-Commit Environments
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: ~/.cache/pre-commit
+          key: pre-commit-${{ runner.os }}-${{ hashFiles('.pre-commit-config.yaml', 'flake.lock', 'shell.nix') }}
+          restore-keys: |
+            pre-commit-${{ runner.os }}-
+
       - name: Show Pre-Commit Version
         timeout-minutes: 15 # Allow sufficient buffer time for Nix to rebuild Nix store.
         run: |
@@ -86,7 +98,7 @@ jobs:
               echo 'Missing pre-commit tool.'
               exit 1
             fi
-            echo 'Found pre-commit $(pre-commit --version | cut --delimiter=\" \" --fields=2) in Nix environment.'
+            echo \"Found pre-commit \$(pre-commit --version | cut --delimiter=\" \" --fields=2) in Nix environment.\"
           "
 
       - name: Install Pre-Commit
@@ -100,7 +112,7 @@ jobs:
         timeout-minutes: 5 # Nix store should already be built and cached. But, run hooks on all files may take time.
         run: |-
           nix develop .#minimal-shell --command bash -c "
-            echo 'Pre-Commit Version: $(pre-commit --version)'
+            echo \"Pre-Commit Version: \$(pre-commit --version)\"
             echo 'Installing pre-commit hooks...'
             pre-commit install-hooks
             # Run pre-commit on all files for push to main branch, otherwise only on changed files.

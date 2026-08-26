@@ -1,0 +1,76 @@
+name: Format with Treefmt
+
+on:
+  pull_request: &triggers
+    branches:
+      - main
+      - unstable
+    paths:
+      - "**"
+      - "!**/*.lock"
+      - "!**/*.lock.yaml"
+      - "!**/*.lock.yml"
+      - "!**/*.patch"
+  push: *triggers
+  workflow_dispatch:
+
+concurrency:
+  group: "${{ github.workflow }}-${{ github.ref }}"
+  cancel-in-progress: true
+
+permissions: {}
+
+jobs:
+  format-with-treefmt:
+    name: Format with Treefmt
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Setup Nix
+        uses: determinatesystems/determinate-nix-action@527f17dd63d2d60d3e5552934bc84b9a33a14d11 # v3.22.2
+        with:
+          github-token: ${{ github.token }}
+          trust-runner-user: true
+          summarize: true
+      - name: Setup Nix Cache
+        uses: DeterminateSystems/magic-nix-cache-action@908b263ff629f4cc17666315b7fd3ec127c6244d # v14
+        with:
+          use-gha-cache: "enabled"
+          use-flakehub: "disabled"
+      - name: Check Formatting with Treefmt
+        id: check-formatting
+        run: |-
+          system="$(nix eval --impure --raw --expr 'builtins.currentSystem')"
+          nix build --no-link --print-build-logs --show-trace ".#checks.${system}.formatting"
+      - name: Explain the Formatting Failure
+        if: failure() && steps.check-formatting.outcome == 'failure'
+        run: |-
+          system="$(nix eval --impure --raw --expr 'builtins.currentSystem')"
+          log="$(nix log ".#checks.${system}.formatting" 2>/dev/null | sed --regexp-extended 's/\x1b\[[0-9;]*[a-zA-Z]//g' | tr --delete '\r' || true)"
+          echo "::error title=Treefmt::Treefmt found files that are not correctly formatted.%0ARun 'nix fmt' to format the files.%0AThen commit the result."
+          {
+            echo "## Format with Treefmt Summary"
+            echo
+            echo "Treefmt found files that are not correctly formatted."
+            echo
+            echo "Run \`nix fmt\` to format the files."
+            echo
+            echo "Then commit the result."
+            echo
+            echo "<details open>"
+            echo "<summary>See the <code>checks.${system}.formatting</code> check derivation</summary>"
+            echo
+            echo '```diff'
+            echo "${log}"
+            echo '```'
+            echo
+            echo "</details>"
+          } >> "${GITHUB_STEP_SUMMARY}"
