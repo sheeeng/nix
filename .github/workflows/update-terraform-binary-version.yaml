@@ -42,6 +42,9 @@ jobs:
 
       - uses: determinatesystems/flake-checker-action@de924abd783455e8429c858962b9e43062d19da1 # v13
         env:
+          # At flake-checker-action v13 commit de924abd, send-statistics: false maps to NIX_FLAKE_CHECKER_NO_TELEMETRY=false.
+          # The environment variable override is required to disable telemetry.
+          # See https://github.com/DeterminateSystems/flake-checker-action/issues/134.
           NIX_FLAKE_CHECKER_NO_TELEMETRY: "true"
         with:
           flake-lock-path: "flake.lock"
