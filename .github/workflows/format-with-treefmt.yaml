@@ -24,6 +24,9 @@ jobs:
   format-with-treefmt:
     name: Format with Treefmt
     runs-on: ubuntu-latest
+    environment:
+      name: unstable
+      deployment: false
     timeout-minutes: 15
     permissions:
       contents: read
