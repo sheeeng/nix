@@ -60,18 +60,7 @@ in
         CLAUDE_CODE_DISABLE_AUTO_MEMORY = "1"; # Prevent automatically managed memory from retaining outdated information or inefficient processes.
         CLAUDE_CODE_SUBAGENT_MODEL = "sonnet"; # Use the efficient model for default subagents such as Explore.
       };
-      hooks = {
-        PostToolUse = [
-          {
-            hooks = [
-              {
-                command = "nix fmt $(jq -r '.tool_input.file_path' <<< '$CLAUDE_TOOL_INPUT')";
-                type = "command";
-              }
-            ];
-            matcher = "Edit|MultiEdit|Write";
-          }
-        ];
+      hooks = commonLlmSettings.hooks // {
         PreToolUse = [
           {
             hooks = [
