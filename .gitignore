@@ -1,5 +1,6 @@
 .direnv/
 .flox/
+.worktrees/
 *.log
 dist/
 node_modules/
