@@ -54,7 +54,7 @@ in
     context = commonLlmSettings.context; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.github-copilot-cli.context
     lspServers = { }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.github-copilot-cli.lspServers
     mcpServers = {
-      github = {
+      github-copilot = {
         type = "http";
         url = "https://api.githubcopilot.com/mcp/";
       };
