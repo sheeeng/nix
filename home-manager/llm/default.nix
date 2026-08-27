@@ -140,6 +140,43 @@ in
       codexbar # https://search.nixos.org/packages?channel=unstable&type=packages&show=codexbar
     ];
 
+  # Shared PostToolUse hooks for LLM tools. Runs the flake formatter wrapper
+  # on every file Claude writes or edits. The hook is written to user-level
+  # Claude settings and runs in every project. It walks up from the edited
+  # file's directory toward the git root to find the nearest flake.nix,
+  # handling nested flakes correctly. Exits 0 early when no git repository
+  # or no flake.nix is found. Propagates the formatter's exit status so
+  # Claude Code can report genuine formatter failures.
+  hooks = {
+    PostToolUse = [
+      {
+        hooks = [
+          {
+            command = ''
+              file=$(jq --raw-output '.tool_input.file_path')
+              git_root=$(git -C "$(dirname "$file")" rev-parse --show-toplevel 2>/dev/null)
+              [ -n "$git_root" ] || exit 0
+              dir=$(dirname "$file")
+              flake_root=
+              while true; do
+                if [ -f "$dir/flake.nix" ]; then
+                  flake_root=$dir
+                  break
+                fi
+                [ "$dir" = "$git_root" ] && break
+                dir=$(dirname "$dir")
+              done
+              [ -n "$flake_root" ] || exit 0
+              cd "$flake_root" && nix fmt "$file"
+            '';
+            type = "command";
+          }
+        ];
+        matcher = "Edit|MultiEdit|Write";
+      }
+    ];
+  };
+
   agents =
     let
       agentsDir = basePath + "/agents";
