@@ -266,18 +266,15 @@
     nix-systems.url = "github:nix-systems/default"; # https://github.com/nix-systems/nix-systems
 
     nix-secrets = {
-      url = "git+ssh://git@github.com/sheeeng/nix-secrets.git?ref=main&shallow=1";
+      url = "git+https://github.com/sheeeng/nix-secrets.git?ref=main&shallow=1";
 
       # url = "git+ssh://git@github.com/sheeeng/nix-secrets.git?ref=main&shallow=1";
       # url = "git+file://absolute/path/to/nix-secrets";
-
-      # The following are equivalent ways to specify the same flake.
-      # url = "git+https://github.com/sheeeng/nix-secrets.git?ref=main&shallow=1";
       # url = "github:sheeeng/nix-secrets/main";
     };
 
     nix-secrets-example = {
-      url = "git+ssh://git@github.com/sheeeng/nix-secrets-example.git?ref=main&shallow=1";
+      url = "git+https://github.com/sheeeng/nix-secrets-example.git?ref=main&shallow=1";
 
       # url = "git+ssh://git@github.com/sheeeng/nix-secrets-example.git?ref=main&shallow=1";
       # url = "git+file://absolute/path/to/nix-secrets-example";
