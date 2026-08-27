@@ -39,6 +39,15 @@ jobs:
         run: |-
           echo "::add-mask::${{ steps.create-github-app-token.outputs.token }}"
           echo "::add-mask::${{ github.token }}"
+      - name: Configure Nix Authentication
+        run: |-
+          mkdir --parents "${HOME}/.config/nix"
+          printf 'access-tokens = github.com=%s\n' \
+            "${{ steps.create-github-app-token.outputs.token }}" \
+            > "${HOME}/.config/nix/access-tokens.conf"
+          chmod 600 "${HOME}/.config/nix/access-tokens.conf"
+          printf '!include access-tokens.conf\n' \
+            >> "${HOME}/.config/nix/nix.conf"
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -59,8 +68,6 @@ jobs:
           nix-shell --packages nix-info --run 'nix-info --markdown --sandbox --host-os' \
           | tee --append "${GITHUB_STEP_SUMMARY}"
       - name: Check Nix Flake
-        env:
-          NIX_CONFIG: "access-tokens = github.com=${{ steps.create-github-app-token.outputs.token }}"
         run: |-
           nix --experimental-features "nix-command flakes" flake check \
           --print-build-logs \

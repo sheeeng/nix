@@ -48,6 +48,16 @@ jobs:
           echo "::add-mask::${{ steps.create-github-app-token.outputs.token }}"
           echo "::add-mask::${{ github.token }}"
 
+      - name: Configure Nix Authentication
+        run: |-
+          mkdir --parents "${HOME}/.config/nix"
+          printf 'access-tokens = github.com=%s\n' \
+            "${{ steps.create-github-app-token.outputs.token }}" \
+            > "${HOME}/.config/nix/access-tokens.conf"
+          chmod 600 "${HOME}/.config/nix/access-tokens.conf"
+          printf '!include access-tokens.conf\n' \
+            >> "${HOME}/.config/nix/nix.conf"
+
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -84,7 +94,6 @@ jobs:
         id: update-nix-flake-lock
         env:
           GH_TOKEN: ${{ steps.create-github-app-token.outputs.token }}
-          NIX_CONFIG: "access-tokens = github.com=${{ steps.create-github-app-token.outputs.token }}"
           GIT_AUTHOR_NAME: github-actions[bot]
           GIT_AUTHOR_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
           GIT_COMMITTER_NAME: github-actions[bot]

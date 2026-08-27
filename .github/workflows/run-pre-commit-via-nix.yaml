@@ -22,7 +22,6 @@ jobs:
       name: unstable
       deployment: false
     permissions:
-      actions: write
       contents: read
     timeout-minutes: 20
     steps:

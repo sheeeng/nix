@@ -46,6 +46,15 @@ jobs:
         run: |-
           echo "::add-mask::${{ steps.create-github-app-token.outputs.token }}"
           echo "::add-mask::${{ github.token }}"
+      - name: Configure Nix Authentication
+        run: |-
+          mkdir --parents "${HOME}/.config/nix"
+          printf 'access-tokens = github.com=%s\n' \
+            "${{ steps.create-github-app-token.outputs.token }}" \
+            > "${HOME}/.config/nix/access-tokens.conf"
+          chmod 600 "${HOME}/.config/nix/access-tokens.conf"
+          printf '!include access-tokens.conf\n' \
+            >> "${HOME}/.config/nix/nix.conf"
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -64,15 +73,11 @@ jobs:
           use-flakehub: "disabled"
       - name: Check Formatting with Treefmt
         id: check-formatting
-        env:
-          NIX_CONFIG: "access-tokens = github.com=${{ steps.create-github-app-token.outputs.token }}"
         run: |-
           system="$(nix eval --impure --raw --expr 'builtins.currentSystem')"
           nix build --no-link --print-build-logs --show-trace ".#checks.${system}.formatting"
       - name: Explain the Formatting Failure
         if: failure() && steps.check-formatting.outcome == 'failure'
-        env:
-          NIX_CONFIG: "access-tokens = github.com=${{ steps.create-github-app-token.outputs.token }}"
         run: |-
           system="$(nix eval --impure --raw --expr 'builtins.currentSystem')"
           log="$(nix log ".#checks.${system}.formatting" 2>/dev/null | sed --regexp-extended 's/\x1b\[[0-9;]*[a-zA-Z]//g' | tr --delete '\r' || true)"
