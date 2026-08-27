@@ -84,12 +84,7 @@ jobs:
           set -o nounset
           set -o pipefail
 
-          git config --global \
-            url."https://x-access-token:${GH_TOKEN}@github.com/".insteadOf \
-            "ssh://git@github.com/"
-          git config --global \
-            url."https://x-access-token:${GH_TOKEN}@github.com/".insteadOf \
-            "git@github.com:"
+          export NIX_CONFIG="access-tokens = github.com=${GH_TOKEN}"
 
           nix flake update
           nix flake check
