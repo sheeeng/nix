@@ -147,7 +147,7 @@ in
       {
         hooks = [
           {
-            command = "treefmt $(jq --raw-output '.tool_input.file_path' <<< '$CLAUDE_TOOL_INPUT')";
+            command = "treefmt \"$(jq --raw-output '.tool_input.file_path')\"";
             type = "command";
           }
         ];
