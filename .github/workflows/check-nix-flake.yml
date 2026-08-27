@@ -79,5 +79,8 @@ jobs:
           fetch-depth: 0
       - name: Check Flake Currency
         uses: determinatesystems/flake-checker-action@de924abd783455e8429c858962b9e43062d19da1 # v13
+        env:
+          NIX_FLAKE_CHECKER_NO_TELEMETRY: "true"
         with:
           fail-mode: true
+          send-statistics: false
