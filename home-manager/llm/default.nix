@@ -140,14 +140,16 @@ in
       codexbar # https://search.nixos.org/packages?channel=unstable&type=packages&show=codexbar
     ];
 
-  # Shared PostToolUse hooks for LLM tools. Runs treefmt on every file Claude
-  # writes or edits, keeping the working tree formatted without a separate step.
+  # Shared PostToolUse hooks for LLM tools. Runs the flake formatter wrapper
+  # on every file Claude writes or edits. Uses `nix fmt` rather than bare
+  # `treefmt` because this repository has no treefmt.toml — the formatter
+  # configuration lives in treefmt.nix and is compiled into the flake wrapper.
   hooks = {
     PostToolUse = [
       {
         hooks = [
           {
-            command = "treefmt \"$(jq --raw-output '.tool_input.file_path')\"";
+            command = "nix fmt \"$(jq --raw-output '.tool_input.file_path')\"";
             type = "command";
           }
         ];
