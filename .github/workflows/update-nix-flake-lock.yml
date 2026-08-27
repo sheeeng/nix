@@ -28,8 +28,7 @@ jobs:
       name: unstable
       deployment: false
     permissions:
-      contents: write
-      pull-requests: write
+      contents: read
     steps:
       - name: Create GitHub App Token
         uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
@@ -42,6 +41,21 @@ jobs:
             nix
             nix-secrets
             nix-secrets-example
+
+      - name: Mask Tokens
+        run: |-
+          echo "::add-mask::${{ steps.create-github-app-token.outputs.token }}"
+          echo "::add-mask::${{ github.token }}"
+
+      - name: Configure Nix Authentication
+        run: |-
+          mkdir --parents "${HOME}/.config/nix"
+          umask 077
+          printf 'access-tokens = github.com=%s\n' \
+            "${{ steps.create-github-app-token.outputs.token }}" \
+            > "${HOME}/.config/nix/access-tokens.conf"
+          printf '!include access-tokens.conf\n' \
+            >> "${HOME}/.config/nix/nix.conf"
 
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -78,8 +92,7 @@ jobs:
       - name: Update Nix Flake Lock
         id: update-nix-flake-lock
         env:
-          GH_TOKEN: ${{ github.token }}
-          NIX_CONFIG: "access-tokens = github.com=${{ steps.create-github-app-token.outputs.token }}"
+          GIT_PUSH_TOKEN: ${{ steps.create-github-app-token.outputs.token }}
           GIT_AUTHOR_NAME: github-actions[bot]
           GIT_AUTHOR_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
           GIT_COMMITTER_NAME: github-actions[bot]
@@ -93,6 +106,7 @@ jobs:
 
           if git diff --quiet -- flake.lock; then
             echo "All flake inputs are already current."
+            echo "updated=false" >> "${GITHUB_OUTPUT}"
             exit 0
           fi
 
@@ -101,8 +115,22 @@ jobs:
           git add -- flake.lock
           git commit --message "chore(deps): update flake.lock"
           git remote set-url --push origin \
-            "https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git"
+            "https://x-access-token:${GIT_PUSH_TOKEN}@github.com/${{ github.repository }}.git"
           git push --force-with-lease origin "${branch}"
+          echo "updated=true" >> "${GITHUB_OUTPUT}"
+          echo "branch=${branch}" >> "${GITHUB_OUTPUT}"
+
+      - name: Create or Update Pull Request
+        id: create-or-update-pull-request
+        if: steps.update-nix-flake-lock.outputs.updated == 'true'
+        env:
+          GH_TOKEN: ${{ steps.create-github-app-token.outputs.token }}
+        run: |-
+          set -o errexit
+          set -o nounset
+          set -o pipefail
+
+          branch="${{ steps.update-nix-flake-lock.outputs.branch }}"
 
           existing_pull_request="$(
             gh pr list --head "${branch}" --state open --json number \
@@ -127,7 +155,7 @@ jobs:
           echo "pull-request-number=${pull_request_number}" >> "${GITHUB_OUTPUT}"
 
       - name: Display Pull Request Link
-        if: steps.update-nix-flake-lock.outputs.pull-request-number != ''
+        if: steps.create-or-update-pull-request.outputs.pull-request-number != ''
         run: |-
-          echo "Upsert ${{ steps.update-nix-flake-lock.outputs.pull-request-number }} pull request."
-          echo "Upsert [#${{ steps.update-nix-flake-lock.outputs.pull-request-number }}](https://github.com/${{ github.repository }}/pull/${{ steps.update-nix-flake-lock.outputs.pull-request-number }}) pull request." >> "${GITHUB_STEP_SUMMARY}"
+          echo "Upsert ${{ steps.create-or-update-pull-request.outputs.pull-request-number }} pull request."
+          echo "Upsert [#${{ steps.create-or-update-pull-request.outputs.pull-request-number }}](https://github.com/${{ github.repository }}/pull/${{ steps.create-or-update-pull-request.outputs.pull-request-number }}) pull request." >> "${GITHUB_STEP_SUMMARY}"

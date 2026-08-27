@@ -19,10 +19,9 @@ jobs:
     name: Run Pre-Commit
     runs-on: ubuntu-latest
     environment:
-      name: ${{ (github.ref_name == 'unstable' || (github.base_ref == 'unstable' && github.event.pull_request.head.repo.full_name == github.repository)) && 'unstable' || '' }}
+      name: unstable
       deployment: false
     permissions:
-      actions: write
       contents: read
     timeout-minutes: 20
     steps:
@@ -37,6 +36,11 @@ jobs:
             nix
             nix-secrets
             nix-secrets-example
+
+      - name: Mask Tokens
+        run: |-
+          echo "::add-mask::${{ steps.create-token.outputs.token }}"
+          echo "::add-mask::${{ github.token }}"
 
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -71,16 +75,9 @@ jobs:
           nix: true
           # Collect garbage until the Nix store size is at most this number before trying to save a new cache.
           gc-max-store-size-linux: 4G
-          # Purge caches.
-          purge: true
-          # Purge all versions of the cache.
-          purge-prefixes: nix-${{ runner.os }}-
-          # Created more than this number of seconds ago.
-          purge-created: 2592000 # 2592000 seconds is 30 days.
-          # Or, last accessed more than this number of seconds ago relative to the start of the `Post Cache Nix Store` step.
-          purge-last-accessed: 1209600 # 1209600 seconds is 14 days.
-          # Except any version with the key that is the same as the `primary-key`.
-          purge-primary-key: never
+          # Purge is disabled because cache deletion requires actions: write,
+          # which this job intentionally does not hold.
+          purge: false
 
       - name: Cache Pre-Commit Environments
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
@@ -110,23 +107,28 @@ jobs:
           "
       - name: Run Pre-Commit
         timeout-minutes: 5 # Nix store should already be built and cached. But, run hooks on all files may take time.
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          GIT_REF: ${{ github.ref }}
+          BASE_REF: ${{ github.base_ref }}
         run: |-
-          nix develop .#minimal-shell --command bash -c "
-            echo \"Pre-Commit Version: \$(pre-commit --version)\"
-            echo 'Installing pre-commit hooks...'
-            pre-commit install-hooks
-            # Run pre-commit on all files for push to main branch, otherwise only on changed files.
-            if [[ \"${{ github.event_name }}\" == \"push\" && \"${{ github.ref }}\" == \"refs/heads/main\" ]]; then
-              echo 'Running pre-commit on all files (push to main branch)'
-              pre-commit run --all-files
+          cat > /tmp/run-pre-commit.sh << 'SCRIPT'
+          echo "Pre-Commit Version: $(pre-commit --version)"
+          echo 'Installing pre-commit hooks...'
+          pre-commit install-hooks
+          # Run pre-commit on all files for push to main branch, otherwise only on changed files.
+          if [[ "${EVENT_NAME}" == "push" && "${GIT_REF}" == "refs/heads/main" ]]; then
+            echo 'Running pre-commit on all files (push to main branch)'
+            pre-commit run --all-files
+          else
+            echo 'Running pre-commit on changed files only'
+            # For pull requests, run on files changed compared to the target branch.
+            if [[ "${EVENT_NAME}" == "pull_request" ]]; then
+              pre-commit run --from-ref="origin/${BASE_REF}" --to-ref=HEAD
             else
-              echo 'Running pre-commit on changed files only'
-              # For pull requests, run on files changed compared to the target branch.
-              if [[ \"${{ github.event_name }}\" == \"pull_request\" ]]; then
-                pre-commit run --from-ref=origin/${{ github.base_ref }} --to-ref=HEAD
-              else
-                # For other events, run on all files as fallback.
-                pre-commit run --all-files
-              fi
+              # For other events, run on all files as fallback.
+              pre-commit run --all-files
             fi
-          "
+          fi
+          SCRIPT
+          nix develop .#minimal-shell --command bash /tmp/run-pre-commit.sh

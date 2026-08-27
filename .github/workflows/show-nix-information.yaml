@@ -22,6 +22,8 @@ jobs:
       contents: read
     timeout-minutes: 10
     steps:
+      - name: Mask Tokens
+        run: echo "::add-mask::${{ github.token }}"
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -50,7 +52,6 @@ jobs:
           printf '</p></details>\n' | tee --append "${GITHUB_STEP_SUMMARY}"
       - name: Show Nix Configuration
         run: |
-          echo "::add-mask::${{ github.token }}"
           printf "\n<details open><summary>Nix-Configuration: (<code>sudo cat /etc/nix/nix.conf</code>)</summary>\n<p>\n\n" | tee --append "${GITHUB_STEP_SUMMARY}"
           printf '```\n' | tee --append "${GITHUB_STEP_SUMMARY}"
           sudo cat /etc/nix/nix.conf | grep --invert-match "access-tokens" | tee --append "${GITHUB_STEP_SUMMARY}"
