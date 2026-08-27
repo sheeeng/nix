@@ -140,6 +140,22 @@ in
       codexbar # https://search.nixos.org/packages?channel=unstable&type=packages&show=codexbar
     ];
 
+  # Shared PostToolUse hooks for LLM tools. Runs treefmt on every file Claude
+  # writes or edits, keeping the working tree formatted without a separate step.
+  hooks = {
+    PostToolUse = [
+      {
+        hooks = [
+          {
+            command = "treefmt $(jq --raw-output '.tool_input.file_path' <<< '$CLAUDE_TOOL_INPUT')";
+            type = "command";
+          }
+        ];
+        matcher = "Edit|MultiEdit|Write";
+      }
+    ];
+  };
+
   agents =
     let
       agentsDir = basePath + "/agents";
