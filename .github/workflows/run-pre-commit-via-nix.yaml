@@ -75,16 +75,9 @@ jobs:
           nix: true
           # Collect garbage until the Nix store size is at most this number before trying to save a new cache.
           gc-max-store-size-linux: 4G
-          # Purge caches.
-          purge: true
-          # Purge all versions of the cache.
-          purge-prefixes: nix-${{ runner.os }}-
-          # Created more than this number of seconds ago.
-          purge-created: 2592000 # 2592000 seconds is 30 days.
-          # Or, last accessed more than this number of seconds ago relative to the start of the `Post Cache Nix Store` step.
-          purge-last-accessed: 1209600 # 1209600 seconds is 14 days.
-          # Except any version with the key that is the same as the `primary-key`.
-          purge-primary-key: never
+          # Purge is disabled because cache deletion requires actions: write,
+          # which this job intentionally does not hold.
+          purge: false
 
       - name: Cache Pre-Commit Environments
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
