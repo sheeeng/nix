@@ -30,7 +30,7 @@ let
             if (/^[[:space:]]/) { print; next }
             in_desc = 0
           }
-          if (/^name: /) { print; next }
+          if (/^name: /) { print "name: ${name}"; next }
           if (/^description:/) { in_desc = 1; print; next }
           next
         }
