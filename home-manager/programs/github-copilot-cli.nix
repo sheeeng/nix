@@ -14,7 +14,8 @@ let
   # Derive Copilot-compatible agent files by stripping OpenCode-only frontmatter
   # fields (mode, model, temperature, tools, permission). The prompt body is
   # preserved exactly. Copilot CLI expects only name and description in frontmatter.
-  toCopilotAgent = name: path:
+  toCopilotAgent =
+    name: path:
     pkgs.runCommand "${name}.md" { } ''
       awk '
         BEGIN { in_front = 0; done = 0 }
