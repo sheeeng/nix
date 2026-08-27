@@ -10,13 +10,34 @@ let
     basePath = ../llm;
     mattPocockSkillsSource = inputs.matt-pocock-skills;
   };
+
+  # Derive Copilot-compatible agent files by stripping OpenCode-only frontmatter
+  # fields (mode, model, temperature, tools, permission). The prompt body is
+  # preserved exactly. Copilot CLI expects only name and description in frontmatter.
+  toCopilotAgent = name: path:
+    pkgs.runCommand "${name}.md" { } ''
+      awk '
+        BEGIN { in_front = 0; done = 0 }
+        /^---$/ {
+          if (!in_front) { in_front = 1; print; next }
+          if (!done) { done = 1; in_front = 0; print; next }
+        }
+        in_front && !done {
+          if (/^(name|description): /) print
+          next
+        }
+        { print }
+      ' ${path} > $out
+    '';
+
+  copilotAgents = pkgs.lib.mapAttrs toCopilotAgent commonLlmSettings.agents;
 in
 {
   programs.github-copilot-cli = {
     enable = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.github-copilot-cli.enable
     enableMcpIntegration = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.github-copilot-cli.enableMcpIntegration
     package = pkgs.github-copilot-cli; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.github-copilot-cli.package # https://search.nixos.org/packages?channel=unstable&type=packages&show=github-copilot-cli
-    agents = commonLlmSettings.agents; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.github-copilot-cli.agents
+    agents = copilotAgents; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.github-copilot-cli.agents
     configDir =
       if config.home.preferXdgDirectories then
         "${config.xdg.configHome}/copilot"
