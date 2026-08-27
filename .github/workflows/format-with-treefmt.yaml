@@ -29,6 +29,16 @@ jobs:
       contents: read
 
     steps:
+      - name: Create GitHub App Token
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+        id: create-github-app-token
+        with:
+          client-id: ${{ vars.APP_CLIENT_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+          owner: sheeeng
+          repositories: |-
+            nix-secrets
+            nix-secrets-example
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -47,11 +57,15 @@ jobs:
           use-flakehub: "disabled"
       - name: Check Formatting with Treefmt
         id: check-formatting
+        env:
+          NIX_CONFIG: "access-tokens = github.com=${{ steps.create-github-app-token.outputs.token }}"
         run: |-
           system="$(nix eval --impure --raw --expr 'builtins.currentSystem')"
           nix build --no-link --print-build-logs --show-trace ".#checks.${system}.formatting"
       - name: Explain the Formatting Failure
         if: failure() && steps.check-formatting.outcome == 'failure'
+        env:
+          NIX_CONFIG: "access-tokens = github.com=${{ steps.create-github-app-token.outputs.token }}"
         run: |-
           system="$(nix eval --impure --raw --expr 'builtins.currentSystem')"
           log="$(nix log ".#checks.${system}.formatting" 2>/dev/null | sed --regexp-extended 's/\x1b\[[0-9;]*[a-zA-Z]//g' | tr --delete '\r' || true)"
