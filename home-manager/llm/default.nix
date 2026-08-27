@@ -142,15 +142,16 @@ in
 
   # Shared PostToolUse hooks for LLM tools. Runs the flake formatter wrapper
   # on every file Claude writes or edits. The hook is written to user-level
-  # Claude settings and runs in every project, so it guards against projects
-  # that have no flake.nix before invoking `nix fmt`. The `|| :` ensures the
-  # hook always exits 0 so Claude Code does not report spurious failures.
+  # Claude settings and runs in every project. It exits 0 early when the
+  # edited file is not inside a git repository or the repository has no
+  # flake.nix, and propagates the formatter's exit status otherwise so
+  # Claude Code can report genuine formatter failures.
   hooks = {
     PostToolUse = [
       {
         hooks = [
           {
-            command = "file=$(jq --raw-output '.tool_input.file_path') && root=$(git -C \"$(dirname \"$file\")\" rev-parse --show-toplevel 2>/dev/null) && [ -f \"$root/flake.nix\" ] && (cd \"$root\" && nix fmt \"$file\") || :";
+            command = "file=$(jq --raw-output '.tool_input.file_path'); root=$(git -C \"$(dirname \"$file\")\" rev-parse --show-toplevel 2>/dev/null); [ -n \"$root\" ] && [ -f \"$root/flake.nix\" ] || exit 0; cd \"$root\" && nix fmt \"$file\"";
             type = "command";
           }
         ];
