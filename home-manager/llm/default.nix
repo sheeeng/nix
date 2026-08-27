@@ -142,7 +142,7 @@ in
 
   # Shared PostToolUse hooks for LLM tools. Runs the flake formatter wrapper
   # on every file Claude writes or edits. Uses `nix fmt` rather than bare
-  # `treefmt` because this repository has no treefmt.toml — the formatter
+  # `treefmt` because this repository has no treefmt.toml; the formatter
   # configuration lives in treefmt.nix and is compiled into the flake wrapper.
   hooks = {
     PostToolUse = [
