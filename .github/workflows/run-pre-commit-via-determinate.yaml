@@ -94,22 +94,23 @@ jobs:
           GIT_REF: ${{ github.ref }}
           BASE_REF: ${{ github.base_ref }}
         run: |-
-          nix develop --command bash -c "
-            echo \"Pre-Commit Version: \$(pre-commit --version)\"
-            echo 'Installing pre-commit hooks...'
-            pre-commit install-hooks
-            # Run pre-commit on all files for push to main branch, otherwise only on changed files.
-            if [[ \"\${EVENT_NAME}\" == \"push\" && \"\${GIT_REF}\" == \"refs/heads/main\" ]]; then
-              echo 'Running pre-commit on all files (push to main branch)'
-              pre-commit run --all-files
+          cat > /tmp/run-pre-commit.sh << 'SCRIPT'
+          echo "Pre-Commit Version: $(pre-commit --version)"
+          echo 'Installing pre-commit hooks...'
+          pre-commit install-hooks
+          # Run pre-commit on all files for push to main branch, otherwise only on changed files.
+          if [[ "${EVENT_NAME}" == "push" && "${GIT_REF}" == "refs/heads/main" ]]; then
+            echo 'Running pre-commit on all files (push to main branch)'
+            pre-commit run --all-files
+          else
+            echo 'Running pre-commit on changed files only'
+            # For pull requests, run on files changed compared to the target branch.
+            if [[ "${EVENT_NAME}" == "pull_request" ]]; then
+              pre-commit run --from-ref="origin/${BASE_REF}" --to-ref=HEAD
             else
-              echo 'Running pre-commit on changed files only'
-              # For pull requests, run on files changed compared to the target branch.
-              if [[ \"\${EVENT_NAME}\" == \"pull_request\" ]]; then
-                pre-commit run --from-ref=origin/\${BASE_REF} --to-ref=HEAD
-              else
-                # For other events, run on all files as fallback.
-                pre-commit run --all-files
-              fi
+              # For other events, run on all files as fallback.
+              pre-commit run --all-files
             fi
-          "
+          fi
+          SCRIPT
+          nix develop --command bash /tmp/run-pre-commit.sh
