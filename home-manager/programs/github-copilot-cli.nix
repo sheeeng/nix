@@ -14,17 +14,24 @@ let
   # Derive Copilot-compatible agent files by stripping OpenCode-only frontmatter
   # fields (mode, model, temperature, tools, permission). The prompt body is
   # preserved exactly. Copilot CLI expects only name and description in frontmatter.
+  # YAML block scalars (description: |) are preserved by continuing to emit
+  # indented continuation lines until a non-indented key is encountered.
   toCopilotAgent =
     name: path:
     pkgs.runCommand "${name}.md" { } ''
       awk '
-        BEGIN { in_front = 0; done = 0 }
+        BEGIN { in_front = 0; done = 0; in_desc = 0 }
         /^---$/ {
           if (!in_front) { in_front = 1; print; next }
-          if (!done) { done = 1; in_front = 0; print; next }
+          if (!done) { done = 1; in_front = 0; in_desc = 0; print; next }
         }
         in_front && !done {
-          if (/^(name|description): /) print
+          if (in_desc) {
+            if (/^[[:space:]]/) { print; next }
+            in_desc = 0
+          }
+          if (/^name: /) { print; next }
+          if (/^description:/) { in_desc = 1; print; next }
           next
         }
         { print }
