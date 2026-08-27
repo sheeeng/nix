@@ -18,6 +18,9 @@ jobs:
   check-nix-flake:
     name: Check Nix Flake
     runs-on: ubuntu-latest
+    environment:
+      name: unstable
+      deployment: false
     permissions:
       contents: read
     timeout-minutes: 10
