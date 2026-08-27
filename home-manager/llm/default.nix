@@ -141,15 +141,16 @@ in
     ];
 
   # Shared PostToolUse hooks for LLM tools. Runs the flake formatter wrapper
-  # on every file Claude writes or edits. Uses `nix fmt` rather than bare
-  # `treefmt` because this repository has no treefmt.toml; the formatter
-  # configuration lives in treefmt.nix and is compiled into the flake wrapper.
+  # on every file Claude writes or edits. The hook is written to user-level
+  # Claude settings and runs in every project, so it guards against projects
+  # that have no flake.nix before invoking `nix fmt`. The `|| :` ensures the
+  # hook always exits 0 so Claude Code does not report spurious failures.
   hooks = {
     PostToolUse = [
       {
         hooks = [
           {
-            command = "nix fmt \"$(jq --raw-output '.tool_input.file_path')\"";
+            command = "file=$(jq --raw-output '.tool_input.file_path') && root=$(git -C \"$(dirname \"$file\")\" rev-parse --show-toplevel 2>/dev/null) && [ -f \"$root/flake.nix\" ] && nix fmt \"$file\" || :";
             type = "command";
           }
         ];
