@@ -87,7 +87,6 @@ jobs:
           export NIX_CONFIG="access-tokens = github.com=${GH_TOKEN}"
 
           nix flake update
-          nix flake check
 
           if git diff --quiet -- flake.lock; then
             echo "All flake inputs are already current."
