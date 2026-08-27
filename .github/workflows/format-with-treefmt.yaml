@@ -49,10 +49,10 @@ jobs:
       - name: Configure Nix Authentication
         run: |-
           mkdir --parents "${HOME}/.config/nix"
+          umask 077
           printf 'access-tokens = github.com=%s\n' \
             "${{ steps.create-github-app-token.outputs.token }}" \
             > "${HOME}/.config/nix/access-tokens.conf"
-          chmod 600 "${HOME}/.config/nix/access-tokens.conf"
           printf '!include access-tokens.conf\n' \
             >> "${HOME}/.config/nix/nix.conf"
       - name: Checkout
