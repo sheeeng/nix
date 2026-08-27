@@ -150,7 +150,7 @@ in
       {
         hooks = [
           {
-            command = "file=$(jq --raw-output '.tool_input.file_path') && root=$(git -C \"$(dirname \"$file\")\" rev-parse --show-toplevel 2>/dev/null) && [ -f \"$root/flake.nix\" ] && nix fmt \"$file\" || :";
+            command = "file=$(jq --raw-output '.tool_input.file_path') && root=$(git -C \"$(dirname \"$file\")\" rev-parse --show-toplevel 2>/dev/null) && [ -f \"$root/flake.nix\" ] && (cd \"$root\" && nix fmt \"$file\") || :";
             type = "command";
           }
         ];
