@@ -79,6 +79,10 @@ jobs:
         id: update-nix-flake-lock
         env:
           GH_TOKEN: ${{ steps.create-github-app-token.outputs.token }}
+          GIT_AUTHOR_NAME: github-actions[bot]
+          GIT_AUTHOR_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
+          GIT_COMMITTER_NAME: github-actions[bot]
+          GIT_COMMITTER_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
         run: |-
           set -o errexit
           set -o nounset
@@ -92,9 +96,6 @@ jobs:
             echo "All flake inputs are already current."
             exit 0
           fi
-
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
           branch="chore/update-nix-flake-lock"
           git switch --force-create "${branch}"
