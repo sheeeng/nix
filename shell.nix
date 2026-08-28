@@ -1,7 +1,14 @@
 # Shell for bootstrapping flake-enabled nix and other tooling
 # You can enter it through 'nix develop' or (legacy) 'nix-shell'
 {
-  pkgs ? import <nixpkgs> { },
+  pkgs ? import <nixpkgs> {
+    config.allowUnfree = true;
+    overlays = [
+      (final: _prev: {
+        terraform = final.callPackage ./pkgs/terraform.nix { };
+      })
+    ];
+  },
   ...
 }:
 
