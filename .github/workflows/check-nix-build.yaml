@@ -61,16 +61,6 @@ jobs:
           echo "::add-mask::${{ steps.create-github-app-token.outputs.token }}"
           echo "::add-mask::${{ github.token }}"
 
-      - name: Configure Nix Authentication
-        run: |-
-          mkdir --parents "${HOME}/.config/nix"
-          umask 077
-          printf 'access-tokens = github.com=%s\n' \
-            "${{ steps.create-github-app-token.outputs.token }}" \
-            > "${HOME}/.config/nix/access-tokens.conf"
-          printf '!include access-tokens.conf\n' \
-            >> "${HOME}/.config/nix/nix.conf"
-
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -83,6 +73,23 @@ jobs:
           github-token: ${{ github.token }}
           trust-runner-user: true
           summarize: true
+
+      - name: Install GNU Coreutils
+        if: runner.os == 'macOS'
+        run: |-
+          echo "$(nix build 'nixpkgs#uutils-coreutils-noprefix' \
+            --no-link \
+            --print-out-paths)/bin" >> "${GITHUB_PATH}"
+
+      - name: Configure Nix Authentication
+        run: |-
+          mkdir --parents "${HOME}/.config/nix"
+          umask 077
+          printf 'access-tokens = github.com=%s\n' \
+            "${{ steps.create-github-app-token.outputs.token }}" \
+            > "${HOME}/.config/nix/access-tokens.conf"
+          printf '!include access-tokens.conf\n' \
+            >> "${HOME}/.config/nix/nix.conf"
 
       - name: Setup Nix Cache
         uses: DeterminateSystems/magic-nix-cache-action@908b263ff629f4cc17666315b7fd3ec127c6244d # v14
