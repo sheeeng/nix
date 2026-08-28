@@ -102,10 +102,11 @@
         options = [ "format" ];
         settings = { };
       };
-      # Use OpenTofu as the formatter for Terraform files. The official Terraform
-      # binary is installed separately from the HashiCorp release endpoint.
+      # Use the official HashiCorp Terraform binary (from pkgs/terraform.nix via
+      # the modifications overlay) as the formatter. The version is pinned via
+      # .terraform-version.
       terraform = {
-        command = "${lib.getExe pkgs.opentofu}"; # https://search.nixos.org/packages?channel=unstable&type=packages&show=opentofu
+        command = "${pkgs.terraform}/bin/terraform";
         includes = [
           "*.tf"
           "*.tfvars"

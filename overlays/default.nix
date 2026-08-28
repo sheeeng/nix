@@ -46,6 +46,10 @@
   modifications = final: prev: {
     unstable = inputs.nixpkgs.legacyPackages.${final.stdenv.hostPlatform.system};
 
+    # Override nixpkgs terraform with the official HashiCorp binary, pinned via
+    # .terraform-version and fetched from the HashiCorp release endpoint.
+    terraform = final.callPackage ../pkgs/terraform.nix { };
+
     # Workaround for VSCode "Operation not permitted" issue.
     # @upstream-issue https://github.com/nix-darwin/nix-darwin/issues/1315#issuecomment-2629517646
     # Workaround for VS Code 1.129.1: @vscode/ripgrep-universal moved back to
