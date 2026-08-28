@@ -1,4 +1,4 @@
-{ pkgs, pkgs-unstable, ... }:
+{ pkgs, ... }:
 let
   buffer-language-server = pkgs.rustPlatform.buildRustPackage rec {
     pname = "buffer-language-server";
@@ -15,10 +15,10 @@ let
   };
 in
 {
-  home.packages = with pkgs-unstable; [
-    # terraform # https://search.nixos.org/packages?channel=unstable&type=packages&show=terraform
-    # terraform-ls # https://search.nixos.org/packages?channel=unstable&type=packages&show=terraform-ls
+  home.packages = [
     buffer-language-server
+    pkgs.terraform
+    pkgs.terraform-ls
   ];
 
   # https://github.com/helix-editor/helix/blob/master/languages.toml
@@ -55,15 +55,10 @@ in
         buffer-language-server = {
           command = "${buffer-language-server}/bin/buffer-language-server";
         };
-        # terraform-ls = {
-        #   command = lib.getExe pkgs-unstable.terraform-ls; # "${pkgs.terraform-ls}/bin/terraform-ls";
-        #   args = [ "serve" ];
-        #   filetypes = [
-        #     "hcl"
-        #     "tf"
-        #     "tfvars"
-        #   ];
-        # };
+        terraform-ls = {
+          command = "${pkgs.terraform-ls}/bin/terraform-ls";
+          args = [ "serve" ];
+        };
       };
     };
   };
