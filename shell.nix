@@ -1,7 +1,14 @@
 # Shell for bootstrapping flake-enabled nix and other tooling
 # You can enter it through 'nix develop' or (legacy) 'nix-shell'
 {
-  pkgs ? import <nixpkgs> { },
+  pkgs ? import <nixpkgs> {
+    config.allowUnfree = true;
+    overlays = [
+      (final: _prev: {
+        terraform = final.callPackage ./pkgs/terraform.nix { };
+      })
+    ];
+  },
   ...
 }:
 
@@ -26,6 +33,7 @@
         nix-output-monitor # https://search.nixos.org/packages?channel=unstable&type=packages&show=nix-output-monitor
         nixfmt # https://search.nixos.org/packages?channel=unstable&type=packages&show=nixfmt
         statix # https://search.nixos.org/packages?channel=unstable&type=packages&show=statix
+        terraform # https://releases.hashicorp.com/terraform
 
         gnupg # https://search.nixos.org/packages?channel=unstable&type=packages&show=gnupg
         openssh # https://search.nixos.org/packages?channel=unstable&type=packages&show=openssh
