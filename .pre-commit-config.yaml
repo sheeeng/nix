@@ -101,7 +101,7 @@ repos:
       - id: markdownlint-cli2
         exclude: ^home-manager/llm/skills/create-abstract-editorial-image/(LICENSE\.md|README\.md|references/)
   - repo: https://github.com/charliermarsh/ruff-pre-commit
-    rev: v0.16.4
+    rev: v0.16.5
     hooks:
       - id: ruff
         name: ruff
@@ -150,7 +150,7 @@ repos:
         args: [--fix]
         exclude: ^home-manager/llm/skills/create-abstract-editorial-image/(LICENSE\.md|README\.md|references/)
   - repo: https://github.com/renovatebot/pre-commit-hooks
-    rev: 44.43.1
+    rev: 44.48.0
     hooks:
       - id: renovate-config-validator
         args: [--strict]
