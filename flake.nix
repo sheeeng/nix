@@ -306,7 +306,7 @@
       # nixpkgs instance per system with the modifications overlay and allowUnfree
       # applied. Used for treefmt and dev shells, which otherwise receive bare
       # nixpkgs.legacyPackages without overlays or config.
-      overlayedPkgs =
+      overlaidPkgs =
         system:
         import nixpkgs {
           inherit system;
@@ -316,7 +316,7 @@
 
       # Eval the treefmt modules from ./treefmt.nix
       treefmtEval = nixpkgs.lib.genAttrs (import nix-systems) (
-        system: treefmt-nix.lib.evalModule (overlayedPkgs system) ./treefmt.nix
+        system: treefmt-nix.lib.evalModule (overlaidPkgs system) ./treefmt.nix
       );
 
       # ========== Extend lib with lib.custom ==========
@@ -423,7 +423,7 @@
       devShells = nixpkgs.lib.genAttrs (import nix-systems) (
         system:
         let
-          pkgs = overlayedPkgs system;
+          pkgs = overlaidPkgs system;
           shells = import ./shell.nix { inherit pkgs; };
         in
         {
