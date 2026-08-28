@@ -4,32 +4,37 @@
 { lib, pkgs }:
 let
   terraformVersion = lib.trim (builtins.readFile ../.terraform-version);
-  terraformTargets = {
-    # keep-sorted start
-    "aarch64-darwin" = "sha256-5HPwCmRdIusB9RDJa83qsqX9yObl4Mk1FfTa2xmvFXw=";
-    "aarch64-linux" = "sha256-02Zhr59Qb4XKSdPUdo+yZXDKj0wa1mCdXy35JJB9ix4=";
-    "x86_64-darwin" = "sha256-ouGntZN01Pro9tzu168Uz58SKs2eWziZZNtCEWStxXo=";
-    "x86_64-linux" = "sha256-moAwCFJSNfNuYDMAQKat3sPXjf59Nm8Sphj64Tt2D5w=";
-    # keep-sorted end
-  };
+  # Hashes are updated automatically by the update-terraform-binary-version
+  # workflow. The workflow sed pattern matches lines indented with exactly four
+  # spaces, so keep this attrset at four-space indentation and do not add any
+  # other four-space-indented attrset with the same key names in this file.
   terraformHashes = {
     # keep-sorted start
-    "aarch64-darwin" = "sha256-5HPwCmRdIusB9RDJa83qsqX9yObl4Mk1FfTa2xmvFXw=";
-    "aarch64-linux" = "sha256-02Zhr59Qb4XKSdPUdo+yZXDKj0wa1mCdXy35JJB9ix4=";
-    "x86_64-darwin" = "sha256-ouGntZN01Pro9tzu168Uz58SKs2eWziZZNtCEWStxXo=";
-    "x86_64-linux" = "sha256-moAwCFJSNfNuYDMAQKat3sPXjf59Nm8Sphj64Tt2D5w=";
+    "aarch64-darwin" = "sha256-JSuT/rWOT8Dg/+8koLwr42SnRaAGyxUnssSdycUbJOk=";
+    "aarch64-linux" = "sha256-CvoJd80BfE2/QUooC5NHeLf7ArtFET6lUPc2Zgp8XiA=";
+    "x86_64-darwin" = "sha256-DFotaF0j2NhYD4eiQk+uSa0/ZYARfEFm4U4m3K53TZ0=";
+    "x86_64-linux" = "sha256-9FV2ujd8ZKM1yaQHGBUrug0kEcx/diXbXQjQ3oM18BY=";
     # keep-sorted end
   };
   terraformSystem = pkgs.stdenv.hostPlatform.system;
+  # Nested to avoid matching the workflow sed pattern (four-space indent).
+  terraformPlatform =
+    let
+      platformMap = {
+        "aarch64-darwin" = "darwin_arm64";
+        "aarch64-linux" = "linux_arm64";
+        "x86_64-darwin" = "darwin_amd64";
+        "x86_64-linux" = "linux_amd64";
+      };
+    in
+    platformMap.${terraformSystem};
 in
 pkgs.stdenvNoCC.mkDerivation {
   pname = "terraform";
   version = terraformVersion;
 
   src = pkgs.fetchzip {
-    url = "https://releases.hashicorp.com/terraform/${terraformVersion}/terraform_${terraformVersion}_${
-      terraformTargets.${terraformSystem}
-    }.zip";
+    url = "https://releases.hashicorp.com/terraform/${terraformVersion}/terraform_${terraformVersion}_${terraformPlatform}.zip";
     hash = terraformHashes.${terraformSystem};
     stripRoot = false;
   };
@@ -46,6 +51,6 @@ pkgs.stdenvNoCC.mkDerivation {
     homepage = "https://www.terraform.io/";
     license = lib.licenses.bsl11;
     mainProgram = "terraform";
-    platforms = builtins.attrNames terraformTargets;
+    platforms = builtins.attrNames terraformHashes;
   };
 }
