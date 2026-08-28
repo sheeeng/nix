@@ -6,18 +6,18 @@ let
   terraformVersion = lib.trim (builtins.readFile ../.terraform-version);
   terraformTargets = {
     # keep-sorted start
-    "aarch64-darwin" = "darwin_arm64";
-    "aarch64-linux" = "linux_arm64";
-    "x86_64-darwin" = "darwin_amd64";
-    "x86_64-linux" = "linux_amd64";
+    "aarch64-darwin" = "sha256-5HPwCmRdIusB9RDJa83qsqX9yObl4Mk1FfTa2xmvFXw=";
+    "aarch64-linux" = "sha256-02Zhr59Qb4XKSdPUdo+yZXDKj0wa1mCdXy35JJB9ix4=";
+    "x86_64-darwin" = "sha256-ouGntZN01Pro9tzu168Uz58SKs2eWziZZNtCEWStxXo=";
+    "x86_64-linux" = "sha256-moAwCFJSNfNuYDMAQKat3sPXjf59Nm8Sphj64Tt2D5w=";
     # keep-sorted end
   };
   terraformHashes = {
     # keep-sorted start
-    "aarch64-darwin" = "sha256-G8qlMDO0mmCWGFwzo6r6yIwH+banVvOcw8mvhsXA6Vw=";
-    "aarch64-linux" = "sha256-q16b2gw1FmsRayl0Gw6XTLIo2wPuz2jAydkqWvIcVBI=";
-    "x86_64-darwin" = "sha256-VzBtnuYgvejD2jNgDvToxZ6hQIZFmefvPwlBZkICTN4=";
-    "x86_64-linux" = "sha256-kVLGoEaoEyMljOfNSRTXP2Hn2sGd4uQOoXsM37wfarE=";
+    "aarch64-darwin" = "sha256-5HPwCmRdIusB9RDJa83qsqX9yObl4Mk1FfTa2xmvFXw=";
+    "aarch64-linux" = "sha256-02Zhr59Qb4XKSdPUdo+yZXDKj0wa1mCdXy35JJB9ix4=";
+    "x86_64-darwin" = "sha256-ouGntZN01Pro9tzu168Uz58SKs2eWziZZNtCEWStxXo=";
+    "x86_64-linux" = "sha256-moAwCFJSNfNuYDMAQKat3sPXjf59Nm8Sphj64Tt2D5w=";
     # keep-sorted end
   };
   terraformSystem = pkgs.stdenv.hostPlatform.system;
