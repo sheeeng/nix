@@ -286,38 +286,11 @@
     {
       self,
       nixpkgs,
-      nix-systems,
+      flake-utils,
       treefmt-nix,
       ...
     }@inputs:
     let
-
-      # Small tool to iterate over each systems
-      eachSystem =
-        f: nixpkgs.lib.genAttrs (import nix-systems) (system: f nixpkgs.legacyPackages.${system});
-      # eachSystem = nixpkgs.lib.genAttrs [
-      #   "aarch64-linux"
-      #   "i686-linux"
-      #   "x86_64-linux"
-      #   "aarch64-darwin"
-      #   "x86_64-darwin"
-      # ];
-
-      # nixpkgs instance per system with the modifications overlay and allowUnfree
-      # applied. Used for treefmt and dev shells, which otherwise receive bare
-      # nixpkgs.legacyPackages without overlays or config.
-      overlaidPkgs =
-        system:
-        import nixpkgs {
-          inherit system;
-          config.allowUnfree = true;
-          overlays = [ (import ./overlays { inherit inputs; }).modifications ];
-        };
-
-      # Eval the treefmt modules from ./treefmt.nix
-      treefmtEval = nixpkgs.lib.genAttrs (import nix-systems) (
-        system: treefmt-nix.lib.evalModule (overlaidPkgs system) ./treefmt.nix
-      );
 
       # ========== Extend lib with lib.custom ==========
       # NOTE: This approach allows lib.custom to propagate into hm
@@ -410,29 +383,38 @@
           specialArgs = { inherit inputs; };
         };
     in
-    {
-      # for `nix fmt`
-      formatter = eachSystem (pkgs: treefmtEval.${pkgs.stdenv.hostPlatform.system}.config.build.wrapper);
+    flake-utils.lib.eachDefaultSystem (
+      system:
+      let
+        pkgs = import nixpkgs {
+          inherit system;
+          config.allowUnfree = true;
+          overlays = [ (import ./overlays { inherit inputs; }).modifications ];
+        };
+        treefmtEval = treefmt-nix.lib.evalModule pkgs ./treefmt.nix;
+      in
+      {
+        # for `nix fmt`
+        formatter = treefmtEval.config.build.wrapper;
 
-      # for `nix flake check`
-      checks = eachSystem (pkgs: {
-        formatting = treefmtEval.${pkgs.stdenv.hostPlatform.system}.config.build.check self;
-      });
+        # for `nix flake check`
+        checks = {
+          formatting = treefmtEval.config.build.check self;
+        };
 
-      # for `nix develop` - provides development shell
-      devShells = nixpkgs.lib.genAttrs (import nix-systems) (
-        system:
-        let
-          pkgs = overlaidPkgs system;
-          shells = import ./shell.nix { inherit pkgs; };
-        in
-        {
-          default = shells.standard-shell;
-          inherit (shells) minimal-shell;
-          inherit (shells) standard-shell;
-        }
-      );
-
+        # for `nix develop` - provides development shell
+        devShells =
+          let
+            shells = import ./shell.nix { inherit pkgs; };
+          in
+          {
+            default = shells.standard-shell;
+            inherit (shells) minimal-shell;
+            inherit (shells) standard-shell;
+          };
+      }
+    )
+    // {
       nixosConfigurations = {
         # desktop = nixosConfiguration "desktop" "x86_64-linux";
         # laptop = nixosConfiguration "laptop" "x86_64-linux";
