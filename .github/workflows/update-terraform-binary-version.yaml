@@ -109,16 +109,19 @@ jobs:
             -e "s#^    \"x86_64-linux\" = \".*\";#    \"x86_64-linux\" = \"${target_hashes[linux_amd64]}\";#" \
             pkgs/terraform.nix
 
+          nix fmt -- pkgs/terraform.nix
+
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          # shellcheck disable=SC2016
+          git config --global credential.helper \
+            '!f() { echo "username=x-access-token"; echo "password=${GH_TOKEN}"; }; f'
 
           branch="chore/update-terraform"
           git switch --force-create "${branch}"
           git add -- .terraform-version pkgs/terraform.nix
           git commit \
             --message "chore(deps): update terraform to ${latest_version}"
-          git remote set-url --push origin \
-            "https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git"
           git push --force-with-lease origin "${branch}"
 
           existing_pull_request="$(
