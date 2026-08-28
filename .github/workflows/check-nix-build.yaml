@@ -1,0 +1,113 @@
+name: Check Nix Build
+
+on:
+  push:
+    branches:
+      - "main"
+      - "unstable"
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: "${{ github.workflow }}-${{ github.ref }}"
+  cancel-in-progress: true
+
+permissions: {}
+
+jobs:
+  check-nix-build:
+    name: Check Nix Build (${{ matrix.hostname }}, ${{ matrix.system }})
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - hostname: mockos
+            system: aarch64-darwin
+            runs-on: macos-latest
+            type: darwin
+          - hostname: TP95V9LWWL
+            system: aarch64-darwin
+            runs-on: macos-latest
+            type: darwin
+          - hostname: fw13
+            system: x86_64-linux
+            runs-on: ubuntu-latest
+            type: nixos
+          - hostname: p50
+            system: x86_64-linux
+            runs-on: ubuntu-latest
+            type: nixos
+    runs-on: ${{ matrix.runs-on }}
+    environment:
+      name: unstable
+      deployment: false
+    permissions:
+      contents: read
+    timeout-minutes: 60
+    steps:
+      - name: Create GitHub App Token
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+        id: create-github-app-token
+        with:
+          client-id: ${{ vars.APP_CLIENT_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+          owner: sheeeng
+          repositories: |-
+            nix-secrets
+            nix-secrets-example
+
+      - name: Mask Tokens
+        run: |-
+          echo "::add-mask::${{ steps.create-github-app-token.outputs.token }}"
+          echo "::add-mask::${{ github.token }}"
+
+      - name: Configure Nix Authentication
+        run: |-
+          mkdir --parents "${HOME}/.config/nix"
+          umask 077
+          printf 'access-tokens = github.com=%s\n' \
+            "${{ steps.create-github-app-token.outputs.token }}" \
+            > "${HOME}/.config/nix/access-tokens.conf"
+          printf '!include access-tokens.conf\n' \
+            >> "${HOME}/.config/nix/nix.conf"
+
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+
+      - name: Setup Nix
+        uses: determinatesystems/determinate-nix-action@527f17dd63d2d60d3e5552934bc84b9a33a14d11 # v3.22.2
+        with:
+          github-token: ${{ github.token }}
+          trust-runner-user: true
+          summarize: true
+
+      - name: Setup Nix Cache
+        uses: DeterminateSystems/magic-nix-cache-action@908b263ff629f4cc17666315b7fd3ec127c6244d # v14
+        with:
+          use-gha-cache: "enabled"
+          use-flakehub: "disabled"
+
+      - name: Build Darwin Configuration
+        if: matrix.type == 'darwin'
+        run: |-
+          nix run github:lnl7/nix-darwin -- build \
+            --flake .#${{ matrix.hostname }} \
+            --print-build-logs \
+            --show-trace \
+            --verbose \
+            --cores 0 \
+            --max-jobs 10
+
+      - name: Build NixOS Configuration
+        if: matrix.type == 'nixos'
+        run: |-
+          nix build \
+            ".#nixosConfigurations.${{ matrix.hostname }}.config.system.build.toplevel" \
+            --print-build-logs \
+            --show-trace \
+            --verbose \
+            --cores 0 \
+            --max-jobs 10
