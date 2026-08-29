@@ -28,7 +28,8 @@ jobs:
       name: unstable
       deployment: false
     permissions:
-      # Required to push the automation branch.
+      # Required so actions/checkout can read the repository.
+      # The GitHub App token performs the push.
       contents: read
       # Required so github-actions[bot] creates and updates pull requests.
       # Use github.token here so GitHub attributes the pull request to
