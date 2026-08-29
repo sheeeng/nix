@@ -2,9 +2,19 @@ name: Review Dependency
 
 on:
   pull_request:
+  workflow_dispatch:
+    inputs:
+      base-ref:
+        description: Base branch to compare against
+        required: true
+        type: string
+      head-ref:
+        description: Head branch to review
+        required: true
+        type: string
 
 concurrency:
-  group: "${{ github.workflow }}-${{ github.ref_name }}"
+  group: "${{ github.workflow }}-${{ inputs.head-ref || github.ref_name }}"
   cancel-in-progress: true
 
 permissions: {}
@@ -23,3 +33,6 @@ jobs:
           persist-credentials: false
       - name: Review Dependency
         uses: actions/dependency-review-action@a1d282b36b6f3519aa1f3fc636f609c47dddb294 # v5.0.0
+        with:
+          base-ref: ${{ inputs.base-ref || github.base_ref }}
+          head-ref: ${{ inputs.head-ref || github.head_ref }}
