@@ -19,8 +19,11 @@ jobs:
       deployment: false
     runs-on: ubuntu-latest
     permissions:
-      # Required to push the automation branch.
-      contents: read
+      # This workflow does not use a GitHub App token. Neither cross-repo
+      # Nix authentication (no private nix-secrets access needed) nor branch
+      # protection bypass applies here. github.token with contents: write is
+      # sufficient for pushing the automation branch.
+      contents: write
       # Required so github-actions[bot] creates and updates pull requests.
       # Use github.token here so GitHub attributes the pull request to
       # github-actions[bot]. Pull requests created with github.token do not
@@ -34,21 +37,8 @@ jobs:
           persist-credentials: false
           ref: unstable
 
-      - name: Get App Token to Create Pull Request
-        id: create-github-app-token
-        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
-        with:
-          client-id: ${{ vars.APP_CLIENT_ID }}
-          private-key: ${{ secrets.APP_PRIVATE_KEY }}
-          # The App token is required for git push. If branch protection
-          # restricts pushers, a GitHub App can be added to the bypass list.
-          # github.token cannot be added to that list.
-          # Scope to only the permissions this workflow needs.
-          permission-contents: write
-
       - name: Mask Tokens
         run: |-
-          echo "::add-mask::${{ steps.create-github-app-token.outputs.token }}"
           echo "::add-mask::${{ github.token }}"
 
       - name: Setup Nix
@@ -78,8 +68,9 @@ jobs:
       - name: Update Terraform Binary Version
         id: update-terraform-binary-version
         env:
-          # App token used only for git push (contents: write).
-          APP_TOKEN: ${{ steps.create-github-app-token.outputs.token }}
+          # github.token is used for git push. See job permissions above
+          # for why no GitHub App token is needed in this workflow.
+          GIT_PUSH_TOKEN: ${{ github.token }}
           GITHUB_RELEASES_TOKEN: ${{ github.token }}
           # Set commit identity via environment variables rather than
           # git config --global. Both embed the same name and email into the
@@ -130,15 +121,13 @@ jobs:
 
           nix fmt -- pkgs/terraform.nix
 
-          # shellcheck disable=SC2016
-          git config --global credential.helper \
-            '!f() { echo "username=x-access-token"; echo "password=${APP_TOKEN}"; }; f'
-
           branch="chore/update-terraform"
           git switch --force-create "${branch}"
           git add -- .terraform-version pkgs/terraform.nix
           git commit \
             --message "chore(deps): update terraform to ${latest_version}"
+          git remote set-url --push origin \
+            "https://x-access-token:${GIT_PUSH_TOKEN}@github.com/${{ github.repository }}.git"
           git push --force-with-lease origin "${branch}"
 
           echo "updated=true" >> "${GITHUB_OUTPUT}"
