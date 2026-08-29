@@ -3,6 +3,7 @@ name: Check Nix Flake
 on:
   push:
     branches:
+      - "chore/**"
       - "main"
       - "unstable"
   pull_request:
