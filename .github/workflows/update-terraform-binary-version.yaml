@@ -40,6 +40,9 @@ jobs:
         with:
           client-id: ${{ vars.APP_CLIENT_ID }}
           private-key: ${{ secrets.APP_PRIVATE_KEY }}
+          # The App token is required for git push. If branch protection
+          # restricts pushers, a GitHub App can be added to the bypass list.
+          # github.token cannot be added to that list.
           # Scope to only the permissions this workflow needs.
           permission-contents: write
 
