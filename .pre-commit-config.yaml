@@ -153,7 +153,7 @@ repos:
         args: [--fix]
         exclude: ^home-manager/llm/skills/create-abstract-editorial-image/(LICENSE\.md|README\.md|references/)
   - repo: https://github.com/renovatebot/pre-commit-hooks
-    rev: 44.48.0
+    rev: 44.51.0
     hooks:
       - id: renovate-config-validator
         args: [--strict]
