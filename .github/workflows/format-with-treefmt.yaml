@@ -1,7 +1,7 @@
 name: Format with Treefmt
 
 on:
-  pull_request: &triggers
+  pull_request:
     branches:
       - main
       - unstable
@@ -11,7 +11,17 @@ on:
       - "!**/*.lock.yaml"
       - "!**/*.lock.yml"
       - "!**/*.patch"
-  push: *triggers
+  push:
+    branches:
+      - chore/**
+      - main
+      - unstable
+    paths:
+      - "**"
+      - "!**/*.lock"
+      - "!**/*.lock.yaml"
+      - "!**/*.lock.yml"
+      - "!**/*.patch"
   workflow_dispatch:
 
 concurrency:
