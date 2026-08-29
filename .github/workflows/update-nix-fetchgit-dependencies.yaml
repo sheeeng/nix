@@ -119,12 +119,14 @@ jobs:
 
           branch="chore/update-nix-fetchgit"
           git switch --force-create "${branch}"
-          git add --all
+          git add -- "${changed_files[@]}"
           git commit \
             --message "chore(deps): update nix fetchgit dependencies"
           git remote set-url --push origin \
             "https://x-access-token:${APP_TOKEN}@github.com/${{ github.repository }}.git"
           git push --force-with-lease origin "${branch}"
+          git remote set-url --push origin \
+            "https://github.com/${{ github.repository }}.git"
 
           echo "has-changes=true" >> "${GITHUB_OUTPUT}"
           echo "branch=${branch}" >> "${GITHUB_OUTPUT}"

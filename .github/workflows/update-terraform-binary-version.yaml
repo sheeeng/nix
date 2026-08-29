@@ -140,6 +140,8 @@ jobs:
           git remote set-url --push origin \
             "https://x-access-token:${GIT_PUSH_TOKEN}@github.com/${{ github.repository }}.git"
           git push --force-with-lease origin "${branch}"
+          git remote set-url --push origin \
+            "https://github.com/${{ github.repository }}.git"
 
           echo "updated=true" >> "${GITHUB_OUTPUT}"
           {
