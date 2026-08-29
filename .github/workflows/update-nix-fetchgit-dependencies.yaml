@@ -12,7 +12,7 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  update-nix-fetchgit:
+  update-nix-fetchgit-dependencies:
     name: Update Nix Fetchgit Dependencies
     environment:
       name: unstable
@@ -21,11 +21,6 @@ jobs:
     permissions:
       # Required to push the automation branch.
       contents: read
-      # Required so github-actions[bot] creates and updates pull requests.
-      # Do NOT use the GitHub App token for gh pr create/edit — that would
-      # show the App (create-pull-request[bot]) as the PR creator instead of
-      # github-actions[bot].
-      pull-requests: write
     steps:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -40,10 +35,9 @@ jobs:
         with:
           client-id: ${{ vars.APP_CLIENT_ID }}
           private-key: ${{ secrets.APP_PRIVATE_KEY }}
-          # contents: write is needed to push the automation branch.
-          # pull-requests permission is intentionally omitted here so that
-          # PR creation uses github.token (github-actions[bot]) below.
+          # Scope to only the permissions this workflow needs.
           permission-contents: write
+          permission-pull-requests: write
 
       - name: Mask Tokens
         run: |-
@@ -119,9 +113,9 @@ jobs:
         id: upsert-pull-request
         if: steps.update-fetchgit.outputs.has-changes == 'true'
         env:
-          # Use github.token so GitHub attributes the PR to github-actions[bot],
-          # not to the GitHub App (which would show as create-pull-request[bot]).
-          GH_TOKEN: ${{ github.token }}
+          # Use the App token so GitHub allows pull_request workflow runs
+          # triggered by this PR to start without manual approval.
+          GH_TOKEN: ${{ steps.create-github-app-token.outputs.token }}
         run: |-
           set -o errexit
           set -o nounset

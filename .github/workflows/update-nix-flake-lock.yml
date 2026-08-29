@@ -30,10 +30,6 @@ jobs:
     permissions:
       # Required to push the automation branch.
       contents: read
-      # Required so github-actions[bot] creates and updates pull requests.
-      # Do NOT use the GitHub App token for gh pr create/edit — that would
-      # show the App as the PR creator instead of github-actions[bot].
-      pull-requests: write
     steps:
       - name: Create GitHub App Token
         uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
@@ -46,6 +42,9 @@ jobs:
             nix
             nix-secrets
             nix-secrets-example
+          # Scope to only the permissions this workflow needs.
+          permission-contents: write
+          permission-pull-requests: write
       - name: Mask Tokens
         run: |-
           echo "::add-mask::${{ steps.create-github-app-token.outputs.token }}"
@@ -133,9 +132,9 @@ jobs:
         id: create-or-update-pull-request
         if: steps.update-nix-flake-lock.outputs.updated == 'true'
         env:
-          # Use github.token so GitHub attributes the PR to github-actions[bot],
-          # not to the GitHub App (which would show as create-pull-request[bot]).
-          GH_TOKEN: ${{ github.token }}
+          # Use the App token so GitHub allows pull_request workflow runs
+          # triggered by this PR to start without manual approval.
+          GH_TOKEN: ${{ steps.create-github-app-token.outputs.token }}
         run: |-
           set -o errexit
           set -o nounset
