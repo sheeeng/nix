@@ -36,29 +36,36 @@ jobs:
       # automatically trigger pull_request workflow runs on the same repository.
       pull-requests: write
     steps:
-      - name: Create GitHub App Token
+      - name: Create Nix Authentication Token
         uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
-        id: create-github-app-token
+        id: create-nix-auth-token
         with:
           client-id: ${{ vars.APP_CLIENT_ID }}
           private-key: ${{ secrets.APP_PRIVATE_KEY }}
           owner: sheeeng
           repositories: |-
-            nix
             nix-secrets
             nix-secrets-example
-          # The App token is required for two reasons.
-          # First, the Configure Nix Authentication step sets
-          # access-tokens = github.com=<token> so nix run can fetch from
-          # private repositories (nix-secrets, nix-secrets-example).
-          # github.token only has access to the current repository.
-          # Second, if branch protection restricts pushers, a GitHub App
-          # can be added to the bypass list. github.token cannot.
-          # Scope to only the permissions this workflow needs.
+          # Read-only token scoped to the private repositories that nix run
+          # fetches during flake update. Granting write to these repositories
+          # is not needed and would be an overgrant.
+          permission-contents: read
+
+      - name: Create Push Token
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+        id: create-push-token
+        with:
+          client-id: ${{ vars.APP_CLIENT_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+          # No owner or repositories: scopes the token to this repository only.
+          # A GitHub App can be added to the branch protection bypass list;
+          # github.token cannot.
           permission-contents: write
+
       - name: Mask Tokens
         run: |-
-          echo "::add-mask::${{ steps.create-github-app-token.outputs.token }}"
+          echo "::add-mask::${{ steps.create-nix-auth-token.outputs.token }}"
+          echo "::add-mask::${{ steps.create-push-token.outputs.token }}"
           echo "::add-mask::${{ github.token }}"
 
       - name: Configure Nix Authentication
@@ -66,7 +73,7 @@ jobs:
           mkdir --parents "${HOME}/.config/nix"
           umask 077
           printf 'access-tokens = github.com=%s\n' \
-            "${{ steps.create-github-app-token.outputs.token }}" \
+            "${{ steps.create-nix-auth-token.outputs.token }}" \
             > "${HOME}/.config/nix/access-tokens.conf"
           printf '!include access-tokens.conf\n' \
             >> "${HOME}/.config/nix/nix.conf"
@@ -74,7 +81,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          token: ${{ steps.create-github-app-token.outputs.token }}
+          token: ${{ steps.create-push-token.outputs.token }}
           persist-credentials: false
           fetch-depth: 0
           ref: unstable
@@ -107,7 +114,7 @@ jobs:
         id: update-nix-flake-lock
         env:
           # App token used only for git push (contents: write).
-          GIT_PUSH_TOKEN: ${{ steps.create-github-app-token.outputs.token }}
+          GIT_PUSH_TOKEN: ${{ steps.create-push-token.outputs.token }}
           # Set commit identity via environment variables rather than
           # git config --global. Both embed the same name and email into the
           # commit, but env vars are scoped to this step and do not mutate
