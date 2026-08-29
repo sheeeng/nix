@@ -29,6 +29,10 @@ jobs:
       # github-actions[bot]. Pull requests created with github.token do not
       # automatically trigger pull_request workflow runs on the same repository.
       pull-requests: write
+      # Required to dispatch the dependency review workflow after PR creation.
+      # workflow_dispatch events from github.token are not subject to the same
+      # same-repo suppression that applies to push and pull_request events.
+      actions: write
     steps:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -196,3 +200,14 @@ jobs:
         run: |-
           echo "Upsert ${{ steps.create-or-update-pull-request.outputs.pull-request-number }} pull request."
           echo "Upsert [#${{ steps.create-or-update-pull-request.outputs.pull-request-number }}](https://github.com/${{ github.repository }}/pull/${{ steps.create-or-update-pull-request.outputs.pull-request-number }}) pull request." >> "${GITHUB_STEP_SUMMARY}"
+
+      - name: Dispatch Dependency Review
+        if: steps.update-terraform-binary-version.outputs.updated == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BRANCH: ${{ steps.update-terraform-binary-version.outputs.branch }}
+        run: |-
+          gh workflow run review-dependency.yaml \
+            --ref "${GITHUB_REF_NAME}" \
+            --field base-ref="${GITHUB_REF_NAME}" \
+            --field head-ref="${BRANCH}"
