@@ -47,6 +47,13 @@ jobs:
             nix
             nix-secrets
             nix-secrets-example
+          # The App token is required for two reasons.
+          # First, the Configure Nix Authentication step sets
+          # access-tokens = github.com=<token> so nix run can fetch from
+          # private repositories (nix-secrets, nix-secrets-example).
+          # github.token only has access to the current repository.
+          # Second, if branch protection restricts pushers, a GitHub App
+          # can be added to the bypass list. github.token cannot.
           # Scope to only the permissions this workflow needs.
           permission-contents: write
       - name: Mask Tokens
