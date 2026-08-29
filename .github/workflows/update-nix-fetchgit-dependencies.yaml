@@ -1,8 +1,8 @@
-name: "Update Nix Flake Lock"
+name: Update Nix Fetchgit Dependencies
 
 on:
   schedule:
-    - cron: "2 3 * * 4" # At 03:02 UTC on Thursday.
+    - cron: "1 2 * * 2" # At 02:01 UTC on Tuesday.
   workflow_dispatch:
 
 permissions: {}
@@ -11,22 +11,13 @@ concurrency:
   group: ${{ github.workflow }}
   cancel-in-progress: false
 
-# References:
-# dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
-# https://api.github.com/users/dependabot%5Bbot%5D
-#
-# github-actions[bot] <github-actions[bot]@users.noreply.github.com>
-# https://api.github.com/users/github-actions%5Bbot%5D
-#
-# https://github.com/orgs/community/discussions/26560#discussioncomment-12555758
-# https://github.com/actions/checkout/blob/8e8c483db84b4bee98b60c0593521ed34d9990e8/README.md#L358
-
 jobs:
-  update-nix-flake-lock:
-    runs-on: ubuntu-latest
+  update-nix-fetchgit-dependencies:
+    name: Update Nix Fetchgit Dependencies
     environment:
       name: unstable
       deployment: false
+    runs-on: ubuntu-latest
     permissions:
       # Required so actions/checkout can read the repository.
       # The GitHub App token performs the push.
@@ -41,6 +32,13 @@ jobs:
       # same-repo suppression that applies to push and pull_request events.
       actions: write
     steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+          ref: ${{ github.ref_name }}
+
       - name: Create Nix Authentication Token
         uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
         id: create-nix-auth-token
@@ -52,7 +50,7 @@ jobs:
             nix-secrets
             nix-secrets-example
           # Read-only token scoped to the private repositories that nix run
-          # fetches during flake update. Granting write to these repositories
+          # fetches during fetchgit updates. Granting write to these repositories
           # is not needed and would be an overgrant.
           permission-contents: read
 
@@ -73,6 +71,13 @@ jobs:
           echo "::add-mask::${{ steps.create-push-token.outputs.token }}"
           echo "::add-mask::${{ github.token }}"
 
+      - name: Setup Nix
+        uses: determinatesystems/determinate-nix-action@527f17dd63d2d60d3e5552934bc84b9a33a14d11 # v3.22.2
+        with:
+          github-token: ${{ github.token }}
+          trust-runner-user: true
+          summarize: true
+
       - name: Configure Nix Authentication
         run: |-
           mkdir --parents "${HOME}/.config/nix"
@@ -83,42 +88,11 @@ jobs:
           printf '!include access-tokens.conf\n' \
             >> "${HOME}/.config/nix/nix.conf"
 
-      - name: Checkout
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-        with:
-          persist-credentials: false
-          fetch-depth: 0
-          ref: ${{ github.ref_name }}
-
-      - name: Setup Nix
-        uses: determinatesystems/determinate-nix-action@527f17dd63d2d60d3e5552934bc84b9a33a14d11 # v3.22.2
-        with:
-          github-token: ${{ github.token }}
-          trust-runner-user: true
-          summarize: true
-
-      - name: Check Flake Currency
-        uses: determinatesystems/flake-checker-action@de924abd783455e8429c858962b9e43062d19da1 # v13
+      - name: Update and Push Fetchgit Dependencies
+        id: update-fetchgit
         env:
-          # At flake-checker-action v13 commit de924abd, send-statistics: false maps to NIX_FLAKE_CHECKER_NO_TELEMETRY=false.
-          # The environment variable override is required to disable telemetry.
-          # See https://github.com/DeterminateSystems/flake-checker-action/issues/134.
-          NIX_FLAKE_CHECKER_NO_TELEMETRY: "true"
-        with:
-          flake-lock-path: "flake.lock"
-          check-outdated: true
-          check-owner: true
-          check-supported: true
-          nixpkgs-keys: "nixpkgs"
-          ignore-missing-flake-lock: true
-          fail-mode: false
-          send-statistics: false
-
-      - name: Update Nix Flake Lock
-        id: update-nix-flake-lock
-        env:
-          # App token used only for git push (contents: write).
-          GIT_PUSH_TOKEN: ${{ steps.create-push-token.outputs.token }}
+          # Push token scoped to this repository only (contents: write).
+          APP_TOKEN: ${{ steps.create-push-token.outputs.token }}
           # Set commit identity via environment variables rather than
           # git config --global. Both embed the same name and email into the
           # commit, but env vars are scoped to this step and do not mutate
@@ -132,29 +106,39 @@ jobs:
           set -o nounset
           set -o pipefail
 
-          nix flake update
+          nix run nixpkgs#fd -- \
+            --extension nix \
+            --exclude flake.nix \
+            --exec-batch \
+            nix run nixpkgs#update-nix-fetchgit -- --verbose
 
-          if git diff --quiet -- flake.lock; then
-            echo "All flake inputs are already current."
-            echo "updated=false" >> "${GITHUB_OUTPUT}"
+          mapfile -t changed_files < <(git diff --name-only)
+
+          if [[ ${#changed_files[@]} -eq 0 ]]; then
+            echo "No fetchgit dependency updates found."
+            echo "has-changes=false" >> "${GITHUB_OUTPUT}"
             exit 0
           fi
 
-          branch="chore/update-nix-flake-lock"
+          nix fmt -- "${changed_files[@]}"
+
+          branch="chore/update-nix-fetchgit"
           git switch --force-create "${branch}"
-          git add -- flake.lock
-          git commit --message "chore(deps): update flake.lock"
+          git add -- "${changed_files[@]}"
+          git commit \
+            --message "chore(deps): update nix fetchgit dependencies"
           git remote set-url --push origin \
-            "https://x-access-token:${GIT_PUSH_TOKEN}@github.com/${{ github.repository }}.git"
+            "https://x-access-token:${APP_TOKEN}@github.com/${{ github.repository }}.git"
           git push --force-with-lease origin "${branch}"
           git remote set-url --push origin \
             "https://github.com/${{ github.repository }}.git"
-          echo "updated=true" >> "${GITHUB_OUTPUT}"
+
+          echo "has-changes=true" >> "${GITHUB_OUTPUT}"
           echo "branch=${branch}" >> "${GITHUB_OUTPUT}"
 
       - name: Create or Update Pull Request
-        id: create-or-update-pull-request
-        if: steps.update-nix-flake-lock.outputs.updated == 'true'
+        id: upsert-pull-request
+        if: steps.update-fetchgit.outputs.has-changes == 'true'
         env:
           # Use github.token so GitHub attributes the pull request to
           # github-actions[bot], not to the App bot.
@@ -164,7 +148,7 @@ jobs:
           set -o nounset
           set -o pipefail
 
-          branch="${{ steps.update-nix-flake-lock.outputs.branch }}"
+          branch="${{ steps.update-fetchgit.outputs.branch }}"
 
           existing_pull_request="$(
             gh pr list --head "${branch}" --state open --json number \
@@ -172,15 +156,18 @@ jobs:
           )"
 
           if [[ -n "${existing_pull_request}" ]]; then
-            gh pr edit "${existing_pull_request}" --base "${GITHUB_REF_NAME}"
+            gh pr edit "${existing_pull_request}" \
+              --title "chore(deps): update nix fetchgit dependencies" \
+              --body "Updates \`fetchgit\`, \`fetchFromGitHub\`, and similar pinned sources in Nix files." \
+              --base "${GITHUB_REF_NAME}"
             echo "Updated existing pull request #${existing_pull_request}."
             echo "pull-request-number=${existing_pull_request}" >> "${GITHUB_OUTPUT}"
             exit 0
           fi
 
           gh pr create \
-            --title "chore(deps): update flake.lock" \
-            --body "Refreshes every flake input with \`nix flake update\`." \
+            --title "chore(deps): update nix fetchgit dependencies" \
+            --body "Updates \`fetchgit\`, \`fetchFromGitHub\`, and similar pinned sources in Nix files." \
             --base "${GITHUB_REF_NAME}" \
             --head "${branch}"
           pull_request_number="$(
@@ -189,16 +176,16 @@ jobs:
           echo "pull-request-number=${pull_request_number}" >> "${GITHUB_OUTPUT}"
 
       - name: Display Pull Request Link
-        if: steps.create-or-update-pull-request.outputs.pull-request-number != ''
+        if: steps.upsert-pull-request.outputs.pull-request-number != ''
         run: |-
-          echo "Upsert ${{ steps.create-or-update-pull-request.outputs.pull-request-number }} pull request."
-          echo "Upsert [#${{ steps.create-or-update-pull-request.outputs.pull-request-number }}](https://github.com/${{ github.repository }}/pull/${{ steps.create-or-update-pull-request.outputs.pull-request-number }}) pull request." >> "${GITHUB_STEP_SUMMARY}"
+          echo "Upsert ${{ steps.upsert-pull-request.outputs.pull-request-number }} pull request."
+          echo "Upsert [#${{ steps.upsert-pull-request.outputs.pull-request-number }}](https://github.com/${{ github.repository }}/pull/${{ steps.upsert-pull-request.outputs.pull-request-number }}) pull request." >> "${GITHUB_STEP_SUMMARY}"
 
       - name: Dispatch Dependency Review
-        if: steps.update-nix-flake-lock.outputs.updated == 'true'
+        if: steps.update-fetchgit.outputs.has-changes == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
-          BRANCH: ${{ steps.update-nix-flake-lock.outputs.branch }}
+          BRANCH: ${{ steps.update-fetchgit.outputs.branch }}
         run: |-
           gh workflow run review-dependency.yaml \
             --ref "${GITHUB_REF_NAME}" \

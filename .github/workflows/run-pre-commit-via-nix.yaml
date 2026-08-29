@@ -3,6 +3,7 @@ name: Run Pre-Commit via Nix
 on:
   push:
     branches:
+      - "chore/**"
       - "main"
       - "unstable"
   pull_request:

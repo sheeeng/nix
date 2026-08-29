@@ -3,6 +3,7 @@ name: Run Pre-Commit via Determinate
 on:
   push:
     branches:
+      - "chore/**"
       - "main"
       - "unstable"
   pull_request:
