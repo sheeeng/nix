@@ -21,6 +21,11 @@ jobs:
     permissions:
       # Required to push the automation branch.
       contents: read
+      # Required so github-actions[bot] creates and updates pull requests.
+      # Use github.token here so GitHub attributes the pull request to
+      # github-actions[bot]. Pull requests created with github.token do not
+      # automatically trigger pull_request workflow runs on the same repository.
+      pull-requests: write
     steps:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -37,7 +42,6 @@ jobs:
           private-key: ${{ secrets.APP_PRIVATE_KEY }}
           # Scope to only the permissions this workflow needs.
           permission-contents: write
-          permission-pull-requests: write
 
       - name: Mask Tokens
         run: |-
@@ -113,9 +117,9 @@ jobs:
         id: upsert-pull-request
         if: steps.update-fetchgit.outputs.has-changes == 'true'
         env:
-          # Use the App token so GitHub allows pull_request workflow runs
-          # triggered by this PR to start without manual approval.
-          GH_TOKEN: ${{ steps.create-github-app-token.outputs.token }}
+          # Use github.token so GitHub attributes the pull request to
+          # github-actions[bot], not to the App bot.
+          GH_TOKEN: ${{ github.token }}
         run: |-
           set -o errexit
           set -o nounset
