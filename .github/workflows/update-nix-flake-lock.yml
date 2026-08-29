@@ -36,6 +36,10 @@ jobs:
       # github-actions[bot]. Pull requests created with github.token do not
       # automatically trigger pull_request workflow runs on the same repository.
       pull-requests: write
+      # Required to dispatch the dependency review workflow after PR creation.
+      # workflow_dispatch events from github.token are not subject to the same
+      # same-repo suppression that applies to push and pull_request events.
+      actions: write
     steps:
       - name: Create Nix Authentication Token
         uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
@@ -189,3 +193,14 @@ jobs:
         run: |-
           echo "Upsert ${{ steps.create-or-update-pull-request.outputs.pull-request-number }} pull request."
           echo "Upsert [#${{ steps.create-or-update-pull-request.outputs.pull-request-number }}](https://github.com/${{ github.repository }}/pull/${{ steps.create-or-update-pull-request.outputs.pull-request-number }}) pull request." >> "${GITHUB_STEP_SUMMARY}"
+
+      - name: Dispatch Dependency Review
+        if: steps.update-nix-flake-lock.outputs.updated == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BRANCH: ${{ steps.update-nix-flake-lock.outputs.branch }}
+        run: |-
+          gh workflow run review-dependency.yaml \
+            --ref "${GITHUB_REF_NAME}" \
+            --field base-ref="${GITHUB_REF_NAME}" \
+            --field head-ref="${BRANCH}"
