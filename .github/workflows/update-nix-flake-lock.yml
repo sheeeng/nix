@@ -28,7 +28,12 @@ jobs:
       name: unstable
       deployment: false
     permissions:
+      # Required to push the automation branch.
       contents: read
+      # Required so github-actions[bot] creates and updates pull requests.
+      # Do NOT use the GitHub App token for gh pr create/edit — that would
+      # show the App as the PR creator instead of github-actions[bot].
+      pull-requests: write
     steps:
       - name: Create GitHub App Token
         uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
@@ -41,7 +46,6 @@ jobs:
             nix
             nix-secrets
             nix-secrets-example
-
       - name: Mask Tokens
         run: |-
           echo "::add-mask::${{ steps.create-github-app-token.outputs.token }}"
@@ -92,7 +96,12 @@ jobs:
       - name: Update Nix Flake Lock
         id: update-nix-flake-lock
         env:
+          # App token used only for git push (contents: write).
           GIT_PUSH_TOKEN: ${{ steps.create-github-app-token.outputs.token }}
+          # Set commit identity via environment variables rather than
+          # git config --global. Both embed the same name and email into the
+          # commit, but env vars are scoped to this step and do not mutate
+          # the runner's global git configuration for subsequent steps.
           GIT_AUTHOR_NAME: github-actions[bot]
           GIT_AUTHOR_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
           GIT_COMMITTER_NAME: github-actions[bot]
@@ -124,7 +133,9 @@ jobs:
         id: create-or-update-pull-request
         if: steps.update-nix-flake-lock.outputs.updated == 'true'
         env:
-          GH_TOKEN: ${{ steps.create-github-app-token.outputs.token }}
+          # Use github.token so GitHub attributes the PR to github-actions[bot],
+          # not to the GitHub App (which would show as create-pull-request[bot]).
+          GH_TOKEN: ${{ github.token }}
         run: |-
           set -o errexit
           set -o nounset
