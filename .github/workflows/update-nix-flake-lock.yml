@@ -81,7 +81,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          token: ${{ steps.create-push-token.outputs.token }}
           persist-credentials: false
           fetch-depth: 0
           ref: unstable
@@ -143,6 +142,8 @@ jobs:
           git remote set-url --push origin \
             "https://x-access-token:${GIT_PUSH_TOKEN}@github.com/${{ github.repository }}.git"
           git push --force-with-lease origin "${branch}"
+          git remote set-url --push origin \
+            "https://github.com/${{ github.repository }}.git"
           echo "updated=true" >> "${GITHUB_OUTPUT}"
           echo "branch=${branch}" >> "${GITHUB_OUTPUT}"
 
