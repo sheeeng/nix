@@ -26,10 +26,15 @@ hosts. The primary tools are:
 
 ## Commands
 
-Validate the flake and run all pre-commit hooks before committing:
+Run the flake checks (includes treefmt via `nix fmt`):
 
 ```shell
 nix flake check
+```
+
+Run all pre-commit hooks:
+
+```shell
 pre-commit run --all-files
 ```
 
@@ -48,7 +53,7 @@ sudo darwin-rebuild switch --flake .
 Obtain a source hash for a new dependency:
 
 ```shell
-nix-prefetch-git --url https://github.com/owner/repo
+nix-prefetch-git https://github.com/owner/repo
 ```
 
 Additional command rules:
