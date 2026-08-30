@@ -74,7 +74,7 @@ paths for executable references.
   programs.alacritty = {
     enable = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.alacritty.enable
     package = pkgs.alacritty; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.alacritty.package
-    settings = {
+    settings = { # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.alacritty.settings
       terminal.shell = {
         args = [ "--login" "-c" "exec ${pkgs.lib.getExe pkgs.nushell}" ];
         program = "${pkgs.lib.getExe pkgs.zsh}";
