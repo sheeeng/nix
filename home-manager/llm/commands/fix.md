@@ -10,7 +10,7 @@ Apply every unresolved review thread from a Copilot or GitHub pull request.
 
 ## Usage
 
-```
+```text
 /fix <pull-request-review-url>
 ```
 
