@@ -5,12 +5,13 @@
 This repository contains Nix flake configuration for NixOS systems and macOS
 hosts. The primary tools are:
 
-- **Nix flakes** with `nixpkgs-unstable` channel
-- **Home Manager** for user-level program configuration
-- **nix-darwin** for macOS system configuration
-- **SOPS** for secrets management
-- **pre-commit** with treefmt for formatting and linting
-- **just** for task automation
+- **Nix flakes**: Manages packages and configurations with `nixpkgs-unstable`.
+- **Home Manager**: Configures user-level programs and dotfiles.
+- **nix-darwin**: Configures macOS system settings.
+- **SOPS**: Encrypts and manages secrets via the `nix-secrets` flake input.
+- **pre-commit**: Runs linting hooks before each commit.
+- **treefmt**: Formats code, wired to `nix fmt` and `nix flake check`.
+- **just**: Automates common development tasks.
 
 ## Project Structure
 
@@ -47,7 +48,7 @@ sudo darwin-rebuild switch --flake .
 Obtain a source hash for a new dependency:
 
 ```shell
-nix-prefetch-git <url>
+nix-prefetch-git --url https://github.com/owner/repo
 ```
 
 Additional command rules:
