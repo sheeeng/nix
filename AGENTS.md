@@ -1,5 +1,112 @@
 # AGENTS
 
+## Project Overview
+
+This repository contains Nix flake configuration for NixOS systems and macOS
+hosts. The primary tools are:
+
+- **Nix flakes** with `nixpkgs-unstable` channel
+- **Home Manager** for user-level program configuration
+- **nix-darwin** for macOS system configuration
+- **SOPS** for secrets management
+- **pre-commit** with treefmt for formatting and linting
+- **just** for task automation
+
+## Project Structure
+
+- `flake.nix` — Flake inputs, outputs, and host definitions
+- `home-manager/` — Home Manager modules and program configurations
+- `hosts/` — Per-host NixOS and nix-darwin system configurations
+- `modules/` — Reusable NixOS modules
+- `overlays/` — nixpkgs overlays
+- `pkgs/` — Custom package definitions
+- `scripts/` — Shell utility scripts
+- `secrets/` — SOPS-encrypted secrets
+- `docs/` — Documentation, commands reference, and journals
+
+## Commands
+
+Validate the flake and run all pre-commit hooks before committing:
+
+```shell
+nix flake check
+pre-commit run --all-files
+```
+
+Apply a Home Manager configuration:
+
+```shell
+home-manager switch --flake .
+```
+
+Apply a nix-darwin configuration:
+
+```shell
+darwin-rebuild switch --flake .
+```
+
+Obtain a source hash for a new dependency:
+
+```shell
+nix-prefetch-git <url>
+```
+
+Additional command rules:
+
+- Use GNU-style long options where available.
+- Use the development shells from `nix develop` and `nix-shell` consistently.
+- Search the Nix store for dependencies before adding new ones.
+- Use `lib.fakeSha256` only as a temporary placeholder for source hashes.
+- Save reusable command instructions in [Commands Document][docs-commands].
+- Run read-only inspection commands without approval. Request approval before
+  commands that modify files, commit, push, or contact external services.
+
+## Code Style
+
+Use alphanumerically sorted attribute sets. Annotate each option with its
+Home Manager options URL. Use `pkgs.lib.getExe` instead of hardcoded paths
+for executable references.
+
+```nix
+# Good — sorted, annotated, uses lib.getExe
+{ pkgs, ... }:
+{
+  programs.alacritty = {
+    enable = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.alacritty.enable
+    package = pkgs.alacritty; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.alacritty.package
+    settings = {
+      terminal.shell = {
+        args = [ "--login" "-c" "exec ${pkgs.lib.getExe pkgs.nushell}" ];
+        program = "${pkgs.lib.getExe pkgs.zsh}";
+      };
+    };
+  };
+}
+
+# Bad — unsorted, no annotations, hardcoded path
+{ pkgs, ... }:
+{
+  programs.alacritty = {
+    package = pkgs.alacritty;
+    enable = true;
+    settings.terminal.shell.program = "/run/current-system/sw/bin/zsh";
+  };
+}
+```
+
+## Boundaries
+
+- ✅ **Always do:** Run `nix flake check` and `pre-commit run --all-files`
+  before committing. Use Home Manager options when they exist. Sort attribute
+  sets alphanumerically. Use `nixpkgs-unstable`. Annotate options with their
+  documentation URLs.
+- ⚠️ **Ask first:** Add new flake inputs, modify SOPS-encrypted secrets in
+  `secrets/`, change host hardware configurations, push to the remote, or
+  create pull requests.
+- 🚫 **Never do:** Hardcode API keys, passwords, tokens, or other secrets.
+  Alias core commands in Nix configuration without explicit approval. Commit
+  directly to a default or protected branch. Use Homebrew on macOS.
+
 ## Working Rules
 
 - Preserve the user's intent, existing changes, and technical constraints.
@@ -27,19 +134,6 @@ Load `enforce-writing-style` before every other skill. Its required chain is
 `enforce-asd-ste100`, followed by `forbid-llm-slop`. Apply ASD STE100 to
 technical documentation and instructions. Load the task-specific skill after
 that chain. Load `writing-for-agents` when editing `AGENTS.md` or `CLAUDE.md`.
-
-## Commands
-
-- Use GNU-style long options where available.
-- Use Nix packages instead of Homebrew on macOS. Prefer GNU tools from Nix.
-- Use the development shells from `nix develop` and `nix-shell` consistently.
-- Search the Nix store for dependencies before adding new ones.
-- Use `nixpkgs-unstable`.
-- Use `nix-prefetch-git` to obtain source hashes. Use `lib.fakeSha256` only as
-  a temporary placeholder.
-- Save reusable command instructions in [Commands Document][docs-commands].
-- Run read-only inspection commands without approval. Request approval before
-  commands that modify files, commit, push, or contact external services.
 
 ## Journals
 
@@ -81,17 +175,6 @@ curl --silent --show-error --location https://models.dev/api.json \
 
 Use the `provider/model-id` format, for example:
 `anthropic/claude-sonnet-4-5-20250929`.
-
-## Code Quality
-
-Before committing code changes, run:
-
-```shell
-nix flake check
-pre-commit run --all-files
-```
-
-Suggest alphanumerically sorted lists.
 
 ## Commits
 
