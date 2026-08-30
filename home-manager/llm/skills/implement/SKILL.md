@@ -40,4 +40,4 @@ Once all three agents report back:
 
 ## Commit
 
-Use /commit to commit the work to the current branch.
+Ask for user approval, then use /commit to commit the work to the current branch.
