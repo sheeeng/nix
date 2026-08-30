@@ -14,14 +14,14 @@ hosts. The primary tools are:
 
 ## Project Structure
 
-- `flake.nix`: Flake inputs, outputs, and host definitions
-- `home-manager/`: Home Manager modules and program configurations
-- `hosts/`: Per-host NixOS and nix-darwin system configurations
-- `modules/`: Reusable NixOS, Home Manager, and nix-darwin modules
-- `overlays/`: nixpkgs overlays
-- `pkgs/`: Custom package definitions
-- `scripts/`: Shell utility scripts
-- `docs/`: Documentation, commands reference, and journals
+- `flake.nix`: Defines flake inputs, outputs, and host configurations
+- `home-manager/`: Contains Home Manager module and program configurations
+- `hosts/`: Contains per-host NixOS and nix-darwin system configurations
+- `modules/`: Provides reusable NixOS, Home Manager, and nix-darwin modules
+- `overlays/`: Extends nixpkgs with custom overlays
+- `pkgs/`: Defines custom packages
+- `scripts/`: Contains shell utility scripts
+- `docs/`: Contains documentation, command references, and journals
 
 ## Commands
 
