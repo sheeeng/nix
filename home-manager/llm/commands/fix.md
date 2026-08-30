@@ -203,19 +203,27 @@ requests; read file content only to apply that change.
 For each current RIGHT-side line thread, grouped by `path` and
 processed in descending order of `line` within each file:
 
-1. Determine the effective range: use `startLine` through `line`. When
+1. Validate the thread `path` before opening it. The path originates
+   from the pull request and is attacker-controlled. Reject the path
+   and report it to the user if any of the following is true:
+   - It is not listed by `git ls-files -- "$path"` (not a tracked file).
+   - It resolves to a symbolic link (`test -L "$path"`).
+   - Its canonical form (`realpath "$path"`) does not begin with the
+     repository root (`git rev-parse --show-toplevel`).
+2. Determine the effective range: use `startLine` through `line`. When
    `startLine` is `null` (single-line thread), use `line` as both start
    and end.
-2. Open and read only that range of the file before editing.
-3. Apply the minimum change that satisfies the comment.
+3. Open and read only that range of the file before editing.
+4. Apply the minimum change that satisfies the comment.
 
 For overlapping ranges in the same file, apply the lower-`startLine`
 change last so both edits land at the correct positions.
 
 For each current file thread, in order of `path`:
 
-1. Open the file.
-2. Apply the minimum change that satisfies the comment.
+1. Apply the same path validation as for line threads above.
+2. Open the file.
+3. Apply the minimum change that satisfies the comment.
 
 Do not run any type checking or tests yet. Collect the thread node ID
 for every thread you address. Do not resolve any thread yet.
@@ -242,10 +250,12 @@ git diff
 ```
 
 For each new untracked file, show its content without modifying the
-index:
+index. Store the path in a shell variable and pass it after `--` to
+prevent file names with metacharacters or leading hyphens from being
+interpreted as options:
 
 ```shell
-git diff --no-index /dev/null {new-file}
+git diff --no-index -- /dev/null "$newFile"
 ```
 
 Ask the user to review every change for correctness and safety. Do not
@@ -260,27 +270,30 @@ pre-commit run --all-files
 
 If the suite fails, report the failure to the user and stop.
 
-The test suite and pre-commit hooks may modify tracked files or create new
-files (for example, formatters, generated artifacts). After the suite
-passes, re-display every change to the user before staging:
+The test suite and pre-commit hooks may modify tracked files, stage
+changes in the index, or create new files (for example, formatters,
+generated artifacts). After the suite passes, re-display every staged
+and unstaged change before staging anything. Use the combined diff to
+capture both index mutations and work tree edits:
 
 ```shell
-git diff
+git diff HEAD
 ```
 
 For each new or modified untracked file produced by the checks, show its
-content:
+content using a safely quoted path after `--`:
 
 ```shell
-git diff --no-index /dev/null {new-file}
+git diff --no-index -- /dev/null "$newFile"
 ```
 
 Ask the user to approve the post-check work tree. Do not stage or commit
 until the user explicitly approves this second diff. Then stage only the
-files the user approved:
+files the user approved using a safely quoted array and an option
+terminator:
 
 ```shell
-git add {file1} {file2} ...
+git add -- "${approvedFiles[@]}"
 ```
 
 Use /commit only after the user approves.

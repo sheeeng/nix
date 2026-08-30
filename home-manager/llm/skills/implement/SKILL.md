@@ -1,7 +1,6 @@
 ---
 name: implement
 description: "Implement a piece of work based on a spec or set of tickets, then review it with a parallel team of associate, senior, and penetration test reviewers."
-disable-model-invocation: true
 ---
 
 # Implement
@@ -60,10 +59,12 @@ Once all three agents report back:
 
 ## Commit
 
-Ask for user approval, then stage the changed files:
+Ask for user approval, then stage the changed files using a safely quoted
+array with an option terminator to prevent file names with metacharacters
+or leading hyphens from being interpreted as options:
 
 ```shell
-git add {file1} {file2} ...
+git add -- "${changedFiles[@]}"
 ```
 
 Then use /commit to commit the work to the current branch.
