@@ -12,39 +12,39 @@ insert_final_newline = true
 trim_trailing_whitespace = true
 
 [{.,}*.{js{,*}}]
-indent_style = space
 indent_size = 2
+indent_style = space
 
 [*.{yaml,yml}]
-indent_style = space
 indent_size = 2
+indent_style = space
 insert_final_newline = false
 trim_trailing_whitespace = false
 
 [*.{md,txt}]
-indent_style = space
 indent_size = 4
-trim_trailing_whitespace = false
+indent_style = space
 max_line_length = 72
+trim_trailing_whitespace = false
 
 [Makefile]
 indent_style = tab
+
+[*.nu]
+indent_size = 4
+indent_style = space
 
 # Follow https://google.github.io/styleguide/shellguide.html guide.
 # shfmt -i 2 -ci -bn
 # https://github.com/mvdan/sh/blob/master/cmd/shfmt/shfmt.1.scd
 [*.sh]
-# --indent
-indent_style = space
-indent_size = 2
-# --language-dialect
-shell_variant    = bash
-simplify         = true
 binary_next_line = true
-# --case-indent
-switch_case_indent = true
-space_redirects  = true
-keep_padding       = true
-# --func-next-line
 function_next_line = false
-minify             = false
+indent_size = 2
+indent_style = space
+keep_padding = true
+minify = false
+shell_variant = bash
+simplify = true
+space_redirects = true
+switch_case_indent = true
