@@ -17,11 +17,11 @@ hosts. The primary tools are:
 - `flake.nix` — Flake inputs, outputs, and host definitions
 - `home-manager/` — Home Manager modules and program configurations
 - `hosts/` — Per-host NixOS and nix-darwin system configurations
-- `modules/` — Reusable NixOS modules
+- `modules/` — Reusable NixOS, Home Manager, and nix-darwin modules
 - `overlays/` — nixpkgs overlays
 - `pkgs/` — Custom package definitions
 - `scripts/` — Shell utility scripts
-- `secrets/` — SOPS-encrypted secrets
+- `secrets/` — SOPS age key placeholders (encrypted secrets live in the external `nix-secrets` flake input)
 - `docs/` — Documentation, commands reference, and journals
 
 ## Commands
@@ -33,13 +33,13 @@ nix flake check
 pre-commit run --all-files
 ```
 
-Apply a Home Manager configuration:
+Apply a NixOS configuration (also activates the embedded Home Manager):
 
 ```shell
-home-manager switch --flake .
+nixos-rebuild switch --flake .
 ```
 
-Apply a nix-darwin configuration:
+Apply a nix-darwin configuration (also activates the embedded Home Manager):
 
 ```shell
 darwin-rebuild switch --flake .
@@ -101,8 +101,8 @@ for executable references.
   sets alphanumerically. Use `nixpkgs-unstable`. Annotate options with their
   documentation URLs.
 - ⚠️ **Ask first:** Add new flake inputs, modify SOPS-encrypted secrets in
-  `secrets/`, change host hardware configurations, push to the remote, or
-  create pull requests.
+  the `nix-secrets` flake input, change host hardware configurations, push
+  to the remote, or create pull requests.
 - 🚫 **Never do:** Hardcode API keys, passwords, tokens, or other secrets.
   Alias core commands in Nix configuration without explicit approval. Commit
   directly to a default or protected branch. Use Homebrew on macOS.
