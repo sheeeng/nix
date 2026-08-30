@@ -14,15 +14,14 @@ hosts. The primary tools are:
 
 ## Project Structure
 
-- `flake.nix` — Flake inputs, outputs, and host definitions
-- `home-manager/` — Home Manager modules and program configurations
-- `hosts/` — Per-host NixOS and nix-darwin system configurations
-- `modules/` — Reusable NixOS, Home Manager, and nix-darwin modules
-- `overlays/` — nixpkgs overlays
-- `pkgs/` — Custom package definitions
-- `scripts/` — Shell utility scripts
-- `secrets/` — SOPS age key placeholders (encrypted secrets live in the external `nix-secrets` flake input)
-- `docs/` — Documentation, commands reference, and journals
+- `flake.nix`: Flake inputs, outputs, and host definitions
+- `home-manager/`: Home Manager modules and program configurations
+- `hosts/`: Per-host NixOS and nix-darwin system configurations
+- `modules/`: Reusable NixOS, Home Manager, and nix-darwin modules
+- `overlays/`: nixpkgs overlays
+- `pkgs/`: Custom package definitions
+- `scripts/`: Shell utility scripts
+- `docs/`: Documentation, commands reference, and journals
 
 ## Commands
 
@@ -36,13 +35,13 @@ pre-commit run --all-files
 Apply a NixOS configuration (also activates the embedded Home Manager):
 
 ```shell
-nixos-rebuild switch --flake .
+sudo nixos-rebuild switch --flake .
 ```
 
 Apply a nix-darwin configuration (also activates the embedded Home Manager):
 
 ```shell
-darwin-rebuild switch --flake .
+sudo darwin-rebuild switch --flake .
 ```
 
 Obtain a source hash for a new dependency:
@@ -63,12 +62,12 @@ Additional command rules:
 
 ## Code Style
 
-Use alphanumerically sorted attribute sets. Annotate each option with its
-Home Manager options URL. Use `pkgs.lib.getExe` instead of hardcoded paths
-for executable references.
+Use alphanumerically sorted attribute sets. Annotate each Home Manager option
+with its Home Manager options URL. Use `pkgs.lib.getExe` instead of hardcoded
+paths for executable references.
 
 ```nix
-# Good — sorted, annotated, uses lib.getExe
+# Good: sorted, annotated, uses lib.getExe
 { pkgs, ... }:
 {
   programs.alacritty = {
@@ -83,7 +82,7 @@ for executable references.
   };
 }
 
-# Bad — unsorted, no annotations, hardcoded path
+# Bad: unsorted, no annotations, hardcoded path
 { pkgs, ... }:
 {
   programs.alacritty = {
@@ -98,8 +97,9 @@ for executable references.
 
 - ✅ **Always do:** Run `nix flake check` and `pre-commit run --all-files`
   before committing. Use Home Manager options when they exist. Sort attribute
-  sets alphanumerically. Use `nixpkgs-unstable`. Annotate options with their
-  documentation URLs.
+  sets alphanumerically. Use `nixpkgs-unstable` except for the intentional
+  `nixpkgs-26.05-darwin` pin that preserves x86_64 Darwin compatibility.
+  Annotate Home Manager options with their documentation URLs.
 - ⚠️ **Ask first:** Add new flake inputs, modify SOPS-encrypted secrets in
   the `nix-secrets` flake input, change host hardware configurations, push
   to the remote, or create pull requests.
