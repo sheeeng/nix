@@ -1,12 +1,14 @@
 ---
 name: fix
-description: "Apply a Copilot or GitHub pull request review: fetch every unresolved thread via paginated GraphQL, implement each change, then resolve addressed threads after tests pass and the user approves."
+description: "Apply a Copilot or GitHub pull request review: fetch unresolved threads via paginated GraphQL, implement each current actionable change, then resolve addressed threads after tests pass and the user approves. LEFT-side and outdated threads are reported to the user and not resolved automatically."
 agent: builder
 ---
 
 # Fix
 
-Apply every unresolved review thread from a Copilot or GitHub pull request.
+Apply every current actionable review thread from a Copilot or GitHub pull
+request. LEFT-side threads (deleted lines) and outdated threads are reported
+to the user and not resolved automatically.
 
 ## Usage
 
@@ -79,14 +81,17 @@ tell the user what to fix before proceeding.
 
    If the output does not equal `headRefOid`, stop and tell the user.
 
-7. Confirm the local repository matches `headRepo`:
+7. Confirm the local repository is either the base repository or `headRepo`:
 
    ```shell
    gh repo view --json nameWithOwner --jq '.nameWithOwner'
    ```
 
-   The output must equal `headRepo`. If it does not, stop and tell the
-   user which repository to check out.
+   The output must equal either `{owner}/{repo}` (the base repository that
+   owns the pull request) or `headRepo` (the contributor's fork). Both are
+   valid: contributors typically clone the base and add a fork remote, while
+   maintainers may clone the fork directly. If the output matches neither,
+   stop and tell the user which repository to check out.
 
 ### Step 2: Fetch All Unresolved Threads
 
