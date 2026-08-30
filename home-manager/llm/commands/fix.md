@@ -35,13 +35,17 @@ repository to check out.
    git rev-parse HEAD
    ```
 
-3. Compare the pull request repository to the current remote:
+3. Compare the pull request repository to the current repository. Use
+   the current repository's canonical name, not the remote URL, because
+   remote URLs vary by protocol and `headRepository` is the contributor's
+   fork, not the base repository:
 
    ```shell
-   gh pr view {number} --repo {owner}/{repo} \
-     --json headRepository --jq '.headRepository.nameWithOwner'
-   git remote get-url origin
+   gh repo view --json nameWithOwner --jq '.nameWithOwner'
    ```
+
+   The output must equal `{owner}/{repo}` from the pull request URL. If
+   it does not, stop and tell the user which repository to check out.
 
 ### Step 2: Fetch All Unresolved Threads
 
