@@ -70,7 +70,7 @@ End with an overall assessment: ship as is, fix before merge, or redesign.
 
 ## When Not to Use
 
-- You need exploit research: use pentest-reviewer.
+- You need exploit research: use penetration-engineer-reviewer.
 - You need readability review: use associate-engineer-reviewer.
 - You need to apply fixes: use builder.
 
