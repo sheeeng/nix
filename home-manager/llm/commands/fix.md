@@ -31,13 +31,17 @@ tell the user what to fix before proceeding.
    If the output is non-empty, stop and tell the user to commit or stash
    all local changes before running this command.
 
-2. Fetch the pull request head branch, head SHA, and repository:
+2. Fetch the pull request head branch, head SHA, and head repository:
 
    ```shell
    gh pr view {number} --repo {owner}/{repo} \
      --json headRefName,headRefOid,headRepository \
-     --jq '{branch: .headRefName, sha: .headRefOid, repo: .headRepository.nameWithOwner}'
+     --jq '{branch: .headRefName, sha: .headRefOid, headRepo: .headRepository.nameWithOwner}'
    ```
+
+   Here `{owner}/{repo}` is the **base** repository that owns the pull
+   request. The returned `headRepo` value is the contributor's fork and
+   may differ from `{owner}/{repo}` on fork pull requests.
 
 3. Verify the current branch matches the pull request head branch:
 
@@ -66,15 +70,17 @@ tell the user what to fix before proceeding.
    gh repo view --json nameWithOwner --jq '.nameWithOwner'
    ```
 
-   The output must equal `headRepository.nameWithOwner`. If it does not,
+   The output must equal `headRepo` from Step 1. If it does not,
    stop and tell the user which repository to check out.
 
 ### Step 2: Fetch All Unresolved Threads
 
 The REST comments endpoint does not expose `isResolved` or thread
-identity, so use the GraphQL API. Paginate `reviewThreads` with
-`pageInfo` until `hasNextPage` is false. Fetch `isOutdated`,
-`subjectType`, and `line` so each thread can be classified correctly.
+identity, so use the GraphQL API. Always query the **base** repository
+(`{owner}/{repo}`) — pull request numbers exist only on the base, not
+on contributor forks. Paginate `reviewThreads` with `pageInfo` until
+`hasNextPage` is false. Fetch `isOutdated`, `subjectType`, and `line`
+so each thread can be classified correctly.
 
 ```shell
 gh api graphql \
