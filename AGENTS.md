@@ -53,7 +53,7 @@ sudo darwin-rebuild switch --flake .
 Obtain a source hash for a new dependency:
 
 ```shell
-nix-prefetch-git https://github.com/owner/repo
+nix-prefetch-git --url https://github.com/owner/repo
 ```
 
 Additional command rules:
