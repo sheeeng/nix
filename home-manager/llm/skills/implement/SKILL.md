@@ -12,9 +12,18 @@ Load the `enforce-writing-style` skill before continuing. Its required chain
 is `enforce-asd-ste100`, followed by `forbid-llm-slop`. Apply writing style
 rules to all output produced by this skill.
 
+## Prerequisites
+
+- A reviewed and approved `plan.md` must exist in the project.
+- The plan must contain a granular task list with phases and individual tasks.
+- All architectural decisions must be finalized in the plan before
+  implementation begins.
+
 ## Implementation
 
-Implement the work described by the user in the spec or tickets.
+Read the `plan.md` document and execute every task in it. Mark each task or
+phase as completed in the plan document immediately after finishing it. Do not
+stop until all tasks and phases are completed.
 
 Use the `test-driven-development` skill where possible, at pre-agreed seams.
 
