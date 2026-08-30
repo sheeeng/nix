@@ -6,9 +6,17 @@ disable-model-invocation: true
 
 # Implement
 
+## Before Starting
+
+Load the `enforce-writing-style` skill before continuing. Its required chain
+is `enforce-asd-ste100`, followed by `forbid-llm-slop`. Apply writing style
+rules to all output produced by this skill.
+
+## Implementation
+
 Implement the work described by the user in the spec or tickets.
 
-Use /tdd where possible, at pre-agreed seams.
+Use the `test-driven-development` skill where possible, at pre-agreed seams.
 
 Run type checking regularly, single test files regularly, and the full test
 suite once all implementation tasks are complete.
@@ -21,8 +29,9 @@ When all tests pass, dispatch these three agents in a single parallel message:
   naming, comprehension, and documentation issue.
 - **senior-engineer-reviewer**: reads all changed files and reports every
   YAGNI, DRY, scalability, and OWASP secure coding violation.
-- **penetration-engineer-reviewer**: reads all changed files and reports every exploitable
-  vulnerability with attack vector, impact, and minimum remediation.
+- **penetration-engineer-reviewer**: reads all changed files and reports every
+  exploitable vulnerability with attack vector, impact, and minimum
+  remediation.
 
 Provide each agent the output of `git diff HEAD` and the list of changed
 files.
@@ -42,4 +51,10 @@ Once all three agents report back:
 
 ## Commit
 
-Ask for user approval, then use /commit to commit the work to the current branch.
+Ask for user approval, then stage the changed files:
+
+```shell
+git add {file1} {file2} ...
+```
+
+Then use /commit to commit the work to the current branch.
