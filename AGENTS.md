@@ -15,14 +15,15 @@ hosts. The primary tools are:
 
 ## Project Structure
 
-- `flake.nix`: Defines flake inputs, outputs, and host configurations
-- `home-manager/`: Contains Home Manager module and program configurations
-- `hosts/`: Contains per-host NixOS and nix-darwin system configurations
-- `modules/`: Provides reusable NixOS, Home Manager, and nix-darwin modules
-- `overlays/`: Extends nixpkgs with custom overlays
-- `pkgs/`: Defines custom packages
-- `scripts/`: Contains shell utility scripts
-- `docs/`: Contains documentation, command references, and journals
+- `flake.nix` — Flake inputs, outputs, and host definitions
+- `home-manager/` — Home Manager modules and program configurations
+- `hosts/` — Per-host NixOS and nix-darwin system configurations
+- `modules/` — Reusable NixOS, Home Manager, and nix-darwin modules
+- `overlays/` — nixpkgs overlays
+- `pkgs/` — Custom package definitions
+- `scripts/` — Shell utility scripts
+- `secrets/` — SOPS age key placeholders (encrypted secrets live in the external `nix-secrets` flake input)
+- `docs/` — Documentation, commands reference, and journals
 
 ## Commands
 
@@ -41,7 +42,7 @@ pre-commit run --all-files
 Apply a NixOS configuration (also activates the embedded Home Manager):
 
 ```shell
-sudo nixos-rebuild switch --flake .
+nixos-rebuild switch --flake .
 ```
 
 Apply a nix-darwin configuration (also activates the embedded Home Manager):
