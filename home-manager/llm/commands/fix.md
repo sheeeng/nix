@@ -164,7 +164,13 @@ After all current threads are addressed:
 2. If the suite fails, report the failure to the user and stop.
 3. Present the complete set of changes to the user and ask for approval
    before committing or resolving any thread.
-4. Use /commit only after the user approves.
+4. Stage only the files you modified:
+
+   ```shell
+   git add {file1} {file2} ...
+   ```
+
+5. Use /commit only after the user approves.
 
 ### Step 6: Push, Verify, and Resolve Threads
 
