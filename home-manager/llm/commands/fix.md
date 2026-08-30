@@ -49,19 +49,25 @@ tell the user what to fix before proceeding.
    may differ from `{owner}/{repo}` on fork pull requests.
 
 4. Resolve the git remote whose push URL corresponds to `headRepo`.
-   Iterate over all configured remotes and compare each one:
+   Iterate over all configured remotes and compare each one. For each
+   remote, enumerate all configured push URLs with `--all` and reject
+   any remote that publishes to more than one destination:
 
    ```shell
    for remote in $(git remote); do
-     url=$(git remote get-url --push "$remote")
+     urls=$(git remote get-url --push --all "$remote")
+     count=$(echo "$urls" | wc -l)
+     if [ "$count" -gt 1 ]; then continue; fi
+     url=$(echo "$urls" | tr -d '[:space:]')
      canonical=$(gh repo view "$url" --json nameWithOwner \
        --jq '.nameWithOwner' 2>/dev/null)
      if [ "$canonical" = "{headRepo}" ]; then echo "$remote"; break; fi
    done
    ```
 
-   Store the result as `{headRemote}`. If no remote resolves to
-   `headRepo`, stop and tell the user which remote to configure.
+   Store the result as `{headRemote}` and the single verified push URL
+   as `{headPushUrl}`. If no remote resolves to `headRepo`, stop and
+   tell the user which remote to configure.
 
 5. Verify the current branch matches the pull request head branch:
 
@@ -216,10 +222,20 @@ for every thread you address. Do not resolve any thread yet.
 
 ### Step 5: Review, Test, and Get Approval
 
-After all current threads are addressed, show the complete set of
-changes to the user **before** running any commands.
+After all current threads are addressed, show the full set of changes to
+the user **before** running any commands. This must include all commits
+already on the pull request branch, not just uncommitted work tree edits,
+because pre-commit hooks and tests run against the entire checked-out
+codebase — including repository-controlled configuration the user has not
+yet reviewed.
 
-For tracked modified files:
+Show the full diff between the pull request base and the current head:
+
+```shell
+gh pr diff {number} --repo {owner}/{repo}
+```
+
+For uncommitted modifications on top of that:
 
 ```shell
 git diff
@@ -242,8 +258,26 @@ nix flake check
 pre-commit run --all-files
 ```
 
-If the suite fails, report the failure to the user and stop. Stage all
-modified and new files:
+If the suite fails, report the failure to the user and stop.
+
+The test suite and pre-commit hooks may modify tracked files or create new
+files (for example, formatters, generated artifacts). After the suite
+passes, re-display every change to the user before staging:
+
+```shell
+git diff
+```
+
+For each new or modified untracked file produced by the checks, show its
+content:
+
+```shell
+git diff --no-index /dev/null {new-file}
+```
+
+Ask the user to approve the post-check work tree. Do not stage or commit
+until the user explicitly approves this second diff. Then stage only the
+files the user approved:
 
 ```shell
 git add {file1} {file2} ...
@@ -257,11 +291,16 @@ Only after the test suite passes and the user approves:
 
 1. Ask the user for explicit approval to push to the remote branch.
 
-2. Push the commit using the verified remote and an explicit refspec:
+2. Push the commit to the single verified push URL using quoted shell
+   variables to prevent shell injection from attacker-controlled ref names:
 
    ```shell
-   git push {headRemote} HEAD:{headRefName}
+   git push -- "$headPushUrl" "HEAD:refs/heads/$headRefName"
    ```
+
+   `headPushUrl` and `headRefName` must be stored as shell variables
+   with values verified in Step 1, not interpolated as template
+   placeholders at execution time.
 
 3. Re-fetch the pull request head SHA and confirm it matches local
    `HEAD` before resolving any thread:

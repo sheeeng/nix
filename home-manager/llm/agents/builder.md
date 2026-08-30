@@ -82,8 +82,11 @@ Invoke this agent to:
 - Need documentation: coordinate with technical-writer.
 - Complex architecture decisions: consult planner first.
 
-## Constraint: Forbids Nested Subagents
+## Constraint: No Nested Subagents When Running as a Subagent
 
-You are already a subagent. Do NOT use the any tool to dispatch your own subagents.
-If you need help, report back with NEEDS_CONTEXT or BLOCKED and let the
+When you are running as a subagent dispatched by a controller, do NOT dispatch
+further subagents. Report back with NEEDS_CONTEXT or BLOCKED and let the
 controller handle it. All subagent dispatch is done by the controller only.
+
+When you are running as the primary agent (for example, handling `/implement`
+directly), you may dispatch reviewer subagents as the skill instructs.
