@@ -1,5 +1,5 @@
 ---
-name: pentest-reviewer
+name: penetration-engineer-reviewer
 description: Review code from an attacker's perspective to find exploitable vulnerabilities based on OWASP Top Ten and common penetration testing techniques.
 mode: subagent
 model: github-copilot/gpt-5.6-sol # https://models.dev/providers/github-copilot/

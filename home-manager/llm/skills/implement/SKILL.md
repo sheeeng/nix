@@ -19,7 +19,7 @@ When all tests pass, dispatch these three agents in a single parallel message:
   naming, comprehension, and documentation issue.
 - **senior-engineer-reviewer**: reads all changed files and reports every
   YAGNI, DRY, scalability, and OWASP secure coding violation.
-- **pentest-reviewer**: reads all changed files and reports every exploitable
+- **penetration-engineer-reviewer**: reads all changed files and reports every exploitable
   vulnerability with attack vector, impact, and minimum remediation.
 
 Provide each agent the output of `git diff HEAD` and the list of changed
