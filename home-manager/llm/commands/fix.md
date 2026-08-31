@@ -149,11 +149,13 @@ tell the user what to fix before proceeding.
    GH_HOST="{prHost}" gh repo view --json nameWithOwner --jq '.nameWithOwner'
    ```
 
-   The output must equal either `{owner}/{repo}` (the base repository that
-   owns the pull request) or `headRepo` (the contributor's fork). Both are
-   valid: contributors typically clone the base and add a fork remote, while
-   maintainers may clone the fork directly. If the output matches neither,
-   stop and tell the user which repository to check out.
+   Normalize the output and both candidates to lowercase before
+   comparing, because GitHub owner and repository names are
+   case-insensitive. The normalized output must equal either
+   `{owner}/{repo}` or `headRepo` (both also lowercased). Both are
+   valid: contributors typically clone the base and add a fork remote,
+   while maintainers may clone the fork directly. If the output matches
+   neither, stop and tell the user which repository to check out.
 
 ### Step 2: Fetch All Unresolved Threads
 
@@ -485,7 +487,7 @@ Only after the test suite passes and the user approves:
 
 3. Re-fetch the pull request head SHA and confirm it matches local
    `HEAD` before resolving any thread. Store the result as
-   `{postPushSha}` — this is the SHA to use for all per-thread
+   `{postPushSha}`. This is the SHA to use for all per-thread
    verifications, not the pre-fix `{headRefOid}`:
 
    ```shell

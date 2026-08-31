@@ -1,6 +1,6 @@
 ---
 name: implement
-description: "Implement a piece of work based on a spec or set of tickets, then review it with a parallel team of associate, senior, and penetration test reviewers."
+description: "Implement a piece of work based on a specification or set of tickets, then review it with a parallel team of associate, senior, and penetration test reviewers."
 ---
 
 # Implement
