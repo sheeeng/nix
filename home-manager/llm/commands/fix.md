@@ -170,6 +170,7 @@ gh api graphql \
     query($owner: String!, $repo: String!, $number: Int!, $cursor: String) {
       repository(owner: $owner, name: $repo) {
         pullRequest(number: $number) {
+          headRefOid
           reviewThreads(first: 50, after: $cursor) {
             pageInfo { hasNextPage endCursor }
             nodes {
@@ -195,6 +196,11 @@ gh api graphql \
   --raw-field repo="{repo}" \
   --field number={number}
 ```
+
+After each page, compare the returned `headRefOid` against the SHA stored in
+Step 1. If it differs, a push occurred during pagination. Stop immediately and
+tell the user that the pull request head changed; do not apply any threads from
+this fetch.
 
 Repeat the query with `--field cursor="{endCursor}"` until
 `pageInfo.hasNextPage` is false.
@@ -303,6 +309,11 @@ For each current file thread, in order of `path`:
 2. Open the file.
 3. Show the proposed change as a unified diff in your response. Do not
    write to disk yet.
+4. Reconcile the proposed change against every other proposed change for
+   the same path, including any line-thread changes already collected.
+   If any two changes for the same path cannot coexist, do not collect
+   the thread ID for the change that would be overwritten; report the
+   conflict to the user instead.
 
 Do not run any type checking or tests yet. Collect the thread node ID
 for every thread whose proposed change you display. Do not resolve any

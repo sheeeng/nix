@@ -41,7 +41,7 @@ rules for all output.
 
 ## Permissions
 
-This agent uses `ask` permissions for both `bash` and `edit`. Every write and
+This agent uses `ask` permissions for `bash`, `edit`, and `write`. Every write and
 shell execution requires the user to confirm at the tool layer. This enforces
 the approval boundaries stated in the fix command even when the agent context
 contains attacker-controlled content from pull request comments or repository

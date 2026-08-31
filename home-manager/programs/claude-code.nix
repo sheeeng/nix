@@ -13,9 +13,19 @@ let
 
   # Agents and commands that require OpenCode-specific permission enforcement
   # (permission: ask) and must not be exported to other runtimes that do not
-  # translate or enforce that policy.
-  openCodeOnlyAgents = [ "fix-agent" ];
-  openCodeOnlyCommands = [ "fix" ];
+  # translate or enforce that policy. The reviewer agents use OpenCode
+  # tools/permission schema that Claude Code does not translate; exclude them
+  # until a Claude-compatible read-only boundary is defined.
+  openCodeOnlyAgents = [
+    "associate-engineer-reviewer"
+    "fix-agent"
+    "penetration-engineer-reviewer"
+    "senior-engineer-reviewer"
+  ];
+  openCodeOnlyCommands = [
+    "fix"
+    "implement"
+  ];
 in
 {
   home.file.".claude/output-styles/Concise.md".source = ../llm/output-styles/Concise.md;

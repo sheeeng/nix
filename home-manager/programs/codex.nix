@@ -12,16 +12,28 @@ let
   };
 
   # Commands that require OpenCode-specific permission enforcement and must
-  # not be exported to other runtimes.
-  openCodeOnlyCommands = [ "fix" ];
+  # not be exported to other runtimes. The implement command dispatches the
+  # three reviewer agents, which are not exported to Codex, so it is also
+  # excluded until Codex-compatible reviewer definitions are provided.
+  openCodeOnlyCommands = [
+    "fix"
+    "implement"
+  ];
 
-  codexSkillFiles = pkgs.lib.mapAttrs' (
-    name: source:
-    if builtins.pathExists (source + "/SKILL.md") then
-      pkgs.lib.nameValuePair ".codex/skills/${name}" { inherit source; }
-    else
-      pkgs.lib.nameValuePair ".codex/skills/${name}/SKILL.md" { inherit source; }
-  ) commonLlmSettings.skills;
+  # Skills that depend on agents not exported to Codex and must be excluded
+  # until Codex-compatible support is in place.
+  openCodeOnlySkills = [ "implement" ];
+
+  codexSkillFiles =
+    pkgs.lib.mapAttrs'
+      (
+        name: source:
+        if builtins.pathExists (source + "/SKILL.md") then
+          pkgs.lib.nameValuePair ".codex/skills/${name}" { inherit source; }
+        else
+          pkgs.lib.nameValuePair ".codex/skills/${name}/SKILL.md" { inherit source; }
+      )
+      (pkgs.lib.filterAttrs (name: _: !(builtins.elem name openCodeOnlySkills)) commonLlmSettings.skills);
 
   codexPromptFiles =
     pkgs.lib.mapAttrs'
