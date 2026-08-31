@@ -403,7 +403,10 @@ committed tree to differ from what the user approved:
 approvedTree=$(git write-tree)
 ```
 
-Load and follow the `commit` skill to commit the staged changes.
+Load and follow the `commit` skill to commit the staged changes as a
+single commit. Do not create multiple commits regardless of the number
+of logical changes in the review. The parent-commit verification below
+requires exactly one new commit whose sole parent is `{headRefOid}`.
 
 After the commit skill completes, verify that the committed tree matches
 the approved tree. If a hook staged extra content, the trees will differ:
@@ -515,9 +518,18 @@ Only after the test suite passes and the user approves:
 
 5. Resolve each remaining thread using the GraphQL
    `resolveReviewThread` mutation. Immediately before calling the
-   mutation for each thread, re-run `git rev-parse HEAD` and require
-   the output to equal `{postPushSha}`. A concurrent push during the
-   per-thread loop would change HEAD and must stop the loop:
+   mutation for each thread, re-verify both the local HEAD and the
+   remote pull request head. Re-fetch the PR `headRefOid` via:
+
+   ```shell
+   gh pr view {number} --repo {prHost}/{owner}/{repo} --json headRefOid \
+     --jq '.headRefOid'
+   ```
+
+   Also run `git rev-parse HEAD` locally. Both values must equal
+   `{postPushSha}`. A remote push moves the PR head without changing
+   the local checkout, so checking only local HEAD is insufficient.
+   Stop the loop if either value differs:
 
 ```shell
 gh api graphql \

@@ -9,6 +9,8 @@ permission:
         "*": ask
     edit:
         "*": ask
+    write:
+        "*": ask
 ---
 
 # Fix Agent
