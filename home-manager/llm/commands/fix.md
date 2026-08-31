@@ -323,8 +323,17 @@ ID from the collected set and do not write that change to disk. Only
 write the approved changes to disk now, one at a time, using the
 minimum edits needed.
 
-Run the full test suite only after all approved writes land. Before
-running any test command, ask the user for the trusted test commands for
+After all approved writes land, show the actual state of the work tree
+before running any tests. Each write can trigger the configured
+formatter, so the files on disk may differ from the proposed diffs. Use
+`git diff HEAD` and, for new untracked files, `git diff --no-index --
+/dev/null "$newFile"` to display every change including formatter
+output. Ask the user to explicitly approve the actual on-disk state
+before proceeding. Do not run the test suite until the user approves.
+
+Run the full test suite only after the user approves the post-write
+work tree. Before running any test command, ask the user for the
+trusted test commands for
 this repository. If the repository uses Nix and pre-commit, suggest:
 
 ```shell
@@ -407,6 +416,19 @@ If the output does not equal `{approvedTree}`, stop and report the
 discrepancy to the user. Do not push until the user explicitly reviews
 and approves the committed tree.
 
+Also verify that the commit is well-formed. A hook can change the
+current branch or insert an extra parent commit. Check:
+
+```shell
+git symbolic-ref --short HEAD
+git rev-parse HEAD^1
+git rev-parse HEAD^2 2>/dev/null && echo "merge commit detected"
+```
+
+The branch must still equal `{headRefName}`. The first parent must
+equal `{headRefOid}` (the SHA before the fix commit). If a second
+parent exists, stop and report the unexpected merge commit to the user.
+
 Verify that the work tree is clean. Commit hooks may have modified or
 staged additional files without the user's knowledge:
 
@@ -436,7 +458,9 @@ Only after the test suite passes and the user approves:
    placeholders at execution time.
 
 3. Re-fetch the pull request head SHA and confirm it matches local
-   `HEAD` before resolving any thread:
+   `HEAD` before resolving any thread. Store the result as
+   `{postPushSha}` — this is the SHA to use for all per-thread
+   verifications, not the pre-fix `{headRefOid}`:
 
    ```shell
    gh pr view {number} --repo {prHost}/{owner}/{repo} --json headRefOid \
@@ -487,10 +511,13 @@ Only after the test suite passes and the user approves:
    to true. Only current threads are collected in Step 3, so a thread
    that becomes outdated after Step 2 was made outdated by the fix
    commit itself. Resolve it if the comment sequence is unchanged and
-   the PR head SHA still matches `{headRefOid}`.
+   a fresh `git rev-parse HEAD` still equals `{postPushSha}`.
 
 5. Resolve each remaining thread using the GraphQL
-   `resolveReviewThread` mutation:
+   `resolveReviewThread` mutation. Immediately before calling the
+   mutation for each thread, re-run `git rev-parse HEAD` and require
+   the output to equal `{postPushSha}`. A concurrent push during the
+   per-thread loop would change HEAD and must stop the loop:
 
 ```shell
 gh api graphql \
@@ -504,7 +531,8 @@ gh api graphql \
   --field threadId="{thread-node-id}"
 ```
 
-Resolve only the threads you addressed. Do not resolve outdated threads.
+Resolve only the threads you addressed. Do not resolve threads that
+were already outdated during Step 2.
 
 ## Rules
 
