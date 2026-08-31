@@ -31,7 +31,14 @@ Before touching any file, confirm the working tree is clean and the
 current checkout matches the pull request. If any check fails, stop and
 tell the user what to fix before proceeding.
 
-1. Verify the working tree has no staged or unstaged changes:
+1. Change to the repository root so all subsequent paths are resolved
+   correctly relative to it:
+
+   ```shell
+   cd "$(git rev-parse --show-toplevel)"
+   ```
+
+2. Verify the working tree has no staged or unstaged changes:
 
    ```shell
    git status --porcelain
@@ -40,7 +47,7 @@ tell the user what to fix before proceeding.
    If the output is non-empty, stop and tell the user to commit or stash
    all local changes before running this command.
 
-2. Parse `{pull-request-review-url}` locally before contacting any
+3. Parse `{pull-request-review-url}` locally before contacting any
    network. Extract and store:
    - `{prHost}`: the hostname (for example, `github.com`)
    - `{owner}`: the repository owner
@@ -57,10 +64,10 @@ tell the user what to fix before proceeding.
 
    Do not contact any external service in this step.
 
-3. Ask the user for explicit approval to contact `{prHost}` before making
+4. Ask the user for explicit approval to contact `{prHost}` before making
    any network request. Do not proceed until approved.
 
-4. Fetch the pull request head branch, head SHA, and head repository.
+5. Fetch the pull request head branch, head SHA, and head repository.
    Qualify `--repo` with `{prHost}` to ensure the request targets the
    correct host:
 
@@ -74,7 +81,7 @@ tell the user what to fix before proceeding.
    request. The returned `headRepo` value is the contributor's fork and
    may differ from `{owner}/{repo}` on fork pull requests.
 
-5. Resolve the git remote whose push URL corresponds to `headRepo`.
+6. Resolve the git remote whose push URL corresponds to `headRepo`.
    Iterate over all configured remotes and compare each one. For each
    remote, enumerate all configured push URLs with `--all` and reject
    any remote that publishes to more than one destination. For each
@@ -98,7 +105,7 @@ tell the user what to fix before proceeding.
          urlSlug=$(printf '%s' "$url" | awk -F: '{print $2}' | sed 's/\.git$//')
          ;;
        ssh://*)
-         urlHost=$(printf '%s' "$url" | awk -F/ '{gsub(/.*@/, "", $3); print $3}')
+         urlHost=$(printf '%s' "$url" | awk -F/ '{gsub(/.*@/, "", $3); gsub(/:[0-9]*$/, "", $3); print $3}')
          urlSlug=$(printf '%s' "$url" | awk -F/ '{print $4"/"$5}' | sed 's/\.git$//')
          ;;
        *)
@@ -116,7 +123,7 @@ tell the user what to fix before proceeding.
    as `{headPushUrl}`. If no remote resolves to `headRepo`, stop and
    tell the user which remote to configure.
 
-6. Verify the current branch matches the pull request head branch:
+7. Verify the current branch matches the pull request head branch:
 
    ```shell
    git symbolic-ref --short HEAD
@@ -126,7 +133,7 @@ tell the user what to fix before proceeding.
    which branch to check out. A detached `HEAD` or a different branch
    at the same SHA must not proceed.
 
-7. Verify the current commit matches the pull request head SHA:
+8. Verify the current commit matches the pull request head SHA:
 
    ```shell
    git rev-parse HEAD
@@ -134,7 +141,7 @@ tell the user what to fix before proceeding.
 
    If the output does not equal `headRefOid`, stop and tell the user.
 
-8. Confirm the local repository is either the base repository or `headRepo`:
+9. Confirm the local repository is either the base repository or `headRepo`:
 
    ```shell
    GH_HOST="{prHost}" gh repo view --json nameWithOwner --jq '.nameWithOwner'
@@ -184,8 +191,8 @@ gh api graphql \
         }
       }
     }' \
-  --field owner="{owner}" \
-  --field repo="{repo}" \
+  --raw-field owner="{owner}" \
+  --raw-field repo="{repo}" \
   --field number={number}
 ```
 
@@ -319,9 +326,11 @@ Ask the user to review every proposed change for correctness and safety.
 Do not proceed until the user explicitly approves every proposed change.
 
 If the user rejects any proposed change, remove the corresponding thread
-ID from the collected set and do not write that change to disk. Only
-write the approved changes to disk now, one at a time, using the
-minimum edits needed.
+ID from the collected set and do not write that change to disk. If no
+approved changes remain after all user decisions, stop and report this
+to the user. Do not proceed to write, test, or commit with an empty
+change set. Only write the approved changes to disk now, one at a time,
+using the minimum edits needed.
 
 After all approved writes land, show the actual state of the work tree
 before running any tests. Each write can trigger the configured
@@ -453,7 +462,8 @@ Only after the test suite passes and the user approves:
    variables to prevent shell injection from attacker-controlled ref names:
 
    ```shell
-   git push -- "$headPushUrl" "HEAD:refs/heads/$headRefName"
+   git push --force-with-lease=refs/heads/"$headRefName":"$headRefOid" \
+     -- "$headPushUrl" "HEAD:refs/heads/$headRefName"
    ```
 
    `headPushUrl` and `headRefName` must be stored as shell variables
