@@ -13,32 +13,56 @@ let
 
   # Derive Copilot-compatible agent files by stripping OpenCode-only frontmatter
   # fields (mode, model, temperature, tools, permission). The prompt body is
-  # preserved exactly. Copilot CLI expects only name and description in frontmatter.
-  # YAML block scalars (description: |) are preserved by continuing to emit
-  # indented continuation lines until a non-indented key is encountered.
+  # preserved exactly. YAML block scalars (description: |) are preserved by
+  # continuing to emit indented continuation lines until a non-indented key is
+  # encountered. A copilot-tools: field (YAML inline list) is translated to
+  # tools: so agents can declare a Copilot-compatible tool allowlist alongside
+  # the OpenCode permission block.
   toCopilotAgent =
     name: path:
     pkgs.runCommand "${name}.md" { } ''
       awk '
-        BEGIN { in_front = 0; done = 0; in_desc = 0 }
+        BEGIN { in_front = 0; done = 0; in_desc = 0; in_oc_block = 0 }
         /^---$/ {
           if (!in_front) { in_front = 1; print; next }
-          if (!done) { done = 1; in_front = 0; in_desc = 0; print; next }
+          if (!done) { done = 1; in_front = 0; in_desc = 0; in_oc_block = 0; print; next }
         }
         in_front && !done {
           if (in_desc) {
             if (/^[[:space:]]/) { print; next }
             in_desc = 0
           }
+          if (in_oc_block) {
+            if (/^[[:space:]]/) { next }
+            in_oc_block = 0
+          }
           if (/^name: /) { print "name: ${name}"; next }
           if (/^description:/) { in_desc = 1; print; next }
+          if (/^copilot-tools:/) { sub(/^copilot-tools:/, "tools:"); print; next }
+          if (/^tools:/ || /^permission:/) { in_oc_block = 1; next }
+          if (/^mode: / || /^model: / || /^temperature: /) { next }
           next
         }
         { print }
       ' ${path} > $out
     '';
 
-  copilotAgents = pkgs.lib.mapAttrs toCopilotAgent commonLlmSettings.agents;
+  # Agents whose OpenCode permission blocks cannot be safely translated to
+  # Copilot CLI format and must be excluded from the Copilot export. These
+  # agents use permission: ask to require user confirmation at the tool layer;
+  # toCopilotAgent strips that block, which would silently remove the safety
+  # guarantee. They remain available in OpenCode only.
+  copilotExcludedAgents = [
+    "chicken" # requires permission: ask for bash/edit
+    "fix-agent" # requires permission: ask for bash/edit/write
+    "planner" # requires permission: ask for most edit paths
+    "security-auditor" # requires permission: ask for bash
+    "technical-writer" # requires permission: ask for edit
+  ];
+
+  copilotAgents = pkgs.lib.mapAttrs toCopilotAgent (
+    pkgs.lib.filterAttrs (name: _: !(builtins.elem name copilotExcludedAgents)) commonLlmSettings.agents
+  );
 in
 {
   programs.github-copilot-cli = {
