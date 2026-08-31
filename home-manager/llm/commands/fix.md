@@ -220,7 +220,7 @@ Filter the combined result to threads where `isResolved` is `false`.
 
 ### Step 3: Classify Threads
 
-Before processing, split unresolved threads into four groups:
+Before processing, split unresolved threads into five groups:
 
 - **Current RIGHT-side line threads**: `isOutdated: false`,
   `subjectType: "LINE"`, `diffSide: "RIGHT"`, and either
@@ -480,9 +480,14 @@ Only after the test suite passes and the user approves:
    Skip the thread and report it to the user if any of the following is
    true:
    - `isResolved` is `true` (already resolved by another reviewer).
-   - `isOutdated` has changed.
    - The comment bodies differ from the sequence reviewed in Step 2
      (a new comment was added after the fix was approved).
+
+   Do not skip a thread solely because `isOutdated` changed from false
+   to true. Only current threads are collected in Step 3, so a thread
+   that becomes outdated after Step 2 was made outdated by the fix
+   commit itself. Resolve it if the comment sequence is unchanged and
+   the PR head SHA still matches `{headRefOid}`.
 
 5. Resolve each remaining thread using the GraphQL
    `resolveReviewThread` mutation:

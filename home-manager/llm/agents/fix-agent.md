@@ -37,3 +37,13 @@ shell execution requires the user to confirm at the tool layer. This enforces
 the approval boundaries stated in the fix command even when the agent context
 contains attacker-controlled content from pull request comments or repository
 files.
+
+## Known Limitation: Auto-Formatter
+
+OpenCode runs the configured formatter (for example, `nix run .#fmt`) after
+every file write, outside the `bash: ask` confirmation boundary. An approved
+edit can therefore trigger a `nix run` call and contact Nix services without
+a separate tool-layer confirmation. Before running this agent, disable
+automatic formatting in your OpenCode settings or be aware that formatter
+execution is a side effect of every approved write and review the formatter
+output alongside each proposed diff.
