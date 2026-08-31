@@ -6,6 +6,12 @@ license: Apache-2.0 OR MIT
 
 # Enforce OWASP Security
 
+## Before Starting
+
+Load the `enforce-writing-style` skill before continuing. Its required
+chain is `enforce-asd-ste100`, followed by `forbid-llm-slop`. Apply
+writing style rules to all output produced by this skill.
+
 ## Apply OWASP Guidance
 
 1. Identify the assets, actors, entry points, trust boundaries, and possible impacts.
