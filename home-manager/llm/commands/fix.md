@@ -91,19 +91,22 @@ tell the user what to fix before proceeding.
      case "$url" in
        https://*)
          urlHost=$(printf '%s' "$url" | awk -F/ '{print $3}')
+         urlSlug=$(printf '%s' "$url" | awk -F/ '{print $4"/"$5}' | sed 's/\.git$//')
          ;;
        git@*)
          urlHost=$(printf '%s' "$url" | awk -F'[@:]' '{print $2}')
+         urlSlug=$(printf '%s' "$url" | awk -F: '{print $2}' | sed 's/\.git$//')
          ;;
        ssh://*)
-         urlHost=$(printf '%s' "$url" | awk -F/ '{gsub(/.*@/, "", $3); gsub(/:.*/, "", $3); print $3}')
+         urlHost=$(printf '%s' "$url" | awk -F/ '{gsub(/.*@/, "", $3); print $3}')
+         urlSlug=$(printf '%s' "$url" | awk -F/ '{print $4"/"$5}' | sed 's/\.git$//')
          ;;
        *)
          continue
          ;;
      esac
      if [ "$urlHost" != "{prHost}" ]; then continue; fi
-     canonical=$(gh repo view "$url" --json nameWithOwner \
+     canonical=$(gh repo view "$urlHost/$urlSlug" --json nameWithOwner \
        --jq '.nameWithOwner' 2>/dev/null)
      if [ "$canonical" = "{headRepo}" ]; then printf '%s\n' "$remote"; break; fi
    done
@@ -134,7 +137,7 @@ tell the user what to fix before proceeding.
 8. Confirm the local repository is either the base repository or `headRepo`:
 
    ```shell
-   gh repo view --hostname "{prHost}" --json nameWithOwner --jq '.nameWithOwner'
+   GH_HOST="{prHost}" gh repo view --json nameWithOwner --jq '.nameWithOwner'
    ```
 
    The output must equal either `{owner}/{repo}` (the base repository that
@@ -336,6 +339,19 @@ network.
 
 If the suite fails, report the failure to the user and stop.
 
+Immediately after the suite completes, recheck the branch and HEAD SHA.
+Test commands may change the current branch or create a commit, which
+makes `git diff HEAD` misleading. Stop and report to the user if either
+value has changed:
+
+```shell
+git symbolic-ref --short HEAD
+git rev-parse HEAD
+```
+
+The branch must still equal `{headRefName}` and the SHA must still equal
+`{headRefOid}`. If either differs, do not continue.
+
 The test suite and pre-commit hooks may modify tracked files, stage
 changes in the index, or create new files (for example, formatters,
 generated artifacts). After the suite passes, re-display every staged
@@ -370,11 +386,29 @@ and an option terminator:
 GIT_LITERAL_PATHSPECS=1 git add -- "${approvedFiles[@]}"
 ```
 
+Record the staged tree hash before committing. A commit hook can stage
+additional content before Git writes the commit object, causing the
+committed tree to differ from what the user approved:
+
+```shell
+approvedTree=$(git write-tree)
+```
+
 Load and follow the `commit` skill to commit the staged changes.
 
-After the commit skill completes, verify that the work tree is clean.
-Commit hooks may have modified or staged additional files without the
-user's knowledge:
+After the commit skill completes, verify that the committed tree matches
+the approved tree. If a hook staged extra content, the trees will differ:
+
+```shell
+git rev-parse HEAD^{tree}
+```
+
+If the output does not equal `{approvedTree}`, stop and report the
+discrepancy to the user. Do not push until the user explicitly reviews
+and approves the committed tree.
+
+Verify that the work tree is clean. Commit hooks may have modified or
+staged additional files without the user's knowledge:
 
 ```shell
 git status --porcelain
