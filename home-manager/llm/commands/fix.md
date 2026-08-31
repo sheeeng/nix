@@ -553,11 +553,24 @@ gh api graphql \
   --field threadId="{thread-node-id}"
 ```
 
-   After each successful resolution, immediately re-fetch the thread's
-   comment sequence using the same paginated query as step 4. If the
-   comment bodies differ from the sequence compared in step 4, the
-   thread received a new comment during the resolution window. Call the
-   `unresolveReviewThread` mutation and report the thread to the user:
+   After each successful resolution, immediately re-fetch both the
+   pull request head SHA and the thread's comment sequence. Re-fetch
+   the PR `headRefOid`:
+
+   ```shell
+   gh pr view {number} --repo {prHost}/{owner}/{repo} --json headRefOid \
+     --jq '.headRefOid'
+   ```
+
+   If it no longer equals `{postPushSha}`, a collaborator pushed after
+   the pre-mutation head check. Call `unresolveReviewThread` and report
+   the thread to the user.
+
+   Also re-fetch the thread comment bodies using the same paginated
+   query as step 4. If the comment bodies differ from the sequence
+   compared in step 4, the thread received a new comment during the
+   resolution window. Call `unresolveReviewThread` and report the
+   thread to the user.
 
    ```shell
    gh api graphql \
@@ -571,8 +584,8 @@ gh api graphql \
      --field threadId="{thread-node-id}"
    ```
 
-   Report the thread ID, path, and current comment bodies to the user
-   so they can decide how to act on the new feedback.
+   In both cases, report the thread ID, path, and relevant details to
+   the user so they can decide how to act.
 
 Resolve only the threads you addressed. Do not resolve threads that
 were already outdated during Step 2.

@@ -54,9 +54,10 @@ instructs it to do so.
 Each reviewer agent must operate read-only. It must not write files,
 edit files, run shell commands, or take any action that modifies state.
 This constraint applies regardless of which runtime loads the agent.
-When the GitHub Copilot CLI converts these agents, `tools` and `permission`
-fields are preserved so the read-only boundary is enforced at the tool
-layer in both OpenCode and Copilot CLI runtimes.
+When the GitHub Copilot CLI converts these agents, a `copilot-tools:`
+field in each agent's frontmatter is translated to a `tools:` allowlist
+(`["grep", "glob", "view"]`), enforcing the read-only boundary at the
+tool layer in the Copilot CLI runtime.
 
 ## Synthesize and Fix
 

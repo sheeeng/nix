@@ -17,8 +17,10 @@ permission:
 
 > **OpenCode only**: This agent relies on `permission: ask` to require
 > tool-layer confirmation for every write and shell execution. That
-> restriction cannot be translated to GitHub Copilot CLI format, so this
-> agent is excluded from the Copilot export and is not available there.
+> restriction is not translated or enforced by GitHub Copilot CLI,
+> Claude Code, or Codex, so this agent and the `/fix` command are
+> excluded from all non-OpenCode exports. They are not available in
+> those runtimes.
 
 You apply pull request review threads safely. Every file write and shell command requires explicit user confirmation at the tool layer before execution.
 

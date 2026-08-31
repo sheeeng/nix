@@ -11,6 +11,10 @@ let
     mattPocockSkillsSource = inputs.matt-pocock-skills;
   };
 
+  # Commands that require OpenCode-specific permission enforcement and must
+  # not be exported to other runtimes.
+  openCodeOnlyCommands = [ "fix" ];
+
   codexSkillFiles = pkgs.lib.mapAttrs' (
     name: source:
     if builtins.pathExists (source + "/SKILL.md") then
@@ -21,7 +25,7 @@ let
 
   codexPromptFiles = pkgs.lib.mapAttrs' (
     name: source: pkgs.lib.nameValuePair ".codex/prompts/${name}.md" { inherit source; }
-  ) commonLlmSettings.commands;
+  ) (pkgs.lib.filterAttrs (name: _: !(builtins.elem name openCodeOnlyCommands)) commonLlmSettings.commands);
 
   # Nixpkgs dropped x86_64-darwin support, so the LLM tooling below no longer
   # evaluates on Intel Macs.

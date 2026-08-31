@@ -10,6 +10,12 @@ let
     mattPocockSkillsSource = inputs.matt-pocock-skills;
   };
   claudeCodeModel = "claude-sonnet-4-6"; # https://models.dev/models/anthropic/claude-sonnet-4-6/
+
+  # Agents and commands that require OpenCode-specific permission enforcement
+  # (permission: ask) and must not be exported to other runtimes that do not
+  # translate or enforce that policy.
+  openCodeOnlyAgents = [ "fix-agent" ];
+  openCodeOnlyCommands = [ "fix" ];
 in
 {
   home.file.".claude/output-styles/Concise.md".source = ../llm/output-styles/Concise.md;
@@ -28,9 +34,9 @@ in
     enable = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.claude-code.enable
     enableMcpIntegration = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.claude-code.enableMcpIntegration
     package = pkgs.claude-code; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.claude-code.package
-    agents = commonLlmSettings.agents; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.claude-code.agents
+    agents = pkgs.lib.filterAttrs (name: _: !(builtins.elem name openCodeOnlyAgents)) commonLlmSettings.agents; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.claude-code.agents
     agentsDir = null; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.claude-code.agentsDir
-    commands = commonLlmSettings.commands; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.claude-code.commands
+    commands = pkgs.lib.filterAttrs (name: _: !(builtins.elem name openCodeOnlyCommands)) commonLlmSettings.commands; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.claude-code.commands
     context = commonLlmSettings.context; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.claude-code.context # Rendered to CLAUDE.md.
     skills = commonLlmSettings.skills; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.claude-code.skills
     mcpServers = {
