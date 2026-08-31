@@ -553,6 +553,27 @@ gh api graphql \
   --field threadId="{thread-node-id}"
 ```
 
+   After each successful resolution, immediately re-fetch the thread's
+   comment sequence using the same paginated query as step 4. If the
+   comment bodies differ from the sequence compared in step 4, the
+   thread received a new comment during the resolution window. Call the
+   `unresolveReviewThread` mutation and report the thread to the user:
+
+   ```shell
+   gh api graphql \
+     --hostname "{prHost}" \
+     --field query='
+       mutation($threadId: ID!) {
+         unresolveReviewThread(input: { threadId: $threadId }) {
+           thread { isResolved }
+         }
+       }' \
+     --field threadId="{thread-node-id}"
+   ```
+
+   Report the thread ID, path, and current comment bodies to the user
+   so they can decide how to act on the new feedback.
+
 Resolve only the threads you addressed. Do not resolve threads that
 were already outdated during Step 2.
 
