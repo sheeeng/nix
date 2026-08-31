@@ -13,7 +13,6 @@ license: Apache-2.0 OR MIT
 
 # Forbid LLM Watermarks
 
-
 ## Before Starting
 
 Load the `enforce-writing-style` skill before continuing. Its required

@@ -5,7 +5,6 @@ description: Create a clean, vertical editorial artwork that preserves an upload
 
 # Photo Abstract Editorial
 
-
 ## Before Starting
 
 Load the `enforce-writing-style` skill before continuing. Its required

@@ -6,7 +6,6 @@ license: Apache-2.0 OR MIT
 
 # eli5
 
-
 ## Before Starting
 
 Load the `enforce-writing-style` skill before continuing. Its required

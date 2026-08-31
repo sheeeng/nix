@@ -5,7 +5,6 @@ description: Roll dice using a random number generator. Use when asked to roll a
 
 # Roll Dice
 
-
 ## Before Starting
 
 Load the `enforce-writing-style` skill before continuing. Its required
