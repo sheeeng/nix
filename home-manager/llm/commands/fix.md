@@ -42,10 +42,10 @@ tell the user what to fix before proceeding.
 
 2. Parse `{pull-request-review-url}` locally before contacting any
    network. Extract and store:
-   - `{prHost}` — the hostname (for example, `github.com`)
-   - `{owner}` — the repository owner
-   - `{repo}` — the repository name
-   - `{number}` — the pull request number
+   - `{prHost}`: the hostname (for example, `github.com`)
+   - `{owner}`: the repository owner
+   - `{repo}`: the repository name
+   - `{number}`: the pull request number
 
    Reject the URL and stop if any of the following is true before
    storing any value:
@@ -96,7 +96,7 @@ tell the user what to fix before proceeding.
          urlHost=$(printf '%s' "$url" | awk -F'[@:]' '{print $2}')
          ;;
        ssh://*)
-         urlHost=$(printf '%s' "$url" | awk -F/ '{gsub(/.*@/, "", $3); print $3}')
+         urlHost=$(printf '%s' "$url" | awk -F/ '{gsub(/.*@/, "", $3); gsub(/:.*/, "", $3); print $3}')
          ;;
        *)
          continue
@@ -134,7 +134,7 @@ tell the user what to fix before proceeding.
 8. Confirm the local repository is either the base repository or `headRepo`:
 
    ```shell
-   gh repo view --json nameWithOwner --jq '.nameWithOwner'
+   gh repo view --hostname "{prHost}" --json nameWithOwner --jq '.nameWithOwner'
    ```
 
    The output must equal either `{owner}/{repo}` (the base repository that
