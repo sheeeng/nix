@@ -40,13 +40,24 @@ tell the user what to fix before proceeding.
    If the output is non-empty, stop and tell the user to commit or stash
    all local changes before running this command.
 
-2. Ask the user for explicit approval to contact GitHub before making
+2. Parse `{pull-request-review-url}` locally before contacting any
+   network. Extract and store:
+   - `{prHost}` — the hostname (for example, `github.com`)
+   - `{owner}` — the repository owner
+   - `{repo}` — the repository name
+   - `{number}` — the pull request number
+
+   Do not contact any external service in this step.
+
+3. Ask the user for explicit approval to contact `{prHost}` before making
    any network request. Do not proceed until approved.
 
-3. Fetch the pull request head branch, head SHA, and head repository:
+4. Fetch the pull request head branch, head SHA, and head repository.
+   Qualify `--repo` with `{prHost}` to ensure the request targets the
+   correct host:
 
    ```shell
-   gh pr view {number} --repo {owner}/{repo} \
+   gh pr view {number} --repo {prHost}/{owner}/{repo} \
      --json headRefName,headRefOid,headRepository \
      --jq '{branch: .headRefName, sha: .headRefOid, headRepo: .headRepository.nameWithOwner}'
    ```
@@ -55,15 +66,13 @@ tell the user what to fix before proceeding.
    request. The returned `headRepo` value is the contributor's fork and
    may differ from `{owner}/{repo}` on fork pull requests.
 
-4. Resolve the git remote whose push URL corresponds to `headRepo`.
-   Parse the GitHub host from `{pull-request-review-url}` (for example,
-   `github.com`). Store it as `{prHost}`.
-
+5. Resolve the git remote whose push URL corresponds to `headRepo`.
    Iterate over all configured remotes and compare each one. For each
    remote, enumerate all configured push URLs with `--all` and reject
    any remote that publishes to more than one destination. For each
    single-URL remote, extract the push URL's host and skip the remote if
-   it does not match `{prHost}`:
+   it does not match `{prHost}`. Handle HTTPS, SCP-syntax SSH, and
+   standard SSH URL forms:
 
    ```shell
    for remote in $(git remote); do
@@ -77,6 +86,9 @@ tell the user what to fix before proceeding.
          ;;
        git@*)
          urlHost=$(printf '%s' "$url" | awk -F'[@:]' '{print $2}')
+         ;;
+       ssh://*)
+         urlHost=$(printf '%s' "$url" | awk -F/ '{gsub(/.*@/, "", $3); print $3}')
          ;;
        *)
          continue
@@ -93,7 +105,7 @@ tell the user what to fix before proceeding.
    as `{headPushUrl}`. If no remote resolves to `headRepo`, stop and
    tell the user which remote to configure.
 
-5. Verify the current branch matches the pull request head branch:
+6. Verify the current branch matches the pull request head branch:
 
    ```shell
    git symbolic-ref --short HEAD
@@ -103,7 +115,7 @@ tell the user what to fix before proceeding.
    which branch to check out. A detached `HEAD` or a different branch
    at the same SHA must not proceed.
 
-6. Verify the current commit matches the pull request head SHA:
+7. Verify the current commit matches the pull request head SHA:
 
    ```shell
    git rev-parse HEAD
@@ -111,7 +123,7 @@ tell the user what to fix before proceeding.
 
    If the output does not equal `headRefOid`, stop and tell the user.
 
-7. Confirm the local repository is either the base repository or `headRepo`:
+8. Confirm the local repository is either the base repository or `headRepo`:
 
    ```shell
    gh repo view --json nameWithOwner --jq '.nameWithOwner'
@@ -135,6 +147,7 @@ located correctly on the correct diff side.
 
 ```shell
 gh api graphql \
+  --hostname "{prHost}" \
   --field query='
     query($owner: String!, $repo: String!, $number: Int!, $cursor: String) {
       repository(owner: $owner, name: $repo) {
@@ -174,6 +187,7 @@ separate query using the thread's node ID and the comments `endCursor`:
 
 ```shell
 gh api graphql \
+  --hostname "{prHost}" \
   --field query='
     query($threadId: ID!, $cursor: String) {
       node(id: $threadId) {
@@ -251,8 +265,11 @@ processed in descending order of `line` within each file:
 4. Show the proposed change as a unified diff in your response. Do not
    write to disk yet.
 
-For overlapping ranges in the same file, apply the lower-`startLine`
-change last so both edits land at the correct positions.
+For threads in the same file whose ranges overlap, check whether both
+requested changes can coexist. If they can, combine them into one
+proposed diff. If they cannot both be preserved, do not collect the
+thread ID for the change that would be overwritten; report the conflict
+to the user instead.
 
 For each current file thread, in order of `path`:
 
@@ -288,16 +305,18 @@ write the approved changes to disk now, one at a time, using the
 minimum edits needed.
 
 Run the full test suite only after all approved writes land. Before
-executing any test command, show the user the exact commands and state
-that they execute repository-controlled configuration, pre-commit hooks,
-and transitive scripts on the host with access to local secrets and
-network. Do not proceed until the user explicitly approves these
-commands:
+running any test command, ask the user for the trusted test commands for
+this repository. If the repository uses Nix and pre-commit, suggest:
 
 ```shell
 nix flake check
 pre-commit run --all-files
 ```
+
+Do not run any test command until the user explicitly approves the exact
+set and acknowledges that these commands execute repository-controlled
+configuration and scripts on the host with access to local secrets and
+network.
 
 If the suite fails, report the failure to the user and stop.
 
@@ -370,7 +389,7 @@ Only after the test suite passes and the user approves:
    `HEAD` before resolving any thread:
 
    ```shell
-   gh pr view {number} --repo {owner}/{repo} --json headRefOid \
+   gh pr view {number} --repo {prHost}/{owner}/{repo} --json headRefOid \
      --jq '.headRefOid'
    ```
 
@@ -381,11 +400,41 @@ Only after the test suite passes and the user approves:
    If the two SHAs differ, stop and tell the user. Do not resolve any
    thread until they match.
 
-4. Resolve each addressed thread using the GraphQL
+4. For each collected thread ID, re-fetch the thread's current state
+   immediately before mutating it. Compare it against the state observed
+   in Step 2:
+
+   ```shell
+   gh api graphql \
+     --hostname "{prHost}" \
+     --field query='
+       query($threadId: ID!) {
+         node(id: $threadId) {
+           ... on PullRequestReviewThread {
+             isResolved
+             isOutdated
+             comments(first: 50) {
+               nodes { body }
+             }
+           }
+         }
+       }' \
+     --field threadId="{thread-node-id}"
+   ```
+
+   Skip the thread and report it to the user if any of the following is
+   true:
+   - `isResolved` is `true` (already resolved by another reviewer).
+   - `isOutdated` has changed.
+   - The comment bodies differ from the sequence reviewed in Step 2
+     (a new comment was added after the fix was approved).
+
+5. Resolve each remaining thread using the GraphQL
    `resolveReviewThread` mutation:
 
 ```shell
 gh api graphql \
+  --hostname "{prHost}" \
   --field query='
     mutation($threadId: ID!) {
       resolveReviewThread(input: { threadId: $threadId }) {
