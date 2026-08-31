@@ -8,7 +8,7 @@ tools:
     write: false
     edit: false
     bash: false
-copilot-tools: ["grep", "glob", "view"]
+copilot-tools: ["grep", "glob", "skill", "view"]
 permission:
     edit: deny
     bash: deny
