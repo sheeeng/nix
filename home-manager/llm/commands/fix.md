@@ -49,7 +49,9 @@ tell the user what to fix before proceeding.
 
 3. Parse `{pull-request-review-url}` locally before contacting any
    network. Extract and store:
-   - `{prHost}`: the hostname (for example, `github.com`)
+   - `{prHost}`: the hostname, normalized to lowercase (for example,
+     `github.com`). Hostnames are case-insensitive; normalizing avoids
+     mismatches when comparing against git remote URLs later.
    - `{owner}`: the repository owner
    - `{repo}`: the repository name
    - `{number}`: the pull request number

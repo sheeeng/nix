@@ -26,6 +26,10 @@ let
     "fix"
     "implement"
   ];
+  # Skills that depend on agents not exported to Claude Code. The implement
+  # skill dispatches the three reviewer agents excluded above, so it must also
+  # be excluded until those agents are supported here.
+  openCodeOnlySkills = [ "implement" ];
 in
 {
   home.file.".claude/output-styles/Concise.md".source = ../llm/output-styles/Concise.md;
@@ -52,7 +56,9 @@ in
       name: _: !(builtins.elem name openCodeOnlyCommands)
     ) commonLlmSettings.commands; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.claude-code.commands
     context = commonLlmSettings.context; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.claude-code.context # Rendered to CLAUDE.md.
-    skills = commonLlmSettings.skills; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.claude-code.skills
+    skills = pkgs.lib.filterAttrs (
+      name: _: !(builtins.elem name openCodeOnlySkills)
+    ) commonLlmSettings.skills; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.claude-code.skills
     mcpServers = {
       github = {
         type = "http";
