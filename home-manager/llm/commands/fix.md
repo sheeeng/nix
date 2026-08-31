@@ -56,12 +56,12 @@ tell the user what to fix before proceeding.
    ```shell
    for remote in $(git remote); do
      urls=$(git remote get-url --push --all "$remote")
-     count=$(echo "$urls" | wc -l)
+     count=$(printf '%s\n' "$urls" | wc --lines)
      if [ "$count" -gt 1 ]; then continue; fi
-     url=$(echo "$urls" | tr -d '[:space:]')
+     url=$(printf '%s\n' "$urls" | tr -d '[:space:]')
      canonical=$(gh repo view "$url" --json nameWithOwner \
        --jq '.nameWithOwner' 2>/dev/null)
-     if [ "$canonical" = "{headRepo}" ]; then echo "$remote"; break; fi
+     if [ "$canonical" = "{headRepo}" ]; then printf '%s\n' "$remote"; break; fi
    done
    ```
 
@@ -220,7 +220,10 @@ processed in descending order of `line` within each file:
 2. Determine the effective range: use `startLine` through `line`. When
    `startLine` is `null` (single-line thread), use `line` as both start
    and end.
-3. Open and read only that range of the file before editing.
+3. Open the file and read the annotated range. You may also read
+   surrounding context, callers, definitions, usages, and tests as needed
+   to understand the full impact of the change. Edits remain limited to
+   the approved change.
 4. Show the proposed change as a unified diff in your response. Do not
    write to disk yet.
 
@@ -260,7 +263,12 @@ ID from the collected set and do not write that change to disk. Only
 write the approved changes to disk now, one at a time, using the
 minimum edits needed.
 
-Run the full test suite only after all approved writes land:
+Run the full test suite only after all approved writes land. Before
+executing any test command, show the user the exact commands and state
+that they execute repository-controlled configuration, pre-commit hooks,
+and transitive scripts on the host with access to local secrets and
+network. Do not proceed until the user explicitly approves these
+commands:
 
 ```shell
 nix flake check
