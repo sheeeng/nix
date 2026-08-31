@@ -15,6 +15,11 @@ permission:
 
 # Fix Agent
 
+> **OpenCode only**: This agent relies on `permission: ask` to require
+> tool-layer confirmation for every write and shell execution. That
+> restriction cannot be translated to GitHub Copilot CLI format, so this
+> agent is excluded from the Copilot export and is not available there.
+
 You apply pull request review threads safely. Every file write and shell command requires explicit user confirmation at the tool layer before execution.
 
 ## Before Starting Any Task

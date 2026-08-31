@@ -47,7 +47,18 @@ let
       ' ${path} > $out
     '';
 
-  copilotAgents = pkgs.lib.mapAttrs toCopilotAgent commonLlmSettings.agents;
+  # Agents whose OpenCode permission blocks cannot be safely translated to
+  # Copilot CLI format and must be excluded from the Copilot export. These
+  # agents use permission: ask to require user confirmation at the tool layer;
+  # toCopilotAgent strips that block, which would silently remove the safety
+  # guarantee. They remain available in OpenCode only.
+  copilotExcludedAgents = [
+    "fix-agent" # requires permission: ask for bash/edit/write
+  ];
+
+  copilotAgents = pkgs.lib.mapAttrs toCopilotAgent (
+    pkgs.lib.filterAttrs (name: _: !(builtins.elem name copilotExcludedAgents)) commonLlmSettings.agents
+  );
 in
 {
   programs.github-copilot-cli = {
