@@ -23,9 +23,14 @@ let
       pkgs.lib.nameValuePair ".codex/skills/${name}/SKILL.md" { inherit source; }
   ) commonLlmSettings.skills;
 
-  codexPromptFiles = pkgs.lib.mapAttrs' (
-    name: source: pkgs.lib.nameValuePair ".codex/prompts/${name}.md" { inherit source; }
-  ) (pkgs.lib.filterAttrs (name: _: !(builtins.elem name openCodeOnlyCommands)) commonLlmSettings.commands);
+  codexPromptFiles =
+    pkgs.lib.mapAttrs'
+      (name: source: pkgs.lib.nameValuePair ".codex/prompts/${name}.md" { inherit source; })
+      (
+        pkgs.lib.filterAttrs (
+          name: _: !(builtins.elem name openCodeOnlyCommands)
+        ) commonLlmSettings.commands
+      );
 
   # Nixpkgs dropped x86_64-darwin support, so the LLM tooling below no longer
   # evaluates on Intel Macs.

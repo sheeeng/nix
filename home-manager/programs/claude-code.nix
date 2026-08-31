@@ -34,9 +34,13 @@ in
     enable = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.claude-code.enable
     enableMcpIntegration = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.claude-code.enableMcpIntegration
     package = pkgs.claude-code; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.claude-code.package
-    agents = pkgs.lib.filterAttrs (name: _: !(builtins.elem name openCodeOnlyAgents)) commonLlmSettings.agents; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.claude-code.agents
+    agents = pkgs.lib.filterAttrs (
+      name: _: !(builtins.elem name openCodeOnlyAgents)
+    ) commonLlmSettings.agents; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.claude-code.agents
     agentsDir = null; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.claude-code.agentsDir
-    commands = pkgs.lib.filterAttrs (name: _: !(builtins.elem name openCodeOnlyCommands)) commonLlmSettings.commands; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.claude-code.commands
+    commands = pkgs.lib.filterAttrs (
+      name: _: !(builtins.elem name openCodeOnlyCommands)
+    ) commonLlmSettings.commands; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.claude-code.commands
     context = commonLlmSettings.context; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.claude-code.context # Rendered to CLAUDE.md.
     skills = commonLlmSettings.skills; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.claude-code.skills
     mcpServers = {
