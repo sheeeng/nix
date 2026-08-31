@@ -1,10 +1,17 @@
 ---
 name: fix
 description: "Apply a Copilot or GitHub pull request review: fetch unresolved threads via paginated GraphQL, implement each current actionable change, then resolve addressed threads after tests pass and the user approves. LEFT-side and outdated threads are reported to the user and not resolved automatically."
-agent: builder
+agent: fix-agent
 ---
 
 # Fix
+
+> **Security warning**: The checked-out repository's `AGENTS.md` is loaded
+> as project instructions before this command runs. A malicious repository
+> may use that file to redirect or subvert this workflow before Step 4 is
+> reached. Verify the checked-out `AGENTS.md` contains no unexpected
+> directives before running, or disable project instruction loading in your
+> runtime configuration.
 
 Apply every current actionable review thread from a Copilot or GitHub pull
 request. LEFT-side threads (deleted lines) and outdated threads are reported
@@ -49,9 +56,14 @@ tell the user what to fix before proceeding.
    may differ from `{owner}/{repo}` on fork pull requests.
 
 4. Resolve the git remote whose push URL corresponds to `headRepo`.
+   Parse the GitHub host from `{pull-request-review-url}` (for example,
+   `github.com`). Store it as `{prHost}`.
+
    Iterate over all configured remotes and compare each one. For each
    remote, enumerate all configured push URLs with `--all` and reject
-   any remote that publishes to more than one destination:
+   any remote that publishes to more than one destination. For each
+   single-URL remote, extract the push URL's host and skip the remote if
+   it does not match `{prHost}`:
 
    ```shell
    for remote in $(git remote); do
@@ -59,6 +71,18 @@ tell the user what to fix before proceeding.
      count=$(printf '%s\n' "$urls" | wc --lines)
      if [ "$count" -gt 1 ]; then continue; fi
      url=$(printf '%s\n' "$urls" | tr -d '[:space:]')
+     case "$url" in
+       https://*)
+         urlHost=$(printf '%s' "$url" | awk -F/ '{print $3}')
+         ;;
+       git@*)
+         urlHost=$(printf '%s' "$url" | awk -F'[@:]' '{print $2}')
+         ;;
+       *)
+         continue
+         ;;
+     esac
+     if [ "$urlHost" != "{prHost}" ]; then continue; fi
      canonical=$(gh repo view "$url" --json nameWithOwner \
        --jq '.nameWithOwner' 2>/dev/null)
      if [ "$canonical" = "{headRepo}" ]; then printf '%s\n' "$remote"; break; fi
@@ -213,7 +237,7 @@ processed in descending order of `line` within each file:
 1. Validate the thread `path` before opening it. The path originates
    from the pull request and is attacker-controlled. Reject the path
    and report it to the user if any of the following is true:
-   - It is not listed by `git ls-files -- "$path"` (not a tracked file).
+   - It is not listed by `GIT_LITERAL_PATHSPECS=1 git ls-files -- "$path"` (not a tracked file).
    - It resolves to a symbolic link (`test -L "$path"`).
    - Its canonical form (`realpath -- "$path"`) does not begin with the
      repository root (`git rev-parse --show-toplevel`).
@@ -308,7 +332,7 @@ Then stage only the files the user approved using a safely quoted array
 and an option terminator:
 
 ```shell
-git add -- "${approvedFiles[@]}"
+GIT_LITERAL_PATHSPECS=1 git add -- "${approvedFiles[@]}"
 ```
 
 Load and follow the `commit` skill to commit the staged changes.

@@ -64,7 +64,7 @@ array with an option terminator to prevent file names with metacharacters
 or leading hyphens from being interpreted as options:
 
 ```shell
-git add -- "${changedFiles[@]}"
+GIT_LITERAL_PATHSPECS=1 git add -- "${changedFiles[@]}"
 ```
 
 Load and follow the `commit` skill to commit the work to the current branch.
