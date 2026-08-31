@@ -287,15 +287,35 @@ git diff --no-index -- /dev/null "$newFile"
 ```
 
 Ask the user to approve the post-check work tree. Do not stage or commit
-until the user explicitly approves this second diff. Then stage only the
-files the user approved using a safely quoted array and an option
-terminator:
+until the user explicitly approves this second diff.
+
+Reset the index so that any files a check staged without approval are
+removed before staging the approved set:
+
+```shell
+git reset HEAD
+```
+
+Then stage only the files the user approved using a safely quoted array
+and an option terminator:
 
 ```shell
 git add -- "${approvedFiles[@]}"
 ```
 
 Load and follow the `commit` skill to commit the staged changes.
+
+After the commit skill completes, verify that the work tree is clean.
+Commit hooks may have modified or staged additional files without the
+user's knowledge:
+
+```shell
+git status --porcelain
+```
+
+If the output is non-empty, stop and show the user the unexpected
+changes. Do not push until the user explicitly reviews and resolves
+them.
 
 ### Step 6: Push, Verify, and Resolve Threads
 
