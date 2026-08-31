@@ -67,4 +67,4 @@ or leading hyphens from being interpreted as options:
 git add -- "${changedFiles[@]}"
 ```
 
-Then use /commit to commit the work to the current branch.
+Load and follow the `commit` skill to commit the work to the current branch.
