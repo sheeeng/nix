@@ -6,6 +6,13 @@ license: Apache-2.0 OR MIT
 
 # Animate Kinetics
 
+
+## Before Starting
+
+Load the `enforce-writing-style` skill before continuing. Its required
+chain is `enforce-asd-ste100`, followed by `forbid-llm-slop`. Apply
+writing style rules to all output produced by this skill.
+
 Use the bundled catalog to select and implement a Kinetics motion pattern. The catalog contains the available CSS and React examples, implementation prompt, and motion parameter for each of the 144 effects from the official [Kinetics website][kinetics-website].
 
 ## Workflow

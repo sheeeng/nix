@@ -5,6 +5,13 @@ description: Roll dice using a random number generator. Use when asked to roll a
 
 # Roll Dice
 
+
+## Before Starting
+
+Load the `enforce-writing-style` skill before continuing. Its required
+chain is `enforce-asd-ste100`, followed by `forbid-llm-slop`. Apply
+writing style rules to all output produced by this skill.
+
 Use 6 sides when the request does not specify the number of sides.
 
 To roll a die, use the following command that generates a random number from 1

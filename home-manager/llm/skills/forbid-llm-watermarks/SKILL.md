@@ -13,6 +13,13 @@ license: Apache-2.0 OR MIT
 
 # Forbid LLM Watermarks
 
+
+## Before Starting
+
+Load the `enforce-writing-style` skill before continuing. Its required
+chain is `enforce-asd-ste100`, followed by `forbid-llm-slop`. Apply
+writing style rules to all output produced by this skill.
+
 Multi-vendor anti-detection hygiene for **text** (Unicode + statistical rewrite) and **files** (C2PA / AI metadata across common containers).
 
 Read if needed:

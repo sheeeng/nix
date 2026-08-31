@@ -5,6 +5,13 @@ description: Create a clean, vertical editorial artwork that preserves an upload
 
 # Photo Abstract Editorial
 
+
+## Before Starting
+
+Load the `enforce-writing-style` skill before continuing. Its required
+chain is `enforce-asd-ste100`, followed by `forbid-llm-slop`. Apply
+writing style rules to all output produced by this skill.
+
 Create one finished image from one uploaded photograph. Keep the photograph faithful; derive the lower abstract panel only from the photograph's observed spatial, tonal, and color relationships.
 
 ## Workflow

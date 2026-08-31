@@ -6,6 +6,13 @@ license: Apache-2.0 OR MIT
 
 # Animate Text
 
+
+## Before Starting
+
+Load the `enforce-writing-style` skill before continuing. Its required
+chain is `enforce-asd-ste100`, followed by `forbid-llm-slop`. Apply
+writing style rules to all output produced by this skill.
+
 Use this skill as a text animation catalog backed by generated JSON contracts.
 
 Use `assets/specs/<id>.json` for a portable motion contract. Use `assets/effects/<id>.json` for exact animation reproduction, including content, renderer algorithm, playback, runtime, host requirements, rendering contract, and library adapters.
