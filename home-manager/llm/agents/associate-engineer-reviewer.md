@@ -66,6 +66,6 @@ End with a short summary: what is clear and what is not.
 
 ## When Not to Use
 
-- You need a security audit: use security-auditor.
+- You need a security audit: use penetration-engineer-reviewer.
 - You need architecture or design review: use code-reviewer.
 - You need to apply fixes: use builder.

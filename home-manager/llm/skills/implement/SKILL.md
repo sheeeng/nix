@@ -56,7 +56,7 @@ edit files, run shell commands, or take any action that modifies state.
 This constraint applies regardless of which runtime loads the agent.
 When the GitHub Copilot CLI converts these agents, a `copilot-tools:`
 field in each agent's frontmatter is translated to a `tools:` allowlist
-(`["grep", "glob", "view"]`), enforcing the read-only boundary at the
+(`["grep", "glob", "skill", "view"]`), enforcing the read-only boundary at the
 tool layer in the Copilot CLI runtime.
 
 ## Synthesize and Fix

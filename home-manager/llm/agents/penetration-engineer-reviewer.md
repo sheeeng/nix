@@ -84,7 +84,7 @@ deploy.
 
 ## When Not to Use
 
-- You need defensive security posture review: use security-auditor.
+- You need defensive security posture review: use senior-engineer-reviewer.
 - You need design quality review: use senior-engineer-reviewer.
 - You need to apply fixes: use builder.
 
