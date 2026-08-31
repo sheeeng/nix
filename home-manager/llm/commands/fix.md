@@ -114,7 +114,7 @@ tell the user what to fix before proceeding.
          continue
          ;;
      esac
-     if [ "$urlHost" != "{prHost}" ]; then continue; fi
+     if [ "$(printf '%s' "$urlHost" | tr '[:upper:]' '[:lower:]')" != "{prHost}" ]; then continue; fi
      canonical=$(gh repo view "$urlHost/$urlSlug" --json nameWithOwner \
        --jq '.nameWithOwner' 2>/dev/null)
      if [ "$canonical" = "{headRepo}" ]; then printf '%s\n' "$remote"; break; fi

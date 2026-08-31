@@ -53,7 +53,11 @@ let
   # toCopilotAgent strips that block, which would silently remove the safety
   # guarantee. They remain available in OpenCode only.
   copilotExcludedAgents = [
+    "chicken" # requires permission: ask for bash/edit
     "fix-agent" # requires permission: ask for bash/edit/write
+    "planner" # requires permission: ask for most edit paths
+    "security-auditor" # requires permission: ask for bash
+    "technical-writer" # requires permission: ask for edit
   ];
 
   copilotAgents = pkgs.lib.mapAttrs toCopilotAgent (

@@ -18,9 +18,13 @@ let
   # until a Claude-compatible read-only boundary is defined.
   openCodeOnlyAgents = [
     "associate-engineer-reviewer"
+    "chicken"
     "fix-agent"
     "penetration-engineer-reviewer"
+    "planner"
+    "security-auditor"
     "senior-engineer-reviewer"
+    "technical-writer"
   ];
   openCodeOnlyCommands = [
     "fix"
