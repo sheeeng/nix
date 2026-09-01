@@ -1,7 +1,6 @@
 { pkgs, ... }:
 {
   home.packages = with pkgs; [
-    carapace # https://search.nixos.org/packages?channel=unstable&show=carapace
     nufmt # https://search.nixos.org/packages?channel=unstable&show=nufmt
   ];
 
