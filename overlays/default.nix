@@ -81,6 +81,13 @@
       doCheck = false;
     });
 
+    # Skip the nested-sandbox test that conflicts with the Nix build sandbox.
+    nono = prev.nono.overrideAttrs (old: {
+      checkFlags = (old.checkFlags or [ ]) ++ [
+        "--skip=why_self_reports_active_profile_deny_before_covering_allow"
+      ];
+    });
+
     # Disable flaky performance test in jsonpath-python that fails in the Nix sandbox.
     # The test_cache_hit_rate test compares timing which is unreliable in sandboxed builds.
     python313Packages = prev.python313Packages.overrideScope (
