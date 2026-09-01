@@ -92,7 +92,6 @@ in
     variables = {
       EDITOR = "hx";
       LANG = "en_US.UTF-8";
-      SSH_AUTH_SOCK = "$HOME/.gnupg/S.gpg-agent.ssh"; # https://github.com/Vinzent03/obsidian-git/issues/959#issuecomment-3458757190
       # https://github.com/NixOS/nixpkgs/issues/176081#issuecomment-1145825623
       FONTCONFIG_FILE = "${pkgs.fontconfig.out}/etc/fonts/fonts.conf";
       FONTCONFIG_PATH = "${pkgs.fontconfig.out}/etc/fonts/";
