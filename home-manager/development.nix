@@ -10,6 +10,8 @@
     with pkgs;
     [
       oneko # https://search.nixos.org/packages?channel=unstable&type=packages&show=oneko
+      patchutils # https://search.nixos.org/packages?channel=unstable&type=packages&show=patchutils
+      zed-editor # https://search.nixos.org/packages?channel=unstable&type=packages&show=zed-editor
     ]
     ++ (pkgs.lib.optionals pkgs.stdenv.isDarwin [
       ghostty-bin # https://search.nixos.org/packages?channel=unstable&query=ghostty#show=ghostty-bin
