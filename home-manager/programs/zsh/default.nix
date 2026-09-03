@@ -35,7 +35,6 @@
         "michaelaquilina/zsh-you-should-use"
         "molovo/tipz"
         "nix-community/nix-zsh-completions"
-        "olets/zsh-abbr"
         "olivierverdier/zsh-git-prompt"
         "popstas/zsh-command-time"
         "zdharma-continuum/history-search-multi-word"
