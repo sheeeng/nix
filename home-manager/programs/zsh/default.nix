@@ -11,7 +11,6 @@
     ./auto-notify-ignore.nix
     ./init-content.nix
     ./plugins.nix
-    ./zsh-abbr.nix
   ];
 
   programs.zsh = {
@@ -99,7 +98,6 @@
     }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.historySubstringSearch
 
     localVariables = {
-      ABBR_SET_EXPANSION_CURSOR = 1;
       # Initialize zsh-vi-mode while the plugin is sourced (not lazily on the
       # first prompt) so its keymaps exist before later plugins and our own
       # bindkeys run. Keep custom bindkeys after the plugin list (init-content.nix
@@ -112,7 +110,6 @@
       ZVM_LINE_INIT_MODE = "i";
       SPROMPT = "Correct $fg[red]%R$reset_color to $fg[green]%r$reset_color? [ny] ";
       ZSH_AUTOSUGGEST_STRATEGY = [
-        "abbreviations"
         "completion"
         "history"
       ];
@@ -213,8 +210,5 @@
       enable = false; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.zprof.enable
     };
 
-    # zsh-abbr = {
-    #   enable = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.zsh-abbr.enable
-    # }; # See zsh-abbr.nix file.
   };
 }
