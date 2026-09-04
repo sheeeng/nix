@@ -12,6 +12,9 @@
       "pattern": "^https://nixos\\.wiki/"
     },
     {
+      "pattern": "^https://wiki\\.nixos\\.org/"
+    },
+    {
       "pattern": "^https://www\\.reddit\\.com/"
     }
   ],
