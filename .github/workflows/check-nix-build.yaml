@@ -22,10 +22,6 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - hostname: mockos
-            system: aarch64-darwin
-            runs-on: macos-latest
-            type: darwin
           - hostname: TP95V9LWWL
             system: aarch64-darwin
             runs-on: macos-latest
