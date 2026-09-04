@@ -7,6 +7,7 @@
 
   environment.systemPackages = with pkgs; [
     # keep-sorted start
+    container # https://search.nixos.org/packages?channel=unstable&type=packages&show=container
     dix # https://search.nixos.org/packages?channel=unstable&type=packages&show=dix
     manix # https://search.nixos.org/packages?channel=unstable&type=packages&show=manix
     nh # https://search.nixos.org/packages?channel=unstable&type=packages&show=nh
