@@ -87,16 +87,6 @@
           };
         }
         {
-          name = "zsh-autosuggestions-abbreviations-strategy";
-          #file = "zsh-autosuggestions-abbreviations-strategy.plugin.zsh";
-          src = pkgs.fetchFromGitHub {
-            owner = "olets";
-            repo = "zsh-autosuggestions-abbreviations-strategy";
-            rev = "8edbd1d52445d87172d355f8242082b1ec6c34e7";
-            hash = "sha256-hYl9zplPpMoCsGmxX+NQtECZ5dHgQYqZfTGdV0vcZPk=";
-          };
-        }
-        {
           name = "omz-sudo";
           file = "plugins/sudo/sudo.plugin.zsh";
           src = omz;
