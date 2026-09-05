@@ -15,9 +15,12 @@ updates:
       github-actions:
         patterns:
           - "*"
+        update-types:
+          - "minor"
+          - "patch"
     labels:
       - "dependencies"
-    open-pull-requests-limit: 5
+    open-pull-requests-limit: 1024 # A large value can be set to effectively remove the open pull request limit. # https://docs.github.com/en/code-security/reference/supply-chain-security/dependabot-options-reference#open-pull-requests-limit-
   - package-ecosystem: "nix"
     directory: "/"
     schedule:
