@@ -9,8 +9,10 @@
   home.packages =
     with pkgs;
     [
+      obscura # https://search.nixos.org/packages?channel=unstable&type=packages&show=obscura
       oneko # https://search.nixos.org/packages?channel=unstable&type=packages&show=oneko
       patchutils # https://search.nixos.org/packages?channel=unstable&type=packages&show=patchutils
+      yq # https://search.nixos.org/packages?channel=unstable&type=packages&show=yq
       zed-editor # https://search.nixos.org/packages?channel=unstable&type=packages&show=zed-editor
     ]
     ++ (pkgs.lib.optionals pkgs.stdenv.isDarwin [
