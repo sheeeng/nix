@@ -52,15 +52,8 @@
 
     # Workaround for VSCode "Operation not permitted" issue.
     # @upstream-issue https://github.com/nix-darwin/nix-darwin/issues/1315#issuecomment-2629517646
-    # Workaround for VS Code 1.129.1: @vscode/ripgrep-universal moved back to
-    # node_modules.asar.unpacked but nixpkgs assumes node_modules for >= 1.94.0.
     vscode = prev.vscode.overrideAttrs (old: {
       installPhase = "whoami\n" + old.installPhase;
-      postPatch =
-        builtins.replaceStrings
-          [ "node_modules/@vscode/ripgrep" ]
-          [ "node_modules.asar.unpacked/@vscode/ripgrep" ]
-          (old.postPatch or "");
     });
 
     # Add kubelogin to AKS MCP server PATH for Azure AD authentication.
