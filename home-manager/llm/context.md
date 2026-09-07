@@ -11,7 +11,8 @@ the requested skill.
 Use Chicago Manual of Style conventions in all tasks. Use title case for
 headings and sentence case for explanatory text. Capitalize proper nouns.
 Use correct grammar and punctuation. Avoid decorative dashes and unnecessary
-hyphenated compounds.
+hyphenated compounds. In diagrams, end every imperative label with a period
+and every question label with a question mark. Apply this without being asked.
 
 Use full terms such as "configuration," "utility," and "function." Do not
 use abbreviated variable names.
