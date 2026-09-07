@@ -89,6 +89,11 @@
           "serve"
         ];
       };
+      kitbitz = {
+        # https://kitbitz.art/docs/mcp
+        # This public server provides read-only catalog and asset access.
+        url = "https://mcp.kitbitz.art";
+      };
       nixos = {
         # https://github.com/utensils/mcp-nixos
         # Using uvx for fast startup (no nix build delay).

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Design With MengTo"
+  short_description: "Apply a focused MengTo design workflow."
+  default_prompt: "Use $design-mengto to select and apply a design workflow."

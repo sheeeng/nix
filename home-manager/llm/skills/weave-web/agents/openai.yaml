@@ -1,0 +1,4 @@
+interface:
+  display_name: "Weave Web"
+  short_description: "Build responsive, accessible web components."
+  default_prompt: "Use $weave-web to implement a responsive web component."

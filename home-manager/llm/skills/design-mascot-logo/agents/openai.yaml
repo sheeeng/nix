@@ -1,0 +1,4 @@
+interface:
+  display_name: "Design Mascot Logo"
+  short_description: "Create simple, rounded mascot logo concepts."
+  default_prompt: "Use $design-mascot-logo to create a mascot logo concept."
