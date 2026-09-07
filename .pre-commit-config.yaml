@@ -86,6 +86,7 @@ repos:
         exclude: |
           (?x)^(
               .*\.lock$|
+              home-manager/llm/skills/design-mengto/references/mengto-skills/.*|
               flake\.lock
           )$
       - id: requirements-txt-fixer
@@ -102,7 +103,7 @@ repos:
     rev: v0.23.2
     hooks:
       - id: markdownlint-cli2
-        exclude: ^home-manager/llm/skills/create-abstract-editorial-image/(LICENSE\.md|README\.md|references/)
+        exclude: ^home-manager/llm/skills/(create-abstract-editorial-image/(LICENSE\.md|README\.md|references/)|design-mengto/references/mengto-skills/)
   - repo: https://github.com/charliermarsh/ruff-pre-commit
     rev: v0.16.6
     hooks:
@@ -110,11 +111,11 @@ repos:
         name: ruff
         types_or: [python, pyi]
         args: [--fix]
-        exclude: ^home-manager/llm/skills/forbid-llm-watermarks/
+        exclude: ^home-manager/llm/skills/(design-mengto/references/mengto-skills/|forbid-llm-watermarks/)
       - id: ruff-format
         name: ruff-format
         types_or: [python, pyi]
-        exclude: ^home-manager/llm/skills/forbid-llm-watermarks/
+        exclude: ^home-manager/llm/skills/(design-mengto/references/mengto-skills/|forbid-llm-watermarks/)
   - repo: https://github.com/compilerla/conventional-pre-commit
     rev: v4.4.0
     hooks:
@@ -142,6 +143,7 @@ repos:
     hooks:
       - id: yamlfmt
         name: yamlfmt
+        exclude: ^home-manager/llm/skills/design-mengto/references/mengto-skills/
         args:
           - --formatter
           - array_indent=2,disable_alias_key_correction=false,disallow_anchors=false,drop_merge_tag=false,eof_newline=false,include_document_start=false,indent=2,indent_root_array=false,indentless_arrays=false,max_line_length=0,pad_line_comments=1,retain_line_breaks=false,retain_line_breaks_single=true,scan_folded_as_literal=false,strip_directives=false,trim_trailing_whitespace=false
@@ -151,7 +153,7 @@ repos:
       - id: markdownlint
         name: markdownlint
         args: [--fix]
-        exclude: ^home-manager/llm/skills/create-abstract-editorial-image/(LICENSE\.md|README\.md|references/)
+        exclude: ^home-manager/llm/skills/(create-abstract-editorial-image/(LICENSE\.md|README\.md|references/)|design-mengto/references/mengto-skills/)
   - repo: https://github.com/renovatebot/pre-commit-hooks
     rev: 44.67.2
     hooks:
@@ -169,6 +171,7 @@ repos:
       - id: shellcheck
         name: shellcheck
         args: []
+        exclude: ^home-manager/llm/skills/design-mengto/references/mengto-skills/
   - repo: https://github.com/siderolabs/conform
     rev: v0.1.0-alpha.31
     hooks:
@@ -185,6 +188,7 @@ repos:
         types: [file]
         files: \.md$
         args: ["--quiet", "--config", ".markdown-link-check.json"]
+        exclude: ^home-manager/llm/skills/design-mengto/references/mengto-skills/
   - repo: local
     hooks:
       - id: nixfmt

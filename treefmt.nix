@@ -124,6 +124,7 @@
       "*.lock.yml"
       "*.patch"
       "LICENSE*"
+      "home-manager/llm/skills/design-mengto/references/mengto-skills/**"
     ];
   };
 }
