@@ -11,11 +11,10 @@ git remote set-url origin git@github.com:sheeeng/nix.git \
 ```
 
 ```shell
-git push --force-with-lease git@git.sr.ht:~sheeeng/nix
-git push --force-with-lease git@gitea.com:sheeeng/nix.git
-git push git@github.com:sheeeng/nix.git
-git push --force-with-lease git@gitlab.com:sheeeng/nix.git
-git push --force-with-lease ssh://git@codeberg.org/sheeeng/nix.git
+git push --force git@git.sr.ht:~sheeeng/nix
+git push --force git@gitea.com:sheeeng/nix.git
+git push --force git@gitlab.com:sheeeng/nix.git
+git push --force ssh://git@codeberg.org/sheeeng/nix.git
 ```
 
 ```shell
