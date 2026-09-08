@@ -59,7 +59,13 @@
           120
         ];
 
-        clipboard-provider = if pkgs.stdenv.isDarwin then "pasteboard" else "wayland"; # https://docs.helix-editor.com/editor.html?highlight=git-ignore#editorclipboard-provider-section
+        clipboard-provider =
+          if pkgs.stdenv.isDarwin then
+            "pasteboard"
+          else if pkgs.stdenv.hostPlatform.system == "x86_64-linux" then
+            "xclip"
+          else
+            "wayland"; # https://docs.helix-editor.com/editor.html?highlight=git-ignore#editorclipboard-provider-section
 
         statusline = {
           left = [
