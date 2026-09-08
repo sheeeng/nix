@@ -33,6 +33,9 @@ in
     keybindings = { }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.pi-coding-agent.keybindings
     models = { }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.pi-coding-agent.models
     settings = {
+      defaultModel = "deepseek-v4-pro"; # https://pi.dev/docs/latest/settings#model--thinking
+      defaultProvider = "deepseek"; # https://pi.dev/docs/latest/settings#model--thinking
+      defaultThinkingLevel = "high"; # https://pi.dev/docs/latest/settings#model--thinking
       enableInstallTelemetry = false; # https://pi.dev/docs/latest/settings#telemetry-and-update-checks
       skills = [
         "~/.codex/skills"
