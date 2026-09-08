@@ -34,6 +34,9 @@ in
     models = { }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.pi-coding-agent.models
     settings = {
       enableInstallTelemetry = false; # https://pi.dev/docs/latest/settings#telemetry-and-update-checks
+      skills = [
+        "~/.codex/skills"
+      ];
     }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.pi-coding-agent.settings
   };
 }
