@@ -288,10 +288,10 @@ in
                 src = pkgs.fetchFromGitHub {
                   owner = "microsoft";
                   repo = "vscode-remote-release";
-                  rev = "1803940623da0ba648084b5ba0b1265b2b854ae4"; # main
-                  sha256 = "0k0z3iia3jwv5ap8bq08p7x18i8r79gmk78i93cl9mwl3aprdk3a";
+                  rev = "53c123ff18bb11fc9d01b86063347d84ecf8295c"; # main
+                  sha256 = "1bp53qljbbhb492d8hhlslvrkh39mw5f233qyp3a79i7vms069fh";
                 };
-                version = "unstable-2024-12-18";
+                version = "unstable-2026-09-04";
                 vscodeExtName = "remote-server";
                 vscodeExtPublisher = "ms-vscode";
                 vscodeExtUniqueId = "ms-vscode.remote-server";
