@@ -263,6 +263,11 @@
 
     _1password-shell-plugins.url = "github:1password/shell-plugins";
 
+    beads = {
+      url = "github:gastownhall/beads";
+      flake = false;
+    };
+
     nix-systems.url = "github:nix-systems/default"; # https://github.com/nix-systems/nix-systems
 
     nix-secrets = {

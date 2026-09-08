@@ -110,6 +110,22 @@
         "type": "github"
       }
     },
+    "beads": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1788408927,
+        "narHash": "sha256-kjMynulPnbdksZNUXb4x6sfr+BiAFEQcJSMBAgKIhS4=",
+        "owner": "gastownhall",
+        "repo": "beads",
+        "rev": "c0d8da42de5fd15c95adac85e342ba4a121da0fb",
+        "type": "github"
+      },
+      "original": {
+        "owner": "gastownhall",
+        "repo": "beads",
+        "type": "github"
+      }
+    },
     "catppuccin": {
       "inputs": {
         "nixpkgs": "nixpkgs_2"
@@ -1131,6 +1147,7 @@
       "inputs": {
         "_1password-shell-plugins": "_1password-shell-plugins",
         "agenix": "agenix",
+        "beads": "beads",
         "catppuccin": "catppuccin",
         "determinate": "determinate",
         "disko": "disko",
