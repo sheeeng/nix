@@ -12,7 +12,6 @@
 # When true, bd will use .beads/issues.jsonl as the source of truth
 # instead of SQLite database
 no-db: false
-
 # Disable daemon for RPC communication (forces direct database access)
 # no-daemon: false
 
@@ -50,6 +49,9 @@ sync-branch: "beads-sync"
 #   additional:   # Additional repos to hydrate from (read-only)
 #     - ~/beads-planning  # Personal planning repo
 #     - ~/work-planning   # Work planning repo
+
+sync:
+  remote: "git+ssh://git@github.com/sheeeng/nix.git"
 
 # Integration settings (access with 'bd config get/set')
 # These are stored in the database, not in this file:
