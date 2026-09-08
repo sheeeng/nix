@@ -29,6 +29,8 @@ in
 
     # stat --format "%A %a %n" ~/.config/sops-nix/secrets/**/*
     secrets = {
+      "deepseek/api_key" = { };
+
       "passwords/atuin" = { };
 
       "keys/atuin" = { };
