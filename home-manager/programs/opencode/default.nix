@@ -655,8 +655,8 @@ in
         # Existing OpenCode skills override complementary Matt Pocock skills.
         animate-kinetics = commonLlmSettings.skills.animate-kinetics;
         animate-text = commonLlmSettings.skills.animate-text;
+        beads-docs = "${inputs.beads}/.claude/skills/beads-docs";
         enforce-owasp-security = commonLlmSettings.skills.enforce-owasp-security;
-        beads = "${pkgs.beads.src}/claude-plugin/skills/beads"; # A skill can also be a subdirectory within a Nix package source store path.
         commit = commonLlmSettings.skills.commit;
         create-abstract-editorial-image = commonLlmSettings.skills.create-abstract-editorial-image;
         enforce-asd-ste100 = commonLlmSettings.skills.enforce-asd-ste100;
