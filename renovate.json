@@ -27,26 +27,13 @@
         "/\\.nix$/"
       ],
       "matchStrings": [
-        "fetchFromGitHub\\s*\\{[^}]*owner\\s*=\\s*\"(?<depName>[^\"]+)\"[^}]*repo\\s*=\\s*\"(?<packageName>[^\"]+)\"[^}]*rev\\s*=\\s*\"(?<currentValue>[^\"]+)\"",
-        "fetchFromGitHub\\s*\\{[^}]*repo\\s*=\\s*\"(?<packageName>[^\"]+)\"[^}]*owner\\s*=\\s*\"(?<depName>[^\"]+)\"[^}]*rev\\s*=\\s*\"(?<currentValue>[^\"]+)\""
+        "fetchFromGitHub\\s*\\{[^}]*owner\\s*=\\s*\"(?<depName>[^\"]+)\"[^}]*repo\\s*=\\s*\"(?<packageName>[^\"]+)\"[^}]*rev\\s*=\\s*\"(?<currentValue>v?[0-9]+\\.[0-9]+[^\"]*)\"",
+        "fetchFromGitHub\\s*\\{[^}]*repo\\s*=\\s*\"(?<packageName>[^\"]+)\"[^}]*owner\\s*=\\s*\"(?<depName>[^\"]+)\"[^}]*rev\\s*=\\s*\"(?<currentValue>v?[0-9]+\\.[0-9]+[^\"]*)\""
       ],
       "datasourceTemplate": "github-releases",
       "depNameTemplate": "{{{depName}}}/{{{packageName}}}",
+      "packageNameTemplate": "{{{depName}}}/{{{packageName}}}",
       "extractVersionTemplate": "^(?<version>.*)$"
-    },
-    {
-      "customType": "regex",
-      "managerFilePatterns": [
-        "/\\.nix$/"
-      ],
-      "matchStrings": [
-        "fetchFromGitHub\\s*\\{[^}]*owner\\s*=\\s*\"(?<depName>[^\"]+)\"[^}]*repo\\s*=\\s*\"(?<packageName>[^\"]+)\"[^}]*rev\\s*=\\s*\"(?<currentValue>[a-f0-9]{40})\"",
-        "fetchFromGitHub\\s*\\{[^}]*repo\\s*=\\s*\"(?<packageName>[^\"]+)\"[^}]*owner\\s*=\\s*\"(?<depName>[^\"]+)\"[^}]*rev\\s*=\\s*\"(?<currentValue>[a-f0-9]{40})\""
-      ],
-      "datasourceTemplate": "github-commits",
-      "depNameTemplate": "{{{depName}}}/{{{packageName}}}",
-      "extractVersionTemplate": "^(?<version>.*)$",
-      "versioningTemplate": "loose"
     }
   ],
   "packageRules": [
@@ -55,6 +42,20 @@
         "terraform-version"
       ],
       "description": "Update Terraform through the scheduled binary updater.",
+      "enabled": false
+    },
+    {
+      "matchDatasources": [
+        "git-refs"
+      ],
+      "matchManagers": [
+        "nix"
+      ],
+      "matchPackageNames": [
+        "https://flakehub.com/f/DeterminateSystems/determinate/3",
+        "https://flakehub.com/f/hercules-ci/flake-parts/0.1"
+      ],
+      "description": "Ignore FlakeHub tarball inputs that the git-refs datasource cannot resolve.",
       "enabled": false
     },
     {
