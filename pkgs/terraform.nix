@@ -10,10 +10,10 @@ let
   # other four-space-indented attrset with the same key names in this file.
   terraformHashes = {
     # keep-sorted start
-    "aarch64-darwin" = "sha256-5HPwCmRdIusB9RDJa83qsqX9yObl4Mk1FfTa2xmvFXw=";
-    "aarch64-linux" = "sha256-02Zhr59Qb4XKSdPUdo+yZXDKj0wa1mCdXy35JJB9ix4=";
-    "x86_64-darwin" = "sha256-ouGntZN01Pro9tzu168Uz58SKs2eWziZZNtCEWStxXo=";
-    "x86_64-linux" = "sha256-moAwCFJSNfNuYDMAQKat3sPXjf59Nm8Sphj64Tt2D5w=";
+    "aarch64-darwin" = "sha256-KnWODvKz0aRiixUXo5DbFJ4qR9i1z4JjK4qgWgzNCrY=";
+    "aarch64-linux" = "sha256-G61d0HhBSY3rhfm0Hq7jcRfj+CpG9TOPWtfFWLLOvhw=";
+    "x86_64-darwin" = "sha256-BDBlmrlmV+zGHBEninS+zXZKApSVzqUbsOWTfs+3ByA=";
+    "x86_64-linux" = "sha256-stp95YIuayoZBNWJXEiNNKHHJb6gqeeQZskg0EsSZgY=";
     # keep-sorted end
   };
   terraformSystem = pkgs.stdenv.hostPlatform.system;
