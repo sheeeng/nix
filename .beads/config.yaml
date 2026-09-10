@@ -51,7 +51,9 @@ sync-branch: "beads-sync"
 #     - ~/work-planning   # Work planning repo
 
 sync:
-  remote: "git+ssh://git@github.com/sheeeng/nix.git"
+    remote: "git+ssh://git@github.com/sheeeng/nix.git"
+export:
+    auto: true
 
 # Integration settings (access with 'bd config get/set')
 # These are stored in the database, not in this file:
