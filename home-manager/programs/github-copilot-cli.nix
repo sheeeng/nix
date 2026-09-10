@@ -83,7 +83,10 @@ in
         url = "https://api.githubcopilot.com/mcp/";
       };
     }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.github-copilot-cli.mcpServers
-    settings = { }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.github-copilot-cli.settings
+    settings = {
+      # @upstream-issue https://github.com/github/copilot-cli/issues/4576
+      includeCoAuthoredBy = false;
+    }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.github-copilot-cli.settings
     skills = commonLlmSettings.skills; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.github-copilot-cli.skills
   };
 }
