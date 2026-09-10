@@ -1,6 +1,6 @@
 # OWASP Proactive Controls (2024)
 
-> Source: <https://owasp.org/www-project-proactive-controls/>
+> Source: <https://github.com/OWASP/www-project-proactive-controls>
 
 ## Reference Index
 

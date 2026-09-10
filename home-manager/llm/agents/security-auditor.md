@@ -69,4 +69,4 @@ Security is important but not the only consideration. Flag real risks with clear
 [cis-benchmarks]: https://www.cisecurity.org/cis-benchmarks/
 [github-actions-secure-use-reference]: https://docs.github.com/en/actions/reference/security/secure-use
 [owasp-cheat-sheet]: https://cheatsheetseries.owasp.org/
-[owasp-top-ten]: https://owasp.org/www-project-top-ten/
+[owasp-top-ten]: https://github.com/OWASP/Top10

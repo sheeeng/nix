@@ -1,6 +1,6 @@
 # OWASP API Security Top 10 (2023)
 
-> Source: <https://owasp.org/www-project-api-security/>
+> Source: <https://github.com/OWASP/API-Security>
 
 ## Reference Index
 

@@ -117,4 +117,4 @@ Use the [OWASP Top 10:2025][owasp-top-ten] as an awareness document. Use ASVS fo
 - Log exceptional security events with enough context for detection and investigation.
 - Test missing input, boundary values, timeouts, dependency failures, race conditions, and exhausted resources.
 
-[owasp-top-ten]: https://owasp.org/Top10/2025/
+[owasp-top-ten]: https://github.com/OWASP/Top10/tree/master/2025

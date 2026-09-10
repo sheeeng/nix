@@ -89,4 +89,4 @@ deploy.
 - You need to apply fixes: use builder.
 
 [owasp-cheat-sheet]: https://cheatsheetseries.owasp.org/
-[owasp-top-ten]: https://owasp.org/www-project-top-ten/
+[owasp-top-ten]: https://github.com/OWASP/Top10

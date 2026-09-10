@@ -240,4 +240,4 @@ Always allow read queries from these documentation sources:
 [nixos-wiki-official]: https://wiki.nixos.org/
 [noogle]: https://noogle.dev/
 [owasp-cheat-sheet-series]: https://cheatsheetseries.owasp.org/
-[owasp-top-ten]: https://owasp.org/www-project-top-ten/
+[owasp-top-ten]: https://github.com/OWASP/Top10

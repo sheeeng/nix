@@ -59,9 +59,9 @@ For each finding, include:
 | [OWASP Cheat Sheet Series][owasp-cheat-sheets] | Defense implementation guidance |
 | [OWASP Web Security Testing Guide][owasp-testing-guide] | Web application security test guidance |
 
-[owasp-api-security]: https://owasp.org/www-project-api-security/
-[owasp-asvs]: https://owasp.org/www-project-application-security-verification-standard/
+[owasp-api-security]: https://github.com/OWASP/API-Security
+[owasp-asvs]: https://github.com/OWASP/ASVS
 [owasp-cheat-sheets]: https://cheatsheetseries.owasp.org/
-[owasp-proactive-controls]: https://owasp.org/www-project-proactive-controls/
-[owasp-testing-guide]: https://owasp.org/www-project-web-security-testing-guide/
-[owasp-top-ten]: https://owasp.org/Top10/2025/
+[owasp-proactive-controls]: https://github.com/OWASP/www-project-proactive-controls
+[owasp-testing-guide]: https://github.com/OWASP/wstg
+[owasp-top-ten]: https://github.com/OWASP/Top10/tree/master/2025

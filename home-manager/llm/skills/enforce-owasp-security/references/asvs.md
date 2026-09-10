@@ -1,6 +1,6 @@
 # OWASP Application Security Verification Standard (ASVS v4)
 
-> Source: <https://owasp.org/www-project-application-security-verification-standard/>
+> Source: <https://github.com/OWASP/ASVS>
 
 ASVS defines three assurance levels (L1 = minimum, L2 = standard, L3 = advanced). Use this index to locate the relevant chapter, then apply its requirements during formal review.
 
