@@ -181,6 +181,7 @@
       ".DS_Store"
       ".env"
       ".envrc"
+      ".playwright-mcp/"
       ".Spotlight-V100"
       ".Trashes"
       "*.swp"
