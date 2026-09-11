@@ -33,10 +33,24 @@ in
     keybindings = { }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.pi-coding-agent.keybindings
     models = { }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.pi-coding-agent.models
     settings = {
+      compaction = {
+        enabled = true;
+        keepRecentTokens = 12000;
+        modelOverrides = {
+          "deepseek/deepseek-flash" = {
+            keepRecentTokens = 8000;
+            reserveTokens = 4096;
+          };
+        };
+        reserveTokens = 8192;
+      }; # https://pi.dev/docs/latest/settings#compaction
       defaultModel = "deepseek-flash"; # https://pi.dev/docs/latest/settings#model--thinking
       defaultProvider = "deepseek"; # https://pi.dev/docs/latest/settings#model--thinking
-      defaultThinkingLevel = "high"; # https://pi.dev/docs/latest/settings#model--thinking
+      defaultThinkingLevel = "medium"; # https://pi.dev/docs/latest/settings#model--thinking
       enableInstallTelemetry = false; # https://pi.dev/docs/latest/settings#telemetry-and-update-checks
+      modelThinkingLevels = {
+        "deepseek/deepseek-flash" = "low";
+      }; # https://pi.dev/docs/latest/settings#model--thinking
       skills = [
         "~/.codex/skills"
       ];
