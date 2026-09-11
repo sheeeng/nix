@@ -62,6 +62,10 @@ Save narrow and wide screenshots when possible. Report checks that cannot run.
 
 ## Reference Use
 
+Read [Responsive Web Implementation References][responsive-layout] before
+defining responsive layout, CSS Grid behavior, mobile content parity,
+crawlability, or implementation checks.
+
 Read [Web Component Design References][design-references] before selecting a
 visual pattern, animation, canvas effect, or AI-native interface pattern.
 
@@ -73,3 +77,4 @@ visual pattern, animation, canvas effect, or AI-native interface pattern.
 - Do not claim responsive behavior from source inspection alone.
 
 [design-references]: references/design-references.md
+[responsive-layout]: references/responsive-layout.md
