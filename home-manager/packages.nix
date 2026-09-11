@@ -135,6 +135,7 @@
       conform # https://search.nixos.org/packages?channel=unstable&type=packages&show=conform
       delta # https://search.nixos.org/packages?channel=unstable&type=packages&show=delta
       dependabot-cli # https://search.nixos.org/packages?channel=unstable&type=packages&show=dependabot-cli
+      dolt # https://search.nixos.org/packages?channel=unstable&type=packages&show=dolt
       editorconfig-checker # https://search.nixos.org/packages?channel=unstable&type=packages&show=editorconfig-checker
       firebase-tools # https://search.nixos.org/packages?channel=unstable&type=packages&show=firebase-tools
       freerdp # https://search.nixos.org/packages?channel=unstable&type=packages&show=freerdp
