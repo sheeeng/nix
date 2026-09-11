@@ -222,6 +222,10 @@
         path = "~/github/sheeeng/.gitconfig";
       }
       {
+        condition = "gitdir:~/github/sheeeng/**/.beads/embeddeddolt/**/.dolt/git-remote-cache/**/repo.git";
+        path = "~/github/sheeeng/.gitconfig";
+      }
+      {
         condition = "gitdir:${config.home.homeDirectory}/gitlab/**/.git";
         path = "${config.home.homeDirectory}/gitlab/.gitconfig";
       }
