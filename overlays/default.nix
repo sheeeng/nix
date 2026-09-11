@@ -46,6 +46,18 @@
   modifications = final: prev: {
     unstable = inputs.nixpkgs.legacyPackages.${final.stdenv.hostPlatform.system};
 
+    # Embedded Beads otherwise uses an address that GitHub rejects under email
+    # privacy protection when Dolt history is synchronized through Git.
+    beads = prev.beads.overrideAttrs (old: {
+      # Several upstream tests race during temporary directory cleanup on Darwin.
+      doCheck = (old.doCheck or true) && !final.stdenv.hostPlatform.isDarwin;
+      postPatch = (old.postPatch or "") + ''
+        substituteInPlace internal/storage/embeddeddolt/open.go \
+          --replace-fail 'commitEmail = "beads@local"' \
+          'commitEmail = "305414+sheeeng@users.noreply.github.com"'
+      '';
+    });
+
     # Override nixpkgs terraform with the official HashiCorp binary, pinned via
     # .terraform-version and fetched from the HashiCorp release endpoint.
     terraform = final.callPackage ../pkgs/terraform.nix { };
