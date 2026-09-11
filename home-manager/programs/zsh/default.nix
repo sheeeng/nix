@@ -75,7 +75,7 @@
       export PATH="/etc/profiles/per-user/${config.home.username}/bin:$HOME/bin:$PATH"
       export PATH="$PATH:${config.xdg.dataHome}/.local/bin"
     ''
-    + lib.optionalString pkgs.stdenv.isDarwin ''
+    + lib.optionalString pkgs.stdenv.hostPlatform.isDarwin ''
       launchdSshAuthSock="$(/bin/launchctl getenv SSH_AUTH_SOCK)"
       if [[ -n "$launchdSshAuthSock" ]]; then
         export SSH_AUTH_SOCK="$launchdSshAuthSock"

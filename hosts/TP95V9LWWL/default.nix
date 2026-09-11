@@ -71,7 +71,7 @@ in
       show-system = "nix derivation show /run/current-system";
       list-generations = "nix-env --list-generations";
     }
-    // lib.optionalAttrs pkgs.stdenv.isDarwin {
+    // lib.optionalAttrs pkgs.stdenv.hostPlatform.isDarwin {
       switch-system = "darwin-rebuild switch --flake .";
       setVolume5 = "osascript -e 'set volume output volume 5' -e 'get volume settings'";
       setVolume10 = "osascript -e 'set volume output volume 10' -e 'get volume settings'";
@@ -485,7 +485,7 @@ in
         fi
       '';
     }
-    // lib.optionalAttrs pkgs.stdenv.isLinux { supportsDryActivation = true; };
+    // lib.optionalAttrs pkgs.stdenv.hostPlatform.isLinux { supportsDryActivation = true; };
     postActivation = {
       text = ''
         echo ":: . "

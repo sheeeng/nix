@@ -31,7 +31,7 @@
       }; # https://alacritty.org/config-alacritty.html#env
 
       window = {
-        decorations = if pkgs.stdenv.isDarwin then "buttonless" else "none";
+        decorations = if pkgs.stdenv.hostPlatform.isDarwin then "buttonless" else "none";
         dynamic_title = false;
         dynamic_padding = true;
         option_as_alt = "OnlyLeft"; # https://github.com/zellij-org/zellij/issues/2051#issuecomment-1461519892

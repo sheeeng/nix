@@ -15,11 +15,11 @@
       yq # https://search.nixos.org/packages?channel=unstable&type=packages&show=yq
       zed-editor # https://search.nixos.org/packages?channel=unstable&type=packages&show=zed-editor
     ]
-    ++ (pkgs.lib.optionals pkgs.stdenv.isDarwin [
+    ++ (pkgs.lib.optionals pkgs.stdenv.hostPlatform.isDarwin [
       ghostty-bin # https://search.nixos.org/packages?channel=unstable&query=ghostty#show=ghostty-bin
       vscodium # https://search.nixos.org/packages?channel=unstable&type=packages&show=vscodium
     ])
-    ++ (pkgs.lib.optionals (pkgs.stdenv.isDarwin && pkgs.stdenv.hostPlatform.isAarch64) [
+    ++ (pkgs.lib.optionals (pkgs.stdenv.hostPlatform.isDarwin && pkgs.stdenv.hostPlatform.isAarch64) [
       hidden-bar # https://search.nixos.org/packages?channel=unstable&type=packages&show=hidden-bar
     ]);
 }

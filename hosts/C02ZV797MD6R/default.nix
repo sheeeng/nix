@@ -533,7 +533,7 @@ in
         fi
       '';
     }
-    // lib.optionalAttrs pkgs.stdenv.isLinux { supportsDryActivation = true; };
+    // lib.optionalAttrs pkgs.stdenv.hostPlatform.isLinux { supportsDryActivation = true; };
     postActivation = {
       text = ''
         echo ":: . "

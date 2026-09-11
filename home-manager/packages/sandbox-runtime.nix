@@ -12,7 +12,7 @@
   home.packages =
     (
       with pkgs;
-      lib.optionals stdenv.isLinux [
+      lib.optionals stdenv.hostPlatform.isLinux [
         # Required on Linux only.
         bubblewrap # https://search.nixos.org/packages?channel=unstable&type=packages&show=bubblewrap
         socat # https://search.nixos.org/packages?channel=unstable&type=packages&show=socat
