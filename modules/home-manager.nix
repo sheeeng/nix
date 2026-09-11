@@ -1,9 +1,15 @@
 { pkgs, ... }:
 {
   home-manager = {
-    backupCommand = ''
-      ${pkgs.lib.getExe' pkgs.uutils-coreutils-noprefix "mv"} --verbose "$1" "$1.before-nix-switch-$(${pkgs.lib.getExe' pkgs.uutils-coreutils-noprefix "date"} --universal +"%Y%m%dT%H%M%SZ")"
-    ''; # https://nix-community.github.io/home-manager/nixos-options.xhtml#nixos-opt-home-manager.backupCommand
+    backupCommand = pkgs.lib.getExe (
+      pkgs.writeShellApplication {
+        name = "home-manager-backup";
+        runtimeInputs = [ pkgs.coreutils ];
+        text = ''
+          mv --verbose "$1" "$1.before-nix-switch-$(date --universal +"%Y%m%dT%H%M%SZ")"
+        '';
+      }
+    ); # https://nix-community.github.io/home-manager/nixos-options.xhtml#nixos-opt-home-manager.backupCommand
     overwriteBackup = false; # https://nix-community.github.io/home-manager/nixos-options.xhtml#nixos-opt-home-manager.overwriteBackup
     sharedModules = [
       {
