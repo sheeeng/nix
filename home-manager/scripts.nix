@@ -56,13 +56,13 @@ let
       else
         # Linux
         LOCAL_IP=$(${
-          if pkgs.stdenv.isLinux then lib.getExe' pkgs.iproute2 "ip" else "ip"
+          if pkgs.stdenv.hostPlatform.isLinux then lib.getExe' pkgs.iproute2 "ip" else "ip"
         } -o addr show | grep 'inet ' | grep -v 127.0.0.1 | awk '{print $4}' | cut -d'/' -f 1)
         CPU=$(sudo ${
-          if pkgs.stdenv.isLinux then lib.getExe pkgs.lshw else "lshw"
+          if pkgs.stdenv.hostPlatform.isLinux then lib.getExe pkgs.lshw else "lshw"
         } -short 2>/dev/null | grep -i processor | sed 's/\s\s*/ /g' | cut -d' ' -f3-)
         VIDEO=$(${
-          if pkgs.stdenv.isLinux then lib.getExe' pkgs.pciutils "lspci" else "lspci"
+          if pkgs.stdenv.hostPlatform.isLinux then lib.getExe' pkgs.pciutils "lspci" else "lspci"
         } | grep -i 'vga\|3d\|2d' | cut -d' ' -f2-)
 
         echo -e "Local: $LOCAL_IP, Public: $PUBLIC_IP\n"
@@ -70,11 +70,11 @@ let
         echo -e "Video: $VIDEO\n"
 
         echo -e "\nDisk Info:"
-        ${if pkgs.stdenv.isLinux then lib.getExe' pkgs.util-linux "lsblk" else "lsblk"} -f
+        ${if pkgs.stdenv.hostPlatform.isLinux then lib.getExe' pkgs.util-linux "lsblk" else "lsblk"} -f
 
         echo -e "\nKernel Modules (KVM):"
         ${
-          if pkgs.stdenv.isLinux then lib.getExe' pkgs.kmod "lsmod" else "lsmod"
+          if pkgs.stdenv.hostPlatform.isLinux then lib.getExe' pkgs.kmod "lsmod" else "lsmod"
         } | ${lib.getExe pkgs.ripgrep} kvm || echo "No KVM modules loaded"
       fi
     ''

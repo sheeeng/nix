@@ -44,7 +44,7 @@ in
       claude-mergetool # https://search.nixos.org/packages?channel=unstable&type=packages&show=claude-mergetool
       claude-monitor # https://search.nixos.org/packages?channel=unstable&type=packages&show=claude-monitor
     ])
-    ++ (pkgs.lib.optionals (pkgs.stdenv.isDarwin && pkgs.stdenv.hostPlatform.isAarch64) [
+    ++ (pkgs.lib.optionals (pkgs.stdenv.hostPlatform.isDarwin && pkgs.stdenv.hostPlatform.isAarch64) [
       pkgs.claude-usage-tracker # Native macOS menu bar app; only available on aarch64-darwin. https://search.nixos.org/packages?channel=unstable&type=packages&show=claude-usage-tracker
     ]);
 

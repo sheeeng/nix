@@ -551,7 +551,7 @@ in
 
 # { lib, pkgs, ... }:
 # {
-#   config = lib.mkIf (pkgs.stdenv.isDarwin) {
+#   config = lib.mkIf (pkgs.stdenv.hostPlatform.isDarwin) {
 #     home.packages = with pkgs; [
 #       sketchybar # https://search.nixos.org/packages?channel=unstable&type=packages&show=sketchybar
 #       sketchybar-app-font # https://search.nixos.org/packages?channel=unstable&type=packages&show=sketchybar-app-font

@@ -37,7 +37,7 @@ lib.mkIf
       # inputs.fenix.packages.${pkgs.stdenv.hostPlatform.system}.rust-analyzer-vscode-extension # Temporarily disabled due to apple_sdk_11_0 issue
     ]
     # @upstream-issue https://github.com/NixOS/nixpkgs/issues/486012
-    ++ lib.optionals (!pkgs.stdenv.isDarwin) [
+    ++ lib.optionals (!pkgs.stdenv.hostPlatform.isDarwin) [
       inputs.fenix.packages.${pkgs.stdenv.hostPlatform.system}.latest.rust-docs
     ];
 

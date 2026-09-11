@@ -60,7 +60,7 @@
         ];
 
         clipboard-provider =
-          if pkgs.stdenv.isDarwin then
+          if pkgs.stdenv.hostPlatform.isDarwin then
             "pasteboard"
           else if pkgs.stdenv.hostPlatform.system == "x86_64-linux" then
             "xclip"

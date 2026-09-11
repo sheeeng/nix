@@ -40,7 +40,9 @@
     scdaemonSettings = {
       disable-ccid = true;
     }
-    // lib.optionalAttrs pkgs.stdenv.isDarwin { reader-port = ''"Yubico YubiKey OTP+FIDO+CCID"''; }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.gpg.scdaemonSettings
+    // lib.optionalAttrs pkgs.stdenv.hostPlatform.isDarwin {
+      reader-port = ''"Yubico YubiKey OTP+FIDO+CCID"'';
+    }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.gpg.scdaemonSettings
 
     # TODO: https://github.com/hardselius/dotfiles/blob/b801fd8aba017a588ce56430d8345449ec396c96/home/gpg.nix
     #   programs.gpg.settings = {
@@ -114,7 +116,7 @@
     maxCacheTtlSsh = 86400; # 24 hours - https://nix-community.github.io/home-manager/options.xhtml#opt-services.gpg-agent.maxCacheTtlSsh
     noAllowExternalCache = lib.mkDefault false; # https://nix-community.github.io/home-manager/options.xhtml#opt-services.gpg-agent.noAllowExternalCache
     pinentry = {
-      package = lib.mkIf pkgs.stdenv.isLinux (
+      package = lib.mkIf pkgs.stdenv.hostPlatform.isLinux (
         pkgs.writeShellScriptBin "pinentry" ''
           if [[ -n "$DISPLAY" || -n "$WAYLAND_DISPLAY" ]]; then
             exec ${pkgs.pinentry-gnome3}/bin/pinentry "$@"
@@ -140,7 +142,7 @@
   # use-keyboxd option absent, so GnuPG reads the classic pubring.kbx keybox
   # directly and no lock daemon can hang. The existing public keys were migrated
   # from the keyboxd database with "gpg --export" followed by "gpg --import".
-  home.file.".gnupg/common.conf" = lib.mkIf pkgs.stdenv.isLinux {
+  home.file.".gnupg/common.conf" = lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
     text = "";
   };
 
@@ -153,7 +155,7 @@
   # GnuPG assumes the lock is still held and waits on it forever. Remove any
   # leftover lock files at session start, before any GnuPG daemon runs, so that
   # signing works reliably after every reboot.
-  systemd.user.services.gpg-clean-stale-locks = lib.mkIf pkgs.stdenv.isLinux {
+  systemd.user.services.gpg-clean-stale-locks = lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
     Unit = {
       Description = "Remove stale GnuPG lock files left by an unclean shutdown.";
       Before = [

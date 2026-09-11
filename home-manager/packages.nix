@@ -326,7 +326,7 @@
       watch # https://search.nixos.org/packages?channel=unstable&type=packages&show=watch
       # keep-sorted end
     ]
-    ++ (pkgs.lib.optionals pkgs.stdenv.isLinux [
+    ++ (pkgs.lib.optionals pkgs.stdenv.hostPlatform.isLinux [
       # Audio
       # keep-sorted start block=no newline_separated=no sticky_comments=no
       # sonic-pi # @upstream-issue https://github.com/NixOS/nixpkgs/issues/445447 # https://search.nixos.org/packages?channel=unstable&type=packages&show=sonic-pi
@@ -376,7 +376,7 @@
       wl-clipboard # https://search.nixos.org/packages?channel=unstable&type=packages&show=wl-clipboard
       # keep-sorted end
     ])
-    ++ (pkgs.lib.optionals pkgs.stdenv.isDarwin [
+    ++ (pkgs.lib.optionals pkgs.stdenv.hostPlatform.isDarwin [
       # Cross-platform Rust Environment
       # https://github.com/rivet-gg/rivet/blob/f879623b871e4acafaffd31817b9386fb84ddce1/shell.nix
       # libiconv # See https://stackoverflow.com/a/69732679
@@ -389,7 +389,7 @@
       yubiswitch # https://search.nixos.org/packages?channel=unstable&type=packages&show=yubiswitch
       # keep-sorted end
     ])
-    ++ (pkgs.lib.optionals (pkgs.stdenv.isDarwin && pkgs.stdenv.hostPlatform.isAarch64) [
+    ++ (pkgs.lib.optionals (pkgs.stdenv.hostPlatform.isDarwin && pkgs.stdenv.hostPlatform.isAarch64) [
       # keep-sorted start block=no newline_separated=no sticky_comments=no
       # podman # https://search.nixos.org/packages?channel=unstable&type=packages&show=podman
       # podman-compose # https://search.nixos.org/packages?channel=unstable&type=packages&show=podman-compose

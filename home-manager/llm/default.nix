@@ -135,7 +135,7 @@ in
       codex # https://search.nixos.org/packages?channel=unstable&type=packages&show=codex
       pi-coding-agent # https://search.nixos.org/packages?channel=unstable&type=packages&show=pi-coding-agent
     ]
-    ++ pkgs.lib.optionals (pkgs.stdenv.isDarwin && pkgs.stdenv.hostPlatform.isAarch64) [
+    ++ pkgs.lib.optionals (pkgs.stdenv.hostPlatform.isDarwin && pkgs.stdenv.hostPlatform.isAarch64) [
       chatgpt # https://search.nixos.org/packages?channel=unstable&type=packages&show=chatgpt
       codexbar # https://search.nixos.org/packages?channel=unstable&type=packages&show=codexbar
     ];
