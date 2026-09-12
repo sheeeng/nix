@@ -66,7 +66,16 @@
         "custom.regex"
       ],
       "description": "Update Nix fetchFromGitHub revisions.",
-      "enabled": true
+      "enabled": true,
+      "postUpgradeTasks": {
+        "commands": [
+          "nix run nixpkgs#update-nix-fetchgit -- --verbose {{{packageFile}}}"
+        ],
+        "fileFilters": [
+          "**/*.nix"
+        ],
+        "executionMode": "update"
+      }
     },
     {
       "matchManagers": [
