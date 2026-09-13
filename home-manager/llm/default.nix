@@ -29,8 +29,8 @@ let
   superpowersSrc = pkgs.fetchFromGitHub {
     owner = "obra";
     repo = "superpowers";
-    rev = "v4.3.1"; # 151ac79ccac12d769356da93e6e0513ae736fa13
-    hash = "sha256-/3T9haaI5x7wVLAy+z8NzaH5hI1qvIa2nTKq91jNNXA=";
+    rev = "v6.3.0"; # b36e0829c6d0140e93cfef2ca599b1b07d4a7797
+    hash = "sha256-EsGNO0dULWf5Bx6bGrCv2kI2Z8aKH0kRvGiuN23wChQ=";
   };
 
   # anthropics/skills: Skills for Claude.
