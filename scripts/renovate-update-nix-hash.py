@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Update the hash for a fetchFromGitHub block after Renovate bumps its rev.
 
-Usage: renovate-update-nix-hash <owner/repo> <new-version> <package-file>
+Usage: renovate-update-nix-hash.py <owner/repo> <new-version> <package-file>
 
 Renovate postUpgradeTasks calls this script with Mustache template variables
 substituted for each bumped dependency. The script fetches the correct Nix
@@ -25,7 +25,9 @@ def fetch_hash(owner: str, repo: str, rev: str) -> tuple[str, str]:
     return data["hash"], data["rev"]
 
 
-def update_hash(content: str, owner: str, repo: str, new_hash: str, new_rev: str) -> str:
+def update_hash(
+    content: str, owner: str, repo: str, new_hash: str, new_rev: str
+) -> str:
     def replace_block(match: re.Match) -> str:
         block = match.group(0)
         has_owner = f'owner = "{owner}"' in block
@@ -35,13 +37,13 @@ def update_hash(content: str, owner: str, repo: str, new_hash: str, new_rev: str
         updated = re.sub(r'(hash\s*=\s*)"[^"]*"', f'\\1"{new_hash}"', block)
         updated = re.sub(
             r'(rev\s*=\s*"[^"]*";\s*)#\s*[0-9a-f]{40}',
-            f'\\1# {new_rev}',
+            f"\\1# {new_rev}",
             updated,
         )
         return updated
 
     return re.sub(
-        r'fetchFromGitHub\s*\{[^{}]*\}',
+        r"fetchFromGitHub\s*\{[^{}]*\}",
         replace_block,
         content,
         flags=re.DOTALL,
@@ -50,7 +52,10 @@ def update_hash(content: str, owner: str, repo: str, new_hash: str, new_rev: str
 
 def main() -> None:
     if len(sys.argv) != 4:
-        print(f"Usage: {sys.argv[0]} <owner/repo> <new-version> <package-file>", file=sys.stderr)
+        print(
+            f"Usage: {sys.argv[0]} <owner/repo> <new-version> <package-file>",
+            file=sys.stderr,
+        )
         sys.exit(1)
 
     dep_name, new_version, package_file = sys.argv[1], sys.argv[2], sys.argv[3]
@@ -69,7 +74,9 @@ def main() -> None:
     new_content = update_hash(content, owner, repo, new_hash, new_rev)
 
     if new_content == content:
-        print(f"No hash field found for {owner}/{repo} in {package_file}", file=sys.stderr)
+        print(
+            f"No hash field found for {owner}/{repo} in {package_file}", file=sys.stderr
+        )
         sys.exit(1)
 
     with open(package_file, "w") as f:
