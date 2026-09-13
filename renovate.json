@@ -69,7 +69,7 @@
       "enabled": true,
       "postUpgradeTasks": {
         "commands": [
-          "python3 scripts/renovate-update-nix-hash {{{depName}}} {{{newVersion}}} {{{packageFile}}}"
+          "python3 scripts/renovate-update-nix-hash.py {{{depName}}} {{{newVersion}}} {{{packageFile}}}"
         ],
         "fileFilters": [
           "**/*.nix"
