@@ -27,6 +27,14 @@ in
     defaultSopsFile = "${sopsFolder}/common.yaml";
     validateSopsFiles = true;
 
+    # Render the Hermes Agent environment file from the provider key and the
+    # Telegram bot token. The Home Manager module merges this file into
+    # $HERMES_HOME/.env at activation.
+    templates."hermes/env".content = lib.concatStringsSep "\n" [
+      "DEEPSEEK_API_KEY=${config.sops.placeholder."deepseek/api_key"}"
+      "TELEGRAM_BOT_TOKEN=${config.sops.placeholder."telegram/bot_token"}"
+    ];
+
     # stat --format "%A %a %n" ~/.config/sops-nix/secrets/**/*
     secrets = {
       "deepseek/api_key" = { };
@@ -67,6 +75,8 @@ in
         mode = "0600";
       };
       "keys/wakatime" = { };
+
+      "telegram/bot_token" = { };
 
       "tokens/github/gist_scope" = { };
       "tokens/github/public_repo_scope" = { };

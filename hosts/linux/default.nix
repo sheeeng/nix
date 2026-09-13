@@ -1,9 +1,24 @@
-{ pkgs, ... }:
+{
+  config,
+  inputs,
+  pkgs,
+  ...
+}:
 {
   imports = [
     ./sops.nix
     ../../modules/home-manager.nix
+    inputs.hermes-agent.nixosModules.default
   ];
+
+  # Hermes Agent runs as a hardened NixOS system service. The shared module
+  # covers fw13 and p50. https://hermes-agent.nousresearch.com/docs/getting-started/nix-setup#nixos-module
+  services.hermes-agent = {
+    addToSystemPackages = true;
+    enable = true;
+    environmentFiles = [ config.sops.templates."hermes/env".path ];
+    settings.model.default = "deepseek/deepseek-chat";
+  };
 
   environment.systemPackages = with pkgs; [
     # keep-sorted start
