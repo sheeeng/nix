@@ -104,8 +104,8 @@ let
   vercelSkillsSrc = pkgs.fetchFromGitHub {
     owner = "vercel-labs";
     repo = "skills";
-    rev = "v1.4.1"; # e00ad19cd60863bebbbd944a7035b42cfebd8bae
-    hash = "sha256-6r9qCk96/1Ygrg2QuXUpZy5bPiCAO23GhPRqcg4hUQg=";
+    rev = "v1.5.26"; # d667282815248da03a08a18272b5d2eef9caf77c
+    hash = "sha256-zvzH1pMb3zTNE5CewisUohitzR6Nh/DLyjqR1cIQ0og=";
   };
 
   # DietrichGebert/ponytail: Minimal coding solutions.
