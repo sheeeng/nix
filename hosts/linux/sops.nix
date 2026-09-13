@@ -31,6 +31,14 @@ in
       validateSopsFiles = true;
 
       templates = {
+        # Render the Hermes Agent environment file from the provider key and
+        # the Telegram bot token. The hermes-agent activation script reads the
+        # file as root and writes $HERMES_HOME/.env for the hermes user.
+        "hermes/env".content = lib.concatStringsSep "\n" [
+          "DEEPSEEK_API_KEY=${config.sops.placeholder."deepseek/api_key"}"
+          "TELEGRAM_BOT_TOKEN=${config.sops.placeholder."telegram/bot_token"}"
+        ];
+
         nix-access-token = {
           content = ''
             access-tokens = github.com=${config.sops.placeholder."tokens/github/repo_scope"}
@@ -58,6 +66,18 @@ in
       # These secrets are in secrets/hosts/<hostname>.yaml
       # stat --format "%A %a %n" /run/secrets/**/*
       secrets = {
+        # Provider key from common.yaml, used to render the hermes/env
+        # template above.
+        "deepseek/api_key" = {
+          sopsFile = "${sopsFolder}/common.yaml";
+        };
+
+        # Telegram bot token from common.yaml, used to render the hermes/env
+        # template above.
+        "telegram/bot_token" = {
+          sopsFile = "${sopsFolder}/common.yaml";
+        };
+
         # Host-level GitHub token (encrypted with host key in host-specific secrets file)
         "tokens/github/repo_scope" = {
           mode = "0440";

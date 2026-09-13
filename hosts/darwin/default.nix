@@ -1,8 +1,32 @@
-{ pkgs, ... }:
+{
+  inputs,
+  lib,
+  pkgs,
+  ...
+}:
 {
   imports = [
     ./sops.nix
     ../../modules/home-manager.nix
+  ];
+
+  # Hermes Agent runs as a Home Manager user service on macOS. The upstream
+  # flake declares aarch64-darwin only, so the x86_64-darwin host is excluded.
+  # https://hermes-agent.nousresearch.com/docs/getting-started/nix-setup#home-manager-module
+  home-manager.sharedModules = lib.optionals (pkgs.stdenv.hostPlatform.system == "aarch64-darwin") [
+    inputs.hermes-agent.homeManagerModules.default
+    (
+      { config, ... }:
+      {
+        programs.hermes-agent.enable = true;
+        services.hermes-agent = {
+          enable = true;
+          environmentFiles = [ config.sops.templates."hermes/env".path ];
+          gateway.enable = true;
+          settings.model.default = "deepseek/deepseek-chat";
+        };
+      }
+    )
   ];
 
   environment.systemPackages =

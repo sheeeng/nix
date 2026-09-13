@@ -120,6 +120,16 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Hermes Agent ships a NixOS module and a Home Manager module. The flake
+    # declares x86_64-linux, aarch64-linux, and aarch64-darwin only, so the
+    # x86_64-darwin host cannot use it. https://hermes-agent.nousresearch.com/docs/getting-started/nix-setup
+    hermes-agent = {
+      url = "github:NousResearch/hermes-agent";
+      inputs.flake-parts.follows = "flake-parts";
+      inputs.home-manager.follows = "home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nix-darwin = {
       url = "github:lnl7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
