@@ -24,6 +24,7 @@
           environmentFiles = [ config.sops.templates."hermes/env".path ];
           extraPackages = [ pkgs.gh ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-services.hermes-agent.extraPackages https://hermes-agent.nousresearch.com/docs/getting-started/nix-setup#home-manager-module
           gateway.enable = true;
+          settings.agent.reasoning_effort = "medium";
           settings.model.default = "copilot/gpt-5.6-luna";
         };
 
