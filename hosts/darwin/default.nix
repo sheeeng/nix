@@ -22,8 +22,9 @@
         services.hermes-agent = {
           enable = true;
           environmentFiles = [ config.sops.templates."hermes/env".path ];
+          extraPackages = [ pkgs.gh ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-services.hermes-agent.extraPackages https://hermes-agent.nousresearch.com/docs/getting-started/nix-setup#home-manager-module
           gateway.enable = true;
-          settings.model.default = "deepseek/deepseek-chat";
+          settings.model.default = "copilot/gpt-5.6-luna";
         };
 
         # Re-write .env after both hermesAgentSetup and setupSecrets complete.

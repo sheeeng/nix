@@ -27,8 +27,10 @@ in
     defaultSopsFile = "${sopsFolder}/common.yaml";
     validateSopsFiles = true;
 
-    # Render the Hermes Agent environment file from the provider key and the
-    # Telegram bot token. The Home Manager module merges this file into
+    # Render the Hermes Agent environment file from the provider keys and the
+    # Telegram bot token. The Copilot token is resolved at runtime via
+    # ``gh auth token`` and falls back to DEEPSEEK_API_KEY when Copilot is
+    # unavailable. The Home Manager module merges this file into
     # $HERMES_HOME/.env at activation.
     templates."hermes/env".content = lib.concatStringsSep "\n" [
       "DEEPSEEK_API_KEY=${config.sops.placeholder."deepseek/api_key"}"
