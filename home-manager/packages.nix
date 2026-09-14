@@ -255,11 +255,6 @@
       tenki # https://search.nixos.org/packages?channel=unstable&type=packages&show=tenki
       # keep-sorted end
 
-      # Terminal Emulators
-      # keep-sorted start block=no newline_separated=no sticky_comments=no
-      warp-terminal # https://search.nixos.org/packages?channel=unstable&type=packages&show=warp-terminal
-      # keep-sorted end
-
       # Documentation And Publishing
       # keep-sorted start block=no newline_separated=no sticky_comments=no
       glow # https://search.nixos.org/packages?channel=unstable&type=packages&show=glow
