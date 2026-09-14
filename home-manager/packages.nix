@@ -96,6 +96,8 @@
       # keep-sorted start block=no newline_separated=no sticky_comments=no
       # (lib.hiPrio go-task) # TODO: Collision error with `taskwarrior-3` package. # https://search.nixos.org/packages?channel=unstable&type=packages&show=go-task
       # (lib.hiPrio parallel) # TODO: https://haseebmajid.dev/posts/2023-10-02-til-how-to-fix-package-binary-collisions-on-nix/ # https://search.nixos.org/packages?channel=unstable&type=packages&show=parallel
+      # antigravity-cli # https://search.nixos.org/packages?channel=unstable&type=packages&show=antigravity-cli
+      # antigravity-ide # renamed from `antigravity`. https://search.nixos.org/packages?channel=unstable&type=packages&show=antigravity-ide
       # devenv # https://search.nixos.org/packages?channel=unstable&type=packages&show=devenv
       # gh # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh
       # gh-actions-cache # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-actions-cache
@@ -117,6 +119,7 @@
       # gh-skyline # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-skyline
       # gh-webhook # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-webhook
       # kubelogin # https://search.nixos.org/packages?channel=unstable&type=packages&show=kubelogin
+      # lmstudio # https://search.nixos.org/packages?channel=unstable&type=packages&show=lmstudio
       # marksman # https://search.nixos.org/packages?channel=unstable&type=packages&show=marksman
       # nixfmt-tree # https://search.nixos.org/packages?channel=unstable&type=packages&show=nixfmt-tree
       # taskctl # TODO: https://github.com/taskctl/taskctl # https://search.nixos.org/packages?channel=unstable&type=packages&show=taskctl
@@ -126,8 +129,6 @@
       (lib.hiPrio uutils-findutils) # https://search.nixos.org/packages?channel=unstable&type=packages&show=uutils-findutils
       (pkgs.callPackage ./packages/download-nixos-iso.nix { })
       alejandra # https://search.nixos.org/packages?channel=unstable&type=packages&show=alejandra
-      antigravity-cli # https://search.nixos.org/packages?channel=unstable&type=packages&show=antigravity-cli
-      antigravity-ide # renamed from `antigravity`. https://search.nixos.org/packages?channel=unstable&type=packages&show=antigravity-ide
       asdf-vm # https://search.nixos.org/packages?channel=unstable&type=packages&show=asdf-vm
       autoconf # https://search.nixos.org/packages?channel=unstable&type=packages&show=autoconf
       beads # https://search.nixos.org/packages?channel=unstable&type=packages&show=beads
@@ -155,7 +156,6 @@
       kustomize # https://search.nixos.org/packages?channel=unstable&type=packages&show=kustomize
       lazygit # https://search.nixos.org/packages?channel=unstable&type=packages&show=lazygit
       lazysql # https://search.nixos.org/packages?channel=unstable&type=packages&show=lazysql
-      lmstudio # https://search.nixos.org/packages?channel=unstable&type=packages&show=lmstudio
       ltex-ls # https://search.nixos.org/packages?channel=unstable&type=packages&show=ltex-ls
       markdown-oxide # https://search.nixos.org/packages?channel=unstable&type=packages&show=markdown-oxide
       markdownlint-cli # https://search.nixos.org/packages?channel=unstable&type=packages&show=markdownlint-cli
