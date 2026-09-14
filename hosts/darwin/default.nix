@@ -16,7 +16,7 @@
   home-manager.sharedModules = lib.optionals (pkgs.stdenv.hostPlatform.system == "aarch64-darwin") [
     inputs.hermes-agent.homeManagerModules.default
     (
-      { config, ... }:
+      { config, lib, ... }:
       {
         programs.hermes-agent.enable = true;
         services.hermes-agent = {
@@ -25,6 +25,17 @@
           gateway.enable = true;
           settings.model.default = "deepseek/deepseek-chat";
         };
+
+        # Re-write .env after both hermesAgentSetup and setupSecrets complete.
+        # hermesAgentSetup runs before sops-nix renders the template, so
+        # the environmentFiles merge produces an empty .env. This step runs
+        # after both activation entries and overwrites .env with the rendered
+        # sops template.
+        home.activation.hermesEnvFromSops = lib.hm.dag.entryAfter [ "hermesAgentSetup" "setupSecrets" ] ''
+          $DRY_RUN_CMD install -m 0600 \
+            ${lib.escapeShellArg config.sops.templates."hermes/env".path} \
+            ${lib.escapeShellArg config.services.hermes-agent.hermesHome}/.env
+        '';
       }
     )
   ];
