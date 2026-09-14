@@ -81,7 +81,7 @@ jobs:
 
       - name: Update Flake Lock
         id: update-flake-lock
-        uses: determinatesystems/update-flake-lock@834c491b2ece4de0bbd00d85214bb5e83b4da5c6 # v28
+        uses: determinatesystems/update-flake-lock@da03c0f078bc4b2c37ee4f7e072d34bf8f188bb3 # v29
         env:
           GH_TOKEN: ${{ steps.create-github-app-token.outputs.token }}
         with:
