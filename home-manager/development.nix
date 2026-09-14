@@ -15,6 +15,9 @@
       yq # https://search.nixos.org/packages?channel=unstable&type=packages&show=yq
       # zed-editor # https://search.nixos.org/packages?channel=unstable&type=packages&show=zed-editor
     ]
+    ++ (pkgs.lib.optionals (pkgs.stdenv.hostPlatform.isDarwin && pkgs.stdenv.hostPlatform.isAarch64) [
+      cmux # https://search.nixos.org/packages?channel=unstable&type=packages&show=cmux
+    ])
     ++ (pkgs.lib.optionals pkgs.stdenv.hostPlatform.isDarwin [
       ghostty-bin # https://search.nixos.org/packages?channel=unstable&query=ghostty#show=ghostty-bin
       # vscodium # https://search.nixos.org/packages?channel=unstable&type=packages&show=vscodium
