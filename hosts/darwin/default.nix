@@ -1,5 +1,4 @@
 {
-  inputs,
   lib,
   pkgs,
   ...
@@ -8,38 +7,6 @@
   imports = [
     ./sops.nix
     ../../modules/home-manager.nix
-  ];
-
-  # Hermes Agent runs as a Home Manager user service on macOS. The upstream
-  # flake declares aarch64-darwin only, so the x86_64-darwin host is excluded.
-  # https://hermes-agent.nousresearch.com/docs/getting-started/nix-setup#home-manager-module
-  home-manager.sharedModules = lib.optionals (pkgs.stdenv.hostPlatform.system == "aarch64-darwin") [
-    inputs.hermes-agent.homeManagerModules.default
-    (
-      { config, lib, ... }:
-      {
-        programs.hermes-agent.enable = true;
-        services.hermes-agent = {
-          enable = true;
-          environmentFiles = [ config.sops.templates."hermes/env".path ];
-          extraPackages = [ pkgs.gh ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-services.hermes-agent.extraPackages https://hermes-agent.nousresearch.com/docs/getting-started/nix-setup#home-manager-module
-          gateway.enable = true;
-          settings.agent.reasoning_effort = "medium";
-          settings.model.default = "copilot/gpt-5.6-luna";
-        };
-
-        # Re-write .env after both hermesAgentSetup and setupSecrets complete.
-        # hermesAgentSetup runs before sops-nix renders the template, so
-        # the environmentFiles merge produces an empty .env. This step runs
-        # after both activation entries and overwrites .env with the rendered
-        # sops template.
-        home.activation.hermesEnvFromSops = lib.hm.dag.entryAfter [ "hermesAgentSetup" "setupSecrets" ] ''
-          $DRY_RUN_CMD install -m 0600 \
-            ${lib.escapeShellArg config.sops.templates."hermes/env".path} \
-            ${lib.escapeShellArg config.services.hermes-agent.hermesHome}/.env
-        '';
-      }
-    )
   ];
 
   environment.systemPackages =
