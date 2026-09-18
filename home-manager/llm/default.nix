@@ -104,7 +104,7 @@ let
   vercelSkillsSrc = pkgs.fetchFromGitHub {
     owner = "vercel-labs";
     repo = "skills";
-    rev = "v1.5.26"; # d667282815248da03a08a18272b5d2eef9caf77c
+    rev = "v1.7.0"; # d667282815248da03a08a18272b5d2eef9caf77c
     hash = "sha256-zvzH1pMb3zTNE5CewisUohitzR6Nh/DLyjqR1cIQ0og=";
   };
 
