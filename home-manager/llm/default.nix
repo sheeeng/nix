@@ -29,7 +29,7 @@ let
   superpowersSrc = pkgs.fetchFromGitHub {
     owner = "obra";
     repo = "superpowers";
-    rev = "v6.3.0"; # b36e0829c6d0140e93cfef2ca599b1b07d4a7797
+    rev = "v6.4.1"; # b36e0829c6d0140e93cfef2ca599b1b07d4a7797
     hash = "sha256-EsGNO0dULWf5Bx6bGrCv2kI2Z8aKH0kRvGiuN23wChQ=";
   };
 
