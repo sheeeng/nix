@@ -239,9 +239,9 @@ in
                 vscodeExtPublisher = "isbecker";
                 vscodeExtUniqueId = "isbecker.treefmt-vscode";
               }).overrideAttrs
-              (_: {
-                sourceRoot = null; # Workaround chmod: cannot access 'extension': No such file or directory
-              })
+                (_: {
+                  sourceRoot = null; # Workaround chmod: cannot access 'extension': No such file or directory
+                })
             )
 
             # https://marketplace.visualstudio.com/items?itemname=robbowen.synthwave-vscode
@@ -296,9 +296,9 @@ in
                 vscodeExtPublisher = "ms-vscode";
                 vscodeExtUniqueId = "ms-vscode.remote-server";
               }).overrideAttrs
-              (_: {
-                sourceRoot = null; # Workaround chmod: cannot access 'extension': No such file or directory
-              })
+                (_: {
+                  sourceRoot = null; # Workaround chmod: cannot access 'extension': No such file or directory
+                })
             )
 
             # redhat.fabric8-analytics
@@ -317,9 +317,9 @@ in
                 vscodeExtPublisher = "redhat";
                 vscodeExtUniqueId = "redhat.fabric8-analytics";
               }).overrideAttrs
-              (_: {
-                sourceRoot = null;
-              })
+                (_: {
+                  sourceRoot = null;
+                })
             )
 
             # tintinweb.graphviz-interactive-preview
@@ -338,9 +338,9 @@ in
                 vscodeExtPublisher = "tintinweb";
                 vscodeExtUniqueId = "tintinweb.graphviz-interactive-preview";
               }).overrideAttrs
-              (_: {
-                sourceRoot = null; # Workaround chmod: cannot access 'extension': No such file or directory
-              })
+                (_: {
+                  sourceRoot = null; # Workaround chmod: cannot access 'extension': No such file or directory
+                })
             )
 
             # usernamehw.remove-empty-lines
@@ -359,9 +359,9 @@ in
                 vscodeExtPublisher = "usernamehw";
                 vscodeExtUniqueId = "usernamehw.remove-empty-lines";
               }).overrideAttrs
-              (_: {
-                sourceRoot = null; # Workaround chmod: cannot access 'extension': No such file or directory
-              })
+                (_: {
+                  sourceRoot = null; # Workaround chmod: cannot access 'extension': No such file or directory
+                })
             )
           ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.vscode.profiles._name_.extensions
         globalSnippets = {
