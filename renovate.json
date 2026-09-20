@@ -20,22 +20,6 @@
     "enabled": true,
     "description": "https://docs.renovatebot.com/modules/manager/pre-commit/#enabling"
   },
-  "customManagers": [
-    {
-      "customType": "regex",
-      "managerFilePatterns": [
-        "/\\.nix$/"
-      ],
-      "matchStrings": [
-        "fetchFromGitHub\\s*\\{[^}]*owner\\s*=\\s*\"(?<depName>[^\"]+)\"[^}]*repo\\s*=\\s*\"(?<packageName>[^\"]+)\"[^}]*rev\\s*=\\s*\"(?<currentValue>v?[0-9]+\\.[0-9]+[^\"]*)\"",
-        "fetchFromGitHub\\s*\\{[^}]*repo\\s*=\\s*\"(?<packageName>[^\"]+)\"[^}]*owner\\s*=\\s*\"(?<depName>[^\"]+)\"[^}]*rev\\s*=\\s*\"(?<currentValue>v?[0-9]+\\.[0-9]+[^\"]*)\""
-      ],
-      "datasourceTemplate": "github-releases",
-      "depNameTemplate": "{{{depName}}}/{{{packageName}}}",
-      "packageNameTemplate": "{{{depName}}}/{{{packageName}}}",
-      "extractVersionTemplate": "^(?<version>.*)$"
-    }
-  ],
   "packageRules": [
     {
       "matchManagers": [
@@ -57,25 +41,6 @@
       ],
       "description": "Ignore FlakeHub tarball inputs that the git-refs datasource cannot resolve.",
       "enabled": false
-    },
-    {
-      "matchFileNames": [
-        "**/*.nix"
-      ],
-      "matchManagers": [
-        "custom.regex"
-      ],
-      "description": "Update Nix fetchFromGitHub revisions.",
-      "enabled": true,
-      "postUpgradeTasks": {
-        "commands": [
-          "python3 scripts/renovate-update-nix-hash.py {{{depName}}} {{{newVersion}}} {{{packageFile}}}"
-        ],
-        "fileFilters": [
-          "**/*.nix"
-        ],
-        "executionMode": "update"
-      }
     },
     {
       "matchManagers": [
