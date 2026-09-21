@@ -144,6 +144,7 @@
       gh # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh
       golangci-lint # https://search.nixos.org/packages?channel=unstable&type=packages&show=golangci-lint
       hadolint # https://search.nixos.org/packages?channel=unstable&type=packages&show=hadolint
+      herdr # https://search.nixos.org/packages?channel=unstable&type=packages&show=herdr
       hubble # https://search.nixos.org/packages?channel=unstable&type=packages&show=hubble
       jujutsu # https://search.nixos.org/packages?channel=unstable&type=packages&show=jujutsu
       just # https://search.nixos.org/packages?channel=unstable&type=packages&show=just
