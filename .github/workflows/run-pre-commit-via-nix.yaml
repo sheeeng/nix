@@ -80,8 +80,9 @@ jobs:
           # which this job intentionally does not hold.
           purge: false
 
-      - name: Cache Pre-Commit Environments
-        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+      - name: Restore Pre-Commit Environments
+        id: restore-pre-commit-cache
+        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: ~/.cache/pre-commit
           key: pre-commit-${{ runner.os }}-${{ hashFiles('.pre-commit-config.yaml', 'flake.lock', 'shell.nix') }}
@@ -133,3 +134,12 @@ jobs:
           fi
           SCRIPT
           nix develop .#minimal-shell --command bash /tmp/run-pre-commit.sh
+
+      # Save only after the hooks run. A canceled or failed run must not
+      # publish a partial environment cache for later runs to restore.
+      - name: Save Pre-Commit Environments
+        if: success() && steps.restore-pre-commit-cache.outputs.cache-hit != 'true'
+        uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: ~/.cache/pre-commit
+          key: ${{ steps.restore-pre-commit-cache.outputs.cache-primary-key }}

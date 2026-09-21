@@ -124,10 +124,13 @@ repos:
         stages: [commit-msg]
         args: [--strict]
   - repo: https://github.com/gitleaks/gitleaks
+    # Use the system hook. The golang hook builds a binary into the pre-commit
+    # cache, which breaks when the cache is restored without that binary.
     rev: v8.30.1
     hooks:
-      - id: gitleaks
+      - id: gitleaks-system
         name: gitleaks
+        pass_filenames: false
   - repo: https://github.com/google/keep-sorted
     rev: v0.10.0
     hooks:
