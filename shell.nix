@@ -51,7 +51,6 @@
         just # https://search.nixos.org/packages?channel=unstable&type=packages&show=just
         git-credential-oauth # https://search.nixos.org/packages?channel=unstable&type=packages&show=git-credential-oauth
         git-crypt # https://search.nixos.org/packages?channel=unstable&type=packages&show=git-crypt
-        gitleaks # https://search.nixos.org/packages?channel=unstable&type=packages&show=gitleaks
 
         pre-commit # https://search.nixos.org/packages?channel=unstable&type=packages&show=pre-commit
         pre-commit-hook-ensure-sops # https://search.nixos.org/packages?channel=unstable&type=packages&show=pre-commit-hook-ensure-sops
@@ -81,7 +80,6 @@
         cabal-install # https://search.nixos.org/packages?channel=unstable&type=packages&show=cabal-install
         ghc # https://search.nixos.org/packages?channel=unstable&type=packages&show=ghc
         git # https://search.nixos.org/packages?channel=unstable&type=packages&show=git
-        gitleaks # https://search.nixos.org/packages?channel=unstable&type=packages&show=gitleaks
         gmp # https://search.nixos.org/packages?channel=unstable&type=packages&show=gmp
         gnupg # https://search.nixos.org/packages?channel=unstable&type=packages&show=gnupg
         nix # https://search.nixos.org/packages?channel=unstable&type=packages&show=nix
