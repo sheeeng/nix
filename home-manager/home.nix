@@ -19,6 +19,7 @@ in
   imports = [
     ./development.nix
     ./fonts.nix
+    ./llm/harnesses.nix
     ./packages.nix
     ./programs.nix
     ./scripts.nix
