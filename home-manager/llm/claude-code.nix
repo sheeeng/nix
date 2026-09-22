@@ -4,9 +4,9 @@
   ...
 }:
 let
-  commonLlmSettings = import ../llm/default.nix {
+  commonLlmSettings = import ./default.nix {
     inherit pkgs;
-    basePath = ../llm;
+    basePath = ./.;
     mattPocockSkillsSource = inputs.matt-pocock-skills;
   };
   claudeCodeModel = "claude-sonnet-4-6"; # https://models.dev/models/anthropic/claude-sonnet-4-6/
@@ -36,7 +36,7 @@ let
   openCodeOnlySkills = [ "implement" ];
 in
 {
-  home.file.".claude/output-styles/Concise.md".source = ../llm/output-styles/Concise.md;
+  home.file.".claude/output-styles/Concise.md".source = ./output-styles/Concise.md;
 
   home.packages =
     commonLlmSettings.packages

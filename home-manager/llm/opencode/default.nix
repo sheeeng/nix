@@ -5,9 +5,9 @@
   ...
 }:
 let
-  commonLlmSettings = import ../../llm/default.nix {
+  commonLlmSettings = import ../default.nix {
     inherit pkgs;
-    basePath = ../../llm;
+    basePath = ../.;
     mattPocockSkillsSource = inputs.matt-pocock-skills;
   };
 
