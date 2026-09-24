@@ -17,8 +17,12 @@ let
     design-diagram = commonLlmSettings.skills."design-diagram";
   };
 
-  opencodeModel = "github-copilot/gpt-5.6-terra"; # https://models.dev/models/openai/gpt-5.6-terra/
-  opencodeSmallModel = "github-copilot/gpt-5.6-luna"; # https://models.dev/models/openai/gpt-5.6-luna/
+  opencodeModel = "github-copilot/gpt-6-terra"; # https://models.dev/models/openai/gpt-6-terra/
+  opencodeSmallModel = "github-copilot/gpt-6-luna"; # https://models.dev/models/openai/gpt-6-luna/
+
+  oacOpenCodeAgents = commonLlmSettings.discoverAgentsRecursive (
+    commonLlmSettings.openAgentsControlSrc + "/.opencode/agent"
+  );
 in
 {
   # Inject the Superpowers workflow into each OpenCode session.
@@ -32,7 +36,7 @@ in
     enable = pkgs.stdenv.system != "x86_64-darwin"; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.opencode.enable # Disabled on x86_64-darwin.
     enableMcpIntegration = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.opencode.enableMcpIntegration
     package = pkgs.opencode; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.opencode.package
-    agents = commonLlmSettings.agents; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.opencode.agents # https://opencode.ai/docs/agents/#markdown
+    agents = commonLlmSettings.agents // oacOpenCodeAgents; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.opencode.agents # https://opencode.ai/docs/agents/#markdown
     commands = commonLlmSettings.commands; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.opencode.commands # https://opencode.ai/docs/commands/#markdown
     context = commonLlmSettings.context; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.opencode.context
     tui = {
