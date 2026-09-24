@@ -98,6 +98,7 @@
       # (lib.hiPrio parallel) # TODO: https://haseebmajid.dev/posts/2023-10-02-til-how-to-fix-package-binary-collisions-on-nix/ # https://search.nixos.org/packages?channel=unstable&type=packages&show=parallel
       # antigravity-cli # https://search.nixos.org/packages?channel=unstable&type=packages&show=antigravity-cli
       # antigravity-ide # renamed from `antigravity`. https://search.nixos.org/packages?channel=unstable&type=packages&show=antigravity-ide
+      # asdf-vm # https://search.nixos.org/packages?channel=unstable&type=packages&show=asdf-vm # @upstream-issue https://github.com/NixOS/nixpkgs/issues/566395
       # devenv # https://search.nixos.org/packages?channel=unstable&type=packages&show=devenv
       # gh # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh
       # gh-actions-cache # https://search.nixos.org/packages?channel=unstable&type=packages&show=gh-actions-cache
@@ -129,7 +130,6 @@
       (lib.hiPrio uutils-findutils) # https://search.nixos.org/packages?channel=unstable&type=packages&show=uutils-findutils
       (pkgs.callPackage ./packages/download-nixos-iso.nix { })
       alejandra # https://search.nixos.org/packages?channel=unstable&type=packages&show=alejandra
-      asdf-vm # https://search.nixos.org/packages?channel=unstable&type=packages&show=asdf-vm
       autoconf # https://search.nixos.org/packages?channel=unstable&type=packages&show=autoconf
       beads # https://search.nixos.org/packages?channel=unstable&type=packages&show=beads
       cilium-cli # https://search.nixos.org/packages?channel=unstable&type=packages&show=cilium-cli
