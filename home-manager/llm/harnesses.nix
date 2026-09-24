@@ -10,5 +10,6 @@
     ./ollama.nix
     ./opencode
     ./pi-coding-agent.nix
+    ./sandboxes.nix
   ];
 }
