@@ -12,6 +12,29 @@ let
       ) (builtins.readDir skillsDir)
     );
 
+  discoverAgentsRecursive =
+    dir:
+    let
+      entries = builtins.readDir dir;
+      mdFiles = pkgs.lib.filterAttrs (
+        name: type: type == "regular" && pkgs.lib.hasSuffix ".md" name
+      ) entries;
+      subDirs = pkgs.lib.filterAttrs (_name: type: type == "directory") entries;
+      localAgents = pkgs.lib.mapAttrs' (
+        name: _:
+        let
+          baseName = pkgs.lib.removeSuffix ".md" name;
+        in
+        pkgs.lib.nameValuePair (
+          if pkgs.lib.hasPrefix "oac-" baseName then baseName else "oac-" + baseName
+        ) (dir + "/${name}")
+      ) mdFiles;
+      subAgents = pkgs.lib.foldl (acc: subDir: acc // discoverAgentsRecursive (dir + "/${subDir}")) { } (
+        builtins.attrNames subDirs
+      );
+    in
+    localAgents // subAgents;
+
   renameSkill =
     {
       name,
@@ -116,10 +139,22 @@ let
     rev = "0a4dd63ad4541f4f655c4108a295916f3c1d8fda";
     hash = "sha256-8cYggVltBAlZ/Zj4pl1bOu7mQdZFXCmDGW4RSpvRA+w=";
   };
+
+  # darrenhinde/OpenAgentsControl: AI agent framework for plan-first development workflows.
+  # https://github.com/darrenhinde/OpenAgentsControl
+  openAgentsControlSrc = pkgs.fetchFromGitHub {
+    owner = "darrenhinde";
+    repo = "OpenAgentsControl";
+    rev = "37ca233fa5597a5abb90cba73165deafffe0344f";
+    hash = "sha256-bXT6xQiffomu05nbSkmBDBVU9PIpmT/b/FNU9o2PDKo=";
+  };
 in
 {
   inherit anthropicSkillsSrc;
+  inherit discoverAgentsRecursive;
+  inherit discoverDirectorySkills;
   inherit mattPocockSkills;
+  inherit openAgentsControlSrc;
   inherit ponytailSrc;
   inherit superpowersSrc;
   inherit vercelSkillsSrc;

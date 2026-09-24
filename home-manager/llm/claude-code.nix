@@ -34,6 +34,54 @@ let
   # skill dispatches the three reviewer agents excluded above, so it must also
   # be excluded until those agents are supported here.
   openCodeOnlySkills = [ "implement" ];
+
+  oacClaudeCodeSrc = commonLlmSettings.openAgentsControlSrc + "/plugins/claude-code";
+  oacOpusModel = "claude-opus-5-5"; # https://models.dev/models/anthropic/claude-opus-5-5/
+  patchOacAgentModels =
+    path:
+    pkgs.runCommand (baseNameOf (toString path)) { } ''
+      cp ${path} $out
+      substituteInPlace $out \
+        --replace "model: sonnet" "model: ${oacOpusModel}" \
+        --replace "model: haiku" "model: ${claudeCodeModel}"
+    '';
+  oacAgents =
+    pkgs.lib.mapAttrs'
+      (
+        name: _:
+        let
+          baseName = pkgs.lib.removeSuffix ".md" name;
+          rawPath = oacClaudeCodeSrc + "/agents/${name}";
+        in
+        pkgs.lib.nameValuePair (
+          if pkgs.lib.hasPrefix "oac-" baseName then baseName else "oac-" + baseName
+        ) (patchOacAgentModels rawPath)
+      )
+      (
+        pkgs.lib.filterAttrs (name: type: type == "regular" && pkgs.lib.hasSuffix ".md" name) (
+          builtins.readDir (oacClaudeCodeSrc + "/agents")
+        )
+      );
+  oacCommands =
+    pkgs.lib.mapAttrs'
+      (
+        name: _:
+        let
+          baseName = pkgs.lib.removeSuffix ".md" name;
+        in
+        pkgs.lib.nameValuePair (
+          if pkgs.lib.hasPrefix "oac-" baseName then baseName else "oac-" + baseName
+        ) (oacClaudeCodeSrc + "/commands/${name}")
+      )
+      (
+        pkgs.lib.filterAttrs (name: type: type == "regular" && pkgs.lib.hasSuffix ".md" name) (
+          builtins.readDir (oacClaudeCodeSrc + "/commands")
+        )
+      );
+  oacSkills = pkgs.lib.mapAttrs' (
+    name: value:
+    pkgs.lib.nameValuePair (if pkgs.lib.hasPrefix "oac-" name then name else "oac-" + name) value
+  ) (commonLlmSettings.discoverDirectorySkills (oacClaudeCodeSrc + "/skills"));
 in
 {
   home.file.".claude/output-styles/Concise.md".source = ./output-styles/Concise.md;
@@ -52,17 +100,17 @@ in
     enable = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.claude-code.enable
     enableMcpIntegration = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.claude-code.enableMcpIntegration
     package = pkgs.claude-code; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.claude-code.package
-    agents = pkgs.lib.filterAttrs (
-      name: _: !(builtins.elem name openCodeOnlyAgents)
-    ) commonLlmSettings.agents; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.claude-code.agents
+    agents = pkgs.lib.filterAttrs (name: _: !(builtins.elem name openCodeOnlyAgents)) (
+      commonLlmSettings.agents // oacAgents
+    ); # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.claude-code.agents
     agentsDir = null; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.claude-code.agentsDir
-    commands = pkgs.lib.filterAttrs (
-      name: _: !(builtins.elem name openCodeOnlyCommands)
-    ) commonLlmSettings.commands; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.claude-code.commands
+    commands = pkgs.lib.filterAttrs (name: _: !(builtins.elem name openCodeOnlyCommands)) (
+      commonLlmSettings.commands // oacCommands
+    ); # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.claude-code.commands
     context = commonLlmSettings.context; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.claude-code.context # Rendered to CLAUDE.md.
-    skills = pkgs.lib.filterAttrs (
-      name: _: !(builtins.elem name openCodeOnlySkills)
-    ) commonLlmSettings.skills; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.claude-code.skills
+    skills = pkgs.lib.filterAttrs (name: _: !(builtins.elem name openCodeOnlySkills)) (
+      commonLlmSettings.skills // oacSkills
+    ); # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.claude-code.skills
     mcpServers = {
       github = {
         type = "http";
