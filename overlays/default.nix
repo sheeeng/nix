@@ -58,6 +58,17 @@
       '';
     });
 
+    # Workaround for ld.bfd failing with ".eh_frame_hdr refers to overlapping
+    # FDEs" when linking the Rust binary against the Zig-built libghostty-vt
+    # static library. Use lld, which tolerates the mixed-toolchain unwind data.
+    # @upstream-issue https://github.com/NixOS/nixpkgs/issues/TBD
+    herdr = prev.herdr.overrideAttrs (old: {
+      nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ final.lld ];
+      env = (old.env or { }) // {
+        RUSTFLAGS = "-C link-arg=-fuse-ld=lld";
+      };
+    });
+
     # Override nixpkgs terraform with the official HashiCorp binary, pinned via
     # .terraform-version and fetched from the HashiCorp release endpoint.
     terraform = final.callPackage ../pkgs/terraform.nix { };
