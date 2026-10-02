@@ -58,16 +58,31 @@
       '';
     });
 
-    # Workaround for ld.bfd failing with ".eh_frame_hdr refers to overlapping
-    # FDEs" when linking the Rust binary against the Zig-built libghostty-vt
-    # static library. Use lld, which tolerates the mixed-toolchain unwind data.
+    # Workaround for the Rust/Zig mixed-toolchain linking conflict on macOS.
+    # libghostty-vt.a (built by Zig at Cargo build time) bundles compiler_rt.o,
+    # which duplicates symbols already in Rust's libcompiler_builtins. ld64.lld
+    # treats this as a fatal error. The linker wrapper strips compiler_rt.o from
+    # libghostty-vt.a immediately before each link invocation, eliminating the
+    # conflict while keeping lld for its mixed unwind-data tolerance.
     # @upstream-issue https://github.com/NixOS/nixpkgs/issues/TBD
-    herdr = prev.herdr.overrideAttrs (old: {
-      nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ final.lld ];
-      env = (old.env or { }) // {
-        RUSTFLAGS = "-C link-arg=-fuse-ld=lld";
-      };
-    });
+    herdr =
+      let
+        linkerWrapper = final.writeShellScript "herdr-linker-wrapper" ''
+          for arg in "$@"; do
+            if [[ "$arg" == *libghostty-vt.a ]]; then
+              ar d "$arg" compiler_rt.o 2>/dev/null || true
+              break
+            fi
+          done
+          exec ${final.stdenv.cc}/bin/cc -fuse-ld=lld "$@"
+        '';
+      in
+      prev.herdr.overrideAttrs (old: {
+        nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ final.lld ];
+        env = (old.env or { }) // {
+          CARGO_TARGET_AARCH64_APPLE_DARWIN_LINKER = "${linkerWrapper}";
+        };
+      });
 
     # Override nixpkgs terraform with the official HashiCorp binary, pinned via
     # .terraform-version and fetched from the HashiCorp release endpoint.
