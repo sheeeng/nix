@@ -24,17 +24,21 @@ license: Apache-2.0 OR MIT
 - For nixpkgs or its forks, follow the [nixpkgs commit conventions][nixpkgs-commit-conventions].
 - Suggest appropriate commit type and scope.
 
-## Attribution
+## LLM Usage Disclosure
 
-Do not add `Co-Authored-By` or any LLM attribution trailer by default.
+**Required:** When any LLM-based AI tooling assists a contribution, you
+must disclose this in every commit that the tooling touches.
 
-Only add attribution when the user explicitly asks (e.g. "add attribution",
-"include co-authored-by", "credit the LLM"). When asked, append this
-trailer after `Signed-off-by:`, substituting the actual tool name and
-model currently in use:
+Add an `Assisted-by:` Git commit trailer that names the tool and the
+primary model identifier. Do not use `Co-authored-by:` for LLM
+attribution; it does not satisfy this policy.
 
-- Claude Code: `Co-Authored-By: Claude Code (<model>) <noreply@anthropic.com>`
-- OpenCode: Use the value of `$LLM_COAUTHOR` environment variable.
+Examples:
+
+- Claude Code: `Assisted-by: Claude Code CLI ([Claude Sonnet 5.5](https://models.dev/models/anthropic/claude-sonnet-5-5/))`
+- GitHub Copilot: `Assisted-by: GitHub Copilot CLI ([GPT-5.6 Terra](https://models.dev/models/openai/gpt-5.6-terra/))`
+- OpenAI Codex: `Assisted-by: OpenAI Codex CLI ([DeepSeek v4.1 Flash](https://models.dev/models/deepseek/deepseek-v4.1-flash/))`
+- OpenCode: Determine your active model identifier from the current session context and use `Assisted-by: OpenCode CLI ([GPT-6.1 Sol](https://models.dev/models/openai/gpt-6.1-sol/))`.
 
 ## Repository Detection
 
