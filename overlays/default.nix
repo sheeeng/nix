@@ -58,12 +58,17 @@
       '';
     });
 
-    # Workaround for the Rust/Zig mixed-toolchain linking conflict on macOS.
-    # libghostty-vt.a (built by Zig at Cargo build time) bundles compiler_rt.o,
-    # which duplicates symbols already in Rust's libcompiler_builtins. ld64.lld
-    # treats this as a fatal error. The linker wrapper strips compiler_rt.o from
-    # libghostty-vt.a immediately before each link invocation, eliminating the
-    # conflict while keeping lld for its mixed unwind-data tolerance.
+    # Workaround for a Rust/Zig mixed-toolchain linking conflict. The Rust
+    # binary links against the Zig-built libghostty-vt static library, and
+    # the default linker, ld.bfd, fails on Linux with ".eh_frame_hdr refers to
+    # overlapping FDEs" because of mismatched unwind data between the two
+    # toolchains. lld tolerates that mismatch.
+    #
+    # On macOS, libghostty-vt.a also bundles a compiler_rt.o object that
+    # duplicates symbols already in Rust's libcompiler_builtins, which ld64.lld
+    # treats as a fatal error. The linker wrapper strips compiler_rt.o from
+    # libghostty-vt.a immediately before each link invocation, eliminating
+    # that conflict while keeping lld for its mixed unwind-data tolerance.
     # @upstream-issue https://github.com/NixOS/nixpkgs/issues/TBD
     herdr =
       let
@@ -77,12 +82,26 @@
           exec ${final.stdenv.cc}/bin/cc -fuse-ld=lld "$@"
         '';
       in
-      prev.herdr.overrideAttrs (old: {
-        nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ final.lld ];
-        env = (old.env or { }) // {
-          CARGO_TARGET_AARCH64_APPLE_DARWIN_LINKER = "${linkerWrapper}";
-        };
-      });
+      prev.herdr.overrideAttrs (
+        old:
+        {
+          nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ final.lld ];
+        }
+        // (
+          if final.stdenv.hostPlatform.isDarwin then
+            {
+              env = (old.env or { }) // {
+                CARGO_TARGET_AARCH64_APPLE_DARWIN_LINKER = "${linkerWrapper}";
+              };
+            }
+          else
+            {
+              env = (old.env or { }) // {
+                RUSTFLAGS = "-C link-arg=-fuse-ld=lld";
+              };
+            }
+        )
+      );
 
     # Override nixpkgs terraform with the official HashiCorp binary, pinned via
     # .terraform-version and fetched from the HashiCorp release endpoint.
