@@ -60,6 +60,10 @@
       croc # https://search.nixos.org/packages?channel=unstable&type=packages&show=croc
       geoip # https://search.nixos.org/packages?channel=unstable&type=packages&show=geoip
       ipcalc # https://search.nixos.org/packages?channel=unstable&type=packages&show=ipcalc
+      mullvad
+      mullvad-browser
+      mullvad-compass
+      mullvad-vpn
       sipcalc # https://search.nixos.org/packages?channel=unstable&type=packages&show=sipcalc
       sshfs # https://search.nixos.org/packages?channel=unstable&type=packages&show=sshfs
       websocat # https://search.nixos.org/packages?channel=unstable&type=packages&show=websocat
