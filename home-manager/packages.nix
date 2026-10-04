@@ -62,7 +62,6 @@
       ipcalc # https://search.nixos.org/packages?channel=unstable&type=packages&show=ipcalc
       mullvad
       mullvad-compass
-      mullvad-vpn
       sipcalc # https://search.nixos.org/packages?channel=unstable&type=packages&show=sipcalc
       sshfs # https://search.nixos.org/packages?channel=unstable&type=packages&show=sshfs
       websocat # https://search.nixos.org/packages?channel=unstable&type=packages&show=websocat
@@ -355,6 +354,7 @@
       epiphany # https://search.nixos.org/packages?channel=unstable&type=packages&show=epiphany
       microsoft-edge # https://search.nixos.org/packages?channel=unstable&type=packages&show=microsoft-edge
       mullvad-browser # https://search.nixos.org/packages?channel=unstable&type=packages&show=mullvad-browser
+      mullvad-vpn # https://search.nixos.org/packages?channel=unstable&type=packages&show=mullvad-vpn
       qbittorrent # https://search.nixos.org/packages?channel=unstable&type=packages&show=qbittorrent
       tor-browser # https://search.nixos.org/packages?channel=unstable&type=packages&show=tor-browser
       vivaldi # https://search.nixos.org/packages?channel=unstable&type=packages&show=vivaldi
