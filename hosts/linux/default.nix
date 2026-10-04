@@ -20,6 +20,8 @@
     settings.model.default = "deepseek/deepseek-chat";
   };
 
+  services.mullvad-vpn.enable = true;
+
   environment.systemPackages = with pkgs; [
     # keep-sorted start
     dix # https://search.nixos.org/packages?channel=unstable&type=packages&show=dix
