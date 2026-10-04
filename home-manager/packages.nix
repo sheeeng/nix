@@ -61,7 +61,6 @@
       geoip # https://search.nixos.org/packages?channel=unstable&type=packages&show=geoip
       ipcalc # https://search.nixos.org/packages?channel=unstable&type=packages&show=ipcalc
       mullvad
-      mullvad-browser
       mullvad-compass
       mullvad-vpn
       sipcalc # https://search.nixos.org/packages?channel=unstable&type=packages&show=sipcalc
@@ -355,6 +354,7 @@
       brave # https://search.nixos.org/packages?channel=unstable&type=packages&show=brave
       epiphany # https://search.nixos.org/packages?channel=unstable&type=packages&show=epiphany
       microsoft-edge # https://search.nixos.org/packages?channel=unstable&type=packages&show=microsoft-edge
+      mullvad-browser # https://search.nixos.org/packages?channel=unstable&type=packages&show=mullvad-browser
       qbittorrent # https://search.nixos.org/packages?channel=unstable&type=packages&show=qbittorrent
       tor-browser # https://search.nixos.org/packages?channel=unstable&type=packages&show=tor-browser
       vivaldi # https://search.nixos.org/packages?channel=unstable&type=packages&show=vivaldi
