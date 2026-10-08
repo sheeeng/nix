@@ -301,11 +301,11 @@
       },
       "locked": {
         "dir": "pkgs/firefox-addons",
-        "lastModified": 1791345741,
-        "narHash": "sha256-pDuo+bmhoWB7oa+z9DPLNHDTkKQmHKFFjU5Pr6iyy9k=",
+        "lastModified": 1791432170,
+        "narHash": "sha256-5wbx6Y+RFfmRl5ZU8HC5I4WcfAZeuQhXOPunWZNZ3t8=",
         "owner": "rycee",
         "repo": "nur-expressions",
-        "rev": "b7c7fd22af078860fdefdf18fe3b51e1705dcdd1",
+        "rev": "49d533b9ed362f0de2de372f28731b9d86d56cd3",
         "type": "gitlab"
       },
       "original": {
