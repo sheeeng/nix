@@ -65,7 +65,7 @@ jobs:
           fetch-depth: 0
 
       - name: Setup Nix
-        uses: determinatesystems/determinate-nix-action@8d87e8d5e5b8a8309d4281094560f127d9a265f1 # v3.22.5
+        uses: determinatesystems/determinate-nix-action@4d65ea9cab522b6d9f29a170aed23ededc1b27af # v3.23.0
         with:
           github-token: ${{ github.token }}
           trust-runner-user: true
