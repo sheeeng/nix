@@ -24,9 +24,14 @@ in
     validateSopsFiles = true;
 
     templates = {
-      nix-access-token.content = ''
-        access-tokens = github.com=${config.sops.placeholder."tokens/github/repo_scope"}
-      '';
+      nix-access-token = {
+        content = ''
+          access-tokens = github.com=${config.sops.placeholder."tokens/github/repo_scope"}
+        '';
+        # The Nix client reads the included file as the calling user.
+        # Keep access limited to the primary user and root.
+        owner = primaryUser;
+      };
     };
 
     # Age configuration for HOST-LEVEL decryption only
