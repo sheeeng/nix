@@ -43,11 +43,9 @@ in
           content = ''
             access-tokens = github.com=${config.sops.placeholder."tokens/github/repo_scope"}
           '';
-          # The Nix client process reads !include directives as the calling user,
-          # not as root. Without group read permission, nix flake update cannot
-          # resolve the access token and private repository fetches fail with 404.
-          group = "users";
-          mode = "0440";
+          # The Nix client reads the included file as the calling user.
+          # Keep access limited to the primary user and root.
+          owner = primaryUser;
         };
       };
 
