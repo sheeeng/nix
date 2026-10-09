@@ -184,6 +184,7 @@
       # Security And Privacy
       # keep-sorted start block=no newline_separated=no sticky_comments=no
       # yubiswitch # TODO: macOS-only package. # https://search.nixos.org/packages?channel=unstable&type=packages&show=yubiswitch
+      (lib.lowPrio passage) # Prefer pass for shared lib/password-store files. # https://search.nixos.org/packages?channel=unstable&type=packages&show=passage
       _1password-cli # https://search.nixos.org/packages?channel=unstable&type=packages&show=1password-cli
       age # https://search.nixos.org/packages?channel=unstable&type=packages&show=age
       age-plugin-1p # https://search.nixos.org/packages?channel=unstable&type=packages&show=age-plugin-1p
@@ -192,7 +193,6 @@
       bitwarden-desktop # https://search.nixos.org/packages?channel=unstable&type=packages&show=bitwarden-desktop
       pass # https://search.nixos.org/packages?channel=unstable&type=packages&show=pass
       pass-git-helper # https://search.nixos.org/packages?channel=unstable&type=packages&show=pass-git-helper
-      passage # https://search.nixos.org/packages?channel=unstable&type=packages&show=passage
       passphrase2pgp # https://search.nixos.org/packages?channel=unstable&type=packages&show=passphrase2pgp
       sops # https://search.nixos.org/packages?channel=unstable&type=packages&show=sops
       ssss # https://search.nixos.org/packages?channel=unstable&type=packages&show=ssss
