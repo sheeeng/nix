@@ -35,6 +35,13 @@ Nix configuration without explicit approval. Use `git commit --message`,
 Use reference style links in Markdown files. End files with one newline and
 remove trailing whitespace.
 
+## Commits and Pull Requests
+
+In commit messages and pull request descriptions, reference issues only as
+`Fix <full issue URL>.`, for example
+`Fix https://github.com/NixOS/nixpkgs/issues/3142`. Never use
+`Closes #<number>.` or other short issue references.
+
 ## Code Quality
 
 Prefer concise, maintainable, and reusable solutions. Avoid unnecessary
