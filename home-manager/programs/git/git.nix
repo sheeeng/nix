@@ -176,6 +176,7 @@
       # https://github.com/quentinmit/isz/blob/1e2cc2af0b5b10529768bbd003e6bc07209448c0/nix/home/base.nix#L44
       ''\#*#''
       ".#*"
+      ".beads.gate.lock"
       ".claude"
       ".direnv"
       ".DS_Store"
