@@ -150,6 +150,25 @@
       }
     );
 
+    # @upstream-issue https://github.com/NixOS/nixpkgs/issues/572553
+    # Work around Python 3.14 debugpy integration-test failures on Darwin.
+    # Remove after the upstream test suite passes without this override.
+    pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
+      (
+        _pythonFinal: pythonPrev:
+        final.lib.optionalAttrs
+          (
+            final.stdenv.hostPlatform.isDarwin
+            && final.lib.versions.majorMinor pythonPrev.python.version == "3.14"
+          )
+          {
+            debugpy = pythonPrev.debugpy.overridePythonAttrs (_old: {
+              doCheck = false;
+            });
+          }
+      )
+    ];
+
     # @upstream-issue https://github.com/NixOS/nixpkgs/pull/555604
     # Backport the Darwin tmux build fix from nixpkgs pull request 555604.
     # Remove this overlay after the change reaches nixos-unstable.
