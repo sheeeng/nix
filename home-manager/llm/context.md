@@ -13,6 +13,8 @@ headings and sentence case for explanatory text. Capitalize proper nouns.
 Use correct grammar and punctuation. Avoid decorative dashes and unnecessary
 hyphenated compounds. In diagrams, end every imperative label with a period
 and every question label with a question mark. Apply this without being asked.
+Apply ASD STE100 Simplified Technical English Issue 9 to technical
+documentation, procedures, safety instructions, and operational information.
 
 Use full terms such as "configuration," "utility," and "function." Do not
 use abbreviated variable names.
