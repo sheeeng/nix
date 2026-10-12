@@ -507,6 +507,12 @@ All documentation in this directory **MUST** follow the writing style rules defi
 - **No parentheses** to phrase terms. Rewrite sentences instead.
 - **Use "configuration" not "config"** and avoid slang shorthand words.
 
+### ASD STE100 Compliance
+
+- Apply ASD STE100 Simplified Technical English Issue 9 to technical
+  documentation, procedures, safety instructions, and operational
+  information.
+
 ### Markdown Requirements
 
 - Use reference-style links, not inline links.
