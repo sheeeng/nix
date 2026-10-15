@@ -42,7 +42,7 @@ jobs:
       actions: write
     steps:
       - name: Create Nix Authentication Token
-        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+        uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0
         id: create-nix-auth-token
         with:
           client-id: ${{ vars.APP_CLIENT_ID }}
@@ -57,7 +57,7 @@ jobs:
           permission-contents: read
 
       - name: Create Push Token
-        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+        uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0
         id: create-push-token
         with:
           client-id: ${{ vars.APP_CLIENT_ID }}
@@ -91,7 +91,7 @@ jobs:
           ref: ${{ github.ref_name }}
 
       - name: Setup Nix
-        uses: determinatesystems/determinate-nix-action@4d65ea9cab522b6d9f29a170aed23ededc1b27af # v3.23.0
+        uses: determinatesystems/determinate-nix-action@d0c908e6cbe9f89f36ed8205a3ab6f092636916a # v3.23.1
         with:
           github-token: ${{ github.token }}
           trust-runner-user: true
