@@ -385,6 +385,7 @@
       # darwin.apple_sdk.frameworks.CoreFoundation
       # darwin.apple_sdk.frameworks.Foundation
       # keep-sorted start block=no newline_separated=no sticky_comments=no
+      qlmarkdown # https://search.nixos.org/packages?channel=unstable&type=packages&show=qlmarkdown
       raycast # https://search.nixos.org/packages?channel=unstable&type=packages&show=raycast
       yubiswitch # https://search.nixos.org/packages?channel=unstable&type=packages&show=yubiswitch
       # keep-sorted end
