@@ -97,6 +97,8 @@ in
     with pkgs;
     [
       # keep-sorted start block=no newline_separated=no
+      atkinson-hyperlegible-mono # https://search.nixos.org/packages?channel=unstable&query=atkinson-hyperlegible-mono
+      atkinson-hyperlegible-next # https://search.nixos.org/packages?channel=unstable&query=atkinson-hyperlegible-next
       noto-fonts
       noto-fonts-cjk-sans
       noto-fonts-cjk-serif
