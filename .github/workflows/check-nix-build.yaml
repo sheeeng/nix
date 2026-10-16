@@ -3,10 +3,11 @@ name: Check Nix Build
 on:
   push:
     branches:
-      - "chore/**"
       - "main"
       - "unstable"
   pull_request:
+  schedule:
+    - cron: "17 2 * * *"
   workflow_dispatch:
 
 concurrency:
@@ -17,20 +18,23 @@ permissions: {}
 
 jobs:
   check-nix-build:
-    name: Check Nix Build (${{ matrix.hostname }}, ${{ matrix.system }})
+    name: Check Nix ${{ matrix.operation }} (${{ matrix.hostname }}, ${{ matrix.system }})
     strategy:
       fail-fast: false
       matrix:
         include:
           - hostname: TP95V9LWWL
+            operation: ${{ (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch') && 'Build' || 'Evaluation' }}
             system: aarch64-darwin
             runs-on: macos-latest
             type: darwin
           - hostname: fw13
+            operation: Build
             system: x86_64-linux
             runs-on: ubuntu-latest
             type: nixos
           - hostname: p50
+            operation: Build
             system: x86_64-linux
             runs-on: ubuntu-latest
             type: nixos
@@ -40,7 +44,7 @@ jobs:
       deployment: false
     permissions:
       contents: read
-    timeout-minutes: 120
+    timeout-minutes: ${{ matrix.operation == 'Evaluation' && 15 || 120 }}
     steps:
       - name: Create GitHub App Token
         uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
@@ -71,16 +75,9 @@ jobs:
           trust-runner-user: true
           summarize: true
 
-      - name: Install GNU Coreutils
-        if: runner.os == 'macOS'
-        run: |-
-          echo "$(nix build 'nixpkgs#uutils-coreutils-noprefix' \
-            --no-link \
-            --print-out-paths)/bin" >> "${GITHUB_PATH}"
-
       - name: Configure Nix Authentication
         run: |-
-          mkdir --parents "${HOME}/.config/nix"
+          mkdir -p "${HOME}/.config/nix"
           umask 077
           printf 'access-tokens = github.com=%s\n' \
             "${{ steps.create-github-app-token.outputs.token }}" \
@@ -89,29 +86,40 @@ jobs:
             >> "${HOME}/.config/nix/nix.conf"
 
       - name: Setup Nix Cache
+        if: matrix.operation == 'Build'
         uses: DeterminateSystems/magic-nix-cache-action@84c0677f58dcedf3b91f8223ce36a9ea5b3c84b7 # v15
         with:
           use-gha-cache: "enabled"
           use-flakehub: "disabled"
 
-      - name: Build Darwin Configuration
-        if: matrix.type == 'darwin'
+      - name: Evaluate Darwin Configuration
+        if: matrix.operation == 'Evaluation'
         run: |-
-          nix run github:lnl7/nix-darwin -- build \
-            --flake .#${{ matrix.hostname }} \
+          nix eval --raw \
+            ".#darwinConfigurations.${{ matrix.hostname }}.system.drvPath" \
+            --no-update-lock-file \
+            --show-trace
+
+      - name: Build Darwin Configuration
+        if: matrix.type == 'darwin' && matrix.operation == 'Build'
+        run: |-
+          nix build \
+            ".#darwinConfigurations.${{ matrix.hostname }}.system" \
+            --no-link \
+            --no-update-lock-file \
             --print-build-logs \
             --show-trace \
-            --verbose \
-            --cores 0 \
-            --max-jobs 10
+            --cores 2 \
+            --max-jobs 2
 
       - name: Build NixOS Configuration
         if: matrix.type == 'nixos'
         run: |-
           nix build \
             ".#nixosConfigurations.${{ matrix.hostname }}.config.system.build.toplevel" \
+            --no-link \
+            --no-update-lock-file \
             --print-build-logs \
             --show-trace \
-            --verbose \
-            --cores 0 \
-            --max-jobs 10
+            --cores 2 \
+            --max-jobs 2
