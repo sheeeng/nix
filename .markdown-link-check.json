@@ -15,6 +15,9 @@
       "pattern": "^https://wiki\\.nixos\\.org/"
     },
     {
+      "pattern": "^https://www\\.rareui\\.com/components/?([?#].*)?$"
+    },
+    {
       "pattern": "^https://www\\.reddit\\.com/"
     }
   ],
