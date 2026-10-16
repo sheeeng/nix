@@ -8,6 +8,7 @@
     ./mcp.nix
     ./mistral-vibe.nix
     ./ollama.nix
+    ./omp.nix
     ./opencode
     ./pi-coding-agent.nix
     ./sandboxes.nix
