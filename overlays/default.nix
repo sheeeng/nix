@@ -58,6 +58,15 @@
       '';
     });
 
+    # @upstream-issue https://github.com/NixOS/nixpkgs/issues/573527
+    # Prevent Atuin end-to-end tests from sourcing the host bash configuration,
+    # which replaces the test PATH during unsandboxed Darwin builds.
+    atuin = prev.atuin.overrideAttrs (old: {
+      preCheck = (old.preCheck or "") + ''
+        export NOSYSBASHRC=1
+      '';
+    });
+
     # Workaround for a Rust/Zig mixed-toolchain linking conflict. The Rust
     # binary links against the Zig-built libghostty-vt static library, and
     # the default linker, ld.bfd, fails on Linux with ".eh_frame_hdr refers to
