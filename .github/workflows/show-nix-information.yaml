@@ -29,7 +29,7 @@ jobs:
         with:
           persist-credentials: false
       - name: Setup Nix
-        uses: determinatesystems/determinate-nix-action@4d65ea9cab522b6d9f29a170aed23ededc1b27af # v3.23.0
+        uses: determinatesystems/determinate-nix-action@e847f25223456b3058e12f7fc9d777b6a6f25060 # v3.23.2
         with:
           github-token: ${{ github.token }}
           trust-runner-user: true
