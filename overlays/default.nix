@@ -67,6 +67,7 @@
       '';
     });
 
+    # @upstream-issue https://github.com/NixOS/nixpkgs/pull/573733
     # cargo-bundle 0.9 does not support these newer metadata fields. Remove
     # them and build the application bundle without the unsupported DMG output.
     openlogi = prev.openlogi.overrideAttrs (old: {
