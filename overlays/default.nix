@@ -67,6 +67,19 @@
       '';
     });
 
+    # cargo-bundle 0.9 does not support these newer metadata fields. Remove
+    # them and build the application bundle without the unsupported DMG output.
+    openlogi = prev.openlogi.overrideAttrs (old: {
+      installPhase =
+        builtins.replaceStrings [ "cargo bundle --release" ] [ "cargo bundle --release --format=osx" ]
+          old.installPhase;
+      postPatch = (old.postPatch or "") + ''
+        substituteInPlace crates/openlogi-gui/Cargo.toml \
+          --replace-fail 'osx_minimum_system_version = "13.0"' "" \
+          --replace-fail 'osx_url_schemes = ["openlogi"]' ""
+      '';
+    });
+
     # Workaround for a Rust/Zig mixed-toolchain linking conflict. The Rust
     # binary links against the Zig-built libghostty-vt static library, and
     # the default linker, ld.bfd, fails on Linux with ".eh_frame_hdr refers to
