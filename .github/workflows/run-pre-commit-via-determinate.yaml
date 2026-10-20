@@ -27,7 +27,7 @@ jobs:
     timeout-minutes: 20
     steps:
       - name: Create GitHub App Token
-        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+        uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0
         id: create-token
         with:
           client-id: ${{ vars.APP_CLIENT_ID }}
@@ -50,7 +50,7 @@ jobs:
           fetch-depth: 0
 
       - name: Setup Nix
-        uses: determinatesystems/determinate-nix-action@4d65ea9cab522b6d9f29a170aed23ededc1b27af # v3.23.0
+        uses: determinatesystems/determinate-nix-action@e847f25223456b3058e12f7fc9d777b6a6f25060 # v3.23.2
         with:
           github-token: ${{ steps.create-token.outputs.token }}
           trust-runner-user: true
