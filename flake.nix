@@ -109,7 +109,7 @@
 
     # Nixpkgs 26.11, the nixpkgs-unstable branch above, dropped support for
     # x86_64-darwin. Pin that platform to the 26.05 stable Darwin branch, the
-    # last release that still supports it. Only the x86_64-darwin host uses
+    # last release that still supports it. The x86_64-darwin host and tools use
     # this input; see hosts/C02ZV797MD6R/default.nix. Do not make it follow
     # nixpkgs, because it is an independent pin to a different release.
     # https://github.com/NixOS/nixpkgs/blob/nixpkgs-26.05-darwin
@@ -401,8 +401,10 @@
     flake-utils.lib.eachDefaultSystem (
       system:
       let
-        pkgs = import nixpkgs {
+        nixpkgsInput = if system == "x86_64-darwin" then inputs.nixpkgs-darwin-x86_64 else nixpkgs;
+        pkgs = import nixpkgsInput {
           inherit system;
+          config.allowDeprecatedx86_64Darwin = system == "x86_64-darwin";
           config.allowUnfree = true;
           overlays = [ (import ./overlays { inherit inputs; }).modifications ];
         };

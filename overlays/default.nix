@@ -44,7 +44,14 @@
   };
 
   modifications = final: prev: {
-    unstable = inputs.nixpkgs.legacyPackages.${final.stdenv.hostPlatform.system};
+    unstable =
+      if final.stdenv.hostPlatform.system == "x86_64-darwin" then
+        import inputs.nixpkgs-darwin-x86_64 {
+          system = final.stdenv.hostPlatform.system;
+          config.allowDeprecatedx86_64Darwin = true;
+        }
+      else
+        inputs.nixpkgs.legacyPackages.${final.stdenv.hostPlatform.system};
 
     # Embedded Beads otherwise uses an address that GitHub rejects under email
     # privacy protection when Dolt history is synchronized through Git.
