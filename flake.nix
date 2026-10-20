@@ -109,11 +109,11 @@
 
     # Nixpkgs 26.11, the nixpkgs-unstable branch above, dropped support for
     # x86_64-darwin. Pin that platform to the 26.05 stable Darwin branch, the
-    # last release that still supports it. The x86_64-darwin host and tools use
-    # this input; see hosts/C02ZV797MD6R/default.nix. Do not make it follow
-    # nixpkgs, because it is an independent pin to a different release.
+    # last release that still supports it. Only host C02ZV797MD6R uses this
+    # input; see hosts/C02ZV797MD6R/default.nix. Do not make it follow nixpkgs,
+    # because it is an independent pin to a different release.
     # https://github.com/NixOS/nixpkgs/blob/nixpkgs-26.05-darwin
-    nixpkgs-darwin-x86_64.url = "github:nixos/nixpkgs/nixpkgs-26.05-darwin";
+    nixpkgs-darwin-x86_64.url = "github:NixOS/nixpkgs/nixpkgs-26.05-darwin";
 
     home-manager = {
       url = "github:nix-community/home-manager/master";
@@ -367,7 +367,7 @@
           # nix-darwin asserts that its own release matches the Nixpkgs release
           # and otherwise throws, so disable that check for this host, where the
           # version mismatch is deliberate. See hosts/C02ZV797MD6R/default.nix.
-          // nixpkgs.lib.optionalAttrs (system == "x86_64-darwin") {
+          // nixpkgs.lib.optionalAttrs (hostname == "C02ZV797MD6R") {
             enableNixpkgsReleaseCheck = false;
           }
         );
@@ -398,13 +398,15 @@
           specialArgs = { inherit inputs; };
         };
     in
-    flake-utils.lib.eachDefaultSystem (
+    flake-utils.lib.eachSystem [
+      "aarch64-darwin"
+      "aarch64-linux"
+      "x86_64-linux"
+    ] (
       system:
       let
-        nixpkgsInput = if system == "x86_64-darwin" then inputs.nixpkgs-darwin-x86_64 else nixpkgs;
-        pkgs = import nixpkgsInput {
+        pkgs = import nixpkgs {
           inherit system;
-          config.allowDeprecatedx86_64Darwin = system == "x86_64-darwin";
           config.allowUnfree = true;
           overlays = [ (import ./overlays { inherit inputs; }).modifications ];
         };
