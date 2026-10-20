@@ -28,6 +28,11 @@ jobs:
             system: aarch64-darwin
             runs-on: macos-latest
             type: darwin
+          - hostname: C02ZV797MD6R
+            operation: Evaluation
+            system: x86_64-darwin
+            runs-on: macos-latest
+            type: darwin
           - hostname: fw13
             operation: Build
             system: x86_64-linux
