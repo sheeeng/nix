@@ -401,8 +401,7 @@
     flake-utils.lib.eachDefaultSystem (
       system:
       let
-        nixpkgsInput =
-          if system == "x86_64-darwin" then inputs.nixpkgs-darwin-x86_64 else nixpkgs;
+        nixpkgsInput = if system == "x86_64-darwin" then inputs.nixpkgs-darwin-x86_64 else nixpkgs;
         pkgs = import nixpkgsInput {
           inherit system;
           config.allowDeprecatedx86_64Darwin = system == "x86_64-darwin";
