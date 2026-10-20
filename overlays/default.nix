@@ -68,16 +68,21 @@
     });
 
     # @upstream-issue https://github.com/NixOS/nixpkgs/pull/573733
-    # cargo-bundle 0.9 does not support these newer metadata fields. Remove
-    # them and build the application bundle without the unsupported DMG output.
+    # cargo-bundle 0.12.0 expects osx-specific metadata under a nested
+    # [package.metadata.bundle.osx] section. Move the flat osx_* keys
+    # from [package.metadata.bundle] into that section and force the
+    # osx bundle format to skip the sandboxed DMG output path.
     openlogi = prev.openlogi.overrideAttrs (old: {
       installPhase =
         builtins.replaceStrings [ "cargo bundle --release" ] [ "cargo bundle --release --format=osx" ]
           old.installPhase;
       postPatch = (old.postPatch or "") + ''
-        substituteInPlace crates/openlogi-gui/Cargo.toml \
-          --replace-fail 'osx_minimum_system_version = "13.0"' "" \
-          --replace-fail 'osx_url_schemes = ["openlogi"]' ""
+        sed --in-place \
+          --expression '/osx_minimum_system_version/d' \
+          --expression '/osx_url_schemes/d' \
+          crates/openlogi-gui/Cargo.toml
+        printf '\n[package.metadata.bundle.osx]\nminimum_system_version = "13.0"\nurl_schemes = ["openlogi"]\n' \
+          >> crates/openlogi-gui/Cargo.toml
       '';
     });
 
