@@ -109,9 +109,9 @@
 
     # Nixpkgs 26.11, the nixpkgs-unstable branch above, dropped support for
     # x86_64-darwin. Pin that platform to the 26.05 stable Darwin branch, the
-    # last release that still supports it. The x86_64-darwin host and tools use
-    # this input; see hosts/C02ZV797MD6R/default.nix. Do not make it follow
-    # nixpkgs, because it is an independent pin to a different release.
+    # last release that still supports it. Only host C02ZV797MD6R uses this
+    # input; see hosts/C02ZV797MD6R/default.nix. Do not make it follow nixpkgs,
+    # because it is an independent pin to a different release.
     # https://github.com/NixOS/nixpkgs/blob/nixpkgs-26.05-darwin
     nixpkgs-darwin-x86_64.url = "github:nixos/nixpkgs/nixpkgs-26.05-darwin";
 
@@ -312,7 +312,7 @@
       # see: https://github.com/nix-community/home-manager/pull/3454 # https://github.com/EmergentMind/nix-config/blob/f9168993316e8ff99381ff5dd3c7398273439618/flake.nix#L24
 
       darwinConfiguration =
-        hostname: system:
+        hostname: _system:
         inputs.nix-darwin.lib.darwinSystem (
           {
             modules = [
@@ -367,7 +367,7 @@
           # nix-darwin asserts that its own release matches the Nixpkgs release
           # and otherwise throws, so disable that check for this host, where the
           # version mismatch is deliberate. See hosts/C02ZV797MD6R/default.nix.
-          // nixpkgs.lib.optionalAttrs (system == "x86_64-darwin") {
+          // nixpkgs.lib.optionalAttrs (hostname == "C02ZV797MD6R") {
             enableNixpkgsReleaseCheck = false;
           }
         );
@@ -398,39 +398,43 @@
           specialArgs = { inherit inputs; };
         };
     in
-    flake-utils.lib.eachDefaultSystem (
-      system:
-      let
-        nixpkgsInput = if system == "x86_64-darwin" then inputs.nixpkgs-darwin-x86_64 else nixpkgs;
-        pkgs = import nixpkgsInput {
-          inherit system;
-          config.allowDeprecatedx86_64Darwin = system == "x86_64-darwin";
-          config.allowUnfree = true;
-          overlays = [ (import ./overlays { inherit inputs; }).modifications ];
-        };
-        treefmtEval = treefmt-nix.lib.evalModule pkgs ./treefmt.nix;
-      in
-      {
-        # for `nix fmt`
-        formatter = treefmtEval.config.build.wrapper;
-
-        # for `nix flake check`
-        checks = {
-          formatting = treefmtEval.config.build.check self;
-        };
-
-        # for `nix develop` - provides development shell
-        devShells =
-          let
-            shells = import ./shell.nix { inherit pkgs; };
-          in
-          {
-            default = shells.standard-shell;
-            inherit (shells) minimal-shell;
-            inherit (shells) standard-shell;
+    flake-utils.lib.eachSystem
+      [
+        "aarch64-darwin"
+        "aarch64-linux"
+        "x86_64-linux"
+      ]
+      (
+        system:
+        let
+          pkgs = import nixpkgs {
+            inherit system;
+            config.allowUnfree = true;
+            overlays = [ (import ./overlays { inherit inputs; }).modifications ];
           };
-      }
-    )
+          treefmtEval = treefmt-nix.lib.evalModule pkgs ./treefmt.nix;
+        in
+        {
+          # for `nix fmt`
+          formatter = treefmtEval.config.build.wrapper;
+
+          # for `nix flake check`
+          checks = {
+            formatting = treefmtEval.config.build.check self;
+          };
+
+          # for `nix develop` - provides development shell
+          devShells =
+            let
+              shells = import ./shell.nix { inherit pkgs; };
+            in
+            {
+              default = shells.standard-shell;
+              inherit (shells) minimal-shell;
+              inherit (shells) standard-shell;
+            };
+        }
+      )
     // {
       nixosConfigurations = {
         # desktop = nixosConfiguration "desktop" "x86_64-linux";
