@@ -67,6 +67,25 @@
       '';
     });
 
+    # @upstream-issue https://github.com/NixOS/nixpkgs/pull/573733
+    # cargo-bundle 0.12.0 expects osx-specific metadata under a nested
+    # [package.metadata.bundle.osx] section. Move the flat osx_* keys
+    # from [package.metadata.bundle] into that section and force the
+    # osx bundle format to skip the sandboxed DMG output path.
+    openlogi = prev.openlogi.overrideAttrs (old: {
+      installPhase =
+        builtins.replaceStrings [ "cargo bundle --release" ] [ "cargo bundle --release --format=osx" ]
+          old.installPhase;
+      postPatch = (old.postPatch or "") + ''
+        sed --in-place \
+          --expression '/osx_minimum_system_version/d' \
+          --expression '/osx_url_schemes/d' \
+          crates/openlogi-gui/Cargo.toml
+        printf '\n[package.metadata.bundle.osx]\nminimum_system_version = "13.0"\nurl_schemes = ["openlogi"]\n' \
+          >> crates/openlogi-gui/Cargo.toml
+      '';
+    });
+
     # Workaround for a Rust/Zig mixed-toolchain linking conflict. The Rust
     # binary links against the Zig-built libghostty-vt static library, and
     # the default linker, ld.bfd, fails on Linux with ".eh_frame_hdr refers to
