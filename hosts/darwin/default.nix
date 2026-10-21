@@ -35,4 +35,9 @@
       uutils-tar # https://search.nixos.org/packages?channel=unstable&type=packages&show=uutils-tar
       # keep-sorted end
     ]; # https://nix-darwin.github.io/nix-darwin/manual/#opt-environment.systemPackages
+
+  security.pki.caCertificateBlacklist = [
+    "Comodo AAA Services root"
+    "emSign ECC Root CA - G3"
+  ]; # https://nix-darwin.github.io/nix-darwin/manual/#opt-security.pki.caCertificateBlacklist
 }

@@ -11,6 +11,11 @@
     inputs.hermes-agent.nixosModules.default
   ];
 
+  security.pki.caCertificateBlacklist = [
+    "Comodo AAA Services root"
+    "emSign ECC Root CA - G3"
+  ]; # https://search.nixos.org/options?channel=unstable&show=security.pki.caCertificateBlacklist
+
   # Hermes Agent runs as a hardened NixOS system service. The shared module
   # covers fw13 and p50. https://hermes-agent.nousresearch.com/docs/getting-started/nix-setup#nixos-module
   services.hermes-agent = {
