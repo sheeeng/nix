@@ -330,7 +330,10 @@
                 # (generated from `determinateNix.customSettings`); the GitHub
                 # access token is pulled in from that file via an `!include`
                 # configured in hosts/darwin/sops.nix (Darwin-only).
-                determinateNix.enable = true;
+                determinateNix = {
+                  determinateNixd.garbageCollector.strategy = "automatic";
+                  enable = true;
+                };
                 nixpkgs.overlays = [
                   (import ./overlays { inherit inputs; }).additions
                   (import ./overlays { inherit inputs; }).modifications
