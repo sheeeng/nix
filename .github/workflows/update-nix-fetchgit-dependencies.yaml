@@ -92,15 +92,9 @@ jobs:
         id: update-fetchgit
         env:
           # Push token scoped to this repository only (contents: write).
+          # Used by create-signed-commit.sh to create and reset the branch
+          # and to commit files via the GitHub GraphQL API.
           APP_TOKEN: ${{ steps.create-push-token.outputs.token }}
-          # Set commit identity via environment variables rather than
-          # git config --global. Both embed the same name and email into the
-          # commit, but env vars are scoped to this step and do not mutate
-          # the runner's global git configuration for subsequent steps.
-          GIT_AUTHOR_NAME: github-actions[bot]
-          GIT_AUTHOR_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
-          GIT_COMMITTER_NAME: github-actions[bot]
-          GIT_COMMITTER_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
         run: |-
           set -o errexit
           set -o nounset
@@ -123,15 +117,13 @@ jobs:
           nix fmt -- "${changed_files[@]}"
 
           branch="chore/update-nix-fetchgit"
-          git switch --force-create "${branch}"
-          git add -- "${changed_files[@]}"
-          git commit \
-            --message "chore(deps): update nix fetchgit dependencies"
-          git remote set-url --push origin \
-            "https://x-access-token:${APP_TOKEN}@github.com/${{ github.repository }}.git"
-          git push --force-with-lease origin "${branch}"
-          git remote set-url --push origin \
-            "https://github.com/${{ github.repository }}.git"
+          bash scripts/create-signed-commit.sh \
+            --token "${APP_TOKEN}" \
+            --repository "${{ github.repository }}" \
+            --branch "${branch}" \
+            --base-ref "${GITHUB_REF_NAME}" \
+            --message "chore(deps): update nix fetchgit dependencies" \
+            -- "${changed_files[@]}"
 
           echo "has-changes=true" >> "${GITHUB_OUTPUT}"
           echo "branch=${branch}" >> "${GITHUB_OUTPUT}"
