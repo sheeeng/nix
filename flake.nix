@@ -312,7 +312,7 @@
       # see: https://github.com/nix-community/home-manager/pull/3454 # https://github.com/EmergentMind/nix-config/blob/f9168993316e8ff99381ff5dd3c7398273439618/flake.nix#L24
 
       darwinConfiguration =
-        hostname: _system:
+        hostname:
         inputs.nix-darwin.lib.darwinSystem (
           {
             modules = [
@@ -450,8 +450,8 @@
       };
 
       darwinConfigurations = {
-        TP95V9LWWL = darwinConfiguration "TP95V9LWWL" "aarch64-darwin";
-        C02ZV797MD6R = darwinConfiguration "C02ZV797MD6R" "x86_64-darwin";
+        TP95V9LWWL = darwinConfiguration "TP95V9LWWL";
+        C02ZV797MD6R = darwinConfiguration "C02ZV797MD6R";
       };
     };
 }
