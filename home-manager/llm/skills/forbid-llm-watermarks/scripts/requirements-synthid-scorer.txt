@@ -11,7 +11,7 @@
 # (b1108367) only uses stable Pillow APIs (Image.fromarray/open/convert).
 numpy==2.5.2
 opencv-python==5.0.0.93
-Pillow==12.3.0
+Pillow==13.0.0
 PyWavelets==1.9.0
 scikit-learn==1.9.0
 scipy==1.18.0
