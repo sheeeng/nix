@@ -355,6 +355,7 @@
 
                 nixpkgs.config = {
                   allowUnfree = true;
+                  problems.handlers.fabric.broken = "warn";
                 };
 
                 environment.variables = { };
@@ -392,6 +393,7 @@
 
               nixpkgs.config = {
                 allowUnfree = true;
+                problems.handlers.fabric.broken = "warn";
               };
             }
           ];
@@ -409,7 +411,10 @@
         let
           pkgs = import nixpkgs {
             inherit system;
-            config.allowUnfree = true;
+            config = {
+              allowUnfree = true;
+              problems.handlers.fabric.broken = "warn";
+            };
             overlays = [ (import ./overlays { inherit inputs; }).modifications ];
           };
           treefmtEval = treefmt-nix.lib.evalModule pkgs ./treefmt.nix;
