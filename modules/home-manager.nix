@@ -13,6 +13,9 @@
     overwriteBackup = false; # https://nix-community.github.io/home-manager/nixos-options.xhtml#nixos-opt-home-manager.overwriteBackup
     sharedModules = [
       {
+        nixpkgs.config.problems.handlers.fabric.broken = "warn"; # https://nixos.org/manual/nixpkgs/unstable#sec-problems # @upstream-issue https://github.com/NixOS/nixpkgs/issues/575989
+      }
+      {
         home = {
           packages =
             with pkgs;
