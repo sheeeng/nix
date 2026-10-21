@@ -6,6 +6,7 @@
 {
   imports = [
     ./sops.nix
+    ../../modules/ca-certificates.nix
     ../../modules/home-manager.nix
   ];
 
