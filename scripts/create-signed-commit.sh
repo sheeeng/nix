@@ -25,10 +25,14 @@
 #                  directory. All listed files are added or replaced.
 #
 # The script commits only the listed files via the GraphQL API. It does
-# not run git commit or git push. The signed commit is created on a
-# staging branch first; the destination branch is updated only after
-# the signing succeeds, so a signing failure leaves any pre-existing
-# update on the destination branch intact.
+# not run git commit locally. The signed commit is created on a staging
+# branch first, then published to the destination branch atomically using
+# git push --force-with-lease, so a concurrent update to the destination
+# branch causes the push to fail rather than silently overwrite the commit.
+# A signing failure leaves any pre-existing destination branch intact.
+#
+# The script must be run from within a git work tree. It uses git fetch
+# and git push to publish the commit atomically.
 
 set -o errexit
 set -o nounset
@@ -111,7 +115,9 @@ fi
 # The signed commit is created here first so that the destination branch
 # is not modified until signing succeeds. A failed signing request leaves
 # any pre-existing update on the destination branch intact.
-staging_branch="${branch}-staging"
+# The staging branch uses the automation/ prefix to avoid matching push
+# filters such as chore/**, which would trigger redundant CI workflows.
+staging_branch="automation/${branch##*/}-staging"
 if ! GH_TOKEN="${token}" gh api \
   --method PATCH \
   "repos/${repository}/git/refs/heads/${staging_branch}" \
@@ -171,35 +177,29 @@ commit_oid="$(
 )"
 printf 'Signed commit %s on staging branch %s.\n' "${commit_oid}" "${staging_branch}"
 
-# Re-read the destination branch tip and verify it has not changed since
-# the initial observation. This soft lease check detects concurrent
-# updates to the destination branch made during the staging commit.
-current_tip="$(
-  GH_TOKEN="${token}" gh api \
-    "repos/${repository}/git/ref/heads/${branch}" \
-    --jq '.object.sha' 2> /dev/null || true
-)"
-if [[ ${current_tip} != "${existing_tip}" ]]; then
-  printf 'Error: branch %s changed from %s to %s during staging commit.\n' \
-    "${branch}" "${existing_tip:-<none>}" "${current_tip:-<none>}" >&2
-  exit 1
-fi
+# Fetch the signed commit from the staging branch into the local git store.
+# This makes the commit OID reachable for the subsequent push.
+git fetch \
+  --no-tags \
+  "https://x-access-token:${token}@github.com/${repository}.git" \
+  "refs/heads/${staging_branch}"
+printf 'Fetched staging commit into local store.\n'
 
-# Publish the signed commit to the destination branch.
+# Publish the signed commit to the destination branch atomically using
+# --force-with-lease. This single operation both verifies that the remote
+# branch is still at existing_tip and updates it, eliminating the race
+# between a separate read and a forced REST update.
+remote_url="https://x-access-token:${token}@github.com/${repository}.git"
 if [[ -n ${existing_tip} ]]; then
-  GH_TOKEN="${token}" gh api \
-    --method PATCH \
-    "repos/${repository}/git/refs/heads/${branch}" \
-    --field sha="${commit_oid}" \
-    --field force=true \
-    > /dev/null
+  git push \
+    "${remote_url}" \
+    "FETCH_HEAD:refs/heads/${branch}" \
+    "--force-with-lease=refs/heads/${branch}:${existing_tip}"
 else
-  GH_TOKEN="${token}" gh api \
-    --method POST \
-    "repos/${repository}/git/refs" \
-    --field "ref=refs/heads/${branch}" \
-    --field "sha=${commit_oid}" \
-    > /dev/null
+  git push \
+    "${remote_url}" \
+    "FETCH_HEAD:refs/heads/${branch}" \
+    "--force-with-lease=refs/heads/${branch}:"
 fi
 printf 'Branch %s published at %s.\n' "${branch}" "${commit_oid}"
 
