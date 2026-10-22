@@ -181,6 +181,9 @@
     # @upstream-issue https://github.com/NixOS/nixpkgs/issues/572553
     # Work around Python 3.14 debugpy integration-test failures on Darwin.
     # Remove after the upstream test suite passes without this override.
+    # @upstream-issue https://github.com/NixOS/nixpkgs/issues/575989
+    # Work around Python 3.14 fabric build failures.
+    # Remove after the upstream package builds without this override.
     pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
       (
         _pythonFinal: pythonPrev:
@@ -194,6 +197,18 @@
               doCheck = false;
             });
           }
+      )
+      (
+        _pythonFinal: pythonPrev:
+        final.lib.optionalAttrs (final.lib.versions.majorMinor pythonPrev.python.version == "3.14") {
+          fabric = pythonPrev.fabric.overridePythonAttrs (old: {
+            doCheck = false;
+            postPatch = (old.postPatch or "") + ''
+              substituteInPlace setup.py \
+                --replace-fail '"invoke >= 2.0, <3.0"' '"invoke >= 2.0"'
+            '';
+          });
+        }
       )
     ];
 
