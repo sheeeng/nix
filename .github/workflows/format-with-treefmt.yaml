@@ -76,37 +76,10 @@ jobs:
           github-token: ${{ github.token }}
           trust-runner-user: true
           summarize: true
-      - name: Setup Nix Cache
-        uses: DeterminateSystems/magic-nix-cache-action@84c0677f58dcedf3b91f8223ce36a9ea5b3c84b7 # v15
-        with:
-          use-gha-cache: "enabled"
-          use-flakehub: "disabled"
       - name: Check Formatting with Treefmt
-        id: check-formatting
         run: |-
           system="$(nix eval --impure --raw --expr 'builtins.currentSystem')"
-          nix build --no-link --print-build-logs --show-trace ".#checks.${system}.formatting"
-      - name: Explain the Formatting Failure
-        if: failure() && steps.check-formatting.outcome == 'failure'
-        run: |-
-          system="$(nix eval --impure --raw --expr 'builtins.currentSystem')"
-          log="$(nix log ".#checks.${system}.formatting" 2>/dev/null | sed --regexp-extended 's/\x1b\[[0-9;]*[a-zA-Z]//g' | tr --delete '\r' || true)"
-          echo "::error title=Treefmt::Treefmt found files that are not correctly formatted.%0ARun 'nix fmt' to format the files.%0AThen commit the result."
-          {
-            echo "## Format with Treefmt Summary"
-            echo
-            echo "Treefmt found files that are not correctly formatted."
-            echo
-            echo "Run \`nix fmt\` to format the files."
-            echo
-            echo "Then commit the result."
-            echo
-            echo "<details open>"
-            echo "<summary>See the <code>checks.${system}.formatting</code> check derivation</summary>"
-            echo
-            echo '```diff'
-            echo "${log}"
-            echo '```'
-            echo
-            echo "</details>"
-          } >> "${GITHUB_STEP_SUMMARY}"
+          nix eval --raw \
+            ".#checks.${system}.formatting.drvPath" \
+            --no-update-lock-file \
+            --show-trace
