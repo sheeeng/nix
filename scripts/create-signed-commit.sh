@@ -18,15 +18,17 @@
 # Arguments:
 #   --token        GitHub App installation token with contents:write.
 #   --repository   Repository in OWNER/REPO format.
-#   --branch       Target branch to create or reset.
+#   --branch       Target branch to create or update.
 #   --base-ref     Branch whose HEAD becomes the parent commit.
 #   --message      Commit headline (subject line).
 #   FILE           Paths to files to include, relative to the working
 #                  directory. All listed files are added or replaced.
 #
-# The script creates or force-resets the target branch to the HEAD of
-# base-ref on GitHub, then commits only the listed files via the
-# GraphQL API. It does not run git commit or git push.
+# The script commits only the listed files via the GraphQL API. It does
+# not run git commit or git push. The signed commit is created on a
+# staging branch first; the destination branch is updated only after
+# the signing succeeds, so a signing failure leaves any pre-existing
+# update on the destination branch intact.
 
 set -o errexit
 set -o nounset
@@ -93,21 +95,37 @@ parent_oid="$(
 )"
 printf 'Parent OID: %s (%s)\n' "${parent_oid}" "${base_ref}"
 
-# Create or force-reset the target branch to the parent OID.
+# Observe the current destination branch tip before making any changes.
+# This OID is used for the lease check at publish time so that a
+# concurrent update to the destination branch is detected and reported.
+existing_tip="$(
+  GH_TOKEN="${token}" gh api \
+    "repos/${repository}/git/ref/heads/${branch}" \
+    --jq '.object.sha' 2> /dev/null || true
+)"
+if [[ -n ${existing_tip} ]]; then
+  printf 'Existing branch tip: %s (%s)\n' "${existing_tip}" "${branch}"
+fi
+
+# Create or force-reset a staging branch to the parent OID.
+# The signed commit is created here first so that the destination branch
+# is not modified until signing succeeds. A failed signing request leaves
+# any pre-existing update on the destination branch intact.
+staging_branch="${branch}-staging"
 if ! GH_TOKEN="${token}" gh api \
   --method PATCH \
-  "repos/${repository}/git/refs/heads/${branch}" \
+  "repos/${repository}/git/refs/heads/${staging_branch}" \
   --field sha="${parent_oid}" \
   --field force=true \
   > /dev/null 2>&1; then
   GH_TOKEN="${token}" gh api \
     --method POST \
     "repos/${repository}/git/refs" \
-    --field "ref=refs/heads/${branch}" \
+    --field "ref=refs/heads/${staging_branch}" \
     --field "sha=${parent_oid}" \
     > /dev/null
 fi
-printf 'Branch %s set to %s.\n' "${branch}" "${parent_oid}"
+printf 'Staging branch %s set to %s.\n' "${staging_branch}" "${parent_oid}"
 
 # Build the additions array from the listed files.
 additions="[]"
@@ -123,13 +141,13 @@ for file_path in "${files[@]}"; do
   )"
 done
 
-# Commit the files via the createCommitOnBranch GraphQL mutation.
-# GitHub signs commits created through this mutation.
+# Commit the files via the createCommitOnBranch GraphQL mutation on the
+# staging branch. GitHub signs commits created through this mutation.
 commit_oid="$(
   jq \
     --null-input \
     --arg repository "${repository}" \
-    --arg branch "${branch}" \
+    --arg branch "${staging_branch}" \
     --arg parent_oid "${parent_oid}" \
     --arg message "${message}" \
     --argjson additions "${additions}" \
@@ -151,5 +169,43 @@ commit_oid="$(
       --input - \
       --jq '.data.createCommitOnBranch.commit.oid'
 )"
+printf 'Signed commit %s on staging branch %s.\n' "${commit_oid}" "${staging_branch}"
 
-printf 'Signed commit %s on branch %s.\n' "${commit_oid}" "${branch}"
+# Re-read the destination branch tip and verify it has not changed since
+# the initial observation. This soft lease check detects concurrent
+# updates to the destination branch made during the staging commit.
+current_tip="$(
+  GH_TOKEN="${token}" gh api \
+    "repos/${repository}/git/ref/heads/${branch}" \
+    --jq '.object.sha' 2> /dev/null || true
+)"
+if [[ ${current_tip} != "${existing_tip}" ]]; then
+  printf 'Error: branch %s changed from %s to %s during staging commit.\n' \
+    "${branch}" "${existing_tip:-<none>}" "${current_tip:-<none>}" >&2
+  exit 1
+fi
+
+# Publish the signed commit to the destination branch.
+if [[ -n ${existing_tip} ]]; then
+  GH_TOKEN="${token}" gh api \
+    --method PATCH \
+    "repos/${repository}/git/refs/heads/${branch}" \
+    --field sha="${commit_oid}" \
+    --field force=true \
+    > /dev/null
+else
+  GH_TOKEN="${token}" gh api \
+    --method POST \
+    "repos/${repository}/git/refs" \
+    --field "ref=refs/heads/${branch}" \
+    --field "sha=${commit_oid}" \
+    > /dev/null
+fi
+printf 'Branch %s published at %s.\n' "${branch}" "${commit_oid}"
+
+# Delete the staging branch.
+GH_TOKEN="${token}" gh api \
+  --method DELETE \
+  "repos/${repository}/git/refs/heads/${staging_branch}" \
+  > /dev/null 2>&1 || true
+printf 'Staging branch %s deleted.\n' "${staging_branch}"

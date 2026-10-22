@@ -22,38 +22,73 @@ concurrency:
 # https://github.com/actions/checkout/blob/8e8c483db84b4bee98b60c0593521ed34d9990e8/README.md#L358
 
 jobs:
-  update-nix-flake-lock:
+  update-flake-lock:
     runs-on: ubuntu-latest
     environment:
       name: unstable
       deployment: false
     permissions:
+      # Required so actions/checkout can read the repository.
+      # The GitHub App token performs the push.
       contents: read
+      # Required so github-actions[bot] creates and updates pull requests.
+      # Use github.token here so GitHub attributes the pull request to
+      # github-actions[bot]. Pull requests created with github.token do not
+      # automatically trigger pull_request workflow runs on the same repository.
+      pull-requests: write
+      # Required to dispatch the dependency review workflow after PR creation.
+      # workflow_dispatch events from github.token are not subject to the same
+      # same-repo suppression that applies to push and pull_request events.
+      actions: write
     steps:
-      - name: Create GitHub App Token
+      - name: Create Nix Authentication Token
         uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0
-        id: create-github-app-token
+        id: create-nix-auth-token
         with:
           client-id: ${{ vars.APP_CLIENT_ID }}
           private-key: ${{ secrets.APP_PRIVATE_KEY }}
           owner: sheeeng
           repositories: |-
-            nix
             nix-secrets
             nix-secrets-example
+          # Read-only token scoped to the private repositories that nix run
+          # fetches during flake update. Granting write to these repositories
+          # is not needed and would be an overgrant.
+          permission-contents: read
+
+      - name: Create Push Token
+        uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0
+        id: create-push-token
+        with:
+          client-id: ${{ vars.APP_CLIENT_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+          # No owner or repositories: scopes the token to this repository only.
+          # A GitHub App can be added to the branch protection bypass list;
+          # github.token cannot.
+          permission-contents: write
 
       - name: Mask Tokens
         run: |-
-          echo "::add-mask::${{ steps.create-github-app-token.outputs.token }}"
+          echo "::add-mask::${{ steps.create-nix-auth-token.outputs.token }}"
+          echo "::add-mask::${{ steps.create-push-token.outputs.token }}"
           echo "::add-mask::${{ github.token }}"
+
+      - name: Configure Nix Authentication
+        run: |-
+          mkdir --parents "${HOME}/.config/nix"
+          umask 077
+          printf 'access-tokens = github.com=%s\n' \
+            "${{ steps.create-nix-auth-token.outputs.token }}" \
+            > "${HOME}/.config/nix/access-tokens.conf"
+          printf '!include access-tokens.conf\n' \
+            >> "${HOME}/.config/nix/nix.conf"
 
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          token: ${{ steps.create-github-app-token.outputs.token }}
           persist-credentials: false
           fetch-depth: 0
-          ref: unstable
+          ref: ${{ github.ref_name }}
 
       - name: Setup Nix
         uses: determinatesystems/determinate-nix-action@96c5ee93a9dddf2830d31e1da6ec719077336c28 # v3.23.3
@@ -81,21 +116,95 @@ jobs:
 
       - name: Update Flake Lock
         id: update-flake-lock
-        uses: determinatesystems/update-flake-lock@da03c0f078bc4b2c37ee4f7e072d34bf8f188bb3 # v29
         env:
-          GH_TOKEN: ${{ steps.create-github-app-token.outputs.token }}
-        with:
-          token: ${{ steps.create-github-app-token.outputs.token }}
-          git-author-name: "github-actions[bot]"
-          git-author-email: "41898282+github-actions[bot]@users.noreply.github.com"
-          git-committer-name: "github-actions[bot]"
-          git-committer-email: "41898282+github-actions[bot]@users.noreply.github.com"
-          nix-options: --debug --print-build-logs --log-format raw --verbose
-          pr-assignees: sheeeng
-          pr-reviewers: sheeeng
+          # Push token scoped to this repository only (contents: write).
+          # Used by create-signed-commit.sh to create and reset the branch
+          # and to commit files via the GitHub GraphQL API.
+          APP_TOKEN: ${{ steps.create-push-token.outputs.token }}
+        run: |-
+          set -o errexit
+          set -o nounset
+          set -o pipefail
+
+          nix flake update
+
+          if git diff --quiet -- flake.lock; then
+            echo "All flake inputs are already current."
+            echo "updated=false" >> "${GITHUB_OUTPUT}"
+            exit 0
+          fi
+
+          branch="chore/update-flake-lock"
+          bash scripts/create-signed-commit.sh \
+            --token "${APP_TOKEN}" \
+            --repository "${{ github.repository }}" \
+            --branch "${branch}" \
+            --base-ref "${GITHUB_REF_NAME}" \
+            --message "chore(deps): update flake.lock" \
+            -- flake.lock
+
+          echo "updated=true" >> "${GITHUB_OUTPUT}"
+          echo "branch=${branch}" >> "${GITHUB_OUTPUT}"
+
+      - name: Create or Update Pull Request
+        id: create-or-update-pull-request
+        if: steps.update-flake-lock.outputs.updated == 'true'
+        env:
+          # Use github.token so GitHub attributes the pull request to
+          # github-actions[bot], not to the App bot.
+          GH_TOKEN: ${{ github.token }}
+        run: |-
+          set -o errexit
+          set -o nounset
+          set -o pipefail
+
+          branch="${{ steps.update-flake-lock.outputs.branch }}"
+
+          existing_pull_request="$(
+            gh pr list --head "${branch}" --state open --json number \
+              --jq '.[].number'
+          )"
+
+          if [[ -n "${existing_pull_request}" ]]; then
+            gh pr edit "${existing_pull_request}" --base "${GITHUB_REF_NAME}"
+            echo "Updated existing pull request #${existing_pull_request}."
+            echo "pull-request-number=${existing_pull_request}" >> "${GITHUB_OUTPUT}"
+            exit 0
+          fi
+
+          gh pr create \
+            --title "chore(deps): update flake.lock" \
+            --body "Refreshes every flake input with \`nix flake update\`." \
+            --base "${GITHUB_REF_NAME}" \
+            --head "${branch}" \
+            --assignee sheeeng \
+            --reviewer sheeeng
+          pull_request_number="$(
+            gh pr view "${branch}" --json number --jq '.number'
+          )"
+          echo "pull-request-number=${pull_request_number}" >> "${GITHUB_OUTPUT}"
 
       - name: Display Pull Request Link
-        if: steps.update-flake-lock.outputs.pull-request-number != ''
+        if: steps.create-or-update-pull-request.outputs.pull-request-number != ''
         run: |-
-          echo "Upsert ${{ steps.update-flake-lock.outputs.pull-request-number }} pull request."
-          echo "Upsert [#${{ steps.update-flake-lock.outputs.pull-request-number }}](https://github.com/${{ github.repository }}/pull/${{ steps.update-flake-lock.outputs.pull-request-number }}) pull request." >> "${GITHUB_STEP_SUMMARY}"
+          echo "Upsert ${{ steps.create-or-update-pull-request.outputs.pull-request-number }} pull request."
+          echo "Upsert [#${{ steps.create-or-update-pull-request.outputs.pull-request-number }}](https://github.com/${{ github.repository }}/pull/${{ steps.create-or-update-pull-request.outputs.pull-request-number }}) pull request." >> "${GITHUB_STEP_SUMMARY}"
+
+      - name: Dispatch Build Checks
+        if: steps.update-flake-lock.outputs.updated == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BRANCH: ${{ steps.update-flake-lock.outputs.branch }}
+        run: |-
+          gh workflow run check-nix-build.yaml --ref "${BRANCH}"
+
+      - name: Dispatch Dependency Review
+        if: steps.update-flake-lock.outputs.updated == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BRANCH: ${{ steps.update-flake-lock.outputs.branch }}
+        run: |-
+          gh workflow run review-dependency.yaml \
+            --ref "${BRANCH}" \
+            --field base-ref="${GITHUB_REF_NAME}" \
+            --field head-ref="${BRANCH}"
