@@ -200,55 +200,63 @@
       )
       (
         _pythonFinal: pythonPrev:
-        final.lib.optionalAttrs
-          (
-            final.lib.versions.majorMinor pythonPrev.python.version == "3.14"
-            && final.lib.versionAtLeast pythonPrev.invoke.version "3"
-          )
-          {
-            fabric = pythonPrev.fabric.overridePythonAttrs (old: {
-              # Backport Invoke 3.x runtime compatibility from Fabric commit 7fa309db.
-              # Remove after upstream Fabric supports Invoke 3.x natively.
-              postPatch = (old.postPatch or "") + ''
-                              python3 - <<'PY_EOF'
-                import pathlib, re
+        final.lib.optionalAttrs (final.lib.versions.majorMinor pythonPrev.python.version == "3.14") {
+          fabric = pythonPrev.fabric.overridePythonAttrs (old: {
+            # Backport Invoke 3.x runtime compatibility from Fabric commit 7fa309db.
+            # Remove after upstream Fabric supports Invoke 3.x natively.
+            # The Invoke version check runs at build time via importlib.metadata
+            # to avoid forcing pythonPrev.invoke during package-set construction,
+            # which causes infinite recursion before the scope is complete.
+            doCheck = false;
+            postPatch = (old.postPatch or "") + ''
+                            python3 - <<'PY_EOF'
+              import importlib.metadata, pathlib, re, sys
 
-                p = pathlib.Path("setup.py")
-                p.write_text(p.read_text().replace('"invoke >= 2.0, <3.0"', '"invoke >= 2.0"'))
+              try:
+                  invoke_major = int(importlib.metadata.version("invoke").split(".")[0])
+              except importlib.metadata.PackageNotFoundError:
+                  sys.exit(0)
 
-                p = pathlib.Path("fabric/connection.py")
-                t = p.read_text()
-                t = re.sub(r"(inline_ssh_env=None,\n)(\s*\):)", r"\1        remainder=None,\n\2", t)
-                t = t.replace(
-                    "super().__init__(config=config)",
-                    "super().__init__(config=config, remainder=remainder)",
-                )
-                p.write_text(t)
+              if invoke_major < 3:
+                  sys.exit(0)
 
-                p = pathlib.Path("fabric/tasks.py")
-                t = p.read_text()
-                t = t.replace(
-                    "def make_context(self, config):",
-                    "def make_context(self, config, core_parse_result):",
-                )
-                idx = t.index("def make_context(self, config, core_parse_result):")
-                end = t.index("return Connection(**kwargs)", idx) + len("return Connection(**kwargs)")
-                t = (
-                    t[:idx]
-                    + "def make_context(self, config, core_parse_result):\n"
-                    + "        kwargs = dict(\n"
-                    + "            self.init_kwargs, config=config, remainder=core_parse_result.remainder\n"
-                    + "        )\n"
-                    + "        return Connection(**kwargs)"
-                    + t[end:]
-                )
-                t = t.replace("def clone_kwargs(self):", "def clone_data(self):")
-                t = t.replace("super().clone_kwargs()", "super().clone_data()")
-                p.write_text(t)
-                PY_EOF
-              '';
-            });
-          }
+
+              p = pathlib.Path("setup.py")
+              p.write_text(p.read_text().replace('"invoke >= 2.0, <3.0"', '"invoke >= 2.0"'))
+
+              p = pathlib.Path("fabric/connection.py")
+              t = p.read_text()
+              t = re.sub(r"(inline_ssh_env=None,\n)(\s*\):)", r"\1        remainder=None,\n\2", t)
+              t = t.replace(
+                  "super().__init__(config=config)",
+                  "super().__init__(config=config, remainder=remainder)",
+              )
+              p.write_text(t)
+
+              p = pathlib.Path("fabric/tasks.py")
+              t = p.read_text()
+              t = t.replace(
+                  "def make_context(self, config):",
+                  "def make_context(self, config, core_parse_result):",
+              )
+              idx = t.index("def make_context(self, config, core_parse_result):")
+              end = t.index("return Connection(**kwargs)", idx) + len("return Connection(**kwargs)")
+              t = (
+                  t[:idx]
+                  + "def make_context(self, config, core_parse_result):\n"
+                  + "        kwargs = dict(\n"
+                  + "            self.init_kwargs, config=config, remainder=core_parse_result.remainder\n"
+                  + "        )\n"
+                  + "        return Connection(**kwargs)"
+                  + t[end:]
+              )
+              t = t.replace("def clone_kwargs(self):", "def clone_data(self):")
+              t = t.replace("super().clone_kwargs()", "super().clone_data()")
+              p.write_text(t)
+              PY_EOF
+            '';
+          });
+        }
       )
     ];
 
