@@ -3,6 +3,5 @@ _: {
   # nix-darwin: https://nix-darwin.github.io/nix-darwin/manual/#opt-security.pki.caCertificateBlacklist
   security.pki.caCertificateBlacklist = [
     "Comodo AAA Services root"
-    "emSign ECC Root CA - G3"
   ];
 }
