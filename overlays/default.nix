@@ -166,10 +166,16 @@
       doCheck = false;
     });
 
-    # Skip the nested-sandbox test that conflicts with the Nix build sandbox.
+    # Skip tests that conflict with the Nix build sandbox:
+    # - why_self_reports_active_profile_deny_before_covering_allow needs
+    #   nested sandboxing.
+    # - git_read_toplevel_returns_worktree_root_in_linked_worktree runs
+    #   `git commit`, which fails without a configured user.name and
+    #   user.email in the sandbox.
     nono = prev.nono.overrideAttrs (old: {
       checkFlags = (old.checkFlags or [ ]) ++ [
         "--skip=why_self_reports_active_profile_deny_before_covering_allow"
+        "--skip=git_read_toplevel_returns_worktree_root_in_linked_worktree"
       ];
     });
 
