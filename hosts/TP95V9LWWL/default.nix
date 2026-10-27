@@ -275,6 +275,13 @@ in
   # nix.configureBuildUsers = true;
 
   security.pam.services.sudo_local.touchIdAuth = true; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-security.pam.services.sudo_local.touchIdAuth
+  # Cisco Umbrella intercepts TLS on this host.
+  security.pki.certificateFiles = [
+    (pkgs.fetchurl {
+      hash = "sha256-oSLUCAomwdqYa9DnICsWMOtmGmJJFe8kT0lv3TBuhfs=";
+      url = "https://d36u8deuxga9bo.cloudfront.net/certificates/Cisco_Umbrella_Root_CA.cer";
+    })
+  ]; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-security.pki.certificateFiles
 
   users.users = {
     "${hostConfiguration.user.name}" = {
@@ -319,6 +326,8 @@ in
 
   home-manager.users = {
     "${hostConfiguration.primaryUser}" = {
+      # Native Claude Code and Node.js ignore the macOS Keychain.
+      home.sessionVariables.NODE_EXTRA_CA_CERTS = "/etc/ssl/certs/ca-certificates.crt"; # https://nix-community.github.io/home-manager/options.xhtml#opt-home.sessionVariables
       imports = [
         ../../home-manager/home.nix
         inputs.agenix.homeManagerModules.age
