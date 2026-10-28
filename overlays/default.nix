@@ -138,16 +138,6 @@
         )
       );
 
-    # Backport the Qt 6.12 custom widget class name fix.
-    # @upstream-issue https://github.com/google/mozc/issues/1594
-    mozc = prev.mozc.overrideAttrs (previousAttributes: {
-      postPatch = (previousAttributes.postPatch or "") + ''
-        substituteInPlace src/gui/dictionary_tool/dictionary_tool.ui \
-          --replace-fail '::mozc::gui::DictionaryContentTableWidget' \
-          'mozc::gui::DictionaryContentTableWidget'
-      '';
-    });
-
     # Override nixpkgs terraform with the official HashiCorp binary, pinned via
     # .terraform-version and fetched from the HashiCorp release endpoint.
     terraform = final.callPackage ../pkgs/terraform.nix { };
