@@ -23,7 +23,7 @@ in
   # https://github.com/uesyn/dotfiles/blob/a28964187ab74b880f2e8ae561359451e9a05e29/home-manager/git/default.nix#L14
   home.packages = with pkgs; [
     # keep-sorted start
-    codeberg-cli # https://search.nixos.org/packages?channel=unstable&type=packages&show=codeberg-cli
+    forgejo-cli # https://search.nixos.org/packages?channel=unstable&type=packages&show=forgejo-cli
     ghq # https://search.nixos.org/packages?channel=unstable&type=packages&show=ghq
     git-credential-oauth-wrapper # https://search.nixos.org/packages?channel=unstable&type=packages&show=git-credential-oauth
     git-filter-repo # https://search.nixos.org/packages?channel=unstable&type=packages&show=git-filter-repo
