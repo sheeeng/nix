@@ -10,6 +10,22 @@
     ../../modules/home-manager.nix
   ];
 
+  determinateNix.nixosVmBasedLinuxBuilder = {
+    config.virtualisation = {
+      cores = 8;
+      darwin-builder.memorySize = 8192;
+    };
+    enable = true;
+    package =
+      if pkgs.stdenv.hostPlatform.isAarch64 then
+        pkgs.darwin.linux-builder-vz
+      else
+        pkgs.darwin.linux-builder;
+    systems = [
+      (if pkgs.stdenv.hostPlatform.isAarch64 then "aarch64-linux" else "x86_64-linux")
+    ];
+  };
+
   environment.systemPackages =
     with pkgs;
     lib.optionals (pkgs.stdenv.hostPlatform.system == "aarch64-darwin") [
