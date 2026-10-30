@@ -14,6 +14,9 @@
     config.virtualisation = {
       cores = 8;
       darwin-builder.memorySize = 8192;
+    }
+    // lib.optionalAttrs pkgs.stdenv.hostPlatform.isAarch64 {
+      vz.rosetta.enable = false;
     };
     enable = true;
     package =
@@ -21,6 +24,18 @@
         pkgs.darwin.linux-builder-vz
       else
         pkgs.darwin.linux-builder;
+    supportedFeatures =
+      if pkgs.stdenv.hostPlatform.isAarch64 then
+        [
+          "benchmark"
+          "big-parallel"
+        ]
+      else
+        [
+          "benchmark"
+          "big-parallel"
+          "kvm"
+        ];
     systems = [
       (if pkgs.stdenv.hostPlatform.isAarch64 then "aarch64-linux" else "x86_64-linux")
     ];
