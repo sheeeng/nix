@@ -35,6 +35,14 @@ Nix configuration without explicit approval. Use `git commit --message`,
 Use reference style links in Markdown files. End files with one newline and
 remove trailing whitespace.
 
+## Branches and Worktrees
+
+Name Git branches and worktrees with the [Conventional Branch][conventional-branch]
+specification. Use a purpose prefix such as `feat/`, `fix/`, `hotfix/`,
+`release/`, or `chore/`. Never use `ai/`, `claude/`, `copilot/`, `cursor/`, or
+a similar LLM prefix. If a session starts on a `claude/` branch, rename it before
+the first commit.
+
 ## Commits and Pull Requests
 
 In commit messages and pull request descriptions, reference issues only as
@@ -46,3 +54,5 @@ In commit messages and pull request descriptions, reference issues only as
 
 Prefer concise, maintainable, and reusable solutions. Avoid unnecessary
 comments. Suggest alphanumerically sorted lists.
+
+[conventional-branch]: https://conventionalbranch.org/
