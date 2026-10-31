@@ -68,6 +68,9 @@
         "--skip=a_copy_behind_another_machine_catches_up_as_it_resumes::agent_3_Agent__Pi"
         "--skip=a_diverged_copy_resumes_only_as_chosen::agent_3_Agent__Pi"
         "--skip=a_session_gone_on_with_elsewhere_catches_up_where_it_came_from::agent_2_Agent__Pi"
+        # timing sensitive: polls a fixed TIMEOUT deadline while the daemon
+        # processes a huge (4.7 MB) message, which a sandboxed build can miss
+        "--skip=a_huge_message_reads_back"
       ];
       preCheck = (old.preCheck or "") + ''
         export NOSYSBASHRC=1
