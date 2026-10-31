@@ -11,13 +11,6 @@
   ];
 
   determinateNix.nixosVmBasedLinuxBuilder = {
-    config.virtualisation = {
-      cores = 8;
-      darwin-builder.memorySize = 8192;
-    }
-    // lib.optionalAttrs pkgs.stdenv.hostPlatform.isAarch64 {
-      vz.rosetta.enable = false;
-    };
     enable = true;
     package =
       if pkgs.stdenv.hostPlatform.isAarch64 then
