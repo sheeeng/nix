@@ -49,16 +49,15 @@
           #   args = [ "s/[[:space:]]*$//" ];
           # }; # Remove trailing whitespaces. https://www.reddit.com/r/HelixEditor/comments/1c9lg73/highlight_trailing_whitespace_only/
           language-servers = [
-            "ltex-ls"
+            "ltex-ls-plus"
             "markdown-oxide"
             # "marksman"
           ];
         }
       ];
       language-server = {
-        ltex-ls = {
-          # command = lib.getExe pkgs.ltex-ls; # warning: getExe: Package "ltex-ls-16.0.0" does not have the meta.mainProgram attribute. # https://search.nixos.org/packages?channel=unstable&type=packages&show=ltex-ls
-          command = "${pkgs.ltex-ls}/bin/ltex-ls"; # https://search.nixos.org/packages?channel=unstable&type=packages&show=ltex-ls
+        ltex-ls-plus = {
+          command = "${pkgs.ltex-ls-plus}/bin/ltex-ls-plus"; # https://search.nixos.org/packages?channel=unstable&type=packages&show=ltex-ls-plus
           config = {
             ltex.disabledRules = {
               en-US = [ "PROFANITY" ];
