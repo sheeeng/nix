@@ -12,6 +12,14 @@
     inputs.hermes-agent.nixosModules.default
   ];
 
+  home-manager.sharedModules = [
+    inputs.rex.homeManagerModules.default
+    {
+      programs.rex.enable = true; # https://www.superlogical.com/rex/docs/linux/installation#the-home-manager-module
+      services.rex.enable = true; # https://www.superlogical.com/rex/docs/linux/installation#the-home-manager-module
+    }
+  ];
+
   # Hermes Agent runs as a hardened NixOS system service. The shared module
   # covers fw13 and p50. https://hermes-agent.nousresearch.com/docs/getting-started/nix-setup#nixos-module
   services.hermes-agent = {
