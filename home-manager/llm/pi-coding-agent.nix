@@ -1,6 +1,7 @@
 {
   config,
   inputs,
+  lib,
   pkgs,
   ...
 }:
@@ -10,19 +11,35 @@ let
     basePath = ./.;
     mattPocockSkillsSource = inputs.matt-pocock-skills;
   };
+
+  # pi resolves keys that start with `!` as shell commands, so the key is read
+  # from the sops-nix secret at runtime instead of being embedded in the Nix
+  # store. https://pi.dev/docs/latest/providers#key-resolution
+  piAuthSeed = pkgs.writeText "pi-auth.json" (
+    builtins.toJSON {
+      deepseek = {
+        type = "api_key";
+        key = "!cat ${config.sops.secrets."deepseek/api_key".path}";
+      };
+    }
+  );
 in
 {
-  # The pi-coding-agent module has no auth.json option, so the DeepSeek API key
-  # credential is written here. pi resolves keys that start with `!` as shell
-  # commands, so the key is read from the sops-nix secret at runtime instead of
-  # being embedded in this file or the Nix store.
-  # https://pi.dev/docs/latest/providers#key-resolution
-  home.file.".pi/agent/auth.json".text = builtins.toJSON {
-    deepseek = {
-      type = "api_key";
-      key = "!cat ${config.sops.secrets."deepseek/api_key".path}";
-    };
-  };
+  # pi writes OAuth credentials to auth.json, so the file must stay writable.
+  # Seed the DeepSeek credential once, then leave the file under pi control.
+  # https://nix-community.github.io/home-manager/options.xhtml#opt-home.activation
+  home.activation.seedPiAuth = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    authFile="${config.home.homeDirectory}/.pi/agent/auth.json"
+
+    if [ -L "$authFile" ]; then
+      run rm --force "$authFile"
+    fi
+
+    if [ ! -e "$authFile" ]; then
+      run mkdir --parents "$(dirname "$authFile")"
+      run install --mode=0600 ${piAuthSeed} "$authFile"
+    fi
+  '';
 
   programs.pi-coding-agent = {
     enable = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.pi-coding-agent.enable
