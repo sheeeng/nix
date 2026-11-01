@@ -1216,6 +1216,23 @@
         "type": "github"
       }
     },
+    "rex": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1793420730,
+        "narHash": "sha256-FeZ29POvbzzKRmiMbqRVqfi/9QUtcs2jgSi/GNixkg0=",
+        "type": "tarball",
+        "url": "https://pkgs.superlogical.com/rex/nix/snapshot/0.0.1793420730-g6d0d9a.tar.gz"
+      },
+      "original": {
+        "type": "tarball",
+        "url": "https://pkgs.superlogical.com/rex/nix/snapshot.tar.gz"
+      }
+    },
     "root": {
       "inputs": {
         "_1password-shell-plugins": "_1password-shell-plugins",
@@ -1245,6 +1262,7 @@
         "nixvim": "nixvim",
         "nur": "nur",
         "pre-commit-hooks": "pre-commit-hooks",
+        "rex": "rex",
         "sops-nix": "sops-nix",
         "stylix": "stylix",
         "treefmt-nix": "treefmt-nix_3",
