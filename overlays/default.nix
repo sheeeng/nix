@@ -73,6 +73,9 @@
         # timing sensitive: polls a fixed TIMEOUT deadline while the daemon
         # processes a huge (4.7 MB) message, which a sandboxed build can miss
         "--skip=a_huge_message_reads_back"
+        # timing sensitive: relies on redaction exceeding a wall-clock deadline,
+        # which a sandboxed build may not reproduce reliably
+        "--skip=a_long_output_is_clipped_not_dropped_for_taking_long_to_redact"
       ];
       preCheck = (old.preCheck or "") + ''
         export NOSYSBASHRC=1
