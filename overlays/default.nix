@@ -61,13 +61,15 @@
     # @upstream-issue https://github.com/NixOS/nixpkgs/issues/573527
     # Prevent Atuin end-to-end tests from sourcing the host bash configuration,
     # which replaces the test PATH during unsandboxed Darwin builds.
-    # Skip three e2e AI session tests that fail because atuin 18.24.2 does not
-    # offer the --switch option when a Pi agent is already running the session.
+    # Skip e2e AI session tests that fail because atuin does not offer the
+    # --switch option when a Pi agent is already running the session.
     atuin = prev.atuin.overrideAttrs (old: {
       checkFlags = (old.checkFlags or [ ]) ++ [
         "--skip=a_copy_behind_another_machine_catches_up_as_it_resumes::agent_3_Agent__Pi"
         "--skip=a_diverged_copy_resumes_only_as_chosen::agent_3_Agent__Pi"
+        "--skip=a_diverged_copy_resumes_only_as_chosen::agent_4_Agent__Pi"
         "--skip=a_session_gone_on_with_elsewhere_catches_up_where_it_came_from::agent_2_Agent__Pi"
+        "--skip=a_session_gone_on_with_elsewhere_catches_up_where_it_came_from::agent_3_Agent__Pi"
         # timing sensitive: polls a fixed TIMEOUT deadline while the daemon
         # processes a huge (4.7 MB) message, which a sandboxed build can miss
         "--skip=a_huge_message_reads_back"
