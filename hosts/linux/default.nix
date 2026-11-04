@@ -54,4 +54,5 @@
     # keep-sorted end
   ]; # https://search.nixos.org/options?channel=unstable&query=environment.systemPackages&type=options#show=option%253Aenvironment.systemPackages
 
+  virtualisation.podman.enable = true;
 }
