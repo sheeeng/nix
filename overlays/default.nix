@@ -174,6 +174,14 @@
       doCheck = false;
     });
 
+    # uutils-diffutils 0.6.0 permutation tests invoke gpatch to validate
+    # generated diff output. Add gnupatch to nativeCheckInputs so gpatch is
+    # on PATH during the test phase.
+    # @upstream-issue https://github.com/NixOS/nixpkgs/issues/TBD
+    uutils-diffutils = prev.uutils-diffutils.overrideAttrs (old: {
+      nativeCheckInputs = (old.nativeCheckInputs or [ ]) ++ [ final.gnupatch ];
+    });
+
     # Skip tests that conflict with the Nix build sandbox:
     # - why_self_reports_active_profile_deny_before_covering_allow needs
     #   nested sandboxing.
