@@ -175,11 +175,17 @@
     });
 
     # uutils-diffutils 0.6.0 permutation tests invoke gpatch to validate
-    # generated diff output. Add gnupatch to nativeCheckInputs so gpatch is
-    # on PATH during the test phase.
+    # generated diff output. gnupatch installs as `patch` on Linux, not
+    # `gpatch`, so expose it under the gpatch name via a PATH-prepended
+    # directory created in preCheck.
     # @upstream-issue https://github.com/NixOS/nixpkgs/issues/TBD
     uutils-diffutils = prev.uutils-diffutils.overrideAttrs (old: {
       nativeCheckInputs = (old.nativeCheckInputs or [ ]) ++ [ final.gnupatch ];
+      preCheck = (old.preCheck or "") + ''
+        mkdir --parents "$TMPDIR/bin"
+        ln --symbolic "${final.gnupatch}/bin/patch" "$TMPDIR/bin/gpatch"
+        export PATH="$TMPDIR/bin:$PATH"
+      '';
     });
 
     # Skip tests that conflict with the Nix build sandbox:
