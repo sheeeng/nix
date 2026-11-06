@@ -101,7 +101,7 @@ in
     enableMcpIntegration = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.claude-code.enableMcpIntegration
     package = pkgs.claude-code; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.claude-code.package
     agents = pkgs.lib.filterAttrs (name: _: !(builtins.elem name openCodeOnlyAgents)) (
-      commonLlmSettings.agents // oacAgents
+      commonLlmSettings.agents // commonLlmSettings.elephantGoldfishClaudeAgents // oacAgents
     ); # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.claude-code.agents
     agentsDir = null; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.claude-code.agentsDir
     commands = pkgs.lib.filterAttrs (name: _: !(builtins.elem name openCodeOnlyCommands)) (

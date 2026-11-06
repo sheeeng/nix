@@ -90,6 +90,69 @@ let
 
   enforceChineseWritingStyleSkill = chineseWritingStyleSrc;
 
+  # https://github.com/google/elephant-goldfish-model
+  elephantGoldfishSource = pkgs.fetchFromGitHub {
+    hash = "sha256-rmpr2rNXCxUouzc2/r9e7F/KVnm2Kbda8JSvfYKxgfM=";
+    owner = "google";
+    repo = "elephant-goldfish-model";
+    rev = "6a8001ea31ccf72430ba0603a467ec6df9f69dd7";
+  };
+
+  # Preserve the package layout and resolve resources outside harness directories.
+  elephantGoldfishPackage =
+    pkgs.runCommand "elephant-goldfish-model"
+      {
+        nativeBuildInputs = [ pkgs.python3 ];
+      }
+      ''
+        cp --recursive ${elephantGoldfishSource} "$out"
+        chmod --recursive u+w "$out"
+        python3 - <<'PYTHON'
+        import os
+        from pathlib import Path
+
+        root = Path(os.environ["out"])
+        for skill in sorted((root / "skills").glob("*/SKILL.md")):
+            header, separator, body = skill.read_text().partition("\n---\n")
+            assert separator, f"Missing frontmatter in {skill}"
+            body = body.replace("''${CLAUDE_PLUGIN_ROOT}", str(root))
+            body = body.replace("../../docs/", f"{root}/docs/")
+            body = body.replace("egm:egm-", "egm-")
+            location = (
+                f"\nEGM package root: `{root}`.\n"
+                "Resolve `agents/`, `docs/`, `resources/`, and `skills/` against this root.\n"
+                f"Resolve `references/` against `{skill.parent}`.\n"
+                "Resolve user files and outputs against the project working directory.\n"
+            )
+            skill.write_text(header + separator + location + body)
+        PYTHON
+      '';
+
+  elephantGoldfishSkills = pkgs.lib.mapAttrs (name: _: elephantGoldfishPackage + "/skills/${name}") (
+    discoverDirectorySkills (elephantGoldfishSource + "/skills")
+  );
+
+  elephantGoldfishClaudeAgents = builtins.listToAttrs (
+    map
+      (
+        adapter:
+        let
+          content = builtins.readFile (elephantGoldfishSource + "/${adapter}");
+          name = builtins.head (builtins.match ".*\nname: ([^\n]+)\n.*" content);
+        in
+        pkgs.lib.nameValuePair name (
+          pkgs.writeText "${name}.md" (
+            builtins.replaceStrings
+              [ "\${CLAUDE_PLUGIN_ROOT}" "egm:egm-" ]
+              [ (toString elephantGoldfishSource) "egm-" ]
+              content
+          )
+        )
+      )
+      (builtins.fromJSON (builtins.readFile (elephantGoldfishSource + "/.claude-plugin/plugin.json")))
+      .agents
+  );
+
   # mattpocock/skills: Skills for real software engineering.
   # https://github.com/mattpocock/skills
   mattPocockSkills =
@@ -153,6 +216,9 @@ in
   inherit anthropicSkillsSrc;
   inherit discoverAgentsRecursive;
   inherit discoverDirectorySkills;
+  inherit elephantGoldfishClaudeAgents;
+  inherit elephantGoldfishPackage;
+  inherit elephantGoldfishSkills;
   inherit mattPocockSkills;
   inherit openAgentsControlSrc;
   inherit ponytailSrc;
@@ -264,6 +330,7 @@ in
           );
     in
     mattPocockSkills
+    // elephantGoldfishSkills
     // discoverDirectorySkills (ponytailSrc + "/skills")
     // superpowersSkills
     // localSkills
