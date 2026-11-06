@@ -87,6 +87,12 @@
 
       keyboard = {
         bindings = [
+          # Clear the screen through tmux or the shell.
+          {
+            chars = "\x0c";
+            key = "K";
+            mods = "Command";
+          }
           # Word navigation
           {
             key = "Left";
