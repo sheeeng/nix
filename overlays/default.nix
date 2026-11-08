@@ -101,6 +101,25 @@
       '';
     });
 
+    # Backport the Bun 1.4.4 dependency normalization fix for OpenCode 2.2.5.
+    # @upstream-issue https://github.com/NixOS/nixpkgs/pull/582675
+    # Remove after the pinned Nixpkgs source includes the fix.
+    opencode = prev.opencode.overrideAttrs (
+      old:
+      final.lib.optionalAttrs (old.version == "2.2.5") {
+        node_modules = old.node_modules.overrideAttrs (dependencies: {
+          buildPhase =
+            builtins.replaceStrings
+              [ "--ignore-scripts" ]
+              [
+                ''--ignore-scripts --libc="*"''
+              ]
+              dependencies.buildPhase;
+          outputHash = "sha256-dIveiaiPFGSItwLyeMuPDxTE9gpvvnlTCB/+nG24qCc=";
+        });
+      }
+    );
+
     # Workaround for a Rust/Zig mixed-toolchain linking conflict. The Rust
     # binary links against the Zig-built libghostty-vt static library, and
     # the default linker, ld.bfd, fails on Linux with ".eh_frame_hdr refers to
