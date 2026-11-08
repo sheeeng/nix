@@ -74,7 +74,7 @@
         { key = 'v', mods = 'CMD', action = wezterm.action.PasteFrom 'Clipboard' },
 
         -- Clear screen
-        { key = 'k', mods = 'CMD', action = wezterm.action.ClearScrollback 'ScrollbackAndViewport' },
+        { key = 'k', mods = 'CMD', action = wezterm.action.SendString('\x0c') },
       }
 
       -- Mouse bindings

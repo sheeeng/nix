@@ -20,6 +20,7 @@
       font-family = JetBrains Mono
       font-size = 13
       foreground = #ffffff
+      keybind = super+k=text:\x0c
       palette = 0=#1d1f21
       palette = 1=#cc6666
       palette = 2=#b5bd68

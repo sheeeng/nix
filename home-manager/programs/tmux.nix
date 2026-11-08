@@ -42,6 +42,9 @@
       set-option -g prefix C-x
       bind-key C-x send-prefix
 
+      # Clear the active pane and its scrollback, then redraw the prompt.
+      bind-key -n C-l send-keys -R C-l \; clear-history
+
       bind -T copy-mode-vi v send -X begin-selection
       bind -T copy-mode-vi C-v send -X rectangle-toggle
       bind -T copy-mode-vi y send -X copy-selection-and-cancel
