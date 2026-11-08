@@ -102,7 +102,7 @@
     });
 
     # Backport the Bun 1.4.4 dependency normalization fix for OpenCode 2.2.5.
-    # @upstream-issue https://github.com/NixOS/nixpkgs/pull/582675
+    # @upstream-pr https://github.com/NixOS/nixpkgs/pull/582675
     # Remove after the pinned Nixpkgs source includes the fix.
     opencode = prev.opencode.overrideAttrs (
       old:
@@ -110,9 +110,9 @@
         node_modules = old.node_modules.overrideAttrs (dependencies: {
           buildPhase =
             builtins.replaceStrings
-              [ "--ignore-scripts" ]
+              [ " --ignore-scripts " ]
               [
-                ''--ignore-scripts --libc="*"''
+                '' --ignore-scripts --libc="*" ''
               ]
               dependencies.buildPhase;
           outputHash = "sha256-dIveiaiPFGSItwLyeMuPDxTE9gpvvnlTCB/+nG24qCc=";
