@@ -113,9 +113,11 @@
               buildPhaseParts =
                 builtins.split "([[:space:]]+)" oldNodeModulesAttrs.buildPhase;
             in
-            assert builtins.any (
-              part: builtins.isString part && part == "--ignore-scripts"
-            ) buildPhaseParts;
+            assert final.lib.assertMsg (
+              builtins.any (
+                part: builtins.isString part && part == "--ignore-scripts"
+              ) buildPhaseParts
+            ) "Expected OpenCode 2.2.5 node_modules buildPhase to contain --ignore-scripts";
             builtins.concatStringsSep "" (
               builtins.map
                 (
