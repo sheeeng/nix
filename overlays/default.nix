@@ -107,14 +107,28 @@
     opencode = prev.opencode.overrideAttrs (
       old:
       final.lib.optionalAttrs (old.version == "2.2.5") {
-        node_modules = old.node_modules.overrideAttrs (dependencies: {
+        node_modules = old.node_modules.overrideAttrs (oldNodeModulesAttrs: {
           buildPhase =
-            builtins.replaceStrings
-              [ " --ignore-scripts " ]
-              [
-                '' --ignore-scripts --libc="*" ''
-              ]
-              dependencies.buildPhase;
+            let
+              buildPhaseParts =
+                builtins.split "([[:space:]]+)" oldNodeModulesAttrs.buildPhase;
+            in
+            assert builtins.any (
+              part: builtins.isString part && part == "--ignore-scripts"
+            ) buildPhaseParts;
+            builtins.concatStringsSep "" (
+              builtins.map
+                (
+                  part:
+                  if builtins.isList part then
+                    builtins.concatStringsSep "" part
+                  else if part == "--ignore-scripts" then
+                    ''--ignore-scripts --libc="*"''
+                  else
+                    part
+                )
+                buildPhaseParts
+            );
           outputHash = "sha256-dIveiaiPFGSItwLyeMuPDxTE9gpvvnlTCB/+nG24qCc=";
         });
       }
