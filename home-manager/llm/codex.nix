@@ -28,7 +28,10 @@ let
     pkgs.lib.mapAttrs'
       (
         name: source:
-        if builtins.pathExists (source + "/SKILL.md") then
+        if
+          builtins.hasAttr name commonLlmSettings.elephantGoldfishSkills
+          || builtins.pathExists (source + "/SKILL.md")
+        then
           pkgs.lib.nameValuePair ".codex/skills/${name}" { inherit source; }
         else
           pkgs.lib.nameValuePair ".codex/skills/${name}/SKILL.md" { inherit source; }
