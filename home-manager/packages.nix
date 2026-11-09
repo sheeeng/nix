@@ -350,7 +350,6 @@
       # Network
       # keep-sorted start block=no newline_separated=no sticky_comments=no
       # kanidm # TODO: Missing "aarch64-apple-darwin" platform. # https://search.nixos.org/packages?channel=unstable&type=packages&show=kanidm
-      brave # https://search.nixos.org/packages?channel=unstable&type=packages&show=brave
       epiphany # https://search.nixos.org/packages?channel=unstable&type=packages&show=epiphany
       microsoft-edge # https://search.nixos.org/packages?channel=unstable&type=packages&show=microsoft-edge
       mullvad-browser # https://search.nixos.org/packages?channel=unstable&type=packages&show=mullvad-browser
