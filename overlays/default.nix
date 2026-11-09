@@ -110,26 +110,21 @@
         node_modules = old.node_modules.overrideAttrs (oldNodeModulesAttrs: {
           buildPhase =
             let
-              buildPhaseParts =
-                builtins.split "([[:space:]]+)" oldNodeModulesAttrs.buildPhase;
+              buildPhaseParts = builtins.split "([[:space:]]+)" oldNodeModulesAttrs.buildPhase;
             in
-            assert final.lib.assertMsg (
-              builtins.any (
-                part: builtins.isString part && part == "--ignore-scripts"
-              ) buildPhaseParts
-            ) "Expected OpenCode 2.2.5 node_modules buildPhase to contain --ignore-scripts";
+            assert final.lib.assertMsg (builtins.any (
+              part: builtins.isString part && part == "--ignore-scripts"
+            ) buildPhaseParts) "Expected OpenCode 2.2.5 node_modules buildPhase to contain --ignore-scripts";
             builtins.concatStringsSep "" (
-              builtins.map
-                (
-                  part:
-                  if builtins.isList part then
-                    builtins.concatStringsSep "" part
-                  else if part == "--ignore-scripts" then
-                    ''--ignore-scripts --libc="*"''
-                  else
-                    part
-                )
-                buildPhaseParts
+              builtins.map (
+                part:
+                if builtins.isList part then
+                  builtins.concatStringsSep "" part
+                else if part == "--ignore-scripts" then
+                  ''--ignore-scripts --libc="*"''
+                else
+                  part
+              ) buildPhaseParts
             );
           outputHash = "sha256-dIveiaiPFGSItwLyeMuPDxTE9gpvvnlTCB/+nG24qCc=";
         });
