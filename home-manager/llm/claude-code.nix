@@ -1,4 +1,5 @@
 {
+  config,
   inputs,
   pkgs,
   ...
@@ -10,6 +11,33 @@ let
     mattPocockSkillsSource = inputs.matt-pocock-skills;
   };
   claudeCodeModel = "claude-sonnet-4-6"; # https://models.dev/models/anthropic/claude-sonnet-4-6/
+
+  # https://github.com/gnachman/iTerm2/blob/master/sources/ClaudeCode/ClaudeCodeOnboarding.swift
+  iterm2Hooks = pkgs.lib.optionalAttrs pkgs.stdenv.hostPlatform.isDarwin (
+    pkgs.lib.genAttrs
+      [
+        "Notification"
+        "PermissionRequest"
+        "PostToolUse"
+        "PreToolUse"
+        "SessionEnd"
+        "SessionStart"
+        "Stop"
+        "StopFailure"
+        "SubagentStop"
+        "UserPromptSubmit"
+      ]
+      (_: [
+        {
+          hooks = [
+            {
+              command = pkgs.lib.escapeShellArg "${config.xdg.configHome}/iterm2/cc-status";
+              type = "command";
+            }
+          ];
+        }
+      ])
+  );
 
   # Agents and commands that require OpenCode-specific permission enforcement
   # (permission: ask) and must not be exported to other runtimes that do not
@@ -138,19 +166,23 @@ in
         CLAUDE_CODE_DISABLE_AUTO_MEMORY = "1"; # Prevent automatically managed memory from retaining outdated information or inefficient processes.
         CLAUDE_CODE_SUBAGENT_MODEL = "sonnet"; # Use the efficient model for default subagents such as Explore.
       };
-      hooks = commonLlmSettings.hooks // {
-        PreToolUse = [
-          {
-            hooks = [
-              {
-                command = "echo 'Running command: $CLAUDE_TOOL_INPUT'";
-                type = "command";
-              }
-            ];
-            matcher = "Bash";
-          }
-        ];
-      };
+      hooks = pkgs.lib.zipAttrsWith (_: pkgs.lib.concatLists) [
+        commonLlmSettings.hooks
+        iterm2Hooks
+        {
+          PreToolUse = [
+            {
+              hooks = [
+                {
+                  command = "echo 'Running command: $CLAUDE_TOOL_INPUT'";
+                  type = "command";
+                }
+              ];
+              matcher = "Bash";
+            }
+          ];
+        }
+      ];
       model = claudeCodeModel;
       permissions = {
         # https://code.claude.com/docs/en/permissions#wildcard-patterns
