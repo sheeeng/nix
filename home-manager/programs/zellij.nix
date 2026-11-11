@@ -228,9 +228,9 @@
 
     settings = {
       simplified_ui = false; # https://github.com/zellij-org/zellij/issues/3486#issuecomment-2562137415
-      # theme = "custom";
-      # themes.custom.fg = "#f8f8f2";
-      # themes.custom.bg = "#282a36";
+      theme = "catppuccin-macchiato";
+      theme_dark = "catppuccin-macchiato";
+      theme_light = "catppuccin-latte";
       # keybinds._props.clear-defaults = true;
       # keybinds.pane._children = [
       #   {
