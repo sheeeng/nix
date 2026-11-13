@@ -6,25 +6,12 @@
     # https://github.com/not-matthias/dotfiles-nix/blob/b3d3f7166a6d8c97942781fa7ac4804352f72bcc/modules/home/programs/zellij.nix#L64-L77
     "zellij/layouts/default.kdl".text = ''
       layout {
+        pane size=1 borderless=true {
+          plugin location="zellij:tab-bar"
+        }
         pane
-
         pane size=2 borderless=true {
-          plugin location="https://github.com/dj95/zjstatus/releases/latest/download/zjstatus.wasm" {
-            // zjstatus has no runtime API to read the active Zellij theme.
-            // Colors are fixed to catppuccin-macchiato and do not change in light mode.
-            format_left  "#[fg=#cad3f5,bg=#363a4f] [{session}]  {tabs}"
-            format_right "#[fg=#cad3f5,bg=#363a4f]{datetime} "
-            format_space "#[bg=#363a4f]"
-
-            hide_frame_for_single_pane "true"
-
-            tab_normal   "#[fg=#cad3f5,bg=#24273a]  {index}:{name}  "
-            tab_active   "#[fg=#8aadf4,bg=#363a4f,bold]  {index}:{name}  "
-
-            datetime          " {format} "
-            datetime_format   "%H:%M %d-%b-%y"
-            datetime_timezone "Europe/Oslo"
-          }
+          plugin location="zellij:status-bar"
         }
       }
     '';
