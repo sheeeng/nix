@@ -41,6 +41,36 @@
         mainProgram = "srt";
       };
     };
+
+    # Terminal UI diff reviewer by umputun.
+    # Not yet in nixpkgs; ships Claude Code and Codex plugins.
+    # https://github.com/umputun/revdiff
+    revdiff = final.buildGoModule {
+      pname = "revdiff";
+      version = "0.15.0";
+
+      # nix-prefetch-github umputun revdiff --rev v0.15.0
+      src = final.fetchFromGitHub {
+        owner = "umputun";
+        repo = "revdiff";
+        rev = "ef5f393ef852839a4bde540b5959bdd2e9b121ea"; # v0.15.0
+        hash = "sha256-lSqSWsA5nI4u6n3bmtjaMjPlwL6gShbLESbxlAyrh5k=";
+      };
+
+      vendorHash = null; # vendor directory is committed upstream
+      doCheck = false; # tests require network access unavailable in the sandbox
+      postInstall = ''
+        mv $out/bin/app $out/bin/revdiff
+      '';
+
+      meta = {
+        description = "Terminal UI diff reviewer with Claude Code and Codex plugins";
+        homepage = "https://github.com/umputun/revdiff";
+        license = final.lib.licenses.mit;
+        maintainers = [ ];
+        mainProgram = "revdiff";
+      };
+    };
   };
 
   modifications = final: prev: {
