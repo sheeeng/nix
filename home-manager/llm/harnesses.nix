@@ -5,6 +5,8 @@
     ./claude-code.nix
     ./codex.nix
     ./github-copilot-cli.nix
+    ./herdr.nix
+    ./hermes.nix
     ./mcp.nix
     ./mistral-vibe.nix
     ./ollama.nix
