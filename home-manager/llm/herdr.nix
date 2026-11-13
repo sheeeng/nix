@@ -5,11 +5,9 @@
 }:
 {
   home.activation.herdrIntegrationInstall = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-    if command -v herdr >/dev/null 2>&1; then
-      for integration in claude codex copilot hermes omp opencode pi; do
-        run herdr integration install "$integration" 2>/dev/null || true
-      done
-    fi
+    for integration in claude codex copilot hermes omp opencode pi; do
+      run ${lib.getExe pkgs.herdr} integration install "$integration" 2>/dev/null || true
+    done
   ''; # https://nix-community.github.io/home-manager/options.xhtml#opt-home.activation
 
   programs.herdr = {

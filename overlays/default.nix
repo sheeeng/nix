@@ -59,6 +59,9 @@
 
       vendorHash = null; # vendor directory is committed upstream
       doCheck = false; # tests require network access unavailable in the sandbox
+      postInstall = ''
+        mv $out/bin/app $out/bin/revdiff
+      '';
 
       meta = {
         description = "Terminal UI diff reviewer with Claude Code and Codex plugins";
