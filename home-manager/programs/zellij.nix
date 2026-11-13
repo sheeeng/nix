@@ -10,14 +10,14 @@
 
         pane size=2 borderless=true {
           plugin location="https://github.com/dj95/zjstatus/releases/latest/download/zjstatus.wasm" {
-            format_left  "#[fg=0,bg=10][{session}]  {tabs}"
-            format_right "#[fg=0,bg=10]{datetime}"
-            format_space "#[bg=10]"
+            format_left  "#[fg={color_fg},bg={color_black}] [{session}]  {tabs}"
+            format_right "#[fg={color_fg},bg={color_black}]{datetime} "
+            format_space "#[bg={color_black}]"
 
             hide_frame_for_single_pane "true"
 
-            tab_normal   "{index}:{name}  "
-            tab_active   "{index}:{name}* "
+            tab_normal   "#[fg={color_fg},bg={color_bg}]  {index}:{name}  "
+            tab_active   "#[fg={color_blue},bg={color_black},bold]  {index}:{name}  "
 
             datetime          " {format} "
             datetime_format   "%H:%M %d-%b-%y"
@@ -228,7 +228,7 @@
 
     settings = {
       simplified_ui = false; # https://github.com/zellij-org/zellij/issues/3486#issuecomment-2562137415
-      theme = "catppuccin-macchiato";
+      # theme = "catppuccin-macchiato"; # Do not set this. It overrides `theme_dark` and `theme_light` and disables automatic light and dark mode switching.
       theme_dark = "catppuccin-macchiato";
       theme_light = "catppuccin-latte";
       # keybinds._props.clear-defaults = true;
