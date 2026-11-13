@@ -12,7 +12,7 @@
       run ${lib.getExe pkgs.herdr} integration install hermes 2>/dev/null || true
     fi
   ''; # https://nix-community.github.io/home-manager/options.xhtml#opt-home.activation
-  # claude is excluded: its hooks are managed via programs.claude-code.settings.hooks; settings.json is a read-only nix store symlink.
+  # claude is excluded: the SessionStart hook is declared in claude-code.nix via programs.claude-code.settings.hooks.
 
   programs.herdr = {
     enable = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.herdr.enable

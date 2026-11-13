@@ -32,6 +32,19 @@ let
     '';
   };
 
+  herdrHooks = {
+    SessionStart = [
+      {
+        hooks = [
+          {
+            command = "${pkgs.herdr}/share/herdr/integrations/claude/herdr-agent-state.sh session";
+            type = "command";
+          }
+        ];
+      }
+    ];
+  };
+
   # https://github.com/gnachman/iTerm2/blob/master/sources/ClaudeCode/ClaudeCodeOnboarding.swift
   iterm2Hooks = pkgs.lib.optionalAttrs pkgs.stdenv.hostPlatform.isDarwin (
     pkgs.lib.genAttrs
@@ -188,6 +201,7 @@ in
       };
       hooks = pkgs.lib.zipAttrsWith (_: pkgs.lib.concatLists) [
         commonLlmSettings.hooks
+        herdrHooks
         iterm2Hooks
         {
           PreToolUse = [
