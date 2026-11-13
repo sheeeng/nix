@@ -220,6 +220,11 @@
       # theme = "catppuccin-macchiato"; # Do not set this. It overrides `theme_dark` and `theme_light` and disables automatic light and dark mode switching.
       theme_dark = "catppuccin-macchiato";
       theme_light = "catppuccin-latte";
+      ui = {
+        pane_frames = {
+          rounded_corners = true;
+        };
+      };
       # keybinds._props.clear-defaults = true;
       # keybinds.pane._children = [
       #   {
