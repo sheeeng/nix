@@ -10,18 +10,20 @@
 
         pane size=2 borderless=true {
           plugin location="https://github.com/dj95/zjstatus/releases/latest/download/zjstatus.wasm" {
-            format_left  "#[fg=0,bg=10][{session}]  {tabs}"
-            format_right "#[fg=0,bg=10]{datetime}"
-            format_space "#[bg=10]"
+            // zjstatus has no runtime API to read the active Zellij theme.
+            // Colors are fixed to catppuccin-macchiato and do not change in light mode.
+            format_left  "#[fg=#cad3f5,bg=#363a4f] [{session}]  {tabs}"
+            format_right "#[fg=#cad3f5,bg=#363a4f]{datetime} "
+            format_space "#[bg=#363a4f]"
 
             hide_frame_for_single_pane "true"
 
-            tab_normal   "{index}:{name}  "
-            tab_active   "{index}:{name}* "
+            tab_normal   "#[fg=#cad3f5,bg=#24273a]  {index}:{name}  "
+            tab_active   "#[fg=#8aadf4,bg=#363a4f,bold]  {index}:{name}  "
 
             datetime          " {format} "
             datetime_format   "%H:%M %d-%b-%y"
-            datetime_timezone "Europe/Vienna"
+            datetime_timezone "Europe/Oslo"
           }
         }
       }
@@ -228,7 +230,7 @@
 
     settings = {
       simplified_ui = false; # https://github.com/zellij-org/zellij/issues/3486#issuecomment-2562137415
-      theme = "catppuccin-macchiato";
+      # theme = "catppuccin-macchiato"; # Do not set this. It overrides `theme_dark` and `theme_light` and disables automatic light and dark mode switching.
       theme_dark = "catppuccin-macchiato";
       theme_light = "catppuccin-latte";
       # keybinds._props.clear-defaults = true;
