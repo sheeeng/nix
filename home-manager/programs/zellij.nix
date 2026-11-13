@@ -204,7 +204,7 @@
                 _children = [
                   {
                     pane = {
-                      command = "zsh";
+                      command = pkgs.lib.getExe pkgs.nushell;
                     };
                   }
                 ];
@@ -216,6 +216,7 @@
     }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zellij.layouts
 
     settings = {
+      default_shell = pkgs.lib.getExe pkgs.nushell; # https://zellij.dev/documentation/options.html#default_shell
       simplified_ui = false; # https://github.com/zellij-org/zellij/issues/3486#issuecomment-2562137415
       # theme = "catppuccin-macchiato"; # Do not set this. It overrides `theme_dark` and `theme_light` and disables automatic light and dark mode switching.
       theme_dark = "catppuccin-macchiato";
