@@ -53,7 +53,7 @@ if [ -n "$dir" ]; then
   head="${p%"$last"}"
   add "$peach" "${i_folder} ${head}${esc}[1m${last}${esc}[22m"
 
-  g() { git --no-optional-locks -C "$dir" "$@" 2> /dev/null || true; }
+  g() { git --no-optional-locks -C "$dir" "$@" 2> /dev/null; }
   b=$(g symbolic-ref --short HEAD || g rev-parse --short HEAD || true)
   if [ -n "$b" ]; then
     porcelain=$(g status --porcelain)

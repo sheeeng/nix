@@ -309,7 +309,10 @@ in
           "諗緊嘢"
         ];
       };
-      statusline = "${claudeStatusline}"; # https://code.claude.com/docs/en/settings#status-line
+      statusLine = {
+        command = pkgs.lib.getExe claudeStatusline; # https://code.claude.com/docs/en/settings#status-line
+        type = "command";
+      };
       theme = "dark";
     }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.claude-code.settings
   };
