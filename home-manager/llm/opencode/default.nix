@@ -25,20 +25,13 @@ let
   );
 in
 {
-  # Inject the Superpowers workflow into each OpenCode session.
-  xdg.configFile."opencode/plugins/superpowers.js" =
-    lib.mkIf (pkgs.stdenv.system != "x86_64-darwin")
-      {
-        source = opencodeSuperpowersPlugin;
-      };
-
   xdg.configFile = lib.mkIf (pkgs.stdenv.system != "x86_64-darwin") {
-    "opencode/herdr-opencode/tui.js".source =
-      "${pkgs.herdr}/share/herdr/integrations/opencode/tui.js";
+    "opencode/herdr-opencode/tui.js".source = "${pkgs.herdr}/share/herdr/integrations/opencode/tui.js";
     "opencode/herdr-tui-session.js".source =
       "${pkgs.herdr}/share/herdr/integrations/opencode/herdr-tui-session.js";
     "opencode/plugins/herdr-agent-state.js".source =
       "${pkgs.herdr}/share/herdr/integrations/opencode/herdr-agent-state.js";
+    "opencode/plugins/superpowers.js".source = opencodeSuperpowersPlugin;
   };
 
   programs.opencode = {
