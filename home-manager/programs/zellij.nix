@@ -10,15 +10,16 @@
 
         pane size=2 borderless=true {
           plugin location="https://github.com/dj95/zjstatus/releases/latest/download/zjstatus.wasm" {
-            // catppuccin-macchiato: surface0=#363a4f text=#cad3f5 base=#24273a blue=#8aadf4
-            format_left  "#[fg=#cad3f5,bg=#363a4f] [{session}]  {tabs}"
-            format_right "#[fg=#cad3f5,bg=#363a4f]{datetime} "
-            format_space "#[bg=#363a4f]"
+            // ANSI indices 0 (black/surface), 4 (blue), 7 (white/text) are remapped
+            // by Zellij's active theme, so these colors switch with theme_dark/theme_light.
+            format_left  "#[fg=7,bg=0] [{session}]  {tabs}"
+            format_right "#[fg=7,bg=0]{datetime} "
+            format_space "#[bg=0]"
 
             hide_frame_for_single_pane "true"
 
-            tab_normal   "#[fg=#cad3f5,bg=#24273a]  {index}:{name}  "
-            tab_active   "#[fg=#8aadf4,bg=#363a4f,bold]  {index}:{name}  "
+            tab_normal   "#[fg=7]  {index}:{name}  "
+            tab_active   "#[fg=4,bold]  {index}:{name}  "
 
             datetime          " {format} "
             datetime_format   "%H:%M %d-%b-%y"
