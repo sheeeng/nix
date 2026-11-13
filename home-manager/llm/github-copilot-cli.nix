@@ -5,6 +5,7 @@
   ...
 }:
 let
+  herdrHook = "${pkgs.herdr}/share/herdr/integrations/copilot/herdr-agent-state.sh";
   commonLlmSettings = import ./default.nix {
     inherit pkgs;
     basePath = ./.;
@@ -65,6 +66,9 @@ let
   );
 in
 {
+  home.file."${config.programs.github-copilot-cli.configDir}/hooks/herdr-agent-state.sh".source =
+    herdrHook;
+
   programs.github-copilot-cli = {
     enable = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.github-copilot-cli.enable
     enableMcpIntegration = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.github-copilot-cli.enableMcpIntegration
@@ -86,6 +90,13 @@ in
     settings = {
       # @upstream-issue https://github.com/github/copilot-cli/issues/4576
       includeCoAuthoredBy = false;
+      hooks.SessionStart = [
+        {
+          command = "${pkgs.lib.getExe pkgs.bash} ${pkgs.lib.escapeShellArg "${config.programs.github-copilot-cli.configDir}/hooks/herdr-agent-state.sh"}";
+          timeoutSec = 10;
+          type = "command";
+        }
+      ];
     }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.github-copilot-cli.settings
     skills = commonLlmSettings.skills; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.github-copilot-cli.skills
   };

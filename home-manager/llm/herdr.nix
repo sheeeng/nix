@@ -8,7 +8,7 @@
   home.activation.herdrIntegrationInstall = lib.hm.dag.entryAfter (
     [ "linkGeneration" ] ++ lib.optional config.services.hermes-agent.enable "hermesAgentSetup"
   ) ''
-    for integration in codex copilot omp opencode pi; do
+    for integration in codex omp pi; do
       run ${lib.getExe pkgs.herdr} integration install "$integration" 2>/dev/null || true
     done
     ${lib.optionalString config.services.hermes-agent.enable ''
