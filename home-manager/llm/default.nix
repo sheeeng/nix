@@ -234,6 +234,7 @@ in
     [
       chatgpt-cli # https://search.nixos.org/packages?channel=unstable&type=packages&show=chatgpt-cli
       codex # https://search.nixos.org/packages?channel=unstable&type=packages&show=codex
+      herdr # https://search.nixos.org/packages?channel=unstable&type=packages&show=herdr
       pi-coding-agent # https://search.nixos.org/packages?channel=unstable&type=packages&show=pi-coding-agent
     ]
     ++ pkgs.lib.optionals (pkgs.stdenv.hostPlatform.isDarwin && pkgs.stdenv.hostPlatform.isAarch64) [
