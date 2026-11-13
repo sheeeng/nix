@@ -6,25 +6,12 @@
     # https://github.com/not-matthias/dotfiles-nix/blob/b3d3f7166a6d8c97942781fa7ac4804352f72bcc/modules/home/programs/zellij.nix#L64-L77
     "zellij/layouts/default.kdl".text = ''
       layout {
+        pane size=1 borderless=true {
+          plugin location="zellij:tab-bar"
+        }
         pane
-
-        pane size=2 borderless=true {
-          plugin location="https://github.com/dj95/zjstatus/releases/latest/download/zjstatus.wasm" {
-            // ANSI indices 0 (black/surface), 4 (blue), 7 (white/text) are remapped
-            // by Zellij's active theme, so these colors switch with theme_dark/theme_light.
-            format_left  "#[fg=7,bg=0] [{session}]  {tabs}"
-            format_right "#[fg=7,bg=0]{datetime} "
-            format_space "#[bg=0]"
-
-            hide_frame_for_single_pane "true"
-
-            tab_normal   "#[fg=7]  {index}:{name}  "
-            tab_active   "#[fg=4,bold]  {index}:{name}  "
-
-            datetime          " {format} "
-            datetime_format   "%H:%M %d-%b-%y"
-            datetime_timezone "Europe/Vienna"
-          }
+        pane size=1 borderless=true {
+          plugin location="zellij:status-bar"
         }
       }
     '';
