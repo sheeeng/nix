@@ -11,6 +11,26 @@ let
     mattPocockSkillsSource = inputs.matt-pocock-skills;
   };
   claudeCodeModel = "claude-sonnet-4-6"; # https://models.dev/models/anthropic/claude-sonnet-4-6/
+  claudeStatusline = pkgs.stdenv.mkDerivation {
+    name = "claude-statusline";
+    src = ./statusline.sh;
+    nativeBuildInputs = [ pkgs.makeWrapper ];
+    dontUnpack = true;
+    installPhase = ''
+      mkdir --parents "$out/bin"
+      install --mode=755 "$src" "$out/bin/claude-statusline"
+      wrapProgram "$out/bin/claude-statusline" \
+        --prefix PATH : "${
+          pkgs.lib.makeBinPath (
+            with pkgs;
+            [
+              git
+              jq
+            ]
+          )
+        }"
+    '';
+  };
 
   # https://github.com/gnachman/iTerm2/blob/master/sources/ClaudeCode/ClaudeCodeOnboarding.swift
   iterm2Hooks = pkgs.lib.optionalAttrs pkgs.stdenv.hostPlatform.isDarwin (
@@ -288,6 +308,10 @@ in
           "考える"
           "諗緊嘢"
         ];
+      };
+      statusLine = {
+        command = pkgs.lib.getExe claudeStatusline; # https://code.claude.com/docs/en/settings#status-line
+        type = "command";
       };
       theme = "dark";
     }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.claude-code.settings
