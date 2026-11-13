@@ -10,14 +10,15 @@
 
         pane size=2 borderless=true {
           plugin location="https://github.com/dj95/zjstatus/releases/latest/download/zjstatus.wasm" {
-            format_left  "#[fg={color_fg},bg={color_black}] [{session}]  {tabs}"
-            format_right "#[fg={color_fg},bg={color_black}]{datetime} "
-            format_space "#[bg={color_black}]"
+            // catppuccin-macchiato: surface0=#363a4f text=#cad3f5 base=#24273a blue=#8aadf4
+            format_left  "#[fg=#cad3f5,bg=#363a4f] [{session}]  {tabs}"
+            format_right "#[fg=#cad3f5,bg=#363a4f]{datetime} "
+            format_space "#[bg=#363a4f]"
 
             hide_frame_for_single_pane "true"
 
-            tab_normal   "#[fg={color_fg},bg={color_bg}]  {index}:{name}  "
-            tab_active   "#[fg={color_blue},bg={color_black},bold]  {index}:{name}  "
+            tab_normal   "#[fg=#cad3f5,bg=#24273a]  {index}:{name}  "
+            tab_active   "#[fg=#8aadf4,bg=#363a4f,bold]  {index}:{name}  "
 
             datetime          " {format} "
             datetime_format   "%H:%M %d-%b-%y"
