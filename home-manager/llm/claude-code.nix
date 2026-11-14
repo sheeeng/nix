@@ -10,7 +10,7 @@ let
     basePath = ./.;
     mattPocockSkillsSource = inputs.matt-pocock-skills;
   };
-  claudeCodeModel = "claude-sonnet-4-6"; # https://models.dev/models/anthropic/claude-sonnet-4-6/
+  claudeCodeModel = "claude-sonnet-5-5"; # https://models.dev/models/anthropic/claude-sonnet-5-5/
   claudeStatusline = pkgs.stdenv.mkDerivation {
     name = "claude-statusline";
     src = ./statusline.sh;
