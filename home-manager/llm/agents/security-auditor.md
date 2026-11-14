@@ -2,7 +2,7 @@
 name: security-auditor
 description: Perform security audits and identify vulnerabilities.
 mode: subagent
-model: github-copilot/gpt-5.6-sol # https://models.dev/providers/github-copilot/
+model: github-copilot/gpt-6.1-sol # https://models.dev/providers/github-copilot/
 temperature: 0.2
 tools:
     write: false

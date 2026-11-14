@@ -2,7 +2,7 @@
 name: chicken
 description: Exercise caution and care when taking action; avoid all risks.
 mode: primary
-model: github-copilot/gpt-5.6-terra # https://models.dev/providers/github-copilot/
+model: github-copilot/gpt-6.1-terra # https://models.dev/providers/github-copilot/
 temperature: 0.2
 permission:
     bash:
