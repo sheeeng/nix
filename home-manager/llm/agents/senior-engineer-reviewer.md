@@ -2,7 +2,7 @@
 name: senior-engineer-reviewer
 description: Review code for scalability, design quality, YAGNI, DRY, and OWASP secure coding practices as a senior software engineer would.
 mode: subagent
-model: github-copilot/gpt-5.6-terra # https://models.dev/providers/github-copilot/
+model: github-copilot/gpt-6.1-terra # https://models.dev/providers/github-copilot/
 temperature: 0.2
 tools:
     write: false

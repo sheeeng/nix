@@ -2,7 +2,7 @@
 name: associate-engineer-reviewer
 description: Review code for readability and comprehension as an associate software engineer would.
 mode: subagent
-model: github-copilot/gpt-5.6-terra # https://models.dev/providers/github-copilot/
+model: github-copilot/gpt-6.1-terra # https://models.dev/providers/github-copilot/
 temperature: 0.3
 tools:
     write: false

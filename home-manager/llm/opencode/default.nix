@@ -17,7 +17,7 @@ let
     design-diagram = commonLlmSettings.skills."design-diagram";
   };
 
-  opencodeModel = "github-copilot/gpt-6-terra"; # https://models.dev/models/openai/gpt-6-terra/
+  opencodeModel = "github-copilot/gpt-6.1-terra"; # https://models.dev/models/openai/gpt-6.1-terra/
   opencodeSmallModel = "github-copilot/gpt-6-luna"; # https://models.dev/models/openai/gpt-6-luna/
 
   oacOpenCodeAgents = commonLlmSettings.discoverAgentsRecursive (

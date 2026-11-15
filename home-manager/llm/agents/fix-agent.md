@@ -2,7 +2,7 @@
 name: fix-agent
 description: Apply pull request review threads with narrowly scoped permissions. Each write and shell execution requires explicit user confirmation at the tool layer.
 mode: primary
-model: github-copilot/gpt-5.6-terra # https://models.dev/providers/github-copilot/
+model: github-copilot/gpt-6.1-terra # https://models.dev/providers/github-copilot/
 temperature: 0.2
 permission:
     bash:
