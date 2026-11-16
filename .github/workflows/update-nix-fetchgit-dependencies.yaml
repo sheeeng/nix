@@ -82,7 +82,9 @@ jobs:
         run: |-
           mkdir --parents "${HOME}/.config/nix"
           umask 077
-          printf 'access-tokens = github.com=%s\n' \
+          printf 'access-tokens = github.com=%s github.com/sheeeng/nix-secrets=%s github.com/sheeeng/nix-secrets-example=%s\n' \
+            "${{ github.token }}" \
+            "${{ steps.create-nix-auth-token.outputs.token }}" \
             "${{ steps.create-nix-auth-token.outputs.token }}" \
             > "${HOME}/.config/nix/access-tokens.conf"
           printf '!include access-tokens.conf\n' \
@@ -162,6 +164,7 @@ jobs:
             --body "Updates \`fetchgit\`, \`fetchFromGitHub\`, and similar pinned sources in Nix files." \
             --base "${GITHUB_REF_NAME}" \
             --head "${branch}"
+          echo "created=true" >> "${GITHUB_OUTPUT}"
           pull_request_number="$(
             gh pr view "${branch}" --json number --jq '.number'
           )"
@@ -173,13 +176,30 @@ jobs:
           echo "Upsert ${{ steps.upsert-pull-request.outputs.pull-request-number }} pull request."
           echo "Upsert [#${{ steps.upsert-pull-request.outputs.pull-request-number }}](https://github.com/${{ github.repository }}/pull/${{ steps.upsert-pull-request.outputs.pull-request-number }}) pull request." >> "${GITHUB_STEP_SUMMARY}"
 
+      # App pushes trigger checks for existing pull requests. Dispatch only
+      # after creation because github.token suppresses the opened event.
+      - name: Dispatch Validation Checks
+        if: steps.update-fetchgit.outputs.has-changes == 'true' && steps.upsert-pull-request.outputs.created == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BRANCH: ${{ steps.update-fetchgit.outputs.branch }}
+        run: |-
+          set -o errexit
+          set -o nounset
+          set -o pipefail
+
+          for workflow in check-nix-flake.yml check-nix-evaluation.yaml run-pre-commit-via-nix.yaml format-with-treefmt.yaml; do
+            gh workflow run "${workflow}" --ref "${BRANCH}"
+          done
+
+      # Attach the check run to the generated pull request head commit.
       - name: Dispatch Dependency Review
-        if: steps.update-fetchgit.outputs.has-changes == 'true'
+        if: steps.update-fetchgit.outputs.has-changes == 'true' && steps.upsert-pull-request.outputs.created == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
           BRANCH: ${{ steps.update-fetchgit.outputs.branch }}
         run: |-
           gh workflow run review-dependency.yaml \
-            --ref "${GITHUB_REF_NAME}" \
+            --ref "${BRANCH}" \
             --field base-ref="${GITHUB_REF_NAME}" \
             --field head-ref="${BRANCH}"

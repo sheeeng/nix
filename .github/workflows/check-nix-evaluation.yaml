@@ -21,6 +21,7 @@ jobs:
     name: Check Nix Evaluation (${{ matrix.hostname }}, ${{ matrix.system }})
     strategy:
       fail-fast: false
+      max-parallel: 2
       matrix:
         include:
           - hostname: TP95V9LWWL
@@ -57,6 +58,7 @@ jobs:
           repositories: |-
             nix-secrets
             nix-secrets-example
+          permission-contents: read
 
       - name: Mask Tokens
         run: |-
@@ -80,7 +82,9 @@ jobs:
         run: |-
           mkdir -p "${HOME}/.config/nix"
           umask 077
-          printf 'access-tokens = github.com=%s\n' \
+          printf 'access-tokens = github.com=%s github.com/sheeeng/nix-secrets=%s github.com/sheeeng/nix-secrets-example=%s\n' \
+            "${{ github.token }}" \
+            "${{ steps.create-github-app-token.outputs.token }}" \
             "${{ steps.create-github-app-token.outputs.token }}" \
             > "${HOME}/.config/nix/access-tokens.conf"
           printf '!include access-tokens.conf\n' \

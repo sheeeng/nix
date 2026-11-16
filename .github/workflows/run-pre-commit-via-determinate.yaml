@@ -1,12 +1,6 @@
 name: Run Pre-Commit via Determinate
 
 on:
-  push:
-    branches:
-      - "chore/**"
-      - "main"
-      - "unstable"
-  pull_request:
   workflow_dispatch:
 
 concurrency:
@@ -34,9 +28,9 @@ jobs:
           private-key: ${{ secrets.APP_PRIVATE_KEY }}
           owner: sheeeng
           repositories: |
-            nix
             nix-secrets
             nix-secrets-example
+          permission-contents: read
 
       - name: Mask Tokens
         run: |-
@@ -52,9 +46,21 @@ jobs:
       - name: Setup Nix
         uses: determinatesystems/determinate-nix-action@16f94ba7aae399b9f9077c254b6719ec6de7e3e3 # v3.24.2
         with:
-          github-token: ${{ steps.create-token.outputs.token }}
+          github-token: ${{ github.token }}
           trust-runner-user: true
           summarize: true
+
+      - name: Configure Nix Authentication
+        run: |-
+          mkdir --parents "${HOME}/.config/nix"
+          umask 077
+          printf 'access-tokens = github.com=%s github.com/sheeeng/nix-secrets=%s github.com/sheeeng/nix-secrets-example=%s\n' \
+            "${{ github.token }}" \
+            "${{ steps.create-token.outputs.token }}" \
+            "${{ steps.create-token.outputs.token }}" \
+            > "${HOME}/.config/nix/access-tokens.conf"
+          printf '!include access-tokens.conf\n' \
+            >> "${HOME}/.config/nix/nix.conf"
 
       - name: Setup Nix Cache
         uses: DeterminateSystems/magic-nix-cache-action@84c0677f58dcedf3b91f8223ce36a9ea5b3c84b7 # v15
