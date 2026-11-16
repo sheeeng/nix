@@ -1,9 +1,11 @@
 { pkgs, ... }:
 {
   programs.qutebrowser = {
-    enable = pkgs.stdenv.hostPlatform.isLinux; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.qutebrowser.enable
-    package = pkgs.qutebrowser; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.qutebrowser.package
+    # Keep the browser disabled until the pinned package has no known vulnerabilities.
+    enable =
+      pkgs.stdenv.hostPlatform.isLinux && (pkgs.qutebrowser.meta.knownVulnerabilities or [ ]) == [ ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.qutebrowser.enable
     enableDefaultBindings = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.qutebrowser.enableDefaultBindings
+    package = pkgs.qutebrowser; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.qutebrowser.package
     # aliases = {
     #   "q" = "quit";
     #   "w" = "session-save";
