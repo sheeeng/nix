@@ -210,6 +210,7 @@ jobs:
             gh workflow run "${workflow}" --ref "${BRANCH}"
           done
 
+      # Attach the check run to the generated pull request head commit.
       - name: Dispatch Dependency Review
         if: steps.update-terraform-binary-version.outputs.updated == 'true' && steps.create-or-update-pull-request.outputs.created == 'true'
         env:
@@ -217,6 +218,6 @@ jobs:
           BRANCH: ${{ steps.update-terraform-binary-version.outputs.branch }}
         run: |-
           gh workflow run review-dependency.yaml \
-            --ref "${GITHUB_REF_NAME}" \
+            --ref "${BRANCH}" \
             --field base-ref="${GITHUB_REF_NAME}" \
             --field head-ref="${BRANCH}"
