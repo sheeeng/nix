@@ -3,7 +3,6 @@ name: Check Nix Flake
 on:
   push:
     branches:
-      - "chore/**"
       - "main"
       - "unstable"
   pull_request:
@@ -36,6 +35,7 @@ jobs:
           repositories: |-
             nix-secrets
             nix-secrets-example
+          permission-contents: read
       - name: Mask Tokens
         run: |-
           echo "::add-mask::${{ steps.create-github-app-token.outputs.token }}"
@@ -44,7 +44,9 @@ jobs:
         run: |-
           mkdir --parents "${HOME}/.config/nix"
           umask 077
-          printf 'access-tokens = github.com=%s\n' \
+          printf 'access-tokens = github.com=%s github.com/sheeeng/nix-secrets=%s github.com/sheeeng/nix-secrets-example=%s\n' \
+            "${{ github.token }}" \
+            "${{ steps.create-github-app-token.outputs.token }}" \
             "${{ steps.create-github-app-token.outputs.token }}" \
             > "${HOME}/.config/nix/access-tokens.conf"
           printf '!include access-tokens.conf\n' \
