@@ -21,6 +21,24 @@ in
     enable = true; # https://github.com/NousResearch/hermes-agent
     environmentFiles = [ config.sops.templates."hermes/env".path ];
     gateway.enable = true;
+    package = inputs.hermes-agent.packages.${pkgs.stdenv.hostPlatform.system}.default.override {
+      callPackage =
+        path: args:
+        pkgs.callPackage path (
+          args
+          // lib.optionalAttrs (baseNameOf path == "lib.nix") {
+            # The pinned workspace hash differs on aarch64-darwin.
+            fetchPnpmDeps =
+              attrs:
+              pkgs.fetchPnpmDeps (
+                attrs
+                // lib.optionalAttrs (attrs.hash or null == "sha256-Ez5DyfFuou8SWXaCZFnY+5mpdQ1bBM9jd7ukna4S3ss=") {
+                  hash = "sha256-0DFhYHo5HDps1hz6Haqv3cQfA1ug10LL/ohxKZGSDlw=";
+                }
+              );
+          }
+        );
+    };
     settings.model.default = "deepseek/deepseek-chat"; # https://github.com/NousResearch/hermes-agent
   };
 }
