@@ -1,6 +1,7 @@
 {
   config,
   inputs,
+  lib,
   pkgs,
   ...
 }:
@@ -26,6 +27,20 @@
     addToSystemPackages = true;
     enable = true;
     environmentFiles = [ config.sops.templates."hermes/env".path ];
+    # Hermes applies a patch for 0.19.2, which fails on bootstrap patchelf 0.15.2.
+    package = inputs.hermes-agent.packages.${pkgs.stdenv.hostPlatform.system}.default.override {
+      pmPackages = lib.filterAttrs (_: lib.isDerivation) (
+        pkgs.callPackage "${inputs.hermes-agent}/nix/pm-packages.nix" {
+          patchelf = pkgs.patchelf.overrideAttrs {
+            src = pkgs.fetchurl {
+              url = "https://github.com/NixOS/patchelf/releases/download/0.19.2/patchelf-0.19.2.tar.bz2";
+              hash = "sha256-1K2aTlxongkRnOLzCpSw6LT5jHhZASPqIWZeNMaSiAE=";
+            };
+            version = "0.19.2";
+          };
+        }
+      );
+    };
     settings.model.default = "deepseek/deepseek-chat";
   };
 
