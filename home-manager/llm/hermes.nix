@@ -32,8 +32,8 @@ in
               attrs:
               pkgs.fetchPnpmDeps (
                 attrs
-                // lib.optionalAttrs (attrs.hash or null == "sha256-Ez5DyfFuou8SWXaCZFnY+5mpdQ1bBM9jd7ukna4S3ss=") {
-                  hash = "sha256-0DFhYHo5HDps1hz6Haqv3cQfA1ug10LL/ohxKZGSDlw=";
+                // lib.optionalAttrs (attrs.hash or null == "sha256-Y3jmi5nLLgGOGqcm9rgvyGbmcFJQk1Ro3+IsymICoiQ=") {
+                  hash = "sha256-W5V/4xsKZKolR2MQL5GN9GBa7844IPNmKVTTcLaZnvI=";
                 }
               );
           }
