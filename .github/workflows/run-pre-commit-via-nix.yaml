@@ -26,7 +26,7 @@ jobs:
     timeout-minutes: 20
     steps:
       - name: Create GitHub App Token
-        uses: actions/create-github-app-token@f418cff399f7aef4c2f0ad47e25ca7a6abbdd6fc # v3.4.0
+        uses: actions/create-github-app-token@v3.4.0
         id: create-token
         with:
           client-id: ${{ vars.APP_CLIENT_ID }}
@@ -43,13 +43,13 @@ jobs:
           echo "::add-mask::${{ github.token }}"
 
       - name: Checkout
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        uses: actions/checkout@v7.0.1
         with:
           persist-credentials: false
           fetch-depth: 0
 
       - name: Setup Nix
-        uses: nixbuild/nix-quick-install-action@9f63be77f412a248c9d9a65a4c82cf066cdf8f0c # v35
+        uses: nixbuild/nix-quick-install-action@v35
         with:
           nix_conf: |
             experimental-features = flakes nix-command
@@ -70,7 +70,7 @@ jobs:
             >> "${HOME}/.config/nix/nix.conf"
 
       - name: Setup Nix Cache
-        uses: nix-community/cache-nix-action@7df957e333c1e5da7721f60227dbba6d06080569 # v7.0.2
+        uses: nix-community/cache-nix-action@v7.0.2
         with:
           # Restore and save a cache using this key.
           # Focus on flake.lock and flake.nix as they determine actual dependencies.
@@ -93,7 +93,7 @@ jobs:
 
       - name: Restore Pre-Commit Environments
         id: restore-pre-commit-cache
-        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        uses: actions/cache/restore@v6.1.0
         with:
           path: ~/.cache/pre-commit
           # Key on the hook configuration alone. The Nix store holds the tools
@@ -167,7 +167,7 @@ jobs:
       # publish a partial environment cache for later runs to restore.
       - name: Save Pre-Commit Environments
         if: success() && steps.restore-pre-commit-cache.outputs.cache-hit != 'true'
-        uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        uses: actions/cache/save@v6.1.0
         with:
           path: ~/.cache/pre-commit
           key: ${{ steps.restore-pre-commit-cache.outputs.cache-primary-key }}

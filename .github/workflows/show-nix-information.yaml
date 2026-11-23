@@ -25,17 +25,17 @@ jobs:
       - name: Mask Tokens
         run: echo "::add-mask::${{ github.token }}"
       - name: Checkout
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        uses: actions/checkout@v7.0.1
         with:
           persist-credentials: false
       - name: Setup Nix
-        uses: determinatesystems/determinate-nix-action@16f94ba7aae399b9f9077c254b6719ec6de7e3e3 # v3.24.2
+        uses: determinatesystems/determinate-nix-action@v3.24.2
         with:
           github-token: ${{ github.token }}
           trust-runner-user: true
           summarize: true
       - name: Setup Nix Cache
-        uses: DeterminateSystems/magic-nix-cache-action@84c0677f58dcedf3b91f8223ce36a9ea5b3c84b7 # v15
+        uses: DeterminateSystems/magic-nix-cache-action@v15
         with:
           use-gha-cache: "enabled"
           use-flakehub: "disabled"
