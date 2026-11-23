@@ -42,7 +42,7 @@ jobs:
 
     steps:
       - name: Create GitHub App Token
-        uses: actions/create-github-app-token@f418cff399f7aef4c2f0ad47e25ca7a6abbdd6fc # v3.4.0
+        uses: actions/create-github-app-token@v3.4.0
         id: create-github-app-token
         with:
           client-id: ${{ vars.APP_CLIENT_ID }}
@@ -68,12 +68,12 @@ jobs:
           printf '!include access-tokens.conf\n' \
             >> "${HOME}/.config/nix/nix.conf"
       - name: Checkout
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        uses: actions/checkout@v7.0.1
         with:
           fetch-depth: 0
           persist-credentials: false
       - name: Setup Nix
-        uses: determinatesystems/determinate-nix-action@16f94ba7aae399b9f9077c254b6719ec6de7e3e3 # v3.24.2
+        uses: determinatesystems/determinate-nix-action@v3.24.2
         with:
           github-token: ${{ github.token }}
           trust-runner-user: true
