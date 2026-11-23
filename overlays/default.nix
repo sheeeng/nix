@@ -229,6 +229,19 @@
       '';
     });
 
+    # The Darwin fixup phase cannot rewrite install names in the swift-collections
+    # dynamic libraries because the Swift linker leaves no header padding.
+    # @upstream-issue https://github.com/NixOS/nixpkgs/issues/TBD
+    swiftPackages = prev.swiftPackages.overrideScope (
+      _swiftFinal: swiftPrev: {
+        swift-collections = swiftPrev.swift-collections.overrideAttrs (old: {
+          cmakeFlags = (old.cmakeFlags or [ ]) ++ [
+            "-DCMAKE_SHARED_LINKER_FLAGS=-Xlinker\ -headerpad_max_install_names"
+          ];
+        });
+      }
+    );
+
     # Skip tests that conflict with the Nix build sandbox:
     # - why_self_reports_active_profile_deny_before_covering_allow needs
     #   nested sandboxing.
