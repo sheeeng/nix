@@ -443,7 +443,7 @@ in
   ];
 
   home-manager.users."${hostConfiguration.primaryUser}" =
-    { ... }:
+    { lib, ... }:
     {
       imports = [
         ../../home-manager/home.nix
@@ -452,6 +452,8 @@ in
         inputs.nix-index-database.homeModules.nix-index
         inputs.nixvim.homeModules.nixvim
       ];
+
+      programs.fzf.enable = lib.mkForce false;
     };
 
   home-manager.verbose = false;
