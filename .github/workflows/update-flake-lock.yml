@@ -93,7 +93,7 @@ jobs:
           ref: ${{ github.ref_name }}
 
       - name: Setup Nix
-        uses: determinatesystems/determinate-nix-action@v3.24.2
+        uses: determinatesystems/determinate-nix-action@v3.24.3
         with:
           github-token: ${{ github.token }}
           trust-runner-user: true
