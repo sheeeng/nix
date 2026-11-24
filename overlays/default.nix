@@ -275,6 +275,14 @@
     # Remove after the upstream package builds without this override.
     pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
       (
+        pythonFinal: pythonPrev: {
+          # virtualenv imports packaging when pre-commit creates hook environments.
+          virtualenv = pythonPrev.virtualenv.overridePythonAttrs (old: {
+            dependencies = (old.dependencies or [ ]) ++ [ pythonFinal.packaging ];
+          });
+        }
+      )
+      (
         _pythonFinal: pythonPrev:
         final.lib.optionalAttrs
           (
