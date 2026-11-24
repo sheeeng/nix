@@ -9,6 +9,9 @@
   ],
   "ignorePatterns": [
     {
+      "pattern": "^https://github\\.com/sheeeng/nix-secrets/"
+    },
+    {
       "pattern": "^https://nixos\\.wiki/"
     },
     {

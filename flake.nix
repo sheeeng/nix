@@ -454,6 +454,7 @@
         # laptop = nixosConfiguration "laptop" "x86_64-linux";
         # rpi = nixosConfiguration "rpi" "aarch64-linux";
         fw13 = nixosConfiguration "fw13" "x86_64-linux";
+        p14s = nixosConfiguration "p14s" "x86_64-linux";
         p50 = nixosConfiguration "p50" "x86_64-linux";
       };
 

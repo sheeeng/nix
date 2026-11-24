@@ -809,11 +809,11 @@
     },
     "nix-secrets": {
       "locked": {
-        "lastModified": 1793562184,
-        "narHash": "sha256-KF01fSBwKkzSLVrSE/9T1u5g6jyvJYrO7U1xWH7XZkw=",
+        "lastModified": 1795520143,
+        "narHash": "sha256-DYt3otqwWmusScSjoQehfAYxKbJdra4Bh5/cV9C6XuE=",
         "owner": "sheeeng",
         "repo": "nix-secrets",
-        "rev": "359592b681d2ff736249fee565f29124a26b82e4",
+        "rev": "5b36020252c91a846082c955eb15ae8196744694",
         "type": "github"
       },
       "original": {
