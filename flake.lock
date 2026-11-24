@@ -828,16 +828,17 @@
       "locked": {
         "lastModified": 1765971672,
         "narHash": "sha256-V4ZDMX20JYOfPIsGdQDxnZA/8moENMOfii7J7peC+yk=",
-        "owner": "sheeeng",
-        "repo": "nix-secrets-example",
+        "ref": "main",
         "rev": "2915ab5f750ade146c1167d050d5713d62b508d5",
-        "type": "github"
+        "shallow": true,
+        "type": "git",
+        "url": "ssh://git@github.com/sheeeng/nix-secrets-example.git"
       },
       "original": {
-        "owner": "sheeeng",
         "ref": "main",
-        "repo": "nix-secrets-example",
-        "type": "github"
+        "shallow": true,
+        "type": "git",
+        "url": "ssh://git@github.com/sheeeng/nix-secrets-example.git"
       }
     },
     "nix-systems": {
