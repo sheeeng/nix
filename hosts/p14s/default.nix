@@ -454,6 +454,7 @@ in
       ];
 
       programs.fzf.enable = lib.mkForce false;
+      home.sessionVariables.FZF_DEFAULT_COMMAND = lib.mkForce "fd --type f --strip-cwd-prefix --follow --exclude .git";
     };
 
   home-manager.verbose = false;
