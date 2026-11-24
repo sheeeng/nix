@@ -455,6 +455,7 @@ in
 
       programs.fzf.enable = lib.mkForce false;
       home.sessionVariables.FZF_DEFAULT_COMMAND = lib.mkForce "fd --type f --strip-cwd-prefix --follow --exclude .git";
+      programs.zsh.defaultKeymap = lib.mkForce "emacs";
     };
 
   home-manager.verbose = false;
