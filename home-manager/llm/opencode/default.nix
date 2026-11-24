@@ -40,11 +40,11 @@ in
     package = pkgs.opencode; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.opencode.package
     agents = commonLlmSettings.agents // oacOpenCodeAgents; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.opencode.agents # https://opencode.ai/docs/agents/#markdown
     cli = {
-      plugin = [
+      plugins = [
         "./herdr-opencode"
         "./herdr-tui-session.js"
       ];
-      theme = "opencode";
+      theme.name = "opencode";
     }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.opencode.cli
     commands = commonLlmSettings.commands; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.opencode.commands # https://opencode.ai/docs/commands/#markdown
     context = commonLlmSettings.context; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.opencode.context
