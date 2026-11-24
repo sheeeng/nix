@@ -809,18 +809,19 @@
     },
     "nix-secrets": {
       "locked": {
-        "lastModified": 1795443099,
-        "narHash": "sha256-Nl6v07aORSat0z75HHSSJaNgvvdvI93UhiNU8t0djJI=",
-        "owner": "sheeeng",
-        "repo": "nix-secrets",
-        "rev": "7df3632c61fa53ea01cb7f237c0b5d6b912c4874",
-        "type": "github"
+        "lastModified": 1795520143,
+        "narHash": "sha256-DYt3otqwWmusScSjoQehfAYxKbJdra4Bh5/cV9C6XuE=",
+        "ref": "main",
+        "rev": "5b36020252c91a846082c955eb15ae8196744694",
+        "shallow": true,
+        "type": "git",
+        "url": "ssh://git@github.com/sheeeng/nix-secrets.git"
       },
       "original": {
-        "owner": "sheeeng",
         "ref": "main",
-        "repo": "nix-secrets",
-        "type": "github"
+        "shallow": true,
+        "type": "git",
+        "url": "ssh://git@github.com/sheeeng/nix-secrets.git"
       }
     },
     "nix-secrets-example": {
