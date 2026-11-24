@@ -6,23 +6,23 @@ workflows:
     '.github/workflows/check-nix-evaluation.yaml':
         - 'actions/checkout@v7.0.1'
         - 'actions/create-github-app-token@v3.4.0'
-        - 'determinatesystems/determinate-nix-action@v3.24.2'
+        - 'determinatesystems/determinate-nix-action@v3.24.3'
     '.github/workflows/check-nix-flake.yml':
         - 'actions/checkout@v7.0.1'
         - 'actions/create-github-app-token@v3.4.0'
-        - 'determinatesystems/determinate-nix-action@v3.24.2'
+        - 'determinatesystems/determinate-nix-action@v3.24.3'
         - 'determinatesystems/flake-checker-action@v14'
     '.github/workflows/format-with-treefmt.yaml':
         - 'actions/checkout@v7.0.1'
         - 'actions/create-github-app-token@v3.4.0'
-        - 'determinatesystems/determinate-nix-action@v3.24.2'
+        - 'determinatesystems/determinate-nix-action@v3.24.3'
     '.github/workflows/review-dependency.yaml':
         - 'actions/checkout@v7.0.1'
         - 'actions/dependency-review-action@v5.0.1'
     '.github/workflows/run-pre-commit-via-determinate.yaml':
         - 'actions/checkout@v7.0.1'
         - 'actions/create-github-app-token@v3.4.0'
-        - 'determinatesystems/determinate-nix-action@v3.24.2'
+        - 'determinatesystems/determinate-nix-action@v3.24.3'
         - 'determinatesystems/magic-nix-cache-action@v15'
     '.github/workflows/run-pre-commit-via-nix.yaml':
         - 'actions/cache@v6.1.0'
@@ -32,25 +32,25 @@ workflows:
         - 'nixbuild/nix-quick-install-action@v35'
     '.github/workflows/show-nix-information.yaml':
         - 'actions/checkout@v7.0.1'
-        - 'determinatesystems/determinate-nix-action@v3.24.2'
+        - 'determinatesystems/determinate-nix-action@v3.24.3'
         - 'determinatesystems/magic-nix-cache-action@v15'
     '.github/workflows/update-flake-lock.yml':
         - 'actions/checkout@v7.0.1'
         - 'actions/create-github-app-token@v3.4.0'
-        - 'determinatesystems/determinate-nix-action@v3.24.2'
+        - 'determinatesystems/determinate-nix-action@v3.24.3'
         - 'determinatesystems/flake-checker-action@v14'
     '.github/workflows/update-nix-fetchgit-dependencies.yaml':
         - 'actions/checkout@v7.0.1'
         - 'actions/create-github-app-token@v3.4.0'
-        - 'determinatesystems/determinate-nix-action@v3.24.2'
+        - 'determinatesystems/determinate-nix-action@v3.24.3'
     '.github/workflows/update-terraform-binary-version.yaml':
         - 'actions/checkout@v7.0.1'
         - 'actions/create-github-app-token@v3.4.0'
-        - 'determinatesystems/determinate-nix-action@v3.24.2'
+        - 'determinatesystems/determinate-nix-action@v3.24.3'
         - 'determinatesystems/flake-checker-action@v14'
     '.github/workflows/validate-renovate-configuration.yaml':
         - 'actions/checkout@v7.0.1'
-        - 'determinatesystems/determinate-nix-action@v3.24.2'
+        - 'determinatesystems/determinate-nix-action@v3.24.3'
 dependencies:
     'actions/cache@v6.1.0':
         ref: 'v6.1.0'
@@ -72,13 +72,13 @@ dependencies:
         commit: 'sha1-bbc44d14a204704ccc493733616cd1e93a0321ec'
         owner_id: 44036562
         repo_id: 476372928
-    'determinatesystems/determinate-nix-action@v3.24.2':
-        ref: 'v3.24.2'
-        commit: 'sha1-16f94ba7aae399b9f9077c254b6719ec6de7e3e3'
+    'determinatesystems/determinate-nix-action@v3.24.3':
+        ref: 'v3.24.3'
+        commit: 'sha1-4b040423529d49b1a19ba918742e0aa9aa95031a'
         owner_id: 80991770
         repo_id: 983748827
         uses:
-            - 'determinatesystems/nix-installer-action@9383ce2bf08796b65508822f5982f49151badc4e'
+            - 'determinatesystems/nix-installer-action@2559b44fed7d4fc978e8dd0e379661afb8b73590'
     'determinatesystems/flake-checker-action@v14':
         ref: 'v14'
         commit: 'sha1-786422608c7bded2bbc9741ad9f91356842bf520'
@@ -89,9 +89,9 @@ dependencies:
         commit: 'sha1-84c0677f58dcedf3b91f8223ce36a9ea5b3c84b7'
         owner_id: 80991770
         repo_id: 657706878
-    'determinatesystems/nix-installer-action@9383ce2bf08796b65508822f5982f49151badc4e':
+    'determinatesystems/nix-installer-action@2559b44fed7d4fc978e8dd0e379661afb8b73590':
         ref: 'main'
-        commit: 'sha1-9383ce2bf08796b65508822f5982f49151badc4e'
+        commit: 'sha1-2559b44fed7d4fc978e8dd0e379661afb8b73590'
         owner_id: 80991770
         repo_id: 588678074
     'nix-community/cache-nix-action@v7.0.2':
