@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ ... }:
 
 {
   boot.loader.systemd-boot.enable = true;
@@ -11,7 +11,10 @@
 
   programs.firejail.enable = true;
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
   programs.nix-ld.enable = true;
 

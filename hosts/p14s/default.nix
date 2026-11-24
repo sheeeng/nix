@@ -159,6 +159,7 @@ in
     bottom
     brightnessctl
     btop
+    delta
     difftastic
     dust
     enpass
@@ -170,10 +171,9 @@ in
     fzf
     gcc
     gh
-    git
-    git-delta
-    github-copilot-cli
     ghostty
+    git
+    github-copilot-cli
     gnumake
     gnupg
     grim
