@@ -14,8 +14,10 @@ in
   environment.systemPackages = with pkgs; [
     # keep-sorted start
     brightnessctl # https://search.nixos.org/packages?channel=unstable&type=packages&show=brightnessctl
+    ghostty # The terminal that Sway starts. https://search.nixos.org/packages?channel=unstable&type=packages&show=ghostty
     grim # https://search.nixos.org/packages?channel=unstable&type=packages&show=grim
     slurp # https://search.nixos.org/packages?channel=unstable&type=packages&show=slurp
+    swaylock # The locker that Swayidle starts. https://search.nixos.org/packages?channel=unstable&type=packages&show=swaylock
     wl-clipboard # https://search.nixos.org/packages?channel=unstable&type=packages&show=wl-clipboard
     # keep-sorted end
   ];
@@ -26,10 +28,10 @@ in
       settings.mainBar = {
         # keep-sorted start block=yes
         battery.format = "{capacity}% 🔋";
-        battery.format-charging = "{capacity}% ⚡️";
-        battery.format-critical = "{capacity}% 🪫";
-        battery.format-plugged = "{capacity}% ⚡️";
-        battery.format-warning = "{capacity}% 🪫";
+        battery.format-charging = "Charging {capacity}% ⚡️";
+        battery.format-critical = "Low {capacity}% 🪫";
+        battery.format-plugged = "Full {capacity}% ⚡️";
+        battery.format-warning = "Low {capacity}% 🪫";
         battery.states.critical = 15;
         battery.states.warning = 30;
         clock.format = "{:%Y-%m-%d %H:%M:%S}";
