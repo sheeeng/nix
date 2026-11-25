@@ -6,6 +6,9 @@
 }:
 # NixOS only. Import this module in a host to add Sway next to its current session. The host
 # must define system.primaryUser, which hosts/linux/sops.nix declares.
+let
+  lockCommand = "${lib.getExe pkgs.swaylock} --daemonize";
+in
 {
   environment.systemPackages = with pkgs; [
     # keep-sorted start
@@ -54,15 +57,29 @@
 
     services.mako.enable = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-services.mako.enable
 
+    services.polkit-gnome.enable = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-services.polkit-gnome.enable
+
     services.swayidle = {
       enable = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-services.swayidle.enable
+      events = {
+        before-sleep = lockCommand; # Lock before suspend. Swayidle waits for the locker.
+        lock = lockCommand; # Handle loginctl lock-session.
+      }; # https://nix-community.github.io/home-manager/options.xhtml#opt-services.swayidle.events
       timeouts = [
         {
           timeout = 300;
-          command = "${lib.getExe pkgs.swaylock} --daemonize";
+          command = lockCommand;
         }
       ];
     }; # https://nix-community.github.io/home-manager/options.xhtml#opt-services.swayidle.timeouts
+
+    systemd.user.services.polkit-gnome = {
+      Install.WantedBy = lib.mkForce [ "sway-session.target" ]; # GNOME Shell supplies its own agent in GNOME sessions.
+      Unit = {
+        After = lib.mkForce [ "sway-session.target" ];
+        PartOf = lib.mkForce [ "sway-session.target" ];
+      };
+    }; # https://nix-community.github.io/home-manager/options.xhtml#opt-systemd.user.services
 
     wayland.systemd.target = "sway-session.target"; # Keeps Waybar and Swayidle out of GNOME sessions. https://nix-community.github.io/home-manager/options.xhtml#opt-wayland.systemd.target
 
