@@ -275,7 +275,7 @@ in
   };
 
   services.displayManager = {
-    defaultSession = "gnome";
+    defaultSession = "sway"; # https://search.nixos.org/options?channel=unstable&show=services.displayManager.defaultSession
     gdm.enable = true;
   };
   services.desktopManager.gnome.enable = true;
