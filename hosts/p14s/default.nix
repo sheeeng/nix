@@ -371,9 +371,11 @@ in
     # SSH support is configured in home-manager's services.gpg-agent.enableSshSupport
   }; # https://search.nixos.org/options?channel=unstable&show=programs.gnupg.agent
 
+  # Keep automatic upgrades off. The upgrade timer needs a flake target, and this flake has a
+  # private nix-secrets input that the timer cannot fetch. Reboots must stay manual on a laptop.
   system.autoUpgrade = {
-    enable = true; # https://search.nixos.org/options?channel=unstable&show=system.autoUpgrade.enable
-    allowReboot = true; # https://search.nixos.org/options?channel=unstable&show=system.autoUpgrade.allowReboot
+    enable = false; # https://search.nixos.org/options?channel=unstable&show=system.autoUpgrade.enable
+    allowReboot = false; # https://search.nixos.org/options?channel=unstable&show=system.autoUpgrade.allowReboot
   }; # https://search.nixos.org/options?channel=unstable&show=system.autoUpgrade
 
   # You have set either `nixpkgs.config` or `nixpkgs.overlays` while using `home-manager.useGlobalPkgs`.
