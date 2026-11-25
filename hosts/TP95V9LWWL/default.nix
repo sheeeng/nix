@@ -397,6 +397,12 @@ in
         };
       }; # https://nix-darwin.github.io/nix-darwin/manual/index.html#opt-system.defaults.CustomSystemPreferences
       CustomUserPreferences = {
+        "com.superlogical.rex" = {
+          "Workspace.appearance" = "dark";
+          "Workspace.terminalFontName" = "JetBrains Mono";
+          "Workspace.terminalFontPointSize" = 13.0;
+        };
+
         # NOTE: Safari preferences are commented out due to sandboxing restrictions.
         # Safari stores its preferences in a sandboxed container at:
         # ~/Library/Containers/com.apple.Safari/Data/Library/Preferences/
