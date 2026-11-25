@@ -57,6 +57,8 @@
       ];
     }; # https://nix-community.github.io/home-manager/options.xhtml#opt-services.swayidle.timeouts
 
+    wayland.systemd.target = "sway-session.target"; # Keeps Waybar and Swayidle out of GNOME sessions. https://nix-community.github.io/home-manager/options.xhtml#opt-wayland.systemd.target
+
     wayland.windowManager.sway = {
       config = {
         bars = [ ]; # Waybar draws the bar.
