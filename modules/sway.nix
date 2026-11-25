@@ -34,10 +34,13 @@ in
         battery.format-warning = "Low {capacity}% 🪫";
         battery.states.critical = 15;
         battery.states.warning = 30;
-        clock.format = "{:%Y-%m-%d %H:%M:%S}";
+        clock.format = "{:%a %Y-%m-%d %H:%M:%S}";
         clock.interval = 1; # Seconds in the format need a one second refresh.
+        clock.locale = "en_US.UTF-8"; # The system time locale is Norwegian, which prints the weekday in Norwegian.
+        cpu.format = "{usage}% 🧶";
         height = 30;
         layer = "top";
+        memory.format = "{}% 🧠";
         modules-center = [ "sway/window" ];
         modules-left = [
           "sway/workspaces"
@@ -52,7 +55,17 @@ in
           "clock"
           "tray"
         ];
+        network.format-disconnected = "Offline ⚠️";
+        network.format-ethernet = "{ipaddr} 🔌";
+        network.format-wifi = "{essid} 📶";
         position = "top";
+        pulseaudio.format = "{volume}% {icon}";
+        pulseaudio.format-icons.default = [
+          "🔈"
+          "🔉"
+          "🔊"
+        ];
+        pulseaudio.format-muted = "Muted 🔇";
         # keep-sorted end
       }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.waybar.settings
       systemd.enable = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.waybar.systemd.enable
