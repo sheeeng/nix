@@ -22,7 +22,8 @@
       settings.mainBar = {
         # keep-sorted start block=yes
         battery.format = "{capacity}% battery";
-        clock.format = "{:%Y-%m-%d %H:%M}";
+        clock.format = "{:%Y-%m-%d %H:%M:%S}";
+        clock.interval = 1; # Seconds in the format need a one second refresh.
         height = 30;
         layer = "top";
         modules-center = [ "sway/window" ];
