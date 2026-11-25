@@ -4,8 +4,9 @@
   pkgs,
   ...
 }:
-# NixOS only. Import this module in a host to add Sway next to its current session. The host
-# must define system.primaryUser, which hosts/linux/sops.nix declares.
+# NixOS only. Import this module in a host to add Sway as a session choice in GDM. The module does
+# not change the default session. A host sets services.displayManager.defaultSession itself. The
+# host must define system.primaryUser, which hosts/linux/sops.nix declares.
 let
   lockCommand = "${lib.getExe pkgs.swaylock} --daemonize";
 in
@@ -53,11 +54,10 @@ in
         # keep-sorted end
       }; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.waybar.settings
       systemd.enable = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.waybar.systemd.enable
+      systemd.targets = [ "sway-session.target" ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.waybar.systemd.targets
     };
 
     services.mako.enable = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-services.mako.enable
-
-    services.polkit-gnome.enable = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-services.polkit-gnome.enable
 
     services.swayidle = {
       enable = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-services.swayidle.enable
@@ -65,6 +65,7 @@ in
         before-sleep = lockCommand; # Lock before suspend. Swayidle waits for the locker.
         lock = lockCommand; # Handle loginctl lock-session.
       }; # https://nix-community.github.io/home-manager/options.xhtml#opt-services.swayidle.events
+      systemdTargets = [ "sway-session.target" ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-services.swayidle.systemdTargets
       timeouts = [
         {
           timeout = 300;
@@ -73,15 +74,15 @@ in
       ];
     }; # https://nix-community.github.io/home-manager/options.xhtml#opt-services.swayidle.timeouts
 
-    systemd.user.services.polkit-gnome = {
-      Install.WantedBy = lib.mkForce [ "sway-session.target" ]; # GNOME Shell supplies its own agent in GNOME sessions.
+    systemd.user.services.polkit-gnome-agent = {
+      Install.WantedBy = [ "sway-session.target" ];
+      Service.ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
       Unit = {
-        After = lib.mkForce [ "sway-session.target" ];
-        PartOf = lib.mkForce [ "sway-session.target" ];
+        After = [ "sway-session.target" ];
+        Description = "GNOME PolicyKit agent for Sway. GNOME Shell supplies its own agent in GNOME sessions.";
+        PartOf = [ "sway-session.target" ];
       };
     }; # https://nix-community.github.io/home-manager/options.xhtml#opt-systemd.user.services
-
-    wayland.systemd.target = "sway-session.target"; # Keeps Waybar and Swayidle out of GNOME sessions. https://nix-community.github.io/home-manager/options.xhtml#opt-wayland.systemd.target
 
     wayland.windowManager.sway = {
       config = {
@@ -109,7 +110,6 @@ in
     };
   };
 
-  # GDM lists Sway next to GNOME. This module does not change the default session.
   programs.sway = {
     enable = true; # https://search.nixos.org/options?channel=unstable&show=programs.sway.enable
     wrapperFeatures.gtk = true; # https://search.nixos.org/options?channel=unstable&show=programs.sway.wrapperFeatures.gtk

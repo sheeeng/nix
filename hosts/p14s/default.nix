@@ -275,7 +275,7 @@ in
   };
 
   services.displayManager = {
-    defaultSession = "sway"; # https://search.nixos.org/options?channel=unstable&show=services.displayManager.defaultSession
+    defaultSession = "sway"; # Sway is the preferred session on this host. GDM still lists GNOME. https://search.nixos.org/options?channel=unstable&show=services.displayManager.defaultSession
     gdm.enable = true;
   };
   services.desktopManager.gnome.enable = true;
