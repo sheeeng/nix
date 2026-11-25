@@ -21,7 +21,13 @@
       enable = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.waybar.enable
       settings.mainBar = {
         # keep-sorted start block=yes
-        battery.format = "{capacity}% battery";
+        battery.format = "{capacity}% 🔋";
+        battery.format-charging = "{capacity}% ⚡️";
+        battery.format-critical = "{capacity}% 🪫";
+        battery.format-plugged = "{capacity}% ⚡️";
+        battery.format-warning = "{capacity}% 🪫";
+        battery.states.critical = 15;
+        battery.states.warning = 30;
         clock.format = "{:%Y-%m-%d %H:%M:%S}";
         clock.interval = 1; # Seconds in the format need a one second refresh.
         height = 30;
