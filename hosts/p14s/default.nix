@@ -41,6 +41,7 @@ in
 
     ./hardware-configuration.nix
     ../linux
+    ../../modules/sway.nix
     inputs.home-manager.nixosModules.home-manager
     inputs.agenix.nixosModules.age
     inputs.nixvim.nixosModules.nixvim
@@ -274,7 +275,7 @@ in
   };
 
   services.displayManager = {
-    defaultSession = "gnome";
+    defaultSession = "sway"; # Sway is the preferred session on this host. GDM still lists GNOME. https://search.nixos.org/options?channel=unstable&show=services.displayManager.defaultSession
     gdm.enable = true;
   };
   services.desktopManager.gnome.enable = true;
