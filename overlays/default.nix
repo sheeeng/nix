@@ -273,7 +273,15 @@
     # @upstream-issue https://github.com/NixOS/nixpkgs/issues/575989
     # Work around Python 3.14 fabric build failures.
     # Remove after the upstream package builds without this override.
+    # Work around the virtualenv missing packaging dependency, which breaks
+    # pre-commit hook environments. Remove after nixpkgs-unstable includes
+    # NixOS/nixpkgs commit 075a909ed.
     pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
+      (_pythonFinal: pythonPrev: {
+        virtualenv = pythonPrev.virtualenv.overridePythonAttrs (old: {
+          dependencies = (old.dependencies or [ ]) ++ [ pythonPrev.packaging ];
+        });
+      })
       (
         _pythonFinal: pythonPrev:
         final.lib.optionalAttrs
