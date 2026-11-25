@@ -66,8 +66,11 @@ in
       small_model = opencodeSmallModel; # https://models.dev/?search=github-copilot
       autoshare = false; # https://opencode.ai/docs/share/#auto-share
       autoupdate = true; # https://opencode.ai/docs/config/#autoupdate
+      share = "disabled"; # https://opencode.ai/docs/config/#share
       disabled_providers = [
         "deepseek"
+        "opencode"
+        "opencode-go"
         "xai"
         # https://opencode.ai/docs/providers/#directory
       ]; # https://opencode.ai/docs/config/#disabled-providers
