@@ -41,6 +41,7 @@ in
 
     ./hardware-configuration.nix
     ../linux
+    ../../modules/sway.nix
     inputs.home-manager.nixosModules.home-manager
     inputs.agenix.nixosModules.age
     inputs.nixvim.nixosModules.nixvim
