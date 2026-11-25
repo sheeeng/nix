@@ -76,6 +76,23 @@
   modifications = final: prev: {
     unstable = inputs.nixpkgs.legacyPackages.${final.stdenv.hostPlatform.system};
 
+    # The virtualenv package lacks the packaging dependency, which breaks the
+    # pre-commit hook environments. Limit the override to pre-commit to avoid
+    # rebuilding every package that depends on virtualenv. Remove after
+    # nixpkgs-unstable includes NixOS/nixpkgs commit 075a909ed.
+    pre-commit = prev.pre-commit.overridePythonAttrs (old: {
+      doCheck = false; # The test suite pulls in the dotnet and Swift toolchains.
+      dependencies = map (
+        dependency:
+        if (dependency.pname or "") == "virtualenv" then
+          dependency.overridePythonAttrs (virtualenvOld: {
+            dependencies = virtualenvOld.dependencies ++ [ prev.python3Packages.packaging ];
+          })
+        else
+          dependency
+      ) old.dependencies;
+    });
+
     # Embedded Beads otherwise uses an address that GitHub rejects under email
     # privacy protection when Dolt history is synchronized through Git.
     beads = prev.beads.overrideAttrs (old: {
@@ -274,14 +291,6 @@
     # Work around Python 3.14 fabric build failures.
     # Remove after the upstream package builds without this override.
     pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
-      (
-        pythonFinal: pythonPrev: {
-          # virtualenv imports packaging when pre-commit creates hook environments.
-          virtualenv = pythonPrev.virtualenv.overridePythonAttrs (old: {
-            dependencies = (old.dependencies or [ ]) ++ [ pythonFinal.packaging ];
-          });
-        }
-      )
       (
         _pythonFinal: pythonPrev:
         final.lib.optionalAttrs
