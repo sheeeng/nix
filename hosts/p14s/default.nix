@@ -151,6 +151,7 @@ in
 
   boot.loader.systemd-boot.configurationLimit = 10;
   boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.plymouth.enable = true; # Shows the disk passphrase prompt as a boot screen. https://search.nixos.org/options?channel=unstable&show=boot.plymouth.enable
 
   # File systems and LUKS configuration are in hardware-configuration.nix
 
