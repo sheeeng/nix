@@ -19,7 +19,7 @@ let
         exit 1
       fi
 
-      exec "$rex" --autostart=false do client.theme.import path=${ghosttyTheme}
+      exec "$rex" --autostart=false "do" client.theme.import path=${ghosttyTheme}
     '';
   };
 in
