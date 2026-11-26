@@ -151,18 +151,6 @@ in
 
   boot.loader.systemd-boot.configurationLimit = 10;
   boot.kernelPackages = pkgs.linuxPackages_latest;
-  boot.consoleLogLevel = 0; # https://search.nixos.org/options?channel=unstable&show=boot.consoleLogLevel
-  boot.initrd.kernelModules = [ "amdgpu" ]; # https://search.nixos.org/options?channel=unstable&show=boot.initrd.kernelModules
-  boot.kernelParams = [
-    "loglevel=3"
-    "quiet"
-    "rd.systemd.show_status=false"
-    "rd.udev.log_level=3"
-    "splash"
-    "udev.log_priority=3"
-  ]; # https://search.nixos.org/options?channel=unstable&show=boot.kernelParams
-  boot.plymouth.enable = true; # https://search.nixos.org/options?channel=unstable&show=boot.plymouth.enable
-
   # File systems and LUKS configuration are in hardware-configuration.nix
 
   networking = {
