@@ -26,12 +26,8 @@
   boot = {
     consoleLogLevel = 0; # https://search.nixos.org/options?channel=unstable&show=boot.consoleLogLevel
     kernelParams = [
-      "loglevel=3"
       "quiet"
       "rd.systemd.show_status=false"
-      "rd.udev.log_level=3"
-      "splash"
-      "udev.log_priority=3"
     ]; # https://search.nixos.org/options?channel=unstable&show=boot.kernelParams
     plymouth.enable = true; # https://search.nixos.org/options?channel=unstable&show=boot.plymouth.enable
   };
