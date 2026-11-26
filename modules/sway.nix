@@ -8,7 +8,33 @@
 # not change the default session. A host sets services.displayManager.defaultSession itself. The
 # host must define system.primaryUser, which hosts/linux/sops.nix declares.
 let
-  lockCommand = "${lib.getExe pkgs.swaylock} --daemonize";
+  # Each lock picks one image at random. Swaylock scales it in proportion until it covers the display
+  # and crops the overflow around the center, so it is never squeezed and shows no border. The color is
+  # the fallback background, which shows if the image fails to load.
+  lockScreens = [
+    {
+      color = "246f24";
+      image = ./sway/lock-screen-green-cht-10.png;
+    }
+    {
+      color = "246f24";
+      image = ./sway/lock-screen-green-cht-11.png;
+    }
+    {
+      color = "246f24";
+      image = ./sway/lock-screen-green.png;
+    }
+    {
+      color = "1a74a8";
+      image = ./sway/lock-screen-stable.jpeg;
+    }
+  ];
+  lockScript = pkgs.writeShellScript "swaylock-random" ''
+    screens=(${lib.concatMapStringsSep " " (screen: "${screen.image}:${screen.color}") lockScreens})
+    screen="''${screens[RANDOM % ''${#screens[@]}]}"
+    exec ${lib.getExe pkgs.swaylock} --color "''${screen##*:}" --daemonize --image "''${screen%:*}" --scaling fill
+  '';
+  lockCommand = toString lockScript;
 in
 {
   environment.systemPackages = with pkgs; [
