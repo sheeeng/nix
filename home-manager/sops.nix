@@ -43,6 +43,10 @@ in
 
       "passwords/atuin" = { };
 
+      "gh-dash/config" = {
+        path = "${homeDirectory}/.config/gh-dash/config.yml";
+      };
+
       "keys/atuin" = { };
       "keys/ssh/id_ed25519/public" = {
         path = "${homeDirectory}/.ssh/id_ed25519.pub";
