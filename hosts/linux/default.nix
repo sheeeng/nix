@@ -21,6 +21,17 @@
     }
   ];
 
+  # Plymouth shows the disk passphrase dialog on encrypted hosts. Quiet boot
+  # keeps boot messages off the dialog.
+  boot = {
+    consoleLogLevel = 0; # https://search.nixos.org/options?channel=unstable&show=boot.consoleLogLevel
+    kernelParams = [
+      "quiet"
+      "rd.systemd.show_status=false"
+    ]; # https://search.nixos.org/options?channel=unstable&show=boot.kernelParams
+    plymouth.enable = true; # https://search.nixos.org/options?channel=unstable&show=boot.plymouth.enable
+  };
+
   # Hermes Agent runs as a hardened NixOS system service. The shared module
   # covers fw13 and p50. https://hermes-agent.nousresearch.com/docs/getting-started/nix-setup#nixos-module
   services.hermes-agent = {
