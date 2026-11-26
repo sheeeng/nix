@@ -15,6 +15,14 @@ let
       image = ./sway/lock-screen-green.png;
     }
     {
+      color = "246f24";
+      image = ./sway/lock-screen-green-cht-10.png;
+    }
+    {
+      color = "246f24";
+      image = ./sway/lock-screen-green-cht-11.png;
+    }
+    {
       color = "1a74a8";
       image = ./sway/lock-screen-stable.jpeg;
     }
