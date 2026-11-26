@@ -9,16 +9,30 @@
 # host must define system.primaryUser, which hosts/linux/sops.nix declares.
 let
   # Each lock picks one image at random. Swaylock scales it in proportion until it covers the display
-  # and crops the overflow around the center, so it is never squeezed and shows no border.
+  # and crops the overflow around the center, so it is never squeezed and shows no border. The color is
+  # the fallback background, which shows if the image fails to load.
   lockScreens = [
-    ./sway/lock-screen-green-cht-10.png
-    ./sway/lock-screen-green-cht-11.png
-    ./sway/lock-screen-green.png
-    ./sway/lock-screen-stable.jpeg
+    {
+      color = "246f24";
+      image = ./sway/lock-screen-green-cht-10.png;
+    }
+    {
+      color = "246f24";
+      image = ./sway/lock-screen-green-cht-11.png;
+    }
+    {
+      color = "246f24";
+      image = ./sway/lock-screen-green.png;
+    }
+    {
+      color = "1a74a8";
+      image = ./sway/lock-screen-stable.jpeg;
+    }
   ];
   lockScript = pkgs.writeShellScript "swaylock-random" ''
-    screens=(${lib.concatMapStringsSep " " (screen: "${screen}") lockScreens})
-    exec ${lib.getExe pkgs.swaylock} --daemonize --image "''${screens[RANDOM % ''${#screens[@]}]}" --scaling fill
+    screens=(${lib.concatMapStringsSep " " (screen: "${screen.image}:${screen.color}") lockScreens})
+    screen="''${screens[RANDOM % ''${#screens[@]}]}"
+    exec ${lib.getExe pkgs.swaylock} --color "''${screen##*:}" --daemonize --image "''${screen%:*}" --scaling fill
   '';
   lockCommand = toString lockScript;
 in
