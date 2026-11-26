@@ -83,8 +83,18 @@ in
       systemdTargets = [ "sway-session.target" ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-services.swayidle.systemdTargets
       timeouts = [
         {
-          timeout = 300;
+          command = "${lib.getExe pkgs.brightnessctl} --save set 10%"; # Dim the screen after four minutes.
+          resumeCommand = "${lib.getExe pkgs.brightnessctl} --restore";
+          timeout = 240;
+        }
+        {
           command = lockCommand;
+          timeout = 300;
+        }
+        {
+          command = "${lib.getExe' pkgs.sway "swaymsg"} 'output * power off'"; # Turn the display off after ten minutes.
+          resumeCommand = "${lib.getExe' pkgs.sway "swaymsg"} 'output * power on'";
+          timeout = 600;
         }
       ];
     }; # https://nix-community.github.io/home-manager/options.xhtml#opt-services.swayidle.timeouts
