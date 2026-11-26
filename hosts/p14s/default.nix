@@ -298,6 +298,7 @@ in
   # OpenSSH server, reachable only from the same subnet through the firewall rule above.
   services.openssh = {
     enable = true; # https://search.nixos.org/options?channel=unstable&show=services.openssh.enable
+    ports = [ 22 ]; # https://search.nixos.org/options?channel=unstable&show=services.openssh.ports
     # Do not open the firewall globally. Access is scoped to the LAN subnet via
     # networking.firewall.extraInputRules instead.
     openFirewall = false; # https://search.nixos.org/options?channel=unstable&show=services.openssh.openFirewall
