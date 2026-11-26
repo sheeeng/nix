@@ -160,11 +160,11 @@ in
     nftables.enable = true; # https://search.nixos.org/options?channel=unstable&show=networking.nftables.enable
     firewall = {
       enable = true; # https://search.nixos.org/options?channel=unstable&show=networking.firewall.enable
-      # Allow SSH on port 2222 only from RFC 1918 private ranges, that is, hosts on the same local
+      # Allow SSH on port 22 only from RFC 1918 private ranges, that is, hosts on the same local
       # subnet. The port is intentionally left out of allowedTCPPorts so it is never exposed globally.
       # https://search.nixos.org/options?channel=unstable&show=networking.firewall.extraInputRules
       extraInputRules = ''
-        ip saddr { 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16 } tcp dport 2222 accept
+        ip saddr { 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16 } tcp dport 22 accept
       '';
     };
   };
@@ -298,7 +298,6 @@ in
   # OpenSSH server, reachable only from the same subnet through the firewall rule above.
   services.openssh = {
     enable = true; # https://search.nixos.org/options?channel=unstable&show=services.openssh.enable
-    ports = [ 2222 ]; # https://search.nixos.org/options?channel=unstable&show=services.openssh.ports
     # Do not open the firewall globally. Access is scoped to the LAN subnet via
     # networking.firewall.extraInputRules instead.
     openFirewall = false; # https://search.nixos.org/options?channel=unstable&show=services.openssh.openFirewall
