@@ -117,6 +117,7 @@ in
           XF86MonBrightnessUp = "exec ${lib.getExe pkgs.brightnessctl} set 5%+";
         };
         modifier = "Mod4";
+        output."*".bg = "${pkgs.nixos-artwork.wallpapers.simple-dark-gray.gnomeFilePath} fill"; # The NixOS GNOME dark wallpaper.
         terminal = lib.getExe pkgs.ghostty;
       }; # https://nix-community.github.io/home-manager/options.xhtml#opt-wayland.windowManager.sway.config
       enable = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-wayland.windowManager.sway.enable
