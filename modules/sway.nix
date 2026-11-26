@@ -8,7 +8,8 @@
 # not change the default session. A host sets services.displayManager.defaultSession itself. The
 # host must define system.primaryUser, which hosts/linux/sops.nix declares.
 let
-  # Each lock picks one image at random. The color fills the bars around the image.
+  # Each lock picks one image at random. Swaylock centers it at native size, so a mismatched aspect ratio
+  # never resizes or squeezes it. The color fills the area around it.
   lockScreens = [
     {
       color = "246f24";
@@ -30,7 +31,7 @@ let
   lockScript = pkgs.writeShellScript "swaylock-random" ''
     screens=(${lib.concatMapStringsSep " " (screen: "${screen.image}:${screen.color}") lockScreens})
     screen="''${screens[RANDOM % ''${#screens[@]}]}"
-    exec ${lib.getExe pkgs.swaylock} --color "''${screen##*:}" --daemonize --image "''${screen%:*}" --scaling fit
+    exec ${lib.getExe pkgs.swaylock} --color "''${screen##*:}" --daemonize --image "''${screen%:*}" --scaling center
   '';
   lockCommand = toString lockScript;
 in
