@@ -151,6 +151,7 @@ in
 
   boot.loader.systemd-boot.configurationLimit = 10;
   boot.kernelPackages = pkgs.linuxPackages_latest;
+
   # File systems and LUKS configuration are in hardware-configuration.nix
 
   networking = {
