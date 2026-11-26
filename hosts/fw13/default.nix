@@ -41,6 +41,7 @@ in
 
     ./hardware-configuration.nix
     ../linux
+    ../../modules/sway.nix
     inputs.home-manager.nixosModules.home-manager
     inputs.agenix.nixosModules.age
     inputs.nixvim.nixosModules.nixvim
@@ -278,7 +279,6 @@ in
     enable = true;
     withUWSM = true;
   };
-  programs.sway.enable = true;
 
   # Enable CUPS to print documents
   services.printing.enable = true;
