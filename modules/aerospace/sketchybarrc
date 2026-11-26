@@ -1,0 +1,32 @@
+# SketchyBar for AeroSpace. The aerospace_workspace_change event comes from exec-on-workspace-change in
+# default.nix. https://felixkratz.github.io/SketchyBar/config/events
+
+sketchybar --bar position=top height=32 padding_left=8 padding_right=8
+
+sketchybar --default \
+  icon.color=0xffffffff \
+  label.color=0xffffffff \
+  label.padding_left=6 \
+  label.padding_right=6
+
+sketchybar --add event aerospace_workspace_change
+
+for workspace in $(aerospace list-workspaces --all); do
+  sketchybar --add item "space.${workspace}" left \
+    --subscribe "space.${workspace}" aerospace_workspace_change \
+    --set "space.${workspace}" \
+    background.color=0x44ffffff \
+    background.corner_radius=5 \
+    background.drawing=off \
+    background.height=20 \
+    click_script="aerospace workspace ${workspace}" \
+    label="${workspace}" \
+    script="[ \"\$FOCUSED_WORKSPACE\" = \"${workspace}\" ] && sketchybar --set \$NAME background.drawing=on || sketchybar --set \$NAME background.drawing=off"
+done
+
+sketchybar --add item clock right \
+  --set clock \
+  script="sketchybar --set \$NAME label=\"\$(date '+%a %Y-%m-%d %H:%M')\"" \
+  update_freq=10
+
+sketchybar --update
