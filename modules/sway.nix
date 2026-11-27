@@ -149,6 +149,8 @@ let
     ];
     text = ''
       ghostty --class=demo.cava -e cava &
+      # The inner shell expands SHELL, so the single quotes are intended.
+      # shellcheck disable=SC2016
       ghostty --class=demo.fastfetch -e sh -c 'fastfetch; exec "''${SHELL:-sh}"' &
       ghostty --class=demo.cmatrix -e cmatrix &
       ghostty --class=demo.lavat -e lavat -c magenta -k blue &
