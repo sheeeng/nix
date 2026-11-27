@@ -8,21 +8,7 @@
 # not change the default session. A host sets services.displayManager.defaultSession itself. The
 # host must define system.primaryUser, which hosts/linux/sops.nix declares.
 let
-  # Catppuccin Macchiato. https://github.com/catppuccin/i3/blob/main/themes/catppuccin-macchiato
-  macchiato = {
-    base = "#24273a";
-    blue = "#8aadf4";
-    green = "#a6da95";
-    lavender = "#b7bdf8";
-    mauve = "#c6a0f6";
-    overlay0 = "#6e738d";
-    peach = "#f5a97f";
-    red = "#ed8796";
-    rosewater = "#f4dbd6";
-    surface0 = "#363a4f";
-    text = "#cad3f5";
-    yellow = "#eed49f";
-  };
+  macchiato = import ./catppuccin-macchiato.nix;
   rofiTheme = pkgs.writeText "macchiato.rasi" ''
     * {
       background: ${macchiato.base};
