@@ -216,7 +216,7 @@ in
         clock.interval = 1; # Seconds in the format need a one second refresh.
         clock.locale = "en_US.UTF-8"; # The system time locale is Norwegian, which prints the weekday in Norwegian.
         cpu.format = "{usage}% 🧶";
-        height = 30;
+        height = 38;
         layer = "top";
         margin-left = 8; # The margins make the bar float.
         margin-right = 8;
@@ -255,7 +255,7 @@ in
           border: none;
           border-radius: 0;
           font-family: "JetBrainsMono Nerd Font", monospace;
-          font-size: 13px;
+          font-size: 15px;
           min-height: 0;
         }
 
@@ -277,19 +277,19 @@ in
           background: rgba(36, 39, 58, 0.85);
           border: 1px solid rgba(183, 189, 248, 0.35);
           border-radius: 999px;
-          margin: 0 3px;
-          padding: 2px 12px;
+          margin: 2px 4px;
+          padding: 4px 16px;
         }
 
         #workspaces {
-          padding: 2px 4px;
+          padding: 4px 6px;
         }
 
         #workspaces button {
           background: transparent;
           border-radius: 999px;
           color: ${macchiato.text};
-          padding: 0 8px;
+          padding: 0 12px;
         }
 
         #workspaces button.focused {
@@ -476,6 +476,14 @@ in
             text = macchiato.peach;
           };
         }; # Catppuccin Macchiato. https://github.com/catppuccin/i3
+        fonts = {
+          names = [ "JetBrainsMono Nerd Font" ];
+          size = 11.0;
+        }; # The default is monospace 8, which makes the window titles small.
+        gaps = {
+          inner = 8;
+          outer = 4;
+        }; # Space between windows and screen edges.
         assigns = {
           "8" = [ { app_id = "^demo\\.cava$"; } ];
           "9" = [ { app_id = "^demo\\.(cmatrix|fastfetch|lavat)$"; } ];
@@ -507,7 +515,10 @@ in
         terminal = lib.getExe pkgs.ghostty;
       }; # https://nix-community.github.io/home-manager/options.xhtml#opt-wayland.windowManager.sway.config
       enable = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-wayland.windowManager.sway.enable
-      extraConfig = "include /etc/sway/config.d/*"; # https://nix-community.github.io/home-manager/options.xhtml#opt-wayland.windowManager.sway.extraConfig
+      extraConfig = ''
+        include /etc/sway/config.d/*
+        titlebar_padding 10 6
+      ''; # https://nix-community.github.io/home-manager/options.xhtml#opt-wayland.windowManager.sway.extraConfig
       package = null; # The NixOS module installs the wrapped package. https://nix-community.github.io/home-manager/options.xhtml#opt-wayland.windowManager.sway.package
     };
   };
