@@ -1,4 +1,5 @@
 {
+  inputs,
   lib,
   pkgs,
   ...
@@ -8,6 +9,14 @@
     ./sops.nix
     ../../modules/ca-certificates.nix
     ../../modules/home-manager.nix
+  ];
+
+  # Rex has no x86_64 macOS build, and the Rex app runs the server on macOS, so only programs.rex applies.
+  home-manager.sharedModules = [
+    inputs.rex.homeManagerModules.default
+    {
+      programs.rex.enable = pkgs.stdenv.hostPlatform.isAarch64; # https://www.superlogical.com/rex/docs/linux/installation#the-home-manager-module
+    }
   ];
 
   determinateNix.nixosVmBasedLinuxBuilder = {
