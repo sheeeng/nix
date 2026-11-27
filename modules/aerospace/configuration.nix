@@ -6,13 +6,21 @@ let
   triggerFocusedWorkspace =
     workspace: "${sketchybar} --trigger aerospace_workspace_change FOCUSED_WORKSPACE=${workspace}";
   barHeight = 32;
+  # The clock shows the time in UTC, followed by the name and the offset of the system timezone, for example
+  # "Fri 2026-11-27 11:34 CET/UTC+01:00". The macOS date command has no %:z, so the script splits %z.
+  clockLabel = pkgs.writeShellScript "clock-label" ''
+    zone="$(date '+%Z')"
+    offset="$(date '+%z')"
+    printf '%s %s/UTC%s:%s\n' "$(date -u '+%a %Y-%m-%d %H:%M')" "$zone" "''${offset%??}" "''${offset#???}"
+  '';
   workspaces = map toString (lib.range 1 9);
 in
 {
-  # The workspace list and the bar height come from one place, so the bar items match the key bindings and
+  # The workspace list, the bar height, and the clock label come from one place, so the bar items match the key bindings and
   # AeroSpace keeps the tiled windows below the bar.
   sketchybarConfig = ''
     bar_height=${toString barHeight}
+    clock_label=${clockLabel}
     workspaces="${lib.concatStringsSep " " workspaces}"
     ${builtins.readFile ./sketchybarrc}
   '';
