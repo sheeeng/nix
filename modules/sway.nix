@@ -503,7 +503,7 @@ in
         };
         menu = "${lib.getExe pkgs.rofi} -show drun";
         modifier = "Mod4";
-        output."*".bg = "${pkgs.nixos-artwork.wallpapers.simple-dark-gray.gnomeFilePath} fill"; # The NixOS GNOME dark wallpaper.
+        output."*".bg = "${pkgs.nixos-artwork.wallpapers.nineish-catppuccin-macchiato.gnomeFilePath} fill"; # The NixOS Catppuccin Macchiato wallpaper.
         terminal = lib.getExe pkgs.ghostty;
       }; # https://nix-community.github.io/home-manager/options.xhtml#opt-wayland.windowManager.sway.config
       enable = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-wayland.windowManager.sway.enable
