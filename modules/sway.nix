@@ -29,6 +29,43 @@ let
       image = ./sway/lock-screen-stable.jpeg;
     }
   ];
+  # Cliphist cannot tell which program owns a copy, so the store script checks which window has the focus.
+  # List the app ID or window class in lower case. Find it with:
+  # swaymsg --type get_tree | jq '.. | objects | select(.focused? == true) | .app_id // .window_properties.class'
+  clipboardExcludedApps = [
+    "1password"
+    "bitwarden"
+    "enpass"
+    "org.keepassxc.keepassxc"
+  ];
+  clipboardPicker = pkgs.writeShellApplication {
+    name = "clipboard-picker";
+    runtimeInputs = with pkgs; [
+      cliphist
+      rofi
+      wl-clipboard
+    ];
+    text = "cliphist list | rofi -dmenu | cliphist decode | wl-copy";
+  };
+  cliphistStore = pkgs.writeShellApplication {
+    name = "cliphist-store";
+    runtimeInputs = with pkgs; [
+      cliphist
+      coreutils
+      gnugrep
+      jq
+      sway
+    ];
+    text = ''
+      # An unknown focus stores the copy. Cliphist itself skips a copy that its source marks as sensitive.
+      focused="$(swaymsg --type get_tree | jq --raw-output '[.. | objects | select(.focused? == true)] | first | (.app_id // .window_properties.class // "") | ascii_downcase')" || focused=""
+      if [ -n "$focused" ] && printf '%s\n' ${lib.escapeShellArgs clipboardExcludedApps} | grep --quiet --line-regexp --fixed-strings --regexp "$focused"; then
+        cat > /dev/null
+        exit 0
+      fi
+      exec cliphist -max-items 100 store
+    '';
+  };
   lockScript = pkgs.writeShellScript "swaylock-random" ''
     screens=(${lib.concatMapStringsSep " " (screen: "${screen.image}:${screen.color}") lockScreens})
     screen="''${screens[RANDOM % ''${#screens[@]}]}"
@@ -47,6 +84,14 @@ in
     wl-clipboard # https://search.nixos.org/packages?channel=unstable&type=packages&show=wl-clipboard
     # keep-sorted end
   ];
+
+  programs.thunar = {
+    enable = true; # https://search.nixos.org/options?channel=unstable&show=programs.thunar.enable
+    plugins = [ pkgs.thunar-volman ]; # https://search.nixos.org/options?channel=unstable&show=programs.thunar.plugins
+  };
+
+  services.gvfs.enable = true; # Thunar mounts drives and uses the trash through gvfs. https://search.nixos.org/options?channel=unstable&show=services.gvfs.enable
+  services.tumbler.enable = true; # Thunar shows thumbnails through tumbler. https://search.nixos.org/options?channel=unstable&show=services.tumbler.enable
 
   home-manager.users."${config.system.primaryUser}" = {
     programs.waybar = {
@@ -98,6 +143,21 @@ in
       systemd.targets = [ "sway-session.target" ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.waybar.systemd.targets
     };
 
+    programs.rofi.enable = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.rofi.enable
+
+    systemd.user.services.cliphist = {
+      Install.WantedBy = [ "sway-session.target" ];
+      Service = {
+        ExecStart = "${lib.getExe' pkgs.wl-clipboard "wl-paste"} --watch ${lib.getExe cliphistStore}";
+        Restart = "on-failure";
+      };
+      Unit = {
+        After = [ "sway-session.target" ];
+        Description = "Store the clipboard history, except for copies from the listed apps.";
+        PartOf = [ "sway-session.target" ];
+      };
+    }; # https://nix-community.github.io/home-manager/options.xhtml#opt-systemd.user.services
+
     services.mako.enable = true; # https://nix-community.github.io/home-manager/options.xhtml#opt-services.mako.enable
 
     services.swayidle = {
@@ -146,12 +206,15 @@ in
           };
         };
         keybindings = lib.mkOptionDefault {
+          "Mod4+e" = "exec ${lib.getExe pkgs.thunar}";
+          "Mod4+v" = "exec ${lib.getExe clipboardPicker}";
           XF86AudioLowerVolume = "exec ${lib.getExe' pkgs.wireplumber "wpctl"} set-volume @DEFAULT_AUDIO_SINK@ 5%-";
           XF86AudioMute = "exec ${lib.getExe' pkgs.wireplumber "wpctl"} set-mute @DEFAULT_AUDIO_SINK@ toggle";
           XF86AudioRaiseVolume = "exec ${lib.getExe' pkgs.wireplumber "wpctl"} set-volume @DEFAULT_AUDIO_SINK@ 5%+";
           XF86MonBrightnessDown = "exec ${lib.getExe pkgs.brightnessctl} set 5%-";
           XF86MonBrightnessUp = "exec ${lib.getExe pkgs.brightnessctl} set 5%+";
         };
+        menu = "${lib.getExe pkgs.rofi} -show drun";
         modifier = "Mod4";
         output."*".bg = "${pkgs.nixos-artwork.wallpapers.simple-dark-gray.gnomeFilePath} fill"; # The NixOS GNOME dark wallpaper.
         terminal = lib.getExe pkgs.ghostty;
