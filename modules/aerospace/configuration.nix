@@ -7,11 +7,11 @@ let
     workspace: "${sketchybar} --trigger aerospace_workspace_change FOCUSED_WORKSPACE=${workspace}";
   barHeight = 32;
   # The clock shows the local date and time, followed by the name and the offset of the system timezone, for
-  # example "Fri 2026-11-27 09:50 (CET/UTC+01:00)". The macOS date command has no %:z, so the script splits %z.
+  # example "Fri 2026-11-27 09:50:42 (CET/UTC+01:00)". The macOS date command has no %:z, so the script splits %z.
   clockLabel = pkgs.writeShellScript "clock-label" ''
     zone="$(date '+%Z')"
     offset="$(date '+%z')"
-    printf '%s (%s/UTC%s:%s)\n' "$(date '+%a %Y-%m-%d %H:%M')" "$zone" "''${offset%??}" "''${offset#???}"
+    printf '%s (%s/UTC%s:%s)\n' "$(date '+%a %Y-%m-%d %H:%M:%S')" "$zone" "''${offset%??}" "''${offset#???}"
   '';
   workspaces = map toString (lib.range 1 9);
 in

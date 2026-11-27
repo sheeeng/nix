@@ -28,7 +28,7 @@ done
 sketchybar --add item clock right \
   --set clock \
   script="sketchybar --set \$NAME label=\"\$(\"$clock_label\")\"" \
-  update_freq=10
+  update_freq=1
 
 # Fill the clock at once. Do not force an update of the workspace items, because their scripts run
 # asynchronously and could clear the highlight that the trigger below sets.

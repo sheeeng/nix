@@ -72,7 +72,7 @@ pkill -x sketchybar
 The bar shows the workspaces on the left, with the focused one highlighted, and
 the clock on the right. Click a workspace to go to it. The clock shows the local
 date and time, followed by the name and offset of the system timezone, for
-example `Fri 2026-11-27 09:50 (CET/UTC+01:00)`.
+example `Fri 2026-11-27 09:50:42 (CET/UTC+01:00)`.
 
 ## Keep It on a Host
 
