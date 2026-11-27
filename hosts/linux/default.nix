@@ -64,11 +64,11 @@
     content = ''
       chain incoming {
         type filter hook input priority -100; policy accept;
-        ip saddr 100.64.0.0/10 ct mark set 0x00000f41; meta mark set 0x6d6f6c65;
+        ip saddr 100.64.0.0/10 ct mark set 0x00000f41 meta mark set 0x6d6f6c65;
       }
       chain outgoing {
         type route hook output priority -100; policy accept;
-        ip daddr 100.64.0.0/10 ct mark set 0x00000f41; meta mark set 0x6d6f6c65;
+        ip daddr 100.64.0.0/10 ct mark set 0x00000f41 meta mark set 0x6d6f6c65;
       }
     ''; # https://search.nixos.org/options?channel=unstable&show=networking.nftables.tables
   };
