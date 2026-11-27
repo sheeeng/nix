@@ -3,11 +3,7 @@
 {
   pkgs ? import <nixpkgs> {
     config.allowUnfree = true;
-    overlays = [
-      (final: _prev: {
-        terraform = final.callPackage ./pkgs/terraform.nix { };
-      })
-    ];
+    overlays = [ (import ./overlays { inputs = { }; }).modifications ];
   },
   ...
 }:
