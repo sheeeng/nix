@@ -1,4 +1,5 @@
-# SketchyBar for AeroSpace. The aerospace_workspace_change event comes from exec-on-workspace-change in
+# SketchyBar for AeroSpace. default.nix sets the workspaces variable above this file. The
+# aerospace_workspace_change event comes from exec-on-workspace-change and after-startup-command in
 # default.nix. https://felixkratz.github.io/SketchyBar/config/events
 
 sketchybar --bar position=top height=32 padding_left=8 padding_right=8
@@ -11,7 +12,7 @@ sketchybar --default \
 
 sketchybar --add event aerospace_workspace_change
 
-for workspace in $(aerospace list-workspaces --all); do
+for workspace in $workspaces; do
   sketchybar --add item "space.${workspace}" left \
     --subscribe "space.${workspace}" aerospace_workspace_change \
     --set "space.${workspace}" \
@@ -30,3 +31,10 @@ sketchybar --add item clock right \
   update_freq=10
 
 sketchybar --update
+
+# The update above runs the item scripts without FOCUSED_WORKSPACE, which clears every highlight. Mark the
+# focused workspace again. If AeroSpace is not running yet, its after-startup-command does it later.
+focused_workspace="$(aerospace list-workspaces --focused 2>/dev/null)"
+if [ -n "${focused_workspace}" ]; then
+  sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE="${focused_workspace}"
+fi

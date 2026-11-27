@@ -3,6 +3,9 @@
 # with AeroSpace and draws a SketchyBar. A host that does not import it keeps the native behavior.
 # Do not import this module together with ../yabai, because both enable SketchyBar.
 let
+  sketchybar = lib.getExe pkgs.sketchybar;
+  triggerFocusedWorkspace =
+    workspace: "${sketchybar} --trigger aerospace_workspace_change FOCUSED_WORKSPACE=${workspace}";
   workspaces = map toString (lib.range 1 9);
 in
 {
@@ -10,12 +13,16 @@ in
     enable = true; # https://nix-darwin.github.io/nix-darwin/manual/#opt-services.aerospace.enable
     package = pkgs.aerospace; # https://nix-darwin.github.io/nix-darwin/manual/#opt-services.aerospace.package
     settings = {
+      # SketchyBar may start before AeroSpace, so mark the focused workspace again when AeroSpace starts.
+      after-startup-command = [
+        "exec-and-forget ${triggerFocusedWorkspace "$(${lib.getExe pkgs.aerospace} list-workspaces --focused)"}"
+      ];
       config-version = 2;
       # Tell SketchyBar which workspace has the focus.
       exec-on-workspace-change = [
         "/bin/bash"
         "-c"
-        "${lib.getExe pkgs.sketchybar} --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE"
+        (triggerFocusedWorkspace "$AEROSPACE_FOCUSED_WORKSPACE")
       ];
       mode.main.binding = {
         alt-h = "focus left";
@@ -47,6 +54,10 @@ in
   services.sketchybar = {
     enable = true; # https://nix-darwin.github.io/nix-darwin/manual/#opt-services.sketchybar.enable
     package = pkgs.sketchybar; # https://nix-darwin.github.io/nix-darwin/manual/#opt-services.sketchybar.package
-    config = builtins.readFile ./sketchybarrc; # https://nix-darwin.github.io/nix-darwin/manual/#opt-services.sketchybar.config
+    # The workspace list comes from one place, so the bar items match the key bindings.
+    config = ''
+      workspaces="${lib.concatStringsSep " " workspaces}"
+      ${builtins.readFile ./sketchybarrc}
+    ''; # https://nix-darwin.github.io/nix-darwin/manual/#opt-services.sketchybar.config
   };
 }
