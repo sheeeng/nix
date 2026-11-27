@@ -7,11 +7,13 @@ let
     workspace: "${sketchybar} --trigger aerospace_workspace_change FOCUSED_WORKSPACE=${workspace}";
   barHeight = 32;
   # The clock shows the local date and time, followed by the name and the offset of the system timezone, for
-  # example "Fri 2026-11-27 09:50:42 (CET/UTC+01:00)". The macOS date command has no %:z, so the script splits %z.
+  # example "Fri 2026-11-27 09:50:42 (CET/UTC+01:00)". The clock refreshes every second, so the script uses only
+  # Bash built-ins and starts no other process. The offset comes from %z, which is +hhmm, and the script adds
+  # the colon. The shell is the Bash of Nix, which supports the %(format)T conversion.
   clockLabel = pkgs.writeShellScript "clock-label" ''
-    zone="$(date '+%Z')"
-    offset="$(date '+%z')"
-    printf '%s (%s/UTC%s:%s)\n' "$(date '+%a %Y-%m-%d %H:%M:%S')" "$zone" "''${offset%??}" "''${offset#???}"
+    printf -v zone '%(%Z)T' -1
+    printf -v offset '%(%z)T' -1
+    printf '%(%a %Y-%m-%d %H:%M:%S)T (%s/UTC%s:%s)\n' -1 "$zone" "''${offset%??}" "''${offset#???}"
   '';
   workspaces = map toString (lib.range 1 9);
 in
