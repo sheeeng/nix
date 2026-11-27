@@ -243,9 +243,6 @@ in
   time.timeZone = "Europe/Oslo";
   i18n = {
     defaultLocale = "en_US.UTF-8";
-    extraLocaleSettings = {
-      LC_TIME = "nb_NO.UTF-8";
-    };
     inputMethod = {
       enable = true;
       type = "ibus";
@@ -392,7 +389,12 @@ in
   home-manager.sharedModules = [
     inputs.nix-index-database.homeModules.nix-index
     {
+      dconf.settings."org/gnome/desktop/calendar".show-weekdate = true; # Show week numbers in the calendar.
       dconf.settings."org/gnome/desktop/interface" = {
+        clock-format = "24h";
+        clock-show-date = true;
+        clock-show-seconds = true;
+        clock-show-weekday = true;
         color-scheme = "default";
         cursor-size = 24;
         cursor-theme = "Adwaita";
