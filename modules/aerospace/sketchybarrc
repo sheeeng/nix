@@ -1,4 +1,4 @@
-# SketchyBar for AeroSpace. configuration.nix sets the bar_height, clock_label, and workspaces variables above this file. The
+# SketchyBar for AeroSpace. configuration.nix sets the bar_height, clock_daemon, and workspaces variables above this file. The
 # aerospace_workspace_change event comes from exec-on-workspace-change and after-startup-command in
 # configuration.nix. https://felixkratz.github.io/SketchyBar/config/events
 
@@ -25,14 +25,12 @@ for workspace in $workspaces; do
     script="[ \"\$FOCUSED_WORKSPACE\" = \"${workspace}\" ] && sketchybar --set \$NAME background.drawing=on || sketchybar --set \$NAME background.drawing=off"
 done
 
-sketchybar --add item clock right \
-  --set clock \
-  script="sketchybar --set \$NAME label=\"\$(\"$clock_label\")\"" \
-  update_freq=1
+sketchybar --add item clock right
 
-# Fill the clock at once. Do not force an update of the workspace items, because their scripts run
-# asynchronously and could clear the highlight that the trigger below sets.
-sketchybar --set clock label="$("${clock_label}")"
+# The clock daemon fills the clock at the start of each second. Stop a daemon from an earlier load first, so a
+# reload leaves one.
+/usr/bin/pkill -f "$clock_daemon" 2> /dev/null
+"$clock_daemon" > /dev/null 2>&1 &
 
 # Mark the focused workspace. If AeroSpace is not running yet, its after-startup-command does it later.
 focused_workspace="$(aerospace list-workspaces --focused 2>/dev/null)"

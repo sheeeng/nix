@@ -72,7 +72,9 @@ pkill -x sketchybar
 The bar shows the workspaces on the left, with the focused one highlighted, and
 the clock on the right. Click a workspace to go to it. The clock shows the local
 date and time, followed by the name and offset of the system timezone, for
-example `Fri 2026-11-27 09:50:42 (CET/UTC+01:00)`.
+example `Fri 2026-11-27 09:50:42 (CET/UTC+01:00)`. A small background process
+updates the clock at the start of every second. It starts no other process
+between updates, and it stops by itself when SketchyBar stops.
 
 ## Keep It on a Host
 
@@ -111,6 +113,7 @@ Run `aerospace enable on` to resume.
 | Nothing happens when you press a key. | Allow AeroSpace in Accessibility. Then stop and start it again. |
 | The bar does not appear. | Read `~/.local/state/aerospace-trial/sketchybar.log`. Check that no other SketchyBar runs. |
 | Windows overlap the bar. | Hide the macOS menu bar automatically. AeroSpace reserves 32 pixels at the top for the bar. |
+| The clock does not change. | Stop and start the trial again. If it still does not change, read `~/.local/state/aerospace-trial/sketchybar.log`. |
 | No workspace is highlighted. | Go to another workspace and back. AeroSpace then sends the focused workspace to the bar. |
 | You cannot type an Option character, such as in a text field. | AeroSpace uses the `alt` bindings. Change the bindings in `modules/aerospace/configuration.nix`. |
 | The start command says an application already runs. | If a trial runs, run the stop command. Otherwise stop the application yourself. The helper never stops an application that it did not start. |
