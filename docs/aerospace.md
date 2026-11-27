@@ -56,25 +56,49 @@ pkill -x AeroSpace
 pkill -x sketchybar
 ```
 
-## Key Bindings
+## Shared Shortcuts
 
-`alt` is the Option key.
+The Sway setup on Linux and AeroSpace on macOS use the same shortcuts, so one
+set of habits works on both. Mod is Super on Linux and Option on macOS. The two
+keys are in the same place on the keyboard, to the right of Control.
 
-| Keys | Action |
-| --- | --- |
-| `alt-h`, `alt-j`, `alt-k`, `alt-l` | Focus the window on the left, below, above, or on the right. |
-| `alt-shift-h`, `alt-shift-j`, `alt-shift-k`, `alt-shift-l` | Move the window in that direction. |
-| `alt-1` to `alt-9` | Go to workspace 1 to 9. |
-| `alt-shift-1` to `alt-shift-9` | Move the window to workspace 1 to 9. |
-| `alt-tab` | Go back to the previous workspace. |
-| `alt-slash` | Switch the layout between tiles in a row and tiles in a column. |
+| Action | Linux, Sway | macOS, AeroSpace |
+| --- | --- | --- |
+| Open a terminal | `Mod+Return` | `alt-enter` |
+| Open the launcher | `Mod+d` | `alt-d` |
+| Open the file manager | `Mod+Shift+f` | `alt-shift-f` |
+| Close the window | `Mod+Shift+q` | `alt-shift-q` |
+| Focus a window | `Mod+h`, `Mod+j`, `Mod+k`, `Mod+l` | `alt-h`, `alt-j`, `alt-k`, `alt-l` |
+| Move a window | `Mod+Shift+h`, `j`, `k`, `l` | `alt-shift-h`, `j`, `k`, `l` |
+| Go to workspace 1 to 9 | `Mod+1` to `Mod+9` | `alt-1` to `alt-9` |
+| Move the window to workspace 1 to 9 | `Mod+Shift+1` to `Mod+Shift+9` | `alt-shift-1` to `alt-shift-9` |
+| Go to the previous workspace | `Mod+Tab` | `alt-tab` |
+| Toggle the split direction | `Mod+e` | `alt-e` |
+| Stacking layout | `Mod+s` | `alt-s` |
+| Tabbed layout | `Mod+w` | `alt-w` |
+| Fullscreen | `Mod+f` | `alt-f` |
+| Float or tile the window | `Mod+Shift+space` | `alt-shift-space` |
+| Resize mode, then `h`, `j`, `k`, `l`, and `Esc` to leave | `Mod+r` | `alt-r` |
 
-The bar shows the workspaces on the left, with the focused one highlighted, and
-the clock on the right. Click a workspace to go to it. The clock shows the local
-date and time, followed by the name and offset of the system timezone, for
-example `Fri 2026-11-27 09:50:42 (CET/UTC+01:00)`. A small background process
-updates the clock at the start of every second. It starts no other process
-between updates, and it stops by itself when SketchyBar stops.
+Some actions use another program on each system. The launcher is Rofi on Linux
+and Spotlight on macOS. The file manager is Thunar on Linux and Finder on
+macOS. The terminal is Ghostty on both. The `alt-enter` shortcut opens the
+Ghostty application, so install Ghostty in `/Applications` or `~/Applications`.
+
+Linux has more shortcuts that macOS does not need: `Mod+Shift+v` for the
+clipboard history, `Mod+Shift+n` for the notification center, and
+`Mod+Shift+d` for the demo apps.
+
+The bar uses the same Catppuccin Macchiato pills as Waybar on Linux. It shows
+the workspaces in one pill, with the focused one highlighted, and the front
+application on the left. The clock is in the center, and the battery is on the
+right. Click a workspace to go to it. The clock shows the local date and time,
+followed by the name and offset of the system timezone, for example
+`Fri 2026-11-27 09:50:42 (CET/UTC+01:00)`. A small background process updates
+the clock at the start of every second. It starts no other process between
+updates, and it stops by itself when SketchyBar stops. The battery label has
+the same words and icons as Waybar, and it updates when the power source
+changes and every two minutes.
 
 ## Keep It on a Host
 
@@ -116,6 +140,8 @@ Run `aerospace enable on` to resume.
 | The clock does not change. | Stop and start the trial again. If it still does not change, read `~/.local/state/aerospace-trial/sketchybar.log`. |
 | No workspace is highlighted. | Go to another workspace and back. AeroSpace then sends the focused workspace to the bar. |
 | You cannot type an Option character, such as in a text field. | AeroSpace uses the `alt` bindings. Change the bindings in `modules/aerospace/configuration.nix`. |
+| `alt-enter` does nothing. | Ghostty is not in `/Applications` or `~/Applications`. Install it there. |
+| `alt-d` does not open Spotlight. | Open Spotlight with its own shortcut. The `open -a Spotlight` command depends on the macOS version. |
 | The start command says an application already runs. | If a trial runs, run the stop command. Otherwise stop the application yourself. The helper never stops an application that it did not start. |
 | The start command says AeroSpace did not start. | Read `~/.local/state/aerospace-trial/aerospace.log`. Allow AeroSpace in Accessibility, then try again. |
 

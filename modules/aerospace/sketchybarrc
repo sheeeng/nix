@@ -1,36 +1,65 @@
-# SketchyBar for AeroSpace. configuration.nix sets the bar_height, clock_daemon, and workspaces variables above this file. The
-# aerospace_workspace_change event comes from exec-on-workspace-change and after-startup-command in
-# configuration.nix. https://felixkratz.github.io/SketchyBar/config/events
+# SketchyBar for AeroSpace, in the same style as the Waybar setup on Linux: Catppuccin Macchiato pills on a
+# transparent bar. configuration.nix sets the variables above this file. The aerospace_workspace_change event
+# comes from exec-on-workspace-change and after-startup-command in configuration.nix.
+# https://felixkratz.github.io/SketchyBar/config/events
 
-sketchybar --bar position=top height="${bar_height}" padding_left=8 padding_right=8
+sketchybar --bar \
+  border_width=0 \
+  color=0x00000000 \
+  height=$((bar_height - 4)) \
+  margin=8 \
+  position=top \
+  y_offset=4
 
 sketchybar --default \
-  icon.color=0xffffffff \
-  label.color=0xffffffff \
-  label.padding_left=6 \
-  label.padding_right=6
+  background.border_color="$color_border" \
+  background.border_width=1 \
+  background.color="$color_base" \
+  background.corner_radius=12 \
+  background.height=24 \
+  icon.drawing=off \
+  label.color="$color_text" \
+  label.font="JetBrainsMono Nerd Font:Regular:13.0" \
+  label.padding_left=12 \
+  label.padding_right=12 \
+  padding_left=3 \
+  padding_right=3
 
 sketchybar --add event aerospace_workspace_change
 
+# The workspaces share one pill. The focused one has the accent color.
 for workspace in $workspaces; do
   sketchybar --add item "space.${workspace}" left \
     --subscribe "space.${workspace}" aerospace_workspace_change \
     --set "space.${workspace}" \
-    background.color=0x44ffffff \
-    background.corner_radius=5 \
+    background.border_width=0 \
+    background.color="$color_focus" \
     background.drawing=off \
     background.height=20 \
     click_script="aerospace workspace ${workspace}" \
     label="${workspace}" \
-    script="[ \"\$FOCUSED_WORKSPACE\" = \"${workspace}\" ] && sketchybar --set \$NAME background.drawing=on || sketchybar --set \$NAME background.drawing=off"
+    label.padding_left=8 \
+    label.padding_right=8 \
+    script="if [ \"\$FOCUSED_WORKSPACE\" = \"${workspace}\" ]; then sketchybar --set \$NAME background.drawing=on label.color=$color_focus_text; else sketchybar --set \$NAME background.drawing=off label.color=$color_text; fi"
 done
+sketchybar --add bracket workspaces '/space\..*/' \
+  --set workspaces background.border_width=1
 
-sketchybar --add item clock right
+# The front application, like the window title in Waybar.
+sketchybar --add item front_app left \
+  --subscribe front_app front_app_switched \
+  --set front_app script='sketchybar --set $NAME label="$INFO"'
 
-# The clock daemon fills the clock at the start of each second. Stop a daemon from an earlier load first, so a
-# reload leaves one.
-/usr/bin/pkill -f "$clock_daemon" 2> /dev/null
+sketchybar --add item clock center
+
+# The clock daemon fills the clock at the start of each second. It replaces a daemon from an earlier load or
+# build by itself, so a reload leaves one.
 "$clock_daemon" > /dev/null 2>&1 &
+
+sketchybar --add item battery right \
+  --subscribe battery power_source_change system_woke \
+  --set battery script="$battery_update" update_freq=120
+"$battery_update"
 
 # Mark the focused workspace. If AeroSpace is not running yet, its after-startup-command does it later.
 focused_workspace="$(aerospace list-workspaces --focused 2>/dev/null)"
