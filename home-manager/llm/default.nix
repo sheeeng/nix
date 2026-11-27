@@ -232,13 +232,20 @@ in
   packages =
     with pkgs;
     [
-      chatgpt-cli # https://search.nixos.org/packages?channel=unstable&type=packages&show=chatgpt-cli
+      # Both packages install bin/chatgpt. Lower the CLI priority so the desktop launcher entry
+      # (Exec=chatgpt) starts the desktop app on Linux.
+      (pkgs.lib.lowPrio chatgpt-cli) # https://search.nixos.org/packages?channel=unstable&type=packages&show=chatgpt-cli
       codex # https://search.nixos.org/packages?channel=unstable&type=packages&show=codex
       herdr # https://search.nixos.org/packages?channel=unstable&type=packages&show=herdr
       pi-coding-agent # https://search.nixos.org/packages?channel=unstable&type=packages&show=pi-coding-agent
     ]
+    ++
+      pkgs.lib.optionals
+        (pkgs.stdenv.hostPlatform.isAarch64 || pkgs.stdenv.hostPlatform.system == "x86_64-linux")
+        [
+          chatgpt # https://search.nixos.org/packages?channel=unstable&type=packages&show=chatgpt
+        ]
     ++ pkgs.lib.optionals (pkgs.stdenv.hostPlatform.isDarwin && pkgs.stdenv.hostPlatform.isAarch64) [
-      chatgpt # https://search.nixos.org/packages?channel=unstable&type=packages&show=chatgpt
       codexbar # https://search.nixos.org/packages?channel=unstable&type=packages&show=codexbar
     ];
 
