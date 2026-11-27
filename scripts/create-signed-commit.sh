@@ -95,14 +95,24 @@ parent_oid="$(
 )"
 printf 'Parent OID: %s (%s)\n' "${parent_oid}" "${base_ref}"
 
+# Print the tip of the destination branch, or nothing when the branch does not exist.
+# A missing branch makes gh print the error body on standard output, so accept only a commit OID.
+branch_tip() {
+  local tip
+  tip="$(
+    GH_TOKEN="${token}" gh api \
+      "repos/${repository}/git/ref/heads/${branch}" \
+      --jq '.object.sha' 2> /dev/null || true
+  )"
+  if [[ ${tip} =~ ^[0-9a-f]{40}$ ]]; then
+    printf '%s' "${tip}"
+  fi
+}
+
 # Observe the current destination branch tip before making any changes.
 # This OID is used for the lease check at publish time so that a
 # concurrent update to the destination branch is detected and reported.
-existing_tip="$(
-  GH_TOKEN="${token}" gh api \
-    "repos/${repository}/git/ref/heads/${branch}" \
-    --jq '.object.sha' 2> /dev/null || true
-)"
+existing_tip="$(branch_tip)"
 if [[ -n ${existing_tip} ]]; then
   printf 'Existing branch tip: %s (%s)\n' "${existing_tip}" "${branch}"
 fi
@@ -174,11 +184,7 @@ printf 'Signed commit %s on staging branch %s.\n' "${commit_oid}" "${staging_bra
 # Re-read the destination branch tip and verify it has not changed since
 # the initial observation. This soft lease check detects concurrent
 # updates to the destination branch made during the staging commit.
-current_tip="$(
-  GH_TOKEN="${token}" gh api \
-    "repos/${repository}/git/ref/heads/${branch}" \
-    --jq '.object.sha' 2> /dev/null || true
-)"
+current_tip="$(branch_tip)"
 if [[ ${current_tip} != "${existing_tip}" ]]; then
   printf 'Error: branch %s changed from %s to %s during staging commit.\n' \
     "${branch}" "${existing_tip:-<none>}" "${current_tip:-<none>}" >&2
