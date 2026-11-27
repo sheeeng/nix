@@ -44,7 +44,9 @@ and process identifiers to `~/.local/state/aerospace-trial`.
    ```
 
 The start command stops with a message if AeroSpace or SketchyBar already runs.
-This prevents two copies of each.
+This prevents two copies of each. If the running copy is not from this helper,
+for example one that nix-darwin started, the helper leaves it unchanged. The
+stop command also acts only on processes that this helper started.
 
 If a window stays in a wrong place after you stop, run these commands:
 
@@ -68,7 +70,9 @@ pkill -x sketchybar
 | `alt-slash` | Switch the layout between tiles in a row and tiles in a column. |
 
 The bar shows the workspaces on the left, with the focused one highlighted, and
-the clock on the right. Click a workspace to go to it.
+the clock on the right. Click a workspace to go to it. The clock shows the time
+in UTC, followed by the name and offset of the system timezone, for example
+`Fri 2026-11-27 11:34 CET/UTC+01:00`.
 
 ## Keep It on a Host
 
@@ -109,7 +113,8 @@ Run `aerospace enable on` to resume.
 | Windows overlap the bar. | Hide the macOS menu bar automatically. AeroSpace reserves 32 pixels at the top for the bar. |
 | No workspace is highlighted. | Go to another workspace and back. AeroSpace then sends the focused workspace to the bar. |
 | You cannot type an Option character, such as in a text field. | AeroSpace uses the `alt` bindings. Change the bindings in `modules/aerospace/configuration.nix`. |
-| The start command says an application already runs. | Run the stop command, or stop the application yourself. |
+| The start command says an application already runs. | If a trial runs, run the stop command. Otherwise stop the application yourself. The helper never stops an application that it did not start. |
+| The start command says AeroSpace did not start. | Read `~/.local/state/aerospace-trial/aerospace.log`. Allow AeroSpace in Accessibility, then try again. |
 
 [aerospace]: https://github.com/nikitabobko/AeroSpace
 [sketchybar]: https://github.com/FelixKratz/SketchyBar
