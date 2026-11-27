@@ -105,11 +105,16 @@ let
       rofi
       wl-clipboard
     ];
-    # Cancelling Rofi must not start wl-copy, because wl-copy with no input empties the clipboard.
+    # Start wl-copy only with decoded content, because wl-copy with no input empties the clipboard.
+    # Cancelling Rofi, or typing text that is not a history entry, leaves the clipboard unchanged.
     text = ''
       selection="$(cliphist list | rofi -dmenu)" || exit 0
       [ -n "$selection" ] || exit 0
-      printf '%s\n' "$selection" | cliphist decode | wl-copy
+      content="$(mktemp)"
+      trap 'rm --force "$content"' EXIT
+      printf '%s\n' "$selection" | cliphist decode > "$content" || exit 0
+      [ -s "$content" ] || exit 0
+      wl-copy < "$content"
     '';
   };
   cliphistStore = pkgs.writeShellApplication {
