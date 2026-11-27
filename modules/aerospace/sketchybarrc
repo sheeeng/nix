@@ -63,7 +63,7 @@ sketchybar --add item battery right \
 
 # Show the front application at once. Its subscription fills the label only after the next switch. Do not force
 # an update of the items, because their scripts run asynchronously and could clear the highlight.
-sketchybar --set front_app label="$(aerospace list-windows --focused --format '%{app-name}' 2> /dev/null)"
+"$front_app_update"
 
 # Mark the focused workspace. If AeroSpace is not running yet, its after-startup-command does it later.
 focused_workspace="$(aerospace list-workspaces --focused 2>/dev/null)"

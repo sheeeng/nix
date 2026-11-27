@@ -15,6 +15,11 @@ let
   };
   # SketchyBar colors are 0xAARRGGBB.
   argb = alpha: color: "0x${alpha}${lib.removePrefix "#" color}";
+  # The front application comes from LaunchServices, so it also works when no window has the focus.
+  frontApp = pkgs.writeShellScript "front-app" ''
+    name="$(/usr/bin/lsappinfo info -only name "$(/usr/bin/lsappinfo front)" | /usr/bin/sed --quiet 's/^"LSDisplayName"="\(.*\)"$/\1/p')"
+    ${sketchybar} --set front_app label="$name"
+  '';
   # The same labels as the Waybar battery module. The icons come from the system battery state.
   batteryUpdate = pkgs.writeShellScript "battery-update" ''
     status="$(/usr/bin/pmset -g batt)"
@@ -93,6 +98,7 @@ in
     bar_height=${toString barHeight}
     battery_update=${batteryUpdate}
     clock_daemon=${clockDaemon}
+    front_app_update=${frontApp}
     color_base=${argb "d9" macchiato.base}
     color_border=${argb "59" macchiato.lavender}
     color_focus=${argb "ff" macchiato.mauve}
@@ -107,7 +113,7 @@ in
     after-startup-command = [
       "exec-and-forget ${triggerFocusedWorkspace "$(${lib.getExe pkgs.aerospace} list-workspaces --focused)"}"
       # The same for the front application, which SketchyBar otherwise shows only after the next switch.
-      "exec-and-forget ${sketchybar} --set front_app label=\"$(${lib.getExe pkgs.aerospace} list-windows --focused --format '%{app-name}')\""
+      "exec-and-forget ${frontApp}"
     ];
     config-version = 2;
     gaps.outer.top = barHeight; # Reserve the space of the bar.
