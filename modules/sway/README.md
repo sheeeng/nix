@@ -1,4 +1,6 @@
-# Lock Screen Image Credits
+# Sway Module Credits
+
+## Lock Screen Images
 
 The Sway lock screen shows one of these images at random. The licenses of this
 repository do not cover the images. Each image keeps the rights and the license
@@ -18,7 +20,20 @@ that its source page states. Read the source page before you reuse an image.
   not verified when this file was written. A maintainer must confirm them.
 - The Reddit post states no license. Remove the image if its author objects.
 
+## Themes
+
+The desktop uses the Catppuccin Macchiato flavor. The projects below use the MIT license.
+
+| File or setting | Source |
+| --- | --- |
+| `swaync-macchiato.css` | [Catppuccin for SwayNotificationCenter][catppuccin-swaync], compiled from its SCSS source with another font |
+| `programs.swaylock.settings` in `../sway.nix` | [Catppuccin for swaylock][catppuccin-swaylock] |
+| `colors` in `../sway.nix` | [Catppuccin for i3][catppuccin-i3] |
+
 [commons-gsod-insider]: https://commons.wikimedia.org/wiki/File:GSoD_of_Windows_10_Inside_Previews.png
 [commons-windows-10-gsod-cht]: https://commons.wikimedia.org/wiki/File:Windows_10_GSOD_CHT.png
 [commons-windows-11-gsod-cht]: https://commons.wikimedia.org/wiki/File:Windows_11_26H1_GSOD_CHT.png
 [reddit-blue-screen-of-joy]: https://www.reddit.com/r/pcmasterrace/comments/80oaq6/wallpaper_blue_screen_of_joy/
+[catppuccin-i3]: https://github.com/catppuccin/i3
+[catppuccin-swaylock]: https://github.com/catppuccin/swaylock
+[catppuccin-swaync]: https://github.com/catppuccin/swaync
