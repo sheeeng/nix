@@ -431,6 +431,14 @@
           # for `nix fmt`
           formatter = treefmtEval.config.build.wrapper;
 
+          # for `nix run .#aerospace-trial -- start`, a trial of the optional modules/aerospace module
+          packages = pkgs.lib.optionalAttrs (system == "aarch64-darwin") {
+            aerospace-trial = import ./modules/aerospace/trial.nix {
+              inherit (pkgs) lib;
+              inherit pkgs;
+            };
+          };
+
           # for `nix flake check`
           checks = {
             formatting = treefmtEval.config.build.check self;

@@ -39,7 +39,6 @@ let
 in
 {
   imports = [
-    # ../../modules/aerospace
     # ../../modules/yabai
     # catppuccin.darwinModules.catppuccin # TODO: https://github.com/catppuccin/nix/issues/162
     # inputs.home-manager.darwinModules.defaults

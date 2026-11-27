@@ -1,8 +1,8 @@
-# SketchyBar for AeroSpace. default.nix sets the workspaces variable above this file. The
+# SketchyBar for AeroSpace. configuration.nix sets the bar_height and workspaces variables above this file. The
 # aerospace_workspace_change event comes from exec-on-workspace-change and after-startup-command in
-# default.nix. https://felixkratz.github.io/SketchyBar/config/events
+# configuration.nix. https://felixkratz.github.io/SketchyBar/config/events
 
-sketchybar --bar position=top height=32 padding_left=8 padding_right=8
+sketchybar --bar position=top height="${bar_height}" padding_left=8 padding_right=8
 
 sketchybar --default \
   icon.color=0xffffffff \
@@ -30,10 +30,11 @@ sketchybar --add item clock right \
   script="sketchybar --set \$NAME label=\"\$(date '+%a %Y-%m-%d %H:%M')\"" \
   update_freq=10
 
-sketchybar --update
+# Fill the clock at once. Do not force an update of the workspace items, because their scripts run
+# asynchronously and could clear the highlight that the trigger below sets.
+sketchybar --set clock label="$(date '+%a %Y-%m-%d %H:%M')"
 
-# The update above runs the item scripts without FOCUSED_WORKSPACE, which clears every highlight. Mark the
-# focused workspace again. If AeroSpace is not running yet, its after-startup-command does it later.
+# Mark the focused workspace. If AeroSpace is not running yet, its after-startup-command does it later.
 focused_workspace="$(aerospace list-workspaces --focused 2>/dev/null)"
 if [ -n "${focused_workspace}" ]; then
   sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE="${focused_workspace}"
