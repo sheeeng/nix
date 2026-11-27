@@ -57,6 +57,22 @@
 
   services.mullvad-vpn.enable = true;
 
+  # Mullvad drops Tailscale traffic unless it carries the Mullvad exclusion marks.
+  # The rules apply on hosts that enable nftables. https://mullvad.net/en/help/split-tunneling-with-linux-advanced
+  networking.nftables.tables.mullvad-tailscale = lib.mkIf config.networking.nftables.enable {
+    family = "inet"; # https://search.nixos.org/options?channel=unstable&show=networking.nftables.tables
+    content = ''
+      chain incoming {
+        type filter hook input priority -100; policy accept;
+        ip saddr 100.64.0.0/10 ct mark set 0x00000f41; meta mark set 0x6d6f6c65;
+      }
+      chain outgoing {
+        type route hook output priority -100; policy accept;
+        ip daddr 100.64.0.0/10 ct mark set 0x00000f41; meta mark set 0x6d6f6c65;
+      }
+    ''; # https://search.nixos.org/options?channel=unstable&show=networking.nftables.tables
+  };
+
   environment.systemPackages = with pkgs; [
     # keep-sorted start
     dix # https://search.nixos.org/packages?channel=unstable&type=packages&show=dix
