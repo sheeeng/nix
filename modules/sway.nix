@@ -493,8 +493,9 @@ in
           "Mod4+Shift+n" =
             "exec ${lib.getExe' pkgs.swaynotificationcenter "swaync-client"} --toggle-panel --skip-wait"; # Show the notification center.
           "Mod4+Shift+d" = "exec ${lib.getExe demoLauncher}"; # Open the demo apps in workspaces 8 and 9.
-          "Mod4+e" = "exec ${lib.getExe pkgs.thunar}";
-          "Mod4+v" = "exec ${lib.getExe clipboardPicker}";
+          "Mod4+Shift+f" = "exec ${lib.getExe pkgs.thunar}"; # The file manager. Finder on macOS.
+          "Mod4+Shift+v" = "exec ${lib.getExe clipboardPicker}"; # Mod4+v stays the Sway default, a vertical split.
+          "Mod4+Tab" = "workspace back_and_forth"; # The same as alt-tab in AeroSpace on macOS.
           XF86AudioLowerVolume = "exec ${lib.getExe' pkgs.wireplumber "wpctl"} set-volume @DEFAULT_AUDIO_SINK@ 5%-";
           XF86AudioMute = "exec ${lib.getExe' pkgs.wireplumber "wpctl"} set-mute @DEFAULT_AUDIO_SINK@ toggle";
           XF86AudioRaiseVolume = "exec ${lib.getExe' pkgs.wireplumber "wpctl"} set-volume @DEFAULT_AUDIO_SINK@ 5%+";
