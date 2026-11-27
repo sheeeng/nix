@@ -17,7 +17,7 @@ let
   argb = alpha: color: "0x${alpha}${lib.removePrefix "#" color}";
   # The front application comes from LaunchServices, so it also works when no window has the focus.
   frontApp = pkgs.writeShellScript "front-app" ''
-    name="$(/usr/bin/lsappinfo info -only name "$(/usr/bin/lsappinfo front)" | /usr/bin/sed --quiet 's/^"LSDisplayName"="\(.*\)"$/\1/p')"
+    name="$(/usr/bin/lsappinfo info -only name "$(/usr/bin/lsappinfo front)" | /usr/bin/sed -n 's/^"LSDisplayName"="\(.*\)"$/\1/p')"
     ${sketchybar} --set front_app label="$name"
   '';
   # The same labels as the Waybar battery module. The icons come from the system battery state.
