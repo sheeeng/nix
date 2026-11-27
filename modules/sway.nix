@@ -95,6 +95,7 @@ let
     "1password"
     "bitwarden"
     "enpass"
+    "keepassxc" # The window class under Xwayland.
     "org.keepassxc.keepassxc"
   ];
   clipboardPicker = pkgs.writeShellApplication {
@@ -104,7 +105,12 @@ let
       rofi
       wl-clipboard
     ];
-    text = "cliphist list | rofi -dmenu | cliphist decode | wl-copy";
+    # Cancelling Rofi must not start wl-copy, because wl-copy with no input empties the clipboard.
+    text = ''
+      selection="$(cliphist list | rofi -dmenu)" || exit 0
+      [ -n "$selection" ] || exit 0
+      printf '%s\n' "$selection" | cliphist decode | wl-copy
+    '';
   };
   cliphistStore = pkgs.writeShellApplication {
     name = "cliphist-store";
@@ -319,7 +325,7 @@ in
       systemd.targets = [ "sway-session.target" ]; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.waybar.systemd.targets
     };
 
-    # Catppuccin Macchiato theme for swaylock, from https://github.com/catppuccin/swaylock (MIT license). The
+    # Catppuccin Macchiato theme for swaylock, from https://github.com/catppuccin/swaylock (MIT license, see ./sway/LICENSE-catppuccin). The
     # NixOS module installs the swaylock package, which also reads this file. The lock script passes --color per
     # image, which replaces the theme background only when an image fails to load.
     programs.swaylock = {

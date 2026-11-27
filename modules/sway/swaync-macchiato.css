@@ -1,4 +1,5 @@
 /* Catppuccin Macchiato for SwayNotificationCenter. Compiled from https://github.com/catppuccin/swaync (MIT license). */
+/* The upstream MIT license notice is in LICENSE-catppuccin, next to this file. */
 /* The font is changed to JetBrainsMono Nerd Font to match the rest of the desktop. */
 
 * {
@@ -32,7 +33,9 @@ trough slider {
 }
 
 trough slider:hover {
-  box-shadow: 0 0 2px rgba(0, 0, 0, 0.8), 0 0 8px #8aadf4;
+  box-shadow:
+    0 0 2px rgba(0, 0, 0, 0.8),
+    0 0 8px #8aadf4;
 }
 
 trough {
@@ -41,7 +44,9 @@ trough {
 
 /* notifications */
 .notification-background {
-  box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.8), inset 0 0 0 1px #494d64;
+  box-shadow:
+    0 0 8px 0 rgba(0, 0, 0, 0.8),
+    inset 0 0 0 1px #494d64;
   border-radius: 12.6px;
   margin: 18px;
   background: #1e2030;
@@ -138,7 +143,9 @@ trough {
 
 /* control center */
 .control-center {
-  box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.8), inset 0 0 0 1px #363a4f;
+  box-shadow:
+    0 0 8px 0 rgba(0, 0, 0, 0.8),
+    inset 0 0 0 1px #363a4f;
   border-radius: 12.6px;
   background-color: #24273a;
   color: #cad3f5;

@@ -22,7 +22,8 @@ that its source page states. Read the source page before you reuse an image.
 
 ## Themes
 
-The desktop uses the Catppuccin Macchiato flavor. The projects below use the MIT license.
+The desktop uses the Catppuccin Macchiato flavor. The projects below use the MIT license. Their license notice is in
+[`LICENSE-catppuccin`][catppuccin-license], which stays with the stylesheet.
 
 | File or setting | Source |
 | --- | --- |
@@ -37,3 +38,4 @@ The desktop uses the Catppuccin Macchiato flavor. The projects below use the MIT
 [catppuccin-i3]: https://github.com/catppuccin/i3
 [catppuccin-swaylock]: https://github.com/catppuccin/swaylock
 [catppuccin-swaync]: https://github.com/catppuccin/swaync
+[catppuccin-license]: LICENSE-catppuccin

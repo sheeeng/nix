@@ -1,4 +1,5 @@
 # The Catppuccin Macchiato palette. https://github.com/catppuccin/i3/blob/main/themes/catppuccin-macchiato
+# The MIT license notice is in sway/LICENSE-catppuccin.
 # The Sway and Waybar setup on Linux and the SketchyBar setup on macOS share these colors.
 {
   base = "#24273a";
