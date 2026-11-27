@@ -19,30 +19,37 @@ pkgs.writeShellApplication {
     aerospace_marker="${aerospaceConfiguration}"
     sketchybar_marker="${sketchybarConfiguration}"
 
-    # An application belongs to the trial only when its recorded process still runs with the trial
-    # configuration. An instance that nix-darwin or the user started never matches.
+    # An application belongs to the trial only when its recorded process still runs with the configuration
+    # that it started with. The marker is recorded at launch, because a later change of the generated
+    # configuration changes the store path, which must not hide a running trial. An instance that nix-darwin
+    # or the user started has no record, so it never matches.
     owned() {
       pid_file="$state/$1.pid"
-      if [ ! -f "$pid_file" ]; then
-        return 1
+      marker_file="$state/$1.marker"
+      if [ -f "$pid_file" ] && [ -f "$marker_file" ]; then
+        if ps -p "$(cat "$pid_file")" -o command= 2> /dev/null | grep --quiet --fixed-strings "$(cat "$marker_file")"; then
+          return 0
+        fi
       fi
-      if ps -p "$(cat "$pid_file")" -o command= 2> /dev/null | grep --quiet --fixed-strings "$2"; then
-        return 0
-      fi
-      rm --force "$pid_file"
+      rm --force "$pid_file" "$marker_file"
       return 1
     }
 
     stop_one() {
-      if owned "$1" "$2"; then
+      if owned "$1"; then
         kill "$(cat "$state/$1.pid")" 2> /dev/null || true
-        rm --force "$state/$1.pid"
+        rm --force "$state/$1.pid" "$state/$1.marker"
       fi
+    }
+
+    record() {
+      echo "$2" > "$state/$1.pid"
+      echo "$3" > "$state/$1.marker"
     }
 
     case "''${1:-}" in
       start)
-        if owned aerospace "$aerospace_marker" || owned sketchybar "$sketchybar_marker"; then
+        if owned aerospace || owned sketchybar; then
           echo "A trial already runs. Stop it with: aerospace-trial stop" >&2
           exit 1
         fi
@@ -54,7 +61,7 @@ pkgs.writeShellApplication {
         done
         mkdir --parents "$state"
         nohup "$aerospace_app" --config-path "$aerospace_marker" > "$state/aerospace.log" 2>&1 &
-        echo $! > "$state/aerospace.pid"
+        record aerospace "$!" "$aerospace_marker"
         ready=false
         for _ in $(seq 1 20); do
           if aerospace list-workspaces --focused > /dev/null 2>&1; then
@@ -64,15 +71,15 @@ pkgs.writeShellApplication {
           sleep 0.5
         done
         if [ "$ready" != true ]; then
-          stop_one aerospace "$aerospace_marker"
+          stop_one aerospace
           echo "AeroSpace did not start. Read $state/aerospace.log. Allow it in Accessibility, then try again." >&2
           exit 1
         fi
         nohup sketchybar --config "$sketchybar_marker" > "$state/sketchybar.log" 2>&1 &
-        echo $! > "$state/sketchybar.pid"
+        record sketchybar "$!" "$sketchybar_marker"
         sleep 1
-        if ! owned sketchybar "$sketchybar_marker"; then
-          stop_one aerospace "$aerospace_marker"
+        if ! owned sketchybar; then
+          stop_one aerospace
           echo "SketchyBar did not start. Read $state/sketchybar.log." >&2
           exit 1
         fi
@@ -81,15 +88,15 @@ pkgs.writeShellApplication {
       stop)
         stopped=false
         # Turn tiling off only in the trial instance, so an activated AeroSpace stays unchanged.
-        if owned aerospace "$aerospace_marker"; then
+        if owned aerospace; then
           aerospace enable off 2> /dev/null || true
           stopped=true
         fi
-        if owned sketchybar "$sketchybar_marker"; then
+        if owned sketchybar; then
           stopped=true
         fi
-        stop_one sketchybar "$sketchybar_marker"
-        stop_one aerospace "$aerospace_marker"
+        stop_one sketchybar
+        stop_one aerospace
         if [ "$stopped" = true ]; then
           echo "Stopped. The native macOS window manager is active again."
         else
@@ -97,12 +104,10 @@ pkgs.writeShellApplication {
         fi
         ;;
       status)
-        for entry in "AeroSpace:aerospace:$aerospace_marker" "sketchybar:sketchybar:$sketchybar_marker"; do
+        for entry in AeroSpace:aerospace sketchybar:sketchybar; do
           name="''${entry%%:*}"
-          rest="''${entry#*:}"
-          key="''${rest%%:*}"
-          marker="''${rest#*:}"
-          if owned "$key" "$marker"; then
+          key="''${entry#*:}"
+          if owned "$key"; then
             echo "$name: running, started by the trial"
           elif pgrep -x "$name" > /dev/null; then
             echo "$name: running, not started by the trial"
