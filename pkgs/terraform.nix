@@ -4,10 +4,11 @@
 { lib, pkgs }:
 let
   terraformVersion = lib.trim (builtins.readFile ../.terraform-version);
-  # Hashes are updated automatically by the update-terraform-binary-version
-  # workflow. The workflow sed pattern matches lines indented with exactly four
-  # spaces, so keep this attrset at four-space indentation and do not add any
-  # other four-space-indented attrset with the same key names in this file.
+  # The update-terraform-binary-version workflow updates the hashes with .terraform-version. To update
+  # them by hand, run `nix store prefetch-file --unpack --json <url>` for each platform zip. A new
+  # version with old hashes breaks the download. The workflow sed pattern matches lines indented with
+  # exactly four spaces, so keep this attrset at four-space indentation and do not add any other
+  # four-space-indented attrset with the same key names in this file.
   terraformHashes = {
     # keep-sorted start
     "aarch64-darwin" = "sha256-QG0s3vYdADuCo15s3KxOB0BqimMogFMnDss+O8Ujfqk=";
