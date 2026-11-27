@@ -106,6 +106,8 @@ in
     # SketchyBar may start before AeroSpace, so mark the focused workspace again when AeroSpace starts.
     after-startup-command = [
       "exec-and-forget ${triggerFocusedWorkspace "$(${lib.getExe pkgs.aerospace} list-workspaces --focused)"}"
+      # The same for the front application, which SketchyBar otherwise shows only after the next switch.
+      "exec-and-forget ${sketchybar} --set front_app label=\"$(${lib.getExe pkgs.aerospace} list-windows --focused --format '%{app-name}')\""
     ];
     config-version = 2;
     gaps.outer.top = barHeight; # Reserve the space of the bar.
