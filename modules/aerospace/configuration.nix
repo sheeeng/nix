@@ -7,12 +7,7 @@ let
     workspace: "${sketchybar} --trigger aerospace_workspace_change FOCUSED_WORKSPACE=${workspace}";
   barHeight = 32;
   # Catppuccin Macchiato, the same palette as the Sway and Waybar setup on Linux.
-  macchiato = {
-    base = "#24273a";
-    lavender = "#b7bdf8";
-    mauve = "#c6a0f6";
-    text = "#cad3f5";
-  };
+  macchiato = import ../catppuccin-macchiato.nix;
   # SketchyBar colors are 0xAARRGGBB.
   argb = alpha: color: "0x${alpha}${lib.removePrefix "#" color}";
   # The same labels as the Waybar battery module. The icons come from the system battery state.
